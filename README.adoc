@@ -11,7 +11,7 @@
 6. Modules
 7. Modular Credit Tracker
 8. GPA Calculator
-9. Commands::
+9. Commands;;
     9.1.`help`   
 10. Frequently Asked Questions (FAQ)
 11. Cheat Sheet
