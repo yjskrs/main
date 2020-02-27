@@ -145,7 +145,7 @@ Constraints
    
 Expected Outcome
 
-    1. A help message should be displayed as a pop-up
+> :white_check_mark: A help message should be displayed
 
 #### `course`
 
@@ -155,14 +155,19 @@ and provides a link to the user guide online.
 Command Format
 
     course n/COURSE_NAME
+    
+    //e.g.
+    course n/Computer Science
+    
 
 Constraints
    
 > :warning: You can only have one course at a time
    
 Expected Outcome
-
-    1. A help message should be displayed as a pop-up
+> :white_check_mark: A success message should be displayed
+> :white_check_mark: You should be able to see the course name in the 
+>top panel
     
 #### `requirement`
 
