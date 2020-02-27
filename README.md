@@ -115,11 +115,17 @@ Double-click the .jar file to get started right away!
 
 #### 2. Enter your course details
 
+![](https://user-images.githubusercontent.com/34233605/75436477-9dbfa780-598f-11ea-9076-8d4e4e09c8bc.png)
+
 #### 3. Key in your graduation requirements
+
+![](https://user-images.githubusercontent.com/34233605/75436492-a1ebc500-598f-11ea-91f1-94509bce253e.png)
 
 #### 4. Assign your modules
 
 #### 5. Mark a module as done
+
+![](https://user-images.githubusercontent.com/34233605/75436503-a57f4c00-598f-11ea-9902-a912ce16815e.png)
 
 #### 6. Key in a memo
 
@@ -127,9 +133,13 @@ Double-click the .jar file to get started right away!
 
 #### 8. View your CAP
 
+![](https://user-images.githubusercontent.com/34233605/75436570-bdef6680-598f-11ea-887b-16279de675e6.png)
+
 #### 9. Run batch commands
 
 #### 10. Export your data
+
+![](https://user-images.githubusercontent.com/34233605/75436540-b4fe9500-598f-11ea-814d-ed3a0bbf5c6a.png)
 
 ## Command List
 
@@ -160,11 +170,12 @@ Command Format
 
     course n/COURSE_NAME
     
+Command Sample
+
     /*
     * Creating a course named "Computer Science"
     */
     course n/Computer Science
-    
 
 Constraints
    
@@ -184,7 +195,9 @@ Creates a graduation requirement.
 Command Format
 
     requirement n/REQUIREMENT_NAME u/NO_OF_MCS
-    
+
+Command Sample
+
     /**
     * Creating a requirement named "Unrestricted Electives" 
     * which requires 32 MCs to fulfill
@@ -216,7 +229,9 @@ Command Format
     * DESCRIPTION is optional
     */
     assign n/REQUIREMENT_NAME: n/MODULE_CODE t/MODULE_TITLE u/NO_OF_MCS d/DESCRIPTION
-    
+
+Command Sample
+
     /**
     * Assigns module "LAJ1201 Japanese 1" worth 4 MCs 
     * to requirement "Unrestricted Electives"
@@ -247,7 +262,9 @@ Command Format
     * SEMESTER is specified in format Y_S_ ( e.g. Y1S2 - Year 1 Semester 2 ) 
     */
     module n/MODULE_CODE: s/SEMESTER g/GRADE m/MEMO_NOTES
-    
+
+Command Sample
+   
     /**
     * Tags CS1101 with "Y1S2" and grade "A+"
     */
@@ -283,6 +300,8 @@ Command Format
     */
     modify module n/MODULE_CODE: t/MODULE_NAME u/NO_OF_MCS
 
+Command Sample
+
     /**
     * Modifies CS4239 and gives it the title "Machine Learning" and updates
     * it to be worth 5 MCs
@@ -313,6 +332,8 @@ Command Format
     del req n/REQUIREMENT_NAME
     
     del module n/MODULE_CODE
+
+Command Sample
     
     /**
     * Deletes the course "Computer Science"
@@ -340,6 +361,8 @@ Command Format
     * If not specified, displays results for all semesters.
     */
     exam s/SEMESTER
+
+Command Sample
     
     /**
     * Displays exam results for Year 3 Semester 2 
@@ -363,6 +386,8 @@ Calculates the average grade needed to achieve the CAP you desire/
 Command Format
 
     achieve c/DESIRED_CAP
+
+Command Sample
 
     /**
     * Calculates the avergae grade needed
@@ -388,6 +413,8 @@ Executes a series of commands written in a text (.txt) file
 Command Format
 
     batch f/ FILE_PATH
+
+Command Sample
 
     batch f/ C:\Users\wayne\OneDrive\Desktop\commands.txt
 
