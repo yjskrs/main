@@ -13,29 +13,29 @@
 8. GPA Calculator
 9. Commands
     
-    4.1.`help`
+    9.1.`help`
     
-    4.2 `course`
+    9.2 `course`
     
-    4.3 `requirement`
+    9.3 `requirement`
     
-    4.4 `assign`
+    9.4 `assign`
     
-    4.5 `module`
+    9.5 `module`
   
-    4.6 `modify`
+    9.6 `modify`
   
-    4.7 `delete`
+    9.7 `delete`
   
-    4.8 `view`
+    9.8 `view`
   
-    4.9 `achieve`
+    9.9 `achieve`
   
-    4.10 `import`
+    9.10 `import`
   
-    4.11 `export`
+    9.11 `export`
   
-    4.12 `exit`
+    9.12 `exit`
    
 10. Frequently Asked Questions (FAQ)
 11. Cheat Sheet
