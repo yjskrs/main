@@ -91,7 +91,7 @@ in order to achieve your dream GPA.
 
 ## Components
 
-![](https://user-images.githubusercontent.com/34233605/75425925-9774ff80-597e-11ea-87f5-228f95b5c84f.png)
+![](https://user-images.githubusercontent.com/34233605/75426235-339f0680-597f-11ea-89cb-e832f4b89e4d.png)
 
 #### Course
 A course is simply a group of requirements. It is also how we keep track of your overall GPA
