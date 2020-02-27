@@ -3,7 +3,7 @@
 
 ## Table of Contents
 
-1. Introduction
+1. [Introduction](#Introduction)
 2. Features
 3. Product Walk-through
 4. Course
