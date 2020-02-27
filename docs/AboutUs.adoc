@@ -4,51 +4,44 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-iGrad was developed by the https://github.com/AY1920S2-CS2103T-F09-3 team.
-We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+iGrad was developed by the https://github.com/AY1920S2-CS2103T-F09-3 team. We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
 === Daryl Goh
 image::https://avatars3.githubusercontent.com/u/58582328?s=400&v=4[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
-
-Role: Project Advisor
+{empty}[https://github.com/dargohzy[github]]
+Role: Chief Blockchain Expert
 
 '''
 
 === Nathanael Seen
 image::https://avatars1.githubusercontent.com/u/12388525?s=400&v=4[width="150", align="left"]
-{empty}[https://avatars3.githubusercontent.com/u/58582328?s=400&v=4] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/nathanaelseen[github]]
 
-Role: Team Lead +
-Responsibilities: UI
+Role: Lead Algorithms Specialist
 
 '''
 
 === Teri 
 image::https://avatars1.githubusercontent.com/u/50551345?s=400&v=4[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/teriaiw[github]]
 
-Role: Developer +
-Responsibilities: Data
+Role: AI Engineer
 
 '''
 
 === Wayne Wee
 image::https://avatars0.githubusercontent.com/u/34233605?s=460&v=4[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
-
-Role: Developer +
-Responsibilities: Dev Ops + Threading
+{empty}[http://github.com/waynewee[github]]
+Role: UI/UX
 
 '''
 
 === Yi Jie
 image::https://avatars0.githubusercontent.com/u/42514097?s=400&v=4[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/yjskrs[github]] [<<johndoe#, portfolio>>]
 
-Role: Developer +
-Responsibilities: UI
+Role: Lead Development
 
 '''
