@@ -23,6 +23,7 @@ image::https://avatars1.githubusercontent.com/u/12388525?s=400&v=4[width="150", 
 {empty}[https://github.com/nathanaelseen[github]]
 
 Role: Chief Technology Officer
+
 '''
 
 === Teri 
