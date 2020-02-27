@@ -111,13 +111,21 @@ you took the module.
 
 #### 1. Start up the application
 
+Double-click the .jar file to get started right away!
+
 #### 2. Enter your course details
 
+![](https://user-images.githubusercontent.com/34233605/75436477-9dbfa780-598f-11ea-9076-8d4e4e09c8bc.png)
+
 #### 3. Key in your graduation requirements
+
+![](https://user-images.githubusercontent.com/34233605/75436492-a1ebc500-598f-11ea-91f1-94509bce253e.png)
 
 #### 4. Assign your modules
 
 #### 5. Mark a module as done
+
+![](https://user-images.githubusercontent.com/34233605/75436503-a57f4c00-598f-11ea-9902-a912ce16815e.png)
 
 #### 6. Key in a memo
 
@@ -125,9 +133,13 @@ you took the module.
 
 #### 8. View your CAP
 
-#### 9. Import external data
+![](https://user-images.githubusercontent.com/34233605/75436570-bdef6680-598f-11ea-887b-16279de675e6.png)
+
+#### 9. Run batch commands
 
 #### 10. Export your data
+
+![](https://user-images.githubusercontent.com/34233605/75436540-b4fe9500-598f-11ea-814d-ed3a0bbf5c6a.png)
 
 ## Command List
 
