@@ -4,42 +4,52 @@
 ## Table of Contents
 
 1. [Introduction](#Introduction)
-2. Features
-3. Product Walk-through
-4. Course
-5. Requirements
-6. Modules
-7. Modular Credit Tracker
-8. GPA Calculator
-9. Commands
+2. [Features](#Features)
     
-    9.1.`help`
+    2.1 [Course Builder](#course-builder)
     
-    9.2 `course`
+    2.2 [Modular Credits Tracker](#modular-credits-mcs-tracker)
     
-    9.3 `requirement`
+    2.3 [Grade Point Average Tracker](#grade-point-average-gpa-tracker)
+
+3. [Components](#Components)
+
+    3.1 [Course](#course)
     
-    9.4 `assign`
+    3.2 [Requirements](#requirements)
     
-    9.5 `module`
+    3.3 [Modules](#modules)
+    
+4. Walk-through
+5. Commands
+    
+    5.1.`help`
+    
+    5.2 `course`
+    
+    5.3 `requirement`
+    
+    5.4 `assign`
+    
+    5.5 `module`
   
-    9.6 `modify`
+    5.6 `modify`
   
-    9.7 `delete`
+    5.7 `delete`
   
-    9.8 `view`
+    5.8 `view`
   
-    9.9 `achieve`
+    5.9 `achieve`
   
-    9.10 `import`
+    5.10 `import`
   
-    9.11 `export`
+    5.11 `export`
   
-    9.12 `exit`
+    5.12 `exit`
    
-10. Frequently Asked Questions (FAQ)
-11. Cheat Sheet
-12. Glossary
+6. Frequently Asked Questions (FAQ)
+7. Cheat Sheet
+8. Glossary
 
 ---
 
@@ -65,3 +75,33 @@ information is always up to date.
 Finally, the *iGrad* team is always open to feedback and suggestions from the public will always be followed up on.
 
 ## Features  
+
+#### Course Builder
+iGrad was built with every NUS student in mind. Our custom course builder allows you to build
+the course of your dreams.
+
+#### Modular Credits (MCs) Tracker
+We are sick of counting our MCs at the beginning of every semester too. Easily see how many MCs you
+have left in order to apply for graduation.
+
+#### Grade Point Average (GPA) Tracker
+No more googling GPA Calculators. iGrad's GPA tracker keeps track of your GPA at every step and
+even offers predictive services so you know how well you have to do
+in order to achieve your dream GPA.
+
+## Components
+
+![](https://user-images.githubusercontent.com/34233605/75425925-9774ff80-597e-11ea-87f5-228f95b5c84f.png)
+
+#### Course
+A course is simply a group of requirements. It is also how we keep track of your overall GPA
+and MCs. 
+
+#### Requirements
+A requirement consists of at least one module. Fulfill all modules within a requirement to
+complete it.
+
+#### Modules
+A module is the building block of all other components. Mark your modules as done and give it
+a grade. You can also add optional memos to help you remember why
+you took the module.
