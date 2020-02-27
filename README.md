@@ -41,15 +41,15 @@
   
     5.9 [`achieve`](#achieve)
   
-    5.10 [`import`](#import)
+    5.10 [`batch`](#batch)
   
     5.11 [`export`](#export)
   
     5.12 [`exit`](#exit)
    
-6. Frequently Asked Questions (FAQ)
-7. Cheat Sheet
-8. Glossary
+6. [Frequently Asked Questions (FAQ)](#faqs)
+7. [Cheat Sheet](#cheat-sheet)
+8. [Glossary](#glossary)
 
 ---
 
@@ -92,6 +92,7 @@ in order to achieve your dream Cumulative Point Average (CAP).
 ## Components
 
 ![](https://user-images.githubusercontent.com/34233605/75425925-9774ff80-597e-11ea-87f5-228f95b5c84f.png)
+<a name="fig-1">Fig. 1</a>
 
 #### Courses
 A course is simply a group of requirements. It is also how we keep track of your overall GPA
@@ -263,7 +264,8 @@ Expected Outcome
 
 :white_check_mark: The tags should appear under their respective column headers
 
-    
+---
+
 #### `modify`
 
 Modify course, graduation requirements or modules
@@ -295,6 +297,8 @@ have to be unique
 Expected Outcome
 
 :white_check_mark: You should be able to see the relevant changes
+
+---
     
 #### `delete`
 
@@ -321,7 +325,8 @@ Expected Outcome
 
 :white_check_mark: The components deleted should disappear from their respective panels
 
-    
+---
+ 
 #### `exam`
 
 View your examination results.
@@ -346,6 +351,8 @@ Constraints
 Expected Outcome
 
 :white_check_mark: You should be able to view your exam results
+
+---
     
 #### `achieve`
 
@@ -369,16 +376,18 @@ Expected Outcome
 
 :white_check_mark: You should be able to view the average grade needed to achieve
 the CAP you desire
+
+---
     
-#### `import`
+#### `batch`
 
 Executes a series of commands written in a text (.txt) file
 
 Command Format
 
-    import f/ FILE_PATH
+    batch f/ FILE_PATH
 
-    import f/ C:\Users\wayne\OneDrive\Desktop\commands.txt
+    batch f/ C:\Users\wayne\OneDrive\Desktop\commands.txt
 
 Constraints
    
@@ -390,38 +399,51 @@ Expected Outcome
 :white_check_mark: All changes should be made based on the commands
 in the text file. Please cross-check changes with the file to ensure 
 this is so.
+
+---
     
 #### `export`
 
-Displays a help message to the user. Lists all possible commands
-and provides a link to the user guide online.
+Exports all data in a text file. If information is sufficient, 
+this file can be submitted to NUS as a study plan.
 
 Command Format
 
-    help
+    export
 
 Constraints
    
-    NIL
+:warning: NIL
    
 Expected Outcome
 
-    1. A help message should be displayed as a pop-up
-    
+:white_check_mark: A text file "study_plan.txt" should be generated in
+the same folder as the iGrad application.
+
+---
+ 
 #### `exit`
 
-Displays a help message to the user. Lists all possible commands
-and provides a link to the user guide online.
+Exits the program
 
 Command Format
 
-    help
+    exit
 
 Constraints
-   
-    NIL
+      
+:warning: NIL
    
 Expected Outcome
 
-    1. A help message should be displayed as a pop-up
-    
+:white_check_mark: The application should exit.
+ 
+ ## FAQs
+ 
+*I'm not an NUS student. Can I still use iGrad?*
+
+As long as your university follows a similar [hierachical structure](#fig-1)
+ 
+ ## Cheat Sheet
+ 
+ ## Glossary
