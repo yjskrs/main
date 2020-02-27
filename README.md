@@ -506,7 +506,7 @@ However, we will be unable to provide features such as validation from NUS Mods.
 | NUS Mods | A timetabling application built for NUS students, by NUS students. Much like this iGrad!     |
 |               |               |
 
->References
+**Handy Links**
 
 [NUS - Modular System](http://www.nus.edu.sg/registrar/academic-information-policies/graduate/modular-system)
 
