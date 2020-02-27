@@ -11,8 +11,7 @@
 6. Modules
 7. Modular Credit Tracker
 8. GPA Calculator
-9. Commands
-    
+9. Commands::
     4.1.`help`
     
     4.2 `course`
