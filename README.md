@@ -10,7 +10,7 @@
     
     2.2 [Modular Credits Tracker](#modular-credits-mcs-tracker)
     
-    2.3 [Grade Point Average Tracker](#grade-point-average-gpa-tracker)
+    2.3 [Cumulative Average Point Tracker](#cumulative-average-point-cap-tracker)
 
 3. [Components](#Components)
 
@@ -70,7 +70,7 @@ ensuring the **maximum** degree of flexibility when planning and keeping track o
 *iGrad* also retrieves data directly from [NUS Mods](https://www.nusmods.com), ensuring that module
 information is always up to date.
 
-*iGrad* calculates your GPA at every step, ensuring you never have to use a GPA calculator again
+*iGrad* calculates your CAP at every step, ensuring you never have to use a CAP calculator again
 
 Finally, the *iGrad* team is always open to feedback and suggestions from the public will always be followed up on.
 
@@ -84,18 +84,18 @@ the course of your dreams.
 We are sick of counting our MCs at the beginning of every semester too. Easily see how many MCs you
 have left in order to apply for graduation.
 
-#### Grade Point Average (GPA) Tracker
-No more googling GPA Calculators. iGrad's GPA tracker keeps track of your GPA at every step and
+#### Cumulative Average Point (CAP) Tracker
+No more googling CAP calculators. iGrad's CAP tracker keeps track of your CAP at every step and
 even offers predictive services so you know how well you have to do
 in order to achieve your dream Cumulative Point Average (CAP).
 
 ## Components
 
+<a name="fig-1">**Figure 1**</a>
 ![](https://user-images.githubusercontent.com/34233605/75425925-9774ff80-597e-11ea-87f5-228f95b5c84f.png)
-<a name="fig-1">Fig. 1</a>
 
 #### Courses
-A course is simply a group of requirements. It is also how we keep track of your overall GPA
+A course is simply a group of requirements. It is also how we keep track of your overall CAP
 and MCs. 
 
 #### Requirements
@@ -123,7 +123,7 @@ you took the module.
 
 #### 7. Track your MCs 
 
-#### 8. View your GPA
+#### 8. View your CAP
 
 #### 9. Import external data
 
@@ -442,8 +442,64 @@ Expected Outcome
  
 *I'm not an NUS student. Can I still use iGrad?*
 
-As long as your university follows a similar [hierachical structure](#fig-1)
+As long as your university follows a similar [hierachical structure](#fig-1)!
+However, we will be unable to provide features such as validation from NUS Mods.
  
- ## Cheat Sheet
+## Cheat Sheet
+ 
+> This segment contains all the commands detailed in this guide in a consolidated list
+    
+`help`
+
+`course n/COURSE_NAME`
+
+`requirement n/REQUIREMENT_NAME u/NO_OF_MCS`
+
+`assign n/REQUIREMENT_NAME: n/MODULE_CODE t/MODULE_TITLE u/NO_OF_MCS d/DESCRIPTION`
+
+`module n/MODULE_CODE: s/SEMESTER g/GRADE m/MEMO_NOTES`
+
+`modify course n/COURSE_NAME`
+
+`modify req n/REQUIREMENT_NAME: u/NO_OF_MCS`
+
+`modify module n/MODULE_CODE: t/MODULE_NAME u/NO_OF_MCS`
+
+`del course n/COURSE_NAME`
+    
+`del req n/REQUIREMENT_NAME`
+    
+`del module n/MODULE_CODE`
+
+`exam s/SEMESTER`
+
+`achieve c/DESIRED_CAP`
+
+`batch f/ FILE_PATH`
+
+`export`
+
+`exit`
  
  ## Glossary
+ 
+|               |               |
+| ------------- |-------------  |
+| Course        |  A course is the entire programme of studies required to complete a university degree |
+| Graduation requirement      | Requirements specified by the university in order for a student to graduate |
+| Module      | Each module of study has a unique module code consisting of a two- or three-letter prefix that generally denotes the discipline, and four digits, the first of which indicates the level of the module |
+| Cumulative Average Point (CAP) |  The Cumulative Average Point (CAP) is the weighted average grade point of the letter grades of all the modules taken by the students. |
+| Semester      | A semester is a part of the academic year. Each semester typically lasts 13 weeks in NUS. |
+| Modular Credits (MCs)      | A modular credit (MC) is a unit of the effort, stated in terms of time, expected of a typical student in managing his/her workload.       |
+| NUS Mods | A timetabling application built for NUS students, by NUS students. Much like this iGrad!     |
+|               |               |
+
+>References
+
+[NUS - Modular System](http://www.nus.edu.sg/registrar/academic-information-policies/graduate/modular-system)
+
+[NUS - Degree Requirements](http://www.nus.edu.sg/registrar/academic-information-policies/undergraduate-students/degree-requirements)
+
+[NUS - Grading System and Regulations](http://www.nus.edu.sg/nusbulletin/yong-siew-toh-conservatory-of-music/undergraduate-education/degree-requirements/grading-system-and-regulations/)
+
+[NUS - Academic Calendar](http://www.nus.edu.sg/registrar/calendar)
