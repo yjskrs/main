@@ -14,38 +14,38 @@
 
 3. [Components](#Components)
 
-    3.1 [Course](#course)
+    3.1 [Course](#courses)
     
     3.2 [Requirements](#requirements)
     
     3.3 [Modules](#modules)
     
 4. [Walkthrough](#walkthrough)
-5. Commands
+5. [Command List](#command-list)
     
     5.1.[`help`](#help)
     
-    5.2 `course`
+    5.2 [`course`](#course)
     
-    5.3 `requirement`
+    5.3 [`requirement`](#requirements)
     
-    5.4 `assign`
+    5.4 [`assign`](#assign)
     
-    5.5 `module`
+    5.5 [`module`](#module)
   
-    5.6 `modify`
+    5.6 [`modify`](#modify)
   
-    5.7 `delete`
+    5.7 [`delete`](#delete)
   
-    5.8 `view`
+    5.8 [`view`](#view)
   
-    5.9 `achieve`
+    5.9 [`achieve`](#achieve)
   
-    5.10 `import`
+    5.10 [`import`](#import)
   
-    5.11 `export`
+    5.11 [`export`](#export)
   
-    5.12 `exit`
+    5.12 [`exit`](#exit)
    
 6. Frequently Asked Questions (FAQ)
 7. Cheat Sheet
@@ -93,7 +93,7 @@ in order to achieve your dream GPA.
 
 ![](https://user-images.githubusercontent.com/34233605/75425925-9774ff80-597e-11ea-87f5-228f95b5c84f.png)
 
-#### Course
+#### Courses
 A course is simply a group of requirements. It is also how we keep track of your overall GPA
 and MCs. 
 
@@ -131,14 +131,206 @@ you took the module.
 ## Command List
 
 #### `help`
+
+Displays a help message to the user. Lists all possible commands
+and provides a link to the user guide online.
+
+Command Format
+
+    help
+
+Constraints
+   
+> :warning: NIL
+   
+Expected Outcome
+
+    1. A help message should be displayed as a pop-up
+
 #### `course`
+
+Displays a help message to the user. Lists all possible commands
+and provides a link to the user guide online.
+
+Command Format
+
+    course n/COURSE_NAME
+
+Constraints
+   
+> :warning: You can only have one course at a time
+   
+Expected Outcome
+
+    1. A help message should be displayed as a pop-up
+    
 #### `requirement`
+
+Displays a help message to the user. Lists all possible commands
+and provides a link to the user guide online.
+
+Command Format
+
+    help
+
+Constraints
+   
+    NIL
+   
+Expected Outcome
+
+    1. A help message should be displayed as a pop-up
+    
 #### `assign`
+
+Displays a help message to the user. Lists all possible commands
+and provides a link to the user guide online.
+
+Command Format
+
+    help
+
+Constraints
+   
+    NIL
+   
+Expected Outcome
+
+    1. A help message should be displayed as a pop-up
+    
 #### `module`
+
+Displays a help message to the user. Lists all possible commands
+and provides a link to the user guide online.
+
+Command Format
+
+    help
+
+Constraints
+   
+    NIL
+   
+Expected Outcome
+
+    1. A help message should be displayed as a pop-up
+    
 #### `modify`
+
+Displays a help message to the user. Lists all possible commands
+and provides a link to the user guide online.
+
+Command Format
+
+    help
+
+Constraints
+   
+    NIL
+   
+Expected Outcome
+
+    1. A help message should be displayed as a pop-up
+    
 #### `delete`
+
+Displays a help message to the user. Lists all possible commands
+and provides a link to the user guide online.
+
+Command Format
+
+    help
+
+Constraints
+   
+    NIL
+   
+Expected Outcome
+
+    1. A help message should be displayed as a pop-up
+    
 #### `view`
+
+Displays a help message to the user. Lists all possible commands
+and provides a link to the user guide online.
+
+Command Format
+
+    help
+
+Constraints
+   
+    NIL
+   
+Expected Outcome
+
+    1. A help message should be displayed as a pop-up
+    
 #### `achieve`
+
+Displays a help message to the user. Lists all possible commands
+and provides a link to the user guide online.
+
+Command Format
+
+    help
+
+Constraints
+   
+    NIL
+   
+Expected Outcome
+
+    1. A help message should be displayed as a pop-up
+    
 #### `import`
+
+Displays a help message to the user. Lists all possible commands
+and provides a link to the user guide online.
+
+Command Format
+
+    help
+
+Constraints
+   
+    NIL
+   
+Expected Outcome
+
+    1. A help message should be displayed as a pop-up
+    
 #### `export`
+
+Displays a help message to the user. Lists all possible commands
+and provides a link to the user guide online.
+
+Command Format
+
+    help
+
+Constraints
+   
+    NIL
+   
+Expected Outcome
+
+    1. A help message should be displayed as a pop-up
+    
 #### `exit`
+
+Displays a help message to the user. Lists all possible commands
+and provides a link to the user guide online.
+
+Command Format
+
+    help
+
+Constraints
+   
+    NIL
+   
+Expected Outcome
+
+    1. A help message should be displayed as a pop-up
+    
