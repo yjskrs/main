@@ -37,7 +37,7 @@
   
     5.7 [`delete`](#delete)
   
-    5.8 [`view`](#view)
+    5.8 [`exam`](#exam)
   
     5.9 [`achieve`](#achieve)
   
