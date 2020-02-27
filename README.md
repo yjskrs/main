@@ -141,16 +141,15 @@ Command Format
 
 Constraints
    
-> :warning: NIL
+:warning: NIL
    
 Expected Outcome
 
-> :white_check_mark: A help message should be displayed
+:white_check_mark: A help message should be displayed
 
 #### `course`
 
-Displays a help message to the user. Lists all possible commands
-and provides a link to the user guide online.
+Creates a course.
 
 Command Format
 
@@ -162,47 +161,62 @@ Command Format
 
 Constraints
    
-> :warning: You can only have one course at a time
+:warning: You can only have one course at a time
    
 Expected Outcome
-> :white_check_mark: A success message should be displayed
+:white_check_mark: A success message should be displayed
 
-> :white_check_mark: You should be able to see the course name in the 
->top panel
+:white_check_mark: You should be able to see the course name in the 
+top panel
     
 #### `requirement`
 
-Displays a help message to the user. Lists all possible commands
-and provides a link to the user guide online.
+Creates a graduation requirement.
 
 Command Format
 
-    help
+    requirement n/REQUIREMENT_NAME u/NO_OF_MCS
+    
+    //e.g.
+    requirement n/Unrestricted Electives u/32
 
 Constraints
    
-    NIL
+:warning: The number of MCs needed to fulfill the requirement is needed
+
+:warning: Requirement names have to be unique 
    
 Expected Outcome
 
-    1. A help message should be displayed as a pop-up
+:white_check_mark: A success message should be displayed
+
+:white_check_mark: You should be able to see the requirement name in the
+main panel
     
 #### `assign`
 
-Displays a help message to the user. Lists all possible commands
-and provides a link to the user guide online.
+Assigns a module to a graduation requirement. If there is good internet
+connectivity, the module will be validated with NUS Mods and its description
+will be auto-filled.
 
 Command Format
-
-    help
+    
+    //DESCRIPTION is optional
+    assign n/REQUIREMENT_NAME: n/MODULE_CODE t/MODULE_TITLE u/NO_OF_MCS d/DESCRIPTION
+    
+    //e.g.
+    assign n/Unrestricted Electives: n/LAJ1201 t/Japanese 1 u/4
 
 Constraints
-   
-    NIL
+ 
+:warning: A module cannot be assigned if there are not enough MCs left under 
+a graduation requirement
+
+:warning: The module code and title have to be unique
    
 Expected Outcome
 
-    1. A help message should be displayed as a pop-up
+:white_check_mark: The module will be displayed in the main panel
     
 #### `module`
 
