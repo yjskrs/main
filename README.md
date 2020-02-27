@@ -67,7 +67,7 @@ features the university provides.
 *iGrad* offers users the ability to create custom courses and graduation requirements,
 ensuring the **maximum** degree of flexibility when planning and keeping track of your progress
 
-*iGrad* also retrieves data directly from [NUS Mods](https://www.nusmods.com), ensuring that module
+*iGrad* also retrieves data directly from [NUS Mods](https://nusmods.com), ensuring that module
 information is always up to date.
 
 *iGrad* calculates your CAP at every step, ensuring you never have to use a CAP calculator again
