@@ -166,6 +166,7 @@ Constraints
    
 Expected Outcome
 > :white_check_mark: A success message should be displayed
+
 > :white_check_mark: You should be able to see the course name in the 
 >top panel
     
