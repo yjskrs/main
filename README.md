@@ -20,10 +20,10 @@
     
     3.3 [Modules](#modules)
     
-4. Walk-through
+4. [Walkthrough](#walkthrough)
 5. Commands
     
-    5.1.`help`
+    5.1.[`help`](#help)
     
     5.2 `course`
     
@@ -91,7 +91,7 @@ in order to achieve your dream GPA.
 
 ## Components
 
-![](https://user-images.githubusercontent.com/34233605/75426235-339f0680-597f-11ea-89cb-e832f4b89e4d.png)
+![](https://user-images.githubusercontent.com/34233605/75425925-9774ff80-597e-11ea-87f5-228f95b5c84f.png)
 
 #### Course
 A course is simply a group of requirements. It is also how we keep track of your overall GPA
@@ -105,3 +105,40 @@ complete it.
 A module is the building block of all other components. Mark your modules as done and give it
 a grade. You can also add optional memos to help you remember why
 you took the module.
+
+## Walkthrough
+
+#### 1. Start up the application
+
+#### 2. Enter your course details
+
+#### 3. Key in your graduation requirements
+
+#### 4. Assign your modules
+
+#### 5. Mark a module as done
+
+#### 6. Key in a memo
+
+#### 7. Track your MCs 
+
+#### 8. View your GPA
+
+#### 9. Import external data
+
+#### 10. Export your data
+
+## Command List
+
+#### `help`
+#### `course`
+#### `requirement`
+#### `assign`
+#### `module`
+#### `modify`
+#### `delete`
+#### `view`
+#### `achieve`
+#### `import`
+#### `export`
+#### `exit`
