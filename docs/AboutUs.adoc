@@ -42,9 +42,9 @@ Role: Marketing
 
 '''
 
-=== Yi Jie
+=== Yijie
 image::https://avatars0.githubusercontent.com/u/42514097?s=400&v=4[width="150", align="left"]
-{empty}[http://github.com/yjskrs[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/yjskrs[github]]
 
 Role: Project Manager
 
