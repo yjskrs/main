@@ -11,41 +11,41 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Daryl Goh
-image::https://avatars3.githubusercontent.com/u/58582328?s=400&v=4[width="150", align="left"]
+image::dargohzy.png[width="150", align="left"]
 {empty}[https://github.com/dargohzy[github]]
 
-Role: Chief Blockchain Expert
+Role: Frontend Developer
 
 '''
 
 === Nathanael Seen
-image::https://avatars1.githubusercontent.com/u/12388525?s=400&v=4[width="150", align="left"]
+image::nathanaelseen.png[width="150", align="left"]
 {empty}[https://github.com/nathanaelseen[github]]
 
-Role: Lead Algorithms Specialist
+Role: Chief Technology Officer
 
 '''
 
 === Teri 
-image::https://avatars1.githubusercontent.com/u/50551345?s=400&v=4[width="150", align="left"]
+image::teriaiw.png[width="150", align="left"]
 {empty}[http://github.com/teriaiw[github]]
-
-Role: AI Engineer
-
-'''
-
-=== Wayne Wee
-image::https://avatars0.githubusercontent.com/u/34233605?s=460&v=4[width="150", align="left"]
-{empty}[http://github.com/waynewee[github]]
 
 Role: UI/UX
 
 '''
 
-=== Yi Jie
-image::https://avatars0.githubusercontent.com/u/42514097?s=400&v=4[width="150", align="left"]
-{empty}[http://github.com/yjskrs[github]] [<<johndoe#, portfolio>>]
+=== Wayne Wee
+image::waynewee.png[width="150", align="left"]
+{empty}[http://github.com/waynewee[github]]
 
-Role: Lead Development
+Role: Marketing
+
+'''
+
+=== Yijie
+image::yjskrs.png[width="150", align="left"]
+{empty}[http://github.com/yjskrs[github]]
+
+Role: Project Manager
 
 '''

@@ -3,5 +3,4 @@
 :stylesDir: stylesheets
 
 * *Bug reports, Suggestions* : Post in our https://github.com/AY1920S2-CS2103T-F09-3/main/issues[issue tracker] if you noticed bugs or have suggestions on how to improve.
-
-* *Email us* : You can also contact us at `e0202795 [at] comp.nus.edu.sg`
+* *Email us* : You can also reach us at `e0202795 [at] comp.nus.edu.sg`
