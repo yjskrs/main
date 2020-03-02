@@ -151,16 +151,21 @@ Expected Outcome
 
 ==== course
 
-Add, remove or rename your course.
+Add, modify or remove your course.
 
 Command Format
 
 ----
 1. course add n/COURSE_NAME: u/MCs
 
-2. course edit: [n/COURSE_NAME] [u/MCs]
 
-3. course delete n/COURSE_NAME
+/*
+ * At least one option must be specified.
+ */
+2. course modify: [n/COURSE_NAME] [u/MCs]
+
+
+3. course remove n/COURSE_NAME
 ----
 
 Command Sample
@@ -171,64 +176,73 @@ Command Sample
  */
 course add n/Computer Science: u/160
 
+
 /*
  * Renaming your current course to "Information Systems", and changing the course to 140 MCs
  */
-course edit: n/Information Systems, u/140
+course modify: n/Information Systems u/140
+
 
 /*
  * Removing your current course
  */
-course delete
+course remove
 ----
 
 Constraints
 [WARNING]
 ====
 1. `(all)`: You can only have at most one course at any one time
-2. `course delete`: Removing a course removes all data from the system (including modules, requirements, etc)
+2. `course remove`: Removing a course removes all data from the system (including modules, requirements, etc)
 ====
 
 Expected Outcome
 [NOTE]
-You should be able to see the created and edited course name in the
+You should be able to see the added and/or modified course name in the
 top panel. For remove course, all data would be reset
 
 '''
 
 ==== requirement
 
-Creates a graduation requirement category.
+Add, modify or remove a graduation requirement category (under a course).
 
 Command Format
 
 ----
 1. requirement add n/REQUIREMENT_NAME: u/NO_OF_MCS
 
-2. requirement edit n/REQUIREMENT_NAME: [n/REQUIREMENT_NAME] [u/NO_OF_MCS]
 
-3. requirement delete n/REQUIREMENT_NAME: [n/REQUIREMENT_NAME] [u/NO_OF_MCS]
+/*
+ * At least one option must be specified.
+ */
+2. requirement modify n/REQUIREMENT_NAME: [n/REQUIREMENT_NAME] [u/NO_OF_MCS]
+
+
+3. requirement remove n/REQUIREMENT_NAME
 ----
 
 Command Sample
 
 ----
 /*
- * Creating a requirement named "Unrestricted Electives" which
+ * Adding a requirement named "Unrestricted Electives" which
  * requires 32 MCs to fulfill
  */
 requirement add n/Unrestricted Electives: u/32
 
-/*
- * Renaming a requirement named "Unrestricted Electives", and
- * changing the number of MCs to 20 (to fulfill)
- */
-requirement edit n/Unrestricted Electives: u/32
 
 /*
- * Removes a requirement named "Unrestricted Electives"
+ * Renaming a requirement named "Unrestricted Electives" to "Math and Sciences", and
+ * changing the number of MCs to 20 (to fulfill)
  */
-requirement delete n/Unrestricted Electives
+requirement modify n/Unrestricted Electives: n/Math and Sciences u/32
+
+
+/*
+ * Removing a requirement named "Unrestricted Electives"
+ */
+requirement remove n/Unrestricted Electives
 ----
 
 Constraints
@@ -245,155 +259,94 @@ main panel
 
 '''
 
+
 ==== assign
 
-Assigns a module to a graduation requirement. If there is good internet
-connectivity, the module will be validated with NUS Mods and its description
-will be auto-filled.
+Assigns (and creates) a module under a graduation requirement category.
 
 Command Format
 
 ----
-/**
-* DESCRIPTION is optional
-*/
-assign n/REQUIREMENT_NAME: n/MODULE_CODE t/MODULE_TITLE u/NO_OF_MCS d/DESCRIPTION
+1. assign n/REQUIREMENT_NAME: n/MODULE_CODE, t/MODULE_TITLE u/MCs; ...
 ----
 
 Command Sample
 
 ----
 /**
-* Assigns module "LAJ1201 Japanese 1" worth 4 MCs 
-* to requirement "Unrestricted Electives"
+* Assigns (and creates) a module "LAJ1201" (4 MCs) and another module "CS1101S" (4 MCs) to the requirement "Unrestricted Electives"
 */
-assign n/Unrestricted Electives: n/LAJ1201 t/Japanese 1 u/4
+assign n/Unrestricted Electives: n/LAJ1201 u/4, n/CS1101S u/4
 ----
 
 Constraints
-
-:warning: A module cannot be assigned if there are not enough MCs left under
-a graduation requirement
-
-:warning: The module code and title have to be unique
+[WARNING]
+====
+1. A module cannot be assigned if there are not enough MCs left under a graduation requirement (category).
+2. The module code (e.g, CS1101S, ST2334), have to be unique
+====
 
 Expected Outcome
-
-:white_check_mark: The module will be displayed in the main panel
+[NOTE]
+You should be able to see the newly assigned module(s) displayed in the main panel, under their respective requirement categories.
+main panel
 
 '''
 
 ==== module
 
-Tags a module with semester, grade or memo notes.
+Modify or remove a module. You would be able to tag (modify) a module with information such as; semester, grade or memo notes information.
 
 Command Format
 
 ----
-/**
-* At least one option must be specified.
-* SEMESTER is specified in format Y_S_ ( e.g. Y1S2 - Year 1 Semester 2 ) 
-*/
-module n/MODULE_CODE: s/SEMESTER g/GRADE m/MEMO_NOTES
+/*
+ * SEMESTER is specified in format Y_S_ ( e.g. Y1S2 - Year 1 Semester 2 )
+ */
+
+
+/*
+ * At least one option must be specified.
+ */
+1. module modify n/MODULE_CODE: [n/MODULE_CODE] [n/MODULE_TITLE] [u/MCs] [s/SEMESTER] [g/GRADE] [m/MEMO_NOTES]
+
+
+2. module remove n/[MODULE_CODE]
 ----
 
 Command Sample
 
 ----
-/**
-* Tags CS1101 with "Y1S2" and grade "A+"
-*/
-module n/CS1101: s/Y1S2 g/A+
+/*
+ * Tagging the module, CS1101, with "Y1S2" and grade "A+", and also renaming it to CS1101S
+ */
+module modify n/CS1101: n/CS1101S s/Y1S2 g/A+
 
-/**
-* Tags ST2234 with "Y2S1" and gives it a memo "pretty easy module"
+
+/*
+ * Tagging the module, ST2234, with "Y2S1" and giving it a memo "pretty easy module"
 */
-module n/ST2334: s/Y2S1 m/pretty easy module
+module modify n/ST2334: s/Y2S1 m/pretty easy module
+
+
+/*
+ * Removing a module named "CS1101S"
+ */
+module remove n/CS1101S
 ----
 
 Constraints
-
-:warning: The module has to be assigned
-
-Expected Outcome
-
-:white_check_mark: The tags should appear under their respective column headers
-
-'''
-
-==== modify
-
-Modify course, graduation requirements or modules
-
-Command Format
-
-----
-modify course n/COURSE_NAME
-
-modify req n/REQUIREMENT_NAME: u/NO_OF_MCS
-
-/**
-* At least one option must be specified
-*/
-modify module n/MODULE_CODE: t/MODULE_NAME u/NO_OF_MCS
-----
-
-Command Sample
-
-----
-/**
-* Modifies CS4239 and gives it the title "Machine Learning" and updates
-* it to be worth 5 MCs
-*/
-modify module n/CS4239: t/Machine Learning u/5
-----
-
-Constraints
-
-:warning: The component to be modified must exist in the system
-
-:warning: The COURSE_NAME, REQUIREMENT_NAME, MODULE_NAME and MODULE_CODE
-have to be unique
+[WARNING]
+====
+1. `(module modify)` There must be enough MCs left under a graduation requirement (category) for all modules.
+2. `(all)` The module code (e.g, CS1101S, ST2334), have to be unique
+====
 
 Expected Outcome
-
-:white_check_mark: You should be able to see the relevant changes
-
-'''
-
-==== delete
-
-Deletes course, graduation requirements or modules
-
-Command Format
-
-----
-del course n/COURSE_NAME
-
-del req n/REQUIREMENT_NAME
-
-del module n/MODULE_CODE
-----
-
-Command Sample
-
-----
-/**
-* Deletes the course "Computer Science"
-*/
-del course n/Computer Science
-----
-
-Constraints
-
-:warning: The component to be deleted must exist in the system
-
-Expected Outcome
-
-:white_check_mark: The components deleted should disappear from their respective panels
+[NOTE]
+You should be able to see the modified module details reflected in the main panel
 
 '''
-
 ==== exam
 
 View your examination results.
@@ -418,12 +371,14 @@ exam s/Y3S2
 ----
 
 Constraints
-
-:warning: NIL
+[WARNING]
+====
+-Nill
+====
 
 Expected Outcome
-
-:white_check_mark: You should be able to view your exam results
+[NOTE]
+You should be able to view your exam results (in a pop-up)
 
 '''
 
@@ -434,7 +389,7 @@ Calculates the average grade needed to achieve the CAP you desire/
 Command Format
 
 ----
-achieve c/DESIRED_CAP
+1. achieve c/DESIRED_CAP
 ----
 
 Command Sample
@@ -448,64 +403,38 @@ achieve c/4.50
 ----
 
 Constraints
-
-:warning: NIL
+[WARNING]
+====
+-Nill
+====
 
 Expected Outcome
-
-:white_check_mark: You should be able to view the average grade needed to achieve
-the CAP you desire
+[NOTE]
+You should be able to view the average grade needed to achieve the CAP you desire (in a pop-up)
 
 '''
 
-==== batch
-
-Executes a series of commands written in a text (.txt) file
-
-Command Format
-
-----
-batch f/ FILE_PATH
-----
-
-Command Sample
-
-----
-batch f/ C:\Users\wayne\OneDrive\Desktop\commands.txt
-----
-
-Constraints
-
-:warning: The text file has to properly formatted.
-Partial execution will not take place.
-
-Expected Outcome
-
-:white_check_mark: All changes should be made based on the commands
-in the text file. Please cross-check changes with the file to ensure
-this is so.
-
-'''
 
 ==== export
 
-Exports all data in a text file. If information is sufficient,
+Exports all data in a (prettified) text file. If information is sufficient,
 this file can be submitted to NUS as a study plan.
 
 Command Format
 
 ----
-export
+1. export
 ----
 
 Constraints
-
-:warning: NIL
+[WARNING]
+====
+-Nill
+====
 
 Expected Outcome
-
-:white_check_mark: A text file "study_plan.txt" should be generated in
-the same folder as the iGrad application.
+[NOTE]
+A text file "study_plan.txt" should be generated in  the same folder as the iGrad application.
 
 '''
 
@@ -520,19 +449,21 @@ exit
 ----
 
 Constraints
-
-:warning: NIL
+[WARNING]
+====
+-Nill
+====
 
 Expected Outcome
-
-:white_check_mark: The application should exit.
+[NOTE]
+The application should exit
 
 ## FAQs
 
 _I'm not an NUS student. Can I still use iGrad?_
 
 As long as your university follows a similar <<fig-1,hierachical structure>>!
-However, we will be unable to provide features such as validation from NUS Mods.
+However, we will be unable to provide features such as validation from NUSMods.
 
 == Cheat Sheet
 
@@ -544,31 +475,27 @@ ____
 
 `help`
 
-`course n/COURSE_NAME`
+`course add n/COURSE_NAME: u/MCs`
 
-`requirement n/REQUIREMENT_NAME u/NO_OF_MCS`
+`course modify: [n/COURSE_NAME] [u/MCs]`
 
-`assign n/REQUIREMENT_NAME: n/MODULE_CODE t/MODULE_TITLE u/NO_OF_MCS d/DESCRIPTION`
+`course remove n/COURSE_NAME`
 
-`module n/MODULE_CODE: s/SEMESTER g/GRADE m/MEMO_NOTES`
+`requirement add n/REQUIREMENT_NAME: u/NO_OF_MCS`
 
-`modify course n/COURSE_NAME`
+`requirement modify n/REQUIREMENT_NAME: [n/REQUIREMENT_NAME] [u/NO_OF_MCS]`
 
-`modify req n/REQUIREMENT_NAME: u/NO_OF_MCS`
+`requirement remove n/REQUIREMENT_NAME`
 
-`modify module n/MODULE_CODE: t/MODULE_NAME u/NO_OF_MCS`
+`assign n/REQUIREMENT_NAME: n/MODULE_CODE, t/MODULE_TITLE u/MCs; ...`
 
-`del course n/COURSE_NAME`
+`module modify n/MODULE_CODE: [n/MODULE_CODE] [n/MODULE_TITLE] [u/MCs] [s/SEMESTER] [g/GRADE] [m/MEMO_NOTES]`
 
-`del req n/REQUIREMENT_NAME`
-
-`del module n/MODULE_CODE`
+`module remove n/[MODULE_CODE]`
 
 `exam s/SEMESTER`
 
 `achieve c/DESIRED_CAP`
-
-`batch f/ FILE_PATH`
 
 `export`
 
