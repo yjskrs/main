@@ -1,3 +1,5 @@
+:icons: font
+
 = iGrad
 
 ____
@@ -154,23 +156,25 @@ Add, remove or rename your course.
 Command Format
 
 ----
-1. course add n/COURSE_NAME
-2. course edit n/COURSE_NAME
-3. course delete
+1. course add n/COURSE_NAME: u/MCs
+
+2. course edit: [n/COURSE_NAME] [u/MCs]
+
+3. course delete n/COURSE_NAME
 ----
 
 Command Sample
 
 ----
 /*
- * Creating a course named "Computer Science"
+ * Creating a course named "Computer Science", with 160 MCs
  */
-course add n/Computer Science
+course add n/Computer Science: u/160
 
 /*
- * Renaming your current course to "Information Systems"
+ * Renaming your current course to "Information Systems", and changing the course to 140 MCs
  */
-course edit n/Information Systems
+course edit: n/Information Systems, u/140
 
 /*
  * Removing your current course
@@ -179,45 +183,64 @@ course delete
 ----
 
 Constraints
-
-:warning: You can only have one course at a time
+[WARNING]
+====
+1. `(all)`: You can only have at most one course at any one time
+2. `course delete`: Removing a course removes all data from the system (including modules, requirements, etc)
+====
 
 Expected Outcome
-
-:white_check_mark: You should be able to see the course name in the
-top panel
+[NOTE]
+You should be able to see the created and edited course name in the
+top panel. For remove course, all data would be reset
 
 '''
 
 ==== requirement
 
-Creates a graduation requirement.
+Creates a graduation requirement category.
 
 Command Format
 
 ----
-requirement n/REQUIREMENT_NAME u/NO_OF_MCS
+1. requirement add n/REQUIREMENT_NAME: u/NO_OF_MCS
+
+2. requirement edit n/REQUIREMENT_NAME: [n/REQUIREMENT_NAME] [u/NO_OF_MCS]
+
+3. requirement delete n/REQUIREMENT_NAME: [n/REQUIREMENT_NAME] [u/NO_OF_MCS]
 ----
 
 Command Sample
 
 ----
-/**
-* Creating a requirement named "Unrestricted Electives" 
-* which requires 32 MCs to fulfill
-*/
-requirement n/Unrestricted Electives u/32
+/*
+ * Creating a requirement named "Unrestricted Electives" which
+ * requires 32 MCs to fulfill
+ */
+requirement add n/Unrestricted Electives: u/32
+
+/*
+ * Renaming a requirement named "Unrestricted Electives", and
+ * changing the number of MCs to 20 (to fulfill)
+ */
+requirement edit n/Unrestricted Electives: u/32
+
+/*
+ * Removes a requirement named "Unrestricted Electives"
+ */
+requirement delete n/Unrestricted Electives
 ----
 
 Constraints
-
-:warning: The number of MCs needed to fulfill the requirement is needed
-
-:warning: Requirement names have to be unique 
+[WARNING]
+====
+1. `(all)`: Requirement names have to be unique
+2. `(all)`: The number of MCs under all requirements have to be in total equals (strictly) to number of MCs for your course
+====
 
 Expected Outcome
-
-:white_check_mark: You should be able to see the requirement name in the
+[NOTE]
+You should be able to see the created and/or modified requirement details reflected in the
 main panel
 
 '''
