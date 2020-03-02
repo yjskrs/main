@@ -1,0 +1,43 @@
+= iGrad
+ifdef::env-github,env-browser[:relfileprefix: docs/]
+
+https://travis-ci.org/se-edu/addressbook-level3[image:https://travis-ci.org/AY1920S2-CS2103T-F09-3/main.svg?branch=master[Build Status]]
+
+ifdef::env-github[]
+image::docs/images/Ui.png[width="600"]
+endif::[]
+
+ifndef::env-github[]
+image::images/Ui.png[width="600"]
+endif::[]
+
+Sick of having tracking your university progress the manual way?
+Start getting rid of your Excel sheets and scribbled down notes and download _iGrad_ right now!
+
+What is _iGrad_?
+
+_iGrad_ is the app to track your university progress, for students who are frustrated with the
+limited features the university provides, by students who are frustrated by the limited
+features the university provides.
+
+_iGrad_ offers users the ability to create custom courses and graduation requirements,
+ensuring the *maximum* degree of flexibility when planning and keeping track of your progress
+
+_iGrad_ also retrieves data directly from https://nusmods.com[NUS Mods], ensuring that module
+information is always up to date.
+
+_iGrad_ calculates your CAP at every step, ensuring you never have to use a CAP calculator again
+
+Finally, the _iGrad_ team is always open to feedback and suggestions from the public will always be followed up on.
+
+== Site Map
+
+* <<UserGuide#, User Guide>>
+* <<DeveloperGuide#, Developer Guide>>
+* <<LearningOutcomes#, Learning Outcomes>>
+* <<AboutUs#, About Us>>
+* <<ContactUs#, Contact Us>>
+
+== Acknowledgements
+
+This project was built on top of Address Book 4 by the https://se-education.org/[SE-Education team]
