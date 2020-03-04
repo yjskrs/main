@@ -79,7 +79,7 @@ public class ParserUtil {
         }
         return new Email(trimmedEmail);
     }
-    
+
     /**
      * Parses a {@code String remark} into a {@code Remark}.
      * Leading and trailing whitespaces will be trimmed.
