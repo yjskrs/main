@@ -76,8 +76,9 @@ class JsonAdaptedPerson {
         }
         final Name modelName = new Name(name);
 
-        if( remark == null){
-            throw new IllegalValueException( String.format(MISSING_FIELD_MESSAGE_FORMAT, Remark.class.getSimpleName()) );
+        if(remark == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Remark.class.getSimpleName()));
         }
 
         final Remark modelRemark = new Remark(remark);
@@ -88,6 +89,7 @@ class JsonAdaptedPerson {
         if (!Phone.isValidPhone(phone)) {
             throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
         }
+
         final Phone modelPhone = new Phone(phone);
 
         if (email == null) {
@@ -98,16 +100,17 @@ class JsonAdaptedPerson {
         }
         final Email modelEmail = new Email(email);
 
-//        if (address == null) {
-//            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
-//        }
-//        if (!Address.isValidAddress(address)) {
-//            throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
-//        }
-//        final Address modelAddress = new Address(address);
+        // if (address == null) {
+        //     throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+        //         Address.class.getSimpleName()));
+        // }
+        // if (!Address.isValidAddress(address)) {
+        //     throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
+        // }
+        // final Address modelAddress = new Address(address);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelPhone, modelEmail, modelTags, modelRemark );
+        return new Person(modelName, modelPhone, modelEmail, modelTags, modelRemark);
     }
 
 }

@@ -98,7 +98,7 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code remark} is invalid.
      */
-    public static Remark parseRemark( String remark) throws ParseException {
+    public static Remark parseRemark(String remark) throws ParseException {
         requireNonNull(remark);
         String trimmedRemark = remark.trim();
         return new Remark(trimmedRemark);

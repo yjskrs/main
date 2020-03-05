@@ -16,17 +16,17 @@ public class SampleDataUtil {
     public static Person[] getSamplePersons() {
         return new Person[] {
             new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
-                getTagSet("friends"), new Remark("Jock") ),
+                getTagSet("friends"), new Remark("Jock")),
             new Person(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
-                getTagSet("colleagues", "friends"), new Remark( "Cute girl" ) ),
+                getTagSet("colleagues", "friends"), new Remark("Cute girl :p")),
             new Person(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@example.com"),
-                getTagSet("neighbours"), new Remark("Only know how to study") ),
+                getTagSet("neighbours"), new Remark("Only knows how to study")),
             new Person(new Name("David Li"), new Phone("91031282"), new Email("lidavid@example.com"),
                 getTagSet("family"), new Remark("Chinese.")),
             new Person(new Name("Irfan Ibrahim"), new Phone("92492021"), new Email("irfan@example.com"),
-                getTagSet("classmates"), new Remark( "Nice guy." ) ),
+                getTagSet("classmates"), new Remark("Nice guy.")),
             new Person(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
-                getTagSet("colleagues"), new Remark("Know how to cook chicken rice") )
+                getTagSet("colleagues"), new Remark("Knows how to cook chicken rice"))
         };
     }
 
