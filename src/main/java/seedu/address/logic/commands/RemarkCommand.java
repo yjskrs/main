@@ -11,6 +11,9 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Remark;
 
+/**
+ * Adds a remark of an existing person in the address book.
+ */
 public class RemarkCommand extends Command {
     public static final String MESSAGE_ARGUMENTS = "Index: %1$d, Remark: %2$s";
 
@@ -29,11 +32,11 @@ public class RemarkCommand extends Command {
         + "\nParameters: INDEX (must be a positive integer) r/ [REMARK]\nExample: " + COMMAND_WORD
         + " 1 r/ Likes to swim.";
 
+    public static final String MESSAGE_ADD_REMARK_SUCCESS = "Added remark to Person: %1$s";
+    public static final String MESSAGE_DELETE_REMARK_SUCCESS = "Removed remark from Person: %1$s";
+
     private final Index index;
     private final Remark remark;
-
-    public final static String MESSAGE_ADD_REMARK_SUCCESS = "Added remark to Person: %1$s";
-    public final static String MESSAGE_DELETE_REMARK_SUCCESS = "Removed remark from Person: %1$s";
 
     /**
      * @param index of the person in the filtered person list to edit the remark
