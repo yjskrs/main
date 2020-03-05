@@ -4,7 +4,7 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-iGrad was developed by the https://github.com/AY1920S2-CS2103T-F09-3 team. 
+iGrad was developed by the https://github.com/AY1920S2-CS2103T-F09-3 team.
 
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
@@ -26,7 +26,7 @@ Role: Chief Technology Officer
 
 '''
 
-=== Teri 
+=== Teri
 image::teriaiw.png[width="150", align="left"]
 {empty}[http://github.com/teriaiw[github]]
 

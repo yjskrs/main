@@ -1,15 +1,15 @@
-# iGrad 
+# iGrad
 > A handy guide to help you make the most of your application
 
 ## Table of Contents
 
 1. [Introduction](#Introduction)
 2. [Features](#Features)
-    
+ 
     2.1 [Course Builder](#course-builder)
-    
+ 
     2.2 [Modular Credits Tracker](#modular-credits-mcs-tracker)
-    
+ 
     2.3 [Cumulative Average Point Tracker](#cumulative-average-point-cap-tracker)
 
 3. [Components](#Components)
@@ -17,12 +17,12 @@
     3.1 [Course](#courses)
     
     3.2 [Requirements](#requirements)
-    
+ 
     3.3 [Modules](#modules)
-    
+ 
 4. [Walkthrough](#walkthrough)
 5. [Command List](#command-list)
-    
+
     5.1.[`help`](#help)
     
     5.2 [`course`](#course)
