@@ -1,7 +1,7 @@
 = iGrad
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
-https://travis-ci.org/se-edu/addressbook-level3[image:https://travis-ci.org/AY1920S2-CS2103T-F09-3/main.svg?branch=master[Build Status]]
+https://travis-ci.org/AY1920S2-CS2103T-F09-3/main[image:https://travis-ci.org/AY1920S2-CS2103T-F09-3/main.svg?branch=master[Build Status]]
 
 ifdef::env-github[]
 image::docs/images/Ui.png[width="600"]
