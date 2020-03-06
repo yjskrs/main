@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= iGrad - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level3/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `AY1920S2-CS2103T-F09-3`      Since: `Jan 2020`      Licence: `MIT`
 
 == Setting up
 
@@ -279,41 +279,69 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
+* is a NUS undergraduate
+* prefers desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: convenient course requirements tracker for NUS undergraduates
 
 [appendix]
 == User Stories
 
-Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
+*Priorities*:
+
+* High (must have) - `* * *`
+* Medium (nice to have) - `* *`
+* Low (unlikely to have) - `*`
 
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
-|Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|Priority |As a ... |I want to ... |So that I can ...
+|`* * *` |first-time user |create a course |
 
-|`* * *` |user |add a new person |
+|`* * *` |student |create a graduation requirement |
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |student |input modules under a graduation requirement |keep track of when a graduation requirement is fulfilled
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |careless user |change the graduation requirements which I assigned to a course |amend any mistakes made when entering data
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |fickle user |change the modules which I assigned to a graduation requirement |change my study plan
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |fickle user |have the option to defer adding modules to a graduation requirement |delay making up my mind on which modules I wish to take
+
+|`* * *` |basic user |see information regarding the course I created, including graduation requirements, modules and gaps (e.g. modules that are unassigned) that need to be filled |
+
+|`* * *` |user |see the latest updated information about any module |make informed decisions
+
+|`* * *` |basic user |mark when a module is completed |
+
+|`* * *` |basic user |input the grades of a module |
+
+|`* *` |basic user |retrieve my CAP of any semester at a command |stay updated about my results
+
+|`* *` |user |input my desired CAP and have the program calculate what grades I need to achieve |find out how well I need to do in following semesters
+
+|`* *` |user |group modules by graduation requirement |view by requirement
+
+|`* *` |user |group modules by semester |view by semester
+
+|`*` |user who wants to take notes |record notes for each module |record why I took it
+
+|`*` |picky user |customize display settings |customize to my needs
+
+|`*` |advanced command line user |use familiar linux commands |navigate more easily
+
+|`*` |advanced command line user |I want certain keys to do the same things as they would in the terminal (e.g. arrowUp cycles through command history)
 |=======================================================================
 
-_{More to be added}_
+_{All user stories can be viewed from our wiki page and from our issues tracker.}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is `iGrad` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
 === Use case: Delete person
@@ -347,8 +375,9 @@ _{More to be added}_
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Should be able to hold up to 100 modules without a noticeable sluggishness in performance (i.e. should take less than 1 second to load)
+.  A user with above 70 wpm typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  The interface should be intuitive enough such that a user who has never seen the user guide is able to use the basic features.
 
 _{More to be added}_
 
