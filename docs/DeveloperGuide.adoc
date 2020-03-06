@@ -344,30 +344,93 @@ _{All user stories can be viewed from our wiki page and from our issues tracker.
 (For all use cases below, the *System* is `iGrad` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: U01 - Create Course
+*MSS*:
 
-*MSS*
-
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  iGrad starts up.
+2.  User requests to create a course.
+3.  iGrad creates the course.
 +
 Use case ends.
 
-*Extensions*
+*Extensions*:
 
 [none]
-* 2a. The list is empty.
+* 2a. The course name is not provided.
+** 2a1. iGrad prompts user for course name.
+** 2a2. User enters a course name.
++
+Steps 2a1-2a2 are repeated until the a non-empty course name is provided.
++
+Use case resumes at step 3.
+
+[discrete]
+=== Use case: U02 - Create Requirement
+*MSS*:
+
+1.  User requests to create a course.
+2.  iGrad creates course (UC01).
+3.  User requests to create a requirement.
+4.  iGrad creates the requirement.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
-+
+*Extensions*:
+
 [none]
-** 3a1. AddressBook shows an error message.
+* 3a. The requirement name is not provided.
+** 3a1. iGrad prompts user for requirement name.
+** 3a2. User enters a requirement name.
++
+Steps 3a1-3a2 are repeated until the a non-empty requirement name is provided.
++
+Use case resumes at step 4.
+
+[discrete]
+=== Use case: U03 - Create Module
+*MSS*:
+
+1.  User requests to create a module by providing a module code.
+2.  iGrad creates the module with its data pulled from NUSMods.
++
+Use case ends.
+
+*Extensions*:
+
+[none]
+* 1a. Module data fails to get pulled due to network error.
+** 1a1. iGrad takes from its local module data copy.
++
+Use case ends.
+
+[none]
+* 1b. Module data does not exist on NUSMods.
+** 1b1. iGrad creates a empty module with only the module code.
++
+Use case ends.
+
+[discrete]
+=== Use case: U04 - Assign Module to Requirement
+*MSS*:
+
+1.  User requests to assign a module to a requirement by specifying its module code.
+2.  iGrad assigns module to requirement.
++
+Use case ends.
+
+*Extensions*:
+
+[none]
+* 1a. Module does not exist in system.
+** 1a1. iGrad creates the module (UC03).
 +
 Use case resumes at step 2.
+
+[none]
+* 1b. Module has already been assigned to the requirement.
+** 1b1. iGrad generates a warning and stops the assignment.
++
+Use case ends.
 
 _{More to be added}_
 
