@@ -54,7 +54,6 @@ public class UniquePersonList implements Iterable<Person> {
      * The person identity of {@code editedPerson} must not be the same as another existing person in the list.
      */
     public void setPerson(Person target, Person editedPerson) {
-
         requireAllNonNull(target, editedPerson);
 
         int index = internalList.indexOf(target);
