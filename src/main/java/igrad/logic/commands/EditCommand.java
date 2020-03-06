@@ -1,11 +1,11 @@
 package igrad.logic.commands;
 
-import static java.util.Objects.requireNonNull;
 import static igrad.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static igrad.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static igrad.logic.parser.CliSyntax.PREFIX_NAME;
 import static igrad.logic.parser.CliSyntax.PREFIX_PHONE;
 import static igrad.logic.parser.CliSyntax.PREFIX_TAG;
+import static java.util.Objects.requireNonNull;
 
 import java.util.Collections;
 import java.util.HashSet;

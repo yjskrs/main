@@ -1,12 +1,10 @@
 package igrad.model.tag;
 
-import igrad.commons.util.AppUtil;
-
-import static java.util.Objects.requireNonNull;
 import static igrad.commons.util.AppUtil.checkArgument;
+import static java.util.Objects.requireNonNull;
 
 /**
- * Represents a Tag in the address book.
+ * Represents a Tag in the course book.
  * Guarantees: immutable; name is valid as declared in {@link #isValidTagName(String)}
  */
 public class Tag {
@@ -23,7 +21,7 @@ public class Tag {
      */
     public Tag(String tagName) {
         requireNonNull(tagName);
-        AppUtil.checkArgument(isValidTagName(tagName), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidTagName(tagName), MESSAGE_CONSTRAINTS);
         this.tagName = tagName;
     }
 

@@ -1,10 +1,10 @@
 package igrad.model;
 
-import javafx.collections.ObservableList;
 import igrad.model.person.Person;
+import javafx.collections.ObservableList;
 
 /**
- * Unmodifiable view of an address book
+ * Unmodifiable view of a course book.
  */
 public interface ReadOnlyCourseBook {
 

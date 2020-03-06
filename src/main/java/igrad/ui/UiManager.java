@@ -2,15 +2,15 @@ package igrad.ui;
 
 import java.util.logging.Logger;
 
+import igrad.commons.core.LogsCenter;
+import igrad.commons.util.StringUtil;
+import igrad.MainApp;
 import igrad.logic.Logic;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import igrad.MainApp;
-import igrad.commons.core.LogsCenter;
-import igrad.commons.util.StringUtil;
 
 /**
  * The manager of the UI component.

@@ -1,12 +1,10 @@
 package igrad.model.person;
 
-import igrad.commons.util.AppUtil;
-
-import static java.util.Objects.requireNonNull;
 import static igrad.commons.util.AppUtil.checkArgument;
+import static java.util.Objects.requireNonNull;
 
 /**
- * Represents a Person's name in the address book.
+ * Represents a Person's name in the course book.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
 public class Name {
@@ -29,7 +27,7 @@ public class Name {
      */
     public Name(String name) {
         requireNonNull(name);
-        AppUtil.checkArgument(isValidName(name), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidName(name), MESSAGE_CONSTRAINTS);
         fullName = name;
     }
 

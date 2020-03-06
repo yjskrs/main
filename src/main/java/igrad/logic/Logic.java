@@ -2,14 +2,14 @@ package igrad.logic;
 
 import java.nio.file.Path;
 
-import igrad.model.Model;
-import javafx.collections.ObservableList;
 import igrad.commons.core.GuiSettings;
 import igrad.logic.commands.CommandResult;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.logic.parser.exceptions.ParseException;
+import igrad.model.Model;
 import igrad.model.ReadOnlyCourseBook;
 import igrad.model.person.Person;
+import javafx.collections.ObservableList;
 
 /**
  * API of the Logic component

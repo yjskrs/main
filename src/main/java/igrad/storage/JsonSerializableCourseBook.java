@@ -8,9 +8,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
+import igrad.commons.exceptions.IllegalValueException;
 import igrad.model.CourseBook;
 import igrad.model.ReadOnlyCourseBook;
-import igrad.commons.exceptions.IllegalValueException;
 import igrad.model.person.Person;
 
 /**

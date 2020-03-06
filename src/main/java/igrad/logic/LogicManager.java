@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.logging.Logger;
 
-import javafx.collections.ObservableList;
 import igrad.commons.core.GuiSettings;
 import igrad.commons.core.LogsCenter;
 import igrad.logic.commands.Command;
@@ -16,6 +15,7 @@ import igrad.model.Model;
 import igrad.model.ReadOnlyCourseBook;
 import igrad.model.person.Person;
 import igrad.storage.Storage;
+import javafx.collections.ObservableList;
 
 /**
  * The main LogicManager of the app.

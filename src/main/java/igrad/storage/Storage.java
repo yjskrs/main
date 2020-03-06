@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 
-import igrad.model.ReadOnlyCourseBook;
 import igrad.commons.exceptions.DataConversionException;
+import igrad.model.ReadOnlyCourseBook;
 import igrad.model.ReadOnlyUserPrefs;
 import igrad.model.UserPrefs;
 

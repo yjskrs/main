@@ -1,12 +1,10 @@
 package igrad.model.person;
 
-import igrad.commons.util.AppUtil;
-
-import static java.util.Objects.requireNonNull;
 import static igrad.commons.util.AppUtil.checkArgument;
+import static java.util.Objects.requireNonNull;
 
 /**
- * Represents a Person's email in the address book.
+ * Represents a Person's email in the course book.
  * Guarantees: immutable; is valid as declared in {@link #isValidEmail(String)}
  */
 public class Email {
@@ -38,7 +36,7 @@ public class Email {
      */
     public Email(String email) {
         requireNonNull(email);
-        AppUtil.checkArgument(isValidEmail(email), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidEmail(email), MESSAGE_CONSTRAINTS);
         value = email;
     }
 

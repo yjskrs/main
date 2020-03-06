@@ -1,13 +1,13 @@
 package igrad.ui;
 
+import igrad.logic.commands.CommandResult;
+import igrad.logic.commands.exceptions.CommandException;
 import igrad.logic.Logic;
+import igrad.logic.parser.exceptions.ParseException;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
-import igrad.logic.commands.CommandResult;
-import igrad.logic.commands.exceptions.CommandException;
-import igrad.logic.parser.exceptions.ParseException;
 
 /**
  * The UI component that is responsible for receiving user command inputs.

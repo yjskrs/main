@@ -4,9 +4,9 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
-import javafx.collections.ObservableList;
 import igrad.model.person.Person;
 import igrad.model.person.UniquePersonList;
+import javafx.collections.ObservableList;
 
 /**
  * Wraps all data at the course-book level
@@ -59,7 +59,7 @@ public class CourseBook implements ReadOnlyCourseBook {
     //// person-level operations
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a person with the same identity as {@code person} exists in the course book.
      */
     public boolean hasPerson(Person person) {
         requireNonNull(person);

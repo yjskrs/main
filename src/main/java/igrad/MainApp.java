@@ -5,18 +5,14 @@ import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-import igrad.logic.Logic;
-import igrad.logic.LogicManager;
-import igrad.ui.Ui;
-import igrad.ui.UiManager;
-import javafx.application.Application;
-import javafx.stage.Stage;
 import igrad.commons.core.Config;
 import igrad.commons.core.LogsCenter;
 import igrad.commons.core.Version;
 import igrad.commons.exceptions.DataConversionException;
 import igrad.commons.util.ConfigUtil;
 import igrad.commons.util.StringUtil;
+import igrad.logic.Logic;
+import igrad.logic.LogicManager;
 import igrad.model.CourseBook;
 import igrad.model.Model;
 import igrad.model.ModelManager;
@@ -30,6 +26,10 @@ import igrad.storage.JsonUserPrefsStorage;
 import igrad.storage.Storage;
 import igrad.storage.StorageManager;
 import igrad.storage.UserPrefsStorage;
+import igrad.ui.Ui;
+import igrad.ui.UiManager;
+import javafx.application.Application;
+import javafx.stage.Stage;
 
 /**
  * Runs the application.

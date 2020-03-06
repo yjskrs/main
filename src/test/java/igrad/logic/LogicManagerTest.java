@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.nio.file.Path;
 
 import igrad.logic.commands.CommandTestUtil;
-import igrad.testutil.Assert;
 import igrad.testutil.PersonBuilder;
 import igrad.testutil.TypicalPersons;
 import org.junit.jupiter.api.BeforeEach;
@@ -70,7 +69,7 @@ public class LogicManagerTest {
     public void execute_storageThrowsIoException_throwsCommandException() {
         // Setup LogicManager with JsonCourseBookIoExceptionThrowingStub
         JsonCourseBookStorage courseBookStorage =
-                new JsonCourseBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
+                new JsonCourseBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionCourseBook.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
         StorageManager storage = new StorageManager(courseBookStorage, userPrefsStorage);
@@ -88,7 +87,7 @@ public class LogicManagerTest {
 
     @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
-        Assert.assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredPersonList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredPersonList().remove(0));
     }
 
     /**
@@ -140,7 +139,7 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage, Model expectedModel) {
-        Assert.assertThrows(expectedException, expectedMessage, () -> logic.execute(inputCommand));
+        assertThrows(expectedException, expectedMessage, () -> logic.execute(inputCommand));
         assertEquals(expectedModel, model);
     }
 

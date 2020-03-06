@@ -5,9 +5,9 @@ import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-import igrad.model.ReadOnlyCourseBook;
 import igrad.commons.core.LogsCenter;
 import igrad.commons.exceptions.DataConversionException;
+import igrad.model.ReadOnlyCourseBook;
 import igrad.model.ReadOnlyUserPrefs;
 import igrad.model.UserPrefs;
 

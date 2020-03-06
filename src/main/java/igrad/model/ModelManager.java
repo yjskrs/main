@@ -9,7 +9,6 @@ import java.util.logging.Logger;
 
 import igrad.commons.core.GuiSettings;
 import igrad.commons.core.LogsCenter;
-import igrad.commons.util.CollectionUtil;
 import igrad.model.person.Person;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -29,7 +28,7 @@ public class ModelManager implements Model {
      */
     public ModelManager(ReadOnlyCourseBook courseBook, ReadOnlyUserPrefs userPrefs) {
         super();
-        CollectionUtil.requireAllNonNull(courseBook, userPrefs);
+        requireAllNonNull(courseBook, userPrefs);
 
         logger.fine("Initializing with course book: " + courseBook + " and user prefs " + userPrefs);
 
@@ -108,7 +107,7 @@ public class ModelManager implements Model {
 
     @Override
     public void setPerson(Person target, Person editedPerson) {
-        CollectionUtil.requireAllNonNull(target, editedPerson);
+        requireAllNonNull(target, editedPerson);
 
         courseBook.setPerson(target, editedPerson);
     }

@@ -1,12 +1,10 @@
 package igrad.model.person;
 
-import igrad.commons.util.AppUtil;
-
-import static java.util.Objects.requireNonNull;
 import static igrad.commons.util.AppUtil.checkArgument;
+import static java.util.Objects.requireNonNull;
 
 /**
- * Represents a Person's phone number in the address book.
+ * Represents a Person's phone number in the course book.
  * Guarantees: immutable; is valid as declared in {@link #isValidPhone(String)}
  */
 public class Phone {
@@ -24,7 +22,7 @@ public class Phone {
      */
     public Phone(String phone) {
         requireNonNull(phone);
-        AppUtil.checkArgument(isValidPhone(phone), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidPhone(phone), MESSAGE_CONSTRAINTS);
         value = phone;
     }
 

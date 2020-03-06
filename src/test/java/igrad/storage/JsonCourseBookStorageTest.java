@@ -9,7 +9,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import igrad.model.ReadOnlyCourseBook;
-import igrad.testutil.Assert;
 import igrad.testutil.TypicalPersons;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -25,7 +24,7 @@ public class JsonCourseBookStorageTest {
 
     @Test
     public void readCourseBook_nullFilePath_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> readCourseBook(null));
+        assertThrows(NullPointerException.class, () -> readCourseBook(null));
     }
 
     private java.util.Optional<ReadOnlyCourseBook> readCourseBook(String filePath) throws Exception {
@@ -45,17 +44,17 @@ public class JsonCourseBookStorageTest {
 
     @Test
     public void read_notJsonFormat_exceptionThrown() {
-        Assert.assertThrows(DataConversionException.class, () -> readCourseBook("notJsonFormatCourseBook.json"));
+        assertThrows(DataConversionException.class, () -> readCourseBook("notJsonFormatCourseBook.json"));
     }
 
     @Test
-    public void readCourseBook_invalidCourseAddressBook_throwDataConversionException() {
-        Assert.assertThrows(DataConversionException.class, () -> readCourseBook("invalidPersonCourseBook.json"));
+    public void readCourseBook_invalidCourseBook_throwDataConversionException() {
+        assertThrows(DataConversionException.class, () -> readCourseBook("invalidPersonCourseBook.json"));
     }
 
     @Test
     public void readCourseBook_invalidAndValidPersonCourseBook_throwDataConversionException() {
-        Assert.assertThrows(DataConversionException.class, () -> readCourseBook("invalidAndValidPersonCourseBook.json"));
+        assertThrows(DataConversionException.class, () -> readCourseBook("invalidAndValidPersonCourseBook.json"));
     }
 
     @Test
@@ -86,7 +85,7 @@ public class JsonCourseBookStorageTest {
 
     @Test
     public void saveCourseBook_nullCourseBook_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> saveCourseBook(null, "SomeFile.json"));
+        assertThrows(NullPointerException.class, () -> saveCourseBook(null, "SomeFile.json"));
     }
 
     /**
@@ -103,6 +102,6 @@ public class JsonCourseBookStorageTest {
 
     @Test
     public void saveCourseBook_nullFilePath_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> saveCourseBook(new CourseBook(), null));
+        assertThrows(NullPointerException.class, () -> saveCourseBook(new CourseBook(), null));
     }
 }

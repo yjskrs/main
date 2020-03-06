@@ -6,12 +6,12 @@ import java.util.stream.Collectors;
 
 import igrad.model.CourseBook;
 import igrad.model.ReadOnlyCourseBook;
+import igrad.model.person.Address;
 import igrad.model.person.Email;
 import igrad.model.person.Name;
 import igrad.model.person.Person;
 import igrad.model.person.Phone;
 import igrad.model.tag.Tag;
-import igrad.model.person.Address;
 
 /**
  * Contains utility methods for populating {@code CourseBook} with sample data.

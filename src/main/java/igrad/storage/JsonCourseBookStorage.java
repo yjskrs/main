@@ -7,12 +7,12 @@ import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-import igrad.model.ReadOnlyCourseBook;
 import igrad.commons.core.LogsCenter;
 import igrad.commons.exceptions.DataConversionException;
 import igrad.commons.exceptions.IllegalValueException;
 import igrad.commons.util.FileUtil;
 import igrad.commons.util.JsonUtil;
+import igrad.model.ReadOnlyCourseBook;
 
 /**
  * A class to access CourseBook data stored as a json file on the hard disk.
