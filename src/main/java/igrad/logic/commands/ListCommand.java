@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import igrad.model.Model;
 
 /**
- * Lists all persons in the address book to the user.
+ * Lists all persons in the course book to the user.
  */
 public class ListCommand extends Command {
 

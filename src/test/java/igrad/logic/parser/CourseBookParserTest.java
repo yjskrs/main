@@ -32,7 +32,7 @@ import igrad.model.person.Person;
 
 public class CourseBookParserTest {
 
-    private final AddressBookParser parser = new AddressBookParser();
+    private final CourseBookParser parser = new CourseBookParser();
 
     @Test
     public void parseCommand_add() throws Exception {

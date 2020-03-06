@@ -24,11 +24,11 @@ public class JsonCourseBookStorageTest {
     public Path testFolder;
 
     @Test
-    public void readAddressBook_nullFilePath_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> readAddressBook(null));
+    public void readCourseBook_nullFilePath_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> readCourseBook(null));
     }
 
-    private java.util.Optional<ReadOnlyCourseBook> readAddressBook(String filePath) throws Exception {
+    private java.util.Optional<ReadOnlyCourseBook> readCourseBook(String filePath) throws Exception {
         return new JsonCourseBookStorage(Paths.get(filePath)).readCourseBook(addToTestDataPathIfNotNull(filePath));
     }
 
@@ -40,28 +40,28 @@ public class JsonCourseBookStorageTest {
 
     @Test
     public void read_missingFile_emptyResult() throws Exception {
-        assertFalse(readAddressBook("NonExistentFile.json").isPresent());
+        assertFalse(readCourseBook("NonExistentFile.json").isPresent());
     }
 
     @Test
     public void read_notJsonFormat_exceptionThrown() {
-        Assert.assertThrows(DataConversionException.class, () -> readAddressBook("notJsonFormatAddressBook.json"));
+        Assert.assertThrows(DataConversionException.class, () -> readCourseBook("notJsonFormatCourseBook.json"));
     }
 
     @Test
-    public void readAddressBook_invalidPersonAddressBook_throwDataConversionException() {
-        Assert.assertThrows(DataConversionException.class, () -> readAddressBook("invalidPersonAddressBook.json"));
+    public void readCourseBook_invalidCourseAddressBook_throwDataConversionException() {
+        Assert.assertThrows(DataConversionException.class, () -> readCourseBook("invalidPersonCourseBook.json"));
     }
 
     @Test
-    public void readAddressBook_invalidAndValidPersonAddressBook_throwDataConversionException() {
-        Assert.assertThrows(DataConversionException.class, () -> readAddressBook("invalidAndValidPersonAddressBook.json"));
+    public void readCourseBook_invalidAndValidPersonCourseBook_throwDataConversionException() {
+        Assert.assertThrows(DataConversionException.class, () -> readCourseBook("invalidAndValidPersonCourseBook.json"));
     }
 
     @Test
-    public void readAndSaveAddressBook_allInOrder_success() throws Exception {
+    public void readAndSaveCourseBook_allInOrder_success() throws Exception {
         Path filePath = testFolder.resolve("TempAddressBook.json");
-        CourseBook original = TypicalPersons.getTypicalAddressBook();
+        CourseBook original = TypicalPersons.getTypicalCourseBook();
         JsonCourseBookStorage jsonAddressBookStorage = new JsonCourseBookStorage(filePath);
 
         // Save in new file and read back
@@ -85,14 +85,14 @@ public class JsonCourseBookStorageTest {
     }
 
     @Test
-    public void saveAddressBook_nullAddressBook_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> saveAddressBook(null, "SomeFile.json"));
+    public void saveCourseBook_nullAddressBook_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> saveCourseBook(null, "SomeFile.json"));
     }
 
     /**
      * Saves {@code addressBook} at the specified {@code filePath}.
      */
-    private void saveAddressBook(ReadOnlyCourseBook addressBook, String filePath) {
+    private void saveCourseBook(ReadOnlyCourseBook addressBook, String filePath) {
         try {
             new JsonCourseBookStorage(Paths.get(filePath))
                     .saveCourseBook(addressBook, addToTestDataPathIfNotNull(filePath));
@@ -102,7 +102,7 @@ public class JsonCourseBookStorageTest {
     }
 
     @Test
-    public void saveAddressBook_nullFilePath_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> saveAddressBook(new CourseBook(), null));
+    public void saveCourseBook_nullFilePath_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> saveCourseBook(new CourseBook(), null));
     }
 }

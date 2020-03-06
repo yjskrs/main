@@ -24,7 +24,7 @@ import igrad.model.person.Person;
  */
 public class EditCommandTest {
 
-    private Model model = new ModelManager(TypicalPersons.getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(TypicalPersons.getTypicalCourseBook(), new UserPrefs());
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
@@ -103,7 +103,7 @@ public class EditCommandTest {
     public void execute_duplicatePersonFilteredList_failure() {
         CommandTestUtil.showPersonAtIndex(model, TypicalIndexes.INDEX_FIRST_PERSON);
 
-        // edit person in filtered list into a duplicate in address book
+        // edit person in filtered list into a duplicate in course book
         Person personInList = model.getCourseBook().getPersonList().get(TypicalIndexes.INDEX_SECOND_PERSON.getZeroBased());
         EditCommand editCommand = new EditCommand(TypicalIndexes.INDEX_FIRST_PERSON,
                 new EditPersonDescriptorBuilder(personInList).build());
@@ -122,13 +122,13 @@ public class EditCommandTest {
 
     /**
      * Edit filtered list where index is larger than size of filtered list,
-     * but smaller than size of address book
+     * but smaller than size of course book
      */
     @Test
     public void execute_invalidPersonIndexFilteredList_failure() {
         CommandTestUtil.showPersonAtIndex(model, TypicalIndexes.INDEX_FIRST_PERSON);
         Index outOfBoundIndex = TypicalIndexes.INDEX_SECOND_PERSON;
-        // ensures that outOfBoundIndex is still in bounds of address book list
+        // ensures that outOfBoundIndex is still in bounds of course book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getCourseBook().getPersonList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,

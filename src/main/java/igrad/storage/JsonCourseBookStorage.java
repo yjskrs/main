@@ -45,14 +45,14 @@ public class JsonCourseBookStorage implements CourseBookStorage {
     public Optional<ReadOnlyCourseBook> readCourseBook(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
-        Optional<JsonSerializableAddressBook> jsonAddressBook = JsonUtil.readJsonFile(
-                filePath, JsonSerializableAddressBook.class);
-        if (!jsonAddressBook.isPresent()) {
+        Optional<JsonSerializableCourseBook> jsonCourseBook = JsonUtil.readJsonFile(
+                filePath, JsonSerializableCourseBook.class);
+        if (!jsonCourseBook.isPresent()) {
             return Optional.empty();
         }
 
         try {
-            return Optional.of(jsonAddressBook.get().toModelType());
+            return Optional.of(jsonCourseBook.get().toModelType());
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);
@@ -74,7 +74,7 @@ public class JsonCourseBookStorage implements CourseBookStorage {
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableAddressBook(courseBook), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableCourseBook(courseBook), filePath);
     }
 
 }

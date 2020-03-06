@@ -16,32 +16,32 @@ import igrad.model.person.Person;
 /**
  * An Immutable CourseBook that is serializable to JSON format.
  */
-@JsonRootName(value = "addressbook")
-class JsonSerializableAddressBook {
+@JsonRootName(value = "coursebook")
+class JsonSerializableCourseBook {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
 
     private final List<JsonAdaptedPerson> persons = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableAddressBook} with the given persons.
+     * Constructs a {@code JsonSerializableCourseBook} with the given persons.
      */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons) {
+    public JsonSerializableCourseBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons) {
         this.persons.addAll(persons);
     }
 
     /**
      * Converts a given {@code ReadOnlyCourseBook} into this class for Jackson use.
      *
-     * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
+     * @param source future changes to this will not affect the created {@code JsonSerializableCourseBook}.
      */
-    public JsonSerializableAddressBook(ReadOnlyCourseBook source) {
+    public JsonSerializableCourseBook(ReadOnlyCourseBook source) {
         persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
     }
 
     /**
-     * Converts this address book into the model's {@code CourseBook} object.
+     * Converts this course book into the model's {@code CourseBook} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */

@@ -10,7 +10,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 
-import igrad.testutil.AddressBookBuilder;
+import igrad.testutil.CourseBookBuilder;
 import igrad.testutil.Assert;
 import igrad.testutil.TypicalPersons;
 import org.junit.jupiter.api.Test;
@@ -95,7 +95,7 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        CourseBook courseBook = new AddressBookBuilder().withPerson(TypicalPersons.ALICE).withPerson(TypicalPersons.BENSON).build();
+        CourseBook courseBook = new CourseBookBuilder().withPerson(TypicalPersons.ALICE).withPerson(TypicalPersons.BENSON).build();
         CourseBook differentCourseBook = new CourseBook();
         UserPrefs userPrefs = new UserPrefs();
 

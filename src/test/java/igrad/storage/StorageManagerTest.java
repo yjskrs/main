@@ -24,9 +24,9 @@ public class StorageManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonCourseBookStorage addressBookStorage = new JsonCourseBookStorage(getTempFilePath("ab"));
+        JsonCourseBookStorage courseBookStorage = new JsonCourseBookStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
+        storageManager = new StorageManager(courseBookStorage, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -54,7 +54,7 @@ public class StorageManagerTest {
          * {@link JsonCourseBookStorage} class.
          * More extensive testing of UserPref saving/reading is done in {@link JsonCourseBookStorageTest} class.
          */
-        CourseBook original = TypicalPersons.getTypicalAddressBook();
+        CourseBook original = TypicalPersons.getTypicalCourseBook();
         storageManager.saveCourseBook(original);
         ReadOnlyCourseBook retrieved = storageManager.readCourseBook().get();
         assertEquals(original, new CourseBook(retrieved));

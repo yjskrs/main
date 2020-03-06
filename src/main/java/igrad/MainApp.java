@@ -69,19 +69,19 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
-     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
-     * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s course book and {@code userPrefs}. <br>
+     * The data from the sample course book will be used instead if {@code storage}'s course book is not found,
+     * or an empty course book will be used instead if errors occur when reading {@code storage}'s course book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyCourseBook> addressBookOptional;
+        Optional<ReadOnlyCourseBook> courseBookOptional;
         ReadOnlyCourseBook initialData;
         try {
-            addressBookOptional = storage.readCourseBook();
-            if (!addressBookOptional.isPresent()) {
+            courseBookOptional = storage.readCourseBook();
+            if (!courseBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample CourseBook");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialData = courseBookOptional.orElseGet(SampleDataUtil::getSampleCourseBook);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty CourseBook");
             initialData = new CourseBook();
@@ -167,13 +167,13 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting CourseBook " + MainApp.VERSION);
+        logger.info("Starting iGrad " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping iGrad ] =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {

@@ -29,15 +29,15 @@ public interface Logic {
      *
      * @see Model#getCourseBook()
      */
-    ReadOnlyCourseBook getAddressBook();
+    ReadOnlyCourseBook getCourseBook();
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' course book file path.
      */
-    Path getAddressBookFilePath();
+    Path getCourseBookFilePath();
 
     /**
      * Returns the user prefs' GUI settings.

@@ -21,7 +21,7 @@ public class AddCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(TypicalPersons.getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(TypicalPersons.getTypicalCourseBook(), new UserPrefs());
     }
 
     @Test

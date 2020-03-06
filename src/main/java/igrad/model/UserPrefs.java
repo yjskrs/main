@@ -14,7 +14,7 @@ import igrad.commons.core.GuiSettings;
 public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
-    private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
+    private Path courseBookFilePath = Paths.get("data" , "coursebook.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -48,12 +48,12 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     }
 
     public Path getCourseBookFilePath() {
-        return addressBookFilePath;
+        return courseBookFilePath;
     }
 
-    public void setCourseBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        this.addressBookFilePath = addressBookFilePath;
+    public void setCourseBookFilePath(Path courseBookFilePath) {
+        requireNonNull(courseBookFilePath);
+        this.courseBookFilePath = courseBookFilePath;
     }
 
     @Override
@@ -68,19 +68,19 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
-                && addressBookFilePath.equals(o.addressBookFilePath);
+                && courseBookFilePath.equals(o.courseBookFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, addressBookFilePath);
+        return Objects.hash(guiSettings, courseBookFilePath);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
-        sb.append("\nLocal data file location : " + addressBookFilePath);
+        sb.append("\nLocal data file location : " + courseBookFilePath);
         return sb.toString();
     }
 

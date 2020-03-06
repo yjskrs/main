@@ -9,7 +9,7 @@ import igrad.model.person.Person;
 import igrad.model.person.UniquePersonList;
 
 /**
- * Wraps all data at the address-book level
+ * Wraps all data at the course-book level
  * Duplicates are not allowed (by .isSamePerson comparison)
  */
 public class CourseBook implements ReadOnlyCourseBook {
@@ -67,8 +67,8 @@ public class CourseBook implements ReadOnlyCourseBook {
     }
 
     /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
+     * Adds a person to the course book.
+     * The person must not already exist in the course book.
      */
     public void addPerson(Person p) {
         persons.add(p);
@@ -76,8 +76,8 @@ public class CourseBook implements ReadOnlyCourseBook {
 
     /**
      * Replaces the given person {@code target} in the list with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * {@code target} must exist in the course book.
+     * The person identity of {@code editedPerson} must not be the same as another existing person in the course book.
      */
     public void setPerson(Person target, Person editedPerson) {
         requireNonNull(editedPerson);
@@ -87,7 +87,7 @@ public class CourseBook implements ReadOnlyCourseBook {
 
     /**
      * Removes {@code key} from this {@code CourseBook}.
-     * {@code key} must exist in the address book.
+     * {@code key} must exist in the course book.
      */
     public void removePerson(Person key) {
         persons.remove(key);

@@ -40,12 +40,12 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyCourseBook getSampleAddressBook() {
-        CourseBook sampleAb = new CourseBook();
+    public static ReadOnlyCourseBook getSampleCourseBook() {
+        CourseBook sampleCourseBook = new CourseBook();
         for (Person samplePerson : getSamplePersons()) {
-            sampleAb.addPerson(samplePerson);
+            sampleCourseBook.addPerson(samplePerson);
         }
-        return sampleAb;
+        return sampleCourseBook;
     }
 
     /**

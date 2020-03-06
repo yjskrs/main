@@ -11,7 +11,7 @@ import igrad.model.Model;
 import igrad.model.person.Person;
 
 /**
- * Deletes a person identified using it's displayed index from the address book.
+ * Deletes a person identified using it's displayed index from the course book.
  */
 public class DeleteCommand extends Command {
 

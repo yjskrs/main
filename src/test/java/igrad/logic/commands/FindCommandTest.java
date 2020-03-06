@@ -21,8 +21,8 @@ import igrad.model.person.NameContainsKeywordsPredicate;
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindCommandTest {
-    private Model model = new ModelManager(TypicalPersons.getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(TypicalPersons.getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(TypicalPersons.getTypicalCourseBook(), new UserPrefs());
+    private Model expectedModel = new ModelManager(TypicalPersons.getTypicalCourseBook(), new UserPrefs());
 
     @Test
     public void equals() {

@@ -36,8 +36,8 @@ public class CourseBookTest {
     }
 
     @Test
-    public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        CourseBook newData = TypicalPersons.getTypicalAddressBook();
+    public void resetData_withValidReadOnlyCourseBook_replacesData() {
+        CourseBook newData = TypicalPersons.getTypicalCourseBook();
         courseBook.resetData(newData);
         assertEquals(newData, courseBook);
     }

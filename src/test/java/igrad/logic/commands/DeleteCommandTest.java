@@ -23,7 +23,7 @@ import igrad.model.person.Person;
  */
 public class DeleteCommandTest {
 
-    private Model model = new ModelManager(TypicalPersons.getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(TypicalPersons.getTypicalCourseBook(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {

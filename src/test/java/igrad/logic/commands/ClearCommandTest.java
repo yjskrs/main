@@ -13,7 +13,7 @@ import igrad.model.UserPrefs;
 public class ClearCommandTest {
 
     @Test
-    public void execute_emptyAddressBook_success() {
+    public void execute_emptyCourseBook_success() {
         Model model = new ModelManager();
         Model expectedModel = new ModelManager();
 
@@ -21,9 +21,9 @@ public class ClearCommandTest {
     }
 
     @Test
-    public void execute_nonEmptyAddressBook_success() {
-        Model model = new ModelManager(TypicalPersons.getTypicalAddressBook(), new UserPrefs());
-        Model expectedModel = new ModelManager(TypicalPersons.getTypicalAddressBook(), new UserPrefs());
+    public void execute_nonEmptyCourseBook_success() {
+        Model model = new ModelManager(TypicalPersons.getTypicalCourseBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(TypicalPersons.getTypicalCourseBook(), new UserPrefs());
         expectedModel.setCourseBook(new CourseBook());
 
         assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);
