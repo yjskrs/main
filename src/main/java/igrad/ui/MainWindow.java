@@ -4,9 +4,9 @@ import java.util.logging.Logger;
 
 import igrad.commons.core.GuiSettings;
 import igrad.commons.core.LogsCenter;
+import igrad.logic.Logic;
 import igrad.logic.commands.CommandResult;
 import igrad.logic.commands.exceptions.CommandException;
-import igrad.logic.Logic;
 import igrad.logic.parser.exceptions.ParseException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

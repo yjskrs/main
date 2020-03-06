@@ -1,8 +1,8 @@
 package igrad.ui;
 
+import igrad.logic.Logic;
 import igrad.logic.commands.CommandResult;
 import igrad.logic.commands.exceptions.CommandException;
-import igrad.logic.Logic;
 import igrad.logic.parser.exceptions.ParseException;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

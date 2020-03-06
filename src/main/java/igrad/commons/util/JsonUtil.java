@@ -20,8 +20,8 @@ import com.fasterxml.jackson.databind.deser.std.FromStringDeserializer;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 
-import igrad.commons.exceptions.DataConversionException;
 import igrad.commons.core.LogsCenter;
+import igrad.commons.exceptions.DataConversionException;
 
 /**
  * Converts a Java object instance to JSON and vice versa
