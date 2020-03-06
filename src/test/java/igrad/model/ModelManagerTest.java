@@ -61,12 +61,12 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void setAddressBookFilePath_nullPath_throwsNullPointerException() {
+    public void setCourseBookFilePath_nullPath_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> modelManager.setCourseBookFilePath(null));
     }
 
     @Test
-    public void setAddressBookFilePath_validPath_setsAddressBookFilePath() {
+    public void setCourseBookFilePath_validPath_setsCourseBookFilePath() {
         Path path = Paths.get("address/book/file/path");
         modelManager.setCourseBookFilePath(path);
         assertEquals(path, modelManager.getCourseBookFilePath());
@@ -78,12 +78,12 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
+    public void hasPerson_personNotInCourseBook_returnsFalse() {
         assertFalse(modelManager.hasPerson(TypicalPersons.ALICE));
     }
 
     @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
+    public void hasPerson_personInCourseBook_returnsTrue() {
         modelManager.addPerson(TypicalPersons.ALICE);
         assertTrue(modelManager.hasPerson(TypicalPersons.ALICE));
     }

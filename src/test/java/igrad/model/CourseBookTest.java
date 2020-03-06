@@ -59,18 +59,18 @@ public class CourseBookTest {
     }
 
     @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
+    public void hasPerson_personNotInCourseBook_returnsFalse() {
         assertFalse(courseBook.hasPerson(TypicalPersons.ALICE));
     }
 
     @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
+    public void hasPerson_personInCourseBook_returnsTrue() {
         courseBook.addPerson(TypicalPersons.ALICE);
         assertTrue(courseBook.hasPerson(TypicalPersons.ALICE));
     }
 
     @Test
-    public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
+    public void hasPerson_personWithSameIdentityFieldsInCourseBook_returnsTrue() {
         courseBook.addPerson(TypicalPersons.ALICE);
         Person editedAlice = new PersonBuilder(TypicalPersons.ALICE).withAddress(CommandTestUtil.VALID_ADDRESS_BOB).withTags(CommandTestUtil.VALID_TAG_HUSBAND)
                 .build();

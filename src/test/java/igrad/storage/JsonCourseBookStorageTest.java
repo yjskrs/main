@@ -60,42 +60,42 @@ public class JsonCourseBookStorageTest {
 
     @Test
     public void readAndSaveCourseBook_allInOrder_success() throws Exception {
-        Path filePath = testFolder.resolve("TempAddressBook.json");
+        Path filePath = testFolder.resolve("TempCourseBook.json");
         CourseBook original = TypicalPersons.getTypicalCourseBook();
-        JsonCourseBookStorage jsonAddressBookStorage = new JsonCourseBookStorage(filePath);
+        JsonCourseBookStorage jsonCourseBookStorage = new JsonCourseBookStorage(filePath);
 
         // Save in new file and read back
-        jsonAddressBookStorage.saveCourseBook(original, filePath);
-        ReadOnlyCourseBook readBack = jsonAddressBookStorage.readCourseBook(filePath).get();
+        jsonCourseBookStorage.saveCourseBook(original, filePath);
+        ReadOnlyCourseBook readBack = jsonCourseBookStorage.readCourseBook(filePath).get();
         assertEquals(original, new CourseBook(readBack));
 
         // Modify data, overwrite exiting file, and read back
         original.addPerson(TypicalPersons.HOON);
         original.removePerson(TypicalPersons.ALICE);
-        jsonAddressBookStorage.saveCourseBook(original, filePath);
-        readBack = jsonAddressBookStorage.readCourseBook(filePath).get();
+        jsonCourseBookStorage.saveCourseBook(original, filePath);
+        readBack = jsonCourseBookStorage.readCourseBook(filePath).get();
         assertEquals(original, new CourseBook(readBack));
 
         // Save and read without specifying file path
         original.addPerson(TypicalPersons.IDA);
-        jsonAddressBookStorage.saveCourseBook(original); // file path not specified
-        readBack = jsonAddressBookStorage.readCourseBook().get(); // file path not specified
+        jsonCourseBookStorage.saveCourseBook(original); // file path not specified
+        readBack = jsonCourseBookStorage.readCourseBook().get(); // file path not specified
         assertEquals(original, new CourseBook(readBack));
 
     }
 
     @Test
-    public void saveCourseBook_nullAddressBook_throwsNullPointerException() {
+    public void saveCourseBook_nullCourseBook_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> saveCourseBook(null, "SomeFile.json"));
     }
 
     /**
-     * Saves {@code addressBook} at the specified {@code filePath}.
+     * Saves {@code courseBook} at the specified {@code filePath}.
      */
-    private void saveCourseBook(ReadOnlyCourseBook addressBook, String filePath) {
+    private void saveCourseBook(ReadOnlyCourseBook courseBook, String filePath) {
         try {
             new JsonCourseBookStorage(Paths.get(filePath))
-                    .saveCourseBook(addressBook, addToTestDataPathIfNotNull(filePath));
+                    .saveCourseBook(courseBook, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }
