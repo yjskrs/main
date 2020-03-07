@@ -2,16 +2,16 @@ package igrad.logic.parser;
 
 import static igrad.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import igrad.model.module.Module;
-import igrad.testutil.ModuleBuilder;
 import org.junit.jupiter.api.Test;
 
 import igrad.logic.commands.CommandTestUtil;
 import igrad.logic.commands.AddCommand;
 import igrad.model.module.Email;
+import igrad.model.module.Module;
 import igrad.model.module.Name;
 import igrad.model.module.Phone;
 import igrad.model.tag.Tag;
+import igrad.testutil.ModuleBuilder;
 import igrad.testutil.TypicalPersons;
 
 public class AddCommandParserTest {

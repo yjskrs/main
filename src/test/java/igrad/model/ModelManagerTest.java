@@ -10,13 +10,13 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 
-import igrad.testutil.CourseBookBuilder;
-import igrad.testutil.Assert;
-import igrad.testutil.TypicalPersons;
 import org.junit.jupiter.api.Test;
 
 import igrad.commons.core.GuiSettings;
 import igrad.model.module.NameContainsKeywordsPredicate;
+import igrad.testutil.CourseBookBuilder;
+import igrad.testutil.Assert;
+import igrad.testutil.TypicalPersons;
 
 public class ModelManagerTest {
 

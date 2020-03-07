@@ -11,12 +11,12 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import igrad.testutil.Assert;
-import igrad.testutil.ModuleBuilder;
 import org.junit.jupiter.api.Test;
 
 import igrad.model.module.exceptions.DuplicateModuleException;
 import igrad.model.module.exceptions.ModuleNotFoundException;
+import igrad.testutil.Assert;
+import igrad.testutil.ModuleBuilder;
 
 public class UniqueModuleListTest {
 
@@ -158,7 +158,8 @@ public class UniqueModuleListTest {
     @Test
     public void setPersons_listWithDuplicatePersons_throwsDuplicatePersonException() {
         List<Module> listWithDuplicateModules = Arrays.asList(ALICE, ALICE);
-        Assert.assertThrows(DuplicateModuleException.class, () -> uniqueModuleList.setModules(listWithDuplicateModules));
+        Assert.assertThrows(DuplicateModuleException.class, ()
+            -> uniqueModuleList.setModules(listWithDuplicateModules));
     }
 
     @Test

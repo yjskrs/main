@@ -1,18 +1,17 @@
 package igrad.storage;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static igrad.testutil.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import igrad.testutil.Assert;
-import igrad.testutil.TypicalPersons;
 import org.junit.jupiter.api.Test;
 
 import igrad.commons.exceptions.IllegalValueException;
 import igrad.commons.util.JsonUtil;
 import igrad.model.CourseBook;
+import igrad.testutil.TypicalPersons;
 
 public class JsonSerializableCourseBookTest {
 
@@ -34,14 +33,14 @@ public class JsonSerializableCourseBookTest {
     public void toModelType_invalidPersonFile_throwsIllegalValueException() throws Exception {
         JsonSerializableCourseBook dataFromFile = JsonUtil.readJsonFile(INVALID_PERSON_FILE,
                 JsonSerializableCourseBook.class).get();
-        Assert.assertThrows(IllegalValueException.class, dataFromFile::toModelType);
+        assertThrows(IllegalValueException.class, dataFromFile::toModelType);
     }
 
     @Test
     public void toModelType_duplicatePersons_throwsIllegalValueException() throws Exception {
         JsonSerializableCourseBook dataFromFile = JsonUtil.readJsonFile(DUPLICATE_PERSON_FILE,
                 JsonSerializableCourseBook.class).get();
-        Assert.assertThrows(IllegalValueException.class, JsonSerializableCourseBook.MESSAGE_DUPLICATE_PERSON,
+        assertThrows(IllegalValueException.class, JsonSerializableCourseBook.MESSAGE_DUPLICATE_PERSON,
                 dataFromFile::toModelType);
     }
 

@@ -6,11 +6,6 @@ import static igrad.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import igrad.model.module.Module;
-import igrad.testutil.EditModuleDescriptorBuilder;
-import igrad.testutil.ModuleBuilder;
-import igrad.testutil.ModuleUtil;
-import igrad.testutil.TypicalIndexes;
 import org.junit.jupiter.api.Test;
 
 import igrad.logic.commands.AddCommand;
@@ -21,6 +16,11 @@ import igrad.logic.commands.EditCommand.EditModuleDescriptor;
 import igrad.logic.commands.ExitCommand;
 import igrad.logic.commands.HelpCommand;
 import igrad.logic.parser.exceptions.ParseException;
+import igrad.model.module.Module;
+import igrad.testutil.EditModuleDescriptorBuilder;
+import igrad.testutil.ModuleBuilder;
+import igrad.testutil.ModuleUtil;
+import igrad.testutil.TypicalIndexes;
 
 public class CourseBookParserTest {
 
@@ -70,13 +70,13 @@ public class CourseBookParserTest {
 
     @Test
     public void parseCommand_unrecognisedInput_throwsParseException() {
-        assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE),
-                () -> parser.parseCommand(""));
+        assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE), ()
+            -> parser.parseCommand(""));
     }
 
     @Test
     public void parseCommand_unknownCommand_throwsParseException() {
-        assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND,
-                () -> parser.parseCommand("unknownCommand"));
+        assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND, ()
+            -> parser.parseCommand("unknownCommand"));
     }
 }

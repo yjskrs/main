@@ -5,6 +5,8 @@ import static igrad.logic.parser.CliSyntax.PREFIX_TAG;
 import static igrad.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static igrad.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
+import org.junit.jupiter.api.Test;
+
 import igrad.commons.core.index.Index;
 import igrad.logic.commands.EditCommand;
 import igrad.logic.commands.EditCommand.EditModuleDescriptor;
@@ -15,7 +17,6 @@ import igrad.model.tag.Tag;
 import igrad.logic.commands.CommandTestUtil;
 import igrad.testutil.EditModuleDescriptorBuilder;
 import igrad.testutil.TypicalIndexes;
-import org.junit.jupiter.api.Test;
 
 public class EditCommandParserTest {
 
@@ -124,7 +125,8 @@ public class EditCommandParserTest {
         // name
         Index targetIndex = TypicalIndexes.INDEX_THIRD_PERSON;
         String userInput = targetIndex.getOneBased() + CommandTestUtil.NAME_DESC_AMY;
-        EditCommand.EditModuleDescriptor descriptor = new EditModuleDescriptorBuilder().withName(CommandTestUtil.VALID_NAME_AMY)
+        EditCommand.EditModuleDescriptor descriptor = new EditModuleDescriptorBuilder()
+                .withName(CommandTestUtil.VALID_NAME_AMY)
                 .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -170,7 +172,8 @@ public class EditCommandParserTest {
     public void parse_invalidValueFollowedByValidValue_success() {
         // no other valid values specified
         Index targetIndex = TypicalIndexes.INDEX_FIRST_PERSON;
-        String userInput = targetIndex.getOneBased() + CommandTestUtil.INVALID_PHONE_DESC + CommandTestUtil.PHONE_DESC_BOB;
+        String userInput = targetIndex.getOneBased() + CommandTestUtil.INVALID_PHONE_DESC
+                + CommandTestUtil.PHONE_DESC_BOB;
         EditModuleDescriptor descriptor = new EditModuleDescriptorBuilder()
                 .withPhone(CommandTestUtil.VALID_PHONE_BOB)
                 .build();

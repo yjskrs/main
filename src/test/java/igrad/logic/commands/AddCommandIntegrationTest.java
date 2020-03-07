@@ -2,7 +2,6 @@ package igrad.logic.commands;
 
 import static igrad.logic.commands.CommandTestUtil.assertCommandSuccess;
 
-import igrad.testutil.ModuleBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -10,6 +9,7 @@ import igrad.model.Model;
 import igrad.model.ModelManager;
 import igrad.model.UserPrefs;
 import igrad.model.module.Module;
+import igrad.testutil.ModuleBuilder;
 import igrad.testutil.TypicalPersons;
 
 /**

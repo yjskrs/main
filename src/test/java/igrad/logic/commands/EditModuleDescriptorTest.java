@@ -12,7 +12,8 @@ public class EditModuleDescriptorTest {
     @Test
     public void equals() {
         // same values -> returns true
-        EditCommand.EditModuleDescriptor descriptorWithSameValues = new EditCommand.EditModuleDescriptor(CommandTestUtil.DESC_AMY);
+        EditCommand.EditModuleDescriptor descriptorWithSameValues = new EditCommand
+                .EditModuleDescriptor(CommandTestUtil.DESC_AMY);
         assertTrue(CommandTestUtil.DESC_AMY.equals(descriptorWithSameValues));
 
         // same object -> returns true

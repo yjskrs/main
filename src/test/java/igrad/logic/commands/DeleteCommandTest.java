@@ -1,21 +1,21 @@
 package igrad.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static igrad.logic.commands.CommandTestUtil.assertCommandFailure;
 import static igrad.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static igrad.logic.commands.CommandTestUtil.showPersonAtIndex;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import igrad.model.module.Module;
-import igrad.testutil.TypicalIndexes;
-import igrad.testutil.TypicalPersons;
 import org.junit.jupiter.api.Test;
 
 import igrad.commons.core.Messages;
 import igrad.commons.core.index.Index;
+import igrad.model.module.Module;
 import igrad.model.Model;
 import igrad.model.ModelManager;
 import igrad.model.UserPrefs;
+import igrad.testutil.TypicalIndexes;
+import igrad.testutil.TypicalPersons;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for

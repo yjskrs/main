@@ -1,24 +1,24 @@
 package igrad.model;
 
+import static igrad.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static igrad.testutil.Assert.assertThrows;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import org.junit.jupiter.api.Test;
+
 import igrad.logic.commands.CommandTestUtil;
+import igrad.model.module.exceptions.DuplicateModuleException;
 import igrad.model.module.Module;
 import igrad.testutil.ModuleBuilder;
 import igrad.testutil.TypicalPersons;
-import org.junit.jupiter.api.Test;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import igrad.model.module.exceptions.DuplicateModuleException;
 
 public class CourseBookTest {
 

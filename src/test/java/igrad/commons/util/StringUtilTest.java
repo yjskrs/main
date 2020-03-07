@@ -1,10 +1,11 @@
 package igrad.commons.util;
 
+import static igrad.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static igrad.testutil.Assert.assertThrows;
 
 import java.io.FileNotFoundException;
+
 import org.junit.jupiter.api.Test;
 
 public class StringUtilTest {

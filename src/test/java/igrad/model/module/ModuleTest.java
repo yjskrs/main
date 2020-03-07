@@ -1,16 +1,17 @@
 package igrad.model.module;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static igrad.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static igrad.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static igrad.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static igrad.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static igrad.testutil.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
 
 import igrad.testutil.ModuleBuilder;
 import igrad.testutil.TypicalPersons;
-import org.junit.jupiter.api.Test;
 
 public class ModuleTest {
 
@@ -29,7 +30,8 @@ public class ModuleTest {
         assertFalse(TypicalPersons.ALICE.isSameModule(null));
 
         // different phone and email -> returns false
-        Module editedAlice = new ModuleBuilder(TypicalPersons.ALICE).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
+        Module editedAlice = new ModuleBuilder(TypicalPersons.ALICE).withPhone(VALID_PHONE_BOB)
+                .withEmail(VALID_EMAIL_BOB).build();
         assertFalse(TypicalPersons.ALICE.isSameModule(editedAlice));
 
         // different name -> returns false

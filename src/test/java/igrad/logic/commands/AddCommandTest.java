@@ -1,27 +1,27 @@
 package igrad.logic.commands;
 
+import static igrad.testutil.Assert.assertThrows;
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static igrad.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Predicate;
 
-import igrad.model.module.Module;
-import igrad.testutil.ModuleBuilder;
 import org.junit.jupiter.api.Test;
 
-import javafx.collections.ObservableList;
 import igrad.commons.core.GuiSettings;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.CourseBook;
 import igrad.model.Model;
+import igrad.model.module.Module;
 import igrad.model.ReadOnlyCourseBook;
 import igrad.model.ReadOnlyUserPrefs;
+import igrad.testutil.ModuleBuilder;
+import javafx.collections.ObservableList;
 
 public class AddCommandTest {
 
