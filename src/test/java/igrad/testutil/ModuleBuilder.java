@@ -56,7 +56,7 @@ public class ModuleBuilder {
         this.tags = SampleDataUtil.getTagSet(tags);
         return this;
     }
-    
+
     /**
      * Sets the {@code Phone} of the {@code Module} that we are building.
      */
