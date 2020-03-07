@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static igrad.logic.commands.CommandTestUtil.assertCommandSuccess;
 
-import igrad.testutil.EditPersonDescriptorBuilder;
+import igrad.testutil.EditModuleDescriptorBuilder;
 import igrad.testutil.ModuleBuilder;
 import igrad.testutil.TypicalIndexes;
 import igrad.testutil.TypicalPersons;
@@ -29,7 +29,7 @@ public class EditCommandTest {
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         Module editedModule = new ModuleBuilder().build();
-        EditCommand.EditModuleDescriptor descriptor = new EditPersonDescriptorBuilder(editedModule).build();
+        EditCommand.EditModuleDescriptor descriptor = new EditModuleDescriptorBuilder(editedModule).build();
         EditCommand editCommand = new EditCommand(TypicalIndexes.INDEX_FIRST_PERSON, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_MODULE_SUCCESS, editedModule);
@@ -49,7 +49,7 @@ public class EditCommandTest {
         Module editedModule = personInList.withName(CommandTestUtil.VALID_NAME_BOB).withPhone(CommandTestUtil.VALID_PHONE_BOB)
                 .withTags(CommandTestUtil.VALID_TAG_HUSBAND).build();
 
-        EditModuleDescriptor descriptor = new EditPersonDescriptorBuilder().withName(CommandTestUtil.VALID_NAME_BOB)
+        EditModuleDescriptor descriptor = new EditModuleDescriptorBuilder().withName(CommandTestUtil.VALID_NAME_BOB)
                 .withPhone(CommandTestUtil.VALID_PHONE_BOB).withTags(CommandTestUtil.VALID_TAG_HUSBAND).build();
         EditCommand editCommand = new EditCommand(indexLastPerson, descriptor);
 
@@ -80,7 +80,7 @@ public class EditCommandTest {
         Module moduleInFilteredList = model.getFilteredModuleList().get(TypicalIndexes.INDEX_FIRST_PERSON.getZeroBased());
         Module editedModule = new ModuleBuilder(moduleInFilteredList).withName(CommandTestUtil.VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(TypicalIndexes.INDEX_FIRST_PERSON,
-                new EditPersonDescriptorBuilder().withName(CommandTestUtil.VALID_NAME_BOB).build());
+                new EditModuleDescriptorBuilder().withName(CommandTestUtil.VALID_NAME_BOB).build());
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_MODULE_SUCCESS, editedModule);
 
@@ -93,7 +93,7 @@ public class EditCommandTest {
     @Test
     public void execute_duplicatePersonUnfilteredList_failure() {
         Module firstModule = model.getFilteredModuleList().get(TypicalIndexes.INDEX_FIRST_PERSON.getZeroBased());
-        EditModuleDescriptor descriptor = new EditPersonDescriptorBuilder(firstModule).build();
+        EditModuleDescriptor descriptor = new EditModuleDescriptorBuilder(firstModule).build();
         EditCommand editCommand = new EditCommand(TypicalIndexes.INDEX_SECOND_PERSON, descriptor);
 
         CommandTestUtil.assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_MODULE);
@@ -106,7 +106,7 @@ public class EditCommandTest {
         // edit module in filtered list into a duplicate in course book
         Module moduleInList = model.getCourseBook().getModuleList().get(TypicalIndexes.INDEX_SECOND_PERSON.getZeroBased());
         EditCommand editCommand = new EditCommand(TypicalIndexes.INDEX_FIRST_PERSON,
-                new EditPersonDescriptorBuilder(moduleInList).build());
+                new EditModuleDescriptorBuilder(moduleInList).build());
 
         CommandTestUtil.assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_MODULE);
     }
@@ -114,7 +114,7 @@ public class EditCommandTest {
     @Test
     public void execute_invalidPersonIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredModuleList().size() + 1);
-        EditModuleDescriptor descriptor = new EditPersonDescriptorBuilder().withName(CommandTestUtil.VALID_NAME_BOB).build();
+        EditModuleDescriptor descriptor = new EditModuleDescriptorBuilder().withName(CommandTestUtil.VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
         CommandTestUtil.assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_MODULE_DISPLAYED_INDEX);
@@ -132,7 +132,7 @@ public class EditCommandTest {
         assertTrue(outOfBoundIndex.getZeroBased() < model.getCourseBook().getModuleList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
-                new EditPersonDescriptorBuilder().withName(CommandTestUtil.VALID_NAME_BOB).build());
+                new EditModuleDescriptorBuilder().withName(CommandTestUtil.VALID_NAME_BOB).build());
 
         CommandTestUtil.assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_MODULE_DISPLAYED_INDEX);
     }

@@ -15,22 +15,22 @@ import igrad.model.tag.Tag;
 /**
  * A utility class to help with building EditModuleDescriptor objects.
  */
-public class EditPersonDescriptorBuilder {
+public class EditModuleDescriptorBuilder {
 
     private EditCommand.EditModuleDescriptor descriptor;
 
-    public EditPersonDescriptorBuilder() {
+    public EditModuleDescriptorBuilder() {
         descriptor = new EditCommand.EditModuleDescriptor();
     }
 
-    public EditPersonDescriptorBuilder(EditCommand.EditModuleDescriptor descriptor) {
+    public EditModuleDescriptorBuilder(EditCommand.EditModuleDescriptor descriptor) {
         this.descriptor = new EditCommand.EditModuleDescriptor(descriptor);
     }
 
     /**
      * Returns an {@code EditModuleDescriptor} with fields containing {@code module}'s details
      */
-    public EditPersonDescriptorBuilder(Module module) {
+    public EditModuleDescriptorBuilder(Module module) {
         descriptor = new EditCommand.EditModuleDescriptor();
         descriptor.setName(module.getName());
         descriptor.setPhone(module.getPhone());
@@ -41,7 +41,7 @@ public class EditPersonDescriptorBuilder {
     /**
      * Sets the {@code Name} of the {@code EditModuleDescriptor} that we are building.
      */
-    public EditPersonDescriptorBuilder withName(String name) {
+    public EditModuleDescriptorBuilder withName(String name) {
         descriptor.setName(new Name(name));
         return this;
     }
@@ -49,7 +49,7 @@ public class EditPersonDescriptorBuilder {
     /**
      * Sets the {@code Phone} of the {@code EditModuleDescriptor} that we are building.
      */
-    public EditPersonDescriptorBuilder withPhone(String phone) {
+    public EditModuleDescriptorBuilder withPhone(String phone) {
         descriptor.setPhone(new Phone(phone));
         return this;
     }
@@ -57,7 +57,7 @@ public class EditPersonDescriptorBuilder {
     /**
      * Sets the {@code Email} of the {@code EditModuleDescriptor} that we are building.
      */
-    public EditPersonDescriptorBuilder withEmail(String email) {
+    public EditModuleDescriptorBuilder withEmail(String email) {
         descriptor.setEmail(new Email(email));
         return this;
     }
@@ -66,7 +66,7 @@ public class EditPersonDescriptorBuilder {
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditModuleDescriptor}
      * that we are building.
      */
-    public EditPersonDescriptorBuilder withTags(String... tags) {
+    public EditModuleDescriptorBuilder withTags(String... tags) {
         Set<Tag> tagSet = Stream.of(tags).map(Tag::new).collect(Collectors.toSet());
         descriptor.setTags(tagSet);
         return this;

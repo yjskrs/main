@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import igrad.testutil.EditPersonDescriptorBuilder;
+import igrad.testutil.EditModuleDescriptorBuilder;
 
 public class EditModuleDescriptorTest {
 
@@ -28,24 +28,24 @@ public class EditModuleDescriptorTest {
         assertFalse(CommandTestUtil.DESC_AMY.equals(CommandTestUtil.DESC_BOB));
 
         // different name -> returns false
-        EditCommand.EditModuleDescriptor editedAmy = new EditPersonDescriptorBuilder(CommandTestUtil.DESC_AMY)
+        EditCommand.EditModuleDescriptor editedAmy = new EditModuleDescriptorBuilder(CommandTestUtil.DESC_AMY)
                 .withName(CommandTestUtil.VALID_NAME_BOB).build();
         assertFalse(CommandTestUtil.DESC_AMY.equals(editedAmy));
 
         // different phone -> returns false
-        editedAmy = new EditPersonDescriptorBuilder(CommandTestUtil.DESC_AMY)
+        editedAmy = new EditModuleDescriptorBuilder(CommandTestUtil.DESC_AMY)
                 .withPhone(CommandTestUtil.VALID_PHONE_BOB)
                 .build();
         assertFalse(CommandTestUtil.DESC_AMY.equals(editedAmy));
 
         // different email -> returns false
-        editedAmy = new EditPersonDescriptorBuilder(CommandTestUtil.DESC_AMY)
+        editedAmy = new EditModuleDescriptorBuilder(CommandTestUtil.DESC_AMY)
                 .withEmail(CommandTestUtil.VALID_EMAIL_BOB)
                 .build();
         assertFalse(CommandTestUtil.DESC_AMY.equals(editedAmy));
 
         // different tags -> returns false
-        editedAmy = new EditPersonDescriptorBuilder(CommandTestUtil.DESC_AMY)
+        editedAmy = new EditModuleDescriptorBuilder(CommandTestUtil.DESC_AMY)
                 .withTags(CommandTestUtil.VALID_TAG_HUSBAND)
                 .build();
         assertFalse(CommandTestUtil.DESC_AMY.equals(editedAmy));

@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import igrad.model.module.Module;
-import igrad.testutil.EditPersonDescriptorBuilder;
+import igrad.testutil.EditModuleDescriptorBuilder;
 import igrad.testutil.ModuleBuilder;
 import igrad.testutil.ModuleUtil;
 import igrad.testutil.TypicalIndexes;
@@ -56,7 +56,7 @@ public class CourseBookParserTest {
     @Test
     public void parseCommand_edit() throws Exception {
         Module module = new ModuleBuilder().build();
-        EditModuleDescriptor descriptor = new EditPersonDescriptorBuilder(module).build();
+        EditModuleDescriptor descriptor = new EditModuleDescriptorBuilder(module).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
                 + TypicalIndexes.INDEX_FIRST_PERSON.getOneBased() + " "
                 + ModuleUtil.getEditModuleDescriptorDetails(descriptor));

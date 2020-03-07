@@ -11,7 +11,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of modules.
  */
 public class ModuleListPanel extends UiPart<Region> {
     private static final String FXML = "ModuleListPanel.fxml";
