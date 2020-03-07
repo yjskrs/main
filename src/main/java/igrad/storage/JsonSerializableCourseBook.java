@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import igrad.commons.exceptions.IllegalValueException;
 import igrad.model.CourseBook;
 import igrad.model.ReadOnlyCourseBook;
-import igrad.model.person.Person;
+import igrad.model.module.Module;
 
 /**
  * An Immutable CourseBook that is serializable to JSON format.
@@ -19,15 +19,15 @@ import igrad.model.person.Person;
 @JsonRootName(value = "coursebook")
 class JsonSerializableCourseBook {
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
+    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate module(s).";
 
-    private final List<JsonAdaptedPerson> persons = new ArrayList<>();
+    private final List<JsonAdaptedModule> persons = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableCourseBook} with the given persons.
      */
     @JsonCreator
-    public JsonSerializableCourseBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons) {
+    public JsonSerializableCourseBook(@JsonProperty("persons") List<JsonAdaptedModule> persons) {
         this.persons.addAll(persons);
     }
 
@@ -37,7 +37,7 @@ class JsonSerializableCourseBook {
      * @param source future changes to this will not affect the created {@code JsonSerializableCourseBook}.
      */
     public JsonSerializableCourseBook(ReadOnlyCourseBook source) {
-        persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
+        persons.addAll(source.getModuleList().stream().map(JsonAdaptedModule::new).collect(Collectors.toList()));
     }
 
     /**
@@ -47,12 +47,12 @@ class JsonSerializableCourseBook {
      */
     public CourseBook toModelType() throws IllegalValueException {
         CourseBook courseBook = new CourseBook();
-        for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
-            Person person = jsonAdaptedPerson.toModelType();
-            if (courseBook.hasPerson(person)) {
+        for (JsonAdaptedModule jsonAdaptedModule : persons) {
+            Module module = jsonAdaptedModule.toModelType();
+            if (courseBook.hasModule(module)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
-            courseBook.addPerson(person);
+            courseBook.addModule(module);
         }
         return courseBook;
     }

@@ -9,9 +9,9 @@ import java.util.Set;
 import igrad.commons.core.index.Index;
 import igrad.commons.util.StringUtil;
 import igrad.logic.parser.exceptions.ParseException;
-import igrad.model.person.Email;
-import igrad.model.person.Name;
-import igrad.model.person.Phone;
+import igrad.model.module.Email;
+import igrad.model.module.Name;
+import igrad.model.module.Phone;
 import igrad.model.tag.Tag;
 
 /**

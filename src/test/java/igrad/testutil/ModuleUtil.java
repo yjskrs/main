@@ -8,40 +8,40 @@ import static igrad.logic.parser.CliSyntax.PREFIX_TAG;
 import java.util.Set;
 
 import igrad.logic.commands.AddCommand;
-import igrad.logic.commands.EditCommand.EditPersonDescriptor;
-import igrad.model.person.Person;
+import igrad.logic.commands.EditCommand.EditModuleDescriptor;
+import igrad.model.module.Module;
 import igrad.model.tag.Tag;
 
 /**
- * A utility class for Person.
+ * A utility class for Module.
  */
-public class PersonUtil {
+public class ModuleUtil {
 
     /**
-     * Returns an add command string for adding the {@code person}.
+     * Returns an add command string for adding the {@code module}.
      */
-    public static String getAddCommand(Person person) {
-        return AddCommand.COMMAND_WORD + " " + getPersonDetails(person);
+    public static String getAddCommand(Module module) {
+        return AddCommand.COMMAND_WORD + " " + getModuleDetails(module);
     }
 
     /**
-     * Returns the part of command string for the given {@code person}'s details.
+     * Returns the part of command string for the given {@code module}'s details.
      */
-    public static String getPersonDetails(Person person) {
+    public static String getModuleDetails(Module module) {
         StringBuilder sb = new StringBuilder();
-        sb.append(PREFIX_NAME + person.getName().fullName + " ");
-        sb.append(PREFIX_PHONE + person.getPhone().value + " ");
-        sb.append(PREFIX_EMAIL + person.getEmail().value + " ");
-        person.getTags().stream().forEach(
+        sb.append(PREFIX_NAME + module.getName().fullName + " ");
+        sb.append(PREFIX_PHONE + module.getPhone().value + " ");
+        sb.append(PREFIX_EMAIL + module.getEmail().value + " ");
+        module.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")
         );
         return sb.toString();
     }
 
     /**
-     * Returns the part of command string for the given {@code EditPersonDescriptor}'s details.
+     * Returns the part of command string for the given {@code EditModuleDescriptor}'s details.
      */
-    public static String getEditPersonDescriptorDetails(EditPersonDescriptor descriptor) {
+    public static String getEditModuleDescriptorDetails(EditModuleDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
         descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));

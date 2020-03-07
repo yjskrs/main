@@ -1,10 +1,10 @@
-package igrad.model.person;
+package igrad.model.module;
 
 import static igrad.commons.util.AppUtil.checkArgument;
 import static java.util.Objects.requireNonNull;
 
 /**
- * Represents a Person's phone number in the course book.
+ * Represents a Module's phone number in the course book.
  * Guarantees: immutable; is valid as declared in {@link #isValidPhone(String)}
  */
 public class Phone {

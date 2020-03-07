@@ -6,37 +6,37 @@ import java.util.stream.Collectors;
 
 import igrad.model.CourseBook;
 import igrad.model.ReadOnlyCourseBook;
-import igrad.model.person.Email;
-import igrad.model.person.Name;
-import igrad.model.person.Person;
-import igrad.model.person.Phone;
+import igrad.model.module.Email;
+import igrad.model.module.Module;
+import igrad.model.module.Name;
+import igrad.model.module.Phone;
 import igrad.model.tag.Tag;
 
 /**
  * Contains utility methods for populating {@code CourseBook} with sample data.
  */
 public class SampleDataUtil {
-    public static Person[] getSamplePersons() {
-        return new Person[] {
-            new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
+    public static Module[] getSamplePersons() {
+        return new Module[] {
+            new Module(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
                 getTagSet("friends")),
-            new Person(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
+            new Module(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
                 getTagSet("colleagues", "friends")),
-            new Person(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@example.com"),
+            new Module(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@example.com"),
                 getTagSet("neighbours")),
-            new Person(new Name("David Li"), new Phone("91031282"), new Email("lidavid@example.com"),
+            new Module(new Name("David Li"), new Phone("91031282"), new Email("lidavid@example.com"),
                 getTagSet("family")),
-            new Person(new Name("Irfan Ibrahim"), new Phone("92492021"), new Email("irfan@example.com"),
+            new Module(new Name("Irfan Ibrahim"), new Phone("92492021"), new Email("irfan@example.com"),
                 getTagSet("classmates")),
-            new Person(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
+            new Module(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
                 getTagSet("colleagues"))
         };
     }
 
     public static ReadOnlyCourseBook getSampleCourseBook() {
         CourseBook sampleCourseBook = new CourseBook();
-        for (Person samplePerson : getSamplePersons()) {
-            sampleCourseBook.addPerson(samplePerson);
+        for (Module sampleModule : getSamplePersons()) {
+            sampleCourseBook.addModule(sampleModule);
         }
         return sampleCourseBook;
     }

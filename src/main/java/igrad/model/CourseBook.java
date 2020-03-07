@@ -4,17 +4,17 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
-import igrad.model.person.Person;
-import igrad.model.person.UniquePersonList;
+import igrad.model.module.Module;
+import igrad.model.module.UniqueModuleList;
 import javafx.collections.ObservableList;
 
 /**
  * Wraps all data at the course-book level
- * Duplicates are not allowed (by .isSamePerson comparison)
+ * Duplicates are not allowed (by .isSameModule comparison)
  */
 public class CourseBook implements ReadOnlyCourseBook {
 
-    private final UniquePersonList persons;
+    private final UniqueModuleList modules;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -24,7 +24,7 @@ public class CourseBook implements ReadOnlyCourseBook {
      *   among constructors.
      */
     {
-        persons = new UniquePersonList();
+        modules = new UniqueModuleList();
     }
 
     public CourseBook() {}
@@ -40,11 +40,11 @@ public class CourseBook implements ReadOnlyCourseBook {
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the person list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of the module list with {@code modules}.
+     * {@code modules} must not contain duplicate modules.
      */
-    public void setPersons(List<Person> persons) {
-        this.persons.setPersons(persons);
+    public void setModules(List<Module> modules) {
+        this.modules.setModules(modules);
     }
 
     /**
@@ -53,68 +53,68 @@ public class CourseBook implements ReadOnlyCourseBook {
     public void resetData(ReadOnlyCourseBook newData) {
         requireNonNull(newData);
 
-        setPersons(newData.getPersonList());
+        setModules(newData.getModuleList());
     }
 
-    //// person-level operations
+    //// module-level operations
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the course book.
+     * Returns true if a module with the same identity as {@code module} exists in the course book.
      */
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return persons.contains(person);
+    public boolean hasModule(Module module) {
+        requireNonNull(module);
+        return modules.contains(module);
     }
 
     /**
-     * Adds a person to the course book.
-     * The person must not already exist in the course book.
+     * Adds a module to the course book.
+     * The module must not already exist in the course book.
      */
-    public void addPerson(Person p) {
-        persons.add(p);
+    public void addModule(Module m) {
+        modules.add(m);
     }
 
     /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
+     * Replaces the given module {@code target} in the list with {@code editedModule}.
      * {@code target} must exist in the course book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the course book.
+     * The module identity of {@code editedModule} must not be the same as another existing module in the course book.
      */
-    public void setPerson(Person target, Person editedPerson) {
-        requireNonNull(editedPerson);
+    public void setModule(Module target, Module editedModule) {
+        requireNonNull(editedModule);
 
-        persons.setPerson(target, editedPerson);
+        modules.setModule(target, editedModule);
     }
 
     /**
      * Removes {@code key} from this {@code CourseBook}.
      * {@code key} must exist in the course book.
      */
-    public void removePerson(Person key) {
-        persons.remove(key);
+    public void removePerson(Module key) {
+        modules.remove(key);
     }
 
     //// util methods
 
     @Override
     public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons";
+        return modules.asUnmodifiableObservableList().size() + " persons";
         // TODO: refine later
     }
 
     @Override
-    public ObservableList<Person> getPersonList() {
-        return persons.asUnmodifiableObservableList();
+    public ObservableList<Module> getModuleList() {
+        return modules.asUnmodifiableObservableList();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof CourseBook // instanceof handles nulls
-                && persons.equals(((CourseBook) other).persons));
+                && modules.equals(((CourseBook) other).modules));
     }
 
     @Override
     public int hashCode() {
-        return persons.hashCode();
+        return modules.hashCode();
     }
 }

@@ -5,7 +5,7 @@ import java.util.Arrays;
 import igrad.commons.core.Messages;
 import igrad.logic.commands.FindCommand;
 import igrad.logic.parser.exceptions.ParseException;
-import igrad.model.person.NameContainsKeywordsPredicate;
+import igrad.model.module.NameContainsKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new FindCommand object

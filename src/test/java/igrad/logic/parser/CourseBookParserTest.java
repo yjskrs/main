@@ -10,9 +10,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import igrad.model.module.Module;
 import igrad.testutil.EditPersonDescriptorBuilder;
-import igrad.testutil.PersonBuilder;
-import igrad.testutil.PersonUtil;
+import igrad.testutil.ModuleBuilder;
+import igrad.testutil.ModuleUtil;
 import igrad.testutil.TypicalIndexes;
 import org.junit.jupiter.api.Test;
 
@@ -20,14 +21,13 @@ import igrad.logic.commands.AddCommand;
 import igrad.logic.commands.ClearCommand;
 import igrad.logic.commands.DeleteCommand;
 import igrad.logic.commands.EditCommand;
-import igrad.logic.commands.EditCommand.EditPersonDescriptor;
+import igrad.logic.commands.EditCommand.EditModuleDescriptor;
 import igrad.logic.commands.ExitCommand;
 import igrad.logic.commands.FindCommand;
 import igrad.logic.commands.HelpCommand;
 import igrad.logic.commands.ListCommand;
 import igrad.logic.parser.exceptions.ParseException;
-import igrad.model.person.NameContainsKeywordsPredicate;
-import igrad.model.person.Person;
+import igrad.model.module.NameContainsKeywordsPredicate;
 
 public class CourseBookParserTest {
 
@@ -35,9 +35,9 @@ public class CourseBookParserTest {
 
     @Test
     public void parseCommand_add() throws Exception {
-        Person person = new PersonBuilder().build();
-        AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand(person));
-        assertEquals(new AddCommand(person), command);
+        Module module = new ModuleBuilder().build();
+        AddCommand command = (AddCommand) parser.parseCommand(ModuleUtil.getAddCommand(module));
+        assertEquals(new AddCommand(module), command);
     }
 
     @Test
@@ -55,11 +55,11 @@ public class CourseBookParserTest {
 
     @Test
     public void parseCommand_edit() throws Exception {
-        Person person = new PersonBuilder().build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
+        Module module = new ModuleBuilder().build();
+        EditModuleDescriptor descriptor = new EditPersonDescriptorBuilder(module).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
                 + TypicalIndexes.INDEX_FIRST_PERSON.getOneBased() + " "
-                + PersonUtil.getEditPersonDescriptorDetails(descriptor));
+                + ModuleUtil.getEditModuleDescriptorDetails(descriptor));
         assertEquals(new EditCommand(TypicalIndexes.INDEX_FIRST_PERSON, descriptor), command);
     }
 

@@ -3,7 +3,7 @@ package igrad.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static igrad.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static igrad.model.Model.PREDICATE_SHOW_ALL_MODULES;
 import static igrad.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
@@ -16,7 +16,7 @@ import igrad.testutil.TypicalPersons;
 import org.junit.jupiter.api.Test;
 
 import igrad.commons.core.GuiSettings;
-import igrad.model.person.NameContainsKeywordsPredicate;
+import igrad.model.module.NameContainsKeywordsPredicate;
 
 public class ModelManagerTest {
 
@@ -74,23 +74,23 @@ public class ModelManagerTest {
 
     @Test
     public void hasPerson_nullPerson_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> modelManager.hasPerson(null));
+        Assert.assertThrows(NullPointerException.class, () -> modelManager.hasModule(null));
     }
 
     @Test
     public void hasPerson_personNotInCourseBook_returnsFalse() {
-        assertFalse(modelManager.hasPerson(TypicalPersons.ALICE));
+        assertFalse(modelManager.hasModule(TypicalPersons.ALICE));
     }
 
     @Test
     public void hasPerson_personInCourseBook_returnsTrue() {
-        modelManager.addPerson(TypicalPersons.ALICE);
-        assertTrue(modelManager.hasPerson(TypicalPersons.ALICE));
+        modelManager.addModule(TypicalPersons.ALICE);
+        assertTrue(modelManager.hasModule(TypicalPersons.ALICE));
     }
 
     @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
-        Assert.assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredPersonList().remove(0));
+        Assert.assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredModuleList().remove(0));
     }
 
     @Test
@@ -118,11 +118,11 @@ public class ModelManagerTest {
 
         // different filteredList -> returns false
         String[] keywords = TypicalPersons.ALICE.getName().fullName.split("\\s+");
-        modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
+        modelManager.updateFilteredModuleList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(courseBook, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        modelManager.updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();

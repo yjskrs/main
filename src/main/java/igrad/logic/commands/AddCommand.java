@@ -8,16 +8,16 @@ import static java.util.Objects.requireNonNull;
 
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
-import igrad.model.person.Person;
+import igrad.model.module.Module;
 
 /**
- * Adds a person to the course book.
+ * Adds a module to the course book.
  */
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the course book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a module to the course book. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
@@ -30,28 +30,28 @@ public class AddCommand extends Command {
             + PREFIX_TAG + "friends "
             + PREFIX_TAG + "owesMoney";
 
-    public static final String MESSAGE_SUCCESS = "New person added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the course book";
+    public static final String MESSAGE_SUCCESS = "New module added: %1$s";
+    public static final String MESSAGE_DUPLICATE_MODULE = "This module already exists in the course book";
 
-    private final Person toAdd;
+    private final Module toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Person}
+     * Creates an AddCommand to add the specified {@code Module}
      */
-    public AddCommand(Person person) {
-        requireNonNull(person);
-        toAdd = person;
+    public AddCommand(Module module) {
+        requireNonNull(module);
+        toAdd = module;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (model.hasPerson(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        if (model.hasModule(toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_MODULE);
         }
 
-        model.addPerson(toAdd);
+        model.addModule(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

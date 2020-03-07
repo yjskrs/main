@@ -2,16 +2,16 @@ package igrad.logic.parser;
 
 import static igrad.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import igrad.model.module.Module;
+import igrad.testutil.ModuleBuilder;
 import org.junit.jupiter.api.Test;
 
 import igrad.logic.commands.CommandTestUtil;
 import igrad.logic.commands.AddCommand;
-import igrad.model.person.Email;
-import igrad.model.person.Name;
-import igrad.model.person.Person;
-import igrad.model.person.Phone;
+import igrad.model.module.Email;
+import igrad.model.module.Name;
+import igrad.model.module.Phone;
 import igrad.model.tag.Tag;
-import igrad.testutil.PersonBuilder;
 import igrad.testutil.TypicalPersons;
 
 public class AddCommandParserTest {
@@ -19,47 +19,47 @@ public class AddCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Person expectedPerson = new PersonBuilder(TypicalPersons.BOB).withTags(CommandTestUtil.VALID_TAG_FRIEND)
+        Module expectedModule = new ModuleBuilder(TypicalPersons.BOB).withTags(CommandTestUtil.VALID_TAG_FRIEND)
                 .build();
 
         // whitespace only preamble
         CommandParserTestUtil.assertParseSuccess(parser, CommandTestUtil.PREAMBLE_WHITESPACE
                 + CommandTestUtil.NAME_DESC_BOB + CommandTestUtil.PHONE_DESC_BOB + CommandTestUtil.EMAIL_DESC_BOB
-                + CommandTestUtil.TAG_DESC_FRIEND, new AddCommand(expectedPerson));
+                + CommandTestUtil.TAG_DESC_FRIEND, new AddCommand(expectedModule));
 
         // multiple names - last name accepted
         CommandParserTestUtil.assertParseSuccess(parser, CommandTestUtil.NAME_DESC_AMY
                 + CommandTestUtil.NAME_DESC_BOB + CommandTestUtil.PHONE_DESC_BOB + CommandTestUtil.EMAIL_DESC_BOB
-                + CommandTestUtil.TAG_DESC_FRIEND, new AddCommand(expectedPerson));
+                + CommandTestUtil.TAG_DESC_FRIEND, new AddCommand(expectedModule));
 
         // multiple phones - last phone accepted
         CommandParserTestUtil.assertParseSuccess(parser, CommandTestUtil.NAME_DESC_BOB
                 + CommandTestUtil.PHONE_DESC_AMY + CommandTestUtil.PHONE_DESC_BOB + CommandTestUtil.EMAIL_DESC_BOB
-                + CommandTestUtil.TAG_DESC_FRIEND, new AddCommand(expectedPerson));
+                + CommandTestUtil.TAG_DESC_FRIEND, new AddCommand(expectedModule));
 
         // multiple emails - last email accepted
         CommandParserTestUtil.assertParseSuccess(parser, CommandTestUtil.NAME_DESC_BOB
                 + CommandTestUtil.PHONE_DESC_BOB + CommandTestUtil.EMAIL_DESC_AMY + CommandTestUtil.EMAIL_DESC_BOB
-                + CommandTestUtil.TAG_DESC_FRIEND, new AddCommand(expectedPerson));
+                + CommandTestUtil.TAG_DESC_FRIEND, new AddCommand(expectedModule));
 
         // multiple tags - all accepted
-        Person expectedPersonMultipleTags = new PersonBuilder(TypicalPersons.BOB)
+        Module expectedModuleMultipleTags = new ModuleBuilder(TypicalPersons.BOB)
                 .withTags(CommandTestUtil.VALID_TAG_FRIEND, CommandTestUtil.VALID_TAG_HUSBAND)
                 .build();
         CommandParserTestUtil.assertParseSuccess(parser, CommandTestUtil.NAME_DESC_BOB
                 + CommandTestUtil.PHONE_DESC_BOB + CommandTestUtil.EMAIL_DESC_BOB
                 + CommandTestUtil.TAG_DESC_HUSBAND + CommandTestUtil.TAG_DESC_FRIEND,
-                new AddCommand(expectedPersonMultipleTags));
+                new AddCommand(expectedModuleMultipleTags));
     }
 
     @Test
     public void parse_optionalFieldsMissing_success() {
         // zero tags
-        Person expectedPerson = new PersonBuilder(TypicalPersons.AMY).withTags().build();
+        Module expectedModule = new ModuleBuilder(TypicalPersons.AMY).withTags().build();
         CommandParserTestUtil.assertParseSuccess(parser,
                 CommandTestUtil.NAME_DESC_AMY + CommandTestUtil.PHONE_DESC_AMY
                 + CommandTestUtil.EMAIL_DESC_AMY,
-                new AddCommand(expectedPerson));
+                new AddCommand(expectedModule));
     }
 
     @Test

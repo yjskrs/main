@@ -1,7 +1,7 @@
 package igrad.testutil;
 
 import igrad.model.CourseBook;
-import igrad.model.person.Person;
+import igrad.model.module.Module;
 
 /**
  * A utility class to help with building CourseBook objects.
@@ -21,10 +21,10 @@ public class CourseBookBuilder {
     }
 
     /**
-     * Adds a new {@code Person} to the {@code CourseBook} that we are building.
+     * Adds a new {@code Module} to the {@code CourseBook} that we are building.
      */
-    public CourseBookBuilder withPerson(Person person) {
-        courseBook.addPerson(person);
+    public CourseBookBuilder withPerson(Module module) {
+        courseBook.addModule(module);
         return this;
     }
 

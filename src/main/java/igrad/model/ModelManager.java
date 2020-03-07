@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 
 import igrad.commons.core.GuiSettings;
 import igrad.commons.core.LogsCenter;
-import igrad.model.person.Person;
+import igrad.model.module.Module;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
@@ -21,7 +21,7 @@ public class ModelManager implements Model {
 
     private final CourseBook courseBook;
     private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Module> filteredModules;
 
     /**
      * Initializes a ModelManager with the given courseBook and userPrefs.
@@ -34,7 +34,7 @@ public class ModelManager implements Model {
 
         this.courseBook = new CourseBook(courseBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.courseBook.getPersonList());
+        filteredModules = new FilteredList<>(this.courseBook.getModuleList());
     }
 
     public ModelManager() {
@@ -89,44 +89,44 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return courseBook.hasPerson(person);
+    public boolean hasModule(Module module) {
+        requireNonNull(module);
+        return courseBook.hasModule(module);
     }
 
     @Override
-    public void deletePerson(Person target) {
+    public void deleteModule(Module target) {
         courseBook.removePerson(target);
     }
 
     @Override
-    public void addPerson(Person person) {
-        courseBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    public void addModule(Module module) {
+        courseBook.addModule(module);
+        updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
     }
 
     @Override
-    public void setPerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
+    public void setModule(Module target, Module editedModule) {
+        requireAllNonNull(target, editedModule);
 
-        courseBook.setPerson(target, editedPerson);
+        courseBook.setModule(target, editedModule);
     }
 
-    //=========== Filtered Person List Accessors =============================================================
+    //=========== Filtered Module List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * Returns an unmodifiable view of the list of {@code Module} backed by the internal list of
      * {@code versionedCourseBook}
      */
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
+    public ObservableList<Module> getFilteredModuleList() {
+        return filteredModules;
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
+    public void updateFilteredModuleList(Predicate<Module> predicate) {
         requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
+        filteredModules.setPredicate(predicate);
     }
 
     @Override
@@ -145,7 +145,7 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return courseBook.equals(other.courseBook)
                 && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons);
+                && filteredModules.equals(other.filteredModules);
     }
 
 }

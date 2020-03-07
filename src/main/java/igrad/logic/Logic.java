@@ -8,7 +8,7 @@ import igrad.logic.commands.exceptions.CommandException;
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.Model;
 import igrad.model.ReadOnlyCourseBook;
-import igrad.model.person.Person;
+import igrad.model.module.Module;
 import javafx.collections.ObservableList;
 
 /**
@@ -31,8 +31,8 @@ public interface Logic {
      */
     ReadOnlyCourseBook getCourseBook();
 
-    /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<Person> getFilteredPersonList();
+    /** Returns an unmodifiable view of the filtered list of modules */
+    ObservableList<Module> getFilteredModuleList();
 
     /**
      * Returns the user prefs' course book file path.

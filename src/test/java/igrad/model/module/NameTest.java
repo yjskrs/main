@@ -1,4 +1,4 @@
-package igrad.model.person;
+package igrad.model.module;
 
 import static igrad.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertFalse;

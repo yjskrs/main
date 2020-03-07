@@ -69,14 +69,14 @@ public class JsonCourseBookStorageTest {
         assertEquals(original, new CourseBook(readBack));
 
         // Modify data, overwrite exiting file, and read back
-        original.addPerson(TypicalPersons.HOON);
+        original.addModule(TypicalPersons.HOON);
         original.removePerson(TypicalPersons.ALICE);
         jsonCourseBookStorage.saveCourseBook(original, filePath);
         readBack = jsonCourseBookStorage.readCourseBook(filePath).get();
         assertEquals(original, new CourseBook(readBack));
 
         // Save and read without specifying file path
-        original.addPerson(TypicalPersons.IDA);
+        original.addModule(TypicalPersons.IDA);
         jsonCourseBookStorage.saveCourseBook(original); // file path not specified
         readBack = jsonCourseBookStorage.readCourseBook().get(); // file path not specified
         assertEquals(original, new CourseBook(readBack));

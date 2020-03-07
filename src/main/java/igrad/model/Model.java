@@ -4,7 +4,7 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import igrad.commons.core.GuiSettings;
-import igrad.model.person.Person;
+import igrad.model.module.Module;
 import javafx.collections.ObservableList;
 
 /**
@@ -12,7 +12,7 @@ import javafx.collections.ObservableList;
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Module> PREDICATE_SHOW_ALL_MODULES = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -53,35 +53,35 @@ public interface Model {
     ReadOnlyCourseBook getCourseBook();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the course book.
+     * Returns true if a module with the same identity as {@code module} exists in the course book.
      */
-    boolean hasPerson(Person person);
+    boolean hasModule(Module module);
 
     /**
-     * Deletes the given person.
-     * The person must exist in the course book.
+     * Deletes the given module.
+     * The module must exist in the course book.
      */
-    void deletePerson(Person target);
+    void deleteModule(Module target);
 
     /**
-     * Adds the given person.
-     * {@code person} must not already exist in the course book.
+     * Adds the given module.
+     * {@code module} must not already exist in the course book.
      */
-    void addPerson(Person person);
+    void addModule(Module module);
 
     /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
+     * Replaces the given module {@code target} with {@code editedModule}.
      * {@code target} must exist in the course book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the course book.
+     * The module identity of {@code editedModule} must not be the same as another existing module in the course book.
      */
-    void setPerson(Person target, Person editedPerson);
+    void setModule(Module target, Module editedModule);
 
-    /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Person> getFilteredPersonList();
+    /** Returns an unmodifiable view of the filtered module list */
+    ObservableList<Module> getFilteredModuleList();
 
     /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered module list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Person> predicate);
+    void updateFilteredModuleList(Predicate<Module> predicate);
 }

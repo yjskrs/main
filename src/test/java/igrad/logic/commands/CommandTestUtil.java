@@ -16,8 +16,8 @@ import igrad.commons.core.index.Index;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.CourseBook;
 import igrad.model.Model;
-import igrad.model.person.NameContainsKeywordsPredicate;
-import igrad.model.person.Person;
+import igrad.model.module.Module;
+import igrad.model.module.NameContainsKeywordsPredicate;
 import igrad.testutil.EditPersonDescriptorBuilder;
 
 /**
@@ -51,8 +51,8 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditPersonDescriptor DESC_AMY;
-    public static final EditCommand.EditPersonDescriptor DESC_BOB;
+    public static final EditCommand.EditModuleDescriptor DESC_AMY;
+    public static final EditCommand.EditModuleDescriptor DESC_BOB;
 
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
@@ -93,30 +93,30 @@ public class CommandTestUtil {
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
-     * - the course book, filtered person list and selected person in {@code actualModel} remain unchanged
+     * - the course book, filtered module list and selected module in {@code actualModel} remain unchanged
      */
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         CourseBook expectedCourseBook = new CourseBook(actualModel.getCourseBook());
-        List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
+        List<Module> expectedFilteredList = new ArrayList<>(actualModel.getFilteredModuleList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
         assertEquals(expectedCourseBook, actualModel.getCourseBook());
-        assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
+        assertEquals(expectedFilteredList, actualModel.getFilteredModuleList());
     }
     /**
-     * Updates {@code model}'s filtered list to show only the person at the given {@code targetIndex} in the
+     * Updates {@code model}'s filtered list to show only the module at the given {@code targetIndex} in the
      * {@code model}'s course book.
      */
     public static void showPersonAtIndex(Model model, Index targetIndex) {
-        assertTrue(targetIndex.getZeroBased() < model.getFilteredPersonList().size());
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredModuleList().size());
 
-        Person person = model.getFilteredPersonList().get(targetIndex.getZeroBased());
-        final String[] splitName = person.getName().fullName.split("\\s+");
-        model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        Module module = model.getFilteredModuleList().get(targetIndex.getZeroBased());
+        final String[] splitName = module.getName().fullName.split("\\s+");
+        model.updateFilteredModuleList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
-        assertEquals(1, model.getFilteredPersonList().size());
+        assertEquals(1, model.getFilteredModuleList().size());
     }
 
 }

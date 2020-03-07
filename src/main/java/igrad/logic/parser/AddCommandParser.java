@@ -11,10 +11,10 @@ import java.util.stream.Stream;
 import igrad.commons.core.Messages;
 import igrad.logic.commands.AddCommand;
 import igrad.logic.parser.exceptions.ParseException;
-import igrad.model.person.Email;
-import igrad.model.person.Name;
-import igrad.model.person.Person;
-import igrad.model.person.Phone;
+import igrad.model.module.Email;
+import igrad.model.module.Name;
+import igrad.model.module.Module;
+import igrad.model.module.Phone;
 import igrad.model.tag.Tag;
 
 /**
@@ -41,9 +41,9 @@ public class AddCommandParser implements Parser<AddCommand> {
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Person person = new Person(name, phone, email, tagList);
+        Module module = new Module(name, phone, email, tagList);
 
-        return new AddCommand(person);
+        return new AddCommand(module);
     }
 
     /**

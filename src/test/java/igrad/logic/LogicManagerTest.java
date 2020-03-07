@@ -1,6 +1,6 @@
 package igrad.logic;
 
-import static igrad.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
+import static igrad.commons.core.Messages.MESSAGE_INVALID_MODULE_DISPLAYED_INDEX;
 import static igrad.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static igrad.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -21,11 +21,11 @@ import igrad.model.Model;
 import igrad.model.ModelManager;
 import igrad.model.ReadOnlyCourseBook;
 import igrad.model.UserPrefs;
-import igrad.model.person.Person;
+import igrad.model.module.Module;
 import igrad.storage.JsonCourseBookStorage;
 import igrad.storage.JsonUserPrefsStorage;
 import igrad.storage.StorageManager;
-import igrad.testutil.PersonBuilder;
+import igrad.testutil.ModuleBuilder;
 import igrad.testutil.TypicalPersons;
 
 public class LogicManagerTest {
@@ -55,7 +55,7 @@ public class LogicManagerTest {
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
         String deleteCommand = "delete 9";
-        assertCommandException(deleteCommand, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandException(deleteCommand, MESSAGE_INVALID_MODULE_DISPLAYED_INDEX);
     }
 
     @Test
@@ -77,16 +77,16 @@ public class LogicManagerTest {
         // Execute add command
         String addCommand = AddCommand.COMMAND_WORD + CommandTestUtil.NAME_DESC_AMY + CommandTestUtil.PHONE_DESC_AMY
                 + CommandTestUtil.EMAIL_DESC_AMY;
-        Person expectedPerson = new PersonBuilder(TypicalPersons.AMY).withTags().build();
+        Module expectedModule = new ModuleBuilder(TypicalPersons.AMY).withTags().build();
         ModelManager expectedModel = new ModelManager();
-        expectedModel.addPerson(expectedPerson);
+        expectedModel.addModule(expectedModule);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
     }
 
     @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredPersonList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredModuleList().remove(0));
     }
 
     /**

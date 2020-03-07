@@ -11,14 +11,14 @@ import java.util.Collections;
 import java.util.List;
 
 import igrad.logic.commands.CommandTestUtil;
-import igrad.testutil.PersonBuilder;
+import igrad.model.module.Module;
+import igrad.testutil.ModuleBuilder;
 import igrad.testutil.TypicalPersons;
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import igrad.model.person.Person;
-import igrad.model.person.exceptions.DuplicatePersonException;
+import igrad.model.module.exceptions.DuplicateModuleException;
 
 public class CourseBookTest {
 
@@ -26,7 +26,7 @@ public class CourseBookTest {
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), courseBook.getPersonList());
+        assertEquals(Collections.emptyList(), courseBook.getModuleList());
     }
 
     @Test
@@ -43,57 +43,57 @@ public class CourseBookTest {
 
     @Test
     public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
-        // Two persons with the same identity fields
-        Person editedAlice = new PersonBuilder(TypicalPersons.ALICE).withTags(CommandTestUtil.VALID_TAG_HUSBAND)
+        // Two modules with the same identity fields
+        Module editedAlice = new ModuleBuilder(TypicalPersons.ALICE).withTags(CommandTestUtil.VALID_TAG_HUSBAND)
                 .build();
-        List<Person> newPersons = Arrays.asList(TypicalPersons.ALICE, editedAlice);
-        CourseBookStub newData = new CourseBookStub(newPersons);
+        List<Module> newModules = Arrays.asList(TypicalPersons.ALICE, editedAlice);
+        CourseBookStub newData = new CourseBookStub(newModules);
 
-        assertThrows(DuplicatePersonException.class, () -> courseBook.resetData(newData));
+        assertThrows(DuplicateModuleException.class, () -> courseBook.resetData(newData));
     }
 
     @Test
     public void hasPerson_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> courseBook.hasPerson(null));
+        assertThrows(NullPointerException.class, () -> courseBook.hasModule(null));
     }
 
     @Test
     public void hasPerson_personNotInCourseBook_returnsFalse() {
-        assertFalse(courseBook.hasPerson(TypicalPersons.ALICE));
+        assertFalse(courseBook.hasModule(TypicalPersons.ALICE));
     }
 
     @Test
     public void hasPerson_personInCourseBook_returnsTrue() {
-        courseBook.addPerson(TypicalPersons.ALICE);
-        assertTrue(courseBook.hasPerson(TypicalPersons.ALICE));
+        courseBook.addModule(TypicalPersons.ALICE);
+        assertTrue(courseBook.hasModule(TypicalPersons.ALICE));
     }
 
     @Test
     public void hasPerson_personWithSameIdentityFieldsInCourseBook_returnsTrue() {
-        courseBook.addPerson(TypicalPersons.ALICE);
-        Person editedAlice = new PersonBuilder(TypicalPersons.ALICE).withTags(CommandTestUtil.VALID_TAG_HUSBAND)
+        courseBook.addModule(TypicalPersons.ALICE);
+        Module editedAlice = new ModuleBuilder(TypicalPersons.ALICE).withTags(CommandTestUtil.VALID_TAG_HUSBAND)
                 .build();
-        assertTrue(courseBook.hasPerson(editedAlice));
+        assertTrue(courseBook.hasModule(editedAlice));
     }
 
     @Test
     public void getPersonList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> courseBook.getPersonList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> courseBook.getModuleList().remove(0));
     }
 
     /**
-     * A stub ReadOnlyCourseBook whose persons list can violate interface constraints.
+     * A stub ReadOnlyCourseBook whose modules list can violate interface constraints.
      */
     private static class CourseBookStub implements ReadOnlyCourseBook {
-        private final ObservableList<Person> persons = FXCollections.observableArrayList();
+        private final ObservableList<Module> modules = FXCollections.observableArrayList();
 
-        CourseBookStub(Collection<Person> persons) {
-            this.persons.setAll(persons);
+        CourseBookStub(Collection<Module> modules) {
+            this.modules.setAll(modules);
         }
 
         @Override
-        public ObservableList<Person> getPersonList() {
-            return persons;
+        public ObservableList<Module> getModuleList() {
+            return modules;
         }
     }
 
