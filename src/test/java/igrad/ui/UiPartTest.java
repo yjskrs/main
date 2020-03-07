@@ -1,8 +1,8 @@
 package igrad.ui;
 
+import static igrad.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static igrad.testutil.Assert.assertThrows;
 
 import java.net.URL;
 import java.nio.file.Path;
@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import igrad.MainApp;
-import igrad.testutil.TypicalPersons;
 import javafx.fxml.FXML;
 
 public class UiPartTest {

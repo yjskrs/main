@@ -7,8 +7,8 @@ import java.util.stream.Stream;
 import igrad.logic.commands.EditCommand;
 import igrad.logic.commands.EditCommand.EditModuleDescriptor;
 import igrad.model.module.Email;
-import igrad.model.module.Name;
 import igrad.model.module.Module;
+import igrad.model.module.Name;
 import igrad.model.module.Phone;
 import igrad.model.tag.Tag;
 

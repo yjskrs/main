@@ -13,8 +13,8 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import igrad.logic.commands.CommandTestUtil;
-import igrad.model.module.exceptions.DuplicateModuleException;
 import igrad.model.module.Module;
+import igrad.model.module.exceptions.DuplicateModuleException;
 import igrad.testutil.ModuleBuilder;
 import igrad.testutil.TypicalPersons;
 import javafx.collections.FXCollections;

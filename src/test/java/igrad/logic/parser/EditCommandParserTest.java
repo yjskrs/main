@@ -8,13 +8,13 @@ import static igrad.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import org.junit.jupiter.api.Test;
 
 import igrad.commons.core.index.Index;
+import igrad.logic.commands.CommandTestUtil;
 import igrad.logic.commands.EditCommand;
 import igrad.logic.commands.EditCommand.EditModuleDescriptor;
 import igrad.model.module.Email;
 import igrad.model.module.Name;
 import igrad.model.module.Phone;
 import igrad.model.tag.Tag;
-import igrad.logic.commands.CommandTestUtil;
 import igrad.testutil.EditModuleDescriptorBuilder;
 import igrad.testutil.TypicalIndexes;
 
@@ -67,7 +67,7 @@ public class EditCommandParserTest {
 
         // invalid phone followed by valid email
         assertParseFailure(parser,
-                "1" + CommandTestUtil.INVALID_PHONE_DESC+ CommandTestUtil.EMAIL_DESC_AMY,
+                "1" + CommandTestUtil.INVALID_PHONE_DESC + CommandTestUtil.EMAIL_DESC_AMY,
                 Phone.MESSAGE_CONSTRAINTS);
 
         // valid phone followed by invalid phone. The test case for invalid phone followed by valid phone

@@ -1,10 +1,10 @@
 package igrad.model;
 
+import static igrad.model.Model.PREDICATE_SHOW_ALL_MODULES;
+import static igrad.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static igrad.model.Model.PREDICATE_SHOW_ALL_MODULES;
-import static igrad.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -15,7 +15,6 @@ import org.junit.jupiter.api.Test;
 import igrad.commons.core.GuiSettings;
 import igrad.model.module.NameContainsKeywordsPredicate;
 import igrad.testutil.CourseBookBuilder;
-import igrad.testutil.Assert;
 import igrad.testutil.TypicalPersons;
 
 public class ModelManagerTest {
@@ -31,7 +30,7 @@ public class ModelManagerTest {
 
     @Test
     public void setUserPrefs_nullUserPrefs_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> modelManager.setUserPrefs(null));
+        assertThrows(NullPointerException.class, () -> modelManager.setUserPrefs(null));
     }
 
     @Test
@@ -50,7 +49,7 @@ public class ModelManagerTest {
 
     @Test
     public void setGuiSettings_nullGuiSettings_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> modelManager.setGuiSettings(null));
+        assertThrows(NullPointerException.class, () -> modelManager.setGuiSettings(null));
     }
 
     @Test
@@ -62,7 +61,7 @@ public class ModelManagerTest {
 
     @Test
     public void setCourseBookFilePath_nullPath_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> modelManager.setCourseBookFilePath(null));
+        assertThrows(NullPointerException.class, () -> modelManager.setCourseBookFilePath(null));
     }
 
     @Test
@@ -74,7 +73,7 @@ public class ModelManagerTest {
 
     @Test
     public void hasPerson_nullPerson_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> modelManager.hasModule(null));
+        assertThrows(NullPointerException.class, () -> modelManager.hasModule(null));
     }
 
     @Test
@@ -90,12 +89,15 @@ public class ModelManagerTest {
 
     @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
-        Assert.assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredModuleList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredModuleList().remove(0));
     }
 
     @Test
     public void equals() {
-        CourseBook courseBook = new CourseBookBuilder().withPerson(TypicalPersons.ALICE).withPerson(TypicalPersons.BENSON).build();
+        CourseBook courseBook = new CourseBookBuilder()
+                .withPerson(TypicalPersons.ALICE)
+                .withPerson(TypicalPersons.BENSON)
+                .build();
         CourseBook differentCourseBook = new CourseBook();
         UserPrefs userPrefs = new UserPrefs();
 

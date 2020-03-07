@@ -10,10 +10,10 @@ import org.junit.jupiter.api.Test;
 
 import igrad.commons.core.Messages;
 import igrad.commons.core.index.Index;
-import igrad.model.module.Module;
 import igrad.model.Model;
 import igrad.model.ModelManager;
 import igrad.model.UserPrefs;
+import igrad.model.module.Module;
 import igrad.testutil.TypicalIndexes;
 import igrad.testutil.TypicalPersons;
 

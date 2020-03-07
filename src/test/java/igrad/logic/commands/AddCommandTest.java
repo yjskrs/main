@@ -17,9 +17,9 @@ import igrad.commons.core.GuiSettings;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.CourseBook;
 import igrad.model.Model;
-import igrad.model.module.Module;
 import igrad.model.ReadOnlyCourseBook;
 import igrad.model.ReadOnlyUserPrefs;
+import igrad.model.module.Module;
 import igrad.testutil.ModuleBuilder;
 import javafx.collections.ObservableList;
 

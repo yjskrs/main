@@ -4,8 +4,8 @@ import static igrad.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import org.junit.jupiter.api.Test;
 
-import igrad.logic.commands.CommandTestUtil;
 import igrad.logic.commands.AddCommand;
+import igrad.logic.commands.CommandTestUtil;
 import igrad.model.module.Email;
 import igrad.model.module.Module;
 import igrad.model.module.Name;
