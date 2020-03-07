@@ -7,16 +7,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
 import java.nio.file.Path;
-
-import igrad.logic.commands.CommandTestUtil;
-import igrad.testutil.PersonBuilder;
-import igrad.testutil.TypicalPersons;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import igrad.logic.commands.AddCommand;
 import igrad.logic.commands.CommandResult;
+import igrad.logic.commands.CommandTestUtil;
 import igrad.logic.commands.ListCommand;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.logic.parser.exceptions.ParseException;
@@ -28,6 +25,8 @@ import igrad.model.person.Person;
 import igrad.storage.JsonCourseBookStorage;
 import igrad.storage.JsonUserPrefsStorage;
 import igrad.storage.StorageManager;
+import igrad.testutil.PersonBuilder;
+import igrad.testutil.TypicalPersons;
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
@@ -76,7 +75,8 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = AddCommand.COMMAND_WORD + CommandTestUtil.NAME_DESC_AMY + CommandTestUtil.PHONE_DESC_AMY + CommandTestUtil.EMAIL_DESC_AMY;
+        String addCommand = AddCommand.COMMAND_WORD + CommandTestUtil.NAME_DESC_AMY + CommandTestUtil.PHONE_DESC_AMY
+                + CommandTestUtil.EMAIL_DESC_AMY;
         Person expectedPerson = new PersonBuilder(TypicalPersons.AMY).withTags().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addPerson(expectedPerson);

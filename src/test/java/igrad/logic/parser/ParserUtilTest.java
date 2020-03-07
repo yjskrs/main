@@ -10,7 +10,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import igrad.testutil.TypicalIndexes;
 import org.junit.jupiter.api.Test;
 
 import igrad.logic.parser.exceptions.ParseException;
@@ -18,6 +17,7 @@ import igrad.model.person.Email;
 import igrad.model.person.Name;
 import igrad.model.person.Phone;
 import igrad.model.tag.Tag;
+import igrad.testutil.TypicalIndexes;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";

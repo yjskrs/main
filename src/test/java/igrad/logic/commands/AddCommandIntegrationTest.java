@@ -2,8 +2,6 @@ package igrad.logic.commands;
 
 import static igrad.logic.commands.CommandTestUtil.assertCommandSuccess;
 
-import igrad.testutil.PersonBuilder;
-import igrad.testutil.TypicalPersons;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -11,6 +9,8 @@ import igrad.model.Model;
 import igrad.model.ModelManager;
 import igrad.model.UserPrefs;
 import igrad.model.person.Person;
+import igrad.testutil.PersonBuilder;
+import igrad.testutil.TypicalPersons;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code AddCommand}.

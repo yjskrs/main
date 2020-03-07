@@ -1,24 +1,24 @@
 package igrad.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static igrad.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static igrad.logic.parser.CliSyntax.PREFIX_NAME;
 import static igrad.logic.parser.CliSyntax.PREFIX_PHONE;
 import static igrad.logic.parser.CliSyntax.PREFIX_TAG;
 import static igrad.testutil.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import igrad.testutil.EditPersonDescriptorBuilder;
 import igrad.commons.core.index.Index;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.CourseBook;
 import igrad.model.Model;
 import igrad.model.person.NameContainsKeywordsPredicate;
 import igrad.model.person.Person;
+import igrad.testutil.EditPersonDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.

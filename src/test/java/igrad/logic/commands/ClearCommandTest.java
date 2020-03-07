@@ -2,13 +2,13 @@ package igrad.logic.commands;
 
 import static igrad.logic.commands.CommandTestUtil.assertCommandSuccess;
 
-import igrad.testutil.TypicalPersons;
 import org.junit.jupiter.api.Test;
 
 import igrad.model.CourseBook;
 import igrad.model.Model;
 import igrad.model.ModelManager;
 import igrad.model.UserPrefs;
+import igrad.testutil.TypicalPersons;
 
 public class ClearCommandTest {
 

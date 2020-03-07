@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.nio.file.Path;
 
-import igrad.testutil.TypicalPersons;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -14,6 +13,7 @@ import igrad.commons.core.GuiSettings;
 import igrad.model.CourseBook;
 import igrad.model.ReadOnlyCourseBook;
 import igrad.model.UserPrefs;
+import igrad.testutil.TypicalPersons;
 
 public class StorageManagerTest {
 

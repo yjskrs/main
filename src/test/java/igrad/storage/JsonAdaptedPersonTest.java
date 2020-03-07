@@ -8,13 +8,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.junit.jupiter.api.Test;
 
 import igrad.commons.exceptions.IllegalValueException;
 import igrad.model.person.Email;
 import igrad.model.person.Name;
 import igrad.model.person.Phone;
 import igrad.testutil.Assert;
-import org.junit.jupiter.api.Test;
 
 public class JsonAdaptedPersonTest {
     private static final String INVALID_NAME = "R@chel";

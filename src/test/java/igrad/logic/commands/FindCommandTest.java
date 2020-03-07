@@ -1,21 +1,21 @@
 package igrad.logic.commands;
 
+import static igrad.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
+import static igrad.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static igrad.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
-import static igrad.logic.commands.CommandTestUtil.assertCommandSuccess;
 
 import java.util.Arrays;
 import java.util.Collections;
 
-import igrad.testutil.TypicalPersons;
 import org.junit.jupiter.api.Test;
 
 import igrad.model.Model;
 import igrad.model.ModelManager;
 import igrad.model.UserPrefs;
 import igrad.model.person.NameContainsKeywordsPredicate;
+import igrad.testutil.TypicalPersons;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
@@ -68,7 +68,8 @@ public class FindCommandTest {
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(TypicalPersons.CARL, TypicalPersons.ELLE, TypicalPersons.FIONA), model.getFilteredPersonList());
+        assertEquals(Arrays.asList(TypicalPersons.CARL, TypicalPersons.ELLE, TypicalPersons.FIONA),
+                model.getFilteredPersonList());
     }
 
     /**
