@@ -10,7 +10,6 @@ import igrad.logic.commands.Command;
 import igrad.logic.commands.DeleteCommand;
 import igrad.logic.commands.EditCommand;
 import igrad.logic.commands.ExitCommand;
-import igrad.logic.commands.FindCommand;
 import igrad.logic.commands.HelpCommand;
 import igrad.logic.commands.ListCommand;
 import igrad.logic.parser.exceptions.ParseException;
@@ -53,9 +52,6 @@ public class CourseBookParser {
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
-
-        case FindCommand.COMMAND_WORD:
-            return new FindCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
