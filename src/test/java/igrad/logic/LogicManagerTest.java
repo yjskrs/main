@@ -14,7 +14,6 @@ import org.junit.jupiter.api.io.TempDir;
 import igrad.logic.commands.AddCommand;
 import igrad.logic.commands.CommandResult;
 import igrad.logic.commands.CommandTestUtil;
-import igrad.logic.commands.ListCommand;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.Model;
@@ -56,12 +55,6 @@ public class LogicManagerTest {
     public void execute_commandExecutionError_throwsCommandException() {
         String deleteCommand = "delete 9";
         assertCommandException(deleteCommand, MESSAGE_INVALID_MODULE_DISPLAYED_INDEX);
-    }
-
-    @Test
-    public void execute_validCommand_success() throws Exception {
-        String listCommand = ListCommand.COMMAND_WORD;
-        assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
     }
 
     @Test

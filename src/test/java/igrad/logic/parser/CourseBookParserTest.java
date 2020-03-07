@@ -6,10 +6,6 @@ import static igrad.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import igrad.model.module.Module;
 import igrad.testutil.EditModuleDescriptorBuilder;
 import igrad.testutil.ModuleBuilder;
@@ -24,9 +20,7 @@ import igrad.logic.commands.EditCommand;
 import igrad.logic.commands.EditCommand.EditModuleDescriptor;
 import igrad.logic.commands.ExitCommand;
 import igrad.logic.commands.HelpCommand;
-import igrad.logic.commands.ListCommand;
 import igrad.logic.parser.exceptions.ParseException;
-import igrad.model.module.NameContainsKeywordsPredicate;
 
 public class CourseBookParserTest {
 
@@ -73,13 +67,7 @@ public class CourseBookParserTest {
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD) instanceof HelpCommand);
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD + " 3") instanceof HelpCommand);
     }
-
-    @Test
-    public void parseCommand_list() throws Exception {
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3") instanceof ListCommand);
-    }
-
+    
     @Test
     public void parseCommand_unrecognisedInput_throwsParseException() {
         assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE),

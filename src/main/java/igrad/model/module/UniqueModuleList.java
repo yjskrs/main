@@ -12,9 +12,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /**
- * A list of persons that enforces uniqueness between its elements and does not allow nulls.
+ * A list of modules that enforces uniqueness between its elements and does not allow nulls.
  * A module is considered unique by comparing using {@code Module#isSameModule(Module)}. As such, adding and updating of
- * persons uses Module#isSameModule(Module) for equality so as to ensure that the module being added or updated is
+ * modules uses Module#isSameModule(Module) for equality so as to ensure that the module being added or updated is
  * unique in terms of identity in the UniqueModuleList. However, the removal of a module uses Module#equals(Object) so
  * as to ensure that the module with exactly the same fields will be removed.
  *
