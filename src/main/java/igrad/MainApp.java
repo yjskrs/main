@@ -48,7 +48,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing CourseBook ]===========================");
+        logger.info("=============================[ Initializing iGrad ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
