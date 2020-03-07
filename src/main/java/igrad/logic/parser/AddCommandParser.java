@@ -12,8 +12,8 @@ import igrad.commons.core.Messages;
 import igrad.logic.commands.AddCommand;
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.module.Email;
-import igrad.model.module.Name;
 import igrad.model.module.Module;
+import igrad.model.module.Name;
 import igrad.model.module.Phone;
 import igrad.model.tag.Tag;
 
