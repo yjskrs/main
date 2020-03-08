@@ -1,11 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.*;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.Collections;
@@ -19,12 +15,10 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.module.*;
+import seedu.address.model.module.Module;
+import seedu.address.model.module.ModuleCode;
+import seedu.address.model.tags.Tags;
 
 /**
  * Edits the details of an existing person in the address book.
@@ -33,22 +27,23 @@ public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified "
-            + "by the index number used in the displayed person list. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the module identified "
+            + "by the index number used in the displayed module list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_NAME + "NAME] "
-            + "[" + PREFIX_PHONE + "PHONE] "
-            + "[" + PREFIX_EMAIL + "EMAIL] "
-            + "[" + PREFIX_ADDRESS + "ADDRESS] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + "[" + PREFIX_MODULE_CODE + "MODULE CODE] "
+            + "[" + PREFIX_TITLE + "TITLE] "
+            + "[" + PREFIX_CREDITS + "CREDITS] "
+            + "[" + PREFIX_MEMO + "MEMO] "
+            + "[" + PREFIX_SEMESTER + "SEMESTER]"
+            + "[" + PREFIX_TAGS + "TAGS]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_PHONE + "91234567 "
-            + PREFIX_EMAIL + "johndoe@example.com";
+            + PREFIX_MODULE_CODE + "CS2103T "
+            + PREFIX_CREDITS + "4";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
+    public static final String MESSAGE_EDIT_MODULE_SUCCESS = "Edited Module: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This module already exists in the system.";
 
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;
@@ -68,38 +63,39 @@ public class EditCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredPersonList();
+        List<Module> lastShownList = model.getFilteredPersonList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_MODULE_DISPLAYED_INDEX);
         }
 
-        Person personToEdit = lastShownList.get(index.getZeroBased());
-        Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
+        Module moduleToEdit = lastShownList.get(index.getZeroBased());
+        Module editedModule = createEditedPerson( moduleToEdit, editPersonDescriptor);
 
-        if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
+        if (!moduleToEdit.isSamePerson( editedModule ) && model.hasPerson( editedModule )) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        model.setPerson(personToEdit, editedPerson);
+        model.setPerson( moduleToEdit, editedModule );
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
+        return new CommandResult(String.format( MESSAGE_EDIT_MODULE_SUCCESS, editedModule ));
     }
 
     /**
      * Creates and returns a {@code Person} with the details of {@code personToEdit}
      * edited with {@code editPersonDescriptor}.
      */
-    private static Person createEditedPerson(Person personToEdit, EditPersonDescriptor editPersonDescriptor) {
-        assert personToEdit != null;
+    private static Module createEditedPerson( Module moduleToEdit, EditPersonDescriptor editPersonDescriptor) {
+        assert moduleToEdit != null;
 
-        Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
-        Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
-        Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
-        Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
-        Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
+        Title updatedTitle = editPersonDescriptor.getTitle().orElse( moduleToEdit.getTitle());
+        ModuleCode updatedModuleCode = editPersonDescriptor.getModuleCode().orElse( moduleToEdit.getModuleCode());
+        Credits updatedCredits = editPersonDescriptor.getCredits().orElse( moduleToEdit.getCredits());
+        Memo updatedMemo = editPersonDescriptor.getMemo().orElse( moduleToEdit.getMemo());
+        Semester updatedSemester = editPersonDescriptor.getSemester().orElse( moduleToEdit.getSemester() );
+        Set<Tags> updatedTags = editPersonDescriptor.getTags().orElse( moduleToEdit.getTags());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        return new Module( updatedTitle, updatedModuleCode, updatedCredits, updatedMemo, updatedSemester, updatedTags );
     }
 
     @Override
@@ -125,11 +121,12 @@ public class EditCommand extends Command {
      * corresponding field value of the person.
      */
     public static class EditPersonDescriptor {
-        private Name name;
-        private Phone phone;
-        private Email email;
-        private Address address;
-        private Set<Tag> tags;
+        private Title title;
+        private ModuleCode moduleCode;
+        private Credits credits;
+        private Memo memo;
+        private Semester semester;
+        private Set<Tags> tags;
 
         public EditPersonDescriptor() {}
 
@@ -138,58 +135,67 @@ public class EditCommand extends Command {
          * A defensive copy of {@code tags} is used internally.
          */
         public EditPersonDescriptor(EditPersonDescriptor toCopy) {
-            setName(toCopy.name);
-            setPhone(toCopy.phone);
-            setEmail(toCopy.email);
-            setAddress(toCopy.address);
-            setTags(toCopy.tags);
+            setTitle(toCopy.title );
+            setModuleCode(toCopy.moduleCode );
+            setCredits(toCopy.credits );
+            setMemo(toCopy.memo );
+            setTags(toCopy.tags );
+            setSemester(toCopy.semester);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags);
+            return CollectionUtil.isAnyNonNull( title, moduleCode, credits, memo, semester, tags );
         }
 
-        public void setName(Name name) {
-            this.name = name;
+        public void setTitle( Title title ) {
+            this.title = title;
         }
 
-        public Optional<Name> getName() {
-            return Optional.ofNullable(name);
+        public Optional<Title> getTitle() {
+            return Optional.ofNullable( title );
         }
 
-        public void setPhone(Phone phone) {
-            this.phone = phone;
+        public void setModuleCode( ModuleCode moduleCode ) {
+            this.moduleCode = moduleCode;
         }
 
-        public Optional<Phone> getPhone() {
-            return Optional.ofNullable(phone);
+        public Optional<ModuleCode> getModuleCode() {
+            return Optional.ofNullable( moduleCode );
         }
 
-        public void setEmail(Email email) {
-            this.email = email;
+        public void setCredits( Credits credits ) {
+            this.credits = credits;
         }
 
-        public Optional<Email> getEmail() {
-            return Optional.ofNullable(email);
+        public Optional<Credits> getCredits() {
+            return Optional.ofNullable( credits );
         }
 
-        public void setAddress(Address address) {
-            this.address = address;
+        public void setMemo( Memo memo ) {
+            this.memo = memo;
         }
 
-        public Optional<Address> getAddress() {
-            return Optional.ofNullable(address);
+        public Optional<Memo> getMemo() {
+            return Optional.ofNullable( memo );
+        }
+
+        public void setSemester( Semester semester ) {
+            this.semester = semester;
+        }
+
+        public Optional<Semester> getSemester() {
+            return Optional.ofNullable( semester );
         }
 
         /**
          * Sets {@code tags} to this object's {@code tags}.
          * A defensive copy of {@code tags} is used internally.
          */
-        public void setTags(Set<Tag> tags) {
-            this.tags = (tags != null) ? new HashSet<>(tags) : null;
+        public void setTags( Set<Tags> tags ) {
+            this.tags = ( tags != null) ? new HashSet<>( tags ) : null;
         }
 
         /**
@@ -197,8 +203,8 @@ public class EditCommand extends Command {
          * if modification is attempted.
          * Returns {@code Optional#empty()} if {@code tags} is null.
          */
-        public Optional<Set<Tag>> getTags() {
-            return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
+        public Optional<Set<Tags>> getTags() {
+            return ( tags != null) ? Optional.of(Collections.unmodifiableSet( tags )) : Optional.empty();
         }
 
         @Override
@@ -216,10 +222,11 @@ public class EditCommand extends Command {
             // state check
             EditPersonDescriptor e = (EditPersonDescriptor) other;
 
-            return getName().equals(e.getName())
-                    && getPhone().equals(e.getPhone())
-                    && getEmail().equals(e.getEmail())
-                    && getAddress().equals(e.getAddress())
+            return getTitle().equals(e.getTitle())
+                    && getModuleCode().equals(e.getModuleCode())
+                    && getCredits().equals(e.getCredits())
+                    && getMemo().equals(e.getMemo())
+                    && getSemester().equals( e.getSemester() )
                     && getTags().equals(e.getTags());
         }
     }
