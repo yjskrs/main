@@ -1,9 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
 
-<StackPane fx:id="placeHolder" styleClass="pane-with-border" xmlns="http://javafx.com/javafx/8"
-    xmlns:fx="http://javafx.com/fxml/1">
-  <TextArea fx:id="resultDisplay" editable="false" styleClass="result-display"/>
+<StackPane fx:id="placeHolder" prefHeight="140.0" styleClass="pane-with-border" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <HBox prefHeight="140.0" style="-fx-background-color: #3d3d3d;">
+      <children>
+         <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@../images/iGrad_Shibu.png" />
+            </image></ImageView>
+        <TextArea fx:id="resultDisplay" editable="false" style="-fx-border-color: transparent;" styleClass="result-display" HBox.hgrow="ALWAYS">
+            <font>
+               <Font name="Calibri" size="14.0" />
+            </font>
+         </TextArea>
+      </children>
+   </HBox>
 </StackPane>

@@ -27,6 +27,7 @@
 .text-field {
     -fx-font-size: 12pt;
     -fx-font-family: "Segoe UI Semibold";
+    -fx-border-color: transparent;
 }
 
 .tab-pane {
@@ -133,13 +134,12 @@
 }
 
 .stack-pane {
-     -fx-background-color: derive(#1d1d1d, 20%);
+     -fx-background-color: #3d3d3d;
 }
 
 .pane-with-border {
-     -fx-background-color: derive(#1d1d1d, 20%);
-     -fx-border-color: derive(#1d1d1d, 10%);
-     -fx-border-top-width: 1px;
+     -fx-background-color: #2d2d2d;
+     -fx-border-color: transparent;
 }
 
 .status-bar {
@@ -318,14 +318,7 @@
 }
 
 #commandTextField {
-    -fx-background-color: transparent #383838 transparent #383838;
-    -fx-background-insets: 0;
-    -fx-border-color: #383838 #383838 #ffffff #383838;
-    -fx-border-insets: 0;
-    -fx-border-width: 1;
-    -fx-font-family: "Segoe UI Light";
-    -fx-font-size: 13pt;
-    -fx-text-fill: white;
+
 }
 
 #filterField, #personListPanel, #personWebpage {
@@ -333,8 +326,9 @@
 }
 
 #resultDisplay .content {
-    -fx-background-color: transparent, #383838, transparent, #383838;
+    -fx-background-color: #3d3d3d;
     -fx-background-radius: 0;
+    -fx-border-color: transparent;
 }
 
 #tags {
