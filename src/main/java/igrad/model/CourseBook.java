@@ -30,7 +30,7 @@ public class CourseBook implements ReadOnlyCourseBook {
     public CourseBook() {}
 
     /**
-     * Creates an CourseBook using the Persons in the {@code toBeCopied}
+     * Creates an CourseBook using the Persons in the {@code toBeCopied}.
      */
     public CourseBook(ReadOnlyCourseBook toBeCopied) {
         this();
