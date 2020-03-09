@@ -49,7 +49,7 @@ public class JsonCourseBookStorageTest {
 
     @Test
     public void readCourseBook_invalidCourseBook_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readCourseBook("invalidPersonCourseBook.json"));
+        assertThrows(DataConversionException.class, () -> readCourseBook("invalidModuleCourseBook.json"));
     }
 
     @Test

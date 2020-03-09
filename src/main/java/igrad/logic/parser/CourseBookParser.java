@@ -1,9 +1,11 @@
 package igrad.logic.parser;
 
+import static igrad.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static igrad.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import igrad.commons.core.Messages;
 import igrad.logic.commands.AddCommand;
 import igrad.logic.commands.ClearCommand;
 import igrad.logic.commands.Command;
@@ -33,7 +35,7 @@ public class CourseBookParser {
     public Command parseCommand(String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
-            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
 
         final String commandWord = matcher.group("commandWord");
@@ -59,7 +61,7 @@ public class CourseBookParser {
             return new HelpCommand();
 
         default:
-            throw new ParseException(Messages.MESSAGE_UNKNOWN_COMMAND);
+            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }
 
