@@ -12,7 +12,7 @@ import igrad.model.module.Module;
 import javafx.collections.ObservableList;
 
 /**
- * API of the Logic component
+ * API of the Logic component.
  */
 public interface Logic {
     /**
