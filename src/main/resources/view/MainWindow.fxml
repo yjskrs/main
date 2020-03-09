@@ -11,7 +11,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.stage.Stage?>
 
-<fx:root minHeight="600" minWidth="450" onCloseRequest="#handleExit" title="iGrad" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+         title="iGrad" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
   <icons>
     <Image url="@/images/iGrad_Shibu.png" />
   </icons>
@@ -44,8 +45,12 @@
         <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" styleClass="pane-with-border" VBox.vgrow="NEVER">
         </StackPane>
 
-        <StackPane fx:id="commandBoxPlaceholder" alignment="TOP_LEFT" styleClass="pane-with-border" VBox.vgrow="NEVER">
-        </StackPane>
+        <VBox fx:id="moduleList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
+          <padding>
+            <Insets top="10" right="10" bottom="10" left="10" />
+          </padding>
+          <StackPane fx:id="moduleListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+        </VBox>
 
       </VBox>
     </Scene>
