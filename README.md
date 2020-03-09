@@ -5,48 +5,48 @@
 
 1. [Introduction](#Introduction)
 2. [Features](#Features)
- 
+
     2.1 [Course Builder](#course-builder)
- 
+
     2.2 [Modular Credits Tracker](#modular-credits-mcs-tracker)
- 
+
     2.3 [Cumulative Average Point Tracker](#cumulative-average-point-cap-tracker)
 
 3. [Components](#Components)
 
     3.1 [Course](#courses)
-    
+   
     3.2 [Requirements](#requirements)
- 
+
     3.3 [Modules](#modules)
- 
+
 4. [Walkthrough](#walkthrough)
 5. [Command List](#command-list)
 
     5.1.[`help`](#help)
-    
-    5.2 [`course`](#course)
-    
-    5.3 [`requirement`](#requirements)
-    
-    5.4 [`assign`](#assign)
-    
-    5.5 [`module`](#module)
-  
-    5.6 [`modify`](#modify)
-  
-    5.7 [`delete`](#delete)
-  
-    5.8 [`exam`](#exam)
-  
-    5.9 [`achieve`](#achieve)
-  
-    5.10 [`batch`](#batch)
-  
-    5.11 [`export`](#export)
-  
-    5.12 [`exit`](#exit)
    
+    5.2 [`course`](#course)
+   
+    5.3 [`requirement`](#requirements)
+   
+    5.4 [`assign`](#assign)
+   
+    5.5 [`module`](#module)
+ 
+    5.6 [`modify`](#modify)
+ 
+    5.7 [`delete`](#delete)
+ 
+    5.8 [`exam`](#exam)
+ 
+    5.9 [`achieve`](#achieve)
+ 
+    5.10 [`batch`](#batch)
+
+    5.11 [`export`](#export)
+
+    5.12 [`exit`](#exit)
+
 6. [Frequently Asked Questions (FAQ)](#faqs)
 7. [Cheat Sheet](#cheat-sheet)
 8. [Glossary](#glossary)
@@ -153,9 +153,9 @@ Command Format
     help
 
 Constraints
-   
+
 :warning: NIL
-   
+
 Expected Outcome
 
 :white_check_mark: A help message should be displayed
@@ -168,7 +168,6 @@ Creates a course.
 
 Command Format
 
-    course n/COURSE_NAME
     
 Command Sample
 
@@ -185,9 +184,10 @@ Expected Outcome
 
 :white_check_mark: You should be able to see the course name in the 
 top panel
+    course n/COURSE_NAME
 
 ---
-    
+
 #### `requirement`
 
 Creates a graduation requirement.
@@ -224,7 +224,7 @@ connectivity, the module will be validated with NUS Mods and its description
 will be auto-filled.
 
 Command Format
-    
+
     /**
     * DESCRIPTION is optional
     */
@@ -239,12 +239,12 @@ Command Sample
     assign n/Unrestricted Electives: n/LAJ1201 t/Japanese 1 u/4
 
 Constraints
- 
+
 :warning: A module cannot be assigned if there are not enough MCs left under 
 a graduation requirement
 
 :warning: The module code and title have to be unique
-   
+
 Expected Outcome
 
 :white_check_mark: The module will be displayed in the main panel
@@ -256,7 +256,7 @@ Expected Outcome
 Tags a module with semester, grade or memo notes.
 
 Command Format
-    
+
     /**
     * At least one option must be specified.
     * SEMESTER is specified in format Y_S_ ( e.g. Y1S2 - Year 1 Semester 2 ) 
@@ -264,21 +264,21 @@ Command Format
     module n/MODULE_CODE: s/SEMESTER g/GRADE m/MEMO_NOTES
 
 Command Sample
-   
+
     /**
     * Tags CS1101 with "Y1S2" and grade "A+"
     */
     module n/CS1101: s/Y1S2 g/A+
-    
+
     /**
     * Tags ST2234 with "Y2S1" and gives it a memo "pretty easy module"
     */
     module n/ST2334: s/Y2S1 m/pretty easy module
 
 Constraints
-   
+
 :warning: The module has to be assigned
-   
+
 Expected Outcome
 
 :white_check_mark: The tags should appear under their respective column headers
@@ -292,9 +292,9 @@ Modify course, graduation requirements or modules
 Command Format
 
     modify course n/COURSE_NAME
-    
+
     modify req n/REQUIREMENT_NAME: u/NO_OF_MCS
-    
+
     /**
     * At least one option must be specified
     */
@@ -309,18 +309,18 @@ Command Sample
     modify module n/CS4239: t/Machine Learning u/5
 
 Constraints
-   
+
 :warning: The component to be modified must exist in the system
 
 :warning: The COURSE_NAME, REQUIREMENT_NAME, MODULE_NAME and MODULE_CODE
 have to be unique
-   
+
 Expected Outcome
 
 :white_check_mark: You should be able to see the relevant changes
 
 ---
-    
+
 #### `delete`
 
 Deletes course, graduation requirements or modules
@@ -328,28 +328,28 @@ Deletes course, graduation requirements or modules
 Command Format
 
     del course n/COURSE_NAME
-    
+
     del req n/REQUIREMENT_NAME
-    
+
     del module n/MODULE_CODE
 
 Command Sample
-    
+
     /**
     * Deletes the course "Computer Science"
     */
     del course n/Computer Science
 
 Constraints
-   
+
 :warning: The component to be deleted must exist in the system
-   
+
 Expected Outcome
 
 :white_check_mark: The components deleted should disappear from their respective panels
 
 ---
- 
+
 #### `exam`
 
 View your examination results.
@@ -363,7 +363,7 @@ Command Format
     exam s/SEMESTER
 
 Command Sample
-    
+
     /**
     * Displays exam results for Year 3 Semester 2 
     */
@@ -372,13 +372,13 @@ Command Sample
 Constraints
 
 :warning: NIL
-   
+
 Expected Outcome
 
 :white_check_mark: You should be able to view your exam results
 
 ---
-    
+
 #### `achieve`
 
 Calculates the average grade needed to achieve the CAP you desire/
@@ -396,16 +396,16 @@ Command Sample
     achieve c/4.50
 
 Constraints
-   
+
 :warning: NIL
-   
+
 Expected Outcome
 
 :white_check_mark: You should be able to view the average grade needed to achieve
 the CAP you desire
 
 ---
-    
+
 #### `batch`
 
 Executes a series of commands written in a text (.txt) file
@@ -419,10 +419,10 @@ Command Sample
     batch f/ C:\Users\wayne\OneDrive\Desktop\commands.txt
 
 Constraints
-   
+
 :warning: The text file has to properly formatted. 
 Partial execution will not take place.
-   
+
 Expected Outcome
 
 :white_check_mark: All changes should be made based on the commands
@@ -430,7 +430,7 @@ in the text file. Please cross-check changes with the file to ensure
 this is so.
 
 ---
-    
+
 #### `export`
 
 Exports all data in a text file. If information is sufficient, 
@@ -441,7 +441,7 @@ Command Format
     export
 
 Constraints
-   
+
 :warning: NIL
    
 Expected Outcome
@@ -473,11 +473,11 @@ Expected Outcome
 
 As long as your university follows a similar [hierachical structure](#fig-1)!
 However, we will be unable to provide features such as validation from NUS Mods.
- 
+
 ## Cheat Sheet
- 
+
 > This segment contains all the commands detailed in this guide in a consolidated list
-    
+   
 `help`
 
 `course n/COURSE_NAME`
@@ -495,9 +495,9 @@ However, we will be unable to provide features such as validation from NUS Mods.
 `modify module n/MODULE_CODE: t/MODULE_NAME u/NO_OF_MCS`
 
 `del course n/COURSE_NAME`
-    
+   
 `del req n/REQUIREMENT_NAME`
-    
+   
 `del module n/MODULE_CODE`
 
 `exam s/SEMESTER`
@@ -509,18 +509,18 @@ However, we will be unable to provide features such as validation from NUS Mods.
 `export`
 
 `exit`
- 
+
  ## Glossary
- 
+
 |               |               |
 | ------------- |-------------  |
-| Course        |  A course is the entire programme of studies required to complete a university degree |
-| Graduation requirement      | Requirements specified by the university in order for a student to graduate |
-| Module      | Each module of study has a unique module code consisting of a two- or three-letter prefix that generally denotes the discipline, and four digits, the first of which indicates the level of the module |
-| Cumulative Average Point (CAP) |  The Cumulative Average Point (CAP) is the weighted average grade point of the letter grades of all the modules taken by the students. |
-| Semester      | A semester is a part of the academic year. Each semester typically lasts 13 weeks in NUS. |
-| Modular Credits (MCs)      | A modular credit (MC) is a unit of the effort, stated in terms of time, expected of a typical student in managing his/her workload.       |
-| NUS Mods | A timetabling application built for NUS students, by NUS students. Much like this iGrad!     |
+|Course        |A course is the entire programme of studies required to complete a university degree |
+|Graduation requirement      |Requirements specified by the university in order for a student to graduate |
+|Module      |Each module of study has a unique module code consisting of a two- or three-letter prefix that generally denotes the discipline, and four digits, the first of which indicates the level of the module |
+|Cumulative Average Point (CAP) |The Cumulative Average Point (CAP) is the weighted average grade point of the letter grades of all the modules taken by the students. |
+|Semester      |A semester is a part of the academic year. Each semester typically lasts 13 weeks in NUS. |
+|Modular Credits (MCs)      |A modular credit (MC) is a unit of the effort, stated in terms of time, expected of a typical student in managing his/her workload. |
+|NUS Mods |A timetabling application built for NUS students, by NUS students. Much like this iGrad! |
 |               |               |
 
 **Handy Links**
