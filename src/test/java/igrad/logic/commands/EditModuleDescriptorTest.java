@@ -13,7 +13,7 @@ public class EditModuleDescriptorTest {
     @Test
     public void equals() {
         // same values -> returns true
-        EditCommand.EditModuleDescriptor descriptorWithSameValues = new EditCommand
+        ModuleEditCommand.EditModuleDescriptor descriptorWithSameValues = new ModuleEditCommand
                 .EditModuleDescriptor(DESC_PROGRAMMING_METHODOLOGY);
         assertTrue(DESC_PROGRAMMING_METHODOLOGY.equals(descriptorWithSameValues));
 
@@ -30,7 +30,7 @@ public class EditModuleDescriptorTest {
         assertFalse(DESC_PROGRAMMING_METHODOLOGY.equals(DESC_COMPUTER_ORGANISATION));
 
         // different title -> returns false
-        EditCommand.EditModuleDescriptor editedProgrammingMethodology = new EditModuleDescriptorBuilder(
+        ModuleEditCommand.EditModuleDescriptor editedProgrammingMethodology = new EditModuleDescriptorBuilder(
                 DESC_PROGRAMMING_METHODOLOGY)
                 .withTitle(VALID_TITLE_COMPUTER_ORGANISATION).build();
         assertFalse(DESC_PROGRAMMING_METHODOLOGY.equals(editedProgrammingMethodology));

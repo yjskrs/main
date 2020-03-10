@@ -5,11 +5,8 @@ import static igrad.testutil.TypicalModules.COMPUTER_ORGANISATION;
 
 import org.junit.jupiter.api.Test;
 
-import igrad.logic.commands.AddCommand;
 import igrad.model.module.Module;
-import igrad.model.tag.Tag;
 import igrad.testutil.ModuleBuilder;
-import igrad.testutil.TypicalModules;
 
 public class AddCommandParserTest {
     private AddCommandParser parser = new AddCommandParser();
@@ -21,26 +18,26 @@ public class AddCommandParserTest {
 
         // whitespace only preamble
         /*assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-         *       + TAG_DESC_FRIEND, new AddCommand(expectedModule));
+         *       + TAG_DESC_FRIEND, new ModuleAddCommand(expectedModule));
          */
         // multiple names - last name accepted
         /*assertParseSuccess(parser, NAME_DESC_AMY + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-         *       + TAG_DESC_FRIEND, new AddCommand(expectedModule));
+         *       + TAG_DESC_FRIEND, new ModuleAddCommand(expectedModule));
          */
         // multiple phones - last phone accepted
         /*assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_BOB
-         *       + TAG_DESC_FRIEND, new AddCommand(expectedModule));
+         *       + TAG_DESC_FRIEND, new ModuleAddCommand(expectedModule));
          */
         // multiple emails - last email accepted
         /*assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_AMY + EMAIL_DESC_BOB
-         *       + TAG_DESC_FRIEND, new AddCommand(expectedModule));
+         *       + TAG_DESC_FRIEND, new ModuleAddCommand(expectedModule));
          */
         // multiple tags - all accepted
         //Module expectedModuleMultipleTags = new ModuleBuilder(TypicalPersons.BOB)
         //        .withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
         //        .build();
         //assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-        //        + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, new AddCommand(expectedModuleMultipleTags));
+        //        + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, new ModuleAddCommand(expectedModuleMultipleTags));
     }
 
     @Test
@@ -48,12 +45,12 @@ public class AddCommandParserTest {
         // zero tags
         //Module expectedModule = new ModuleBuilder(AMY).withTags().build();
         //assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY,
-        //        new AddCommand(expectedModule));
+        //        new ModuleAddCommand(expectedModule));
     }
 
     @Test
     public void parse_compulsoryFieldMissing_failure() {
-        //String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
+        //String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ModuleAddCommand.MESSAGE_USAGE);
 
         // missing name prefix
         //assertParseFailure(parser, VALID_NAME_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB, expectedMessage);
@@ -93,6 +90,6 @@ public class AddCommandParserTest {
         // non-empty preamble
         //assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
         //        + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
-        //        String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        //        String.format(MESSAGE_INVALID_COMMAND_FORMAT, ModuleAddCommand.MESSAGE_USAGE));
     }
 }

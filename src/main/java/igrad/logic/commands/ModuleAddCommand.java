@@ -14,7 +14,7 @@ import igrad.model.module.Module;
 /**
  * Adds a module to the course book.
  */
-public class AddCommand extends Command {
+public class ModuleAddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
@@ -38,9 +38,9 @@ public class AddCommand extends Command {
     private final Module toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Module}
+     * Creates an ModuleAddCommand to add the specified {@code Module}
      */
-    public AddCommand(Module module) {
+    public ModuleAddCommand(Module module) {
         requireNonNull(module);
         toAdd = module;
     }
@@ -60,7 +60,7 @@ public class AddCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof AddCommand // instanceof handles nulls
-            && toAdd.equals(((AddCommand) other).toAdd));
+            || (other instanceof ModuleAddCommand // instanceof handles nulls
+            && toAdd.equals(((ModuleAddCommand) other).toAdd));
     }
 }

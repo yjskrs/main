@@ -12,7 +12,7 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 import igrad.commons.core.Messages;
-import igrad.logic.commands.AddCommand;
+import igrad.logic.commands.ModuleAddCommand;
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.module.Credits;
 import igrad.model.module.Memo;
@@ -24,16 +24,16 @@ import igrad.model.tag.Tag;
 import igrad.model.module.Description;
 
 /**
- * Parses input arguments and creates a new AddCommand object.
+ * Parses input arguments and creates a new ModuleAddCommand object.
  */
-public class AddCommandParser implements Parser<AddCommand> {
+public class AddCommandParser implements Parser<ModuleAddCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddCommand
-     * and returns an AddCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the ModuleAddCommand
+     * and returns an ModuleAddCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public AddCommand parse(String args) throws ParseException {
+    public ModuleAddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_MODULE_CODE, PREFIX_CREDITS, PREFIX_MEMO, PREFIX_SEMESTER);
 
@@ -45,7 +45,7 @@ public class AddCommandParser implements Parser<AddCommand> {
          */
         if (!arePrefixesPresent(argMultimap, PREFIX_MODULE_CODE)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, ModuleAddCommand.MESSAGE_USAGE));
         }
 
         Title title = ParserUtil.parseTitle(argMultimap.getValue(PREFIX_TITLE).get());
@@ -64,7 +64,7 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         Module module = new Module(title, moduleCode, credits, memo, semester, description, tagList);
 
-        return new AddCommand( module );
+        return new ModuleAddCommand( module );
     }
 
     /**

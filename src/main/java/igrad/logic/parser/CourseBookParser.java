@@ -41,7 +41,7 @@ public class CourseBookParser {
 
         switch (commandWord) {
 
-        case AddCommand.COMMAND_WORD:
+        case ModuleAddCommand.COMMAND_WORD:
 
             if (ArgumentTokenizer.isFlagPresent(argumentsWithFlags, FLAG_AUTO.getFlag())) {
                 return new AddAutoCommandParser().parse(arguments);
@@ -49,14 +49,11 @@ public class CourseBookParser {
                 return new AddCommandParser().parse(arguments);
             }
 
-        case EditCommand.COMMAND_WORD:
+        case ModuleEditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
 
-        case DeleteCommand.COMMAND_WORD:
+        case ModuleDeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
-
-        case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -68,7 +65,7 @@ public class CourseBookParser {
             return new CourseAddCommandParser().parse(arguments);
 
         case CourseDeleteCommand.COMMAND_WORD:
-            // course delete, has no arguments
+            // course delete has no arguments, hence no parse(argument) method needed
             return new CourseDeleteCommand();
 
         default:

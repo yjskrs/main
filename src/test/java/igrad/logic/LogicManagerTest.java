@@ -9,12 +9,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.io.IOException;
 import java.nio.file.Path;
 
+import igrad.logic.commands.ModuleAddCommand;
 import igrad.services.exceptions.ServiceException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import igrad.logic.commands.AddCommand;
 import igrad.logic.commands.CommandResult;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.logic.parser.exceptions.ParseException;
@@ -70,7 +70,7 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = AddCommand.COMMAND_WORD + TITLE_DESC_PROGRAMMING_METHODOLOGY
+        String addCommand = ModuleAddCommand.COMMAND_WORD + TITLE_DESC_PROGRAMMING_METHODOLOGY
                 + MODULE_CODE_DESC_PROGRAMMING_METHODOLOGY
                 + CREDITS_DESC_PROGRAMMING_METHODOLOGY
                 + MEMO_DESC_PROGRAMMING_METHODOLOGY

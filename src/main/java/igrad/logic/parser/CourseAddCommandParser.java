@@ -3,7 +3,7 @@ package igrad.logic.parser;
 import java.util.stream.Stream;
 
 import igrad.commons.core.Messages;
-import igrad.logic.commands.AddCommand;
+import igrad.logic.commands.ModuleAddCommand;
 import igrad.logic.commands.CourseAddCommand;
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.course.CourseInfo;
@@ -28,7 +28,7 @@ public class CourseAddCommandParser implements Parser<CourseAddCommand> {
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, ModuleAddCommand.MESSAGE_USAGE));
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());

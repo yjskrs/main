@@ -26,7 +26,7 @@ import igrad.model.tag.Tag;
 /**
  * Edits the details of an existing module in the course book.
  */
-public class EditCommand extends Command {
+public class ModuleEditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
@@ -55,7 +55,7 @@ public class EditCommand extends Command {
      * @param index of the module in the filtered module list to edit
      * @param editModuleDescriptor details to edit the module with
      */
-    public EditCommand(Index index, EditModuleDescriptor editModuleDescriptor) {
+    public ModuleEditCommand(Index index, EditModuleDescriptor editModuleDescriptor) {
         requireNonNull(index);
         requireNonNull(editModuleDescriptor);
 
@@ -133,12 +133,12 @@ public class EditCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EditCommand)) {
+        if (!(other instanceof ModuleEditCommand)) {
             return false;
         }
 
         // state check
-        EditCommand e = (EditCommand) other;
+        ModuleEditCommand e = (ModuleEditCommand) other;
         return index.equals(e.index)
                 && editModuleDescriptor.equals(e.editModuleDescriptor);
     }

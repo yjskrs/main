@@ -24,9 +24,9 @@ public class CourseDeleteCommand extends Command {
         /*
            TODO: this portion is incomplete, please uncomment and fill in the blanks
 
-           ReadOnlyCourseBook courseBookToDelete = ... [hint: refer to DeleteCommand]
-           model.resetCourseBook(... [hint: this should be pretty obvious]);
-           return new CommandResult(String.format(MESSAGE_DELETE_COURSE_SUCCESS, ... [hint: refer to DeleteCommand]));
+           ReadOnlyCourseBook courseBookToDelete = ... hint: refer to ModuleDeleteCommand
+           model.resetCourseBook(... hint: this should be pretty obvious);
+           return new CommandResult(String.format(MESSAGE_DELETE_COURSE_SUCCESS, ... hint: refer to ModuleDeleteCommand));
          */
 
         // Delete this line too, when you're done
