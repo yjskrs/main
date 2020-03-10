@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.module.*;
 import seedu.address.model.module.Module;
@@ -25,8 +26,9 @@ class JsonAdaptedPerson {
     private final String name;
     private final String moduleCode;
     private final String credits;
-    private final String address;
     private final String semester;
+    private final String memo;
+    private final String description;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -34,12 +36,13 @@ class JsonAdaptedPerson {
      */
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("moduleCode") String moduleCode,
-            @JsonProperty("credits") String credits, @JsonProperty("memo") String address, @JsonProperty("semester") String semester,
+            @JsonProperty("credits") String credits, @JsonProperty("memo") String memo, @JsonProperty("description") String description, @JsonProperty("semester") String semester,
             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.moduleCode = moduleCode;
         this.credits = credits;
-        this.address = address;
+        this.memo = memo;
+        this.description = description;
         this.semester = semester;
         if (tagged != null) {
             this.tagged.addAll(tagged);
@@ -53,8 +56,9 @@ class JsonAdaptedPerson {
         name = source.getTitle().fullName;
         moduleCode = source.getModuleCode().value;
         credits = source.getCredits().value;
-        address = source.getMemo().value;
-        semester = source.getSemester().value;
+        memo = source.getMemo() != null? source.getMemo().value: null;
+        description = source.getDescription() != null? source.getDescription().value: null;
+        semester = source.getSemester() != null? source.getSemester().value: null;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -95,15 +99,20 @@ class JsonAdaptedPerson {
         }
         final Credits modelCredits = new Credits(credits);
 
-        if (address == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Memo.class.getSimpleName()));
-        }
+//        if (memo == null) {
+//            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Memo.class.getSimpleName()));
+//        }
+//
+//        if (description == null) {
+//            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Description.class.getSimpleName()));
+//        }
 
         final Semester modelSemester = new Semester(semester);
-        final Memo modelMemo = new Memo(address);
+        final Memo modelMemo = new Memo(memo);
+        final Description modelDescription = new Description(description);
 
         final Set<Tags> modelTags = new HashSet<>( personTags );
-        return new Module( modelTitle, modelModuleCode, modelCredits, modelMemo, modelSemester, modelTags );
+        return new Module( modelTitle, modelModuleCode, modelCredits, modelMemo, modelDescription, modelSemester, modelTags );
     }
 
 }

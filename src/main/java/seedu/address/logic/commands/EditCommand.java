@@ -92,10 +92,11 @@ public class EditCommand extends Command {
         ModuleCode updatedModuleCode = editPersonDescriptor.getModuleCode().orElse( moduleToEdit.getModuleCode());
         Credits updatedCredits = editPersonDescriptor.getCredits().orElse( moduleToEdit.getCredits());
         Memo updatedMemo = editPersonDescriptor.getMemo().orElse( moduleToEdit.getMemo());
+        Description updatedDescription = editPersonDescriptor.getDescription().orElse( moduleToEdit.getDescription());
         Semester updatedSemester = editPersonDescriptor.getSemester().orElse( moduleToEdit.getSemester() );
         Set<Tags> updatedTags = editPersonDescriptor.getTags().orElse( moduleToEdit.getTags());
 
-        return new Module( updatedTitle, updatedModuleCode, updatedCredits, updatedMemo, updatedSemester, updatedTags );
+        return new Module( updatedTitle, updatedModuleCode, updatedCredits, updatedMemo, updatedDescription, updatedSemester, updatedTags );
     }
 
     @Override
@@ -125,6 +126,7 @@ public class EditCommand extends Command {
         private ModuleCode moduleCode;
         private Credits credits;
         private Memo memo;
+        private Description description;
         private Semester semester;
         private Set<Tags> tags;
 
@@ -139,6 +141,7 @@ public class EditCommand extends Command {
             setModuleCode(toCopy.moduleCode );
             setCredits(toCopy.credits );
             setMemo(toCopy.memo );
+            setDescription(toCopy.description);
             setTags(toCopy.tags );
             setSemester(toCopy.semester);
         }
@@ -147,7 +150,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull( title, moduleCode, credits, memo, semester, tags );
+            return CollectionUtil.isAnyNonNull( title, moduleCode, credits, memo, description, semester, tags );
         }
 
         public void setTitle( Title title ) {
@@ -180,6 +183,14 @@ public class EditCommand extends Command {
 
         public Optional<Memo> getMemo() {
             return Optional.ofNullable( memo );
+        }
+
+        public void setDescription( Description description ) {
+            this.description = description;
+        }
+
+        public Optional<Description> getDescription() {
+            return Optional.ofNullable( description );
         }
 
         public void setSemester( Semester semester ) {
@@ -226,6 +237,7 @@ public class EditCommand extends Command {
                     && getModuleCode().equals(e.getModuleCode())
                     && getCredits().equals(e.getCredits())
                     && getMemo().equals(e.getMemo())
+                    && getDescription().equals( e.getDescription())
                     && getSemester().equals( e.getSemester() )
                     && getTags().equals(e.getTags());
         }

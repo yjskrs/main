@@ -17,24 +17,12 @@ import seedu.address.model.tags.Tags;
 public class SampleDataUtil {
     public static Module[] getSamplePersons() {
         return new Module[] {
-            new Module(new Title("Alex Yeoh"), new ModuleCode("CS2103T"), new Credits("alexyeoh@example.com"),
-                new Memo("Blk 30 Geylang Street 29, #06-40"), new Semester( "Y2S2" ),
-                getTagSet("friends")),
-            new Module(new Title("Bernice Yu"), new ModuleCode("CS2103T"), new Credits("berniceyu@example.com"),
-                new Memo("Blk 30 Lorong 3 Serangoon Gardens, #07-18"), new Semester( "Y2S2" ),
-                getTagSet("colleagues", "friends")),
-            new Module(new Title("Charlotte Oliveiro"), new ModuleCode("CS2103T"), new Credits("charlotte@example.com"),
-                new Memo("Blk 11 Ang Mo Kio Street 74, #11-04"), new Semester( "Y2S2" ),
-                getTagSet("neighbours")),
-            new Module(new Title("David Li"), new ModuleCode("CS2103T"), new Credits("lidavid@example.com"),
-                new Memo("Blk 436 Serangoon Gardens Street 26, #16-43"), new Semester( "Y2S2" ),
-                getTagSet("family")),
-            new Module(new Title("Irfan Ibrahim"), new ModuleCode("CS2103T"), new Credits("irfan@example.com"),
-                new Memo("Blk 47 Tampines Street 20, #17-35"), new Semester( "Y2S2" ),
-                getTagSet("classmates")),
-            new Module(new Title("Roy Balakrishnan"), new ModuleCode("CS2103T"), new Credits("royb@example.com"),
-                new Memo("Blk 45 Aljunied Street 85, #11-31"), new Semester( "Y2S2" ),
-                getTagSet("colleagues"))
+            new Module(new Title("Software Engineering"), new ModuleCode("CS2103T"), new Credits("4"),
+                new Memo("Good Module, Gooder Teachers."), new Description("This module introduces the necessary conceptual and analytical tools for systematic and rigorous development of software systems. It covers four main areas of software development, namely object-oriented system analysis, object-oriented system modelling and design, implementation, and testing, with emphasis on system modelling and design and implementation of software modules that work cooperatively to fulfill the requirements of the system. Tools and techniques for software development, such as Unified Modelling Language (UML), program specification, and testing methods, will be taught. Major software engineering issues such as modularisation criteria, program correctness, and software quality will also be covered."), new Semester( "Y2S2" ),
+                getTagSet("coding", "engineering", "fun")),
+            new Module(new Title("Effective Communication for Computing Professionals"), new ModuleCode("CS2101"), new Credits("4"),
+                new Memo("Learnt how to present!"), new Description("This module aims to equip students with the skills needed to communicate technical information to technical and nontechnical audiences, and to create comprehensible software documentation. A student-centric approach will be adopted to encourage independent and collaborative learning while engaging students in team-based projects. Students will learn interpersonal and intercultural communication skills as well as hone their oral and written communication skills. Assessment modes include a variety of oral and written communication tasks such as reports, software guides, oral presentations, software demonstrations and project blogs."), new Semester( "Y2S2" ),
+                getTagSet("colleagues", "friends"))
         };
     }
 

@@ -1,8 +1,12 @@
 package seedu.address.logic.parser;
 
+import javafx.css.Match;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
@@ -73,6 +77,24 @@ public class ArgumentTokenizer {
         int prefixIndex = argsString.indexOf(" " + prefix, fromIndex);
         return prefixIndex == -1 ? -1
                 : prefixIndex + 1; // +1 as offset for whitespace
+    }
+
+    public static boolean isFlagPresent(String argsString, String flag){
+        Pattern pattern = Pattern.compile(flag);
+        Matcher matcher = pattern.matcher(argsString);
+
+        return matcher.find();
+    }
+
+    public static String removeFlags(String argsString){
+        int firstFlagIndex = argsString.indexOf("-");
+
+        if( firstFlagIndex < 0 ){
+            return argsString;
+        } else {
+            return argsString.substring(0, firstFlagIndex);
+        }
+
     }
 
     /**

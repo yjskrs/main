@@ -45,16 +45,16 @@ public class EditCommandParser implements Parser<EditCommand> {
 
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
         if (argMultimap.getValue(PREFIX_TITLE).isPresent()) {
-            editPersonDescriptor.setTitle(ParserUtil.parseName(argMultimap.getValue(PREFIX_TITLE).get()));
+            editPersonDescriptor.setTitle(ParserUtil.parseTitle(argMultimap.getValue(PREFIX_TITLE).get()));
         }
         if (argMultimap.getValue(PREFIX_MODULE_CODE).isPresent()) {
-            editPersonDescriptor.setModuleCode(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_MODULE_CODE).get()));
+            editPersonDescriptor.setModuleCode(ParserUtil.parseModuleCode(argMultimap.getValue(PREFIX_MODULE_CODE).get()));
         }
         if (argMultimap.getValue(PREFIX_CREDITS).isPresent()) {
-            editPersonDescriptor.setCredits(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_CREDITS).get()));
+            editPersonDescriptor.setCredits(ParserUtil.parseCredits(argMultimap.getValue(PREFIX_CREDITS).get()));
         }
         if (argMultimap.getValue( PREFIX_MEMO ).isPresent()) {
-            editPersonDescriptor.setMemo(ParserUtil.parseAddress(argMultimap.getValue( PREFIX_MEMO ).get()));
+            editPersonDescriptor.setMemo(ParserUtil.parseMemo(argMultimap.getValue( PREFIX_MEMO ).get()));
         }
         if (argMultimap.getValue( PREFIX_SEMESTER ).isPresent()) {
             editPersonDescriptor.setSemester(ParserUtil.parseSemester(argMultimap.getValue( PREFIX_SEMESTER ).get()));
