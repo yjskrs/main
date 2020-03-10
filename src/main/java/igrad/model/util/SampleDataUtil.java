@@ -6,10 +6,8 @@ import java.util.stream.Collectors;
 
 import igrad.model.CourseBook;
 import igrad.model.ReadOnlyCourseBook;
-import igrad.model.module.Email;
+import igrad.model.module.*;
 import igrad.model.module.Module;
-import igrad.model.module.Name;
-import igrad.model.module.Phone;
 import igrad.model.tag.Tag;
 
 /**
@@ -18,18 +16,30 @@ import igrad.model.tag.Tag;
 public class SampleDataUtil {
     public static Module[] getSamplePersons() {
         return new Module[] {
-            new Module(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
-                getTagSet("friends")),
-            new Module(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
-                getTagSet("colleagues", "friends")),
-            new Module(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@example.com"),
-                getTagSet("neighbours")),
-            new Module(new Name("David Li"), new Phone("91031282"), new Email("lidavid@example.com"),
-                getTagSet("family")),
-            new Module(new Name("Irfan Ibrahim"), new Phone("92492021"), new Email("irfan@example.com"),
-                getTagSet("classmates")),
-            new Module(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
-                getTagSet("colleagues"))
+                new Module(new Title("Alex Yeoh"), new ModuleCode("CS2103T"), new Credits("alexyeoh@example.com"),
+                        new Memo("Blk 30 Geylang Street 29, #06-40"), new Semester( "Y2S2" ),
+                        new Description("blah"),
+                        getTagSet("friends")),
+                new Module(new Title("Bernice Yu"), new ModuleCode("CS2103T"), new Credits("berniceyu@example.com"),
+                        new Memo("Blk 30 Lorong 3 Serangoon Gardens, #07-18"), new Semester( "Y2S2" ),
+                        new Description("blah"),
+                        getTagSet("colleagues", "friends")),
+                new Module(new Title("Charlotte Oliveiro"), new ModuleCode("CS2103T"), new Credits("charlotte@example.com"),
+                        new Memo("Blk 11 Ang Mo Kio Street 74, #11-04"), new Semester( "Y2S2" ),
+                        new Description("blah"),
+                        getTagSet("neighbours")),
+                new Module(new Title("David Li"), new ModuleCode("CS2103T"), new Credits("lidavid@example.com"),
+                        new Memo("Blk 436 Serangoon Gardens Street 26, #16-43"), new Semester( "Y2S2" ),
+                        new Description("blah"),
+                        getTagSet("family")),
+                new Module(new Title("Irfan Ibrahim"), new ModuleCode("CS2103T"), new Credits("irfan@example.com"),
+                        new Memo("Blk 47 Tampines Street 20, #17-35"), new Semester( "Y2S2" ),
+                        new Description("blah"),
+                        getTagSet("classmates")),
+                new Module(new Title("Roy Balakrishnan"), new ModuleCode("CS2103T"), new Credits("royb@example.com"),
+                        new Memo("Blk 45 Aljunied Street 85, #11-31"), new Semester( "Y2S2" ),
+                        new Description("blah"),
+                        getTagSet("colleagues"))
         };
     }
 

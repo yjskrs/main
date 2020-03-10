@@ -3,6 +3,7 @@ package igrad.logic.parser;
 import static igrad.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static igrad.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static igrad.testutil.Assert.assertThrows;
+import static igrad.testutil.TypicalIndexes.INDEX_FIRST_MODULE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -20,7 +21,6 @@ import igrad.model.module.Module;
 import igrad.testutil.EditModuleDescriptorBuilder;
 import igrad.testutil.ModuleBuilder;
 import igrad.testutil.ModuleUtil;
-import igrad.testutil.TypicalIndexes;
 
 public class CourseBookParserTest {
 
@@ -42,8 +42,8 @@ public class CourseBookParserTest {
     @Test
     public void parseCommand_delete() throws Exception {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + " " + TypicalIndexes.INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(new DeleteCommand(TypicalIndexes.INDEX_FIRST_PERSON), command);
+                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_MODULE.getOneBased());
+        assertEquals(new DeleteCommand(INDEX_FIRST_MODULE), command);
     }
 
     @Test
@@ -51,9 +51,9 @@ public class CourseBookParserTest {
         Module module = new ModuleBuilder().build();
         EditModuleDescriptor descriptor = new EditModuleDescriptorBuilder(module).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-                + TypicalIndexes.INDEX_FIRST_PERSON.getOneBased() + " "
+                + INDEX_FIRST_MODULE.getOneBased() + " "
                 + ModuleUtil.getEditModuleDescriptorDetails(descriptor));
-        assertEquals(new EditCommand(TypicalIndexes.INDEX_FIRST_PERSON, descriptor), command);
+        assertEquals(new EditCommand(INDEX_FIRST_MODULE, descriptor), command);
     }
 
     @Test

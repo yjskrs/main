@@ -19,16 +19,16 @@ import igrad.model.module.Module;
 @JsonRootName(value = "coursebook")
 class JsonSerializableCourseBook {
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate module(s).";
+    public static final String MESSAGE_DUPLICATE_MODULE = "Modules list contains duplicate module(s).";
 
-    private final List<JsonAdaptedModule> persons = new ArrayList<>();
+    private final List<JsonAdaptedModule> modules = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableCourseBook} with the given persons.
+     * Constructs a {@code JsonSerializableCourseBook} with the given modules.
      */
     @JsonCreator
-    public JsonSerializableCourseBook(@JsonProperty("persons") List<JsonAdaptedModule> persons) {
-        this.persons.addAll(persons);
+    public JsonSerializableCourseBook(@JsonProperty("modules") List<JsonAdaptedModule> modules) {
+        this.modules.addAll(modules);
     }
 
     /**
@@ -37,7 +37,7 @@ class JsonSerializableCourseBook {
      * @param source future changes to this will not affect the created {@code JsonSerializableCourseBook}.
      */
     public JsonSerializableCourseBook(ReadOnlyCourseBook source) {
-        persons.addAll(source.getModuleList().stream().map(JsonAdaptedModule::new).collect(Collectors.toList()));
+        modules.addAll(source.getModuleList().stream().map(JsonAdaptedModule::new).collect(Collectors.toList()));
     }
 
     /**
@@ -47,10 +47,10 @@ class JsonSerializableCourseBook {
      */
     public CourseBook toModelType() throws IllegalValueException {
         CourseBook courseBook = new CourseBook();
-        for (JsonAdaptedModule jsonAdaptedModule : persons) {
+        for (JsonAdaptedModule jsonAdaptedModule : modules) {
             Module module = jsonAdaptedModule.toModelType();
             if (courseBook.hasModule(module)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
+                throw new IllegalValueException(MESSAGE_DUPLICATE_MODULE);
             }
             courseBook.addModule(module);
         }

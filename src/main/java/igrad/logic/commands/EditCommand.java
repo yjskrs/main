@@ -1,9 +1,11 @@
 package igrad.logic.commands;
 
-import static igrad.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static igrad.logic.parser.CliSyntax.PREFIX_NAME;
-import static igrad.logic.parser.CliSyntax.PREFIX_PHONE;
+import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
+import static igrad.logic.parser.CliSyntax.PREFIX_MEMO;
+import static igrad.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
+import static igrad.logic.parser.CliSyntax.PREFIX_SEMESTER;
 import static igrad.logic.parser.CliSyntax.PREFIX_TAG;
+import static igrad.logic.parser.CliSyntax.PREFIX_TITLE;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Collections;
@@ -17,10 +19,8 @@ import igrad.commons.core.index.Index;
 import igrad.commons.util.CollectionUtil;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
-import igrad.model.module.Email;
+import igrad.model.module.*;
 import igrad.model.module.Module;
-import igrad.model.module.Name;
-import igrad.model.module.Phone;
 import igrad.model.tag.Tag;
 
 /**
@@ -34,13 +34,15 @@ public class EditCommand extends Command {
             + "by the index number used in the displayed module list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_NAME + "NAME] "
-            + "[" + PREFIX_PHONE + "PHONE] "
-            + "[" + PREFIX_EMAIL + "EMAIL] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + "[" + PREFIX_MODULE_CODE + "MODULE CODE] "
+            + "[" + PREFIX_TITLE + "TITLE] "
+            + "[" + PREFIX_CREDITS + "CREDITS] "
+            + "[" + PREFIX_MEMO + "MEMO] "
+            + "[" + PREFIX_SEMESTER + "SEMESTER]"
+            + "[" + PREFIX_TAG + "TAGS]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_PHONE + "91234567 "
-            + PREFIX_EMAIL + "johndoe@example.com";
+            + PREFIX_MODULE_CODE + "CS2103T "
+            + PREFIX_CREDITS + "4";
 
     public static final String MESSAGE_EDIT_MODULE_SUCCESS = "Edited Module: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -59,6 +61,28 @@ public class EditCommand extends Command {
 
         this.index = index;
         this.editModuleDescriptor = new EditModuleDescriptor(editModuleDescriptor);
+    }
+
+    /**
+     * Creates and returns a {@code Person} with the details of {@code personToEdit}
+     * edited with {@code editModuleDescriptor}.
+     */
+    private static Module createEditedPerson(Module moduleToEdit, EditModuleDescriptor editModuleDescriptor) {
+        assert moduleToEdit != null;
+
+        Title updatedTitle = editModuleDescriptor.getTitle().orElse(moduleToEdit.getTitle());
+        ModuleCode updatedModuleCode = editModuleDescriptor.getModuleCode().orElse(moduleToEdit.getModuleCode());
+        Credits updatedCredits = editModuleDescriptor.getCredits().orElse(moduleToEdit.getCredits());
+        Memo updatedMemo = editModuleDescriptor.getMemo().orElse(moduleToEdit.getMemo());
+        Description updatedDescription = editModuleDescriptor.getDescription().orElse(moduleToEdit.getDescription());
+        Semester updatedSemester = editModuleDescriptor.getSemester().orElse(moduleToEdit.getSemester());
+        Set<Tag> updatedTags = editModuleDescriptor.getTags().orElse(moduleToEdit.getTags());
+
+        return new Module(updatedTitle, updatedModuleCode, updatedCredits, updatedMemo,
+            updatedSemester,
+                updatedDescription,
+            updatedTags
+        );
     }
 
     @Override
@@ -89,12 +113,16 @@ public class EditCommand extends Command {
     private static Module createEditedModule(Module moduleToEdit, EditModuleDescriptor editModuleDescriptor) {
         assert moduleToEdit != null;
 
-        Name updatedName = editModuleDescriptor.getName().orElse(moduleToEdit.getName());
-        Phone updatedPhone = editModuleDescriptor.getPhone().orElse(moduleToEdit.getPhone());
-        Email updatedEmail = editModuleDescriptor.getEmail().orElse(moduleToEdit.getEmail());
+        Title updatedTitle = editModuleDescriptor.getTitle().orElse(moduleToEdit.getTitle());
+        ModuleCode updatedModuleCode = editModuleDescriptor.getModuleCode().orElse(moduleToEdit.getModuleCode());
+        Credits updatedCredits = editModuleDescriptor.getCredits().orElse(moduleToEdit.getCredits());
+        Memo updatedMemo = editModuleDescriptor.getMemo().orElse(moduleToEdit.getMemo());
+        Semester updatedSemester = editModuleDescriptor.getSemester().orElse(moduleToEdit.getSemester());
+        Description updatedDescription = editModuleDescriptor.getDescription().orElse(moduleToEdit.getDescription());
         Set<Tag> updatedTags = editModuleDescriptor.getTags().orElse(moduleToEdit.getTags());
 
-        return new Module(updatedName, updatedPhone, updatedEmail, updatedTags);
+        return new Module(updatedTitle, updatedModuleCode, updatedCredits, updatedMemo, updatedSemester,
+                updatedDescription, updatedTags );
     }
 
     @Override
@@ -120,21 +148,26 @@ public class EditCommand extends Command {
      * corresponding field value of the module.
      */
     public static class EditModuleDescriptor {
-        private Name name;
-        private Phone phone;
-        private Email email;
+        private Title title;
+        private ModuleCode moduleCode;
+        private Credits credits;
+        private Memo memo;
+        private Description description;
+        private Semester semester;
         private Set<Tag> tags;
 
         public EditModuleDescriptor() {}
-
         /**
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
         public EditModuleDescriptor(EditModuleDescriptor toCopy) {
-            setName(toCopy.name);
-            setPhone(toCopy.phone);
-            setEmail(toCopy.email);
+            setTitle(toCopy.title);
+            setModuleCode(toCopy.moduleCode);
+            setCredits(toCopy.credits);
+            setMemo(toCopy.memo);
+            setSemester(toCopy.semester);
+            setDescription(toCopy.description);
             setTags(toCopy.tags);
         }
 
@@ -142,31 +175,55 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, tags);
+            return CollectionUtil.isAnyNonNull(title, moduleCode, credits, memo, description, semester, tags);
         }
 
-        public void setName(Name name) {
-            this.name = name;
+        public void setTitle(Title title) {
+            this.title = title;
         }
 
-        public Optional<Name> getName() {
-            return Optional.ofNullable(name);
+        public Optional<Title> getTitle() {
+            return Optional.ofNullable(title);
         }
 
-        public void setPhone(Phone phone) {
-            this.phone = phone;
+        public void setModuleCode(ModuleCode moduleCode) {
+            this.moduleCode = moduleCode;
         }
 
-        public Optional<Phone> getPhone() {
-            return Optional.ofNullable(phone);
+        public Optional<ModuleCode> getModuleCode() {
+            return Optional.ofNullable(moduleCode);
         }
 
-        public void setEmail(Email email) {
-            this.email = email;
+        public void setCredits(Credits credits) {
+            this.credits = credits;
         }
 
-        public Optional<Email> getEmail() {
-            return Optional.ofNullable(email);
+        public Optional<Credits> getCredits() {
+            return Optional.ofNullable(credits);
+        }
+
+        public Optional<Memo> getMemo() {
+            return Optional.ofNullable(memo);
+        }
+
+        public void setMemo(Memo memo) {
+            this.memo = memo;
+        }
+
+        public Optional<Semester> getSemester() {
+            return Optional.ofNullable(semester);
+        }
+
+        public void setSemester(Semester semester) {
+            this.semester = semester;
+        }
+
+        public Optional<Description> getDescription() {
+            return Optional.ofNullable(description);
+        }
+
+        public void setDescription(Description description) {
+            this.description = description;
         }
 
         /**
@@ -201,10 +258,13 @@ public class EditCommand extends Command {
             // state check
             EditModuleDescriptor e = (EditModuleDescriptor) other;
 
-            return getName().equals(e.getName())
-                    && getPhone().equals(e.getPhone())
-                    && getEmail().equals(e.getEmail())
-                    && getTags().equals(e.getTags());
+            return getTitle().equals(e.getTitle())
+                && getModuleCode().equals(e.getModuleCode())
+                && getCredits().equals(e.getCredits())
+                && getMemo().equals(e.getMemo())
+                && getDescription().equals(e.getDescription())
+                && getSemester().equals(e.getSemester())
+                && getTags().equals(e.getTags());
         }
     }
 }

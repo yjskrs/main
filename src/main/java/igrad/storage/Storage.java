@@ -10,7 +10,7 @@ import igrad.model.ReadOnlyUserPrefs;
 import igrad.model.UserPrefs;
 
 /**
- * API of the Storage component
+ * API of the Storage component.
  */
 public interface Storage extends CourseBookStorage, UserPrefsStorage {
 

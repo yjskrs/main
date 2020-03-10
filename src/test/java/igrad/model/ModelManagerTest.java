@@ -13,9 +13,9 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import igrad.commons.core.GuiSettings;
-import igrad.model.module.NameContainsKeywordsPredicate;
+import igrad.model.module.TitleContainsKeywordsPredicate;
 import igrad.testutil.CourseBookBuilder;
-import igrad.testutil.TypicalPersons;
+import igrad.testutil.TypicalModules;
 
 public class ModelManagerTest {
 
@@ -78,13 +78,13 @@ public class ModelManagerTest {
 
     @Test
     public void hasPerson_personNotInCourseBook_returnsFalse() {
-        assertFalse(modelManager.hasModule(TypicalPersons.ALICE));
+        assertFalse(modelManager.hasModule(TypicalModules.PROGRAMMING_METHODOLOGY));
     }
 
     @Test
     public void hasPerson_personInCourseBook_returnsTrue() {
-        modelManager.addModule(TypicalPersons.ALICE);
-        assertTrue(modelManager.hasModule(TypicalPersons.ALICE));
+        modelManager.addModule(TypicalModules.PROGRAMMING_METHODOLOGY);
+        assertTrue(modelManager.hasModule(TypicalModules.PROGRAMMING_METHODOLOGY));
     }
 
     @Test
@@ -95,8 +95,8 @@ public class ModelManagerTest {
     @Test
     public void equals() {
         CourseBook courseBook = new CourseBookBuilder()
-                .withPerson(TypicalPersons.ALICE)
-                .withPerson(TypicalPersons.BENSON)
+                .withPerson(TypicalModules.PROGRAMMING_METHODOLOGY)
+                .withPerson(TypicalModules.COMPUTER_ORGANISATION)
                 .build();
         CourseBook differentCourseBook = new CourseBook();
         UserPrefs userPrefs = new UserPrefs();
@@ -119,8 +119,8 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(differentCourseBook, userPrefs)));
 
         // different filteredList -> returns false
-        String[] keywords = TypicalPersons.ALICE.getName().fullName.split("\\s+");
-        modelManager.updateFilteredModuleList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
+        String[] keywords = TypicalModules.PROGRAMMING_METHODOLOGY.getTitle().value.split("\\s+");
+        modelManager.updateFilteredModuleList(new TitleContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(courseBook, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests

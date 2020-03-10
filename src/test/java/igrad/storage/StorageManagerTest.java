@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import java.nio.file.Path;
 
 import org.junit.jupiter.api.BeforeEach;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
@@ -13,7 +14,7 @@ import igrad.commons.core.GuiSettings;
 import igrad.model.CourseBook;
 import igrad.model.ReadOnlyCourseBook;
 import igrad.model.UserPrefs;
-import igrad.testutil.TypicalPersons;
+import igrad.testutil.TypicalModules;
 
 public class StorageManagerTest {
 
@@ -54,7 +55,7 @@ public class StorageManagerTest {
          * {@link JsonCourseBookStorage} class.
          * More extensive testing of UserPref saving/reading is done in {@link JsonCourseBookStorageTest} class.
          */
-        CourseBook original = TypicalPersons.getTypicalCourseBook();
+        CourseBook original = TypicalModules.getTypicalCourseBook();
         storageManager.saveCourseBook(original);
         ReadOnlyCourseBook retrieved = storageManager.readCourseBook().get();
         assertEquals(original, new CourseBook(retrieved));
