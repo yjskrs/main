@@ -22,18 +22,20 @@ public class Module {
 
     // Data fields
     private final Memo memo;
+    private final Description description;
     private final Semester semester;
     private final Set<Tags> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Module( Title title, ModuleCode moduleCode, Credits credits, Memo memo, Semester semester, Set<Tags> tags ) {
-        requireAllNonNull( title, moduleCode, credits, memo, tags );
+    public Module( Title title, ModuleCode moduleCode, Credits credits, Memo memo, Description description, Semester semester, Set<Tags> tags ) {
+        requireAllNonNull( title, moduleCode, credits, tags );
         this.title = title;
         this.moduleCode = moduleCode;
         this.credits = credits;
         this.memo = memo;
+        this.description = description;
         this.semester = semester;
         this.tags.addAll( tags );
     }
@@ -52,6 +54,10 @@ public class Module {
 
     public Memo getMemo() {
         return memo;
+    }
+
+    public Description getDescription(){
+        return description;
     }
 
     public Semester getSemester(){ return semester; }
@@ -75,8 +81,7 @@ public class Module {
 
         return otherModule != null
                 && otherModule.getTitle().equals( getTitle())
-                && ( otherModule.getModuleCode().equals( getModuleCode()) || otherModule.getCredits().equals( getCredits()))
-                && otherModule.getSemester().equals( getSemester());
+                && ( otherModule.getModuleCode().equals( getModuleCode()) || otherModule.getCredits().equals( getCredits()));
     }
 
     /**
@@ -98,6 +103,7 @@ public class Module {
                 && otherModule.getModuleCode().equals( getModuleCode())
                 && otherModule.getCredits().equals( getCredits())
                 && otherModule.getMemo().equals( getMemo())
+                && otherModule.getDescription().equals( getDescription())
                 && otherModule.getTags().equals( getTags())
                 && otherModule.getSemester().equals( getSemester());
     }
@@ -105,7 +111,7 @@ public class Module {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash( title, moduleCode, credits, memo, tags, semester );
+        return Objects.hash( title, moduleCode, credits, memo, description, tags, semester );
     }
 
     @Override
@@ -118,6 +124,8 @@ public class Module {
                 .append( getCredits())
                 .append(" Memo: ")
                 .append( getMemo())
+                .append(" Description: ")
+                .append( getDescription())
                 .append(" Semester: ")
                 .append( getSemester() )
                 .append("Tags: ");

@@ -12,7 +12,7 @@ public class Semester {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Semester should be in the format Y_S_ e.g. Y1S2";
-    public static final String VALIDATION_REGEX = "(?i)Y[1-2]S[1-2]";
+    public static final String VALIDATION_REGEX = "(?i)Y[1-4]S[1-2]";
     public final String value;
 
     /**
@@ -30,7 +30,7 @@ public class Semester {
      * Returns true if a given string is a valid module code.
      */
     public static boolean isValidSemester( String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test == null || test.matches(VALIDATION_REGEX);
     }
 
     @Override

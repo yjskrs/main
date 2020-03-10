@@ -38,7 +38,7 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code name} is invalid.
      */
-    public static Title parseName( String name) throws ParseException {
+    public static Title parseTitle(String name) throws ParseException {
         requireNonNull(name);
         String trimmedName = name.trim();
         if (!Title.isValidName(trimmedName)) {
@@ -48,14 +48,14 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String phone} into a {@code Phone}.
+     * Parses a {@code String moduleCode} into a {@code Phone}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code phone} is invalid.
+     * @throws ParseException if the given {@code moduleCode} is invalid.
      */
-    public static ModuleCode parsePhone( String phone) throws ParseException {
-        requireNonNull(phone);
-        String trimmedPhone = phone.trim();
+    public static ModuleCode parseModuleCode(String moduleCode) throws ParseException {
+        requireNonNull(moduleCode);
+        String trimmedPhone = moduleCode.trim();
         if (!ModuleCode.isValidModuleCode(trimmedPhone)) {
             throw new ParseException( ModuleCode.MESSAGE_CONSTRAINTS);
         }
@@ -68,13 +68,28 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code address} is invalid.
      */
-    public static Memo parseAddress( String address) throws ParseException {
-        requireNonNull(address);
-        String trimmedAddress = address.trim();
-//        if (!Address.isValidAddress(trimmedAddress)) {
+    public static Memo parseMemo(String memo) throws ParseException {
+        requireNonNull(memo);
+        String trimmedMemo = memo.trim();
+//        if (!Address.isValidAddress(trimmedMemo)) {
 //            throw new ParseException(Address.MESSAGE_CONSTRAINTS);
 //        }
-        return new Memo(trimmedAddress);
+        return new Memo(trimmedMemo);
+    }
+
+    /**
+     * Parses a {@code String address} into an {@code Address}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code address} is invalid.
+     */
+    public static Description parseDescription(String description) throws ParseException {
+        requireNonNull(description);
+        String trimmedDescription = description.trim();
+//        if (!Address.isValidAddress(trimmedDescription)) {
+//            throw new ParseException(Address.MESSAGE_CONSTRAINTS);
+//        }
+        return new Description(trimmedDescription);
     }
 
     /**
@@ -83,7 +98,7 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code email} is invalid.
      */
-    public static Credits parseEmail( String credits) throws ParseException {
+    public static Credits parseCredits(String credits) throws ParseException {
         requireNonNull(credits);
         String trimmedCredits = credits.trim();
         if (!Credits.isValidCredits(trimmedCredits)) {

@@ -1,25 +1,24 @@
 package seedu.address.model.module;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Person's address in the address book.
  */
-public class Memo {
+public class Description {
 
-    public static final String MESSAGE_CONSTRAINTS = "Memos can take any values, and is optional";
+    public static final String MESSAGE_CONSTRAINTS = "Descriptions can take any values, and is optional";
 
     public final String value;
 
     /**
-     * Constructs an {@code Memo}.
+     * Constructs an {@code Description}.
      *
-     * @param memo A valid memo.
+     * @param description A valid description.
      */
-    public Memo( String memo) {
-//        requireNonNull(memo);
-        value = memo;
+    public Description(String description) {
+//        requireNonNull(description);
+        value = description;
     }
 
 //    /**
@@ -37,8 +36,8 @@ public class Memo {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Memo // instanceof handles nulls
-                && value.equals(((Memo) other).value)); // state check
+                || (other instanceof Description // instanceof handles nulls
+                && value.equals(((Description) other).value)); // state check
     }
 
     @Override
