@@ -9,7 +9,12 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.module.*;
+import seedu.address.model.module.Credits;
+import seedu.address.model.module.Description;
+import seedu.address.model.module.Memo;
+import seedu.address.model.module.ModuleCode;
+import seedu.address.model.module.Semester;
+import seedu.address.model.module.Title;
 import seedu.address.model.tags.Tags;
 
 /**
@@ -22,6 +27,7 @@ public class ParserUtil {
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
+     *
      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
@@ -42,7 +48,7 @@ public class ParserUtil {
         requireNonNull(name);
         String trimmedName = name.trim();
         if (!Title.isValidName(trimmedName)) {
-            throw new ParseException( Title.MESSAGE_CONSTRAINTS);
+            throw new ParseException(Title.MESSAGE_CONSTRAINTS);
         }
         return new Title(trimmedName);
     }
@@ -57,7 +63,7 @@ public class ParserUtil {
         requireNonNull(moduleCode);
         String trimmedPhone = moduleCode.trim();
         if (!ModuleCode.isValidModuleCode(trimmedPhone)) {
-            throw new ParseException( ModuleCode.MESSAGE_CONSTRAINTS);
+            throw new ParseException(ModuleCode.MESSAGE_CONSTRAINTS);
         }
         return new ModuleCode(trimmedPhone);
     }
@@ -71,9 +77,7 @@ public class ParserUtil {
     public static Memo parseMemo(String memo) throws ParseException {
         requireNonNull(memo);
         String trimmedMemo = memo.trim();
-//        if (!Address.isValidAddress(trimmedMemo)) {
-//            throw new ParseException(Address.MESSAGE_CONSTRAINTS);
-//        }
+
         return new Memo(trimmedMemo);
     }
 
@@ -86,9 +90,7 @@ public class ParserUtil {
     public static Description parseDescription(String description) throws ParseException {
         requireNonNull(description);
         String trimmedDescription = description.trim();
-//        if (!Address.isValidAddress(trimmedDescription)) {
-//            throw new ParseException(Address.MESSAGE_CONSTRAINTS);
-//        }
+
         return new Description(trimmedDescription);
     }
 
@@ -102,7 +104,7 @@ public class ParserUtil {
         requireNonNull(credits);
         String trimmedCredits = credits.trim();
         if (!Credits.isValidCredits(trimmedCredits)) {
-            throw new ParseException( Credits.MESSAGE_CONSTRAINTS);
+            throw new ParseException(Credits.MESSAGE_CONSTRAINTS);
         }
         return new Credits(trimmedCredits);
     }
@@ -113,11 +115,11 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code semester} is invalid.
      */
-    public static Semester parseSemester( String semester) throws ParseException {
+    public static Semester parseSemester(String semester) throws ParseException {
         requireNonNull(semester);
         String trimmedSemester = semester.trim();
         if (!Semester.isValidSemester(trimmedSemester)) {
-            throw new ParseException( Semester.MESSAGE_CONSTRAINTS);
+            throw new ParseException(Semester.MESSAGE_CONSTRAINTS);
         }
         return new Semester(trimmedSemester);
     }
@@ -128,11 +130,11 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code tag} is invalid.
      */
-    public static Tags parseTag( String tag) throws ParseException {
+    public static Tags parseTag(String tag) throws ParseException {
         requireNonNull(tag);
         String trimmedTag = tag.trim();
         if (!Tags.isValidSemester(trimmedTag)) {
-            throw new ParseException( Tags.MESSAGE_CONSTRAINTS);
+            throw new ParseException(Tags.MESSAGE_CONSTRAINTS);
         }
         return new Tags(trimmedTag);
     }
@@ -140,7 +142,7 @@ public class ParserUtil {
     /**
      * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
      */
-    public static Set<Tags> parseTags( Collection<String> tags) throws ParseException {
+    public static Set<Tags> parseTags(Collection<String> tags) throws ParseException {
         requireNonNull(tags);
         final Set<Tags> tagsSet = new HashSet<>();
         for (String tagName : tags) {

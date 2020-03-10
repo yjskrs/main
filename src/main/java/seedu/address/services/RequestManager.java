@@ -1,19 +1,18 @@
 package seedu.address.services;
 
 import java.io.IOException;
-import java.net.URL;
 import java.net.HttpURLConnection;
+import java.net.URL;
 
 /**
  * The Request Manager sets up the connection for its children
  */
 public abstract class RequestManager {
 
-    URL url;
-    HttpURLConnection connection;
+    protected URL url;
+    protected HttpURLConnection connection;
 
     /**
-     *
      * @param urlName url of the site to retrieve data from
      */
     public RequestManager(String urlName) throws IOException {

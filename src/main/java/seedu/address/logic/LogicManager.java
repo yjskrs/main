@@ -36,7 +36,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public CommandResult execute(String commandText) throws CommandException, ParseException, IOException, ServiceException {
+    public CommandResult execute(String commandText) throws CommandException,
+        ParseException, IOException, ServiceException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;

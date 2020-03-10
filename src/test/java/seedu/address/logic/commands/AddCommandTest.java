@@ -35,17 +35,17 @@ public class AddCommandTest {
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
         Module validModule = new PersonBuilder().build();
 
-        CommandResult commandResult = new AddCommand( validModule ).execute(modelStub);
+        CommandResult commandResult = new AddCommand(validModule).execute(modelStub);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validModule ), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList( validModule ), modelStub.personsAdded);
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validModule), commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(validModule), modelStub.personsAdded);
     }
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
         Module validModule = new PersonBuilder().build();
-        AddCommand addCommand = new AddCommand( validModule );
-        ModelStub modelStub = new ModelStubWithPerson( validModule );
+        AddCommand addCommand = new AddCommand(validModule);
+        ModelStub modelStub = new ModelStubWithPerson(validModule);
 
         assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PERSON, () -> addCommand.execute(modelStub));
     }
@@ -79,12 +79,12 @@ public class AddCommandTest {
      */
     private class ModelStub implements Model {
         @Override
-        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
+        public ReadOnlyUserPrefs getUserPrefs() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyUserPrefs getUserPrefs() {
+        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -109,12 +109,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void addPerson( Module module ) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
+        public void addPerson(Module module) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -124,17 +119,22 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasPerson( Module module ) {
+        public void setAddressBook(ReadOnlyAddressBook newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deletePerson( Module target) {
+        public boolean hasPerson(Module module) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setPerson( Module target, Module editedModule ) {
+        public void deletePerson(Module target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setPerson(Module target, Module editedModule) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -155,15 +155,15 @@ public class AddCommandTest {
     private class ModelStubWithPerson extends ModelStub {
         private final Module module;
 
-        ModelStubWithPerson( Module module ) {
-            requireNonNull( module );
+        ModelStubWithPerson(Module module) {
+            requireNonNull(module);
             this.module = module;
         }
 
         @Override
-        public boolean hasPerson( Module module ) {
-            requireNonNull( module );
-            return this.module.isSamePerson( module );
+        public boolean hasPerson(Module module) {
+            requireNonNull(module);
+            return this.module.isSamePerson(module);
         }
     }
 
@@ -174,15 +174,15 @@ public class AddCommandTest {
         final ArrayList<Module> personsAdded = new ArrayList<>();
 
         @Override
-        public boolean hasPerson( Module module ) {
-            requireNonNull( module );
-            return personsAdded.stream().anyMatch( module::isSamePerson);
+        public boolean hasPerson(Module module) {
+            requireNonNull(module);
+            return personsAdded.stream().anyMatch(module::isSamePerson);
         }
 
         @Override
-        public void addPerson( Module module ) {
-            requireNonNull( module );
-            personsAdded.add( module );
+        public void addPerson(Module module) {
+            requireNonNull(module);
+            personsAdded.add(module);
         }
 
         @Override

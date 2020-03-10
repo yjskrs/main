@@ -25,16 +25,16 @@ public class ModuleCodeTest {
         assertThrows(NullPointerException.class, () -> ModuleCode.isValidModuleCode(null));
 
         // invalid phone numbers
-        assertFalse( ModuleCode.isValidModuleCode("")); // empty string
-        assertFalse( ModuleCode.isValidModuleCode(" ")); // spaces only
-        assertFalse( ModuleCode.isValidModuleCode("91")); // less than 3 numbers
-        assertFalse( ModuleCode.isValidModuleCode("phone")); // non-numeric
-        assertFalse( ModuleCode.isValidModuleCode("9011p041")); // alphabets within digits
-        assertFalse( ModuleCode.isValidModuleCode("9312 1534")); // spaces within digits
+        assertFalse(ModuleCode.isValidModuleCode("")); // empty string
+        assertFalse(ModuleCode.isValidModuleCode(" ")); // spaces only
+        assertFalse(ModuleCode.isValidModuleCode("91")); // less than 3 numbers
+        assertFalse(ModuleCode.isValidModuleCode("phone")); // non-numeric
+        assertFalse(ModuleCode.isValidModuleCode("9011p041")); // alphabets within digits
+        assertFalse(ModuleCode.isValidModuleCode("9312 1534")); // spaces within digits
 
         // valid phone numbers
-        assertTrue( ModuleCode.isValidModuleCode("911")); // exactly 3 numbers
-        assertTrue( ModuleCode.isValidModuleCode("93121534"));
-        assertTrue( ModuleCode.isValidModuleCode("124293842033123")); // long phone numbers
+        assertTrue(ModuleCode.isValidModuleCode("911")); // exactly 3 numbers
+        assertTrue(ModuleCode.isValidModuleCode("93121534"));
+        assertTrue(ModuleCode.isValidModuleCode("124293842033123")); // long phone numbers
     }
 }

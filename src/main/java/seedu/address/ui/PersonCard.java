@@ -45,26 +45,26 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    public PersonCard( Module module, int displayedIndex) {
+    public PersonCard(Module module, int displayedIndex) {
         super(FXML);
         this.module = module;
         id.setText(displayedIndex + ". ");
-        title.setText( module.getTitle().fullName);
-        moduleCode.setText( "Code:\t\t\t" + module.getModuleCode().value);
-        credits.setText( "Credits:\t\t\t" + module.getCredits().value);
+        title.setText(module.getTitle().fullName);
+        moduleCode.setText("Code:\t\t\t" + module.getModuleCode().value);
+        credits.setText("Credits:\t\t\t" + module.getCredits().value);
 
-        if( module.getMemo() != null ){
-            memo.setText( "Memo:\t\t\t" + module.getMemo().value);
+        if (module.getMemo() != null) {
+            memo.setText("Memo:\t\t\t" + module.getMemo().value);
         }
-        if( module.getSemester() != null ){
-            semester.setText( "Semester:\t\t\t" + module.getSemester().value );
+        if (module.getSemester() != null) {
+            semester.setText("Semester:\t\t\t" + module.getSemester().value);
         }
-        if( module.getDescription() != null ){
+        if (module.getDescription() != null) {
             description.setText("Description:\t\t" + module.getDescription().value);
         }
         module.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+            .sorted(Comparator.comparing(tag -> tag.tagName))
+            .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 
     @Override
@@ -82,6 +82,6 @@ public class PersonCard extends UiPart<Region> {
         // state check
         PersonCard card = (PersonCard) other;
         return id.getText().equals(card.id.getText())
-                && module.equals(card.module );
+            && module.equals(card.module);
     }
 }

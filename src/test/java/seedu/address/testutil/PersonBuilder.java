@@ -3,9 +3,11 @@ package seedu.address.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.address.model.module.*;
+import seedu.address.model.module.Credits;
 import seedu.address.model.module.Memo;
 import seedu.address.model.module.Module;
+import seedu.address.model.module.ModuleCode;
+import seedu.address.model.module.Title;
 import seedu.address.model.tags.Tags;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -36,12 +38,12 @@ public class PersonBuilder {
     /**
      * Initializes the PersonBuilder with the data of {@code personToCopy}.
      */
-    public PersonBuilder( Module moduleToCopy ) {
+    public PersonBuilder(Module moduleToCopy) {
         title = moduleToCopy.getTitle();
         moduleCode = moduleToCopy.getModuleCode();
         credits = moduleToCopy.getCredits();
         memo = moduleToCopy.getMemo();
-        tags = new HashSet<>( moduleToCopy.getTags());
+        tags = new HashSet<>(moduleToCopy.getTags());
     }
 
     /**
@@ -55,7 +57,7 @@ public class PersonBuilder {
     /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
      */
-    public PersonBuilder withTags(String ... tags) {
+    public PersonBuilder withTags(String... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
         return this;
     }
@@ -84,8 +86,19 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * builds
+     */
     public Module build() {
-        return new Module( title, moduleCode, credits, memo, tags );
+        return new Module(
+            title,
+            moduleCode,
+            credits,
+            memo,
+            null,
+            null,
+            null
+        );
     }
 
 }

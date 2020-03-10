@@ -16,8 +16,8 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.module.Credits;
 import seedu.address.model.module.Memo;
-import seedu.address.model.module.Title;
 import seedu.address.model.module.ModuleCode;
+import seedu.address.model.module.Title;
 import seedu.address.model.tags.Tags;
 
 public class ParserUtilTest {
@@ -58,7 +58,7 @@ public class ParserUtilTest {
 
     @Test
     public void parseName_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseTitle((String) null));
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseTitle(null));
     }
 
     @Test
@@ -69,19 +69,19 @@ public class ParserUtilTest {
     @Test
     public void parseName_validValueWithoutWhitespace_returnsName() throws Exception {
         Title expectedTitle = new Title(VALID_NAME);
-        assertEquals( expectedTitle, ParserUtil.parseTitle(VALID_NAME));
+        assertEquals(expectedTitle, ParserUtil.parseTitle(VALID_NAME));
     }
 
     @Test
     public void parseName_validValueWithWhitespace_returnsTrimmedName() throws Exception {
         String nameWithWhitespace = WHITESPACE + VALID_NAME + WHITESPACE;
         Title expectedTitle = new Title(VALID_NAME);
-        assertEquals( expectedTitle, ParserUtil.parseTitle(nameWithWhitespace));
+        assertEquals(expectedTitle, ParserUtil.parseTitle(nameWithWhitespace));
     }
 
     @Test
     public void parsePhone_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseModuleCode((String) null));
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseModuleCode(null));
     }
 
     @Test
@@ -92,19 +92,19 @@ public class ParserUtilTest {
     @Test
     public void parsePhone_validValueWithoutWhitespace_returnsPhone() throws Exception {
         ModuleCode expectedModuleCode = new ModuleCode(VALID_PHONE);
-        assertEquals( expectedModuleCode, ParserUtil.parseModuleCode(VALID_PHONE));
+        assertEquals(expectedModuleCode, ParserUtil.parseModuleCode(VALID_PHONE));
     }
 
     @Test
     public void parsePhone_validValueWithWhitespace_returnsTrimmedPhone() throws Exception {
         String phoneWithWhitespace = WHITESPACE + VALID_PHONE + WHITESPACE;
         ModuleCode expectedModuleCode = new ModuleCode(VALID_PHONE);
-        assertEquals( expectedModuleCode, ParserUtil.parseModuleCode(phoneWithWhitespace));
+        assertEquals(expectedModuleCode, ParserUtil.parseModuleCode(phoneWithWhitespace));
     }
 
     @Test
     public void parseAddress_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseMemo((String) null));
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseMemo(null));
     }
 
     @Test
@@ -115,19 +115,19 @@ public class ParserUtilTest {
     @Test
     public void parseAddress_validValueWithoutWhitespace_returnsAddress() throws Exception {
         Memo expectedMemo = new Memo(VALID_ADDRESS);
-        assertEquals( expectedMemo, ParserUtil.parseMemo(VALID_ADDRESS));
+        assertEquals(expectedMemo, ParserUtil.parseMemo(VALID_ADDRESS));
     }
 
     @Test
     public void parseAddress_validValueWithWhitespace_returnsTrimmedAddress() throws Exception {
         String addressWithWhitespace = WHITESPACE + VALID_ADDRESS + WHITESPACE;
         Memo expectedMemo = new Memo(VALID_ADDRESS);
-        assertEquals( expectedMemo, ParserUtil.parseMemo(addressWithWhitespace));
+        assertEquals(expectedMemo, ParserUtil.parseMemo(addressWithWhitespace));
     }
 
     @Test
     public void parseEmail_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseCredits((String) null));
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseCredits(null));
     }
 
     @Test
@@ -138,14 +138,14 @@ public class ParserUtilTest {
     @Test
     public void parseEmail_validValueWithoutWhitespace_returnsEmail() throws Exception {
         Credits expectedCredits = new Credits(VALID_EMAIL);
-        assertEquals( expectedCredits, ParserUtil.parseCredits(VALID_EMAIL));
+        assertEquals(expectedCredits, ParserUtil.parseCredits(VALID_EMAIL));
     }
 
     @Test
     public void parseEmail_validValueWithWhitespace_returnsTrimmedEmail() throws Exception {
         String emailWithWhitespace = WHITESPACE + VALID_EMAIL + WHITESPACE;
         Credits expectedCredits = new Credits(VALID_EMAIL);
-        assertEquals( expectedCredits, ParserUtil.parseCredits(emailWithWhitespace));
+        assertEquals(expectedCredits, ParserUtil.parseCredits(emailWithWhitespace));
     }
 
     @Test
@@ -161,14 +161,14 @@ public class ParserUtilTest {
     @Test
     public void parseTag_validValueWithoutWhitespace_returnsTag() throws Exception {
         Tags expectedTags = new Tags(VALID_TAG_1);
-        assertEquals( expectedTags, ParserUtil.parseTag(VALID_TAG_1));
+        assertEquals(expectedTags, ParserUtil.parseTag(VALID_TAG_1));
     }
 
     @Test
     public void parseTag_validValueWithWhitespace_returnsTrimmedTag() throws Exception {
         String tagWithWhitespace = WHITESPACE + VALID_TAG_1 + WHITESPACE;
         Tags expectedTags = new Tags(VALID_TAG_1);
-        assertEquals( expectedTags, ParserUtil.parseTag(tagWithWhitespace));
+        assertEquals(expectedTags, ParserUtil.parseTag(tagWithWhitespace));
     }
 
     @Test
@@ -191,6 +191,6 @@ public class ParserUtilTest {
         Set<Tags> actualTagsSet = ParserUtil.parseTags(Arrays.asList(VALID_TAG_1, VALID_TAG_2));
         Set<Tags> expectedTagsSet = new HashSet<Tags>(Arrays.asList(new Tags(VALID_TAG_1), new Tags(VALID_TAG_2)));
 
-        assertEquals( expectedTagsSet, actualTagsSet );
+        assertEquals(expectedTagsSet, actualTagsSet);
     }
 }

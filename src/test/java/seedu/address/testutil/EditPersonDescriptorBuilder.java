@@ -5,9 +5,11 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.model.module.*;
+import seedu.address.model.module.Credits;
 import seedu.address.model.module.Memo;
 import seedu.address.model.module.Module;
+import seedu.address.model.module.ModuleCode;
+import seedu.address.model.module.Title;
 import seedu.address.model.tags.Tags;
 
 /**
@@ -28,13 +30,13 @@ public class EditPersonDescriptorBuilder {
     /**
      * Returns an {@code EditPersonDescriptor} with fields containing {@code person}'s details
      */
-    public EditPersonDescriptorBuilder( Module module ) {
+    public EditPersonDescriptorBuilder(Module module) {
         descriptor = new EditPersonDescriptor();
-        descriptor.setTitle( module.getTitle());
-        descriptor.setModuleCode( module.getModuleCode());
-        descriptor.setCredits( module.getCredits());
-        descriptor.setMemo( module.getMemo());
-        descriptor.setTags( module.getTags());
+        descriptor.setTitle(module.getTitle());
+        descriptor.setModuleCode(module.getModuleCode());
+        descriptor.setCredits(module.getCredits());
+        descriptor.setMemo(module.getMemo());
+        descriptor.setTags(module.getTags());
     }
 
     /**
@@ -74,8 +76,8 @@ public class EditPersonDescriptorBuilder {
      * that we are building.
      */
     public EditPersonDescriptorBuilder withTags(String... tags) {
-        Set<Tags> tagsSet = Stream.of(tags).map( Tags::new).collect(Collectors.toSet());
-        descriptor.setTags( tagsSet );
+        Set<Tags> tagsSet = Stream.of(tags).map(Tags::new).collect(Collectors.toSet());
+        descriptor.setTags(tagsSet);
         return this;
     }
 
