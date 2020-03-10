@@ -22,7 +22,7 @@ import seedu.address.model.tags.Tags;
 /**
  * Jackson-friendly version of {@link Module}.
  */
-class JsonAdaptedPerson {
+class JsonAdapatedModule {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
 
@@ -38,13 +38,13 @@ class JsonAdaptedPerson {
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
      */
     @JsonCreator
-    public JsonAdaptedPerson(@JsonProperty("name") String name,
-                             @JsonProperty("moduleCode") String moduleCode,
-                             @JsonProperty("credits") String credits,
-                             @JsonProperty("memo") String memo,
-                             @JsonProperty("description") String description,
-                             @JsonProperty("semester") String semester,
-                             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+    public JsonAdapatedModule(@JsonProperty("name") String name,
+                              @JsonProperty("moduleCode") String moduleCode,
+                              @JsonProperty("credits") String credits,
+                              @JsonProperty("memo") String memo,
+                              @JsonProperty("description") String description,
+                              @JsonProperty("semester") String semester,
+                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.moduleCode = moduleCode;
         this.credits = credits;
@@ -59,7 +59,7 @@ class JsonAdaptedPerson {
     /**
      * Converts a given {@code Person} into this class for Jackson use.
      */
-    public JsonAdaptedPerson(Module source) {
+    public JsonAdapatedModule(Module source) {
         name = source.getTitle().fullName;
         moduleCode = source.getModuleCode().value;
         credits = source.getCredits().value;
