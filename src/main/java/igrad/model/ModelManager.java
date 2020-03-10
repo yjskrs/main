@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 
 import igrad.commons.core.GuiSettings;
 import igrad.commons.core.LogsCenter;
+import igrad.model.course.Course;
 import igrad.model.module.Module;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -97,6 +98,16 @@ public class ModelManager implements Model {
     @Override
     public void deleteModule(Module target) {
         courseBook.removePerson(target);
+    }
+
+    /**
+     * Adds the given course (only one course can exist(ever be created) in the system).
+     *
+     * @param course
+     */
+    @Override
+    public void addCourse(Course course) {
+        courseBook.addCourse(course);
     }
 
     @Override

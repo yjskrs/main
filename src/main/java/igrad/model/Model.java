@@ -4,6 +4,7 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import igrad.commons.core.GuiSettings;
+import igrad.model.course.Course;
 import igrad.model.module.Module;
 import javafx.collections.ObservableList;
 
@@ -62,6 +63,11 @@ public interface Model {
      * The module must exist in the course book.
      */
     void deleteModule(Module target);
+
+    /**
+     * Adds the given course (only one course can exist(ever be created) in the system).
+     */
+    void addCourse(Course course);
 
     /**
      * Adds the given module.

@@ -20,7 +20,7 @@ public class CourseBookParser {
     /**
      * Used for initial separation of command words and args.
      */
-    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>([a-z]+\\s){2})(?<arguments>.*)");
+    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>[a-z]+(\\s[a-z]{3,})?)(?<arguments>.*)");
 
     /**
      * Parses user input into command for execution.
@@ -35,8 +35,8 @@ public class CourseBookParser {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
 
-        final String commandWord = matcher.group("commandWord").trim();
-        final String argumentsWithFlags = matcher.group("arguments").trim();
+        final String commandWord = matcher.group("commandWord");
+        final String argumentsWithFlags = matcher.group("arguments");
         final String arguments = ArgumentTokenizer.removeFlags(argumentsWithFlags);
 
         switch (commandWord) {
@@ -65,7 +65,7 @@ public class CourseBookParser {
             return new HelpCommand();
 
         case CourseAddCommand.COMMAND_WORD:
-            return new CourseAddCommand();
+            return new CourseAddCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

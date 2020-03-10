@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
+import igrad.model.course.Course;
 import igrad.model.module.Module;
 import igrad.model.module.UniqueModuleList;
 import javafx.collections.ObservableList;
@@ -15,6 +16,7 @@ import javafx.collections.ObservableList;
 public class CourseBook implements ReadOnlyCourseBook {
 
     private final UniqueModuleList modules;
+    private Course course;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -25,6 +27,7 @@ public class CourseBook implements ReadOnlyCourseBook {
      */
     {
         modules = new UniqueModuleList();
+        course = null;
     }
 
     public CourseBook() {}
@@ -64,6 +67,13 @@ public class CourseBook implements ReadOnlyCourseBook {
     public boolean hasModule(Module module) {
         requireNonNull(module);
         return modules.contains(module);
+    }
+
+    /**
+     * Adds the given course (only one course can exist(ever be created) in the system).
+     */
+    public void addCourse(Course c) {
+        course = c;
     }
 
     /**
