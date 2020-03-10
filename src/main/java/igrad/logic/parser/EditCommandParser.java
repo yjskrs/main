@@ -1,5 +1,11 @@
 package igrad.logic.parser;
 
+import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
+import static igrad.logic.parser.CliSyntax.PREFIX_MEMO;
+import static igrad.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
+import static igrad.logic.parser.CliSyntax.PREFIX_TAG;
+import static igrad.logic.parser.CliSyntax.PREFIX_TITLE;
+import static igrad.logic.parser.CliSyntax.PREFIX_SEMESTER;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Collection;
@@ -26,8 +32,8 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, CliSyntax.PREFIX_NAME, CliSyntax.PREFIX_PHONE,
-                        CliSyntax.PREFIX_EMAIL, CliSyntax.PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_MODULE_CODE, PREFIX_CREDITS,
+                        PREFIX_MEMO, PREFIX_SEMESTER, PREFIX_TAG);
 
         Index index;
 
@@ -39,16 +45,28 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
 
         EditCommand.EditModuleDescriptor editModuleDescriptor = new EditCommand.EditModuleDescriptor();
-        if (argMultimap.getValue(CliSyntax.PREFIX_NAME).isPresent()) {
-            editModuleDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(CliSyntax.PREFIX_NAME).get()));
+        if (argMultimap.getValue(PREFIX_TITLE).isPresent()) {
+            editModuleDescriptor.setTitle(ParserUtil.parseTitle(argMultimap.getValue(PREFIX_TITLE).get()));
         }
-        if (argMultimap.getValue(CliSyntax.PREFIX_PHONE).isPresent()) {
-            editModuleDescriptor.setPhone(ParserUtil.parsePhone(argMultimap.getValue(CliSyntax.PREFIX_PHONE).get()));
+
+        if (argMultimap.getValue(PREFIX_MODULE_CODE).isPresent()) {
+            editModuleDescriptor.setModuleCode(ParserUtil.parseModuleCode(
+                    argMultimap.getValue(PREFIX_MODULE_CODE).get()));
         }
-        if (argMultimap.getValue(CliSyntax.PREFIX_EMAIL).isPresent()) {
-            editModuleDescriptor.setEmail(ParserUtil.parseEmail(argMultimap.getValue(CliSyntax.PREFIX_EMAIL).get()));
+
+        if (argMultimap.getValue(PREFIX_CREDITS).isPresent()) {
+            editModuleDescriptor.setCredits(ParserUtil.parseCredits(argMultimap.getValue(PREFIX_CREDITS).get()));
         }
-        parseTagsForEdit(argMultimap.getAllValues(CliSyntax.PREFIX_TAG)).ifPresent(editModuleDescriptor::setTags);
+
+        if (argMultimap.getValue(PREFIX_MEMO).isPresent()) {
+            editModuleDescriptor.setMemo(ParserUtil.parseMemo(argMultimap.getValue(PREFIX_MEMO).get()));
+        }
+
+        if (argMultimap.getValue(PREFIX_SEMESTER).isPresent()) {
+            editModuleDescriptor.setSemester(ParserUtil.parseSemester(argMultimap.getValue(PREFIX_SEMESTER).get()));
+        }
+
+        parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editModuleDescriptor::setTags);
 
         if (!editModuleDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
@@ -69,7 +87,7 @@ public class EditCommandParser implements Parser<EditCommand> {
             return Optional.empty();
         }
         Collection<String> tagSet = tags.size() == 1 && tags.contains("") ? Collections.emptySet() : tags;
-        return Optional.of(ParserUtil.parseTags(tagSet));
+        return Optional.of(ParserUtil.parseTag(tagSet));
     }
 
 }

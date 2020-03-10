@@ -1,9 +1,10 @@
 package igrad.logic.commands;
 
-import static igrad.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static igrad.logic.parser.CliSyntax.PREFIX_NAME;
-import static igrad.logic.parser.CliSyntax.PREFIX_PHONE;
-import static igrad.logic.parser.CliSyntax.PREFIX_TAG;
+import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
+import static igrad.logic.parser.CliSyntax.PREFIX_MEMO;
+import static igrad.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
+import static igrad.logic.parser.CliSyntax.PREFIX_SEMESTER;
+import static igrad.logic.parser.CliSyntax.PREFIX_TITLE;
 import static java.util.Objects.requireNonNull;
 
 import igrad.logic.commands.exceptions.CommandException;
@@ -17,18 +18,19 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a module to the course book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a module. "
             + "Parameters: "
-            + PREFIX_NAME + "NAME "
-            + PREFIX_PHONE + "PHONE "
-            + PREFIX_EMAIL + "EMAIL "
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + PREFIX_TITLE + "MODULE TITLE "
+            + PREFIX_MODULE_CODE + "MODULE CODE "
+            + PREFIX_CREDITS + "CREDITS "
+            + PREFIX_MEMO + "MEMO "
+            + "[" + PREFIX_SEMESTER + "SEMESTER]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "John Doe "
-            + PREFIX_PHONE + "98765432 "
-            + PREFIX_EMAIL + "johnd@example.com "
-            + PREFIX_TAG + "friends "
-            + PREFIX_TAG + "owesMoney";
+            + PREFIX_TITLE + "Software Engineering "
+            + PREFIX_MODULE_CODE + "CS2103T "
+            + PREFIX_CREDITS + "4 "
+            + PREFIX_MEMO + "Hard module. Good teachers. "
+            + PREFIX_SEMESTER + "Y2S2 ";
 
     public static final String MESSAGE_SUCCESS = "New module added: %1$s";
     public static final String MESSAGE_DUPLICATE_MODULE = "This module already exists in the course book";

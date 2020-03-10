@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import igrad.commons.exceptions.IllegalValueException;
 import igrad.commons.util.JsonUtil;
 import igrad.model.CourseBook;
-import igrad.testutil.TypicalPersons;
+import igrad.testutil.TypicalModules;
 
 public class JsonSerializableCourseBookTest {
 
@@ -25,7 +25,7 @@ public class JsonSerializableCourseBookTest {
         JsonSerializableCourseBook dataFromFile = JsonUtil.readJsonFile(TYPICAL_MODULES_FILE,
                 JsonSerializableCourseBook.class).get();
         CourseBook courseBookFromFile = dataFromFile.toModelType();
-        CourseBook typicalPersonsCourseBook = TypicalPersons.getTypicalCourseBook();
+        CourseBook typicalPersonsCourseBook = TypicalModules.getTypicalCourseBook();
         assertEquals(courseBookFromFile, typicalPersonsCourseBook);
     }
 

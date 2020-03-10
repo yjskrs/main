@@ -3,31 +3,39 @@ package igrad.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
-import igrad.model.module.Email;
+import igrad.model.module.Credits;
+import igrad.model.module.Memo;
 import igrad.model.module.Module;
-import igrad.model.module.Name;
-import igrad.model.module.Phone;
-import igrad.model.tag.Tag;
+import igrad.model.module.ModuleCode;
+import igrad.model.module.Semester;
+import igrad.model.module.Title;
 import igrad.model.util.SampleDataUtil;
+import igrad.model.tag.Tag;
 
 /**
  * A utility class to help with building Module objects.
  */
 public class ModuleBuilder {
 
-    public static final String DEFAULT_NAME = "Alice Pauline";
-    public static final String DEFAULT_PHONE = "85355255";
-    public static final String DEFAULT_EMAIL = "alice@gmail.com";
+    public static final String DEFAULT_TITLE = "Programming Methodology";
+    public static final String DEFAULT_MODULE_CODE = "CS1101S";
+    public static final String DEFAULT_CREDITS = "4";
+    public static final String DEFAULT_MEMO = "this is about recursion";
+    public static final String DEFAULT_SEMESTER = "Y1S1";
 
-    private Name name;
-    private Phone phone;
-    private Email email;
+    private Title title;
+    private ModuleCode moduleCode;
+    private Credits credits;
+    private Memo memo;
+    private Semester semester;
     private Set<Tag> tags;
 
     public ModuleBuilder() {
-        name = new Name(DEFAULT_NAME);
-        phone = new Phone(DEFAULT_PHONE);
-        email = new Email(DEFAULT_EMAIL);
+        title = new Title(DEFAULT_TITLE);
+        moduleCode = new ModuleCode(DEFAULT_MODULE_CODE);
+        credits = new Credits(DEFAULT_CREDITS);
+        memo = new Memo(DEFAULT_MEMO);
+        semester = new Semester(DEFAULT_SEMESTER);
         tags = new HashSet<>();
     }
 
@@ -35,17 +43,19 @@ public class ModuleBuilder {
      * Initializes the ModuleBuilder with the data of {@code moduleToCopy}.
      */
     public ModuleBuilder(Module moduleToCopy) {
-        name = moduleToCopy.getName();
-        phone = moduleToCopy.getPhone();
-        email = moduleToCopy.getEmail();
+        title = moduleToCopy.getTitle();
+        moduleCode = moduleToCopy.getModuleCode();
+        credits = moduleToCopy.getCredits();
+        memo = moduleToCopy.getMemo();
+        semester = moduleToCopy.getSemester();
         tags = new HashSet<>(moduleToCopy.getTags());
     }
 
     /**
-     * Sets the {@code Name} of the {@code Module} that we are building.
+     * Sets the {@code Title} of the {@code Module} that we are building.
      */
-    public ModuleBuilder withName(String name) {
-        this.name = new Name(name);
+    public ModuleBuilder withTitle(String title) {
+        this.title = new Title(title);
         return this;
     }
 
@@ -58,23 +68,39 @@ public class ModuleBuilder {
     }
 
     /**
-     * Sets the {@code Phone} of the {@code Module} that we are building.
+     * Sets the {@code ModuleCode} of the {@code Module} that we are building.
      */
-    public ModuleBuilder withPhone(String phone) {
-        this.phone = new Phone(phone);
+    public ModuleBuilder withModuleCode(String moduleCode) {
+        this.moduleCode = new ModuleCode(moduleCode);
         return this;
     }
 
     /**
-     * Sets the {@code Email} of the {@code Module} that we are building.
+     * Sets the {@code Credits} of the {@code Module} that we are building.
      */
-    public ModuleBuilder withEmail(String email) {
-        this.email = new Email(email);
+    public ModuleBuilder withCredits(String credits) {
+        this.credits = new Credits(credits);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Memo} of the {@code Module} that we are building.
+     */
+    public ModuleBuilder withMemo(String memo) {
+        this.memo = new Memo(memo);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Semester} of the {@code Module} that we are building.
+     */
+    public ModuleBuilder withSemester(String semester) {
+        this.semester = new Semester(semester);
         return this;
     }
 
     public Module build() {
-        return new Module(name, phone, email, tags);
+        return new Module(title, moduleCode, credits, memo, semester, tags);
     }
 
 }

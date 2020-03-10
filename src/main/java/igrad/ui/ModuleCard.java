@@ -29,13 +29,17 @@ public class ModuleCard extends UiPart<Region> {
     @FXML
     private HBox cardPane;
     @FXML
-    private Label name;
+    private Label title;
     @FXML
     private Label id;
     @FXML
-    private Label phone;
+    private Label moduleCode;
     @FXML
-    private Label email;
+    private Label memo;
+    @FXML
+    private Label semester;
+    @FXML
+    private Label credits;
     @FXML
     private FlowPane tags;
 
@@ -43,9 +47,11 @@ public class ModuleCard extends UiPart<Region> {
         super(FXML);
         this.module = module;
         id.setText(displayedIndex + ". ");
-        name.setText(module.getName().fullName);
-        phone.setText(module.getPhone().value);
-        email.setText(module.getEmail().value);
+        title.setText(module.getTitle().value);
+        moduleCode.setText("Code:\t\t" + module.getModuleCode().value);
+        credits.setText("Credits:\t\t" + module.getCredits().value);
+        memo.setText("Memo:\t\t" + module.getMemo().value);
+        semester.setText("Semester:\t\t" + module.getSemester().value );
         module.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

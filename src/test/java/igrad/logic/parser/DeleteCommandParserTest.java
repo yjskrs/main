@@ -3,7 +3,7 @@ package igrad.logic.parser;
 import static igrad.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static igrad.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static igrad.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static igrad.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static igrad.testutil.TypicalIndexes.INDEX_FIRST_MODULE;
 
 import org.junit.jupiter.api.Test;
 
@@ -23,7 +23,7 @@ public class DeleteCommandParserTest {
     @Test
     public void parse_validArgs_returnsDeleteCommand() {
         assertParseSuccess(parser,
-                "1", new DeleteCommand(INDEX_FIRST_PERSON));
+                "1", new DeleteCommand(INDEX_FIRST_MODULE));
     }
 
     @Test

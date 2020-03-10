@@ -31,7 +31,6 @@ public interface Logic {
      */
     ReadOnlyCourseBook getCourseBook();
 
-    /** Returns an unmodifiable view of the filtered list of modules */
     ObservableList<Module> getFilteredModuleList();
 
     /**

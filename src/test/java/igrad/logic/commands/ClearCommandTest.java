@@ -1,7 +1,7 @@
 package igrad.logic.commands;
 
 import static igrad.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static igrad.testutil.TypicalPersons.getTypicalCourseBook;
+import static igrad.testutil.TypicalModules.getTypicalCourseBook;
 
 import org.junit.jupiter.api.Test;
 

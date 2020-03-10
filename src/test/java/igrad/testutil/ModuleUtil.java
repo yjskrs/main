@@ -1,8 +1,10 @@
 package igrad.testutil;
 
-import static igrad.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static igrad.logic.parser.CliSyntax.PREFIX_NAME;
-import static igrad.logic.parser.CliSyntax.PREFIX_PHONE;
+import static igrad.logic.parser.CliSyntax.PREFIX_TITLE;
+import static igrad.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
+import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
+import static igrad.logic.parser.CliSyntax.PREFIX_MEMO;
+import static igrad.logic.parser.CliSyntax.PREFIX_SEMESTER;
 import static igrad.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
@@ -29,9 +31,11 @@ public class ModuleUtil {
      */
     public static String getModuleDetails(Module module) {
         StringBuilder sb = new StringBuilder();
-        sb.append(PREFIX_NAME + module.getName().fullName + " ");
-        sb.append(PREFIX_PHONE + module.getPhone().value + " ");
-        sb.append(PREFIX_EMAIL + module.getEmail().value + " ");
+        sb.append(PREFIX_TITLE + module.getTitle().value + " ");
+        sb.append(PREFIX_MODULE_CODE + module.getModuleCode().value + " ");
+        sb.append(PREFIX_CREDITS + module.getCredits().value + " ");
+        sb.append(PREFIX_MEMO + module.getMemo().value + " ");
+        sb.append(PREFIX_SEMESTER + module.getSemester().value + " ");
         module.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")
         );
@@ -43,9 +47,20 @@ public class ModuleUtil {
      */
     public static String getEditModuleDescriptorDetails(EditModuleDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
-        descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
-        descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));
-        descriptor.getEmail().ifPresent(email -> sb.append(PREFIX_EMAIL).append(email.value).append(" "));
+        descriptor.getTitle().ifPresent(title -> sb.append(PREFIX_TITLE).append(title.value).append(" "));
+
+        descriptor.getModuleCode().ifPresent(moduleCode -> sb.append(PREFIX_MODULE_CODE)
+                .append(moduleCode.value).append(" "));
+
+        descriptor.getCredits().ifPresent(credits -> sb.append(PREFIX_CREDITS)
+                .append(credits.value).append(" "));
+
+        descriptor.getMemo().ifPresent(memo -> sb.append(PREFIX_MEMO)
+                .append(memo.value).append(" "));
+
+        descriptor.getSemester().ifPresent(semester -> sb.append(PREFIX_SEMESTER)
+                .append(semester.value).append(" "));
+
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();
             if (tags.isEmpty()) {

@@ -16,35 +16,45 @@ import igrad.model.tag.Tag;
 public class Module {
 
     // Identity fields
-    private final Name name;
-    private final Phone phone;
-    private final Email email;
+    private final Title title;
+    private final ModuleCode moduleCode;
+    private final Credits credits;
 
     // Data fields
+    private final Memo memo;
+    private final Semester semester;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Module(Name name, Phone phone, Email email, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, tags);
-        this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.tags.addAll(tags);
+    public Module( Title title, ModuleCode moduleCode, Credits credits, Memo memo, Semester semester, Set<Tag> tags) {
+        requireAllNonNull( title, moduleCode, credits, memo, tags );
+        this.title = title;
+        this.moduleCode = moduleCode;
+        this.credits = credits;
+        this.memo = memo;
+        this.semester = semester;
+        this.tags.addAll( tags );
     }
 
-    public Name getName() {
-        return name;
+    public Title getTitle() {
+        return title;
     }
 
-    public Phone getPhone() {
-        return phone;
+    public ModuleCode getModuleCode() {
+        return moduleCode;
     }
 
-    public Email getEmail() {
-        return email;
+    public Credits getCredits() {
+        return credits;
     }
+
+    public Memo getMemo() {
+        return memo;
+    }
+
+    public Semester getSemester(){ return semester; }
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
@@ -64,13 +74,17 @@ public class Module {
         }
 
         return otherModule != null
-                && otherModule.getName().equals(getName())
-                && (otherModule.getPhone().equals(getPhone()) || otherModule.getEmail().equals(getEmail()));
+                && otherModule.getTitle().equals(getTitle())
+                && otherModule.getModuleCode().equals(getModuleCode())
+                && otherModule.getCredits().equals(getCredits())
+                && otherModule.getMemo().equals(getMemo())
+                && otherModule.getSemester().equals(getSemester())
+                && otherModule.getTags().equals(getTags());
     }
 
     /**
-     * Returns true if both persons have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
+     * Returns true if both modules have the same identity and data fields.
+     * This defines a stronger notion of equality between two modules.
      */
     @Override
     public boolean equals(Object other) {
@@ -83,27 +97,33 @@ public class Module {
         }
 
         Module otherModule = (Module) other;
-        return otherModule.getName().equals(getName())
-                && otherModule.getPhone().equals(getPhone())
-                && otherModule.getEmail().equals(getEmail())
+        return otherModule.getTitle().equals(getTitle())
+                && otherModule.getModuleCode().equals(getModuleCode())
+                && otherModule.getCredits().equals(getCredits())
+                && otherModule.getMemo().equals(getMemo())
+                && otherModule.getSemester().equals(getSemester())
                 && otherModule.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, tags);
+        return Objects.hash(title, moduleCode, credits, memo, semester, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
-                .append(" Phone: ")
-                .append(getPhone())
-                .append(" Email: ")
-                .append(getEmail())
-                .append(" Tags: ");
+        builder.append( getTitle())
+                .append(" Code: ")
+                .append(getModuleCode())
+                .append(" Credits: ")
+                .append(getCredits())
+                .append(" Memo: ")
+                .append(getMemo())
+                .append(" Semester: ")
+                .append(getSemester())
+                .append("Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }

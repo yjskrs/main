@@ -2,9 +2,7 @@ package igrad.logic;
 
 import static igrad.commons.core.Messages.MESSAGE_INVALID_MODULE_DISPLAYED_INDEX;
 import static igrad.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static igrad.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-import static igrad.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static igrad.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
+import static igrad.logic.commands.CommandTestUtil.*;
 import static igrad.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -28,7 +26,7 @@ import igrad.storage.JsonCourseBookStorage;
 import igrad.storage.JsonUserPrefsStorage;
 import igrad.storage.StorageManager;
 import igrad.testutil.ModuleBuilder;
-import igrad.testutil.TypicalPersons;
+import igrad.testutil.TypicalModules;
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
@@ -71,8 +69,12 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY;
-        Module expectedModule = new ModuleBuilder(TypicalPersons.AMY).withTags().build();
+        String addCommand = AddCommand.COMMAND_WORD + TITLE_DESC_PROGRAMMING_METHODOLOGY
+                + MODULE_CODE_DESC_PROGRAMMING_METHODOLOGY
+                + CREDITS_DESC_PROGRAMMING_METHODOLOGY
+                + MEMO_DESC_PROGRAMMING_METHODOLOGY
+                + SEMESTER_DESC_PROGRAMMING_METHODOLOGY;
+        Module expectedModule = new ModuleBuilder(TypicalModules.PROGRAMMING_METHODOLOGY).withTags().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addModule(expectedModule);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;

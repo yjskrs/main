@@ -14,7 +14,7 @@ import org.junit.jupiter.api.io.TempDir;
 import igrad.commons.exceptions.DataConversionException;
 import igrad.model.CourseBook;
 import igrad.model.ReadOnlyCourseBook;
-import igrad.testutil.TypicalPersons;
+import igrad.testutil.TypicalModules;
 
 public class JsonCourseBookStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonCourseBookStorageTest");
@@ -60,7 +60,7 @@ public class JsonCourseBookStorageTest {
     @Test
     public void readAndSaveCourseBook_allInOrder_success() throws Exception {
         Path filePath = testFolder.resolve("TempCourseBook.json");
-        CourseBook original = TypicalPersons.getTypicalCourseBook();
+        CourseBook original = TypicalModules.getTypicalCourseBook();
         JsonCourseBookStorage jsonCourseBookStorage = new JsonCourseBookStorage(filePath);
 
         // Save in new file and read back
@@ -69,14 +69,14 @@ public class JsonCourseBookStorageTest {
         assertEquals(original, new CourseBook(readBack));
 
         // Modify data, overwrite exiting file, and read back
-        original.addModule(TypicalPersons.HOON);
-        original.removePerson(TypicalPersons.ALICE);
+        original.addModule(TypicalModules.PROGRAMMING_METHODOLOGY);
+        original.removePerson(TypicalModules.COMPUTER_ORGANISATION);
         jsonCourseBookStorage.saveCourseBook(original, filePath);
         readBack = jsonCourseBookStorage.readCourseBook(filePath).get();
         assertEquals(original, new CourseBook(readBack));
 
         // Save and read without specifying file path
-        original.addModule(TypicalPersons.IDA);
+        original.addModule(TypicalModules.PROGRAMMING_METHODOLOGY);
         jsonCourseBookStorage.saveCourseBook(original); // file path not specified
         readBack = jsonCourseBookStorage.readCourseBook().get(); // file path not specified
         assertEquals(original, new CourseBook(readBack));
