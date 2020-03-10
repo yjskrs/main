@@ -2,6 +2,7 @@ package seedu.address.testutil;
 
 import java.util.HashSet;
 import java.util.Set;
+
 import seedu.address.model.module.Credits;
 import seedu.address.model.module.Memo;
 import seedu.address.model.module.Module;
@@ -86,7 +87,15 @@ public class PersonBuilder {
     }
 
     public Module build() {
-        return new Module(title, moduleCode, credits, memo, tags);
+        return new Module(
+            title,
+            moduleCode,
+            credits,
+            memo,
+            null,
+            null,
+            null
+        );
     }
 
 }

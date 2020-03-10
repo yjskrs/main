@@ -18,6 +18,10 @@ public class Memo {
         value = memo;
     }
 
+    public static boolean isValidMemo(String test) {
+        return test.length() > 0;
+    }
+
     @Override
     public String toString() {
         return value;
