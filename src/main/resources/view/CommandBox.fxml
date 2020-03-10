@@ -5,9 +5,9 @@
 <?import javafx.scene.text.Font?>
 
 <StackPane styleClass="stack-pane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-  <TextField fx:id="commandTextField" onAction="#handleCommandEntered" promptText="Enter command here..." style="-fx-border-style: solid; -fx-border-color: transparent; -fx-background-color: #2d2d2d; -fx-text-fill: white;">
+  <TextField fx:id="commandTextField" onAction="#handleCommandEntered" promptText="Enter command here...">
       <font>
-         <Font name="Calibri" size="14.0" />
+         <Font name="Calibri" size="16.0" />
       </font>
    </TextField>
 </StackPane>
