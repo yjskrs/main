@@ -67,6 +67,10 @@ public class CourseBookParser {
         case CourseAddCommand.COMMAND_WORD:
             return new CourseAddCommandParser().parse(arguments);
 
+        case CourseDeleteCommand.COMMAND_WORD:
+            // course delete, has no arguments
+            return new CourseDeleteCommand();
+
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

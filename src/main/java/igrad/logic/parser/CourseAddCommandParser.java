@@ -1,27 +1,18 @@
 package igrad.logic.parser;
 
-import java.util.Set;
 import java.util.stream.Stream;
 
 import igrad.commons.core.Messages;
 import igrad.logic.commands.AddCommand;
 import igrad.logic.commands.CourseAddCommand;
 import igrad.logic.parser.exceptions.ParseException;
-import igrad.model.course.Course;
+import igrad.model.course.CourseInfo;
 import igrad.model.course.Name;
-import igrad.model.module.Credits;
-import igrad.model.module.Memo;
-import igrad.model.module.Module;
-import igrad.model.module.ModuleCode;
-import igrad.model.module.Semester;
-import igrad.model.module.Title;
-import igrad.model.tag.Tag;
-import igrad.model.module.Description;
 
 import static igrad.logic.parser.CliSyntax.*;
 
 /**
- * Parses input arguments and creates a new AddCommand object.
+ * Parses input arguments and creates a new CourseAddCommand object.
  */
 public class CourseAddCommandParser implements Parser<CourseAddCommand> {
 
@@ -42,9 +33,9 @@ public class CourseAddCommandParser implements Parser<CourseAddCommand> {
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
 
-        Course course = new Course(name);
+        CourseInfo courseInfo = new CourseInfo(name);
 
-        return new CourseAddCommand(course);
+        return new CourseAddCommand(courseInfo);
     }
 
     /**

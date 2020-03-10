@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static igrad.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Course's name in the course book.
+ * Represents a CourseInfo's name in the course book.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
 public class Name {

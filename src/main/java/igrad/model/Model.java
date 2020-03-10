@@ -4,7 +4,7 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import igrad.commons.core.GuiSettings;
-import igrad.model.course.Course;
+import igrad.model.course.CourseInfo;
 import igrad.model.module.Module;
 import javafx.collections.ObservableList;
 
@@ -50,6 +50,11 @@ public interface Model {
      */
     void setCourseBook(ReadOnlyCourseBook courseBook);
 
+    /**
+     * Resets course book data to a blank state with no data (e.g, modules, requirements, etc).
+     */
+    void resetCourseBook(ReadOnlyCourseBook courseBook);
+
     /** Returns the CourseBook */
     ReadOnlyCourseBook getCourseBook();
 
@@ -65,9 +70,9 @@ public interface Model {
     void deleteModule(Module target);
 
     /**
-     * Adds the given course (only one course can exist(ever be created) in the system).
+     * Adds the given courseInfo to the course book.
      */
-    void addCourse(Course course);
+    void addCourseInfo(CourseInfo courseInfo);
 
     /**
      * Adds the given module.

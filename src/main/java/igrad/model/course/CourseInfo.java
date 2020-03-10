@@ -5,10 +5,10 @@ import static igrad.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Objects;
 
 /**
- * Represents a Course in the course book (There is only one such course).
+ * Represents all the (additional) details a Course (there's only one of which), might have e.g, course name.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Course {
+public class CourseInfo {
 
     // Identity fields
     private final Name name;
@@ -18,7 +18,7 @@ public class Course {
     /**
      * Every field must be present and not null.
      */
-    public Course(Name name) {
+    public CourseInfo(Name name) {
         requireAllNonNull(name);
         this.name = name;
     }

@@ -37,7 +37,13 @@ public class AddCommandParser implements Parser<AddCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_MODULE_CODE, PREFIX_CREDITS, PREFIX_MEMO, PREFIX_SEMESTER);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_TITLE, PREFIX_MEMO, PREFIX_MODULE_CODE, PREFIX_CREDITS)
+        /*
+         * module add n/MODULE_CODE [n/MODULE_TITLE] [u/MCs] [s/SEMESTER] [g/GRADE] [m/MEMO_NOTES]
+         *
+         * As can be seen, MODULE_CODE is the only compulsory field, so we're just validating for its
+         * presence in the below.
+         */
+        if (!arePrefixesPresent(argMultimap, PREFIX_MODULE_CODE)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }

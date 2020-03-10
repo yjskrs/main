@@ -161,36 +161,36 @@ The undo/redo mechanism is facilitated by `VersionedAddressBook`.
 It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
 Additionally, it implements the following operations:
 
-* `VersionedAddressBook#commit()` -- Saves the current course book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous course book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone course book state from its history.
+* `VersionedAddressBook#commit()` -- Saves the current courseInfo book state in its history.
+* `VersionedAddressBook#undo()` -- Restores the previous courseInfo book state from its history.
+* `VersionedAddressBook#redo()` -- Restores a previously undone courseInfo book state from its history.
 
 These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial course book state, and the `currentStatePointer` pointing to that single memo book state.
+Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial courseInfo book state, and the `currentStatePointer` pointing to that single memo book state.
 
 image::UndoRedoState0.png[]
 
 <<<<<<< HEAD
-Step 2. The user executes `delete 5` command to delete the 5th module in the course book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the course book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted course book state.
+Step 2. The user executes `delete 5` command to delete the 5th module in the courseInfo book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the courseInfo book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted courseInfo book state.
 
 image::UndoRedoState1.png[]
 
-Step 3. The user executes `add n/David ...` to add a new module. The `add` command also calls `Model#commitAddressBook()`, causing another modified address course book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add n/David ...` to add a new module. The `add` command also calls `Model#commitAddressBook()`, causing another modified address courseInfo book state to be saved into the `addressBookStateList`.
 
 image::UndoRedoState2.png[]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the course book state will not be saved into the `addressBookStateList`.
+If a command fails its execution, it will not call `Model#commitAddressBook()`, so the courseInfo book state will not be saved into the `addressBookStateList`.
 
-Step 4. The user now decides that adding the module was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous course book state, and restores the course book to that state.
+Step 4. The user now decides that adding the module was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous courseInfo book state, and restores the courseInfo book to that state.
 
 image::UndoRedoState3.png[]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial course book state, then there are no previous course book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `currentStatePointer` is at index 0, pointing to the initial courseInfo book state, then there are no previous courseInfo book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
@@ -198,16 +198,16 @@ image::UndoSequenceDiagram.png[]
 
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the course book to that state.
+The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the courseInfo book to that state.
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest course book state, then there are no undone course book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest courseInfo book state, then there are no undone courseInfo book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the course book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the courseInfo book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
 
 image::UndoRedoState4.png[]
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all course book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all courseInfo book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoState5.png[]
 
@@ -219,7 +219,7 @@ image::CommitActivityDiagram.png[]
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire course book.
+* **Alternative 1 (current choice):** Saves the entire courseInfo book.
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
@@ -228,7 +228,7 @@ image::CommitActivityDiagram.png[]
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of course book states.
+* **Alternative 1 (current choice):** Use a list to store the history of courseInfo book states.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
 ** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
 * **Alternative 2:** Use `HistoryManager` for undo/redo
@@ -286,7 +286,7 @@ Refer to the guide <<DevOps#, here>>.
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: convenient course requirements tracker for NUS undergraduates
+*Value proposition*: convenient courseInfo requirements tracker for NUS undergraduates
 
 [appendix]
 == User Stories
@@ -300,19 +300,19 @@ Refer to the guide <<DevOps#, here>>.
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can ...
-|`* * *` |first-time user |create a course |
+|`* * *` |first-time user |create a courseInfo |
 
 |`* * *` |student |create a graduation requirement |
 
 |`* * *` |student |input modules under a graduation requirement |keep track of when a graduation requirement is fulfilled
 
-|`* * *` |careless user |change the graduation requirements which I assigned to a course |amend any mistakes made when entering data
+|`* * *` |careless user |change the graduation requirements which I assigned to a courseInfo |amend any mistakes made when entering data
 
 |`* * *` |fickle user |change the modules which I assigned to a graduation requirement |change my study plan
 
 |`* * *` |fickle user |have the option to defer adding modules to a graduation requirement |delay making up my mind on which modules I wish to take
 
-|`* * *` |basic user |see information regarding the course I created, including graduation requirements, modules and gaps (e.g. modules that are unassigned) that need to be filled |
+|`* * *` |basic user |see information regarding the courseInfo I created, including graduation requirements, modules and gaps (e.g. modules that are unassigned) that need to be filled |
 
 |`* * *` |user |see the latest updated information about any module |make informed decisions
 
@@ -349,19 +349,19 @@ _{All user stories can be viewed from our wiki page and from our issues tracker.
 *MSS*:
 
 1.  iGrad starts up.
-2.  User requests to create a course.
-3.  iGrad creates the course.
+2.  User requests to create a courseInfo.
+3.  iGrad creates the courseInfo.
 +
 Use case ends.
 
 *Extensions*:
 
 [none]
-* 2a. The course name is not provided.
-** 2a1. iGrad prompts user for course name.
-** 2a2. User enters a course name.
+* 2a. The courseInfo name is not provided.
+** 2a1. iGrad prompts user for courseInfo name.
+** 2a2. User enters a courseInfo name.
 +
-Steps 2a1-2a2 are repeated until the a non-empty course name is provided.
+Steps 2a1-2a2 are repeated until the a non-empty courseInfo name is provided.
 +
 Use case resumes at step 3.
 
@@ -369,8 +369,8 @@ Use case resumes at step 3.
 === Use case: U02 - Create Requirement
 *MSS*:
 
-1.  User requests to create a course.
-2.  iGrad creates course (UC01).
+1.  User requests to create a courseInfo.
+2.  iGrad creates courseInfo (UC01).
 3.  User requests to create a requirement.
 4.  iGrad creates the requirement.
 +

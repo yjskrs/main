@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Predicate;
 
+import igrad.model.course.CourseInfo;
 import org.junit.jupiter.api.Test;
 
 import igrad.commons.core.GuiSettings;
@@ -118,6 +119,16 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        /**
+         * Resets course book data to a blank state with no data (e.g, modules, requirements, etc).
+         *
+         * @param courseBook
+         */
+        @Override
+        public void resetCourseBook(ReadOnlyCourseBook courseBook) {
+
+        }
+
         @Override
         public ReadOnlyCourseBook getCourseBook() {
             throw new AssertionError("This method should not be called.");
@@ -130,6 +141,11 @@ public class AddCommandTest {
 
         @Override
         public void deleteModule(Module target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addCourseInfo(CourseInfo courseInfo) {
             throw new AssertionError("This method should not be called.");
         }
 

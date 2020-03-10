@@ -2,11 +2,14 @@ package igrad.logic.commands;
 
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
-import igrad.model.course.Course;
+import igrad.model.course.CourseInfo;
 
 import static igrad.logic.parser.CliSyntax.*;
 import static java.util.Objects.requireNonNull;
 
+/**
+ * Adds a course to the application (there can only be one such course).
+ */
 public class CourseAddCommand extends Command {
     public static final String COMMAND_WORD = "course add";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a course. "
@@ -17,14 +20,14 @@ public class CourseAddCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New course added: %1$s";
 
-    private final Course toAdd;
+    private final CourseInfo toAdd;
 
     /**
-     * Creates an Course to add the Course Book
+     * Creates an CourseInfo to add the Course Book
      */
-    public CourseAddCommand(Course course) {
-        requireNonNull(course);
-        toAdd = course;
+    public CourseAddCommand(CourseInfo courseInfo) {
+        requireNonNull(courseInfo);
+        toAdd = courseInfo;
     }
 
     /**
@@ -38,7 +41,7 @@ public class CourseAddCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        model.addCourse(toAdd);
+        model.addCourseInfo(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
