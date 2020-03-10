@@ -6,6 +6,7 @@ import static igrad.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
 import static igrad.logic.parser.CliSyntax.PREFIX_TAG;
 import static igrad.logic.parser.CliSyntax.PREFIX_TITLE;
 import static igrad.logic.parser.CliSyntax.PREFIX_SEMESTER;
+import static igrad.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 
 import java.util.Set;
 import java.util.stream.Stream;
@@ -20,6 +21,7 @@ import igrad.model.module.ModuleCode;
 import igrad.model.module.Semester;
 import igrad.model.module.Title;
 import igrad.model.tag.Tag;
+import igrad.model.module.Description;
 
 /**
  * Parses input arguments and creates a new AddCommand object.
@@ -43,11 +45,18 @@ public class AddCommandParser implements Parser<AddCommand> {
         Title title = ParserUtil.parseTitle(argMultimap.getValue(PREFIX_TITLE).get());
         ModuleCode moduleCode = ParserUtil.parseModuleCode(argMultimap.getValue(PREFIX_MODULE_CODE).get());
         Credits credits = ParserUtil.parseCredits(argMultimap.getValue(PREFIX_CREDITS).get());
-        Memo memo = ParserUtil.parseMemo(argMultimap.getValue(PREFIX_MEMO ).get());
-        Semester semester = ParserUtil.parseSemester(argMultimap.getValue(PREFIX_SEMESTER ).get() );
+        Memo memo = argMultimap.getValue(PREFIX_MEMO).isPresent()
+                ? ParserUtil.parseMemo(argMultimap.getValue(PREFIX_MEMO).get())
+                : null;
+        Description description = argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()
+                ? ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get())
+                : null;
+        Semester semester = argMultimap.getValue(PREFIX_SEMESTER).isPresent()
+                ? ParserUtil.parseSemester(argMultimap.getValue(PREFIX_SEMESTER).get())
+                : null;
         Set<Tag> tagList = ParserUtil.parseTag(argMultimap.getAllValues(PREFIX_TAG));
 
-        Module module = new Module(title, moduleCode, credits, memo, semester, tagList);
+        Module module = new Module(title, moduleCode, credits, memo, semester, description, tagList);
 
         return new AddCommand( module );
     }

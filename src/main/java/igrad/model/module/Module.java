@@ -22,20 +22,23 @@ public class Module {
 
     // Data fields
     private final Memo memo;
+    private final Description description;
     private final Semester semester;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Module( Title title, ModuleCode moduleCode, Credits credits, Memo memo, Semester semester, Set<Tag> tags) {
+    public Module(Title title, ModuleCode moduleCode, Credits credits, Memo memo, Semester semester,
+                   Description description, Set<Tag> tags) {
         requireAllNonNull( title, moduleCode, credits, memo, tags );
         this.title = title;
         this.moduleCode = moduleCode;
         this.credits = credits;
         this.memo = memo;
+        this.description = description;
         this.semester = semester;
-        this.tags.addAll( tags );
+        this.tags.addAll(tags);
     }
 
     public Title getTitle() {
@@ -54,7 +57,13 @@ public class Module {
         return memo;
     }
 
-    public Semester getSemester(){ return semester; }
+    public Description getDescription() {
+        return description;
+    }
+
+    public Semester getSemester() {
+        return semester;
+    }
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
@@ -74,12 +83,8 @@ public class Module {
         }
 
         return otherModule != null
-                && otherModule.getTitle().equals(getTitle())
-                && otherModule.getModuleCode().equals(getModuleCode())
-                && otherModule.getCredits().equals(getCredits())
-                && otherModule.getMemo().equals(getMemo())
-                && otherModule.getSemester().equals(getSemester())
-                && otherModule.getTags().equals(getTags());
+            && otherModule.getTitle().equals(getTitle())
+            && (otherModule.getModuleCode().equals(getModuleCode()) || otherModule.getCredits().equals(getCredits()));
     }
 
     /**
@@ -98,32 +103,35 @@ public class Module {
 
         Module otherModule = (Module) other;
         return otherModule.getTitle().equals(getTitle())
-                && otherModule.getModuleCode().equals(getModuleCode())
-                && otherModule.getCredits().equals(getCredits())
-                && otherModule.getMemo().equals(getMemo())
-                && otherModule.getSemester().equals(getSemester())
-                && otherModule.getTags().equals(getTags());
+            && otherModule.getModuleCode().equals(getModuleCode())
+            && otherModule.getCredits().equals(getCredits())
+            && otherModule.getMemo().equals(getMemo())
+            && otherModule.getDescription().equals(getDescription())
+            && otherModule.getTags().equals(getTags())
+            && otherModule.getSemester().equals(getSemester());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(title, moduleCode, credits, memo, semester, tags);
+        return Objects.hash(title, moduleCode, credits, memo, description, semester, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append( getTitle())
-                .append(" Code: ")
-                .append(getModuleCode())
-                .append(" Credits: ")
-                .append(getCredits())
-                .append(" Memo: ")
-                .append(getMemo())
-                .append(" Semester: ")
-                .append(getSemester())
-                .append("Tags: ");
+        builder.append(getTitle())
+            .append(" Code: ")
+            .append(getModuleCode())
+            .append(" Credits: ")
+            .append(getCredits())
+            .append(" Memo: ")
+            .append(getMemo())
+            .append(" Description: ")
+            .append(getDescription())
+            .append(" Semester: ")
+            .append(getSemester())
+            .append("Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }

@@ -1,7 +1,6 @@
 package igrad.model.module;
 
 import static java.util.Objects.requireNonNull;
-
 /**
  * Represents a Module's memo in the course book.
  */
@@ -17,16 +16,12 @@ public class Memo {
      * @param memo A valid memo.
      */
     public Memo(String memo) {
-        requireNonNull(memo);
         value = memo;
     }
 
-    /**
-     * Returns true if a given string is a valid email.
-    */
-    /*public static boolean isValidAddress(String test) {
-     *    return test.matches(VALIDATION_REGEX);
-    }*/
+    public static boolean isValidMemo(String test) {
+        return test.length() > 0;
+    }
 
     @Override
     public String toString() {
@@ -36,8 +31,8 @@ public class Memo {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Memo // instanceof handles nulls
-                && value.equals(((Memo) other).value)); // state check
+            || (other instanceof Memo // instanceof handles nulls
+            && value.equals(((Memo) other).value)); // state check
     }
 
     @Override

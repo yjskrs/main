@@ -9,11 +9,7 @@ import java.util.Set;
 import igrad.commons.core.index.Index;
 import igrad.commons.util.StringUtil;
 import igrad.logic.parser.exceptions.ParseException;
-import igrad.model.module.Credits;
-import igrad.model.module.Memo;
-import igrad.model.module.ModuleCode;
-import igrad.model.module.Semester;
-import igrad.model.module.Title;
+import igrad.model.module.*;
 import igrad.model.tag.Tag;
 
 /**
@@ -26,6 +22,7 @@ public class ParserUtil {
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
+     *
      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
@@ -61,7 +58,7 @@ public class ParserUtil {
         requireNonNull(moduleCode);
         String trimmedPhone = moduleCode.trim();
         if (!ModuleCode.isValidModuleCode(trimmedPhone)) {
-            throw new ParseException( ModuleCode.MESSAGE_CONSTRAINTS);
+            throw new ParseException(ModuleCode.MESSAGE_CONSTRAINTS);
         }
         return new ModuleCode(trimmedPhone);
     }
@@ -79,6 +76,19 @@ public class ParserUtil {
             throw new ParseException(Credits.MESSAGE_CONSTRAINTS);
         }
         return new Credits(trimmedCredits);
+    }
+
+    /**
+     * Parses a {@code String address} into an {@code Address}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code address} is invalid.
+     */
+    public static Description parseDescription(String description) throws ParseException {
+        requireNonNull(description);
+        String trimmedDescription = description.trim();
+
+        return new Description(trimmedDescription);
     }
 
     /**
@@ -102,11 +112,11 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code semester} is invalid.
      */
-    public static Semester parseSemester( String semester) throws ParseException {
+    public static Semester parseSemester(String semester) throws ParseException {
         requireNonNull(semester);
         String trimmedSemester = semester.trim();
         if (!Semester.isValidSemester(trimmedSemester)) {
-            throw new ParseException( Semester.MESSAGE_CONSTRAINTS);
+            throw new ParseException(Semester.MESSAGE_CONSTRAINTS);
         }
         return new Semester(trimmedSemester);
     }

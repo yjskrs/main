@@ -3,12 +3,8 @@ package igrad.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
-import igrad.model.module.Credits;
-import igrad.model.module.Memo;
+import igrad.model.module.*;
 import igrad.model.module.Module;
-import igrad.model.module.ModuleCode;
-import igrad.model.module.Semester;
-import igrad.model.module.Title;
 import igrad.model.util.SampleDataUtil;
 import igrad.model.tag.Tag;
 
@@ -22,12 +18,14 @@ public class ModuleBuilder {
     public static final String DEFAULT_CREDITS = "4";
     public static final String DEFAULT_MEMO = "this is about recursion";
     public static final String DEFAULT_SEMESTER = "Y1S1";
+    public static final String DEFAULT_DESCRIPTION = "blah";
 
     private Title title;
     private ModuleCode moduleCode;
     private Credits credits;
     private Memo memo;
     private Semester semester;
+    private Description description;
     private Set<Tag> tags;
 
     public ModuleBuilder() {
@@ -36,6 +34,7 @@ public class ModuleBuilder {
         credits = new Credits(DEFAULT_CREDITS);
         memo = new Memo(DEFAULT_MEMO);
         semester = new Semester(DEFAULT_SEMESTER);
+        description = new Description(DEFAULT_DESCRIPTION);
         tags = new HashSet<>();
     }
 
@@ -99,8 +98,16 @@ public class ModuleBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Semester} of the {@code Module} that we are building.
+     */
+    public ModuleBuilder withDescription(String description) {
+        this.description = new Description(description);
+        return this;
+    }
+
     public Module build() {
-        return new Module(title, moduleCode, credits, memo, semester, tags);
+        return new Module(title, moduleCode, credits, memo, semester, description, tags);
     }
 
 }

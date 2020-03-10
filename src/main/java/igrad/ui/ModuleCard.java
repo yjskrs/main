@@ -41,6 +41,8 @@ public class ModuleCard extends UiPart<Region> {
     @FXML
     private Label credits;
     @FXML
+    private Label description;
+    @FXML
     private FlowPane tags;
 
     public ModuleCard(Module module, int displayedIndex) {
@@ -50,11 +52,19 @@ public class ModuleCard extends UiPart<Region> {
         title.setText(module.getTitle().value);
         moduleCode.setText("Code:\t\t" + module.getModuleCode().value);
         credits.setText("Credits:\t\t" + module.getCredits().value);
-        memo.setText("Memo:\t\t" + module.getMemo().value);
-        semester.setText("Semester:\t\t" + module.getSemester().value );
+
+        if (module.getMemo() != null) {
+            memo.setText("Memo:\t\t\t" + module.getMemo().value);
+        }
+        if (module.getSemester() != null) {
+            semester.setText("Semester:\t\t\t" + module.getSemester().value);
+        }
+        if (module.getDescription() != null) {
+            description.setText("Description:\t\t" + module.getDescription().value);
+        }
         module.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+            .sorted(Comparator.comparing(tag -> tag.tagName))
+            .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 
     @Override

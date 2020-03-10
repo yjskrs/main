@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import igrad.logic.commands.Command;
 import igrad.logic.parser.exceptions.ParseException;
+import igrad.services.exceptions.ServiceException;
+import java.io.IOException;
 
 /**
  * Contains helper methods for testing command parsers.
@@ -20,6 +22,8 @@ public class CommandParserTestUtil {
             assertEquals(expectedCommand, command);
         } catch (ParseException pe) {
             throw new IllegalArgumentException("Invalid userInput.", pe);
+        } catch (ServiceException | IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -33,6 +37,8 @@ public class CommandParserTestUtil {
             throw new AssertionError("The expected ParseException was not thrown.");
         } catch (ParseException pe) {
             assertEquals(expectedMessage, pe.getMessage());
+        } catch (ServiceException | IOException e) {
+            e.printStackTrace();
         }
     }
 }

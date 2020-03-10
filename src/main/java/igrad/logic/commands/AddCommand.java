@@ -19,18 +19,18 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a module. "
-            + "Parameters: "
-            + PREFIX_TITLE + "MODULE TITLE "
-            + PREFIX_MODULE_CODE + "MODULE CODE "
-            + PREFIX_CREDITS + "CREDITS "
-            + PREFIX_MEMO + "MEMO "
-            + "[" + PREFIX_SEMESTER + "SEMESTER]...\n"
-            + "Example: " + COMMAND_WORD + " "
-            + PREFIX_TITLE + "Software Engineering "
-            + PREFIX_MODULE_CODE + "CS2103T "
-            + PREFIX_CREDITS + "4 "
-            + PREFIX_MEMO + "Hard module. Good teachers. "
-            + PREFIX_SEMESTER + "Y2S2 ";
+        + "Parameters: "
+        + PREFIX_TITLE + "MODULE TITLE "
+        + PREFIX_MODULE_CODE + "MODULE CODE "
+        + PREFIX_CREDITS + "CREDITS "
+        + PREFIX_MEMO + "MEMO "
+        + "[" + PREFIX_SEMESTER + "SEMESTER]...\n"
+        + "Example: " + COMMAND_WORD + " "
+        + PREFIX_TITLE + "Software Engineering "
+        + PREFIX_MODULE_CODE + "CS2103T "
+        + PREFIX_CREDITS + "4 "
+        + PREFIX_MEMO + "Hard module. Good teachers. "
+        + PREFIX_SEMESTER + "Y2S2 ";
 
     public static final String MESSAGE_SUCCESS = "New module added: %1$s";
     public static final String MESSAGE_DUPLICATE_MODULE = "This module already exists in the course book";
@@ -60,7 +60,7 @@ public class AddCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddCommand // instanceof handles nulls
-                && toAdd.equals(((AddCommand) other).toAdd));
+            || (other instanceof AddCommand // instanceof handles nulls
+            && toAdd.equals(((AddCommand) other).toAdd));
     }
 }

@@ -10,12 +10,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import igrad.commons.exceptions.IllegalValueException;
-import igrad.model.module.Credits;
-import igrad.model.module.Memo;
+import igrad.model.module.*;
 import igrad.model.module.Module;
-import igrad.model.module.ModuleCode;
-import igrad.model.module.Title;
-import igrad.model.module.Semester;
 import igrad.model.tag.Tag;
 
 /**
@@ -30,6 +26,7 @@ class JsonAdaptedModule {
     private final String credits;
     private final String memo;
     private final String semester;
+    private final String description;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -37,13 +34,15 @@ class JsonAdaptedModule {
      */
     @JsonCreator
     public JsonAdaptedModule(@JsonProperty("title") String name, @JsonProperty("moduleCode") String moduleCode,
-            @JsonProperty("credits") String credits, @JsonProperty("memo") String memo, @JsonProperty("semester") String semester,
+            @JsonProperty("credits") String credits, @JsonProperty("memo") String memo,
+            @JsonProperty("semester") String semester, @JsonProperty("description") String description,
             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.title = name;
         this.moduleCode = moduleCode;
         this.credits = credits;
         this.memo = memo;
         this.semester = semester;
+        this.description = description;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -58,6 +57,7 @@ class JsonAdaptedModule {
         credits = source.getCredits().value;
         memo = source.getMemo().value;
         semester = source.getSemester().value;
+        description = source.getDescription().value;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -119,10 +119,12 @@ class JsonAdaptedModule {
         }
 
         final Semester modelSemester = new Semester(semester);
+        final Description modelDescription = new Description(description);
 
         final Set<Tag> modelTags = new HashSet<>(moduleTags);
 
-        return new Module( modelTitle, modelModuleCode, modelCredits, modelMemo, modelSemester, modelTags );
+        return new Module(modelTitle, modelModuleCode, modelCredits, modelMemo, modelSemester,
+                modelDescription, modelTags);
     }
 
 }

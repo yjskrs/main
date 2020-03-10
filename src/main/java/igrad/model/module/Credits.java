@@ -41,8 +41,8 @@ public class Credits {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Credits // instanceof handles nulls
-                && value.equals(((Credits) other).value)); // state check
+            || (other instanceof Credits // instanceof handles nulls
+            && value.equals(((Credits) other).value)); // state check
     }
 
     @Override
