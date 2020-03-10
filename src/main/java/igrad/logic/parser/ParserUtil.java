@@ -9,6 +9,7 @@ import java.util.Set;
 import igrad.commons.core.index.Index;
 import igrad.commons.util.StringUtil;
 import igrad.logic.parser.exceptions.ParseException;
+import igrad.model.course.Name;
 import igrad.model.module.*;
 import igrad.model.tag.Tag;
 
@@ -46,6 +47,21 @@ public class ParserUtil {
             throw new ParseException( Title.MESSAGE_CONSTRAINTS);
         }
         return new Title(trimmedName);
+    }
+
+    /**
+     * Parses a {@code String name} into a {@code Name}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code title} is invalid.
+     */
+    public static Name parseName(String name) throws ParseException {
+        requireNonNull(name);
+        String trimmedName = name.trim();
+        if (!Name.isValidName(trimmedName)) {
+            throw new ParseException(Title.MESSAGE_CONSTRAINTS);
+        }
+        return new Name(trimmedName);
     }
 
     /**

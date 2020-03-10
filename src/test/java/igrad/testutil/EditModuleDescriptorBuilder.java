@@ -4,8 +4,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import igrad.logic.commands.EditCommand;
-import igrad.logic.commands.EditCommand.EditModuleDescriptor;
+import igrad.logic.commands.ModuleEditCommand;
+import igrad.logic.commands.ModuleEditCommand.EditModuleDescriptor;
 import igrad.model.module.Credits;
 import igrad.model.module.Memo;
 import igrad.model.module.Module;
@@ -19,14 +19,14 @@ import igrad.model.tag.Tag;
  */
 public class EditModuleDescriptorBuilder {
 
-    private EditCommand.EditModuleDescriptor descriptor;
+    private ModuleEditCommand.EditModuleDescriptor descriptor;
 
     public EditModuleDescriptorBuilder() {
-        descriptor = new EditCommand.EditModuleDescriptor();
+        descriptor = new ModuleEditCommand.EditModuleDescriptor();
     }
 
-    public EditModuleDescriptorBuilder(EditCommand.EditModuleDescriptor descriptor) {
-        this.descriptor = new EditCommand.EditModuleDescriptor(descriptor);
+    public EditModuleDescriptorBuilder(ModuleEditCommand.EditModuleDescriptor descriptor) {
+        this.descriptor = new ModuleEditCommand.EditModuleDescriptor(descriptor);
     }
 
     /**

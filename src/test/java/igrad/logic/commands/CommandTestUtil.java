@@ -91,8 +91,8 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditModuleDescriptor DESC_PROGRAMMING_METHODOLOGY;
-    public static final EditCommand.EditModuleDescriptor DESC_COMPUTER_ORGANISATION;
+    public static final ModuleEditCommand.EditModuleDescriptor DESC_PROGRAMMING_METHODOLOGY;
+    public static final ModuleEditCommand.EditModuleDescriptor DESC_COMPUTER_ORGANISATION;
 
     static {
         DESC_PROGRAMMING_METHODOLOGY = new EditModuleDescriptorBuilder()

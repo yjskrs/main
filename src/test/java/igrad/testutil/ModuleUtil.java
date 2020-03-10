@@ -9,8 +9,8 @@ import static igrad.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
 
-import igrad.logic.commands.AddCommand;
-import igrad.logic.commands.EditCommand.EditModuleDescriptor;
+import igrad.logic.commands.ModuleAddCommand;
+import igrad.logic.commands.ModuleEditCommand.EditModuleDescriptor;
 import igrad.model.module.Module;
 import igrad.model.tag.Tag;
 
@@ -23,7 +23,7 @@ public class ModuleUtil {
      * Returns an add command string for adding the {@code module}.
      */
     public static String getAddCommand(Module module) {
-        return AddCommand.COMMAND_WORD + " " + getModuleDetails(module);
+        return ModuleAddCommand.COMMAND_WORD + " " + getModuleDetails(module);
     }
 
     /**

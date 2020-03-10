@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 
 import igrad.commons.core.GuiSettings;
 import igrad.commons.core.LogsCenter;
+import igrad.model.course.CourseInfo;
 import igrad.model.module.Module;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -83,6 +84,16 @@ public class ModelManager implements Model {
         this.courseBook.resetData(courseBook);
     }
 
+    /**
+     * Resets the course book data to a blank state with no data (e.g, modules, requirements, etc).
+     *
+     * @param courseBook
+     */
+    @Override
+    public void resetCourseBook(ReadOnlyCourseBook courseBook) {
+        // TODO: ...
+    }
+
     @Override
     public ReadOnlyCourseBook getCourseBook() {
         return courseBook;
@@ -97,6 +108,16 @@ public class ModelManager implements Model {
     @Override
     public void deleteModule(Module target) {
         courseBook.removePerson(target);
+    }
+
+    /**
+     * Adds the given courseInfo to the course book.
+     *
+     * @param courseInfo
+     */
+    @Override
+    public void addCourseInfo(CourseInfo courseInfo) {
+        courseBook.addCourseInfo(courseInfo);
     }
 
     @Override

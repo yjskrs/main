@@ -8,13 +8,7 @@ import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import igrad.logic.commands.AddCommand;
-import igrad.logic.commands.ClearCommand;
-import igrad.logic.commands.Command;
-import igrad.logic.commands.DeleteCommand;
-import igrad.logic.commands.EditCommand;
-import igrad.logic.commands.ExitCommand;
-import igrad.logic.commands.HelpCommand;
+import igrad.logic.commands.*;
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.services.exceptions.ServiceException;
 
@@ -24,9 +18,9 @@ import igrad.services.exceptions.ServiceException;
 public class CourseBookParser {
 
     /**
-     * Used for initial separation of command word and args.
+     * Used for initial separation of command words and args.
      */
-    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>[a-z]+(\\s[a-z]{3,})?)(?<arguments>.*)");
 
     /**
      * Parses user input into command for execution.
@@ -47,7 +41,7 @@ public class CourseBookParser {
 
         switch (commandWord) {
 
-        case AddCommand.COMMAND_WORD:
+        case ModuleAddCommand.COMMAND_WORD:
 
             if (ArgumentTokenizer.isFlagPresent(argumentsWithFlags, FLAG_AUTO.getFlag())) {
                 return new AddAutoCommandParser().parse(arguments);
@@ -55,20 +49,24 @@ public class CourseBookParser {
                 return new AddCommandParser().parse(arguments);
             }
 
-        case EditCommand.COMMAND_WORD:
+        case ModuleEditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
 
-        case DeleteCommand.COMMAND_WORD:
+        case ModuleDeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
-
-        case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case CourseAddCommand.COMMAND_WORD:
+            return new CourseAddCommandParser().parse(arguments);
+
+        case CourseDeleteCommand.COMMAND_WORD:
+            // course delete has no arguments, hence no parse(argument) method needed
+            return new CourseDeleteCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

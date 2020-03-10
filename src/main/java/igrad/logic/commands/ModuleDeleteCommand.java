@@ -13,7 +13,7 @@ import igrad.model.module.Module;
 /**
  * Deletes a module identified using it's displayed index from the course book.
  */
-public class DeleteCommand extends Command {
+public class ModuleDeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "delete";
 
@@ -26,7 +26,7 @@ public class DeleteCommand extends Command {
 
     private final Index targetIndex;
 
-    public DeleteCommand(Index targetIndex) {
+    public ModuleDeleteCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
@@ -47,7 +47,7 @@ public class DeleteCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof DeleteCommand // instanceof handles nulls
-            && targetIndex.equals(((DeleteCommand) other).targetIndex)); // state check
+            || (other instanceof ModuleDeleteCommand // instanceof handles nulls
+            && targetIndex.equals(((ModuleDeleteCommand) other).targetIndex)); // state check
     }
 }

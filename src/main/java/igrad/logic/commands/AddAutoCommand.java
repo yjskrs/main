@@ -35,7 +35,7 @@ public class AddAutoCommand extends Command {
     private final Module toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Person}
+     * Creates an ModuleAddCommand to add the specified {@code Person}
      */
     public AddAutoCommand(Module module) {
         requireNonNull(module);

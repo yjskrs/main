@@ -17,7 +17,7 @@ import static igrad.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static igrad.logic.parser.CliSyntax.*;
 
 /**
- * Parses input arguments and creates a new AddCommand object
+ * Parses input arguments and creates a new ModuleAddCommand object
  */
 public class AddAutoCommandParser implements Parser<AddAutoCommand> {
 
@@ -30,8 +30,8 @@ public class AddAutoCommandParser implements Parser<AddAutoCommand> {
     }
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddCommand
-     * and returns an AddCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the ModuleAddCommand
+     * and returns an ModuleAddCommand object for execution.
      *
      * @throws ParseException if the user input does not conform the expected format
      */

@@ -6,7 +6,7 @@
 1. [Introduction](#Introduction)
 2. [Features](#Features)
 
-    2.1 [Course Builder](#course-builder)
+    2.1 [Course Builder](#courseInfo-builder)
 
     2.2 [Modular Credits Tracker](#modular-credits-mcs-tracker)
 
@@ -25,7 +25,7 @@
 
     5.1.[`help`](#help)
    
-    5.2 [`course`](#course)
+    5.2 [`courseInfo`](#courseInfo)
    
     5.3 [`requirement`](#requirements)
    
@@ -71,8 +71,8 @@ Finally, the *iGrad* team is always open to feedback and suggestions from the pu
 ## Features  
 
 #### Course Builder
-iGrad was built with every NUS student in mind. Our custom course builder allows you to build
-the course of your dreams.
+iGrad was built with every NUS student in mind. Our custom courseInfo builder allows you to build
+the courseInfo of your dreams.
 
 #### Modular Credits (MCs) Tracker
 We are sick of counting our MCs at the beginning of every semester too. Easily see how many MCs you
@@ -89,7 +89,7 @@ in order to achieve your dream Cumulative Point Average (CAP).
 ![](https://user-images.githubusercontent.com/34233605/75425925-9774ff80-597e-11ea-87f5-228f95b5c84f.png)
 
 #### Courses
-A course is simply a group of requirements. It is also how we keep track of your overall CAP
+A courseInfo is simply a group of requirements. It is also how we keep track of your overall CAP
 and MCs. 
 
 #### Requirements
@@ -107,7 +107,7 @@ you took the module.
 
 Double-click the .jar file to get started right away!
 
-#### 2. Enter your course details
+#### 2. Enter your courseInfo details
 
 ![](https://user-images.githubusercontent.com/34233605/75436477-9dbfa780-598f-11ea-9076-8d4e4e09c8bc.png)
 
@@ -156,9 +156,9 @@ Expected Outcome
 
 ---
 
-#### `course`
+#### `courseInfo`
 
-Creates a course. (TODO: Add in modify and remove)
+Creates a courseInfo. (TODO: Add in modify and remove)
 
 Command Format
 
@@ -166,19 +166,19 @@ Command Format
 Command Sample
 
     /*
-    * Creating a course named "Computer Science"
+    * Creating a courseInfo named "Computer Science"
     */
-    course add n/Computer Science
+    courseInfo add n/Computer Science
 
 Constraints
    
-:warning: You can only have one course at a time
+:warning: You can only have one courseInfo at a time
    
 Expected Outcome
 
-:white_check_mark: You should be able to see the course name in the 
+:white_check_mark: You should be able to see the courseInfo name in the 
 top panel
-    course add n/COURSE_NAME
+    courseInfo add n/COURSE_NAME
 
 ---
 
@@ -384,11 +384,11 @@ However, we will be unable to provide features such as validation from NUS Mods.
    
 `help`
 
-`course add n/COURSE_NAME`
+`courseInfo add n/COURSE_NAME`
 
-`course modify n/NEW_COURSE_NAME`
+`courseInfo modify n/NEW_COURSE_NAME`
 
-`course remove`
+`courseInfo remove`
 
 `requirement add n/REQUIREMENT_NAME u/NO_OF_MCS`
 
@@ -416,7 +416,7 @@ However, we will be unable to provide features such as validation from NUS Mods.
 
 |               |               |
 | ------------- |-------------  |
-|Course        |A course is the entire programme of studies required to complete a university degree |
+|Course        |A courseInfo is the entire programme of studies required to complete a university degree |
 |Graduation requirement      |Requirements specified by the university in order for a student to graduate |
 |Module      |Each module of study has a unique module code consisting of a two- or three-letter prefix that generally denotes the discipline, and four digits, the first of which indicates the level of the module |
 |Cumulative Average Point (CAP) |The Cumulative Average Point (CAP) is the weighted average grade point of the letter grades of all the modules taken by the students. |

@@ -44,8 +44,8 @@ Finally, the _iGrad_ team is always open to feedback and suggestions from the pu
 
 ==== Course Builder
 
-iGrad was built with every NUS student in mind. Our custom course builder allows you to build
-the course of your dreams.
+iGrad was built with every NUS student in mind. Our custom courseInfo builder allows you to build
+the courseInfo of your dreams.
 
 ==== Modular Credits (MCs) Tracker
 
@@ -64,7 +64,7 @@ image:https://user-images.githubusercontent.com/34233605/75425925-9774ff80-597e-
 
 ==== Courses
 
-A course is simply a group of requirements. It is also how we keep track of your overall CAP
+A courseInfo is simply a group of requirements. It is also how we keep track of your overall CAP
 and MCs.
 
 ==== Requirements
@@ -82,7 +82,7 @@ you took the module.
 
 ==== Start up the application
 
-==== Enter your course details
+==== Enter your courseInfo details
 
 ==== Key in your graduation requirements
 
@@ -121,56 +121,56 @@ A help message should be displayed
 
 '''
 
-==== course
+==== courseInfo
 
-Add, modify or remove your course.
+Add, modify or remove your courseInfo.
 
 Command Format
 
 ----
-course add n/COURSE_NAME
+courseInfo add n/COURSE_NAME
 
-course modify COURSE_NAME: [n/COURSE_NAME] [u/MCs]
+courseInfo modify COURSE_NAME: [n/COURSE_NAME] [u/MCs]
 
-course remove n/COURSE_NAME
+courseInfo remove n/COURSE_NAME
 ----
 
 Command Sample
 
 ----
 /*
- * Creating a course named "Computer Science"
+ * Creating a courseInfo named "Computer Science"
  */
-course add n/Computer Science
+courseInfo add n/Computer Science
 
 
 /*
- * Renaming your current course to "Information Systems"
+ * Renaming your current courseInfo to "Information Systems"
  */
-course modify Computer Science: n/Information Systems
+courseInfo modify Computer Science: n/Information Systems
 
 /*
- * Removing your current course
+ * Removing your current courseInfo
  */
-course remove
+courseInfo remove
 ----
 
 Constraints
 ====
-1. `(all)`: You can only have at most one course at any one time
-2. `course remove`: Removing a course removes all data from the system (including modules, requirements, etc)
+1. `(all)`: You can only have at most one courseInfo at any one time
+2. `courseInfo remove`: Removing a courseInfo removes all data from the system (including modules, requirements, etc)
 ====
 
 Expected Outcome
 [NOTE]
-You should be able to see the added and/or modified course name in the
-top panel. For remove course, all data would be reset
+You should be able to see the added and/or modified courseInfo name in the
+top panel. For remove courseInfo, all data would be reset
 
 '''
 
 ==== requirement
 
-Add, modify or remove a graduation requirement category (under a course).
+Add, modify or remove a graduation requirement category (under a courseInfo).
 
 Command Format
 
@@ -214,7 +214,7 @@ Constraints
 [WARNING]
 ====
 1. `(all)`: Requirement names have to be unique
-2. `(all)`: The number of MCs under all requirements have to be in total equals (strictly) to number of MCs for your course
+2. `(all)`: The number of MCs under all requirements have to be in total equals (strictly) to number of MCs for your courseInfo
 ====
 
 Expected Outcome
@@ -440,11 +440,11 @@ ____
 
 `help`
 
-`course add n/COURSE_NAME`
+`courseInfo add n/COURSE_NAME`
 
-`course modify: [n/COURSE_NAME] [u/MCs]`
+`courseInfo modify: [n/COURSE_NAME] [u/MCs]`
 
-`course remove n/COURSE_NAME`
+`courseInfo remove n/COURSE_NAME`
 
 `requirement add n/REQUIREMENT_NAME: u/NO_OF_MCS`
 
@@ -473,7 +473,7 @@ ____
 |===
 | |
 
-|Course |A course is the entire programme of studies required to complete a university degree
+|Course |A courseInfo is the entire programme of studies required to complete a university degree
 |Graduation requirement |Requirements specified by the university in order for a student to graduate
 |Module |Each module of study has a unique module code consisting of a two- or three-letter prefix that generally denotes the discipline, and four digits, the first of which indicates the level of the module
 |Cumulative Average Point (CAP) |The Cumulative Average Point (CAP) is the weighted average grade point of the letter grades of all the modules taken by the students.

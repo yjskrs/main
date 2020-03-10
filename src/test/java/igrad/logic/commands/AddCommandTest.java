@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Predicate;
 
+import igrad.model.course.CourseInfo;
 import org.junit.jupiter.api.Test;
 
 import igrad.commons.core.GuiSettings;
@@ -27,7 +28,7 @@ public class AddCommandTest {
 
     @Test
     public void constructor_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddCommand(null));
+        assertThrows(NullPointerException.class, () -> new ModuleAddCommand(null));
     }
 
     @Test
@@ -35,33 +36,33 @@ public class AddCommandTest {
         ModelStubAcceptingModuleAdded modelStub = new ModelStubAcceptingModuleAdded();
         Module validModule = new ModuleBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validModule).execute(modelStub);
+        CommandResult commandResult = new ModuleAddCommand(validModule).execute(modelStub);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validModule), commandResult.getFeedbackToUser());
+        assertEquals(String.format(ModuleAddCommand.MESSAGE_SUCCESS, validModule), commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validModule), modelStub.personsAdded);
     }
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
         Module validModule = new ModuleBuilder().build();
-        AddCommand addCommand = new AddCommand(validModule);
+        ModuleAddCommand moduleAddCommand = new ModuleAddCommand(validModule);
         ModelStub modelStub = new ModelStubWithModule(validModule);
 
-        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_MODULE, () -> addCommand.execute(modelStub));
+        assertThrows(CommandException.class, ModuleAddCommand.MESSAGE_DUPLICATE_MODULE, () -> moduleAddCommand.execute(modelStub));
     }
 
     @Test
     public void equals() {
         Module programmingMethodology = new ModuleBuilder().withTitle("Programming Methodology").build();
         Module computerOrganisation = new ModuleBuilder().withTitle("Computer Organisation").build();
-        AddCommand addProgrammingMethodologyCommand = new AddCommand(programmingMethodology);
-        AddCommand addComputerOrganisationCommand = new AddCommand(computerOrganisation);
+        ModuleAddCommand addProgrammingMethodologyCommand = new ModuleAddCommand(programmingMethodology);
+        ModuleAddCommand addComputerOrganisationCommand = new ModuleAddCommand(computerOrganisation);
 
         // same object -> returns true
         assertTrue(addProgrammingMethodologyCommand.equals(addComputerOrganisationCommand));
 
         // same values -> returns true
-        AddCommand addProgrammingMethodologyCommandCopy = new AddCommand(programmingMethodology);
+        ModuleAddCommand addProgrammingMethodologyCommandCopy = new ModuleAddCommand(programmingMethodology);
         assertTrue(addProgrammingMethodologyCommand.equals(addProgrammingMethodologyCommandCopy));
 
         // different types -> returns false
@@ -118,6 +119,16 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        /**
+         * Resets course book data to a blank state with no data (e.g, modules, requirements, etc).
+         *
+         * @param courseBook
+         */
+        @Override
+        public void resetCourseBook(ReadOnlyCourseBook courseBook) {
+
+        }
+
         @Override
         public ReadOnlyCourseBook getCourseBook() {
             throw new AssertionError("This method should not be called.");
@@ -130,6 +141,11 @@ public class AddCommandTest {
 
         @Override
         public void deleteModule(Module target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addCourseInfo(CourseInfo courseInfo) {
             throw new AssertionError("This method should not be called.");
         }
 
