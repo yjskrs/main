@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<<<<<<< HEAD
 
 <GridPane styleClass="status-bar" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <columnConstraints>
@@ -10,3 +11,11 @@
    </columnConstraints>
    <Label fx:id="saveLocationStatus" />
 </GridPane>
+=======
+<GridPane xmlns:fx="http://javafx.com/fxml/1" styleClass="status-bar" xmlns="http://javafx.com/javafx/8">
+    <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10"/>
+    </columnConstraints>
+    <Label fx:id="saveLocationStatus"/>
+</GridPane>
+>>>>>>> origin/master

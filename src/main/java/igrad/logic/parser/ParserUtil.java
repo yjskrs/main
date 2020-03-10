@@ -9,9 +9,7 @@ import java.util.Set;
 import igrad.commons.core.index.Index;
 import igrad.commons.util.StringUtil;
 import igrad.logic.parser.exceptions.ParseException;
-import igrad.model.module.Email;
-import igrad.model.module.Name;
-import igrad.model.module.Phone;
+import igrad.model.module.*;
 import igrad.model.tag.Tag;
 
 /**
@@ -24,6 +22,7 @@ public class ParserUtil {
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
+     *
      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
@@ -35,48 +34,91 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String name} into a {@code Name}.
+     * Parses a {@code String title} into a {@code Title}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code name} is invalid.
+     * @throws ParseException if the given {@code title} is invalid.
      */
-    public static Name parseName(String name) throws ParseException {
-        requireNonNull(name);
-        String trimmedName = name.trim();
-        if (!Name.isValidName(trimmedName)) {
-            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+    public static Title parseTitle(String title) throws ParseException {
+        requireNonNull(title);
+        String trimmedName = title.trim();
+        if (!Title.isValidTitle(trimmedName)) {
+            throw new ParseException( Title.MESSAGE_CONSTRAINTS);
         }
-        return new Name(trimmedName);
+        return new Title(trimmedName);
     }
 
     /**
-     * Parses a {@code String phone} into a {@code Phone}.
+     * Parses a {@code String moduleCode} into a {@code ModuleCode}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code phone} is invalid.
+     * @throws ParseException if the given {@code moduleCode} is invalid.
      */
-    public static Phone parsePhone(String phone) throws ParseException {
-        requireNonNull(phone);
-        String trimmedPhone = phone.trim();
-        if (!Phone.isValidPhone(trimmedPhone)) {
-            throw new ParseException(Phone.MESSAGE_CONSTRAINTS);
+    public static ModuleCode parseModuleCode(String moduleCode) throws ParseException {
+        requireNonNull(moduleCode);
+        String trimmedPhone = moduleCode.trim();
+        if (!ModuleCode.isValidModuleCode(trimmedPhone)) {
+            throw new ParseException(ModuleCode.MESSAGE_CONSTRAINTS);
         }
-        return new Phone(trimmedPhone);
+        return new ModuleCode(trimmedPhone);
     }
 
     /**
-     * Parses a {@code String email} into an {@code Email}.
+     * Parses a {@code String credits} into an {@code Credits}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code email} is invalid.
+     * @throws ParseException if the given {@code credits} is invalid.
      */
-    public static Email parseEmail(String email) throws ParseException {
-        requireNonNull(email);
-        String trimmedEmail = email.trim();
-        if (!Email.isValidEmail(trimmedEmail)) {
-            throw new ParseException(Email.MESSAGE_CONSTRAINTS);
+    public static Credits parseCredits(String credits) throws ParseException {
+        requireNonNull(credits);
+        String trimmedCredits = credits.trim();
+        if (!Credits.isValidCredits(trimmedCredits)) {
+            throw new ParseException(Credits.MESSAGE_CONSTRAINTS);
         }
-        return new Email(trimmedEmail);
+        return new Credits(trimmedCredits);
+    }
+
+    /**
+     * Parses a {@code String address} into an {@code Address}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code address} is invalid.
+     */
+    public static Description parseDescription(String description) throws ParseException {
+        requireNonNull(description);
+        String trimmedDescription = description.trim();
+
+        return new Description(trimmedDescription);
+    }
+
+    /**
+     * Parses a {@code String memo} into an {@code Memo}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code memo} is invalid.
+     */
+    public static Memo parseMemo(String memo) throws ParseException {
+        requireNonNull(memo);
+        String trimmedMemo = memo.trim();
+        // if (!Address.isValidAddress(trimmedAddress)) {
+        //     throw new ParseException(Address.MESSAGE_CONSTRAINTS);
+        // }
+        return new Memo(trimmedMemo);
+    }
+
+    /**
+     * Parses a {@code String semester} into an {@code Semester}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code semester} is invalid.
+     */
+    public static Semester parseSemester(String semester) throws ParseException {
+        requireNonNull(semester);
+        String trimmedSemester = semester.trim();
+        if (!Semester.isValidSemester(trimmedSemester)) {
+            throw new ParseException(Semester.MESSAGE_CONSTRAINTS);
+        }
+        return new Semester(trimmedSemester);
     }
 
     /**
@@ -89,7 +131,7 @@ public class ParserUtil {
         requireNonNull(tag);
         String trimmedTag = tag.trim();
         if (!Tag.isValidTagName(trimmedTag)) {
-            throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
+            throw new ParseException( Tag.MESSAGE_CONSTRAINTS);
         }
         return new Tag(trimmedTag);
     }
@@ -97,12 +139,12 @@ public class ParserUtil {
     /**
      * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
      */
-    public static Set<Tag> parseTags(Collection<String> tags) throws ParseException {
+    public static Set<Tag> parseTag(Collection<String> tags) throws ParseException {
         requireNonNull(tags);
-        final Set<Tag> tagSet = new HashSet<>();
+        final Set<Tag> tagsSet = new HashSet<>();
         for (String tagName : tags) {
-            tagSet.add(parseTag(tagName));
+            tagsSet.add(parseTag(tagName));
         }
-        return tagSet;
+        return tagsSet;
     }
 }

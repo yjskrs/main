@@ -14,6 +14,7 @@ import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.Model;
 import igrad.model.ReadOnlyCourseBook;
 import igrad.model.module.Module;
+import igrad.services.exceptions.ServiceException;
 import igrad.storage.Storage;
 import javafx.collections.ObservableList;
 
@@ -35,7 +36,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public CommandResult execute(String commandText) throws CommandException, ParseException {
+    public CommandResult execute(String commandText) throws CommandException,
+        ParseException, IOException, ServiceException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;

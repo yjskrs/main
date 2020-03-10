@@ -29,23 +29,17 @@
    
     5.3 [`requirement`](#requirements)
    
-    5.4 [`assign`](#assign)
-   
-    5.5 [`module`](#module)
+    5.4 [`module`](#module)
+    
+    5.5 [`assign`](#assign)
  
-    5.6 [`modify`](#modify)
+    5.6 [`exam`](#exam)
  
-    5.7 [`delete`](#delete)
- 
-    5.8 [`exam`](#exam)
- 
-    5.9 [`achieve`](#achieve)
- 
-    5.10 [`batch`](#batch)
+    5.7 [`achieve`](#achieve)
 
-    5.11 [`export`](#export)
+    5.8 [`export`](#export)
 
-    5.12 [`exit`](#exit)
+    5.9 [`exit`](#exit)
 
 6. [Frequently Asked Questions (FAQ)](#faqs)
 7. [Cheat Sheet](#cheat-sheet)
@@ -91,7 +85,7 @@ in order to achieve your dream Cumulative Point Average (CAP).
 
 ## Components
 
-<a name="fig-1">**Figure 1**</a>
+<a title="fig-1">**Figure 1**</a>
 ![](https://user-images.githubusercontent.com/34233605/75425925-9774ff80-597e-11ea-87f5-228f95b5c84f.png)
 
 #### Courses
@@ -164,7 +158,7 @@ Expected Outcome
 
 #### `course`
 
-Creates a course.
+Creates a course. (TODO: Add in modify and remove)
 
 Command Format
 
@@ -174,7 +168,7 @@ Command Sample
     /*
     * Creating a course named "Computer Science"
     */
-    course n/Computer Science
+    course add n/Computer Science
 
 Constraints
    
@@ -184,17 +178,17 @@ Expected Outcome
 
 :white_check_mark: You should be able to see the course name in the 
 top panel
-    course n/COURSE_NAME
+    course add n/COURSE_NAME
 
 ---
 
 #### `requirement`
 
-Creates a graduation requirement.
+Creates a graduation requirement. (TODO: Add in modify and remove)
 
 Command Format
 
-    requirement n/REQUIREMENT_NAME u/NO_OF_MCS
+    requirement add n/REQUIREMENT_NAME u/NO_OF_MCS
 
 Command Sample
 
@@ -202,7 +196,7 @@ Command Sample
     * Creating a requirement named "Unrestricted Electives" 
     * which requires 32 MCs to fulfill
     */
-    requirement n/Unrestricted Electives u/32
+    requirement add n/Unrestricted Electives u/32
 
 Constraints
    
@@ -217,10 +211,44 @@ main panel
 
 ---
 
+#### `module`
+
+Creates a module with semester, grade or memo notes information. (TODO: Add in modify and remove)
+
+Command Format
+
+    /**
+    * At least one option must be specified.
+    * SEMESTER is specified in format Y_S_ ( e.g. Y1S2 - Year 1 Semester 2 ) 
+    */
+    module add n/MODULE_CODE [n/MODULE_TITLE] [u/MCs] [s/SEMESTER] [g/GRADE] [m/MEMO_NOTES]
+
+Command Sample
+
+    /**
+    * Tags CS1101 with "Y1S2" and grade "A+"
+    */
+    module add n/CS1101 s/Y1S2 g/A+
+
+    /**
+    * Tags ST2234 with "Y2S1" and gives it a memo "pretty easy module"
+    */
+    module add n/ST2334 s/Y2S1 m/pretty easy module
+
+Constraints
+
+:warning: The module has to be assigned
+
+Expected Outcome
+
+:white_check_mark: The tags (if any) should appear under their respective column headers
+
+---
+
 #### `assign`
 
 Assigns a module to a graduation requirement. If there is good internet
-connectivity, the module will be validated with NUS Mods and its description
+connectivity, the module will be validated with NUSMods and its description
 will be auto-filled.
 
 Command Format
@@ -228,15 +256,15 @@ Command Format
     /**
     * DESCRIPTION is optional
     */
-    assign n/REQUIREMENT_NAME: n/MODULE_CODE t/MODULE_TITLE u/NO_OF_MCS d/DESCRIPTION
+    assign REQUIREMENT_NAME n/MODULE_CODE
 
 Command Sample
 
     /**
-    * Assigns module "LAJ1201 Japanese 1" worth 4 MCs 
+    * Assigns module "LAJ1201" (Japanese 1)
     * to requirement "Unrestricted Electives"
     */
-    assign n/Unrestricted Electives: n/LAJ1201 t/Japanese 1 u/4
+    assign Unrestricted Electives n/LAJ1201
 
 Constraints
 
@@ -249,104 +277,6 @@ Expected Outcome
 
 :white_check_mark: The module will be displayed in the main panel
 
----
-
-#### `module`
-
-Tags a module with semester, grade or memo notes.
-
-Command Format
-
-    /**
-    * At least one option must be specified.
-    * SEMESTER is specified in format Y_S_ ( e.g. Y1S2 - Year 1 Semester 2 ) 
-    */
-    module n/MODULE_CODE: s/SEMESTER g/GRADE m/MEMO_NOTES
-
-Command Sample
-
-    /**
-    * Tags CS1101 with "Y1S2" and grade "A+"
-    */
-    module n/CS1101: s/Y1S2 g/A+
-
-    /**
-    * Tags ST2234 with "Y2S1" and gives it a memo "pretty easy module"
-    */
-    module n/ST2334: s/Y2S1 m/pretty easy module
-
-Constraints
-
-:warning: The module has to be assigned
-
-Expected Outcome
-
-:white_check_mark: The tags should appear under their respective column headers
-
----
-
-#### `modify`
-
-Modify course, graduation requirements or modules
-
-Command Format
-
-    modify course n/COURSE_NAME
-
-    modify req n/REQUIREMENT_NAME: u/NO_OF_MCS
-
-    /**
-    * At least one option must be specified
-    */
-    modify module n/MODULE_CODE: t/MODULE_NAME u/NO_OF_MCS
-
-Command Sample
-
-    /**
-    * Modifies CS4239 and gives it the title "Machine Learning" and updates
-    * it to be worth 5 MCs
-    */
-    modify module n/CS4239: t/Machine Learning u/5
-
-Constraints
-
-:warning: The component to be modified must exist in the system
-
-:warning: The COURSE_NAME, REQUIREMENT_NAME, MODULE_NAME and MODULE_CODE
-have to be unique
-
-Expected Outcome
-
-:white_check_mark: You should be able to see the relevant changes
-
----
-
-#### `delete`
-
-Deletes course, graduation requirements or modules
-
-Command Format
-
-    del course n/COURSE_NAME
-
-    del req n/REQUIREMENT_NAME
-
-    del module n/MODULE_CODE
-
-Command Sample
-
-    /**
-    * Deletes the course "Computer Science"
-    */
-    del course n/Computer Science
-
-Constraints
-
-:warning: The component to be deleted must exist in the system
-
-Expected Outcome
-
-:white_check_mark: The components deleted should disappear from their respective panels
 
 ---
 
@@ -358,7 +288,7 @@ Command Format
 
     /**
     * SEMESTER is optional.
-    * If not specified, displays results for all semesters.
+    * If not specified, displays results for all tags.
     */
     exam s/SEMESTER
 
@@ -405,32 +335,6 @@ Expected Outcome
 the CAP you desire
 
 ---
-
-#### `batch`
-
-Executes a series of commands written in a text (.txt) file
-
-Command Format
-
-    batch f/ FILE_PATH
-
-Command Sample
-
-    batch f/ C:\Users\wayne\OneDrive\Desktop\commands.txt
-
-Constraints
-
-:warning: The text file has to properly formatted. 
-Partial execution will not take place.
-
-Expected Outcome
-
-:white_check_mark: All changes should be made based on the commands
-in the text file. Please cross-check changes with the file to ensure 
-this is so.
-
----
-
 #### `export`
 
 Exports all data in a text file. If information is sufficient, 
@@ -480,31 +384,29 @@ However, we will be unable to provide features such as validation from NUS Mods.
    
 `help`
 
-`course n/COURSE_NAME`
+`course add n/COURSE_NAME`
 
-`requirement n/REQUIREMENT_NAME u/NO_OF_MCS`
+`course modify n/NEW_COURSE_NAME`
 
-`assign n/REQUIREMENT_NAME: n/MODULE_CODE t/MODULE_TITLE u/NO_OF_MCS d/DESCRIPTION`
+`course remove`
 
-`module n/MODULE_CODE: s/SEMESTER g/GRADE m/MEMO_NOTES`
+`requirement add n/REQUIREMENT_NAME u/NO_OF_MCS`
 
-`modify course n/COURSE_NAME`
+`requirement modify REQUIREMENT_NAME [n/REQUIREMENT_NAME] [u/NO_OF_MCS]`
 
-`modify req n/REQUIREMENT_NAME: u/NO_OF_MCS`
+`requirement remove REQUIREMENT_NAME`
 
-`modify module n/MODULE_CODE: t/MODULE_NAME u/NO_OF_MCS`
+`module add n/MODULE_CODE [n/MODULE_TITLE] [u/MCs] [s/SEMESTER] [g/GRADE] [m/MEMO_NOTES]`
 
-`del course n/COURSE_NAME`
-   
-`del req n/REQUIREMENT_NAME`
-   
-`del module n/MODULE_CODE`
+`module modify MODULE_CODE [n/MODULE_CODE] [n/MODULE_TITLE] [u/MCs] [s/SEMESTER] [g/GRADE] [m/MEMO_NOTES]`
+
+`module remove MODULE_CODE`
+
+`assign REQUIREMENT_NAME n/MODULE_CODE`
 
 `exam s/SEMESTER`
 
 `achieve c/DESIRED_CAP`
-
-`batch f/ FILE_PATH`
 
 `export`
 

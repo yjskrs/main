@@ -9,7 +9,7 @@ import igrad.model.module.UniqueModuleList;
 import javafx.collections.ObservableList;
 
 /**
- * Wraps all data at the course-book level
+ * Wraps all data at the course-book level.
  * Duplicates are not allowed (by .isSameModule comparison)
  */
 public class CourseBook implements ReadOnlyCourseBook {
@@ -30,14 +30,14 @@ public class CourseBook implements ReadOnlyCourseBook {
     public CourseBook() {}
 
     /**
-     * Creates an CourseBook using the Persons in the {@code toBeCopied}
+     * Creates an CourseBook using the Persons in the {@code toBeCopied}.
      */
     public CourseBook(ReadOnlyCourseBook toBeCopied) {
         this();
         resetData(toBeCopied);
     }
 
-    //// list overwrite operations
+    // list overwrite operations
 
     /**
      * Replaces the contents of the module list with {@code modules}.
@@ -56,7 +56,7 @@ public class CourseBook implements ReadOnlyCourseBook {
         setModules(newData.getModuleList());
     }
 
-    //// module-level operations
+    // module-level operations
 
     /**
      * Returns true if a module with the same identity as {@code module} exists in the course book.
@@ -93,7 +93,7 @@ public class CourseBook implements ReadOnlyCourseBook {
         modules.remove(key);
     }
 
-    //// util methods
+    // util methods
 
     @Override
     public String toString() {

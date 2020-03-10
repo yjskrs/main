@@ -16,7 +16,7 @@ import igrad.logic.commands.CommandTestUtil;
 import igrad.model.module.Module;
 import igrad.model.module.exceptions.DuplicateModuleException;
 import igrad.testutil.ModuleBuilder;
-import igrad.testutil.TypicalPersons;
+import igrad.testutil.TypicalModules;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -36,42 +36,44 @@ public class CourseBookTest {
 
     @Test
     public void resetData_withValidReadOnlyCourseBook_replacesData() {
-        CourseBook newData = TypicalPersons.getTypicalCourseBook();
+        CourseBook newData = TypicalModules.getTypicalCourseBook();
         courseBook.resetData(newData);
         assertEquals(newData, courseBook);
     }
 
     @Test
-    public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
+    public void resetData_withDuplicateModules_throwsDuplicatePersonException() {
         // Two modules with the same identity fields
-        Module editedAlice = new ModuleBuilder(TypicalPersons.ALICE).withTags(CommandTestUtil.VALID_TAG_HUSBAND)
+        Module editedProgrammingMethodology = new ModuleBuilder(TypicalModules.PROGRAMMING_METHODOLOGY)
+                .withTags(CommandTestUtil.VALID_TAG_HARD)
                 .build();
-        List<Module> newModules = Arrays.asList(TypicalPersons.ALICE, editedAlice);
+        List<Module> newModules = Arrays.asList(TypicalModules.PROGRAMMING_METHODOLOGY, editedProgrammingMethodology);
         CourseBookStub newData = new CourseBookStub(newModules);
 
         assertThrows(DuplicateModuleException.class, () -> courseBook.resetData(newData));
     }
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
+    public void hasModule_nullModule_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> courseBook.hasModule(null));
     }
 
     @Test
-    public void hasPerson_personNotInCourseBook_returnsFalse() {
-        assertFalse(courseBook.hasModule(TypicalPersons.ALICE));
+    public void hasModule_moduleNotInCourseBook_returnsFalse() {
+        assertFalse(courseBook.hasModule(TypicalModules.PROGRAMMING_METHODOLOGY));
     }
 
     @Test
-    public void hasPerson_personInCourseBook_returnsTrue() {
-        courseBook.addModule(TypicalPersons.ALICE);
-        assertTrue(courseBook.hasModule(TypicalPersons.ALICE));
+    public void hasModule_moduleInCourseBook_returnsTrue() {
+        courseBook.addModule(TypicalModules.PROGRAMMING_METHODOLOGY);
+        assertTrue(courseBook.hasModule(TypicalModules.PROGRAMMING_METHODOLOGY));
     }
 
     @Test
-    public void hasPerson_personWithSameIdentityFieldsInCourseBook_returnsTrue() {
-        courseBook.addModule(TypicalPersons.ALICE);
-        Module editedAlice = new ModuleBuilder(TypicalPersons.ALICE).withTags(CommandTestUtil.VALID_TAG_HUSBAND)
+    public void hasModule_moduleWithSameIdentityFieldsInCourseBook_returnsTrue() {
+        courseBook.addModule(TypicalModules.PROGRAMMING_METHODOLOGY);
+        Module editedAlice = new ModuleBuilder(TypicalModules.PROGRAMMING_METHODOLOGY)
+                .withTags(CommandTestUtil.VALID_TAG_HARD)
                 .build();
         assertTrue(courseBook.hasModule(editedAlice));
     }

@@ -1,9 +1,12 @@
 package igrad.logic.parser;
 
-import static igrad.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static igrad.logic.parser.CliSyntax.PREFIX_NAME;
-import static igrad.logic.parser.CliSyntax.PREFIX_PHONE;
+import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
+import static igrad.logic.parser.CliSyntax.PREFIX_MEMO;
+import static igrad.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
 import static igrad.logic.parser.CliSyntax.PREFIX_TAG;
+import static igrad.logic.parser.CliSyntax.PREFIX_TITLE;
+import static igrad.logic.parser.CliSyntax.PREFIX_SEMESTER;
+import static igrad.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 
 import java.util.Set;
 import java.util.stream.Stream;
@@ -11,14 +14,17 @@ import java.util.stream.Stream;
 import igrad.commons.core.Messages;
 import igrad.logic.commands.AddCommand;
 import igrad.logic.parser.exceptions.ParseException;
-import igrad.model.module.Email;
+import igrad.model.module.Credits;
+import igrad.model.module.Memo;
 import igrad.model.module.Module;
-import igrad.model.module.Name;
-import igrad.model.module.Phone;
+import igrad.model.module.ModuleCode;
+import igrad.model.module.Semester;
+import igrad.model.module.Title;
 import igrad.model.tag.Tag;
+import igrad.model.module.Description;
 
 /**
- * Parses input arguments and creates a new AddCommand object
+ * Parses input arguments and creates a new AddCommand object.
  */
 public class AddCommandParser implements Parser<AddCommand> {
 
@@ -29,21 +35,30 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_MODULE_CODE, PREFIX_CREDITS, PREFIX_MEMO, PREFIX_SEMESTER);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL)
+        if (!arePrefixesPresent(argMultimap, PREFIX_TITLE, PREFIX_MEMO, PREFIX_MODULE_CODE, PREFIX_CREDITS)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
-        Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
-        Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
-        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+        Title title = ParserUtil.parseTitle(argMultimap.getValue(PREFIX_TITLE).get());
+        ModuleCode moduleCode = ParserUtil.parseModuleCode(argMultimap.getValue(PREFIX_MODULE_CODE).get());
+        Credits credits = ParserUtil.parseCredits(argMultimap.getValue(PREFIX_CREDITS).get());
+        Memo memo = argMultimap.getValue(PREFIX_MEMO).isPresent()
+                ? ParserUtil.parseMemo(argMultimap.getValue(PREFIX_MEMO).get())
+                : null;
+        Description description = argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()
+                ? ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get())
+                : null;
+        Semester semester = argMultimap.getValue(PREFIX_SEMESTER).isPresent()
+                ? ParserUtil.parseSemester(argMultimap.getValue(PREFIX_SEMESTER).get())
+                : null;
+        Set<Tag> tagList = ParserUtil.parseTag(argMultimap.getAllValues(PREFIX_TAG));
 
-        Module module = new Module(name, phone, email, tagList);
+        Module module = new Module(title, moduleCode, credits, memo, semester, description, tagList);
 
-        return new AddCommand(module);
+        return new AddCommand( module );
     }
 
     /**

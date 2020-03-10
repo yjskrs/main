@@ -10,7 +10,7 @@ import igrad.model.ModelManager;
 import igrad.model.UserPrefs;
 import igrad.model.module.Module;
 import igrad.testutil.ModuleBuilder;
-import igrad.testutil.TypicalPersons;
+import igrad.testutil.TypicalModules;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code AddCommand}.
@@ -21,7 +21,7 @@ public class AddCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(TypicalPersons.getTypicalCourseBook(), new UserPrefs());
+        model = new ModelManager(TypicalModules.getTypicalCourseBook(), new UserPrefs());
     }
 
     @Test

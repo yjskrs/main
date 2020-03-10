@@ -5,6 +5,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
+<<<<<<< HEAD
 <?import javafx.scene.text.Font?>
 
 <StackPane fx:id="placeHolder" prefHeight="140.0" styleClass="pane-with-border" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
@@ -21,4 +22,9 @@
          </TextArea>
       </children>
    </HBox>
+=======
+<StackPane xmlns:fx="http://javafx.com/fxml/1" fx:id="placeHolder" styleClass="pane-with-border"
+           xmlns="http://javafx.com/javafx/8">
+    <TextArea fx:id="resultDisplay" editable="false" styleClass="result-display"/>
+>>>>>>> origin/master
 </StackPane>

@@ -32,7 +32,7 @@ public class AddCommandTest {
 
     @Test
     public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
+        ModelStubAcceptingModuleAdded modelStub = new ModelStubAcceptingModuleAdded();
         Module validModule = new ModuleBuilder().build();
 
         CommandResult commandResult = new AddCommand(validModule).execute(modelStub);
@@ -45,33 +45,33 @@ public class AddCommandTest {
     public void execute_duplicatePerson_throwsCommandException() {
         Module validModule = new ModuleBuilder().build();
         AddCommand addCommand = new AddCommand(validModule);
-        ModelStub modelStub = new ModelStubWithPerson(validModule);
+        ModelStub modelStub = new ModelStubWithModule(validModule);
 
         assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_MODULE, () -> addCommand.execute(modelStub));
     }
 
     @Test
     public void equals() {
-        Module alice = new ModuleBuilder().withName("Alice").build();
-        Module bob = new ModuleBuilder().withName("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
+        Module programmingMethodology = new ModuleBuilder().withTitle("Programming Methodology").build();
+        Module computerOrganisation = new ModuleBuilder().withTitle("Computer Organisation").build();
+        AddCommand addProgrammingMethodologyCommand = new AddCommand(programmingMethodology);
+        AddCommand addComputerOrganisationCommand = new AddCommand(computerOrganisation);
 
         // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
+        assertTrue(addProgrammingMethodologyCommand.equals(addComputerOrganisationCommand));
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+        AddCommand addProgrammingMethodologyCommandCopy = new AddCommand(programmingMethodology);
+        assertTrue(addProgrammingMethodologyCommand.equals(addProgrammingMethodologyCommandCopy));
 
         // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
+        assertFalse(addProgrammingMethodologyCommand.equals(1));
 
         // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
+        assertFalse(addProgrammingMethodologyCommand.equals(null));
 
         // different module -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
+        assertFalse(addProgrammingMethodologyCommand.equals(addComputerOrganisationCommand));
     }
 
     /**
@@ -152,10 +152,10 @@ public class AddCommandTest {
     /**
      * A Model stub that contains a single module.
      */
-    private class ModelStubWithPerson extends ModelStub {
+    private class ModelStubWithModule extends ModelStub {
         private final Module module;
 
-        ModelStubWithPerson(Module module) {
+        ModelStubWithModule(Module module) {
             requireNonNull(module);
             this.module = module;
         }
@@ -170,7 +170,7 @@ public class AddCommandTest {
     /**
      * A Model stub that always accept the module being added.
      */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
+    private class ModelStubAcceptingModuleAdded extends ModelStub {
         final ArrayList<Module> personsAdded = new ArrayList<>();
 
         @Override

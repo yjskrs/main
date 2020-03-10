@@ -1,6 +1,7 @@
 package igrad.logic.commands;
 
 import static igrad.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static igrad.testutil.TypicalModules.getTypicalCourseBook;
 
 import org.junit.jupiter.api.Test;
 
@@ -8,7 +9,6 @@ import igrad.model.CourseBook;
 import igrad.model.Model;
 import igrad.model.ModelManager;
 import igrad.model.UserPrefs;
-import igrad.testutil.TypicalPersons;
 
 public class ClearCommandTest {
 
@@ -22,8 +22,8 @@ public class ClearCommandTest {
 
     @Test
     public void execute_nonEmptyCourseBook_success() {
-        Model model = new ModelManager(TypicalPersons.getTypicalCourseBook(), new UserPrefs());
-        Model expectedModel = new ModelManager(TypicalPersons.getTypicalCourseBook(), new UserPrefs());
+        Model model = new ModelManager(getTypicalCourseBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(getTypicalCourseBook(), new UserPrefs());
         expectedModel.setCourseBook(new CourseBook());
 
         assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);

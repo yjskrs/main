@@ -10,10 +10,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import igrad.commons.exceptions.IllegalValueException;
-import igrad.model.module.Email;
+import igrad.model.module.*;
 import igrad.model.module.Module;
-import igrad.model.module.Name;
-import igrad.model.module.Phone;
 import igrad.model.tag.Tag;
 
 /**
@@ -23,20 +21,28 @@ class JsonAdaptedModule {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Module's %s field is missing!";
 
-    private final String name;
-    private final String phone;
-    private final String email;
+    private final String title;
+    private final String moduleCode;
+    private final String credits;
+    private final String memo;
+    private final String semester;
+    private final String description;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedModule} with the given module details.
      */
     @JsonCreator
-    public JsonAdaptedModule(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-                             @JsonProperty("email") String email, @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
-        this.name = name;
-        this.phone = phone;
-        this.email = email;
+    public JsonAdaptedModule(@JsonProperty("title") String name, @JsonProperty("moduleCode") String moduleCode,
+            @JsonProperty("credits") String credits, @JsonProperty("memo") String memo,
+            @JsonProperty("semester") String semester, @JsonProperty("description") String description,
+            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+        this.title = name;
+        this.moduleCode = moduleCode;
+        this.credits = credits;
+        this.memo = memo;
+        this.semester = semester;
+        this.description = description;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -46,9 +52,12 @@ class JsonAdaptedModule {
      * Converts a given {@code Module} into this class for Jackson use.
      */
     public JsonAdaptedModule(Module source) {
-        name = source.getName().fullName;
-        phone = source.getPhone().value;
-        email = source.getEmail().value;
+        title = source.getTitle().value;
+        moduleCode = source.getModuleCode().value;
+        credits = source.getCredits().value;
+        memo = source.getMemo().value;
+        semester = source.getSemester().value;
+        description = source.getDescription().value;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -65,32 +74,57 @@ class JsonAdaptedModule {
             moduleTags.add(tag.toModelType());
         }
 
-        if (name == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
+        if (title == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Title.class.getSimpleName()));
         }
-        if (!Name.isValidName(name)) {
-            throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
-        }
-        final Name modelName = new Name(name);
 
-        if (phone == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
+        if (!Title.isValidTitle(title)) {
+            throw new IllegalValueException( Title.MESSAGE_CONSTRAINTS);
         }
-        if (!Phone.isValidPhone(phone)) {
-            throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
-        }
-        final Phone modelPhone = new Phone(phone);
 
-        if (email == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
+        final Title modelTitle = new Title(title);
+
+        if (moduleCode == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, ModuleCode.class.getSimpleName()));
         }
-        if (!Email.isValidEmail(email)) {
-            throw new IllegalValueException(Email.MESSAGE_CONSTRAINTS);
+
+        if (!ModuleCode.isValidModuleCode(moduleCode)) {
+            throw new IllegalValueException( ModuleCode.MESSAGE_CONSTRAINTS);
         }
-        final Email modelEmail = new Email(email);
+
+        final ModuleCode modelModuleCode = new ModuleCode(moduleCode);
+
+        if (credits == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Credits.class.getSimpleName()));
+        }
+
+        if (!Credits.isValidCredits(credits)) {
+            throw new IllegalValueException( Credits.MESSAGE_CONSTRAINTS);
+        }
+
+        final Credits modelCredits = new Credits(credits);
+
+        if (memo == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Memo.class.getSimpleName()));
+        }
+
+        final Memo modelMemo = new Memo(memo);
+
+        if (semester == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Memo.class.getSimpleName()));
+        }
+
+        if (!Semester.isValidSemester(credits)) {
+            throw new IllegalValueException( Credits.MESSAGE_CONSTRAINTS);
+        }
+
+        final Semester modelSemester = new Semester(semester);
+        final Description modelDescription = new Description(description);
 
         final Set<Tag> modelTags = new HashSet<>(moduleTags);
-        return new Module(modelName, modelPhone, modelEmail, modelTags);
+
+        return new Module(modelTitle, modelModuleCode, modelCredits, modelMemo, modelSemester,
+                modelDescription, modelTags);
     }
 
 }

@@ -1,5 +1,6 @@
 package igrad.ui;
 
+import java.io.IOException;
 import java.util.logging.Logger;
 
 import igrad.commons.core.GuiSettings;
@@ -8,6 +9,7 @@ import igrad.logic.Logic;
 import igrad.logic.commands.CommandResult;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.logic.parser.exceptions.ParseException;
+import igrad.services.exceptions.ServiceException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -79,6 +81,7 @@ public class MainWindow extends UiPart<Stage> {
 
     *//**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      *//*
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -161,7 +164,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
+            (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
@@ -176,7 +179,10 @@ public class MainWindow extends UiPart<Stage> {
      *
      * @see Logic#execute(String)
      */
-    private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+    private CommandResult executeCommand(String commandText) throws CommandException,
+        ParseException,
+        IOException,
+        ServiceException {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
@@ -190,8 +196,9 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
+            System.out.println("PRINTED" + commandResult);
             return commandResult;
-        } catch (CommandException | ParseException e) {
+        } catch (CommandException | ParseException | IOException | ServiceException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
