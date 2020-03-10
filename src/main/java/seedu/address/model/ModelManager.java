@@ -44,14 +44,14 @@ public class ModelManager implements Model {
     //=========== UserPrefs ==================================================================================
 
     @Override
-    public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
-        requireNonNull(userPrefs);
-        this.userPrefs.resetData(userPrefs);
+    public ReadOnlyUserPrefs getUserPrefs() {
+        return userPrefs;
     }
 
     @Override
-    public ReadOnlyUserPrefs getUserPrefs() {
-        return userPrefs;
+    public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
+        requireNonNull(userPrefs);
+        this.userPrefs.resetData(userPrefs);
     }
 
     @Override
@@ -79,37 +79,37 @@ public class ModelManager implements Model {
     //=========== AddressBook ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
-    }
-
-    @Override
     public ReadOnlyAddressBook getAddressBook() {
         return addressBook;
     }
 
     @Override
-    public boolean hasPerson( Module module ) {
-        requireNonNull( module );
-        return addressBook.hasPerson( module );
+    public void setAddressBook(ReadOnlyAddressBook addressBook) {
+        this.addressBook.resetData(addressBook);
     }
 
     @Override
-    public void deletePerson( Module target) {
+    public boolean hasPerson(Module module) {
+        requireNonNull(module);
+        return addressBook.hasPerson(module);
+    }
+
+    @Override
+    public void deletePerson(Module target) {
         addressBook.removePerson(target);
     }
 
     @Override
-    public void addPerson( Module module ) {
-        addressBook.addPerson( module );
+    public void addPerson(Module module) {
+        addressBook.addPerson(module);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
     @Override
-    public void setPerson( Module target, Module editedModule ) {
-        requireAllNonNull(target, editedModule );
+    public void setPerson(Module target, Module editedModule) {
+        requireAllNonNull(target, editedModule);
 
-        addressBook.setPerson(target, editedModule );
+        addressBook.setPerson(target, editedModule);
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -144,8 +144,8 @@ public class ModelManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
-                && userPrefs.equals(other.userPrefs)
-                && filteredModules.equals(other.filteredModules );
+            && userPrefs.equals(other.userPrefs)
+            && filteredModules.equals(other.filteredModules);
     }
 
 }

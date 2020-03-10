@@ -1,8 +1,5 @@
 package seedu.address.model.module;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
-
 /**
  * Represents a Person's address in the address book.
  */
@@ -17,17 +14,9 @@ public class Memo {
      *
      * @param memo A valid memo.
      */
-    public Memo( String memo) {
-//        requireNonNull(memo);
+    public Memo(String memo) {
         value = memo;
     }
-
-//    /**
-//     * Returns true if a given string is a valid email.
-//     */
-//    public static boolean isValidAddress(String test) {
-//        return test.matches(VALIDATION_REGEX);
-//    }
 
     @Override
     public String toString() {
@@ -37,8 +26,8 @@ public class Memo {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Memo // instanceof handles nulls
-                && value.equals(((Memo) other).value)); // state check
+            || (other instanceof Memo // instanceof handles nulls
+            && value.equals(((Memo) other).value)); // state check
     }
 
     @Override

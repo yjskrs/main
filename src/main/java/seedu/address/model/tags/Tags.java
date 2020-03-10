@@ -19,7 +19,7 @@ public class Tags {
      *
      * @param tagName A valid tag name.
      */
-    public Tags( String tagName) {
+    public Tags(String tagName) {
         requireNonNull(tagName);
         checkArgument(isValidSemester(tagName), MESSAGE_CONSTRAINTS);
         this.tagName = tagName;
@@ -35,8 +35,8 @@ public class Tags {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Tags // instanceof handles nulls
-                && tagName.equals(((Tags) other).tagName)); // state check
+            || (other instanceof Tags // instanceof handles nulls
+            && tagName.equals(((Tags) other).tagName)); // state check
     }
 
     @Override

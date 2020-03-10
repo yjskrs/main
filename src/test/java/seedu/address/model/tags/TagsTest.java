@@ -1,7 +1,6 @@
 package seedu.address.model.tags;
 
 import static seedu.address.testutil.Assert.assertThrows;
-
 import org.junit.jupiter.api.Test;
 
 public class TagsTest {

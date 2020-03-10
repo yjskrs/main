@@ -1,7 +1,8 @@
 package seedu.address.services;
 
-import seedu.address.logic.parser.Prefix;
-
+/**
+ * Contains NUS MODS path and file names.
+ */
 public class Routes {
 
     public static final String NUS_MODS_ROOT = "https://api.nusmods.com";

@@ -1,12 +1,9 @@
 package seedu.address.commons.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import java.io.IOException;
 import java.nio.file.Path;
-
 import org.junit.jupiter.api.Test;
-
 import seedu.address.testutil.SerializableTestClass;
 import seedu.address.testutil.TestUtil;
 
@@ -32,7 +29,7 @@ public class JsonUtilTest {
         FileUtil.writeToFile(SERIALIZATION_FILE, SerializableTestClass.JSON_STRING_REPRESENTATION);
 
         SerializableTestClass serializableTestClass = JsonUtil
-                .deserializeObjectFromJsonFile(SERIALIZATION_FILE, SerializableTestClass.class);
+            .deserializeObjectFromJsonFile(SERIALIZATION_FILE, SerializableTestClass.class);
 
         assertEquals(serializableTestClass.getName(), SerializableTestClass.getNameTestValue());
         assertEquals(serializableTestClass.getListOfLocalDateTimes(), SerializableTestClass.getListTestValues());

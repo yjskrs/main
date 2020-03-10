@@ -20,16 +20,16 @@ public class Credits {
      *
      * @param credits A valid credits address.
      */
-    public Credits( String credits) {
+    public Credits(String credits) {
         requireNonNull(credits);
-        checkArgument( isValidCredits(credits), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidCredits(credits), MESSAGE_CONSTRAINTS);
         value = credits;
     }
 
     /**
      * Returns if a given string is a valid credits.
      */
-    public static boolean isValidCredits( String test) {
+    public static boolean isValidCredits(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 
@@ -41,8 +41,8 @@ public class Credits {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Credits // instanceof handles nulls
-                && value.equals(((Credits) other).value)); // state check
+            || (other instanceof Credits // instanceof handles nulls
+            && value.equals(((Credits) other).value)); // state check
     }
 
     @Override

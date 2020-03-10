@@ -20,9 +20,9 @@ public class PersonListPanel extends UiPart<Region> {
     @FXML
     private ListView<Module> personListView;
 
-    public PersonListPanel(ObservableList<Module> moduleList ) {
+    public PersonListPanel(ObservableList<Module> moduleList) {
         super(FXML);
-        personListView.setItems( moduleList );
+        personListView.setItems(moduleList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
     }
 
@@ -31,14 +31,14 @@ public class PersonListPanel extends UiPart<Region> {
      */
     class PersonListViewCell extends ListCell<Module> {
         @Override
-        protected void updateItem( Module module, boolean empty) {
-            super.updateItem( module, empty);
+        protected void updateItem(Module module, boolean empty) {
+            super.updateItem(module, empty);
 
             if (empty || module == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new PersonCard( module, getIndex() + 1).getRoot());
+                setGraphic(new PersonCard(module, getIndex() + 1).getRoot());
             }
         }
     }

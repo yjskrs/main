@@ -11,18 +11,20 @@ import seedu.address.model.module.Module;
  * The API of the Model component.
  */
 public interface Model {
-    /** {@code Predicate} that always evaluate to true */
-    Predicate<Module> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
-
     /**
-     * Replaces user prefs data with the data in {@code userPrefs}.
+     * {@code Predicate} that always evaluate to true
      */
-    void setUserPrefs(ReadOnlyUserPrefs userPrefs);
+    Predicate<Module> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
     /**
      * Returns the user prefs.
      */
     ReadOnlyUserPrefs getUserPrefs();
+
+    /**
+     * Replaces user prefs data with the data in {@code userPrefs}.
+     */
+    void setUserPrefs(ReadOnlyUserPrefs userPrefs);
 
     /**
      * Returns the user prefs' GUI settings.
@@ -45,42 +47,47 @@ public interface Model {
     void setAddressBookFilePath(Path addressBookFilePath);
 
     /**
+     * Returns the AddressBook
+     */
+    ReadOnlyAddressBook getAddressBook();
+
+    /**
      * Replaces address book data with the data in {@code addressBook}.
      */
     void setAddressBook(ReadOnlyAddressBook addressBook);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
-
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
      */
-    boolean hasPerson( Module module );
+    boolean hasPerson(Module module);
 
     /**
      * Deletes the given person.
      * The person must exist in the address book.
      */
-    void deletePerson( Module target);
+    void deletePerson(Module target);
 
     /**
      * Adds the given person.
      * {@code person} must not already exist in the address book.
      */
-    void addPerson( Module module );
+    void addPerson(Module module);
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
      * {@code target} must exist in the address book.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
      */
-    void setPerson( Module target, Module editedModule );
+    void setPerson(Module target, Module editedModule);
 
-    /** Returns an unmodifiable view of the filtered person list */
+    /**
+     * Returns an unmodifiable view of the filtered person list
+     */
     ObservableList<Module> getFilteredPersonList();
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Module> predicate);

@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.Model;
 import seedu.address.model.module.Module;
@@ -49,7 +48,7 @@ public class TestUtil {
     /**
      * Returns the person in the {@code model}'s person list at {@code index}.
      */
-    public static Module getPerson( Model model, Index index) {
+    public static Module getPerson(Model model, Index index) {
         return model.getFilteredPersonList().get(index.getZeroBased());
     }
 }

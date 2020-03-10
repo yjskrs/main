@@ -16,18 +16,12 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniqueModuleList persons;
 
-    /*
-     * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
-     * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
-     *
-     * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
-     *   among constructors.
-     */
     {
         persons = new UniqueModuleList();
     }
 
-    public AddressBook() {}
+    public AddressBook() {
+    }
 
     /**
      * Creates an AddressBook using the Persons in the {@code toBeCopied}
@@ -43,8 +37,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Replaces the contents of the person list with {@code persons}.
      * {@code persons} must not contain duplicate persons.
      */
-    public void setPersons(List<Module> modules ) {
-        this.persons.setPersons( modules );
+    public void setPersons(List<Module> modules) {
+        this.persons.setPersons(modules);
     }
 
     /**
@@ -61,16 +55,16 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
      */
-    public boolean hasPerson( Module module ) {
-        requireNonNull( module );
-        return persons.contains( module );
+    public boolean hasPerson(Module module) {
+        requireNonNull(module);
+        return persons.contains(module);
     }
 
     /**
      * Adds a person to the address book.
      * The person must not already exist in the address book.
      */
-    public void addPerson( Module p) {
+    public void addPerson(Module p) {
         persons.add(p);
     }
 
@@ -79,17 +73,17 @@ public class AddressBook implements ReadOnlyAddressBook {
      * {@code target} must exist in the address book.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
      */
-    public void setPerson( Module target, Module editedModule ) {
-        requireNonNull( editedModule );
+    public void setPerson(Module target, Module editedModule) {
+        requireNonNull(editedModule);
 
-        persons.setPerson(target, editedModule );
+        persons.setPerson(target, editedModule);
     }
 
     /**
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
-    public void removePerson( Module key) {
+    public void removePerson(Module key) {
         persons.remove(key);
     }
 
@@ -109,8 +103,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && persons.equals(((AddressBook) other).persons));
+            || (other instanceof AddressBook // instanceof handles nulls
+            && persons.equals(((AddressBook) other).persons));
     }
 
     @Override

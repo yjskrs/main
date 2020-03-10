@@ -11,7 +11,8 @@ public class ModuleCode {
 
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Module code should contain two letters at the front and four numbers at the back, with an optional letter at the end.";
+        "Module code should contain two letters at the front and four"
+            + " numbers at the back, with an optional letter at the end.";
     public static final String VALIDATION_REGEX = ".{2}\\d{4}.?";
     public final String value;
 
@@ -20,16 +21,16 @@ public class ModuleCode {
      *
      * @param moduleCode A valid module code.
      */
-    public ModuleCode( String moduleCode) {
+    public ModuleCode(String moduleCode) {
         requireNonNull(moduleCode);
-        checkArgument( isValidModuleCode(moduleCode), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidModuleCode(moduleCode), MESSAGE_CONSTRAINTS);
         value = moduleCode;
     }
 
     /**
      * Returns true if a given string is a valid module code.
      */
-    public static boolean isValidModuleCode( String test) {
+    public static boolean isValidModuleCode(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 
@@ -41,8 +42,8 @@ public class ModuleCode {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof ModuleCode // instanceof handles nulls
-                && value.equals(((ModuleCode) other).value)); // state check
+            || (other instanceof ModuleCode // instanceof handles nulls
+            && value.equals(((ModuleCode) other).value)); // state check
     }
 
     @Override

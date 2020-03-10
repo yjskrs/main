@@ -3,16 +3,13 @@ package seedu.address.commons.util;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.address.testutil.Assert.assertThrows;
-
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.logging.Level;
-
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
-
 import seedu.address.commons.core.Config;
 import seedu.address.commons.exceptions.DataConversionException;
 
@@ -108,8 +105,8 @@ public class ConfigUtilTest {
 
     private Path addToTestDataPathIfNotNull(String configFileInTestDataFolder) {
         return configFileInTestDataFolder != null
-                                  ? TEST_DATA_FOLDER.resolve(configFileInTestDataFolder)
-                                  : null;
+            ? TEST_DATA_FOLDER.resolve(configFileInTestDataFolder)
+            : null;
     }
 
 

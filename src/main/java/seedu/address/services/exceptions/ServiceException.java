@@ -1,6 +1,9 @@
 package seedu.address.services.exceptions;
 
-public class ServiceException extends Exception{
+/**
+ * Represents an error which occurs during execution of a {@code Request}.
+ */
+public class ServiceException extends Exception {
     public ServiceException(String message) {
         super(message);
     }
