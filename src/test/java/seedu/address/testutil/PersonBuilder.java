@@ -86,6 +86,9 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * builds
+     */
     public Module build() {
         return new Module(
             title,
