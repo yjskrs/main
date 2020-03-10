@@ -6,10 +6,12 @@ import java.util.stream.Stream;
 
 import igrad.logic.commands.EditCommand;
 import igrad.logic.commands.EditCommand.EditModuleDescriptor;
-import igrad.model.module.Email;
+import igrad.model.module.Credits;
+import igrad.model.module.Memo;
 import igrad.model.module.Module;
-import igrad.model.module.Name;
-import igrad.model.module.Phone;
+import igrad.model.module.ModuleCode;
+import igrad.model.module.Semester;
+import igrad.model.module.Title;
 import igrad.model.tag.Tag;
 
 /**
@@ -31,44 +33,62 @@ public class EditModuleDescriptorBuilder {
      * Returns an {@code EditModuleDescriptor} with fields containing {@code module}'s details
      */
     public EditModuleDescriptorBuilder(Module module) {
-        descriptor = new EditCommand.EditModuleDescriptor();
-        descriptor.setName(module.getName());
-        descriptor.setPhone(module.getPhone());
-        descriptor.setEmail(module.getEmail());
+        descriptor = new EditModuleDescriptor();
+        descriptor.setTitle(module.getTitle());
+        descriptor.setModuleCode(module.getModuleCode());
+        descriptor.setCredits(module.getCredits());
+        descriptor.setMemo(module.getMemo());
+        descriptor.setSemester(module.getSemester());
         descriptor.setTags(module.getTags());
     }
 
     /**
-     * Sets the {@code Name} of the {@code EditModuleDescriptor} that we are building.
+     * Sets the {@code Title} of the {@code EditModuleDescriptor} that we are building.
      */
-    public EditModuleDescriptorBuilder withName(String name) {
-        descriptor.setName(new Name(name));
+    public EditModuleDescriptorBuilder withTitle(String title) {
+        descriptor.setTitle(new Title(title));
         return this;
     }
 
     /**
-     * Sets the {@code Phone} of the {@code EditModuleDescriptor} that we are building.
+     * Sets the {@code ModuleCode} of the {@code EditModuleDescriptor} that we are building.
      */
-    public EditModuleDescriptorBuilder withPhone(String phone) {
-        descriptor.setPhone(new Phone(phone));
+    public EditModuleDescriptorBuilder withModuleCode(String moduleCode) {
+        descriptor.setModuleCode(new ModuleCode(moduleCode));
         return this;
     }
 
     /**
-     * Sets the {@code Email} of the {@code EditModuleDescriptor} that we are building.
+     * Sets the {@code Credits} of the {@code EditModuleDescriptor} that we are building.
      */
-    public EditModuleDescriptorBuilder withEmail(String email) {
-        descriptor.setEmail(new Email(email));
+    public EditModuleDescriptorBuilder withCredits(String credits) {
+        descriptor.setCredits(new Credits(credits));
         return this;
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditModuleDescriptor}
+     * Sets the {@code Memo} of the {@code EditModuleDescriptor} that we are building.
+     */
+    public EditModuleDescriptorBuilder withMemo(String memo) {
+        descriptor.setMemo(new Memo(memo));
+        return this;
+    }
+
+    /**
+     * Sets the {@code Semester} of the {@code EditModuleDescriptor} that we are building.
+     */
+    public EditModuleDescriptorBuilder withSemester(String semester) {
+        descriptor.setSemester(new Semester(semester));
+        return this;
+    }
+
+    /**
+     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditPersonDescriptor}
      * that we are building.
      */
     public EditModuleDescriptorBuilder withTags(String... tags) {
-        Set<Tag> tagSet = Stream.of(tags).map(Tag::new).collect(Collectors.toSet());
-        descriptor.setTags(tagSet);
+        Set<Tag> tagsSet = Stream.of(tags).map(Tag::new).collect(Collectors.toSet());
+        descriptor.setTags(tagsSet);
         return this;
     }
 

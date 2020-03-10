@@ -2,19 +2,20 @@ package igrad.logic;
 
 import static igrad.commons.core.Messages.MESSAGE_INVALID_MODULE_DISPLAYED_INDEX;
 import static igrad.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static igrad.logic.commands.CommandTestUtil.*;
 import static igrad.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
 import java.nio.file.Path;
 
+import igrad.services.exceptions.ServiceException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import igrad.logic.commands.AddCommand;
 import igrad.logic.commands.CommandResult;
-import igrad.logic.commands.CommandTestUtil;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.Model;
@@ -26,7 +27,7 @@ import igrad.storage.JsonCourseBookStorage;
 import igrad.storage.JsonUserPrefsStorage;
 import igrad.storage.StorageManager;
 import igrad.testutil.ModuleBuilder;
-import igrad.testutil.TypicalPersons;
+import igrad.testutil.TypicalModules;
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
@@ -69,9 +70,12 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = AddCommand.COMMAND_WORD + CommandTestUtil.NAME_DESC_AMY + CommandTestUtil.PHONE_DESC_AMY
-                + CommandTestUtil.EMAIL_DESC_AMY;
-        Module expectedModule = new ModuleBuilder(TypicalPersons.AMY).withTags().build();
+        String addCommand = AddCommand.COMMAND_WORD + TITLE_DESC_PROGRAMMING_METHODOLOGY
+                + MODULE_CODE_DESC_PROGRAMMING_METHODOLOGY
+                + CREDITS_DESC_PROGRAMMING_METHODOLOGY
+                + MEMO_DESC_PROGRAMMING_METHODOLOGY
+                + SEMESTER_DESC_PROGRAMMING_METHODOLOGY;
+        Module expectedModule = new ModuleBuilder(TypicalModules.PROGRAMMING_METHODOLOGY).withTags().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addModule(expectedModule);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
@@ -88,10 +92,14 @@ public class LogicManagerTest {
      * - no exceptions are thrown <br>
      * - the feedback message is equal to {@code expectedMessage} <br>
      * - the internal model manager state is the same as that in {@code expectedModel} <br>
+     *
      * @see #assertCommandFailure(String, Class, String, Model)
      */
-    private void assertCommandSuccess(String inputCommand, String expectedMessage,
-            Model expectedModel) throws CommandException, ParseException {
+    private void assertCommandSuccess(
+        String inputCommand,
+        String expectedMessage,
+        Model expectedModel
+    ) throws CommandException, ParseException, IOException, ServiceException {
         CommandResult result = logic.execute(inputCommand);
         assertEquals(expectedMessage, result.getFeedbackToUser());
         assertEquals(expectedModel, model);
@@ -99,6 +107,7 @@ public class LogicManagerTest {
 
     /**
      * Executes the command, confirms that a ParseException is thrown and that the result message is correct.
+     *
      * @see #assertCommandFailure(String, Class, String, Model)
      */
     private void assertParseException(String inputCommand, String expectedMessage) {
@@ -107,6 +116,7 @@ public class LogicManagerTest {
 
     /**
      * Executes the command, confirms that a CommandException is thrown and that the result message is correct.
+     *
      * @see #assertCommandFailure(String, Class, String, Model)
      */
     private void assertCommandException(String inputCommand, String expectedMessage) {
@@ -115,6 +125,7 @@ public class LogicManagerTest {
 
     /**
      * Executes the command, confirms that the exception is thrown and that the result message is correct.
+     *
      * @see #assertCommandFailure(String, Class, String, Model)
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
@@ -128,10 +139,11 @@ public class LogicManagerTest {
      * - the {@code expectedException} is thrown <br>
      * - the resulting error message is equal to {@code expectedMessage} <br>
      * - the internal model manager state is the same as that in {@code expectedModel} <br>
+     *
      * @see #assertCommandSuccess(String, String, Model)
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
-            String expectedMessage, Model expectedModel) {
+                                      String expectedMessage, Model expectedModel) {
         assertThrows(expectedException, expectedMessage, () -> logic.execute(inputCommand));
         assertEquals(expectedModel, model);
     }

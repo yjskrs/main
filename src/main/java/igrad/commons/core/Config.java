@@ -6,7 +6,7 @@ import java.util.Objects;
 import java.util.logging.Level;
 
 /**
- * Config values used by the app
+ * Config values used by the app.
  */
 public class Config {
 
@@ -44,7 +44,7 @@ public class Config {
         Config o = (Config) other;
 
         return Objects.equals(logLevel, o.logLevel)
-                && Objects.equals(userPrefsFilePath, o.userPrefsFilePath);
+            && Objects.equals(userPrefsFilePath, o.userPrefsFilePath);
     }
 
     @Override

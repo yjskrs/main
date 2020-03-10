@@ -35,7 +35,7 @@ What other user stories do you think AddressBook should support? Add those user 
 * Add a use case to the `DeveloperGuide.adoc` to cover the case of _renaming of an existing tag_.
 e.g. rename the tag `friends` to `buddies` (i.e. all modules who had the `friends` tag will now have
 a `buddies` tag instead)
-Assume that AddressBook confirms the change with the user before carrying out the operation.
+Assume that CourseBook confirms the change with the user before carrying out the operation.
 
 == Use Non Functional Requirements `[LO-NFR]`
 
