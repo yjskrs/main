@@ -86,7 +86,7 @@ public class ModelManager implements Model {
      */
     @Override
     public void resetCourseBook(ReadOnlyCourseBook courseBook) {
-        // TODO: ...
+        this.setCourseBook(new CourseBook());
     }
 
     @Override
@@ -107,7 +107,7 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteModule(Module target) {
-        courseBook.removePerson(target);
+        courseBook.removeModule(target);
     }
 
     /**
