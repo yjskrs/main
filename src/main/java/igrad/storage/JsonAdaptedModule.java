@@ -55,8 +55,8 @@ class JsonAdaptedModule {
         title = source.getTitle().value;
         moduleCode = source.getModuleCode().value;
         credits = source.getCredits().value;
-        memo = source.getMemo().value;
-        semester = source.getSemester().value;
+        memo = source.getMemo() != null ?source.getMemo().value: null;
+        semester = source.getSemester() != null? source.getSemester().value: null;
         description = source.getDescription().value;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
@@ -102,23 +102,13 @@ class JsonAdaptedModule {
             throw new IllegalValueException( Credits.MESSAGE_CONSTRAINTS);
         }
 
+        if (!Semester.isValidSemester(semester)) {
+            throw new IllegalValueException( Semester.MESSAGE_CONSTRAINTS);
+        }
+
         final Credits modelCredits = new Credits(credits);
-
-        if (memo == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Memo.class.getSimpleName()));
-        }
-
-        final Memo modelMemo = new Memo(memo);
-
-        if (semester == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Memo.class.getSimpleName()));
-        }
-
-        if (!Semester.isValidSemester(credits)) {
-            throw new IllegalValueException( Credits.MESSAGE_CONSTRAINTS);
-        }
-
         final Semester modelSemester = new Semester(semester);
+        final Memo modelMemo = new Memo(memo);
         final Description modelDescription = new Description(description);
 
         final Set<Tag> modelTags = new HashSet<>(moduleTags);
