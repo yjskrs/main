@@ -4,17 +4,19 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
+import igrad.model.course.CourseInfo;
 import igrad.model.module.Module;
 import igrad.model.module.UniqueModuleList;
 import javafx.collections.ObservableList;
 
 /**
- * Wraps all data at the course-book level.
+ * Wraps all data at the courseInfo-book level.
  * Duplicates are not allowed (by .isSameModule comparison)
  */
 public class CourseBook implements ReadOnlyCourseBook {
 
     private final UniqueModuleList modules;
+    private CourseInfo courseInfo;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -25,12 +27,14 @@ public class CourseBook implements ReadOnlyCourseBook {
      */
     {
         modules = new UniqueModuleList();
+        courseInfo = null;
     }
 
-    public CourseBook() {}
+    public CourseBook() {
+    }
 
     /**
-     * Creates an CourseBook using the Persons in the {@code toBeCopied}.
+     * Creates an CourseBook using the Modules in the {@code toBeCopied}.
      */
     public CourseBook(ReadOnlyCourseBook toBeCopied) {
         this();
@@ -56,10 +60,17 @@ public class CourseBook implements ReadOnlyCourseBook {
         setModules(newData.getModuleList());
     }
 
+    /**
+     * Resets the existing data of this {@code CourseBook} with a blank state (i.e, all modules, requirement cleared).
+     */
+    public void resetData() {
+        /* TODO: this.getModuleList()... */
+    }
+
     // module-level operations
 
     /**
-     * Returns true if a module with the same identity as {@code module} exists in the course book.
+     * Returns true if a module with the same identity as {@code module} exists in the courseInfo book.
      */
     public boolean hasModule(Module module) {
         requireNonNull(module);
@@ -67,8 +78,26 @@ public class CourseBook implements ReadOnlyCourseBook {
     }
 
     /**
-     * Adds a module to the course book.
-     * The module must not already exist in the course book.
+     * Adds the given courseInfo (only one courseInfo can exist(ever be created) in the system).
+     */
+    public void addCourseInfo(CourseInfo c) {
+        courseInfo = c;
+    }
+
+    /**
+     * Modifies the name of the course.
+     */
+    public void modifyCourseInfo(CourseInfo c) {
+        this.courseInfo = c;
+    }
+
+    public CourseInfo getCourseInfo() {
+        return courseInfo;
+    }
+
+    /**
+     * Adds a module to the courseInfo book.
+     * The module must not already exist in the courseInfo book.
      */
     public void addModule(Module m) {
         modules.add(m);
@@ -76,8 +105,9 @@ public class CourseBook implements ReadOnlyCourseBook {
 
     /**
      * Replaces the given module {@code target} in the list with {@code editedModule}.
-     * {@code target} must exist in the course book.
-     * The module identity of {@code editedModule} must not be the same as another existing module in the course book.
+     * {@code target} must exist in the courseInfo book.
+     * The module identity of {@code editedModule} must not be the same as another existing module
+     * in the courseInfo book.
      */
     public void setModule(Module target, Module editedModule) {
         requireNonNull(editedModule);
@@ -87,7 +117,7 @@ public class CourseBook implements ReadOnlyCourseBook {
 
     /**
      * Removes {@code key} from this {@code CourseBook}.
-     * {@code key} must exist in the course book.
+     * {@code key} must exist in the courseInfo book.
      */
     public void removePerson(Module key) {
         modules.remove(key);
@@ -109,8 +139,8 @@ public class CourseBook implements ReadOnlyCourseBook {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof CourseBook // instanceof handles nulls
-                && modules.equals(((CourseBook) other).modules));
+            || (other instanceof CourseBook // instanceof handles nulls
+            && modules.equals(((CourseBook) other).modules));
     }
 
     @Override

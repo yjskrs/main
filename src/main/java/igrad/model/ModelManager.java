@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 
 import igrad.commons.core.GuiSettings;
 import igrad.commons.core.LogsCenter;
+import igrad.model.course.CourseInfo;
 import igrad.model.module.Module;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -44,14 +45,14 @@ public class ModelManager implements Model {
     //=========== UserPrefs ==================================================================================
 
     @Override
-    public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
-        requireNonNull(userPrefs);
-        this.userPrefs.resetData(userPrefs);
+    public ReadOnlyUserPrefs getUserPrefs() {
+        return userPrefs;
     }
 
     @Override
-    public ReadOnlyUserPrefs getUserPrefs() {
-        return userPrefs;
+    public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
+        requireNonNull(userPrefs);
+        this.userPrefs.resetData(userPrefs);
     }
 
     @Override
@@ -78,14 +79,24 @@ public class ModelManager implements Model {
 
     //=========== CourseBook ================================================================================
 
+    /**
+     * Resets the course book data to a blank state with no data (e.g, modules, requirements, etc).
+     *
+     * @param courseBook
+     */
     @Override
-    public void setCourseBook(ReadOnlyCourseBook courseBook) {
-        this.courseBook.resetData(courseBook);
+    public void resetCourseBook(ReadOnlyCourseBook courseBook) {
+        // TODO: ...
     }
 
     @Override
     public ReadOnlyCourseBook getCourseBook() {
         return courseBook;
+    }
+
+    @Override
+    public void setCourseBook(ReadOnlyCourseBook courseBook) {
+        this.courseBook.resetData(courseBook);
     }
 
     @Override
@@ -97,6 +108,26 @@ public class ModelManager implements Model {
     @Override
     public void deleteModule(Module target) {
         courseBook.removePerson(target);
+    }
+
+    /**
+     * Adds the given courseInfo to the course book.
+     *
+     * @param courseInfo
+     */
+    @Override
+    public void addCourseInfo(CourseInfo courseInfo) {
+        courseBook.addCourseInfo(courseInfo);
+    }
+
+    /**
+     * Modifies the name of the course.
+     *
+     * @param courseInfo
+     */
+    @Override
+    public void modifyCourseInfo(CourseInfo courseInfo) {
+        courseBook.modifyCourseInfo(courseInfo);
     }
 
     @Override
@@ -144,8 +175,8 @@ public class ModelManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return courseBook.equals(other.courseBook)
-                && userPrefs.equals(other.userPrefs)
-                && filteredModules.equals(other.filteredModules);
+            && userPrefs.equals(other.userPrefs)
+            && filteredModules.equals(other.filteredModules);
     }
 
 }

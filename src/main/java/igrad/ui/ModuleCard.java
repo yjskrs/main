@@ -62,6 +62,7 @@ public class ModuleCard extends UiPart<Region> {
         if (module.getDescription() != null) {
             description.setText("Description:\t\t" + module.getDescription().value);
         }
+
         module.getTags().stream()
             .sorted(Comparator.comparing(tag -> tag.tagName))
             .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
@@ -82,6 +83,6 @@ public class ModuleCard extends UiPart<Region> {
         // state check
         ModuleCard card = (ModuleCard) other;
         return id.getText().equals(card.id.getText())
-                && module.equals(card.module);
+            && module.equals(card.module);
     }
 }

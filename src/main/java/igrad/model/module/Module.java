@@ -30,8 +30,8 @@ public class Module {
      * Every field must be present and not null.
      */
     public Module(Title title, ModuleCode moduleCode, Credits credits, Memo memo, Semester semester,
-                   Description description, Set<Tag> tags) {
-        requireAllNonNull( title, moduleCode, credits, memo, tags );
+                  Description description, Set<Tag> tags) {
+        requireAllNonNull(title, moduleCode, credits);
         this.title = title;
         this.moduleCode = moduleCode;
         this.credits = credits;
@@ -104,11 +104,7 @@ public class Module {
         Module otherModule = (Module) other;
         return otherModule.getTitle().equals(getTitle())
             && otherModule.getModuleCode().equals(getModuleCode())
-            && otherModule.getCredits().equals(getCredits())
-            && otherModule.getMemo().equals(getMemo())
-            && otherModule.getDescription().equals(getDescription())
-            && otherModule.getTags().equals(getTags())
-            && otherModule.getSemester().equals(getSemester());
+            && otherModule.getCredits().equals(getCredits());
     }
 
     @Override

@@ -1,12 +1,15 @@
 package igrad.logic.commands;
 
+import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
+import static igrad.logic.parser.CliSyntax.PREFIX_MEMO;
+import static igrad.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
+import static igrad.logic.parser.CliSyntax.PREFIX_SEMESTER;
+import static igrad.logic.parser.CliSyntax.PREFIX_TITLE;
+import static java.util.Objects.requireNonNull;
+
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
 import igrad.model.module.Module;
-
-import static igrad.logic.parser.CliSyntax.PREFIX_TITLE;
-import static java.util.Objects.requireNonNull;
-import static igrad.logic.parser.CliSyntax.*;
 
 /**
  * Adds a person to the address book.
@@ -35,7 +38,7 @@ public class AddAutoCommand extends Command {
     private final Module toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Person}
+     * Creates an ModuleAddCommand to add the specified {@code Person}
      */
     public AddAutoCommand(Module module) {
         requireNonNull(module);

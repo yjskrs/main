@@ -14,7 +14,7 @@ import igrad.commons.core.GuiSettings;
 public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
-    private Path courseBookFilePath = Paths.get("data" , "coursebook.json");
+    private Path courseBookFilePath = Paths.get("data", "coursebook.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -69,7 +69,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
-                && courseBookFilePath.equals(o.courseBookFilePath);
+            && courseBookFilePath.equals(o.courseBookFilePath);
     }
 
     @Override

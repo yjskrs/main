@@ -33,8 +33,8 @@ public class JsonCourseBookStorageTest {
 
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
         return prefsFileInTestDataFolder != null
-                ? TEST_DATA_FOLDER.resolve(prefsFileInTestDataFolder)
-                : null;
+            ? TEST_DATA_FOLDER.resolve(prefsFileInTestDataFolder)
+            : null;
     }
 
     @Test
@@ -94,7 +94,7 @@ public class JsonCourseBookStorageTest {
     private void saveCourseBook(ReadOnlyCourseBook courseBook, String filePath) {
         try {
             new JsonCourseBookStorage(Paths.get(filePath))
-                    .saveCourseBook(courseBook, addToTestDataPathIfNotNull(filePath));
+                .saveCourseBook(courseBook, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }

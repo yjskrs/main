@@ -9,7 +9,13 @@ import java.util.Set;
 import igrad.commons.core.index.Index;
 import igrad.commons.util.StringUtil;
 import igrad.logic.parser.exceptions.ParseException;
-import igrad.model.module.*;
+import igrad.model.course.Name;
+import igrad.model.module.Credits;
+import igrad.model.module.Description;
+import igrad.model.module.Memo;
+import igrad.model.module.ModuleCode;
+import igrad.model.module.Semester;
+import igrad.model.module.Title;
 import igrad.model.tag.Tag;
 
 /**
@@ -43,9 +49,24 @@ public class ParserUtil {
         requireNonNull(title);
         String trimmedName = title.trim();
         if (!Title.isValidTitle(trimmedName)) {
-            throw new ParseException( Title.MESSAGE_CONSTRAINTS);
+            throw new ParseException(Title.MESSAGE_CONSTRAINTS);
         }
         return new Title(trimmedName);
+    }
+
+    /**
+     * Parses a {@code String name} into a {@code Name}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code title} is invalid.
+     */
+    public static Name parseName(String name) throws ParseException {
+        requireNonNull(name);
+        String trimmedName = name.trim();
+        if (!Name.isValidName(trimmedName)) {
+            throw new ParseException(Title.MESSAGE_CONSTRAINTS);
+        }
+        return new Name(trimmedName);
     }
 
     /**
@@ -131,7 +152,7 @@ public class ParserUtil {
         requireNonNull(tag);
         String trimmedTag = tag.trim();
         if (!Tag.isValidTagName(trimmedTag)) {
-            throw new ParseException( Tag.MESSAGE_CONSTRAINTS);
+            throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
         }
         return new Tag(trimmedTag);
     }

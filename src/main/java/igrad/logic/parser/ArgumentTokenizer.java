@@ -80,8 +80,9 @@ public class ArgumentTokenizer {
     /**
      * Returns a boolean variable specifying if the
      * specified flag is present
+     *
      * @param argsString e.g. "add n/CS2103T -a"
-     * @param flag the substring "-a" in the argsString
+     * @param flag       the substring "-a" in the argsString
      * @return
      */
     public static boolean isFlagPresent(String argsString, String flag) {
@@ -94,6 +95,7 @@ public class ArgumentTokenizer {
     /**
      * Removes all flags from the argument string.
      * Take note that flags are only specified at the end of a command
+     *
      * @param argsString e.g. "add n/CS2103T -a"
      * @return argsString without flags
      */

@@ -9,13 +9,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import igrad.logic.commands.AddCommand;
-import igrad.logic.commands.ClearCommand;
-import igrad.logic.commands.DeleteCommand;
-import igrad.logic.commands.EditCommand;
-import igrad.logic.commands.EditCommand.EditModuleDescriptor;
 import igrad.logic.commands.ExitCommand;
 import igrad.logic.commands.HelpCommand;
+import igrad.logic.commands.ModuleAddCommand;
+import igrad.logic.commands.ModuleDeleteCommand;
+import igrad.logic.commands.ModuleEditCommand;
+import igrad.logic.commands.ModuleEditCommand.EditModuleDescriptor;
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.module.Module;
 import igrad.testutil.EditModuleDescriptorBuilder;
@@ -29,31 +28,25 @@ public class CourseBookParserTest {
     @Test
     public void parseCommand_add() throws Exception {
         Module module = new ModuleBuilder().build();
-        AddCommand command = (AddCommand) parser.parseCommand(ModuleUtil.getAddCommand(module));
-        assertEquals(new AddCommand(module), command);
-    }
-
-    @Test
-    public void parseCommand_clear() throws Exception {
-        assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD) instanceof ClearCommand);
-        assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD + " 3") instanceof ClearCommand);
+        ModuleAddCommand command = (ModuleAddCommand) parser.parseCommand(ModuleUtil.getAddCommand(module));
+        assertEquals(new ModuleAddCommand(module), command);
     }
 
     @Test
     public void parseCommand_delete() throws Exception {
-        DeleteCommand command = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_MODULE.getOneBased());
-        assertEquals(new DeleteCommand(INDEX_FIRST_MODULE), command);
+        ModuleDeleteCommand command = (ModuleDeleteCommand) parser.parseCommand(
+            ModuleDeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_MODULE.getOneBased());
+        assertEquals(new ModuleDeleteCommand(INDEX_FIRST_MODULE), command);
     }
 
     @Test
     public void parseCommand_edit() throws Exception {
         Module module = new ModuleBuilder().build();
         EditModuleDescriptor descriptor = new EditModuleDescriptorBuilder(module).build();
-        EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_MODULE.getOneBased() + " "
-                + ModuleUtil.getEditModuleDescriptorDetails(descriptor));
-        assertEquals(new EditCommand(INDEX_FIRST_MODULE, descriptor), command);
+        ModuleEditCommand command = (ModuleEditCommand) parser.parseCommand(ModuleEditCommand.COMMAND_WORD + " "
+            + INDEX_FIRST_MODULE.getOneBased() + " "
+            + ModuleUtil.getEditModuleDescriptorDetails(descriptor));
+        assertEquals(new ModuleEditCommand(INDEX_FIRST_MODULE, descriptor), command);
     }
 
     @Test
