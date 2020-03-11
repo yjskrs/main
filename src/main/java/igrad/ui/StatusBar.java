@@ -27,7 +27,7 @@ public class StatusBar extends UiPart<Region> {
         pane = new StackPane();
 
         course.setText("Course: Computer Science");
-        capMcDisplay.setText("CAP: 4.24     MCs: 80/160");
+        capMcDisplay.setText("CAP: 4.24     Target: 4.00     Required: 3.90/Sem");
 
         pane.setAlignment(course, Pos.CENTER_LEFT);
         pane.setAlignment(capMcDisplay, Pos.CENTER_RIGHT);

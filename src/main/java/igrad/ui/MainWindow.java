@@ -12,6 +12,7 @@ import igrad.logic.parser.exceptions.ParseException;
 import igrad.services.exceptions.ServiceException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -54,6 +55,12 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statusBar;
+
+    @FXML
+    private StackPane modularCreditsPanelPlaceholder;
+
+    @FXML
+    private Label mcCount;
 
 
     public MainWindow(Stage primaryStage, Logic logic) {
@@ -128,6 +135,8 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        mcCount.setText("MCs:\n40/160");
     }
 
     /**
