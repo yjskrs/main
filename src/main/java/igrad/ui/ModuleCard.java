@@ -62,6 +62,7 @@ public class ModuleCard extends UiPart<Region> {
         if (module.getDescription() != null) {
             description.setText("Description:\t\t" + module.getDescription().value);
         }
+
         module.getTags().stream()
             .sorted(Comparator.comparing(tag -> tag.tagName))
             .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
