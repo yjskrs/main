@@ -26,14 +26,6 @@
       </stylesheets>
 
       <VBox>
-        <!--<MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
-          <Menu mnemonicParsing="false" text="File">
-            <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
-          </Menu>
-        </MenuBar>-->
 
         <StackPane fx:id="statusBar" styleClass="status-bar" />
             <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="400.0" prefWidth="400.0" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
@@ -67,8 +59,6 @@
                      <HBox.margin>
                         <Insets bottom="10.0" top="10.0" />
                      </HBox.margin></Region>
-      
-                                                <!--          <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER"/>-->
       
                                                         <VBox fx:id="moduleList" alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" minWidth="200.0" prefWidth="200.0" styleClass="pane-with-border" HBox.hgrow="ALWAYS">
                      <children>

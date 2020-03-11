@@ -44,14 +44,14 @@ public class MainWindow extends UiPart<Stage> {
 /*    @FXML
     private MenuItem helpMenuItem;*/
 
+/*    @FXML
+    private StackPane statusbarPlaceholder;*/
+
     @FXML
     private StackPane moduleListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
-
-/*    @FXML
-    private StackPane statusbarPlaceholder;*/
 
     @FXML
     private StackPane statusBar;
