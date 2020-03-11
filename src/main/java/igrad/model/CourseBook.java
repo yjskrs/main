@@ -60,13 +60,6 @@ public class CourseBook implements ReadOnlyCourseBook {
         setModules(newData.getModuleList());
     }
 
-    /**
-     * Resets the existing data of this {@code CourseBook} with a blank state (i.e, all modules, requirement cleared).
-     */
-    public void resetData() {
-        /* TODO: this.getModuleList()... */
-    }
-
     // module-level operations
 
     /**
@@ -85,10 +78,10 @@ public class CourseBook implements ReadOnlyCourseBook {
     }
 
     /**
-     * Modifies the name of the course.
+     * Replaces the given CourseInfo {@code target} with  {@code editedCourseInfo}.
      */
-    public void modifyCourseInfo(CourseInfo c) {
-        this.courseInfo = c;
+    public void modifyCourseInfo(CourseInfo editedCourseInfo) {
+        this.courseInfo = editedCourseInfo;
     }
 
     public CourseInfo getCourseInfo() {
@@ -119,7 +112,7 @@ public class CourseBook implements ReadOnlyCourseBook {
      * Removes {@code key} from this {@code CourseBook}.
      * {@code key} must exist in the courseInfo book.
      */
-    public void removePerson(Module key) {
+    public void removeModule(Module key) {
         modules.remove(key);
     }
 
@@ -140,7 +133,8 @@ public class CourseBook implements ReadOnlyCourseBook {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
             || (other instanceof CourseBook // instanceof handles nulls
-            && modules.equals(((CourseBook) other).modules));
+            && modules.equals(((CourseBook) other).modules)
+            && courseInfo.equals(((CourseBook) other).courseInfo));
     }
 
     @Override

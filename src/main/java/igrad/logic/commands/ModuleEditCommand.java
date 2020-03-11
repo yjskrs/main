@@ -31,9 +31,9 @@ import igrad.model.tag.Tag;
 /**
  * Edits the details (course name) of the existing course.
  */
-public class ModuleEditCommand extends Command {
+public class ModuleEditCommand extends ModuleCommand {
 
-    public static final String COMMAND_WORD = "edit";
+    public static final String COMMAND_WORD = MODULE_COMMAND_WORD + "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the module identified "
         + "by the index number used in the displayed module list. "

@@ -14,9 +14,9 @@ import igrad.model.module.Module;
 /**
  * Adds a module to the course book.
  */
-public class ModuleAddCommand extends Command {
+public class ModuleAddCommand extends ModuleCommand {
 
-    public static final String COMMAND_WORD = "add";
+    public static final String COMMAND_WORD = MODULE_COMMAND_WORD + "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a module. "
         + "Parameters: "

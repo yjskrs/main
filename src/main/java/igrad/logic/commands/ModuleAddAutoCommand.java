@@ -12,11 +12,11 @@ import igrad.model.Model;
 import igrad.model.module.Module;
 
 /**
- * Adds a person to the address book.
+ * Adds a module to the course book.
  */
-public class AddAutoCommand extends Command {
+public class ModuleAddAutoCommand extends ModuleCommand {
 
-    public static final String COMMAND_WORD = "add";
+    public static final String COMMAND_WORD = MODULE_COMMAND_WORD + "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a module. "
         + "Parameters: "
@@ -40,7 +40,7 @@ public class AddAutoCommand extends Command {
     /**
      * Creates an ModuleAddCommand to add the specified {@code Person}
      */
-    public AddAutoCommand(Module module) {
+    public ModuleAddAutoCommand(Module module) {
         requireNonNull(module);
         toAdd = module;
     }
@@ -60,7 +60,7 @@ public class AddAutoCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof AddAutoCommand // instanceof handles nulls
-            && toAdd.equals(((AddAutoCommand) other).toAdd));
+            || (other instanceof ModuleAddAutoCommand // instanceof handles nulls
+            && toAdd.equals(((ModuleAddAutoCommand) other).toAdd));
     }
 }
