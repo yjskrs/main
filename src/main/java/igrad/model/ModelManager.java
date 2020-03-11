@@ -120,6 +120,16 @@ public class ModelManager implements Model {
         courseBook.addCourseInfo(courseInfo);
     }
 
+    /**
+     * Modifies the name of the course.
+     *
+     * @param courseInfo
+     */
+    @Override
+    public void modifyCourseInfo(CourseInfo courseInfo) {
+        courseBook.modifyCourseInfo(courseInfo);
+    }
+
     @Override
     public void addModule(Module module) {
         courseBook.addModule(module);

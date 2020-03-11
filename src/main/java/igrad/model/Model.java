@@ -75,6 +75,11 @@ public interface Model {
     void addCourseInfo(CourseInfo courseInfo);
 
     /**
+     * Modifies the name of the course.
+     */
+    void modifyCourseInfo(CourseInfo courseInfo);
+
+    /**
      * Adds the given module.
      * {@code module} must not already exist in the course book.
      */

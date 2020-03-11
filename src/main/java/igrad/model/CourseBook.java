@@ -83,6 +83,13 @@ public class CourseBook implements ReadOnlyCourseBook {
         courseInfo = c;
     }
 
+    /**
+     * Modifies the name of the course.
+     */
+    public void modifyCourseInfo(CourseInfo c) {
+        this.courseInfo = c;
+    }
+
     public CourseInfo getCourseInfo() {
         return courseInfo;
     }
