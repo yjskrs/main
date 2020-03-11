@@ -45,14 +45,14 @@ public class ModelManager implements Model {
     //=========== UserPrefs ==================================================================================
 
     @Override
-    public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
-        requireNonNull(userPrefs);
-        this.userPrefs.resetData(userPrefs);
+    public ReadOnlyUserPrefs getUserPrefs() {
+        return userPrefs;
     }
 
     @Override
-    public ReadOnlyUserPrefs getUserPrefs() {
-        return userPrefs;
+    public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
+        requireNonNull(userPrefs);
+        this.userPrefs.resetData(userPrefs);
     }
 
     @Override
@@ -79,11 +79,6 @@ public class ModelManager implements Model {
 
     //=========== CourseBook ================================================================================
 
-    @Override
-    public void setCourseBook(ReadOnlyCourseBook courseBook) {
-        this.courseBook.resetData(courseBook);
-    }
-
     /**
      * Resets the course book data to a blank state with no data (e.g, modules, requirements, etc).
      *
@@ -97,6 +92,11 @@ public class ModelManager implements Model {
     @Override
     public ReadOnlyCourseBook getCourseBook() {
         return courseBook;
+    }
+
+    @Override
+    public void setCourseBook(ReadOnlyCourseBook courseBook) {
+        this.courseBook.resetData(courseBook);
     }
 
     @Override
@@ -175,8 +175,8 @@ public class ModelManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return courseBook.equals(other.courseBook)
-                && userPrefs.equals(other.userPrefs)
-                && filteredModules.equals(other.filteredModules);
+            && userPrefs.equals(other.userPrefs)
+            && filteredModules.equals(other.filteredModules);
     }
 
 }

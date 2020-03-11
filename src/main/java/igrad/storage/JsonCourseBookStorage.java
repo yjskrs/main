@@ -46,7 +46,7 @@ public class JsonCourseBookStorage implements CourseBookStorage {
         requireNonNull(filePath);
 
         Optional<JsonSerializableCourseBook> jsonCourseBook = JsonUtil.readJsonFile(
-                filePath, JsonSerializableCourseBook.class);
+            filePath, JsonSerializableCourseBook.class);
         if (!jsonCourseBook.isPresent()) {
             return Optional.empty();
         }

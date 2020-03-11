@@ -1,6 +1,5 @@
 package igrad.model.module;
 
-import static java.util.Objects.requireNonNull;
 /**
  * Represents a Module's memo in the course book.
  */

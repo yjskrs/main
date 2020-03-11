@@ -3,9 +3,9 @@ package igrad.logic.parser;
 import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
 import static igrad.logic.parser.CliSyntax.PREFIX_MEMO;
 import static igrad.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
+import static igrad.logic.parser.CliSyntax.PREFIX_SEMESTER;
 import static igrad.logic.parser.CliSyntax.PREFIX_TAG;
 import static igrad.logic.parser.CliSyntax.PREFIX_TITLE;
-import static igrad.logic.parser.CliSyntax.PREFIX_SEMESTER;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Collection;
@@ -27,21 +27,22 @@ public class EditCommandParser implements Parser<ModuleEditCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the ModuleEditCommand
      * and returns an ModuleEditCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     public ModuleEditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_MODULE_CODE, PREFIX_CREDITS,
-                        PREFIX_MEMO, PREFIX_SEMESTER, PREFIX_TAG);
+            ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_MODULE_CODE, PREFIX_CREDITS,
+                PREFIX_MEMO, PREFIX_SEMESTER, PREFIX_TAG);
 
         Index index;
 
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, ModuleEditCommand.MESSAGE_USAGE),
-                    pe);
+            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                ModuleEditCommand.MESSAGE_USAGE), pe);
         }
 
         ModuleEditCommand.EditModuleDescriptor editModuleDescriptor = new ModuleEditCommand.EditModuleDescriptor();
@@ -51,7 +52,7 @@ public class EditCommandParser implements Parser<ModuleEditCommand> {
 
         if (argMultimap.getValue(PREFIX_MODULE_CODE).isPresent()) {
             editModuleDescriptor.setModuleCode(ParserUtil.parseModuleCode(
-                    argMultimap.getValue(PREFIX_MODULE_CODE).get()));
+                argMultimap.getValue(PREFIX_MODULE_CODE).get()));
         }
 
         if (argMultimap.getValue(PREFIX_CREDITS).isPresent()) {

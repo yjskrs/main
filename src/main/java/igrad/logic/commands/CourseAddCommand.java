@@ -1,11 +1,11 @@
 package igrad.logic.commands;
 
+import static igrad.logic.parser.CliSyntax.PREFIX_NAME;
+import static java.util.Objects.requireNonNull;
+
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
 import igrad.model.course.CourseInfo;
-
-import static igrad.logic.parser.CliSyntax.*;
-import static java.util.Objects.requireNonNull;
 
 /**
  * Adds a course to the application (there can only be one such course).
@@ -13,10 +13,10 @@ import static java.util.Objects.requireNonNull;
 public class CourseAddCommand extends Command {
     public static final String COMMAND_WORD = "course add";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a course. "
-            + "Parameters: "
-            + PREFIX_NAME + "COURSE NAME "
-            + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "Bachelor of Computing (Honours) in Computer Science ";
+        + "Parameters: "
+        + PREFIX_NAME + "COURSE NAME "
+        + "Example: " + COMMAND_WORD + " "
+        + PREFIX_NAME + "Bachelor of Computing (Honours) in Computer Science ";
 
     public static final String MESSAGE_SUCCESS = "New course added: %1$s";
 
@@ -48,7 +48,7 @@ public class CourseAddCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof ModuleAddCommand // instanceof handles nulls
-                && toAdd.equals(((CourseAddCommand) other).toAdd));
+            || (other instanceof ModuleAddCommand // instanceof handles nulls
+            && toAdd.equals(((CourseAddCommand) other).toAdd));
     }
 }

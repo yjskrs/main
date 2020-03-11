@@ -32,13 +32,14 @@ public class AddCommandIntegrationTest {
         expectedModel.addModule(validModule);
 
         assertCommandSuccess(new ModuleAddCommand(validModule), model,
-                String.format(ModuleAddCommand.MESSAGE_SUCCESS, validModule), expectedModel);
+            String.format(ModuleAddCommand.MESSAGE_SUCCESS, validModule), expectedModel);
     }
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
         Module moduleInList = model.getCourseBook().getModuleList().get(0);
-        CommandTestUtil.assertCommandFailure(new ModuleAddCommand(moduleInList), model, ModuleAddCommand.MESSAGE_DUPLICATE_MODULE);
+        CommandTestUtil.assertCommandFailure(new ModuleAddCommand(moduleInList), model,
+            ModuleAddCommand.MESSAGE_DUPLICATE_MODULE);
     }
 
 }

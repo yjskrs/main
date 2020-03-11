@@ -3,15 +3,16 @@ package igrad.logic.parser;
 import static igrad.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static igrad.logic.parser.CliSyntax.PREFIX_TAG;
 
-import igrad.logic.commands.ModuleEditCommand;
 import org.junit.jupiter.api.Test;
+
+import igrad.logic.commands.ModuleEditCommand;
 
 public class EditCommandParserTest {
 
     private static final String TAG_EMPTY = " " + PREFIX_TAG;
 
     private static final String MESSAGE_INVALID_FORMAT =
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, ModuleEditCommand.MESSAGE_USAGE);
+        String.format(MESSAGE_INVALID_COMMAND_FORMAT, ModuleEditCommand.MESSAGE_USAGE);
 
     private EditCommandParser parser = new EditCommandParser();
 
@@ -85,7 +86,8 @@ public class EditCommandParserTest {
     @Test
     public void parse_allFieldsSpecified_success() {
         //Index targetIndex = TypicalIndexes.INDEX_SECOND_PERSON;
-        //String userInput = targetIndex.getOneBased() + CommandTestUtil.PHONE_DESC_BOB + CommandTestUtil.TAG_DESC_HUSBAND
+        //String userInput = targetIndex.getOneBased() + CommandTestUtil.PHONE_DESC_BOB +
+        // CommandTestUtil.TAG_DESC_HUSBAND
         //        + CommandTestUtil.EMAIL_DESC_AMY + CommandTestUtil.NAME_DESC_AMY + CommandTestUtil.TAG_DESC_FRIEND;
 
         //EditModuleDescriptor descriptor = new EditModuleDescriptorBuilder().withName(CommandTestUtil.VALID_NAME_AMY)
@@ -99,7 +101,8 @@ public class EditCommandParserTest {
     @Test
     public void parse_someFieldsSpecified_success() {
         //Index targetIndex = TypicalIndexes.INDEX_FIRST_PERSON;
-        //String userInput = targetIndex.getOneBased() + CommandTestUtil.PHONE_DESC_BOB + CommandTestUtil.EMAIL_DESC_AMY;
+        //String userInput = targetIndex.getOneBased() + CommandTestUtil.PHONE_DESC_BOB +
+        // CommandTestUtil.EMAIL_DESC_AMY;
 
         //EditModuleDescriptor descriptor = new EditModuleDescriptorBuilder().withPhone(CommandTestUtil.VALID_PHONE_BOB)
         //        .withEmail(CommandTestUtil.VALID_EMAIL_AMY).build();

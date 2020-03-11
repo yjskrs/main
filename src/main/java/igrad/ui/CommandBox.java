@@ -1,16 +1,16 @@
 package igrad.ui;
 
+import java.io.IOException;
+
 import igrad.logic.Logic;
 import igrad.logic.commands.CommandResult;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.services.exceptions.ServiceException;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
-import javafx.fxml.FXML;
-
-import java.io.IOException;
 
 /**
  * The UI component that is responsible for receiving user command inputs.
@@ -78,7 +78,7 @@ public class CommandBox extends UiPart<Region> {
         CommandResult execute(String commandText) throws CommandException,
             ParseException,
             IOException,
-                ServiceException;
+            ServiceException;
     }
 
 }

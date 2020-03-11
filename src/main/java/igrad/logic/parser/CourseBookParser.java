@@ -8,7 +8,14 @@ import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import igrad.logic.commands.*;
+import igrad.logic.commands.Command;
+import igrad.logic.commands.CourseAddCommand;
+import igrad.logic.commands.CourseDeleteCommand;
+import igrad.logic.commands.ExitCommand;
+import igrad.logic.commands.HelpCommand;
+import igrad.logic.commands.ModuleAddCommand;
+import igrad.logic.commands.ModuleDeleteCommand;
+import igrad.logic.commands.ModuleEditCommand;
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.services.exceptions.ServiceException;
 
@@ -20,7 +27,8 @@ public class CourseBookParser {
     /**
      * Used for initial separation of command words and args.
      */
-    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>[a-z]+(\\s[a-z]{3,})?)(?<arguments>.*)");
+    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile(
+        "(?<commandWord>[a-z]+(\\s[a-z]{3,})?)(?<arguments>.*)");
 
     /**
      * Parses user input into command for execution.

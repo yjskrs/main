@@ -30,7 +30,8 @@ public class CourseBook implements ReadOnlyCourseBook {
         courseInfo = null;
     }
 
-    public CourseBook() {}
+    public CourseBook() {
+    }
 
     /**
      * Creates an CourseBook using the Modules in the {@code toBeCopied}.
@@ -105,7 +106,8 @@ public class CourseBook implements ReadOnlyCourseBook {
     /**
      * Replaces the given module {@code target} in the list with {@code editedModule}.
      * {@code target} must exist in the courseInfo book.
-     * The module identity of {@code editedModule} must not be the same as another existing module in the courseInfo book.
+     * The module identity of {@code editedModule} must not be the same as another existing module
+     * in the courseInfo book.
      */
     public void setModule(Module target, Module editedModule) {
         requireNonNull(editedModule);
@@ -137,8 +139,8 @@ public class CourseBook implements ReadOnlyCourseBook {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof CourseBook // instanceof handles nulls
-                && modules.equals(((CourseBook) other).modules));
+            || (other instanceof CourseBook // instanceof handles nulls
+            && modules.equals(((CourseBook) other).modules));
     }
 
     @Override

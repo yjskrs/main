@@ -7,10 +7,13 @@ import static igrad.testutil.TypicalIndexes.INDEX_FIRST_MODULE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import igrad.logic.commands.*;
 import org.junit.jupiter.api.Test;
 
+import igrad.logic.commands.ExitCommand;
+import igrad.logic.commands.HelpCommand;
 import igrad.logic.commands.ModuleAddCommand;
+import igrad.logic.commands.ModuleDeleteCommand;
+import igrad.logic.commands.ModuleEditCommand;
 import igrad.logic.commands.ModuleEditCommand.EditModuleDescriptor;
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.module.Module;
@@ -32,7 +35,7 @@ public class CourseBookParserTest {
     @Test
     public void parseCommand_delete() throws Exception {
         ModuleDeleteCommand command = (ModuleDeleteCommand) parser.parseCommand(
-                ModuleDeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_MODULE.getOneBased());
+            ModuleDeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_MODULE.getOneBased());
         assertEquals(new ModuleDeleteCommand(INDEX_FIRST_MODULE), command);
     }
 
@@ -41,8 +44,8 @@ public class CourseBookParserTest {
         Module module = new ModuleBuilder().build();
         EditModuleDescriptor descriptor = new EditModuleDescriptorBuilder(module).build();
         ModuleEditCommand command = (ModuleEditCommand) parser.parseCommand(ModuleEditCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_MODULE.getOneBased() + " "
-                + ModuleUtil.getEditModuleDescriptorDetails(descriptor));
+            + INDEX_FIRST_MODULE.getOneBased() + " "
+            + ModuleUtil.getEditModuleDescriptorDetails(descriptor));
         assertEquals(new ModuleEditCommand(INDEX_FIRST_MODULE, descriptor), command);
     }
 

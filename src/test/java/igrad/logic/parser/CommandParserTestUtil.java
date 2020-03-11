@@ -2,10 +2,11 @@ package igrad.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.io.IOException;
+
 import igrad.logic.commands.Command;
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.services.exceptions.ServiceException;
-import java.io.IOException;
 
 /**
  * Contains helper methods for testing command parsers.

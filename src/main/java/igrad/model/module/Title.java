@@ -1,7 +1,7 @@
 package igrad.model.module;
 
-import static java.util.Objects.requireNonNull;
 import static igrad.commons.util.AppUtil.checkArgument;
+import static java.util.Objects.requireNonNull;
 
 /**
  * Represents a Module's title in the course book.
@@ -46,8 +46,8 @@ public class Title {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Title // instanceof handles nulls
-                && value.equals(((Title) other).value)); // state check
+            || (other instanceof Title // instanceof handles nulls
+            && value.equals(((Title) other).value)); // state check
     }
 
     @Override
