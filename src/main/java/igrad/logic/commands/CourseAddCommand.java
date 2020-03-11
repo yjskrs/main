@@ -10,8 +10,8 @@ import igrad.model.course.CourseInfo;
 /**
  * Adds a course to the application (there can only be one such course).
  */
-public class CourseAddCommand extends Command {
-    public static final String COMMAND_WORD = "course add";
+public class CourseAddCommand extends CourseCommand {
+    public static final String COMMAND_WORD = COURSE_COMMAND_WORD + "add";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a course. "
         + "Parameters: "
         + PREFIX_NAME + "COURSE NAME "
