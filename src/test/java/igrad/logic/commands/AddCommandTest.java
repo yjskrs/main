@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Predicate;
 
-import igrad.model.course.CourseInfo;
 import org.junit.jupiter.api.Test;
 
 import igrad.commons.core.GuiSettings;
@@ -20,6 +19,7 @@ import igrad.model.CourseBook;
 import igrad.model.Model;
 import igrad.model.ReadOnlyCourseBook;
 import igrad.model.ReadOnlyUserPrefs;
+import igrad.model.course.CourseInfo;
 import igrad.model.module.Module;
 import igrad.testutil.ModuleBuilder;
 import javafx.collections.ObservableList;
@@ -48,7 +48,8 @@ public class AddCommandTest {
         ModuleAddCommand moduleAddCommand = new ModuleAddCommand(validModule);
         ModelStub modelStub = new ModelStubWithModule(validModule);
 
-        assertThrows(CommandException.class, ModuleAddCommand.MESSAGE_DUPLICATE_MODULE, () -> moduleAddCommand.execute(modelStub));
+        assertThrows(CommandException.class, ModuleAddCommand.MESSAGE_DUPLICATE_MODULE, (
+            ) -> moduleAddCommand.execute(modelStub));
     }
 
     @Test
@@ -80,12 +81,12 @@ public class AddCommandTest {
      */
     private class ModelStub implements Model {
         @Override
-        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
+        public ReadOnlyUserPrefs getUserPrefs() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyUserPrefs getUserPrefs() {
+        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -114,11 +115,6 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        @Override
-        public void setCourseBook(ReadOnlyCourseBook newData) {
-            throw new AssertionError("This method should not be called.");
-        }
-
         /**
          * Resets course book data to a blank state with no data (e.g, modules, requirements, etc).
          *
@@ -135,6 +131,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void setCourseBook(ReadOnlyCourseBook newData) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasModule(Module module) {
             throw new AssertionError("This method should not be called.");
         }
@@ -147,6 +148,16 @@ public class AddCommandTest {
         @Override
         public void addCourseInfo(CourseInfo courseInfo) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        /**
+         * Modifies the name of the course.
+         *
+         * @param courseInfo
+         */
+        @Override
+        public void modifyCourseInfo(CourseInfo courseInfo) {
+
         }
 
         @Override

@@ -2,20 +2,23 @@ package igrad.logic;
 
 import static igrad.commons.core.Messages.MESSAGE_INVALID_MODULE_DISPLAYED_INDEX;
 import static igrad.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static igrad.logic.commands.CommandTestUtil.*;
+import static igrad.logic.commands.CommandTestUtil.CREDITS_DESC_PROGRAMMING_METHODOLOGY;
+import static igrad.logic.commands.CommandTestUtil.MEMO_DESC_PROGRAMMING_METHODOLOGY;
+import static igrad.logic.commands.CommandTestUtil.MODULE_CODE_DESC_PROGRAMMING_METHODOLOGY;
+import static igrad.logic.commands.CommandTestUtil.SEMESTER_DESC_PROGRAMMING_METHODOLOGY;
+import static igrad.logic.commands.CommandTestUtil.TITLE_DESC_PROGRAMMING_METHODOLOGY;
 import static igrad.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
 import java.nio.file.Path;
 
-import igrad.logic.commands.ModuleAddCommand;
-import igrad.services.exceptions.ServiceException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import igrad.logic.commands.CommandResult;
+import igrad.logic.commands.ModuleAddCommand;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.Model;
@@ -23,6 +26,7 @@ import igrad.model.ModelManager;
 import igrad.model.ReadOnlyCourseBook;
 import igrad.model.UserPrefs;
 import igrad.model.module.Module;
+import igrad.services.exceptions.ServiceException;
 import igrad.storage.JsonCourseBookStorage;
 import igrad.storage.JsonUserPrefsStorage;
 import igrad.storage.StorageManager;
@@ -41,7 +45,7 @@ public class LogicManagerTest {
     @BeforeEach
     public void setUp() {
         JsonCourseBookStorage courseBookStorage =
-                new JsonCourseBookStorage(temporaryFolder.resolve("courseBook.json"));
+            new JsonCourseBookStorage(temporaryFolder.resolve("courseBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         StorageManager storage = new StorageManager(courseBookStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
@@ -63,18 +67,18 @@ public class LogicManagerTest {
     public void execute_storageThrowsIoException_throwsCommandException() {
         // Setup LogicManager with JsonCourseBookIoExceptionThrowingStub
         JsonCourseBookStorage courseBookStorage =
-                new JsonCourseBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionCourseBook.json"));
+            new JsonCourseBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionCourseBook.json"));
         JsonUserPrefsStorage userPrefsStorage =
-                new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
+            new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
         StorageManager storage = new StorageManager(courseBookStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
         String addCommand = ModuleAddCommand.COMMAND_WORD + TITLE_DESC_PROGRAMMING_METHODOLOGY
-                + MODULE_CODE_DESC_PROGRAMMING_METHODOLOGY
-                + CREDITS_DESC_PROGRAMMING_METHODOLOGY
-                + MEMO_DESC_PROGRAMMING_METHODOLOGY
-                + SEMESTER_DESC_PROGRAMMING_METHODOLOGY;
+            + MODULE_CODE_DESC_PROGRAMMING_METHODOLOGY
+            + CREDITS_DESC_PROGRAMMING_METHODOLOGY
+            + MEMO_DESC_PROGRAMMING_METHODOLOGY
+            + SEMESTER_DESC_PROGRAMMING_METHODOLOGY;
         Module expectedModule = new ModuleBuilder(TypicalModules.PROGRAMMING_METHODOLOGY).withTags().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addModule(expectedModule);
@@ -129,7 +133,7 @@ public class LogicManagerTest {
      * @see #assertCommandFailure(String, Class, String, Model)
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
-            String expectedMessage) {
+                                      String expectedMessage) {
         Model expectedModel = new ModelManager(model.getCourseBook(), new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }

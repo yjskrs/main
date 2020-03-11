@@ -23,12 +23,12 @@ public class DeleteCommandParserTest {
     @Test
     public void parse_validArgs_returnsDeleteCommand() {
         assertParseSuccess(parser,
-                "1", new ModuleDeleteCommand(INDEX_FIRST_MODULE));
+            "1", new ModuleDeleteCommand(INDEX_FIRST_MODULE));
     }
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
         assertParseFailure(parser,
-                "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT, ModuleDeleteCommand.MESSAGE_USAGE));
+            "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT, ModuleDeleteCommand.MESSAGE_USAGE));
     }
 }

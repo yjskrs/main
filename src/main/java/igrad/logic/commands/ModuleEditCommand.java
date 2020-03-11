@@ -19,30 +19,35 @@ import igrad.commons.core.index.Index;
 import igrad.commons.util.CollectionUtil;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
-import igrad.model.module.*;
+import igrad.model.module.Credits;
+import igrad.model.module.Description;
+import igrad.model.module.Memo;
 import igrad.model.module.Module;
+import igrad.model.module.ModuleCode;
+import igrad.model.module.Semester;
+import igrad.model.module.Title;
 import igrad.model.tag.Tag;
 
 /**
- * Edits the details of an existing module in the course book.
+ * Edits the details (course name) of the existing course.
  */
 public class ModuleEditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the module identified "
-            + "by the index number used in the displayed module list. "
-            + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_MODULE_CODE + "MODULE CODE] "
-            + "[" + PREFIX_TITLE + "TITLE] "
-            + "[" + PREFIX_CREDITS + "CREDITS] "
-            + "[" + PREFIX_MEMO + "MEMO] "
-            + "[" + PREFIX_SEMESTER + "SEMESTER]"
-            + "[" + PREFIX_TAG + "TAGS]...\n"
-            + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_MODULE_CODE + "CS2103T "
-            + PREFIX_CREDITS + "4";
+        + "by the index number used in the displayed module list. "
+        + "Existing values will be overwritten by the input values.\n"
+        + "Parameters: INDEX (must be a positive integer) "
+        + "[" + PREFIX_MODULE_CODE + "MODULE CODE] "
+        + "[" + PREFIX_TITLE + "TITLE] "
+        + "[" + PREFIX_CREDITS + "CREDITS] "
+        + "[" + PREFIX_MEMO + "MEMO] "
+        + "[" + PREFIX_SEMESTER + "SEMESTER]"
+        + "[" + PREFIX_TAG + "TAGS]...\n"
+        + "Example: " + COMMAND_WORD + " 1 "
+        + PREFIX_MODULE_CODE + "CS2103T "
+        + PREFIX_CREDITS + "4";
 
     public static final String MESSAGE_EDIT_MODULE_SUCCESS = "Edited Module: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -52,7 +57,7 @@ public class ModuleEditCommand extends Command {
     private final EditModuleDescriptor editModuleDescriptor;
 
     /**
-     * @param index of the module in the filtered module list to edit
+     * @param index                of the module in the filtered module list to edit
      * @param editModuleDescriptor details to edit the module with
      */
     public ModuleEditCommand(Index index, EditModuleDescriptor editModuleDescriptor) {
@@ -80,9 +85,28 @@ public class ModuleEditCommand extends Command {
 
         return new Module(updatedTitle, updatedModuleCode, updatedCredits, updatedMemo,
             updatedSemester,
-                updatedDescription,
+            updatedDescription,
             updatedTags
         );
+    }
+
+    /**
+     * Creates and returns a {@code Module} with the details of {@code moduleToEdit}
+     * edited with {@code editModuleDescriptor}.
+     */
+    private static Module createEditedModule(Module moduleToEdit, EditModuleDescriptor editModuleDescriptor) {
+        assert moduleToEdit != null;
+
+        Title updatedTitle = editModuleDescriptor.getTitle().orElse(moduleToEdit.getTitle());
+        ModuleCode updatedModuleCode = editModuleDescriptor.getModuleCode().orElse(moduleToEdit.getModuleCode());
+        Credits updatedCredits = editModuleDescriptor.getCredits().orElse(moduleToEdit.getCredits());
+        Memo updatedMemo = editModuleDescriptor.getMemo().orElse(moduleToEdit.getMemo());
+        Semester updatedSemester = editModuleDescriptor.getSemester().orElse(moduleToEdit.getSemester());
+        Description updatedDescription = editModuleDescriptor.getDescription().orElse(moduleToEdit.getDescription());
+        Set<Tag> updatedTags = editModuleDescriptor.getTags().orElse(moduleToEdit.getTags());
+
+        return new Module(updatedTitle, updatedModuleCode, updatedCredits, updatedMemo, updatedSemester,
+            updatedDescription, updatedTags);
     }
 
     @Override
@@ -106,25 +130,6 @@ public class ModuleEditCommand extends Command {
         return new CommandResult(String.format(MESSAGE_EDIT_MODULE_SUCCESS, editedModule));
     }
 
-    /**
-     * Creates and returns a {@code Module} with the details of {@code moduleToEdit}
-     * edited with {@code editModuleDescriptor}.
-     */
-    private static Module createEditedModule(Module moduleToEdit, EditModuleDescriptor editModuleDescriptor) {
-        assert moduleToEdit != null;
-
-        Title updatedTitle = editModuleDescriptor.getTitle().orElse(moduleToEdit.getTitle());
-        ModuleCode updatedModuleCode = editModuleDescriptor.getModuleCode().orElse(moduleToEdit.getModuleCode());
-        Credits updatedCredits = editModuleDescriptor.getCredits().orElse(moduleToEdit.getCredits());
-        Memo updatedMemo = editModuleDescriptor.getMemo().orElse(moduleToEdit.getMemo());
-        Semester updatedSemester = editModuleDescriptor.getSemester().orElse(moduleToEdit.getSemester());
-        Description updatedDescription = editModuleDescriptor.getDescription().orElse(moduleToEdit.getDescription());
-        Set<Tag> updatedTags = editModuleDescriptor.getTags().orElse(moduleToEdit.getTags());
-
-        return new Module(updatedTitle, updatedModuleCode, updatedCredits, updatedMemo, updatedSemester,
-                updatedDescription, updatedTags );
-    }
-
     @Override
     public boolean equals(Object other) {
         // short circuit if same object
@@ -140,7 +145,7 @@ public class ModuleEditCommand extends Command {
         // state check
         ModuleEditCommand e = (ModuleEditCommand) other;
         return index.equals(e.index)
-                && editModuleDescriptor.equals(e.editModuleDescriptor);
+            && editModuleDescriptor.equals(e.editModuleDescriptor);
     }
 
     /**
@@ -156,7 +161,9 @@ public class ModuleEditCommand extends Command {
         private Semester semester;
         private Set<Tag> tags;
 
-        public EditModuleDescriptor() {}
+        public EditModuleDescriptor() {
+        }
+
         /**
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
@@ -178,28 +185,28 @@ public class ModuleEditCommand extends Command {
             return CollectionUtil.isAnyNonNull(title, moduleCode, credits, memo, description, semester, tags);
         }
 
-        public void setTitle(Title title) {
-            this.title = title;
-        }
-
         public Optional<Title> getTitle() {
             return Optional.ofNullable(title);
         }
 
-        public void setModuleCode(ModuleCode moduleCode) {
-            this.moduleCode = moduleCode;
+        public void setTitle(Title title) {
+            this.title = title;
         }
 
         public Optional<ModuleCode> getModuleCode() {
             return Optional.ofNullable(moduleCode);
         }
 
-        public void setCredits(Credits credits) {
-            this.credits = credits;
+        public void setModuleCode(ModuleCode moduleCode) {
+            this.moduleCode = moduleCode;
         }
 
         public Optional<Credits> getCredits() {
             return Optional.ofNullable(credits);
+        }
+
+        public void setCredits(Credits credits) {
+            this.credits = credits;
         }
 
         public Optional<Memo> getMemo() {
@@ -227,20 +234,20 @@ public class ModuleEditCommand extends Command {
         }
 
         /**
-         * Sets {@code tags} to this object's {@code tags}.
-         * A defensive copy of {@code tags} is used internally.
-         */
-        public void setTags(Set<Tag> tags) {
-            this.tags = (tags != null) ? new HashSet<>(tags) : null;
-        }
-
-        /**
          * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
          * if modification is attempted.
          * Returns {@code Optional#empty()} if {@code tags} is null.
          */
         public Optional<Set<Tag>> getTags() {
             return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
+        }
+
+        /**
+         * Sets {@code tags} to this object's {@code tags}.
+         * A defensive copy of {@code tags} is used internally.
+         */
+        public void setTags(Set<Tag> tags) {
+            this.tags = (tags != null) ? new HashSet<>(tags) : null;
         }
 
         @Override

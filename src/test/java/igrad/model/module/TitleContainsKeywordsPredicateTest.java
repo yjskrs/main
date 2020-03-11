@@ -43,7 +43,8 @@ public class TitleContainsKeywordsPredicateTest {
     @Test
     public void test_nameContainsKeywords_returnsTrue() {
         // One keyword
-        TitleContainsKeywordsPredicate predicate = new TitleContainsKeywordsPredicate(Collections.singletonList("Alice"));
+        TitleContainsKeywordsPredicate predicate = new TitleContainsKeywordsPredicate(
+            Collections.singletonList("Alice"));
         assertTrue(predicate.test(new ModuleBuilder().withTitle("Alice Bob").build()));
 
         // Multiple keywords

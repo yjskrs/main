@@ -95,9 +95,9 @@ public class ModelManagerTest {
     @Test
     public void equals() {
         CourseBook courseBook = new CourseBookBuilder()
-                .withPerson(TypicalModules.PROGRAMMING_METHODOLOGY)
-                .withPerson(TypicalModules.COMPUTER_ORGANISATION)
-                .build();
+            .withPerson(TypicalModules.PROGRAMMING_METHODOLOGY)
+            .withPerson(TypicalModules.COMPUTER_ORGANISATION)
+            .build();
         CourseBook differentCourseBook = new CourseBook();
         UserPrefs userPrefs = new UserPrefs();
 

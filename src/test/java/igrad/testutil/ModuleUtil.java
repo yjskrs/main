@@ -1,11 +1,11 @@
 package igrad.testutil;
 
-import static igrad.logic.parser.CliSyntax.PREFIX_TITLE;
-import static igrad.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
 import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
 import static igrad.logic.parser.CliSyntax.PREFIX_MEMO;
+import static igrad.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
 import static igrad.logic.parser.CliSyntax.PREFIX_SEMESTER;
 import static igrad.logic.parser.CliSyntax.PREFIX_TAG;
+import static igrad.logic.parser.CliSyntax.PREFIX_TITLE;
 
 import java.util.Set;
 
@@ -50,16 +50,16 @@ public class ModuleUtil {
         descriptor.getTitle().ifPresent(title -> sb.append(PREFIX_TITLE).append(title.value).append(" "));
 
         descriptor.getModuleCode().ifPresent(moduleCode -> sb.append(PREFIX_MODULE_CODE)
-                .append(moduleCode.value).append(" "));
+            .append(moduleCode.value).append(" "));
 
         descriptor.getCredits().ifPresent(credits -> sb.append(PREFIX_CREDITS)
-                .append(credits.value).append(" "));
+            .append(credits.value).append(" "));
 
         descriptor.getMemo().ifPresent(memo -> sb.append(PREFIX_MEMO)
-                .append(memo.value).append(" "));
+            .append(memo.value).append(" "));
 
         descriptor.getSemester().ifPresent(semester -> sb.append(PREFIX_SEMESTER)
-                .append(semester.value).append(" "));
+            .append(semester.value).append(" "));
 
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();

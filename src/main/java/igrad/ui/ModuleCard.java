@@ -83,6 +83,6 @@ public class ModuleCard extends UiPart<Region> {
         // state check
         ModuleCard card = (ModuleCard) other;
         return id.getText().equals(card.id.getText())
-                && module.equals(card.module);
+            && module.equals(card.module);
     }
 }

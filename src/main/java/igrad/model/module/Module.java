@@ -30,8 +30,8 @@ public class Module {
      * Every field must be present and not null.
      */
     public Module(Title title, ModuleCode moduleCode, Credits credits, Memo memo, Semester semester,
-                   Description description, Set<Tag> tags) {
-        requireAllNonNull( title, moduleCode, credits  );
+                  Description description, Set<Tag> tags) {
+        requireAllNonNull(title, moduleCode, credits);
         this.title = title;
         this.moduleCode = moduleCode;
         this.credits = credits;

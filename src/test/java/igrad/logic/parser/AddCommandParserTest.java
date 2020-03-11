@@ -14,7 +14,7 @@ public class AddCommandParserTest {
     @Test
     public void parse_allFieldsPresent_success() {
         Module expectedModule = new ModuleBuilder(COMPUTER_ORGANISATION).withTags(VALID_TAG_HARD)
-                .build();
+            .build();
 
         // whitespace only preamble
         /*assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB

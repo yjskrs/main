@@ -1,19 +1,22 @@
 package igrad.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
 import igrad.model.ReadOnlyCourseBook;
 
-import static java.util.Objects.requireNonNull;
-
+/**
+ * Deletes the existing course (and all data within it).
+ */
 public class CourseDeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "course delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the course and clears all data in the application.\n"
-            + "Parameters: -Nill\n"
-            + "Example: " + COMMAND_WORD;
+        + ": Deletes the course and clears all data in the application.\n"
+        + "Parameters: -Nill\n"
+        + "Example: " + COMMAND_WORD;
 
     public static final String MESSAGE_DELETE_COURSE_SUCCESS = "Deleted CourseInfo (all data cleared!): %1$s";
 
@@ -29,6 +32,6 @@ public class CourseDeleteCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof CourseDeleteCommand); // instanceof handles nulls
+            || (other instanceof CourseDeleteCommand); // instanceof handles nulls
     }
 }

@@ -20,9 +20,10 @@ public interface CourseBookStorage {
 
     /**
      * Returns CourseBook data as a {@link ReadOnlyCourseBook}.
-     *   Returns {@code Optional.empty()} if storage file is not found.
+     * Returns {@code Optional.empty()} if storage file is not found.
+     *
      * @throws DataConversionException if the data in storage is not in the expected format.
-     * @throws IOException if there was any problem when reading from the storage.
+     * @throws IOException             if there was any problem when reading from the storage.
      */
     Optional<ReadOnlyCourseBook> readCourseBook() throws DataConversionException, IOException;
 
@@ -33,6 +34,7 @@ public interface CourseBookStorage {
 
     /**
      * Saves the given {@link ReadOnlyCourseBook} to the storage.
+     *
      * @param courseBook cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
