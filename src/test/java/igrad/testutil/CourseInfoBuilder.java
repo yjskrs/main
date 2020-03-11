@@ -8,7 +8,7 @@ import igrad.model.course.Name;
  */
 public class CourseInfoBuilder {
 
-    public static final String DEFAULT_NAME = "Bachelor of Computing (Honours) in Computer Science";
+    public static final String DEFAULT_NAME = "Bachelor of Computing in Computer Science";
 
     private Name name;
 

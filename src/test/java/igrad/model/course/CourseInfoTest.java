@@ -1,22 +1,27 @@
 package igrad.model.course;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
 
-import igrad.testutil.ModuleBuilder;
+import igrad.testutil.CourseInfoBuilder;
+import igrad.testutil.TypicalCourseInfos;
 
 public class CourseInfoTest {
-
     @Test
     public void equals() {
         // same values -> returns true
-        Module aliceCopy = new ModuleBuilder(TypicalPersons.ALICE).build();
-        //assertTrue(TypicalPersons.ALICE.equals(aliceCopy));
+        CourseInfo bSciMathCopy = new CourseInfoBuilder(TypicalCourseInfos.B_SCI_MATH).build();
+        assertTrue(TypicalCourseInfos.B_SCI_MATH.equals(bSciMathCopy));
 
         // same object -> returns true
-        //assertTrue(TypicalPersons.ALICE.equals(TypicalPersons.ALICE));
+        assertTrue(TypicalCourseInfos.B_SCI_MATH.equals(TypicalCourseInfos.B_SCI_MATH));
 
         // null -> returns false
-        //assertFalse(TypicalPersons.ALICE.equals(null));
+        assertFalse(TypicalCourseInfos.B_SCI_MATH.equals(null));
+
+        // TODO: (Teri) please help update the test method accordingly, you can refer to the 3 above examples
 
         // different type -> returns false
         //assertFalse(TypicalPersons.ALICE.equals(5));
@@ -26,18 +31,6 @@ public class CourseInfoTest {
 
         // different name -> returns false
         //Module editedAlice = new ModuleBuilder(TypicalPersons.ALICE).withName(VALID_NAME_BOB).build();
-        //assertFalse(TypicalPersons.ALICE.equals(editedAlice));
-
-        // different phone -> returns false
-        //editedAlice = new ModuleBuilder(TypicalPersons.ALICE).withPhone(VALID_PHONE_BOB).build();
-        //assertFalse(TypicalPersons.ALICE.equals(editedAlice));
-
-        // different email -> returns false
-        //editedAlice = new ModuleBuilder(TypicalPersons.ALICE).withEmail(VALID_EMAIL_BOB).build();
-        //assertFalse(TypicalPersons.ALICE.equals(editedAlice));
-
-        // different tags -> returns false
-        //editedAlice = new ModuleBuilder(TypicalPersons.ALICE).withTags(VALID_TAG_HUSBAND).build();
         //assertFalse(TypicalPersons.ALICE.equals(editedAlice));
     }
 }
