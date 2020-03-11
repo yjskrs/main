@@ -9,9 +9,9 @@ import igrad.model.ReadOnlyCourseBook;
 /**
  * Deletes the existing course (and all data within it).
  */
-public class CourseDeleteCommand extends Command {
+public class CourseDeleteCommand extends CourseCommand {
 
-    public static final String COMMAND_WORD = "course delete";
+    public static final String COMMAND_WORD = COURSE_COMMAND_WORD + "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
         + ": Deletes the course and clears all data in the application.\n"

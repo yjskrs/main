@@ -2,12 +2,14 @@ package igrad.model.course;
 
 import org.junit.jupiter.api.Test;
 
-public class CourseTest {
+import igrad.testutil.ModuleBuilder;
+
+public class CourseInfoTest {
 
     @Test
     public void equals() {
         // same values -> returns true
-        //Module aliceCopy = new ModuleBuilder(TypicalPersons.ALICE).build();
+        Module aliceCopy = new ModuleBuilder(TypicalPersons.ALICE).build();
         //assertTrue(TypicalPersons.ALICE.equals(aliceCopy));
 
         // same object -> returns true
