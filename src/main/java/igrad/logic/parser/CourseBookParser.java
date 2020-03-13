@@ -16,6 +16,7 @@ import igrad.logic.commands.HelpCommand;
 import igrad.logic.commands.ModuleAddCommand;
 import igrad.logic.commands.ModuleDeleteCommand;
 import igrad.logic.commands.ModuleEditCommand;
+import igrad.logic.commands.SelectAvatarCommand;
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.services.exceptions.ServiceException;
 
@@ -37,7 +38,12 @@ public class CourseBookParser {
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
      */
-    public Command parseCommand(String userInput) throws ParseException, IOException, ServiceException {
+    public Command parseCommand(String userInput, boolean isSelectingAvatar) throws ParseException, IOException, ServiceException {
+
+        if( isSelectingAvatar ){
+            return new SelectAvatarCommandParser().parse("/avatars/" + userInput + ".png");
+        }
+
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));

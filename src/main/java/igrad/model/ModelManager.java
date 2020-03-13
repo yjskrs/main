@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 
 import igrad.commons.core.GuiSettings;
 import igrad.commons.core.LogsCenter;
+import igrad.model.avatar.Avatar;
 import igrad.model.course.CourseInfo;
 import igrad.model.module.Module;
 import javafx.collections.ObservableList;
@@ -20,6 +21,7 @@ import javafx.collections.transformation.FilteredList;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
+    private Avatar avatar;
     private final CourseBook courseBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Module> filteredModules;
@@ -32,6 +34,8 @@ public class ModelManager implements Model {
         requireAllNonNull(courseBook, userPrefs);
 
         logger.fine("Initializing with course book: " + courseBook + " and user prefs " + userPrefs);
+
+        this.avatar = Avatar.getPlaceholderAvatar();
 
         this.courseBook = new CourseBook(courseBook);
         this.userPrefs = new UserPrefs(userPrefs);
@@ -75,6 +79,17 @@ public class ModelManager implements Model {
     public void setCourseBookFilePath(Path courseBookFilePath) {
         requireNonNull(courseBookFilePath);
         userPrefs.setCourseBookFilePath(courseBookFilePath);
+    }
+
+    @Override
+    public Avatar getAvatar() {
+        return avatar;
+    }
+
+    @Override
+    public void setAvatar(Avatar avatar) {
+        requireNonNull(avatar);
+        this.avatar = avatar;
     }
 
     //=========== CourseBook ================================================================================

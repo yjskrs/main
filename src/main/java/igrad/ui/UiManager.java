@@ -6,6 +6,8 @@ import igrad.MainApp;
 import igrad.commons.core.LogsCenter;
 import igrad.commons.util.StringUtil;
 import igrad.logic.Logic;
+import igrad.model.Model;
+import igrad.model.avatar.Avatar;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -24,10 +26,12 @@ public class UiManager implements Ui {
 
     private Logic logic;
     private MainWindow mainWindow;
+    private Model model;
 
-    public UiManager(Logic logic) {
+    public UiManager(Logic logic, Model model) {
         super();
         this.logic = logic;
+        this.model = model;
     }
 
     /**
@@ -57,7 +61,7 @@ public class UiManager implements Ui {
         try {
             mainWindow = new MainWindow(primaryStage, logic);
             mainWindow.show(); //This should be called before creating other UI parts
-            mainWindow.fillInnerParts();
+            mainWindow.fillInnerParts( model.getAvatar() );
 
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));

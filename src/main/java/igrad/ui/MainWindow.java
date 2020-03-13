@@ -9,6 +9,7 @@ import igrad.logic.Logic;
 import igrad.logic.commands.CommandResult;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.logic.parser.exceptions.ParseException;
+import igrad.model.avatar.Avatar;
 import igrad.services.exceptions.ServiceException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -34,6 +35,7 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
+    private AvatarSelectionPanel avatarSelectionPanel;
     private ModuleListPanel moduleListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
@@ -46,6 +48,9 @@ public class MainWindow extends UiPart<Stage> {
 
 /*    @FXML
     private StackPane statusbarPlaceholder;*/
+
+    @FXML
+    private StackPane avatarSelectionPanelPlaceholder;
 
     @FXML
     private StackPane moduleListPanelPlaceholder;
@@ -120,20 +125,28 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Fills up all the placeholders of this window.
      */
-    void fillInnerParts() {
-        moduleListPanel = new ModuleListPanel(logic.getFilteredModuleList());
-        moduleListPanelPlaceholder.getChildren().add(moduleListPanel.getRoot());
+    void fillInnerParts(Avatar avatar) {
 
-        resultDisplay = new ResultDisplay();
+        if( avatar.isPlaceholder ){
+            logger.info("Avatar not found. Displaying avatar selection screen instead.");
+            avatarSelectionPanel = new AvatarSelectionPanel();
+            avatarSelectionPanelPlaceholder.getChildren().add(avatarSelectionPanel.getRoot());
+        } else {
+            moduleListPanel = new ModuleListPanel(logic.getFilteredModuleList());
+            moduleListPanelPlaceholder.getChildren().add(moduleListPanel.getRoot());
+        }
+
+        resultDisplay = new ResultDisplay(avatar);
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-/*        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getCourseBookFilePath());
-        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());*/
+        if( avatar.isPlaceholder ){
+            resultDisplay.setFeedbackToUser("Choose an animal guide by entering the NAME of the animal");
+        }
 
         StatusBar statusBar2 = new StatusBar();
         statusBar.getChildren().add(statusBar2.getPane());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand);
+        CommandBox commandBox = new CommandBox(c -> executeCommand(c, avatar));
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         mcCount.setText("MCs:\n40/160");
@@ -188,14 +201,21 @@ public class MainWindow extends UiPart<Stage> {
      *
      * @see Logic#execute(String)
      */
-    private CommandResult executeCommand(String commandText) throws CommandException,
+    private CommandResult executeCommand(String commandText, Avatar avatar ) throws CommandException,
         ParseException,
         IOException,
         ServiceException {
         try {
+            System.out.println(commandText);
             CommandResult commandResult = logic.execute(commandText);
+            System.out.println(commandResult.getFeedbackToUser());
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+
+            if( avatar.isPlaceholder ){
+                Avatar selectedAvatar = new Avatar("/avatars/" + commandText + ".png" );
+                resultDisplay.setAvatar(selectedAvatar);
+            }
 
             if (commandResult.isShowHelp()) {
                 handleHelp();

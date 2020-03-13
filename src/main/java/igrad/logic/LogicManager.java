@@ -29,9 +29,12 @@ public class LogicManager implements Logic {
     private final Storage storage;
     private final CourseBookParser courseBookParser;
 
-    public LogicManager(Model model, Storage storage) {
+    private boolean isSelectingAvatar;
+
+    public LogicManager(Model model, Storage storage, boolean isSelectingAvatar) {
         this.model = model;
         this.storage = storage;
+        this.isSelectingAvatar = isSelectingAvatar;
         courseBookParser = new CourseBookParser();
     }
 
@@ -41,7 +44,7 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = courseBookParser.parseCommand(commandText);
+        Command command = courseBookParser.parseCommand(commandText, isSelectingAvatar);
         commandResult = command.execute(model);
 
         try {

@@ -19,6 +19,7 @@ import igrad.model.ModelManager;
 import igrad.model.ReadOnlyCourseBook;
 import igrad.model.ReadOnlyUserPrefs;
 import igrad.model.UserPrefs;
+import igrad.model.avatar.Avatar;
 import igrad.model.util.SampleDataUtil;
 import igrad.storage.CourseBookStorage;
 import igrad.storage.JsonCourseBookStorage;
@@ -63,9 +64,13 @@ public class MainApp extends Application {
 
         model = initModelManager(storage, userPrefs);
 
-        logic = new LogicManager(model, storage);
+        Avatar avatar = model.getAvatar();
 
-        ui = new UiManager(logic);
+        boolean isSelectingAvatar = avatar.isPlaceholder;
+
+        logic = new LogicManager(model, storage, isSelectingAvatar);
+
+        ui = new UiManager(logic, model);
     }
 
     /**

@@ -3,12 +3,11 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
-
-<StackPane styleClass="stack-pane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-  <TextField fx:id="commandTextField" onAction="#handleCommandEntered" promptText="Enter command here...">
-      <font>
-         <Font name="Calibri" size="16.0" />
-      </font>
-   </TextField>
+<StackPane xmlns:fx="http://javafx.com/fxml/1" styleClass="stack-pane" xmlns="http://javafx.com/javafx/11.0.1">
+    <TextField fx:id="commandTextField" onAction="#handleCommandEntered" promptText="Enter command here...">
+        <font>
+            <Font name="Calibri" size="16.0"/>
+        </font>
+    </TextField>
 
 </StackPane>

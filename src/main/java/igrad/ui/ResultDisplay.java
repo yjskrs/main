@@ -2,8 +2,11 @@ package igrad.ui;
 
 import static java.util.Objects.requireNonNull;
 
+import igrad.model.avatar.Avatar;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 
 /**
@@ -16,13 +19,22 @@ public class ResultDisplay extends UiPart<Region> {
     @FXML
     private TextArea resultDisplay;
 
-    public ResultDisplay() {
+    @FXML
+    private ImageView avatarDisplay;
+
+    public ResultDisplay(Avatar avatar) {
         super(FXML);
+
+        this.setAvatar(avatar);
     }
 
     public void setFeedbackToUser(String feedbackToUser) {
         requireNonNull(feedbackToUser);
         resultDisplay.setText(feedbackToUser);
+    }
+
+    public void setAvatar( Avatar avatar ){
+        avatarDisplay.setImage( new Image(avatar.getImgPath()));
     }
 
 }
