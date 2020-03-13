@@ -2,11 +2,9 @@ package igrad.model;
 
 import static igrad.commons.util.CollectionUtil.requireAllNonNull;
 import static java.util.Objects.requireNonNull;
-
 import java.nio.file.Path;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
-
 import igrad.commons.core.GuiSettings;
 import igrad.commons.core.LogsCenter;
 import igrad.model.avatar.Avatar;
@@ -20,11 +18,10 @@ import javafx.collections.transformation.FilteredList;
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
-
-    private Avatar avatar;
     private final CourseBook courseBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Module> filteredModules;
+    private Avatar avatar;
 
     /**
      * Initializes a ModelManager with the given courseBook and userPrefs.
@@ -36,7 +33,6 @@ public class ModelManager implements Model {
         logger.fine("Initializing with course book: " + courseBook + " and user prefs " + userPrefs);
 
         this.avatar = Avatar.getPlaceholderAvatar();
-
         this.courseBook = new CourseBook(courseBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredModules = new FilteredList<>(this.courseBook.getModuleList());

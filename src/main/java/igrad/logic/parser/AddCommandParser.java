@@ -7,10 +7,8 @@ import static igrad.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
 import static igrad.logic.parser.CliSyntax.PREFIX_SEMESTER;
 import static igrad.logic.parser.CliSyntax.PREFIX_TAG;
 import static igrad.logic.parser.CliSyntax.PREFIX_TITLE;
-
 import java.util.Set;
 import java.util.stream.Stream;
-
 import igrad.commons.core.Messages;
 import igrad.logic.commands.ModuleAddCommand;
 import igrad.logic.parser.exceptions.ParseException;

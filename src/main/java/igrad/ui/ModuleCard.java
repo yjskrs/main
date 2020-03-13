@@ -1,7 +1,6 @@
 package igrad.ui;
 
 import java.util.Comparator;
-
 import igrad.model.module.Module;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

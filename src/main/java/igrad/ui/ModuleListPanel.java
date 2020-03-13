@@ -1,7 +1,6 @@
 package igrad.ui;
 
 import java.util.logging.Logger;
-
 import igrad.commons.core.LogsCenter;
 import igrad.model.module.Module;
 import javafx.collections.ObservableList;

@@ -3,7 +3,6 @@ package igrad.model.util;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
-
 import igrad.model.CourseBook;
 import igrad.model.ReadOnlyCourseBook;
 import igrad.model.module.Credits;

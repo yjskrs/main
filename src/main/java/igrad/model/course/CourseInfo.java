@@ -1,7 +1,6 @@
 package igrad.model.course;
 
 import static igrad.commons.util.CollectionUtil.requireAllNonNull;
-
 import java.util.Objects;
 
 /**

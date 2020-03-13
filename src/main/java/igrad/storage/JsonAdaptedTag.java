@@ -2,7 +2,6 @@ package igrad.storage;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-
 import igrad.commons.exceptions.IllegalValueException;
 import igrad.model.tag.Tag;
 

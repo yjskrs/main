@@ -1,13 +1,11 @@
 package igrad.ui;
 
 import java.util.logging.Logger;
-
 import igrad.MainApp;
 import igrad.commons.core.LogsCenter;
 import igrad.commons.util.StringUtil;
 import igrad.logic.Logic;
 import igrad.model.Model;
-import igrad.model.avatar.Avatar;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -61,7 +59,12 @@ public class UiManager implements Ui {
         try {
             mainWindow = new MainWindow(primaryStage, logic);
             mainWindow.show(); //This should be called before creating other UI parts
-            mainWindow.fillInnerParts( model.getAvatar() );
+
+            if (model.getAvatar().isPlaceholder) {
+                mainWindow.displayAvatarSelection(model);
+            } else {
+                mainWindow.displayModulePanel(model);
+            }
 
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));

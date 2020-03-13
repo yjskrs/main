@@ -1,9 +1,7 @@
 package igrad.model;
 
 import static java.util.Objects.requireNonNull;
-
 import java.util.List;
-
 import igrad.model.course.CourseInfo;
 import igrad.model.module.Module;
 import igrad.model.module.UniqueModuleList;
@@ -24,8 +22,7 @@ public class CourseBook implements ReadOnlyCourseBook {
      *
      * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
      *   among constructors.
-     */
-    {
+     */ {
         modules = new UniqueModuleList();
         courseInfo = null;
     }

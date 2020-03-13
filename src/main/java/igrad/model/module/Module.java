@@ -1,12 +1,10 @@
 package igrad.model.module;
 
 import static igrad.commons.util.CollectionUtil.requireAllNonNull;
-
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
-
 import igrad.model.tag.Tag;
 
 /**

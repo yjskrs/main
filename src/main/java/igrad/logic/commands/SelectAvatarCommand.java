@@ -1,20 +1,14 @@
 package igrad.logic.commands;
 
-import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
-import static igrad.logic.parser.CliSyntax.PREFIX_MEMO;
-import static igrad.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
-import static igrad.logic.parser.CliSyntax.PREFIX_SEMESTER;
-import static igrad.logic.parser.CliSyntax.PREFIX_TITLE;
 import static java.util.Objects.requireNonNull;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
 import igrad.model.avatar.Avatar;
-import igrad.model.module.Module;
 
 /**
  * Adds a module to the course book.
  */
-public class SelectAvatarCommand extends Command{
+public class SelectAvatarCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "You have chosen an animal guide!";
 

@@ -1,7 +1,6 @@
 package igrad.logic.parser;
 
 import java.io.IOException;
-
 import igrad.logic.commands.Command;
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.services.exceptions.ServiceException;

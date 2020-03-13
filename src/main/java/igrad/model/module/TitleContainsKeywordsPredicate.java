@@ -2,7 +2,6 @@ package igrad.model.module;
 
 import java.util.List;
 import java.util.function.Predicate;
-
 import igrad.commons.util.StringUtil;
 
 /**

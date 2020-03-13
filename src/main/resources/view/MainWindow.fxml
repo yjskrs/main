@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.stage.Stage?>
 <fx:root xmlns:fx="http://javafx.com/fxml/1" minHeight="600" minWidth="650" onCloseRequest="#handleExit" title="iGrad"
-         type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1">
+         type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.0">
     <icons>
         <Image url="@/images/iGrad_Shibu.png"/>
     </icons>
@@ -72,12 +72,12 @@
                         <VBox fx:id="moduleList" alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308"
                               minWidth="200.0" prefWidth="200.0" styleClass="pane-with-border" HBox.hgrow="ALWAYS">
                             <children>
-                                <StackPane fx:id="moduleListPanelPlaceholder" alignment="CENTER_RIGHT"
-                                           maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-                                           VBox.vgrow="ALWAYS"/>
-                                <StackPane fx:id="avatarSelectionPanelPlaceholder" alignment="CENTER_RIGHT"
-                                           maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-                                           VBox.vgrow="ALWAYS"/>
+<!--                                <StackPane fx:id="moduleListPanelPlaceholder" alignment="CENTER_RIGHT"-->
+<!--                                           maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"-->
+<!--                                           VBox.vgrow="ALWAYS"/>-->
+<!--                                <StackPane fx:id="avatarSelectionPanelPlaceholder" alignment="CENTER_RIGHT"-->
+<!--                                           maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"-->
+<!--                                           VBox.vgrow="ALWAYS"/>-->
                             </children>
                             <padding>
                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>

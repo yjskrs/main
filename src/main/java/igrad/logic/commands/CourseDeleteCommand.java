@@ -1,7 +1,6 @@
 package igrad.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
 import igrad.model.ReadOnlyCourseBook;

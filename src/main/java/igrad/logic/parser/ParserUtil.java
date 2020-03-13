@@ -1,11 +1,9 @@
 package igrad.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
-
 import igrad.commons.core.index.Index;
 import igrad.commons.util.StringUtil;
 import igrad.logic.parser.exceptions.ParseException;
@@ -77,11 +75,11 @@ public class ParserUtil {
      */
     public static ModuleCode parseModuleCode(String moduleCode) throws ParseException {
         requireNonNull(moduleCode);
-        String trimmedPhone = moduleCode.trim();
-        if (!ModuleCode.isValidModuleCode(trimmedPhone)) {
+        String trimmedModuleCode = moduleCode.trim();
+        if (!ModuleCode.isValidModuleCode(trimmedModuleCode)) {
             throw new ParseException(ModuleCode.MESSAGE_CONSTRAINTS);
         }
-        return new ModuleCode(trimmedPhone);
+        return new ModuleCode(trimmedModuleCode);
     }
 
     /**

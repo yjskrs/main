@@ -1,9 +1,7 @@
 package igrad.logic.parser;
 
 import static igrad.logic.parser.CliSyntax.PREFIX_NAME;
-
 import java.util.stream.Stream;
-
 import igrad.commons.core.Messages;
 import igrad.logic.commands.CourseAddCommand;
 import igrad.logic.commands.ModuleAddCommand;

@@ -1,7 +1,6 @@
 package igrad.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-
 import java.util.Objects;
 
 /**

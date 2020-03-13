@@ -1,15 +1,15 @@
 package igrad.ui;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 import igrad.commons.core.LogsCenter;
+import igrad.model.avatar.Avatar;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 /**
@@ -19,46 +19,52 @@ public class AvatarSelectionPanel extends UiPart<Region> {
     private static final String FXML = "AvatarSelectionPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(AvatarSelectionPanel.class);
 
-    private final String[] avatarAltText = new String[]{
-        "Po",
-        "Shibu",
-        "Chikin",
-        "Grizzly",
-        "Koala",
-        "Frogger"
-    };
-
     @FXML
     private GridPane avatarGridPane;
 
     @FXML
     private Label avatarLabel;
 
+    private List<AvatarImage> avatarImgList = new ArrayList<>();
+
     public AvatarSelectionPanel() {
         super(FXML);
 
+        showMainLabel();
+        initAvatarImgList();
+        showAvatarImgList();
+    }
+
+    private void showMainLabel() {
         avatarLabel.setText("Welcome to iGrad.");
+        Font.getFamilies().forEach(System.out::println);
+    }
+
+    private void initAvatarImgList() {
+
+        List<Avatar> avatarList = Avatar.getAvatarList();
 
         int index = 0;
 
-        for( int i = 0; i < 2; i++ ){
-            for ( int j = 0; j < 3; j++ ){
-                Label label = new Label();
-
-                label.setText(avatarAltText[index]);
-                label.setTextFill(Color.WHITE);
-                label.setPrefHeight(300.0);
-                label.setPrefWidth(300.0);
-                label.setFont( new Font( "Arial", 30 ));
-
-                GridPane.setRowIndex(label, i);
-                GridPane.setColumnIndex(label, j);
-                avatarGridPane.getChildren().add(label);
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 3; j++) {
+                AvatarImage avatarImg = new AvatarImage("/avatars/" + avatarList.get(index).getName() + ".png", i, j);
+                avatarImgList.add(avatarImg);
                 index++;
             }
         }
+    }
 
-
+    private void showAvatarImgList() {
+        for (AvatarImage avatarImg : avatarImgList) {
+            ImageView avatarDisplay = new ImageView();
+            avatarDisplay.setFitHeight(250.0);
+            avatarDisplay.setFitWidth(250.0);
+            avatarDisplay.setImage(avatarImg);
+            GridPane.setRowIndex(avatarDisplay, avatarImg.rowIndex);
+            GridPane.setColumnIndex(avatarDisplay, avatarImg.colIndex);
+            avatarGridPane.getChildren().add(avatarDisplay);
+        }
     }
 
 }

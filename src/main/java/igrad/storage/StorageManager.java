@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
-
 import igrad.commons.core.LogsCenter;
 import igrad.commons.exceptions.DataConversionException;
 import igrad.model.ReadOnlyCourseBook;

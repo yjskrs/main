@@ -64,11 +64,7 @@ public class MainApp extends Application {
 
         model = initModelManager(storage, userPrefs);
 
-        Avatar avatar = model.getAvatar();
-
-        boolean isSelectingAvatar = avatar.isPlaceholder;
-
-        logic = new LogicManager(model, storage, isSelectingAvatar);
+        logic = new LogicManager(model, storage);
 
         ui = new UiManager(logic, model);
     }

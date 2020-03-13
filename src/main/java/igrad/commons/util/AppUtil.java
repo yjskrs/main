@@ -1,7 +1,6 @@
 package igrad.commons.util;
 
 import static java.util.Objects.requireNonNull;
-
 import igrad.MainApp;
 import javafx.scene.image.Image;
 

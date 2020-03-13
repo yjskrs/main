@@ -3,7 +3,6 @@ package igrad.logic;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.logging.Logger;
-
 import igrad.commons.core.GuiSettings;
 import igrad.commons.core.LogsCenter;
 import igrad.logic.commands.Command;
@@ -29,12 +28,9 @@ public class LogicManager implements Logic {
     private final Storage storage;
     private final CourseBookParser courseBookParser;
 
-    private boolean isSelectingAvatar;
-
-    public LogicManager(Model model, Storage storage, boolean isSelectingAvatar) {
+    public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        this.isSelectingAvatar = isSelectingAvatar;
         courseBookParser = new CourseBookParser();
     }
 
@@ -44,7 +40,7 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = courseBookParser.parseCommand(commandText, isSelectingAvatar);
+        Command command = courseBookParser.parseCommand(commandText);
         commandResult = command.execute(model);
 
         try {

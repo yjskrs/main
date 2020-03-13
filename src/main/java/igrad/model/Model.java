@@ -2,7 +2,6 @@ package igrad.model;
 
 import java.nio.file.Path;
 import java.util.function.Predicate;
-
 import igrad.commons.core.GuiSettings;
 import igrad.model.avatar.Avatar;
 import igrad.model.course.CourseInfo;
