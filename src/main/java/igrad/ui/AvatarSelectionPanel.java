@@ -40,6 +40,9 @@ public class AvatarSelectionPanel extends UiPart<Region> {
         Font.getFamilies().forEach(System.out::println);
     }
 
+    /**
+     * Initializes a list of valid Avatars
+     */
     private void initAvatarImgList() {
 
         List<Avatar> avatarList = Avatar.getAvatarList();
@@ -55,14 +58,17 @@ public class AvatarSelectionPanel extends UiPart<Region> {
         }
     }
 
+    /**
+     * Displays avatars in a {@code GridPane}
+     */
     private void showAvatarImgList() {
         for (AvatarImage avatarImg : avatarImgList) {
             ImageView avatarDisplay = new ImageView();
             avatarDisplay.setFitHeight(250.0);
             avatarDisplay.setFitWidth(250.0);
             avatarDisplay.setImage(avatarImg);
-            GridPane.setRowIndex(avatarDisplay, avatarImg.rowIndex);
-            GridPane.setColumnIndex(avatarDisplay, avatarImg.colIndex);
+            GridPane.setRowIndex(avatarDisplay, avatarImg.getRowIndex());
+            GridPane.setColumnIndex(avatarDisplay, avatarImg.getColIndex());
             avatarGridPane.getChildren().add(avatarDisplay);
         }
     }

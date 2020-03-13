@@ -1,6 +1,10 @@
 package igrad.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
 import igrad.model.avatar.Avatar;
@@ -27,6 +31,18 @@ public class SelectAvatarCommand extends Command {
         requireNonNull(model);
 
         model.setAvatar(toAdd);
+
+        try {
+            Path courseBookFilePath = Paths.get("data", "avatar.txt");
+            FileWriter myWriter = new FileWriter(courseBookFilePath.toString());
+            myWriter.write(toAdd.getName());
+            myWriter.close();
+            System.out.println("Successfully wrote to the file.");
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

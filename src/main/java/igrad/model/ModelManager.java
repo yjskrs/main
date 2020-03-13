@@ -32,7 +32,7 @@ public class ModelManager implements Model {
 
         logger.fine("Initializing with course book: " + courseBook + " and user prefs " + userPrefs);
 
-        this.avatar = Avatar.getPlaceholderAvatar();
+        this.avatar = Avatar.getAvatar();
         this.courseBook = new CourseBook(courseBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredModules = new FilteredList<>(this.courseBook.getModuleList());

@@ -2,11 +2,14 @@ package igrad.ui;
 
 import javafx.scene.image.Image;
 
+/**
+ * Image of the Avatar
+ */
 public class AvatarImage extends Image {
 
-    String imgPath;
-    int rowIndex;
-    int colIndex;
+    private String imgPath;
+    private int rowIndex;
+    private int colIndex;
 
     public AvatarImage(String imgPath) {
         super(imgPath);
@@ -19,6 +22,20 @@ public class AvatarImage extends Image {
         this.imgPath = imgPath;
         this.rowIndex = rowIndex;
         this.colIndex = colIndex;
+    }
+
+    /**
+     * returns the row index of an image in a grid
+     */
+    public int getRowIndex() {
+        return rowIndex;
+    }
+
+    /**
+     * returns the column index of an image in a grid
+     */
+    public int getColIndex() {
+        return colIndex;
     }
 
 }

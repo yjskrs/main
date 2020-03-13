@@ -60,7 +60,7 @@ public class UiManager implements Ui {
             mainWindow = new MainWindow(primaryStage, logic);
             mainWindow.show(); //This should be called before creating other UI parts
 
-            if (model.getAvatar().isPlaceholder) {
+            if (model.getAvatar().getIsSample()) {
                 mainWindow.displayAvatarSelection(model);
             } else {
                 mainWindow.displayModulePanel(model);
