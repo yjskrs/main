@@ -54,8 +54,6 @@ public class JsonParsedModule {
 
             String valueStr = value.length() > 0 ? value.toString().substring(1) : "";
 
-            System.out.println(key + valueStr);
-
             switch (key) {
             case "ModuleCode":
                 moduleCode = valueStr;

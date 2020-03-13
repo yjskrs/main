@@ -13,7 +13,6 @@ public class AvatarImage extends Image {
 
     public AvatarImage(String imgPath) {
         super(imgPath);
-        System.out.println("HERE HERE " + imgPath);
         this.imgPath = imgPath;
     }
 

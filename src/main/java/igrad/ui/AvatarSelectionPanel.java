@@ -37,7 +37,6 @@ public class AvatarSelectionPanel extends UiPart<Region> {
 
     private void showMainLabel() {
         avatarLabel.setText("Welcome to iGrad.");
-        Font.getFamilies().forEach(System.out::println);
     }
 
     /**

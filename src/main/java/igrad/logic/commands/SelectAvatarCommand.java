@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
 import igrad.model.avatar.Avatar;
+import igrad.storage.AvatarStorage;
 
 /**
  * Adds a module to the course book.
@@ -27,21 +28,12 @@ public class SelectAvatarCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model) {
         requireNonNull(model);
 
         model.setAvatar(toAdd);
 
-        try {
-            Path courseBookFilePath = Paths.get("data", "avatar.txt");
-            FileWriter myWriter = new FileWriter(courseBookFilePath.toString());
-            myWriter.write(toAdd.getName());
-            myWriter.close();
-            System.out.println("Successfully wrote to the file.");
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
+        AvatarStorage.writeAvatar(toAdd);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }

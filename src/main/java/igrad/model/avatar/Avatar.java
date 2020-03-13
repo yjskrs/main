@@ -9,6 +9,9 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.logging.Logger;
+import igrad.commons.core.LogsCenter;
+import igrad.storage.AvatarStorage;
 
 public class Avatar {
 
@@ -55,17 +58,8 @@ public class Avatar {
     public static Avatar getAvatar() {
 
         try {
-            Path courseBookFilePath = Paths.get("data", "avatar.txt");
-            File myObj = new File(courseBookFilePath.toString());
-            Scanner myReader = new Scanner(myObj);
-            String data = myReader.nextLine();
-            myReader.close();
-
-            return new Avatar(data);
+           return AvatarStorage.readAvatar();
         } catch (FileNotFoundException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-
             return getSampleAvatar();
         }
 

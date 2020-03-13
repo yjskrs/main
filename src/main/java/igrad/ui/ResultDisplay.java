@@ -33,7 +33,6 @@ public class ResultDisplay extends UiPart<Region> {
 
     public void setAvatar(Avatar avatar) {
         String imgPath = "/avatars/" + avatar.getName() + ".png";
-        System.out.println(imgPath);
         AvatarImage avatarImage = new AvatarImage(imgPath);
         avatarDisplay.setImage(avatarImage);
     }

@@ -98,7 +98,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Fills up all the placeholders of this window.
+     * Displays the window when in the module management statefi
      */
     void displayModulePanel(Model model) {
         moduleList.getChildren().remove(avatarSelectionPanelPlaceholder);
@@ -119,7 +119,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Displays the window when in the module management state
+     * Displays the miscellaneous panels
      */
     void displayStatusPanels(Model model) {
         StatusBar statusBar2 = new StatusBar();
@@ -219,7 +219,6 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
-            System.out.println("PRINTED" + commandResult);
             return commandResult;
         } catch (CommandException | ParseException | IOException | ServiceException e) {
             logger.info("Invalid command: " + commandText);
