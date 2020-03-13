@@ -27,6 +27,8 @@ import igrad.testutil.EditModuleDescriptorBuilder;
  */
 public class CommandTestUtil {
 
+    public static final String VALID_NAME_B_COMP_SCI = "Bachelor of Computing (Honours) in Computer Science";
+    public static final String VALID_NAME_B_ARTS_PHILO = "Bachelor of Arts (Honours) in Philosophy";
     public static final String VALID_TITLE_PROGRAMMING_METHODOLOGY = "Programming Methodology";
     public static final String VALID_TITLE_COMPUTER_ORGANISATION = "Computer Organisation";
     public static final String VALID_MODULE_CODE_PROGRAMMING_METHODOLOGY = "CS1101S";

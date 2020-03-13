@@ -10,9 +10,9 @@ import igrad.model.course.CourseInfo;
 /**
  * Edits the details of an existing module in the course book.
  */
-public class CourseModifyCommand extends Command {
+public class CourseModifyCommand extends CourseCommand {
 
-    public static final String COMMAND_WORD = "course edit";
+    public static final String COMMAND_WORD = COURSE_COMMAND_WORD + "edit";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Modifies name of the course. "
         + "Parameters: "
         + PREFIX_NAME + "COURSE NAME "

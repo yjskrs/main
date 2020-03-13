@@ -1,5 +1,6 @@
 package igrad.logic.commands;
 
+import static igrad.logic.commands.ModuleCommand.MODULE_COMMAND_WORD;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
@@ -13,9 +14,9 @@ import igrad.model.module.Module;
 /**
  * Deletes a module identified using it's displayed index from the course book.
  */
-public class ModuleDeleteCommand extends Command {
+public class ModuleDeleteCommand extends ModuleCommand {
 
-    public static final String COMMAND_WORD = "delete";
+    public static final String COMMAND_WORD = MODULE_COMMAND_WORD + "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
         + ": Deletes the module identified by the index number used in the displayed module list.\n"
