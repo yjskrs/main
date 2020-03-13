@@ -32,7 +32,7 @@ class JsonAdaptedModule {
     private final String memo;
     private final String semester;
     private final String description;
-    private final List<JsonAdaptedTag> tagged = new ArrayList<>();
+    private final List<JsonAdaptedTag> tags = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedModule} with the given module details.
@@ -41,15 +41,15 @@ class JsonAdaptedModule {
     public JsonAdaptedModule(@JsonProperty("title") String name, @JsonProperty("moduleCode") String moduleCode,
                              @JsonProperty("credits") String credits, @JsonProperty("memo") String memo,
                              @JsonProperty("semester") String semester, @JsonProperty("description") String description,
-                             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+                             @JsonProperty("tagged") List<JsonAdaptedTag> tags) {
         this.title = name;
         this.moduleCode = moduleCode;
         this.credits = credits;
         this.memo = memo;
         this.semester = semester;
         this.description = description;
-        if (tagged != null) {
-            this.tagged.addAll(tagged);
+        if (tags != null) {
+            this.tags.addAll(tags);
         }
     }
 
@@ -63,7 +63,7 @@ class JsonAdaptedModule {
         memo = source.getMemo() != null ? source.getMemo().value : null;
         semester = source.getSemester() != null ? source.getSemester().value : null;
         description = source.getDescription().value;
-        tagged.addAll(source.getTags().stream()
+        tags.addAll(source.getTags().stream()
             .map(JsonAdaptedTag::new)
             .collect(Collectors.toList()));
     }
@@ -75,7 +75,7 @@ class JsonAdaptedModule {
      */
     public Module toModelType() throws IllegalValueException {
         final List<Tag> moduleTags = new ArrayList<>();
-        for (JsonAdaptedTag tag : tagged) {
+        for (JsonAdaptedTag tag : tags) {
             moduleTags.add(tag.toModelType());
         }
 

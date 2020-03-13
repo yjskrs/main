@@ -3,16 +3,19 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.StackPane?>
-
-<StackPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <Label fx:id="course" style="-fx-background-color: transparent;" text="Course" textFill="WHITE">
-         <StackPane.margin>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-         </StackPane.margin></Label>
-      <Label fx:id="capMcDisplay" alignment="CENTER_RIGHT" style="-fx-background-color: transparent;" text="CAP" textFill="WHITE">
-         <StackPane.margin>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-         </StackPane.margin></Label>
-   </children>
+<StackPane xmlns:fx="http://javafx.com/fxml/1" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0"
+           prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.0">
+    <children>
+        <Label fx:id="course" style="-fx-background-color: transparent;" text="Course" textFill="WHITE">
+            <StackPane.margin>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+            </StackPane.margin>
+        </Label>
+        <Label fx:id="capMcDisplay" alignment="CENTER_RIGHT" style="-fx-background-color: transparent;" text="CAP"
+               textFill="WHITE">
+            <StackPane.margin>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+            </StackPane.margin>
+        </Label>
+    </children>
 </StackPane>
