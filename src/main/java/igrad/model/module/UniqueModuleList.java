@@ -2,8 +2,10 @@ package igrad.model.module;
 
 import static igrad.commons.util.CollectionUtil.requireAllNonNull;
 import static java.util.Objects.requireNonNull;
+
 import java.util.Iterator;
 import java.util.List;
+
 import igrad.model.module.exceptions.DuplicateModuleException;
 import igrad.model.module.exceptions.ModuleNotFoundException;
 import javafx.collections.FXCollections;

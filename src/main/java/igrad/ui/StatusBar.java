@@ -6,6 +6,9 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 
+/**
+ * A (permanent) top-panel that displays course status information.
+ */
 public class StatusBar extends UiPart<Region> {
 
     private static final String FXML = "StatusBar.fxml";
@@ -20,7 +23,6 @@ public class StatusBar extends UiPart<Region> {
     private Label capMcDisplay;
 
     public StatusBar() {
-
         super(FXML);
 
         pane = new StackPane();
@@ -28,8 +30,8 @@ public class StatusBar extends UiPart<Region> {
         course.setText("Course: Computer Science");
         capMcDisplay.setText("CAP: 4.24     Target: 4.00     Required: 3.90/Sem");
 
-        pane.setAlignment(course, Pos.CENTER_LEFT);
-        pane.setAlignment(capMcDisplay, Pos.CENTER_RIGHT);
+        StackPane.setAlignment(course, Pos.CENTER_LEFT);
+        StackPane.setAlignment(capMcDisplay, Pos.CENTER_RIGHT);
         pane.getChildren().addAll(course, capMcDisplay);
     }
 

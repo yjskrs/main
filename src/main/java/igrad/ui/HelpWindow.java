@@ -1,6 +1,7 @@
 package igrad.ui;
 
 import java.util.logging.Logger;
+
 import igrad.commons.core.LogsCenter;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

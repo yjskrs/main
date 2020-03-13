@@ -3,9 +3,11 @@ package igrad.logic.parser;
 import static igrad.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static igrad.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static igrad.logic.parser.CliSyntax.FLAG_AUTO;
+
 import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import igrad.logic.commands.Command;
 import igrad.logic.commands.CourseAddCommand;
 import igrad.logic.commands.CourseDeleteCommand;

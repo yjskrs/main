@@ -2,9 +2,11 @@ package igrad.model;
 
 import static igrad.commons.util.CollectionUtil.requireAllNonNull;
 import static java.util.Objects.requireNonNull;
+
 import java.nio.file.Path;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
+
 import igrad.commons.core.GuiSettings;
 import igrad.commons.core.LogsCenter;
 import igrad.model.avatar.Avatar;

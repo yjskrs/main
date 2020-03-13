@@ -2,6 +2,7 @@ package igrad.ui;
 
 import java.io.IOException;
 import java.util.logging.Logger;
+
 import igrad.commons.core.GuiSettings;
 import igrad.commons.core.LogsCenter;
 import igrad.logic.Logic;
@@ -78,11 +79,10 @@ public class MainWindow extends UiPart<Stage> {
         return primaryStage;
     }
 
-/*    private void setAccelerators() {
-        setAccelerator(KeyCombination.valueOf("F1"));
-    }
-
-    */
+    /* private void setAccelerators() {
+     *    setAccelerator(KeyCombination.valueOf("F1"));
+     *}
+     */
 
     /**
      * Sets the accelerator of a MenuItem.
@@ -115,7 +115,10 @@ public class MainWindow extends UiPart<Stage> {
         });
     }*/
 
-    void displayAvatarSelection(Model model) {
+    /**
+     * Fills up all the placeholders of the avatar selection window (with avatars).
+     */
+    void displayAvatarSelectionPanel(Model model) {
         avatarSelectionPanelPlaceholder = new StackPane();
 
         moduleList.getChildren().add(avatarSelectionPanelPlaceholder);
@@ -132,7 +135,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Fills up all the placeholders of this window.
+     * Fills up all the placeholders of the module window (with module information).
      */
     void displayModulePanel(Model model) {
         moduleList.getChildren().remove(avatarSelectionPanelPlaceholder);
@@ -150,6 +153,9 @@ public class MainWindow extends UiPart<Stage> {
         displayStatusPanels(model);
     }
 
+    /**
+     * Fills up all the placeholders of the status window (with course information).
+     */
     void displayStatusPanels(Model model) {
         StatusBar statusBar2 = new StatusBar();
         statusBar.getChildren().add(statusBar2.getPane());
@@ -216,7 +222,7 @@ public class MainWindow extends UiPart<Stage> {
 
         try {
 
-            boolean isSelectingAvatar = model.getAvatar().isPlaceholder;
+            boolean isSelectingAvatar = model.getAvatar().isPlaceholder();
 
             if (isSelectingAvatar) {
 

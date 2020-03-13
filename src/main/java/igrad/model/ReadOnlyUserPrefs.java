@@ -1,6 +1,7 @@
 package igrad.model;
 
 import java.nio.file.Path;
+
 import igrad.commons.core.GuiSettings;
 import igrad.model.avatar.Avatar;
 

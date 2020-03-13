@@ -1,6 +1,7 @@
 package igrad.ui;
 
 import java.util.logging.Logger;
+
 import igrad.commons.core.LogsCenter;
 import igrad.model.module.Module;
 import javafx.collections.ObservableList;
@@ -21,6 +22,7 @@ public class ModuleListPanel extends UiPart<Region> {
 
     public ModuleListPanel(ObservableList<Module> moduleList) {
         super(FXML);
+
         moduleListView.setItems(moduleList);
         moduleListView.setCellFactory(listView -> new ModuleListViewCell());
     }

@@ -7,10 +7,12 @@ import static igrad.logic.parser.CliSyntax.PREFIX_SEMESTER;
 import static igrad.logic.parser.CliSyntax.PREFIX_TAG;
 import static igrad.logic.parser.CliSyntax.PREFIX_TITLE;
 import static java.util.Objects.requireNonNull;
+
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
+
 import igrad.commons.core.Messages;
 import igrad.commons.core.index.Index;
 import igrad.logic.commands.ModuleEditCommand;

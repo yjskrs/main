@@ -1,6 +1,7 @@
 package igrad.ui;
 
 import java.io.IOException;
+
 import igrad.logic.Logic;
 import igrad.logic.commands.CommandResult;
 import igrad.logic.commands.exceptions.CommandException;
