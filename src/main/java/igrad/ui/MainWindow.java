@@ -110,6 +110,8 @@ public class MainWindow extends UiPart<Stage> {
         moduleListPanel = new ModuleListPanel(logic.getFilteredModuleList());
         moduleListPanelPlaceholder.getChildren().add(moduleListPanel.getRoot());
 
+        moduleListPanelPlaceholder.setPrefHeight(2000.0);
+
         resultDisplay = new ResultDisplay(model.getAvatar());
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
