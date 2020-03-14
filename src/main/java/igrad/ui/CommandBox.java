@@ -10,6 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
 import javafx.fxml.FXML;
 
+import javax.swing.text.html.ImageView;
 import java.io.IOException;
 
 /**
@@ -22,8 +23,13 @@ public class CommandBox extends UiPart<Region> {
 
     private final CommandExecutor commandExecutor;
 
+    private static String animalGuideIcon;
+
     @FXML
     private TextField commandTextField;
+
+    @FXML
+    private ImageView animalGuide;
 
     public CommandBox(CommandExecutor commandExecutor) {
         super(FXML);

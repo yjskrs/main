@@ -33,7 +33,7 @@
       <FlowPane fx:id="tags" style="-fx-background-color: #3d3d3d;" />
          <HBox prefHeight="100.0" prefWidth="400.0" VBox.vgrow="ALWAYS">
             <children>
-               <ImageView fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" scaleX="0.8" scaleY="0.8" scaleZ="0.8">
+               <ImageView fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" scaleX="0.6" scaleY="0.6" scaleZ="0.6">
                   <image>
                      <Image url="@../images/info_icon.png" />
                   </image>
