@@ -10,7 +10,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 
 /**
- * An UI component that displays information of a {@code Module}.
+ * An UI component that displays information about {@code Module}.
  */
 public class ModuleCard extends UiPart<Region> {
 

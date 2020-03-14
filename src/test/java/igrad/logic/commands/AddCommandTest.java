@@ -19,6 +19,7 @@ import igrad.model.CourseBook;
 import igrad.model.Model;
 import igrad.model.ReadOnlyCourseBook;
 import igrad.model.ReadOnlyUserPrefs;
+import igrad.model.avatar.Avatar;
 import igrad.model.course.CourseInfo;
 import igrad.model.module.Module;
 import igrad.testutil.ModuleBuilder;
@@ -111,18 +112,18 @@ public class AddCommandTest {
         }
 
         @Override
-        public void addModule(Module module) {
+        public void resetCourseBook(ReadOnlyCourseBook courseBook) {
             throw new AssertionError("This method should not be called.");
         }
 
-        /**
-         * Resets course book data to a blank state with no data (e.g, modules, requirements, etc).
-         *
-         * @param courseBook
-         */
         @Override
-        public void resetCourseBook(ReadOnlyCourseBook courseBook) {
+        public Avatar getAvatar() {
+            throw new AssertionError("This method should not be called.");
+        }
 
+        @Override
+        public void setAvatar(Avatar avatar) {
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
@@ -150,14 +151,14 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        /**
-         * Modifies the name of the course.
-         *
-         * @param courseInfo
-         */
         @Override
         public void modifyCourseInfo(CourseInfo courseInfo) {
+            throw new AssertionError("This method should not be called.");
+        }
 
+        @Override
+        public void addModule(Module module) {
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
@@ -217,5 +218,4 @@ public class AddCommandTest {
             return new CourseBook();
         }
     }
-
 }

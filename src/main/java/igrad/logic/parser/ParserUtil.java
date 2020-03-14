@@ -77,11 +77,11 @@ public class ParserUtil {
      */
     public static ModuleCode parseModuleCode(String moduleCode) throws ParseException {
         requireNonNull(moduleCode);
-        String trimmedPhone = moduleCode.trim();
-        if (!ModuleCode.isValidModuleCode(trimmedPhone)) {
+        String trimmedModuleCode = moduleCode.trim();
+        if (!ModuleCode.isValidModuleCode(trimmedModuleCode)) {
             throw new ParseException(ModuleCode.MESSAGE_CONSTRAINTS);
         }
-        return new ModuleCode(trimmedPhone);
+        return new ModuleCode(trimmedModuleCode);
     }
 
     /**

@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.util.Objects;
 
 import igrad.commons.core.GuiSettings;
+import igrad.model.avatar.Avatar;
 
 /**
  * Represents User's preferences.
@@ -55,6 +56,11 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void setCourseBookFilePath(Path courseBookFilePath) {
         requireNonNull(courseBookFilePath);
         this.courseBookFilePath = courseBookFilePath;
+    }
+
+    @Override
+    public Avatar getAvatar() {
+        return null;
     }
 
     @Override

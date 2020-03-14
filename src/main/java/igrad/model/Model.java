@@ -4,6 +4,7 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import igrad.commons.core.GuiSettings;
+import igrad.model.avatar.Avatar;
 import igrad.model.course.CourseInfo;
 import igrad.model.module.Module;
 import javafx.collections.ObservableList;
@@ -51,6 +52,16 @@ public interface Model {
      * Resets course book data to a blank state with no data (e.g, modules, requirements, etc).
      */
     void resetCourseBook(ReadOnlyCourseBook courseBook);
+
+    /**
+     * Returns the Avatar
+     */
+    Avatar getAvatar();
+
+    /**
+     * Sets the Avatar
+     */
+    void setAvatar(Avatar avatar);
 
     /**
      * Returns the CourseBook
