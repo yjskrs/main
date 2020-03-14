@@ -14,9 +14,9 @@ import igrad.model.module.Module;
 /**
  * Adds a module to the course book.
  */
-public class AddCommand extends Command {
+public class ModuleAddAutoCommand extends ModuleCommand {
 
-    public static final String COMMAND_WORD = "add";
+    public static final String COMMAND_WORD = MODULE_COMMAND_WORD + "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a module. "
         + "Parameters: "
@@ -32,15 +32,15 @@ public class AddCommand extends Command {
         + PREFIX_MEMO + "Hard module. Good teachers. "
         + PREFIX_SEMESTER + "Y2S2 ";
 
-    public static final String MESSAGE_SUCCESS = "New module added: %1$s";
-    public static final String MESSAGE_DUPLICATE_MODULE = "This module already exists in the course book";
+    public static final String MESSAGE_SUCCESS = "New module added based on NUS Mods data: %1$s";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
 
     private final Module toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Module}
+     * Creates an ModuleAddCommand to add the specified {@code Person}
      */
-    public AddCommand(Module module) {
+    public ModuleAddAutoCommand(Module module) {
         requireNonNull(module);
         toAdd = module;
     }
@@ -50,7 +50,7 @@ public class AddCommand extends Command {
         requireNonNull(model);
 
         if (model.hasModule(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_MODULE);
+            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
         model.addModule(toAdd);
@@ -60,7 +60,7 @@ public class AddCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof AddCommand // instanceof handles nulls
-            && toAdd.equals(((AddCommand) other).toAdd));
+            || (other instanceof ModuleAddAutoCommand // instanceof handles nulls
+            && toAdd.equals(((ModuleAddAutoCommand) other).toAdd));
     }
 }

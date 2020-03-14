@@ -6,7 +6,7 @@ import igrad.model.module.Module;
 /**
  * A utility class to help with building CourseBook objects.
  * Example usage: <br>
- *     {@code CourseBook ab = new CourseBookBuilder().withPerson("John", "Doe").build();}
+ * {@code CourseBook ab = new CourseBookBuilder().withPerson("John", "Doe").build();}
  */
 public class CourseBookBuilder {
 

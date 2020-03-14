@@ -13,7 +13,7 @@ import igrad.testutil.ModuleBuilder;
 import igrad.testutil.TypicalModules;
 
 /**
- * Contains integration tests (interaction with the Model) for {@code AddCommand}.
+ * Contains integration tests (interaction with the Model) for {@code ModuleAddCommand}.
  */
 public class AddCommandIntegrationTest {
 
@@ -31,14 +31,15 @@ public class AddCommandIntegrationTest {
         Model expectedModel = new ModelManager(model.getCourseBook(), new UserPrefs());
         expectedModel.addModule(validModule);
 
-        assertCommandSuccess(new AddCommand(validModule), model,
-                String.format(AddCommand.MESSAGE_SUCCESS, validModule), expectedModel);
+        assertCommandSuccess(new ModuleAddCommand(validModule), model,
+            String.format(ModuleAddCommand.MESSAGE_SUCCESS, validModule), expectedModel);
     }
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
         Module moduleInList = model.getCourseBook().getModuleList().get(0);
-        CommandTestUtil.assertCommandFailure(new AddCommand(moduleInList), model, AddCommand.MESSAGE_DUPLICATE_MODULE);
+        CommandTestUtil.assertCommandFailure(new ModuleAddCommand(moduleInList), model,
+            ModuleAddCommand.MESSAGE_DUPLICATE_MODULE);
     }
 
 }

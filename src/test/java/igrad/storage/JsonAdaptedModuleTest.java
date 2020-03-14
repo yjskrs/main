@@ -4,15 +4,10 @@ import static igrad.logic.parser.CliSyntax.PREFIX_TAG;
 import static igrad.testutil.TypicalModules.PROGRAMMING_METHODOLOGY;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import igrad.model.module.Title;
 import org.junit.jupiter.api.Test;
-
-import igrad.commons.exceptions.IllegalValueException;
-import igrad.testutil.Assert;
 
 public class JsonAdaptedModuleTest {
     public static final String INVALID_TITLE = "Programming Methodology!";
@@ -27,8 +22,9 @@ public class JsonAdaptedModuleTest {
     public static final String VALID_MEMO = PROGRAMMING_METHODOLOGY.getMemo().toString();
     //public static final String VALID_SEMESTER = PROGRAMMING_METHODOLOGY.getSemester().toString();
     private static final List<JsonAdaptedTag> VALID_TAGS = PROGRAMMING_METHODOLOGY.getTags().stream()
-            .map(JsonAdaptedTag::new)
-            .collect(Collectors.toList());
+        .map(JsonAdaptedTag::new)
+        .collect(Collectors.toList());
+
     // TODO: add more tests later
     @Test
     public void toModelType_validModuleDetails_returnsModule() throws Exception {

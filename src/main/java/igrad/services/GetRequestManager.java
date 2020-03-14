@@ -16,6 +16,7 @@ public class GetRequestManager extends RequestManager {
 
     /**
      * Makes a request to the web-page specified by {@code url}
+     *
      * @return the response converted to a string
      */
     public String makeRequest() throws IOException {

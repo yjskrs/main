@@ -10,8 +10,13 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import igrad.commons.exceptions.IllegalValueException;
-import igrad.model.module.*;
+import igrad.model.module.Credits;
+import igrad.model.module.Description;
+import igrad.model.module.Memo;
 import igrad.model.module.Module;
+import igrad.model.module.ModuleCode;
+import igrad.model.module.Semester;
+import igrad.model.module.Title;
 import igrad.model.tag.Tag;
 
 /**
@@ -27,24 +32,24 @@ class JsonAdaptedModule {
     private final String memo;
     private final String semester;
     private final String description;
-    private final List<JsonAdaptedTag> tagged = new ArrayList<>();
+    private final List<JsonAdaptedTag> tags = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedModule} with the given module details.
      */
     @JsonCreator
     public JsonAdaptedModule(@JsonProperty("title") String name, @JsonProperty("moduleCode") String moduleCode,
-            @JsonProperty("credits") String credits, @JsonProperty("memo") String memo,
-            @JsonProperty("semester") String semester, @JsonProperty("description") String description,
-            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+                             @JsonProperty("credits") String credits, @JsonProperty("memo") String memo,
+                             @JsonProperty("semester") String semester, @JsonProperty("description") String description,
+                             @JsonProperty("tagged") List<JsonAdaptedTag> tags) {
         this.title = name;
         this.moduleCode = moduleCode;
         this.credits = credits;
         this.memo = memo;
         this.semester = semester;
         this.description = description;
-        if (tagged != null) {
-            this.tagged.addAll(tagged);
+        if (tags != null) {
+            this.tags.addAll(tags);
         }
     }
 
@@ -55,12 +60,12 @@ class JsonAdaptedModule {
         title = source.getTitle().value;
         moduleCode = source.getModuleCode().value;
         credits = source.getCredits().value;
-        memo = source.getMemo().value;
-        semester = source.getSemester().value;
+        memo = source.getMemo() != null ? source.getMemo().value : null;
+        semester = source.getSemester() != null ? source.getSemester().value : null;
         description = source.getDescription().value;
-        tagged.addAll(source.getTags().stream()
-                .map(JsonAdaptedTag::new)
-                .collect(Collectors.toList()));
+        tags.addAll(source.getTags().stream()
+            .map(JsonAdaptedTag::new)
+            .collect(Collectors.toList()));
     }
 
     /**
@@ -70,7 +75,7 @@ class JsonAdaptedModule {
      */
     public Module toModelType() throws IllegalValueException {
         final List<Tag> moduleTags = new ArrayList<>();
-        for (JsonAdaptedTag tag : tagged) {
+        for (JsonAdaptedTag tag : tags) {
             moduleTags.add(tag.toModelType());
         }
 
@@ -79,17 +84,18 @@ class JsonAdaptedModule {
         }
 
         if (!Title.isValidTitle(title)) {
-            throw new IllegalValueException( Title.MESSAGE_CONSTRAINTS);
+            throw new IllegalValueException(Title.MESSAGE_CONSTRAINTS);
         }
 
         final Title modelTitle = new Title(title);
 
         if (moduleCode == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, ModuleCode.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                ModuleCode.class.getSimpleName()));
         }
 
         if (!ModuleCode.isValidModuleCode(moduleCode)) {
-            throw new IllegalValueException( ModuleCode.MESSAGE_CONSTRAINTS);
+            throw new IllegalValueException(ModuleCode.MESSAGE_CONSTRAINTS);
         }
 
         final ModuleCode modelModuleCode = new ModuleCode(moduleCode);
@@ -99,32 +105,22 @@ class JsonAdaptedModule {
         }
 
         if (!Credits.isValidCredits(credits)) {
-            throw new IllegalValueException( Credits.MESSAGE_CONSTRAINTS);
+            throw new IllegalValueException(Credits.MESSAGE_CONSTRAINTS);
+        }
+
+        if (!Semester.isValidSemester(semester)) {
+            throw new IllegalValueException(Semester.MESSAGE_CONSTRAINTS);
         }
 
         final Credits modelCredits = new Credits(credits);
-
-        if (memo == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Memo.class.getSimpleName()));
-        }
-
-        final Memo modelMemo = new Memo(memo);
-
-        if (semester == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Memo.class.getSimpleName()));
-        }
-
-        if (!Semester.isValidSemester(credits)) {
-            throw new IllegalValueException( Credits.MESSAGE_CONSTRAINTS);
-        }
-
         final Semester modelSemester = new Semester(semester);
+        final Memo modelMemo = new Memo(memo);
         final Description modelDescription = new Description(description);
 
         final Set<Tag> modelTags = new HashSet<>(moduleTags);
 
         return new Module(modelTitle, modelModuleCode, modelCredits, modelMemo, modelSemester,
-                modelDescription, modelTags);
+            modelDescription, modelTags);
     }
 
 }

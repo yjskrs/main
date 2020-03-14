@@ -17,7 +17,7 @@ import javafx.collections.ObservableList;
  * modules uses Module#isSameModule(Module) for equality so as to ensure that the module being added or updated is
  * unique in terms of identity in the UniqueModuleList. However, the removal of a module uses Module#equals(Object) so
  * as to ensure that the module with exactly the same fields will be removed.
- *
+ * <p>
  * Supports a minimal set of list operations.
  *
  * @see Module#isSameModule(Module)
@@ -26,7 +26,7 @@ public class UniqueModuleList implements Iterable<Module> {
 
     private final ObservableList<Module> internalList = FXCollections.observableArrayList();
     private final ObservableList<Module> internalUnmodifiableList =
-            FXCollections.unmodifiableObservableList(internalList);
+        FXCollections.unmodifiableObservableList(internalList);
 
     /**
      * Returns true if the list contains an equivalent module as the given argument.
@@ -112,8 +112,8 @@ public class UniqueModuleList implements Iterable<Module> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof UniqueModuleList // instanceof handles nulls
-                        && internalList.equals(((UniqueModuleList) other).internalList));
+            || (other instanceof UniqueModuleList // instanceof handles nulls
+            && internalList.equals(((UniqueModuleList) other).internalList));
     }
 
     @Override

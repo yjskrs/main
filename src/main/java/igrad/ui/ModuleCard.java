@@ -10,7 +10,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 
 /**
- * An UI component that displays information of a {@code Module}.
+ * An UI component that displays information about {@code Module}.
  */
 public class ModuleCard extends UiPart<Region> {
 
@@ -62,6 +62,7 @@ public class ModuleCard extends UiPart<Region> {
         if (module.getDescription() != null) {
             description.setText("Description:\t\t" + module.getDescription().value);
         }
+
         module.getTags().stream()
             .sorted(Comparator.comparing(tag -> tag.tagName))
             .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
@@ -82,6 +83,6 @@ public class ModuleCard extends UiPart<Region> {
         // state check
         ModuleCard card = (ModuleCard) other;
         return id.getText().equals(card.id.getText())
-                && module.equals(card.module);
+            && module.equals(card.module);
     }
 }

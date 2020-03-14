@@ -3,10 +3,15 @@ package igrad.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
-import igrad.model.module.*;
+import igrad.model.module.Credits;
+import igrad.model.module.Description;
+import igrad.model.module.Memo;
 import igrad.model.module.Module;
-import igrad.model.util.SampleDataUtil;
+import igrad.model.module.ModuleCode;
+import igrad.model.module.Semester;
+import igrad.model.module.Title;
 import igrad.model.tag.Tag;
+import igrad.model.util.SampleDataUtil;
 
 /**
  * A utility class to help with building Module objects.
@@ -61,7 +66,7 @@ public class ModuleBuilder {
     /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Module} that we are building.
      */
-    public ModuleBuilder withTags(String ... tags) {
+    public ModuleBuilder withTags(String... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
         return this;
     }

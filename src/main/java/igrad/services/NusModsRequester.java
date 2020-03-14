@@ -1,14 +1,14 @@
 package igrad.services;
 
-import igrad.commons.core.LogsCenter;
-import igrad.logic.parser.CliSyntax;
-import igrad.services.exceptions.ServiceException;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Logger;
+
+import igrad.commons.core.LogsCenter;
+import igrad.logic.parser.CliSyntax;
+import igrad.services.exceptions.ServiceException;
 
 /**
  * The client of NUSMods which makes requests from NUSMods API
@@ -29,22 +29,22 @@ public class NusModsRequester {
     public static JsonParsedModule getModule(String moduleCode) throws IOException, ServiceException {
 
         String academicYear = getAcademicYear(false);
-        GetRequestManager grm = new GetRequestManager(getUrlPath(academicYear, moduleCode));
+        GetRequestManager getRequestManager = new GetRequestManager(getUrlPath(academicYear, moduleCode));
         String res;
-        JsonParsedModule jpm = null;
+        JsonParsedModule jsonParsedModule = null;
 
         try {
-            res = grm.makeRequest();
-            jpm = JsonParsedModule.initJsonParsedModule(res);
+            res = getRequestManager.makeRequest();
+            jsonParsedModule = JsonParsedModule.initJsonParsedModule(res);
         } catch (FileNotFoundException e1) {
             logger.warning(fileNotFoundMsg);
 
             academicYear = getAcademicYear(true);
-            GetRequestManager grm2 = new GetRequestManager(getUrlPath(academicYear, moduleCode));
+            GetRequestManager getRequestManager2 = new GetRequestManager(getUrlPath(academicYear, moduleCode));
 
             try {
-                res = grm2.makeRequest();
-                jpm = JsonParsedModule.initJsonParsedModule(res);
+                res = getRequestManager2.makeRequest();
+                jsonParsedModule = JsonParsedModule.initJsonParsedModule(res);
             } catch (FileNotFoundException e2) {
                 logger.warning(fileNotFoundMsg);
                 throw new ServiceException(fileNotFoundMsg, e2);
@@ -55,7 +55,7 @@ public class NusModsRequester {
             throw e;
         }
 
-        return jpm;
+        return jsonParsedModule;
 
     }
 

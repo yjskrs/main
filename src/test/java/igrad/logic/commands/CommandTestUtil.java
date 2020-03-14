@@ -1,14 +1,14 @@
 package igrad.logic.commands;
 
+import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
+import static igrad.logic.parser.CliSyntax.PREFIX_MEMO;
+import static igrad.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
+import static igrad.logic.parser.CliSyntax.PREFIX_SEMESTER;
+import static igrad.logic.parser.CliSyntax.PREFIX_TAG;
+import static igrad.logic.parser.CliSyntax.PREFIX_TITLE;
 import static igrad.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static igrad.logic.parser.CliSyntax.PREFIX_MEMO;
-import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
-import static igrad.logic.parser.CliSyntax.PREFIX_TAG;
-import static igrad.logic.parser.CliSyntax.PREFIX_TITLE;
-import static igrad.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
-import static igrad.logic.parser.CliSyntax.PREFIX_SEMESTER;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,6 +27,8 @@ import igrad.testutil.EditModuleDescriptorBuilder;
  */
 public class CommandTestUtil {
 
+    public static final String VALID_NAME_B_COMP_SCI = "Bachelor of Computing (Honours) in Computer Science";
+    public static final String VALID_NAME_B_ARTS_PHILO = "Bachelor of Arts (Honours) in Philosophy";
     public static final String VALID_TITLE_PROGRAMMING_METHODOLOGY = "Programming Methodology";
     public static final String VALID_TITLE_COMPUTER_ORGANISATION = "Computer Organisation";
     public static final String VALID_MODULE_CODE_PROGRAMMING_METHODOLOGY = "CS1101S";
@@ -41,34 +43,34 @@ public class CommandTestUtil {
     public static final String VALID_TAG_HARD = "hard";
 
     public static final String TITLE_DESC_PROGRAMMING_METHODOLOGY = " " + PREFIX_TITLE
-            + VALID_TITLE_PROGRAMMING_METHODOLOGY;
+        + VALID_TITLE_PROGRAMMING_METHODOLOGY;
 
     public static final String TITLE_DESC_COMPUTER_ORGANISATION = " " + PREFIX_TITLE
-            + VALID_TITLE_COMPUTER_ORGANISATION;
+        + VALID_TITLE_COMPUTER_ORGANISATION;
 
     public static final String MODULE_CODE_DESC_PROGRAMMING_METHODOLOGY = " " + PREFIX_MODULE_CODE
-            + VALID_MODULE_CODE_PROGRAMMING_METHODOLOGY;
+        + VALID_MODULE_CODE_PROGRAMMING_METHODOLOGY;
 
     public static final String MODULE_CODE_DESC_COMPUTER_ORGANISATION = " " + PREFIX_MODULE_CODE
-            + VALID_MODULE_CODE_COMPUTER_ORGANISATION;
+        + VALID_MODULE_CODE_COMPUTER_ORGANISATION;
 
     public static final String CREDITS_DESC_PROGRAMMING_METHODOLOGY = " " + PREFIX_CREDITS
-            + VALID_CREDITS_PROGRAMMING_METHODOLOGY;
+        + VALID_CREDITS_PROGRAMMING_METHODOLOGY;
 
     public static final String CREDITS_DESC_COMPUTER_ORGANISATION = " " + PREFIX_CREDITS
-            + VALID_CREDITS_COMPUTER_ORGANISATION;
+        + VALID_CREDITS_COMPUTER_ORGANISATION;
 
     public static final String MEMO_DESC_PROGRAMMING_METHODOLOGY = " " + PREFIX_MEMO
-            + VALID_MEMO_PROGRAMMING_METHODOLOGY;
+        + VALID_MEMO_PROGRAMMING_METHODOLOGY;
 
     public static final String MEMO_DESC_COMPUTER_ORGANISATION = " " + PREFIX_MEMO
-            + VALID_MEMO_COMPUTER_ORGANISATION;
+        + VALID_MEMO_COMPUTER_ORGANISATION;
 
     public static final String SEMESTER_DESC_PROGRAMMING_METHODOLOGY = " " + PREFIX_SEMESTER
-            + VALID_SEMESTER_PROGRAMMING_METHODOLOGY;
+        + VALID_SEMESTER_PROGRAMMING_METHODOLOGY;
 
     public static final String SEMESTER_DESC_COMPUTER_ORGANISATION = " " + PREFIX_SEMESTER
-            + VALID_SEMESTER_COMPUTER_ORGANISATION;
+        + VALID_SEMESTER_COMPUTER_ORGANISATION;
 
     public static final String TAG_DESC_EASY = " " + PREFIX_TAG + VALID_TAG_EASY;
     public static final String TAG_DESC_HARD = " " + PREFIX_TAG + VALID_TAG_HARD;
@@ -91,25 +93,25 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditModuleDescriptor DESC_PROGRAMMING_METHODOLOGY;
-    public static final EditCommand.EditModuleDescriptor DESC_COMPUTER_ORGANISATION;
+    public static final ModuleEditCommand.EditModuleDescriptor DESC_PROGRAMMING_METHODOLOGY;
+    public static final ModuleEditCommand.EditModuleDescriptor DESC_COMPUTER_ORGANISATION;
 
     static {
         DESC_PROGRAMMING_METHODOLOGY = new EditModuleDescriptorBuilder()
-                .withTitle(VALID_TITLE_PROGRAMMING_METHODOLOGY)
-                .withModuleCode(VALID_MODULE_CODE_PROGRAMMING_METHODOLOGY)
-                .withCredits(VALID_CREDITS_PROGRAMMING_METHODOLOGY)
-                .withMemo(VALID_MEMO_PROGRAMMING_METHODOLOGY)
-                .withSemester(VALID_SEMESTER_PROGRAMMING_METHODOLOGY)
-                .withTags(VALID_TAG_EASY).build();
+            .withTitle(VALID_TITLE_PROGRAMMING_METHODOLOGY)
+            .withModuleCode(VALID_MODULE_CODE_PROGRAMMING_METHODOLOGY)
+            .withCredits(VALID_CREDITS_PROGRAMMING_METHODOLOGY)
+            .withMemo(VALID_MEMO_PROGRAMMING_METHODOLOGY)
+            .withSemester(VALID_SEMESTER_PROGRAMMING_METHODOLOGY)
+            .withTags(VALID_TAG_EASY).build();
 
         DESC_COMPUTER_ORGANISATION = new EditModuleDescriptorBuilder()
-                .withTitle(VALID_TITLE_COMPUTER_ORGANISATION)
-                .withModuleCode(VALID_MODULE_CODE_COMPUTER_ORGANISATION)
-                .withCredits(VALID_CREDITS_COMPUTER_ORGANISATION)
-                .withMemo(VALID_MEMO_COMPUTER_ORGANISATION)
-                .withSemester(VALID_SEMESTER_COMPUTER_ORGANISATION)
-                .withTags(VALID_TAG_HARD).build();
+            .withTitle(VALID_TITLE_COMPUTER_ORGANISATION)
+            .withModuleCode(VALID_MODULE_CODE_COMPUTER_ORGANISATION)
+            .withCredits(VALID_CREDITS_COMPUTER_ORGANISATION)
+            .withMemo(VALID_MEMO_COMPUTER_ORGANISATION)
+            .withSemester(VALID_SEMESTER_COMPUTER_ORGANISATION)
+            .withTags(VALID_TAG_HARD).build();
     }
 
     /**
@@ -118,7 +120,7 @@ public class CommandTestUtil {
      * - the {@code actualModel} matches {@code expectedModel}
      */
     public static void assertCommandSuccess(Command command, Model actualModel, CommandResult expectedCommandResult,
-            Model expectedModel) {
+                                            Model expectedModel) {
         try {
             CommandResult result = command.execute(actualModel);
             assertEquals(expectedCommandResult, result);
@@ -133,7 +135,7 @@ public class CommandTestUtil {
      * that takes a string {@code expectedMessage}.
      */
     public static void assertCommandSuccess(Command command, Model actualModel, String expectedMessage,
-            Model expectedModel) {
+                                            Model expectedModel) {
         CommandResult expectedCommandResult = new CommandResult(expectedMessage);
         assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
     }
@@ -154,6 +156,7 @@ public class CommandTestUtil {
         assertEquals(expectedCourseBook, actualModel.getCourseBook());
         assertEquals(expectedFilteredList, actualModel.getFilteredModuleList());
     }
+
     /**
      * Updates {@code model}'s filtered list to show only the module at the given {@code targetIndex} in the
      * {@code model}'s course book.

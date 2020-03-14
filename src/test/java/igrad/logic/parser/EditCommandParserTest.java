@@ -2,25 +2,17 @@ package igrad.logic.parser;
 
 import static igrad.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static igrad.logic.parser.CliSyntax.PREFIX_TAG;
-import static igrad.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static igrad.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import org.junit.jupiter.api.Test;
 
-import igrad.commons.core.index.Index;
-import igrad.logic.commands.CommandTestUtil;
-import igrad.logic.commands.EditCommand;
-import igrad.logic.commands.EditCommand.EditModuleDescriptor;
-import igrad.model.tag.Tag;
-import igrad.testutil.EditModuleDescriptorBuilder;
-import igrad.testutil.TypicalIndexes;
+import igrad.logic.commands.ModuleEditCommand;
 
 public class EditCommandParserTest {
 
     private static final String TAG_EMPTY = " " + PREFIX_TAG;
 
     private static final String MESSAGE_INVALID_FORMAT =
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);
+        String.format(MESSAGE_INVALID_COMMAND_FORMAT, ModuleEditCommand.MESSAGE_USAGE);
 
     private EditCommandParser parser = new EditCommandParser();
 
@@ -30,7 +22,7 @@ public class EditCommandParserTest {
         //assertParseFailure(parser, CommandTestUtil.VALID_NAME_AMY, MESSAGE_INVALID_FORMAT);
 
         // no field specified
-        //assertParseFailure(parser, "1", EditCommand.MESSAGE_NOT_EDITED);
+        //assertParseFailure(parser, "1", ModuleEditCommand.MESSAGE_NOT_EDITED);
 
         // no index and no field specified
         //assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
@@ -94,13 +86,14 @@ public class EditCommandParserTest {
     @Test
     public void parse_allFieldsSpecified_success() {
         //Index targetIndex = TypicalIndexes.INDEX_SECOND_PERSON;
-        //String userInput = targetIndex.getOneBased() + CommandTestUtil.PHONE_DESC_BOB + CommandTestUtil.TAG_DESC_HUSBAND
+        //String userInput = targetIndex.getOneBased() + CommandTestUtil.PHONE_DESC_BOB +
+        // CommandTestUtil.TAG_DESC_HUSBAND
         //        + CommandTestUtil.EMAIL_DESC_AMY + CommandTestUtil.NAME_DESC_AMY + CommandTestUtil.TAG_DESC_FRIEND;
 
         //EditModuleDescriptor descriptor = new EditModuleDescriptorBuilder().withName(CommandTestUtil.VALID_NAME_AMY)
         //        .withPhone(CommandTestUtil.VALID_PHONE_BOB).withEmail(CommandTestUtil.VALID_EMAIL_AMY)
         //        .withTags(CommandTestUtil.VALID_TAG_HUSBAND, CommandTestUtil.VALID_TAG_FRIEND).build();
-        //EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        //ModuleEditCommand expectedCommand = new ModuleEditCommand(targetIndex, descriptor);
 
         //assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -108,11 +101,12 @@ public class EditCommandParserTest {
     @Test
     public void parse_someFieldsSpecified_success() {
         //Index targetIndex = TypicalIndexes.INDEX_FIRST_PERSON;
-        //String userInput = targetIndex.getOneBased() + CommandTestUtil.PHONE_DESC_BOB + CommandTestUtil.EMAIL_DESC_AMY;
+        //String userInput = targetIndex.getOneBased() + CommandTestUtil.PHONE_DESC_BOB +
+        // CommandTestUtil.EMAIL_DESC_AMY;
 
         //EditModuleDescriptor descriptor = new EditModuleDescriptorBuilder().withPhone(CommandTestUtil.VALID_PHONE_BOB)
         //        .withEmail(CommandTestUtil.VALID_EMAIL_AMY).build();
-        //EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        //ModuleEditCommand expectedCommand = new ModuleEditCommand(targetIndex, descriptor);
 
         //assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -122,28 +116,28 @@ public class EditCommandParserTest {
         // name
         //Index targetIndex = TypicalIndexes.INDEX_THIRD_PERSON;
         //String userInput = targetIndex.getOneBased() + CommandTestUtil.NAME_DESC_AMY;
-        //EditCommand.EditModuleDescriptor descriptor = new EditModuleDescriptorBuilder()
+        //ModuleEditCommand.EditModuleDescriptor descriptor = new EditModuleDescriptorBuilder()
         //        .withName(CommandTestUtil.VALID_NAME_AMY)
         //        .build();
-        //EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        //ModuleEditCommand expectedCommand = new ModuleEditCommand(targetIndex, descriptor);
         //assertParseSuccess(parser, userInput, expectedCommand);
 
         // phone
         //userInput = targetIndex.getOneBased() + CommandTestUtil.PHONE_DESC_AMY;
         //descriptor = new EditModuleDescriptorBuilder().withPhone(CommandTestUtil.VALID_PHONE_AMY).build();
-        //expectedCommand = new EditCommand(targetIndex, descriptor);
+        //expectedCommand = new ModuleEditCommand(targetIndex, descriptor);
         //assertParseSuccess(parser, userInput, expectedCommand);
 
         // email
         //userInput = targetIndex.getOneBased() + CommandTestUtil.EMAIL_DESC_AMY;
         //descriptor = new EditModuleDescriptorBuilder().withEmail(CommandTestUtil.VALID_EMAIL_AMY).build();
-        //expectedCommand = new EditCommand(targetIndex, descriptor);
+        //expectedCommand = new ModuleEditCommand(targetIndex, descriptor);
         //assertParseSuccess(parser, userInput, expectedCommand);
 
         // tags
         //userInput = targetIndex.getOneBased() + CommandTestUtil.TAG_DESC_FRIEND;
         //descriptor = new EditModuleDescriptorBuilder().withTags(CommandTestUtil.VALID_TAG_FRIEND).build();
-        //expectedCommand = new EditCommand(targetIndex, descriptor);
+        //expectedCommand = new ModuleEditCommand(targetIndex, descriptor);
         //assertParseSuccess(parser, userInput, expectedCommand);
     }
 
@@ -160,7 +154,7 @@ public class EditCommandParserTest {
         //        .withEmail(CommandTestUtil.VALID_EMAIL_BOB)
         //        .withTags(CommandTestUtil.VALID_TAG_FRIEND, CommandTestUtil.VALID_TAG_HUSBAND)
         //        .build();
-        //EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        //ModuleEditCommand expectedCommand = new ModuleEditCommand(targetIndex, descriptor);
 
         //assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -174,7 +168,7 @@ public class EditCommandParserTest {
         //EditModuleDescriptor descriptor = new EditModuleDescriptorBuilder()
         //        .withPhone(CommandTestUtil.VALID_PHONE_BOB)
         //        .build();
-        //EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        //ModuleEditCommand expectedCommand = new ModuleEditCommand(targetIndex, descriptor);
         //assertParseSuccess(parser, userInput, expectedCommand);
 
         // other valid values specified
@@ -184,7 +178,7 @@ public class EditCommandParserTest {
         //        .withPhone(CommandTestUtil.VALID_PHONE_BOB)
         //        .withEmail(CommandTestUtil.VALID_EMAIL_BOB)
         //        .build();
-        //expectedCommand = new EditCommand(targetIndex, descriptor);
+        //expectedCommand = new ModuleEditCommand(targetIndex, descriptor);
         //assertParseSuccess(parser, userInput, expectedCommand);
     }
 
@@ -193,8 +187,8 @@ public class EditCommandParserTest {
         //Index targetIndex = TypicalIndexes.INDEX_THIRD_PERSON;
         //String userInput = targetIndex.getOneBased() + TAG_EMPTY;
 
-        //EditCommand.EditModuleDescriptor descriptor = new EditModuleDescriptorBuilder().withTags().build();
-        //EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        //ModuleEditCommand.EditModuleDescriptor descriptor = new EditModuleDescriptorBuilder().withTags().build();
+        //ModuleEditCommand expectedCommand = new ModuleEditCommand(targetIndex, descriptor);
 
         //assertParseSuccess(parser, userInput, expectedCommand);
     }

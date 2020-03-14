@@ -4,6 +4,8 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import igrad.commons.core.GuiSettings;
+import igrad.model.avatar.Avatar;
+import igrad.model.course.CourseInfo;
 import igrad.model.module.Module;
 import javafx.collections.ObservableList;
 
@@ -11,18 +13,20 @@ import javafx.collections.ObservableList;
  * The API of the Model component.
  */
 public interface Model {
-    /** {@code Predicate} that always evaluate to true */
-    Predicate<Module> PREDICATE_SHOW_ALL_MODULES = unused -> true;
-
     /**
-     * Replaces user prefs data with the data in {@code userPrefs}.
+     * {@code Predicate} that always evaluate to true
      */
-    void setUserPrefs(ReadOnlyUserPrefs userPrefs);
+    Predicate<Module> PREDICATE_SHOW_ALL_MODULES = unused -> true;
 
     /**
      * Returns the user prefs.
      */
     ReadOnlyUserPrefs getUserPrefs();
+
+    /**
+     * Replaces user prefs data with the data in {@code userPrefs}.
+     */
+    void setUserPrefs(ReadOnlyUserPrefs userPrefs);
 
     /**
      * Returns the user prefs' GUI settings.
@@ -45,12 +49,29 @@ public interface Model {
     void setCourseBookFilePath(Path courseBookFilePath);
 
     /**
+     * Resets course book data to a blank state with no data (e.g, modules, requirements, etc).
+     */
+    void resetCourseBook(ReadOnlyCourseBook courseBook);
+
+    /**
+     * Returns the Avatar
+     */
+    Avatar getAvatar();
+
+    /**
+     * Sets the Avatar
+     */
+    void setAvatar(Avatar avatar);
+
+    /**
+     * Returns the CourseBook
+     */
+    ReadOnlyCourseBook getCourseBook();
+
+    /**
      * Replaces course book data with the data in {@code courseBook}.
      */
     void setCourseBook(ReadOnlyCourseBook courseBook);
-
-    /** Returns the CourseBook */
-    ReadOnlyCourseBook getCourseBook();
 
     /**
      * Returns true if a module with the same identity as {@code module} exists in the course book.
@@ -62,6 +83,16 @@ public interface Model {
      * The module must exist in the course book.
      */
     void deleteModule(Module target);
+
+    /**
+     * Adds the given courseInfo to the course book.
+     */
+    void addCourseInfo(CourseInfo courseInfo);
+
+    /**
+     * Modifies the name of the course.
+     */
+    void modifyCourseInfo(CourseInfo courseInfo);
 
     /**
      * Adds the given module.
@@ -76,11 +107,14 @@ public interface Model {
      */
     void setModule(Module target, Module editedModule);
 
-    /** Returns an unmodifiable view of the filtered module list */
+    /**
+     * Returns an unmodifiable view of the filtered module list
+     */
     ObservableList<Module> getFilteredModuleList();
 
     /**
      * Updates the filter of the filtered module list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredModuleList(Predicate<Module> predicate);

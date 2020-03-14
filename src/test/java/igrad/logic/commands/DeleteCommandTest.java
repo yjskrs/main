@@ -20,7 +20,7 @@ import igrad.model.module.Module;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
- * {@code DeleteCommand}.
+ * {@code ModuleDeleteCommand}.
  */
 public class DeleteCommandTest {
 
@@ -29,9 +29,9 @@ public class DeleteCommandTest {
     @Test
     public void execute_validIndexUnfilteredList_success() {
         Module moduleToDelete = model.getFilteredModuleList().get(INDEX_FIRST_MODULE.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_MODULE);
+        ModuleDeleteCommand deleteCommand = new ModuleDeleteCommand(INDEX_FIRST_MODULE);
 
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_MODULE_SUCCESS, moduleToDelete);
+        String expectedMessage = String.format(ModuleDeleteCommand.MESSAGE_DELETE_MODULE_SUCCESS, moduleToDelete);
 
         ModelManager expectedModel = new ModelManager(model.getCourseBook(), new UserPrefs());
         expectedModel.deleteModule(moduleToDelete);
@@ -42,7 +42,7 @@ public class DeleteCommandTest {
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredModuleList().size() + 1);
-        DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
+        ModuleDeleteCommand deleteCommand = new ModuleDeleteCommand(outOfBoundIndex);
 
         assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_MODULE_DISPLAYED_INDEX);
     }
@@ -52,9 +52,9 @@ public class DeleteCommandTest {
         showModuleAtIndex(model, INDEX_FIRST_MODULE);
 
         Module moduleToDelete = model.getFilteredModuleList().get(INDEX_FIRST_MODULE.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_MODULE);
+        ModuleDeleteCommand deleteCommand = new ModuleDeleteCommand(INDEX_FIRST_MODULE);
 
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_MODULE_SUCCESS, moduleToDelete);
+        String expectedMessage = String.format(ModuleDeleteCommand.MESSAGE_DELETE_MODULE_SUCCESS, moduleToDelete);
 
         Model expectedModel = new ModelManager(model.getCourseBook(), new UserPrefs());
         expectedModel.deleteModule(moduleToDelete);
@@ -71,21 +71,21 @@ public class DeleteCommandTest {
         // ensures that outOfBoundIndex is still in bounds of course book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getCourseBook().getModuleList().size());
 
-        DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
+        ModuleDeleteCommand deleteCommand = new ModuleDeleteCommand(outOfBoundIndex);
 
         assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_MODULE_DISPLAYED_INDEX);
     }
 
     @Test
     public void equals() {
-        DeleteCommand deleteFirstCommand = new DeleteCommand(INDEX_FIRST_MODULE);
-        DeleteCommand deleteSecondCommand = new DeleteCommand(INDEX_SECOND_MODULE);
+        ModuleDeleteCommand deleteFirstCommand = new ModuleDeleteCommand(INDEX_FIRST_MODULE);
+        ModuleDeleteCommand deleteSecondCommand = new ModuleDeleteCommand(INDEX_SECOND_MODULE);
 
         // same object -> returns true
         assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
 
         // same values -> returns true
-        DeleteCommand deleteFirstCommandCopy = new DeleteCommand(INDEX_FIRST_MODULE);
+        ModuleDeleteCommand deleteFirstCommandCopy = new ModuleDeleteCommand(INDEX_FIRST_MODULE);
         assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
 
         // different types -> returns false
