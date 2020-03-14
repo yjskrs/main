@@ -6,7 +6,7 @@ import igrad.commons.core.LogsCenter;
 import javafx.scene.image.Image;
 
 /**
- * An UI component that displays information of {@code Avatar}.
+ * An UI component that displays the image of the {@code Avatar}.
  */
 public class AvatarImage extends Image {
 
@@ -30,10 +30,16 @@ public class AvatarImage extends Image {
         this.colIndex = colIndex;
     }
 
+    /**
+     * Returns the row index of an image in a grid
+     */
     public int getRowIndex() {
         return rowIndex;
     }
 
+    /**
+     * Returns the column index of an image in a grid
+     */
     public int getColIndex() {
         return colIndex;
     }

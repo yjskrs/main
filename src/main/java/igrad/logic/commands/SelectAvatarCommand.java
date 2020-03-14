@@ -2,9 +2,9 @@ package igrad.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
 import igrad.model.avatar.Avatar;
+import igrad.storage.AvatarStorage;
 
 /**
  * Adds a module to the course book.
@@ -28,10 +28,13 @@ public class SelectAvatarCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model) {
         requireNonNull(model);
 
         model.setAvatar(toAdd);
+
+        AvatarStorage.writeAvatar(toAdd);
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

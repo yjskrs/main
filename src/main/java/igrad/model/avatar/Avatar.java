@@ -3,8 +3,11 @@ package igrad.model.avatar;
 import static igrad.commons.util.AppUtil.checkArgument;
 import static java.util.Objects.requireNonNull;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+
+import igrad.storage.AvatarStorage;
 
 /**
  * Represents an Avatar (the user selects to represent him/herself) in the course book.
@@ -23,7 +26,7 @@ public class Avatar {
         "sample"
     };
 
-    private boolean isPlaceholder;
+    private boolean isSample;
     private String name;
 
     public Avatar(String name) {
@@ -31,12 +34,7 @@ public class Avatar {
         checkArgument(isValidName(name), MESSAGE_CONSTRAINTS);
 
         this.name = name;
-        this.isPlaceholder = false;
-    }
-
-    // TODO: check if naming convention is valid; or need to name as getIsPlaceholder() instead
-    public boolean isPlaceholder() {
-        return isPlaceholder;
+        this.isSample = false;
     }
 
     /**
@@ -52,11 +50,20 @@ public class Avatar {
         return false;
     }
 
-    public static Avatar getPlaceholderAvatar() {
-        Avatar placeholderAvatar = new Avatar("sample");
-        placeholderAvatar.isPlaceholder = true;
+    public static Avatar getAvatar() {
+        try {
+            return AvatarStorage.readAvatar();
+        } catch (FileNotFoundException e) {
+            return getSampleAvatar();
+        }
 
-        return placeholderAvatar;
+    }
+
+    private static Avatar getSampleAvatar() {
+        Avatar sampleAvatar = new Avatar("sample");
+        sampleAvatar.isSample = true;
+
+        return sampleAvatar;
     }
 
     public static List<Avatar> getAvatarList() {
@@ -67,6 +74,10 @@ public class Avatar {
         }
 
         return avatarList;
+    }
+
+    public boolean getIsSample() {
+        return isSample;
     }
 
     public String getName() {
