@@ -53,7 +53,7 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane resultDisplayPlaceholder;
 
     @FXML
-    private StackPane statusBar;
+    private StackPane statusBarPlaceholder;
 
     @FXML
     private StackPane modularCreditsPanelPlaceholder;
@@ -134,6 +134,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up and displays the window of all module placeholders, when in the module management state.
      */
     void displayModulePanel(Model model) {
+
         moduleList.getChildren().remove(avatarSelectionPanelPlaceholder);
 
         moduleListPanelPlaceholder = new StackPane();
@@ -152,12 +153,12 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Fills up and dispalys the the placeholders of the status window (with course information, and other
+     * Fills up and displays the the placeholders of the status window (with course information, and other
      * miscellaneous information).
      */
     void displayStatusPanels(Model model) {
-        StatusBar statusBar2 = new StatusBar();
-        statusBar.getChildren().add(statusBar2.getPane());
+        StatusBar statusBar = new StatusBar();
+        statusBarPlaceholder.getChildren().add(statusBar.getPane());
 
         CommandBox commandBox = new CommandBox(c -> executeCommand(c, model));
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());

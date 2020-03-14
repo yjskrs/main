@@ -162,7 +162,7 @@
 }
 
 .status-bar .label {
-    -fx-font-family: Calibri;
+    -fx-font-family: "Calibri Light";
     -fx-font-size: 18pt;
     -fx-text-fill: white;
     -fx-padding: 4px;

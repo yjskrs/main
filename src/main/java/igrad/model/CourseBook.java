@@ -132,9 +132,9 @@ public class CourseBook implements ReadOnlyCourseBook {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof CourseBook // instanceof handles nulls
-            && modules.equals(((CourseBook) other).modules)
-            && courseInfo.equals(((CourseBook) other).courseInfo));
+                || (other instanceof CourseBook // instanceof handles nulls
+                && modules.equals(((CourseBook) other).modules)
+                && courseInfo.equals(((CourseBook) other).courseInfo));
     }
 
     @Override

@@ -27,12 +27,16 @@ public class StatusBar extends UiPart<Region> {
 
         pane = new StackPane();
 
-        course.setText("Course: Computer Science");
+        course.setText("Course: ");
         capMcDisplay.setText("CAP: 4.24     Target: 4.00     Required: 3.90/Sem");
 
         StackPane.setAlignment(course, Pos.CENTER_LEFT);
         StackPane.setAlignment(capMcDisplay, Pos.CENTER_RIGHT);
         pane.getChildren().addAll(course, capMcDisplay);
+    }
+
+    public void setCourseName(String courseName) {
+        course.setText("Course: " + courseName);
     }
 
     public StackPane getPane() {

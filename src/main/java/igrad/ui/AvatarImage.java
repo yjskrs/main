@@ -12,6 +12,7 @@ public class AvatarImage extends Image {
 
     private static final Logger logger = LogsCenter.getLogger(AvatarImage.class);
     private String imgPath;
+    private String avatarName;
     private int rowIndex;
     private int colIndex;
 
@@ -22,10 +23,11 @@ public class AvatarImage extends Image {
         this.imgPath = imgPath;
     }
 
-    public AvatarImage(String imgPath, int rowIndex, int colIndex) {
+    public AvatarImage(String imgPath, String avatarName, int rowIndex, int colIndex) {
         super(imgPath);
 
         this.imgPath = imgPath;
+        this.avatarName = avatarName;
         this.rowIndex = rowIndex;
         this.colIndex = colIndex;
     }
@@ -42,5 +44,9 @@ public class AvatarImage extends Image {
      */
     public int getColIndex() {
         return colIndex;
+    }
+
+    public String getAvatarName() {
+        return this.avatarName;
     }
 }
