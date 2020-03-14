@@ -1,7 +1,9 @@
 package igrad.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+
 import java.util.List;
+
 import igrad.commons.core.Messages;
 import igrad.commons.core.index.Index;
 import igrad.logic.commands.exceptions.CommandException;

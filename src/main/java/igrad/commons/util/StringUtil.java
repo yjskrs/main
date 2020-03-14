@@ -2,6 +2,7 @@ package igrad.commons.util;
 
 import static igrad.commons.util.AppUtil.checkArgument;
 import static java.util.Objects.requireNonNull;
+
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Arrays;

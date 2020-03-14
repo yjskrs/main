@@ -1,6 +1,7 @@
 package igrad.ui;
 
 import static java.util.Objects.requireNonNull;
+
 import igrad.model.avatar.Avatar;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;

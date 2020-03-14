@@ -1,8 +1,5 @@
 package igrad.storage;
 
-import igrad.commons.core.LogsCenter;
-import igrad.model.avatar.Avatar;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -11,6 +8,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
 import java.util.logging.Logger;
+
+import igrad.commons.core.LogsCenter;
+import igrad.model.avatar.Avatar;
 
 /**
  * Storage class for storing the {@code Avatar} name
@@ -48,7 +48,7 @@ public class AvatarStorage {
             FileWriter myWriter = new FileWriter(courseBookFilePath.toString());
             myWriter.write(avatar.getName());
             myWriter.close();
-        } catch (IOException e){
+        } catch (IOException e) {
             logger.warning("Could not save avatar");
         }
 

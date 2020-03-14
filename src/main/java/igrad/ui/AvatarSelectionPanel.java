@@ -3,6 +3,7 @@ package igrad.ui;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
+
 import igrad.commons.core.LogsCenter;
 import igrad.model.avatar.Avatar;
 import javafx.fxml.FXML;
@@ -19,6 +20,7 @@ import javafx.stage.Screen;
  */
 public class AvatarSelectionPanel extends UiPart<Region> {
     private static final String FXML = "AvatarSelectionPanel.fxml";
+    private static final String WELCOME_MESSAGE = "Welcome to iGrad";
     private final Logger logger = LogsCenter.getLogger(AvatarSelectionPanel.class);
 
     @FXML
@@ -33,17 +35,23 @@ public class AvatarSelectionPanel extends UiPart<Region> {
     public AvatarSelectionPanel() {
         super(FXML);
 
-        showMainLabel();
         initAvatarImgList();
+        showMainLabel();
         showAvatarImgList();
     }
 
+    /**
+     * Displays the welcome message, on top of the panel.
+     */
     private void showMainLabel() {
-        avatarLabel.setText("Welcome to iGrad.");
+        avatarLabel.setText(WELCOME_MESSAGE);
+
+        // TODO: delete the line (below) when no need
+        Font.getFamilies().forEach(System.out::println);
     }
 
     /**
-     * Initializes a list of valid Avatars
+     * Initialises an internal list of {@code AvatarImage}, maintained by this class.
      */
     private void initAvatarImgList() {
 
@@ -61,13 +69,17 @@ public class AvatarSelectionPanel extends UiPart<Region> {
     }
 
     /**
-     * Displays avatars in a {@code GridPane}
+     * Displays the Avatar images in a {@code GridPane}, in the panel.
      */
     private void showAvatarImgList() {
+        // TODO: (Wayne) you could also display the Avatar names too, I had a hard time figuring that out
         for (AvatarImage avatarImg : avatarImgList) {
             ImageView avatarDisplay = new ImageView();
+
+            // TODO: (Wayne) try to find a way to set these preferences in the FXML files instead of here
             avatarDisplay.setFitHeight(0.1 * primaryScreenBounds.getHeight());
             avatarDisplay.setFitWidth(0.1 * primaryScreenBounds.getHeight());
+
             avatarDisplay.setImage(avatarImg);
             GridPane.setRowIndex(avatarDisplay, avatarImg.getRowIndex());
             GridPane.setColumnIndex(avatarDisplay, avatarImg.getColIndex());

@@ -19,7 +19,6 @@ import igrad.model.ModelManager;
 import igrad.model.ReadOnlyCourseBook;
 import igrad.model.ReadOnlyUserPrefs;
 import igrad.model.UserPrefs;
-import igrad.model.avatar.Avatar;
 import igrad.model.util.SampleDataUtil;
 import igrad.storage.CourseBookStorage;
 import igrad.storage.JsonCourseBookStorage;

@@ -1,6 +1,7 @@
 package igrad.ui;
 
 import java.util.logging.Logger;
+
 import igrad.MainApp;
 import igrad.commons.core.LogsCenter;
 import igrad.commons.util.StringUtil;
@@ -61,7 +62,7 @@ public class UiManager implements Ui {
             mainWindow.show(); //This should be called before creating other UI parts
 
             if (model.getAvatar().getIsSample()) {
-                mainWindow.displayAvatarSelection(model);
+                mainWindow.displayAvatarSelectionPanel(model);
             } else {
                 mainWindow.displayModulePanel(model);
             }

@@ -2,23 +2,21 @@ package igrad.model.avatar;
 
 import static igrad.commons.util.AppUtil.checkArgument;
 import static java.util.Objects.requireNonNull;
-import java.io.File;
+
 import java.io.FileNotFoundException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
-import java.util.logging.Logger;
-import igrad.commons.core.LogsCenter;
+
 import igrad.storage.AvatarStorage;
 
+/**
+ * Represents an Avatar (the user selects to represent him/herself) in the course book.
+ * Guarantees: details are present and not null, field values are validated, immutable.
+ */
 public class Avatar {
 
-    public static final String MESSAGE_CONSTRAINTS =
-        "The avatar chosen should be in the list of avatars!";
-
-    private static String[] avatarNames = new String[] {
+    public static final String MESSAGE_CONSTRAINTS = "The avatar chosen should be in the list of avatars!";
+    private static final String[] AVATAR_NAMES = new String[] {
         "po",
         "shibu",
         "chikin",
@@ -34,16 +32,17 @@ public class Avatar {
     public Avatar(String name) {
         requireNonNull(name);
         checkArgument(isValidName(name), MESSAGE_CONSTRAINTS);
+
         this.name = name;
         this.isSample = false;
     }
 
     /**
-     * Checks if name is in the list of valid Avatar names
+     * Returns true if a valid avatar name as per the names in AVATAR_NAMES.
      */
-    public static boolean isValidName(String test) {
-        for (String name : avatarNames) {
-            if (name.equals(test)) {
+    public static boolean isValidName(String name) {
+        for (String avatarName : AVATAR_NAMES) {
+            if (name.equals(avatarName)) {
                 return true;
             }
         }
@@ -51,14 +50,9 @@ public class Avatar {
         return false;
     }
 
-    public boolean getIsSample() {
-        return isSample;
-    }
-
     public static Avatar getAvatar() {
-
         try {
-           return AvatarStorage.readAvatar();
+            return AvatarStorage.readAvatar();
         } catch (FileNotFoundException e) {
             return getSampleAvatar();
         }
@@ -73,16 +67,17 @@ public class Avatar {
     }
 
     public static List<Avatar> getAvatarList() {
-
         List<Avatar> avatarList = new ArrayList<>();
 
-        for (String name : avatarNames) {
-            avatarList.add(
-                new Avatar(name)
-            );
+        for (String name : AVATAR_NAMES) {
+            avatarList.add(new Avatar(name));
         }
 
         return avatarList;
+    }
+
+    public boolean getIsSample() {
+        return isSample;
     }
 
     public String getName() {

@@ -2,6 +2,7 @@ package igrad.ui;
 
 import java.io.IOException;
 import java.util.logging.Logger;
+
 import igrad.commons.core.GuiSettings;
 import igrad.commons.core.LogsCenter;
 import igrad.logic.Logic;
@@ -79,9 +80,41 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Displays the window when in the {@code Avatar} selection state
+     * Sets the accelerator of a MenuItem.
+     *
+     * @param keyCombination the KeyCombination value of the accelerator
+     *//*
+    private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
+        menuItem.setAccelerator(keyCombination);
+
+        *//*
+     * TODO: the code below can be removed once the bug reported here
+     * https://bugs.openjdk.java.net/browse/JDK-8131666
+     * is fixed in later version of SDK.
+     *
+     * According to the bug report, TextInputControl (TextField, TextArea) will
+     * consume function-key events. Because CommandBox contains a TextField, and
+     * ResultDisplay contains a TextArea, thus some accelerators (e.g F1) will
+     * not work when the focus is in them because the key event is consumed by
+     * the TextInputControl(s).
+     *
+     * For now, we add following event filter to capture such key events and open
+     * help window purposely so to support accelerators even when focus is
+     * in CommandBox or ResultDisplay.
+     *//*
+        getRoot().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getTarget() instanceof TextInputControl && keyCombination.match(event)) {
+                menuItem.getOnAction().handle(new ActionEvent());
+                event.consume();
+            }
+        });
+    }*/
+
+    /**
+     * Fills and displays the window of all the {@code Avatar} placeholders, when in the
+     * {@code Avatar} selection state.
      */
-    void displayAvatarSelection(Model model) {
+    void displayAvatarSelectionPanel(Model model) {
         avatarSelectionPanelPlaceholder = new StackPane();
 
         moduleList.getChildren().add(avatarSelectionPanelPlaceholder);
@@ -98,7 +131,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Displays the window when in the module management statefi
+     * Fills up and displays the window of all module placeholders, when in the module management state.
      */
     void displayModulePanel(Model model) {
         moduleList.getChildren().remove(avatarSelectionPanelPlaceholder);
@@ -119,7 +152,8 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Displays the miscellaneous panels
+     * Fills up and dispalys the the placeholders of the status window (with course information, and other
+     * miscellaneous information).
      */
     void displayStatusPanels(Model model) {
         StatusBar statusBar2 = new StatusBar();
@@ -186,7 +220,6 @@ public class MainWindow extends UiPart<Stage> {
         ServiceException {
 
         try {
-
             boolean isSelectingAvatar = model.getAvatar().getIsSample();
 
             if (isSelectingAvatar) {

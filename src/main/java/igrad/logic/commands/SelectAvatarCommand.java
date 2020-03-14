@@ -1,11 +1,7 @@
 package igrad.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import igrad.logic.commands.exceptions.CommandException;
+
 import igrad.model.Model;
 import igrad.model.avatar.Avatar;
 import igrad.storage.AvatarStorage;
