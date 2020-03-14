@@ -98,5 +98,4 @@ public class AvatarSelectionPanel extends UiPart<Region> {
             avatarGridPane.getChildren().add(pane);
         }
     }
-
 }
