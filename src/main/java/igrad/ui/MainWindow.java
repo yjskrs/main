@@ -79,11 +79,6 @@ public class MainWindow extends UiPart<Stage> {
         return primaryStage;
     }
 
-    /* private void setAccelerators() {
-     *    setAccelerator(KeyCombination.valueOf("F1"));
-     *}
-     */
-
     /**
      * Sets the accelerator of a MenuItem.
      *
@@ -116,7 +111,8 @@ public class MainWindow extends UiPart<Stage> {
     }*/
 
     /**
-     * Fills up all the placeholders of the avatar selection window (with avatars).
+     * Fills and displays the window of all the {@code Avatar} placeholders, when in the
+     * {@code Avatar} selection state.
      */
     void displayAvatarSelectionPanel(Model model) {
         avatarSelectionPanelPlaceholder = new StackPane();
@@ -135,7 +131,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Fills up all the placeholders of the module window (with module information).
+     * Fills up and displays the window of all module placeholders, when in the module management state.
      */
     void displayModulePanel(Model model) {
         moduleList.getChildren().remove(avatarSelectionPanelPlaceholder);
@@ -147,6 +143,8 @@ public class MainWindow extends UiPart<Stage> {
         moduleListPanel = new ModuleListPanel(logic.getFilteredModuleList());
         moduleListPanelPlaceholder.getChildren().add(moduleListPanel.getRoot());
 
+        moduleListPanelPlaceholder.setPrefHeight(2000.0);
+
         resultDisplay = new ResultDisplay(model.getAvatar());
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -154,7 +152,8 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Fills up all the placeholders of the status window (with course information).
+     * Fills up and dispalys the the placeholders of the status window (with course information, and other
+     * miscellaneous information).
      */
     void displayStatusPanels(Model model) {
         StatusBar statusBar2 = new StatusBar();
@@ -221,8 +220,7 @@ public class MainWindow extends UiPart<Stage> {
         ServiceException {
 
         try {
-
-            boolean isSelectingAvatar = model.getAvatar().isPlaceholder();
+            boolean isSelectingAvatar = model.getAvatar().getIsSample();
 
             if (isSelectingAvatar) {
 
@@ -254,7 +252,6 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
-            System.out.println("PRINTED" + commandResult);
             return commandResult;
         } catch (CommandException | ParseException | IOException | ServiceException e) {
             logger.info("Invalid command: " + commandText);

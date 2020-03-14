@@ -12,7 +12,7 @@
         <children>
             <ImageView fx:id="avatarDisplay" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true"
                        style="-fx-scale-x: 0.8; -fx-scale-y: 0.8;"/>
-            <TextArea fx:id="resultDisplay" editable="false" promptText="&quot;Woof...&quot;"
+            <TextArea fx:id="resultDisplay" editable="false"
                       styleClass="result-display" wrapText="true" HBox.hgrow="ALWAYS">
                 <font>
                     <Font name="Calibri" size="16.0"/>
