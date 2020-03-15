@@ -142,23 +142,36 @@
      -fx-border-color: transparent;
 }
 
+.pane-with-border .text-area {
+    color: #fff;
+}
+
+.side-panel {
+    -fx-background-color: #2d2d2d;
+}
+
+.side-panel-cap .label {
+    -fx-font-size: 30;
+    -fx-font-family: "Calibri Light";
+}
+
 .status-bar {
     -fx-background-color: #3d3d3d;
 }
 
 .result-display {
     -fx-background-color: transparent;
-    -fx-font-family: "Segoe UI Light";
-    -fx-font-size: 13pt;
+    -fx-font-family: "Calibri Light";
+    -fx-font-size: 16pt;
     -fx-text-fill: white;
 }
 
 .result-display .label {
-    -fx-text-fill: black !important;
+    -fx-text-fill: white !important;
 }
 
 .status-bar .label {
-    -fx-font-family: AkzidenzGrotesk;
+    -fx-font-family: "Calibri Light";
     -fx-font-size: 18pt;
     -fx-text-fill: white;
     -fx-padding: 4px;
@@ -335,7 +348,7 @@
     -fx-background-color: #3d3d3d;
     -fx-background-radius: 0;
     -fx-border-color: transparent;
-    -fx-text-fill: black;
+    -fx-text-fill: white;
 }
 
 #tags {

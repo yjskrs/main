@@ -5,19 +5,17 @@ import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.avatar.Avatar;
 
 /**
- * Parses input arguments and creates a new ModuleAddCommand object
+ * Parses input arguments and creates a new SelectAvatarCommand object
  */
 public class SelectAvatarCommandParser implements Parser<SelectAvatarCommand> {
-
     /**
-     * Parses the given {@code String} of arguments in the context of the ModuleAddCommand
-     * and returns an ModuleAddCommand object for execution.
+     * Parses the given {@code String} representing the Avatar name in the context of the SelectAvatarCommand
+     * and returns an SelectAvatarCommand object for execution.
      *
      * @throws ParseException if the user input does not conform the expected format
      */
-    public SelectAvatarCommand parse(String name) {
-
-        Avatar avatar = new Avatar(name);
+    public SelectAvatarCommand parse(String name) throws ParseException {
+        Avatar avatar = ParserUtil.parseAvatarName(name);
 
         return new SelectAvatarCommand(avatar);
     }

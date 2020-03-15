@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox fx:id="capPanelPlaceholder" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="400.0" styleClass="side-panel" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox prefHeight="100.0" prefWidth="400.0">
+         <children>
+            <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" scaleX="0.6" scaleY="0.6" scaleZ="0.0">
+               <image>
+                  <Image url="@../images/cap.png" />
+               </image>
+               <HBox.margin>
+                  <Insets left="-8.0" top="-5.0" />
+               </HBox.margin>
+            </ImageView>
+            <Label style="-fx-font-size: 30; -fx-font-family: Calibri Light;" text="CAP: 4.24">
+               <font>
+                  <Font size="35.0" />
+               </font>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <padding>
+                  <Insets bottom="20.0" left="3.0" right="20.0" top="30.0" />
+               </padding>
+            </Label>
+         </children>
+      </HBox>
+      <HBox maxHeight="-Infinity" prefHeight="100.0" prefWidth="400.0">
+         <children>
+            <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" scaleX="0.6" scaleY="0.6">
+               <image>
+                  <Image url="@../images/goal.png" />
+               </image>
+               <HBox.margin>
+                  <Insets left="-1.0" top="-5.0" />
+               </HBox.margin>
+            </ImageView>
+            <Label style="-fx-font-size: 30; -fx-font-family: Calibri Light;" text="Goal: 4.00">
+               <font>
+                  <Font size="35.0" />
+               </font>
+               <padding>
+                  <Insets bottom="20.0" left="9.0" right="20.0" top="30.0" />
+               </padding>
+            </Label>
+         </children>
+      </HBox>
+      <HBox maxHeight="-Infinity" prefHeight="100.0" prefWidth="400.0">
+         <children>
+            <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" scaleX="0.8" scaleY="0.8">
+               <image>
+                  <Image url="@../images/target.png" />
+               </image>
+               <HBox.margin>
+                  <Insets left="-7.0" top="10.0" />
+               </HBox.margin>
+            </ImageView>
+            <Label style="-fx-font-size: 30; -fx-font-family: Calibri Light;" text="Target: 3.94/Sem">
+               <padding>
+                  <Insets bottom="20.0" right="20.0" top="30.0" />
+               </padding>
+               <font>
+                  <Font size="35.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+   </children>
+</VBox>

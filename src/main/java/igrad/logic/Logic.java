@@ -18,6 +18,15 @@ import javafx.collections.ObservableList;
  */
 public interface Logic {
     /**
+     * Execute an 'Avatar' command and returns the result.
+     *
+     * @param commandText The command as entered by the user.
+     * @return the result of the command execution.
+     * @throws ParseException If error occurs during parsing avatar name (i.e, it is not valid).
+     */
+    CommandResult executeAvatar(String commandText) throws ParseException;
+
+    /**
      * Executes the command and returns the result.
      *
      * @param commandText The command as entered by the user.
