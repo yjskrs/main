@@ -2,8 +2,6 @@ package igrad.model.module;
 
 import org.junit.jupiter.api.Test;
 
-import igrad.model.UniqueModuleList;
-
 public class UniqueModuleListTest {
 
     private final UniqueModuleList uniqueModuleList = new UniqueModuleList();

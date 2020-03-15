@@ -4,13 +4,12 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
-import igrad.model.UniqueModuleList;
+import igrad.model.module.UniqueModuleList;
 import igrad.model.module.Module;
 import javafx.collections.ObservableList;
 
 /**
  * Contains data at the requirement level.
- * Duplicate modules are not allowed (by .isSameModule comparison)
  */
 public class Requirement implements ReadOnlyRequirement {
     private final UniqueModuleList modules = new UniqueModuleList();
@@ -108,6 +107,10 @@ public class Requirement implements ReadOnlyRequirement {
     @Override
     public Title getTitle() {
         return title;
+    }
+
+    public boolean hasSameTitle(Requirement requirement) {
+        return this.title.equals(requirement.title);
     }
 
     @Override
