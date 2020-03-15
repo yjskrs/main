@@ -44,6 +44,7 @@ public class CourseBookParser {
         return selectAvatarCommand;
 
     }
+
     /**
      * Parses user input into command for execution.
      *

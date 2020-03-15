@@ -4,22 +4,26 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 
+/**
+ * Panel containing the current over total number of Modular Credits for modules cleared.
+ */
 public class McSidePanel extends UiPart<Region> {
 
     public static final String FXML = "McSidePanel.fxml";
     @FXML
-    HBox mcPanelPlaceholder;
+    private HBox mcPanelPlaceholder;
     private String mcCounter;
 
-   /* TODO: Replace with CAP information when link to UI is done.
-    * @FXML Label currentCAP;
-
-    * @FXML
-    * Label goalCAP;
-
-    * @FXML
-    * Label targetCAP;
-    */
+    /*
+     * TODO: Replace with CAP information when link to UI is done.
+     * @FXML Label currentCAP;
+     *
+     * @FXML
+     * Label goalCAP;
+     *
+     * @FXML
+     * Label targetCAP;
+     */
 
     /**
      * Side panel displaying Modular Credits information.
