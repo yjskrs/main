@@ -8,8 +8,11 @@ import igrad.commons.core.GuiSettings;
 import igrad.commons.core.LogsCenter;
 import igrad.logic.commands.Command;
 import igrad.logic.commands.CommandResult;
+import igrad.logic.commands.SelectAvatarCommand;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.logic.parser.CourseBookParser;
+import igrad.logic.parser.Parser;
+import igrad.logic.parser.SelectAvatarCommandParser;
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.Model;
 import igrad.model.ReadOnlyCourseBook;
@@ -33,6 +36,18 @@ public class LogicManager implements Logic {
         this.model = model;
         this.storage = storage;
         courseBookParser = new CourseBookParser();
+    }
+
+    @Override
+    public CommandResult executeAvatar(String avatarName) throws ParseException {
+
+        CommandResult commandResult;
+
+
+        SelectAvatarCommand selectAvatarCommand = courseBookParser.parseAvatarName(avatarName);
+        commandResult = selectAvatarCommand.execute(model);
+
+        return commandResult;
     }
 
     @Override

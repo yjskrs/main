@@ -12,20 +12,27 @@ import igrad.storage.AvatarStorage;
 public class SelectAvatarCommand extends Command {
 
     public final String MESSAGE_SUCCESS;
-    public final String MESSAGE_ADD_COURSE = "Enter your course in the format: course add n/<NAME OF COURSE>";
+    public final String MESSAGE_ADD_COURSE = "Enter your course in the format: 'course add n/<NAME OF COURSE>'";
 
     private final Avatar toAdd;
 
     /**
-     * Creates an ModuleAddCommand to add the specified {@code Person}
+     * Creates an SelectAvatarCommand for Avatar selection
      */
     public SelectAvatarCommand(Avatar avatar) {
         requireNonNull(avatar);
         toAdd = avatar;
 
-        String avatarName = avatar.getName();
+        MESSAGE_SUCCESS = generateCapitalisedAvatarName();
+    }
+
+    private String generateCapitalisedAvatarName() {
+        String avatarName = toAdd.getName();
         String capitalizeAvatarName = avatarName.substring(0, 1).toUpperCase() + avatarName.substring(1);
-        MESSAGE_SUCCESS = "Hi, I'm " + capitalizeAvatarName + ", let's get started!\n" + MESSAGE_ADD_COURSE;
+
+        String result = "Hi, I'm " + capitalizeAvatarName + ", let's get started!\n" + MESSAGE_ADD_COURSE;
+
+        return result;
     }
 
     @Override

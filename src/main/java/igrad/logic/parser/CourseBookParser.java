@@ -16,6 +16,7 @@ import igrad.logic.commands.HelpCommand;
 import igrad.logic.commands.ModuleAddCommand;
 import igrad.logic.commands.ModuleDeleteCommand;
 import igrad.logic.commands.ModuleEditCommand;
+import igrad.logic.commands.SelectAvatarCommand;
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.services.exceptions.ServiceException;
 
@@ -23,13 +24,26 @@ import igrad.services.exceptions.ServiceException;
  * Parses user input.
  */
 public class CourseBookParser {
-
     /**
      * Used for initial separation of command words and args.
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile(
         "(?<commandWord>[a-z]+(\\s[a-z]{3,})?)(?<arguments>.*)");
 
+    /**
+     * Parses avatar name entered by user into {@code SelectAvatarCommand} for execution.
+     *
+     * @param avatarName full user input string (consisting the avatarName)
+     * @return the command based on the user input
+     * @throws ParseException if the user input does not conform the expected format
+     */
+    public SelectAvatarCommand parseAvatarName(String avatarName) throws ParseException {
+        SelectAvatarCommandParser selectAvatarCommandParser = new SelectAvatarCommandParser();
+        SelectAvatarCommand selectAvatarCommand = selectAvatarCommandParser.parse(avatarName);
+
+        return selectAvatarCommand;
+
+    }
     /**
      * Parses user input into command for execution.
      *
@@ -38,7 +52,6 @@ public class CourseBookParser {
      * @throws ParseException if the user input does not conform the expected format
      */
     public Command parseCommand(String userInput) throws ParseException, IOException, ServiceException {
-
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));

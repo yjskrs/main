@@ -21,11 +21,8 @@ public class CommandBox extends UiPart<Region> {
 
     public static final String ERROR_STYLE_CLASS = "error";
     private static final String FXML = "CommandBox.fxml";
-
-    private final CommandExecutor commandExecutor;
-
     private static String animalGuideIcon;
-
+    private final CommandExecutor commandExecutor;
     @FXML
     private TextField commandTextField;
 

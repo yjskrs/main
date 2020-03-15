@@ -40,7 +40,7 @@ public class CourseAddCommandParser implements Parser<CourseAddCommand> {
                 ModuleAddCommand.MESSAGE_USAGE));
         }
 
-        Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+        Name name = ParserUtil.parseModuleName(argMultimap.getValue(PREFIX_NAME).get());
 
         CourseInfo courseInfo = new CourseInfo(name);
 

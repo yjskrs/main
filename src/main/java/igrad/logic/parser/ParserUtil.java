@@ -9,6 +9,7 @@ import java.util.Set;
 import igrad.commons.core.index.Index;
 import igrad.commons.util.StringUtil;
 import igrad.logic.parser.exceptions.ParseException;
+import igrad.model.avatar.Avatar;
 import igrad.model.course.Name;
 import igrad.model.module.Credits;
 import igrad.model.module.Description;
@@ -60,7 +61,7 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code title} is invalid.
      */
-    public static Name parseName(String name) throws ParseException {
+    public static Name parseModuleName(String name) throws ParseException {
         requireNonNull(name);
         String trimmedName = name.trim();
         if (!Name.isValidName(trimmedName)) {
@@ -140,6 +141,21 @@ public class ParserUtil {
             throw new ParseException(Semester.MESSAGE_CONSTRAINTS);
         }
         return new Semester(trimmedSemester);
+    }
+
+    /**
+     * Parses a {@code String name} into an {@code Avatar}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code avatarName} is invalid.
+     */
+    public static Avatar parseAvatarName(String name) throws ParseException {
+        requireNonNull(name);
+        String trimmedName = name.trim();
+        if (!Avatar.isValidName(trimmedName)) {
+            throw new ParseException(Avatar.MESSAGE_CONSTRAINTS);
+        }
+        return new Avatar(trimmedName);
     }
 
     /**
