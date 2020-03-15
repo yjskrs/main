@@ -8,8 +8,8 @@ import org.junit.jupiter.api.Test;
 import igrad.model.module.Module;
 import igrad.testutil.ModuleBuilder;
 
-public class AddCommandParserTest {
-    private AddCommandParser parser = new AddCommandParser();
+public class ModuleAddCommandParserTest {
+    private ModuleAddCommandParser parser = new ModuleAddCommandParser();
 
     @Test
     public void parse_allFieldsPresent_success() {

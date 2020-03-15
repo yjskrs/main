@@ -7,14 +7,14 @@ import org.junit.jupiter.api.Test;
 
 import igrad.logic.commands.ModuleEditCommand;
 
-public class EditCommandParserTest {
+public class ModuleEditCommandParserTest {
 
     private static final String TAG_EMPTY = " " + PREFIX_TAG;
 
     private static final String MESSAGE_INVALID_FORMAT =
         String.format(MESSAGE_INVALID_COMMAND_FORMAT, ModuleEditCommand.MESSAGE_USAGE);
 
-    private EditCommandParser parser = new EditCommandParser();
+    private ModuleEditCommandParser parser = new ModuleEditCommandParser();
 
     @Test
     public void parse_missingParts_failure() {

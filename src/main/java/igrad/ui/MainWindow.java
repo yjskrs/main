@@ -7,15 +7,12 @@ import igrad.commons.core.GuiSettings;
 import igrad.commons.core.LogsCenter;
 import igrad.logic.Logic;
 import igrad.logic.commands.CommandResult;
-import igrad.logic.commands.SelectAvatarCommand;
 import igrad.logic.commands.exceptions.CommandException;
-import igrad.logic.parser.SelectAvatarCommandParser;
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.Model;
 import igrad.model.avatar.Avatar;
 import igrad.services.exceptions.ServiceException;
 import javafx.fxml.FXML;
-import javafx.geometry.Side;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -135,7 +132,6 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
         resultDisplay.setFeedbackToUser("Choose an animal guide by entering the NAME of the animal");
 
-        displayStatusBar(model);
         displayCommandBox(model);
     }
 
@@ -245,9 +241,12 @@ public class MainWindow extends UiPart<Stage> {
         ServiceException {
 
         try {
+            CommandResult commandResult;
+
             boolean isSelectingAvatar = model.getAvatar().getIsSample();
 
             if (isSelectingAvatar) {
+                commandResult = logic.executeAvatar(commandText);
 
                 Avatar selectedAvatar = new Avatar(commandText);
                 resultDisplay.setAvatar(selectedAvatar);
@@ -255,13 +254,6 @@ public class MainWindow extends UiPart<Stage> {
                 model.setAvatar(selectedAvatar);
 
                 this.displayModulePanel(model);
-            }
-
-            CommandResult commandResult;
-
-            if (isSelectingAvatar) {
-                SelectAvatarCommand selectAvatarCommand = new SelectAvatarCommandParser().parse(commandText);
-                commandResult = selectAvatarCommand.execute(model);
             } else {
                 commandResult = logic.execute(commandText);
             }

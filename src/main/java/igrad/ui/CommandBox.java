@@ -10,7 +10,6 @@ import igrad.services.exceptions.ServiceException;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 
 
@@ -21,16 +20,9 @@ public class CommandBox extends UiPart<Region> {
 
     public static final String ERROR_STYLE_CLASS = "error";
     private static final String FXML = "CommandBox.fxml";
-
     private final CommandExecutor commandExecutor;
-
-    private static String animalGuideIcon;
-
     @FXML
     private TextField commandTextField;
-
-    @FXML
-    private ImageView animalGuide;
 
     public CommandBox(CommandExecutor commandExecutor) {
         super(FXML);
