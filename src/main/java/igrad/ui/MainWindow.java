@@ -6,7 +6,9 @@ import java.util.logging.Logger;
 import igrad.commons.core.GuiSettings;
 import igrad.commons.core.LogsCenter;
 import igrad.logic.Logic;
+import igrad.logic.commands.Command;
 import igrad.logic.commands.CommandResult;
+import igrad.logic.commands.CourseAddCommand;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.Model;
@@ -39,6 +41,9 @@ public class MainWindow extends UiPart<Stage> {
     private ModuleListPanel moduleListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private StatusBar statusBar;
+    private McSidePanel mcSidePanel;
+    private CapPanel capPanel;
 
     private boolean isAvatarSet;
 
@@ -163,10 +168,10 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up and displays the the placeholders of the side panels (Modular credits info, CAP info).
      */
     void displaySidePanels(Model model) {
-        McSidePanel mcSidePanel = new McSidePanel();
+        mcSidePanel = new McSidePanel();
         sidePanelPlaceholder.getChildren().add(mcSidePanel.getRoot());
 
-        CapPanel capPanel = new CapPanel();
+        capPanel = new CapPanel();
         capPanelPlaceholder.getChildren().add(capPanel.getRoot());
     }
 
@@ -174,7 +179,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up and displays the placeholder of the status bar.
      */
     void displayStatusBar(Model model) {
-        StatusBar statusBar = new StatusBar();
+        statusBar = new StatusBar();
         statusBarPlaceholder.getChildren().add(statusBar.getPane());
     }
 
@@ -242,11 +247,13 @@ public class MainWindow extends UiPart<Stage> {
 
         try {
             CommandResult commandResult;
+            Command commandType ;
 
             boolean isSelectingAvatar = model.getAvatar().getIsSample();
 
             if (isSelectingAvatar) {
                 commandResult = logic.executeAvatar(commandText);
+                commandType = null;
 
                 Avatar selectedAvatar = new Avatar(commandText);
                 resultDisplay.setAvatar(selectedAvatar);
@@ -256,6 +263,7 @@ public class MainWindow extends UiPart<Stage> {
                 this.displayModulePanel(model);
             } else {
                 commandResult = logic.execute(commandText);
+                commandType = logic.getCommandType(commandText);
             }
 
             logger.info("Result: " + commandResult.getFeedbackToUser());
@@ -267,6 +275,12 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            if (commandType instanceof CourseAddCommand) {
+                String course = commandText.substring(commandText.indexOf("/") + 1);
+                statusBar.setCourseName(course);
+                displayStatusBar(model);
             }
 
             return commandResult;

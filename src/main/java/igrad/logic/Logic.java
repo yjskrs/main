@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 
 import igrad.commons.core.GuiSettings;
+import igrad.logic.commands.Command;
 import igrad.logic.commands.CommandResult;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.logic.parser.exceptions.ParseException;
@@ -35,6 +36,8 @@ public interface Logic {
      * @throws ParseException   If an error occurs during parsing.
      */
     CommandResult execute(String commandText) throws CommandException, ParseException, IOException, ServiceException;
+
+    Command getCommandType(String commandText) throws ParseException, ServiceException, IOException;
 
     /**
      * Returns the CourseBook.

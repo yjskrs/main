@@ -67,6 +67,12 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public Command getCommandType(String commandText) throws ParseException, ServiceException, IOException {
+        Command command = courseBookParser.parseCommand(commandText);
+        return command;
+    }
+
+    @Override
     public ReadOnlyCourseBook getCourseBook() {
         return model.getCourseBook();
     }
