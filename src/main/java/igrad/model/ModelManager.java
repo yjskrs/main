@@ -159,6 +159,30 @@ public class ModelManager implements Model {
         courseBook.setModule(target, editedModule);
     }
 
+    @Override
+    public boolean hasRequirement(Requirement requirement) {
+        requireNonNull(requirement);
+        return courseBook.hasRequirement(requirement);
+    }
+
+    @Override
+    public void addRequirement(Requirement requirement) {
+        courseBook.addRequirement(requirement);
+        updateRequirementList(PREDICATE_SHOW_ALL_REQUIREMENTS);
+    }
+
+    @Override
+    public void setRequirements(Requirement target, Requirement editedRequirement) {
+        requireAllNonNull(target, editedRequirement);
+
+        courseBook.setRequirement(target, editedRequirement);
+    }
+
+    @Override
+    public void deleteRequirement(Requirement requirement) {
+        courseBook.removeRequirement(requirement);
+    }
+
     //=========== Filtered Module List Accessors =============================================================
 
     /**

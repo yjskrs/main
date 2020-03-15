@@ -72,15 +72,7 @@ public class CourseBook implements ReadOnlyCourseBook {
         setRequirements(newData.getRequirementList());
     }
 
-    // module-level operations
-
-    /**
-     * Returns true if a module with the same identity as {@code module} exists in the course book.
-     */
-    public boolean hasModule(Module module) {
-        requireNonNull(module);
-        return modules.contains(module);
-    }
+    // Course-level operations
 
     /**
      * Adds the given courseInfo (only one courseInfo can exist/ever be created in the system).
@@ -99,6 +91,16 @@ public class CourseBook implements ReadOnlyCourseBook {
 
     public CourseInfo getCourseInfo() {
         return courseInfo;
+    }
+
+    // Module-level operations
+
+    /**
+     * Returns true if a module with the same identity as {@code module} exists in the course book.
+     */
+    public boolean hasModule(Module module) {
+        requireNonNull(module);
+        return modules.contains(module);
     }
 
     /**
@@ -127,6 +129,44 @@ public class CourseBook implements ReadOnlyCourseBook {
      */
     public void removeModule(Module key) {
         modules.remove(key);
+    }
+
+    // Requirement-level operations
+
+    /**
+     * Returns true if a requirement with the same identity as {@code requirement} exists in the course book.
+     */
+    public boolean hasRequirement(Requirement requirement) {
+        requireNonNull(requirement);
+        return requirements.contains(requirement);
+    }
+
+    /**
+     * Adds a requirement to the course book.
+     * The requirement must not already exist in the course book.
+     */
+    public void addRequirement(Requirement requirement) {
+        requirements.add(requirement);
+    }
+
+    /**
+     * Replaces the given requirement {@code target} in the list with {@code editedRequirement}.
+     * {@code target} must exist in the course book.
+     * The module identity of {@code editedRequirement} must not be the same as another existing requirement
+     * in the course book.
+     */
+    public void setRequirement(Requirement target, Requirement editedRequirement) {
+        requireNonNull(editedRequirement);
+
+        requirements.setRequirement(target, editedRequirement);
+    }
+
+    /**
+     * Removes {@code requirement} from this {@code CourseBook}.
+     * {@code requirement} must exist in the course book.
+     */
+    public void removeRequirement(Requirement requirement) {
+        requirements.remove(requirement);
     }
 
     // util methods

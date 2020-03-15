@@ -20,6 +20,11 @@ public interface Model {
     Predicate<Module> PREDICATE_SHOW_ALL_MODULES = unused -> true;
 
     /**
+     * {@code Predicate} that always evaluate to true
+     */
+    Predicate<Requirement> PREDICATE_SHOW_ALL_REQUIREMENTS = unused -> true;
+
+    /**
      * Returns the user prefs.
      */
     ReadOnlyUserPrefs getUserPrefs();
@@ -107,6 +112,14 @@ public interface Model {
      * The module identity of {@code editedModule} must not be the same as another existing module in the course book.
      */
     void setModule(Module target, Module editedModule);
+
+    boolean hasRequirement(Requirement requirement);
+
+    void addRequirement(Requirement requirement);
+
+    void setRequirements(Requirement target, Requirement editedRequirement);
+
+    void deleteRequirement(Requirement requirement);
 
     /**
      * Returns an unmodifiable view of the filtered module list.
