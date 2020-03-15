@@ -7,14 +7,16 @@ import java.util.List;
 import igrad.model.course.CourseInfo;
 import igrad.model.module.Module;
 import igrad.model.module.UniqueModuleList;
+import igrad.model.requirement.Requirement;
+import igrad.model.requirement.UniqueRequirementList;
 import javafx.collections.ObservableList;
 
 /**
  * Wraps all data at the course book level.
- * Duplicates are not allowed (by .isSameModule comparison)
  */
 public class CourseBook implements ReadOnlyCourseBook {
 
+    private final UniqueRequirementList requirements;
     private final UniqueModuleList modules;
     private CourseInfo courseInfo;
 
@@ -27,6 +29,7 @@ public class CourseBook implements ReadOnlyCourseBook {
      */
     {
         modules = new UniqueModuleList();
+        requirements = new UniqueRequirementList();
         courseInfo = null; // TODO: change to Optional or default value
     }
 
@@ -52,12 +55,21 @@ public class CourseBook implements ReadOnlyCourseBook {
     }
 
     /**
+     * Replaces the contents of the module list with {@code modules}.
+     * {@code modules} must not contain duplicate modules.
+     */
+    public void setRequirements(List<Requirement> requirements) {
+        this.requirements.setRequirements(requirements);
+    }
+
+    /**
      * Resets the existing data of this {@code CourseBook} with {@code newData}.
      */
     public void resetData(ReadOnlyCourseBook newData) {
         requireNonNull(newData);
 
         setModules(newData.getModuleList());
+        setRequirements(newData.getRequirementList());
     }
 
     // module-level operations
@@ -128,6 +140,11 @@ public class CourseBook implements ReadOnlyCourseBook {
     @Override
     public ObservableList<Module> getModuleList() {
         return modules.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Requirement> getRequirementList() {
+        return requirements.asUnmodifiableObservableList();
     }
 
     @Override

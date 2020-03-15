@@ -12,6 +12,7 @@ import igrad.commons.core.LogsCenter;
 import igrad.model.avatar.Avatar;
 import igrad.model.course.CourseInfo;
 import igrad.model.module.Module;
+import igrad.model.requirement.Requirement;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
@@ -23,6 +24,7 @@ public class ModelManager implements Model {
     private final CourseBook courseBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Module> filteredModules;
+    private final FilteredList<Requirement> requirements;
     private Avatar avatar;
 
     /**
@@ -37,7 +39,8 @@ public class ModelManager implements Model {
         this.avatar = Avatar.getAvatar();
         this.courseBook = new CourseBook(courseBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredModules = new FilteredList<>(this.courseBook.getModuleList());
+        this.requirements = new FilteredList<>(this.courseBook.getRequirementList());
+        this.filteredModules = new FilteredList<>(this.courseBook.getModuleList());
     }
 
     public ModelManager() {
@@ -171,6 +174,19 @@ public class ModelManager implements Model {
     public void updateFilteredModuleList(Predicate<Module> predicate) {
         requireNonNull(predicate);
         filteredModules.setPredicate(predicate);
+    }
+
+    //=========== Requirement List Accessors =============================================================
+
+    @Override
+    public ObservableList<Requirement> getRequirementList() {
+        return requirements;
+    }
+
+    @Override
+    public void updateRequirementList(Predicate<Requirement> predicate) {
+        requireNonNull(predicate);
+        requirements.setPredicate(predicate);
     }
 
     @Override

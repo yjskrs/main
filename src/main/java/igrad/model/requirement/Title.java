@@ -4,7 +4,7 @@ import static igrad.commons.util.AppUtil.checkArgument;
 import static java.util.Objects.requireNonNull;
 
 /**
- * Represents a Module's title in the course book.
+ * Represents a Requirement's title.
  * Guarantees: immutable; is valid as declared in {@link #isValidTitle(String)}
  */
 public class Title {

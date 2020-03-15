@@ -1,6 +1,7 @@
 package igrad.model;
 
 import igrad.model.module.Module;
+import igrad.model.requirement.Requirement;
 import javafx.collections.ObservableList;
 
 /**
@@ -13,4 +14,8 @@ public interface ReadOnlyCourseBook {
      */
     ObservableList<Module> getModuleList();
 
+    /**
+     * Returns an unmodifiable view of the requirements in the course book.
+     */
+    ObservableList<Requirement> getRequirementList();
 }
