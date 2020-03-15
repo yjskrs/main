@@ -20,6 +20,12 @@ public class Requirement implements ReadOnlyRequirement {
         this.title = title;
     }
 
+    public Requirement(Title title, List<Module> modules) {
+        requireNonNull(title);
+        this.title = title;
+        setModules(modules);
+    }
+
     public Requirement(ReadOnlyRequirement toBeCopied) {
         resetData(toBeCopied);
     }
