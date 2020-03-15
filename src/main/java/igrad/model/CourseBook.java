@@ -6,11 +6,10 @@ import java.util.List;
 
 import igrad.model.course.CourseInfo;
 import igrad.model.module.Module;
-import igrad.model.module.UniqueModuleList;
 import javafx.collections.ObservableList;
 
 /**
- * Wraps all data at the courseInfo-book level.
+ * Wraps all data at the course book level.
  * Duplicates are not allowed (by .isSameModule comparison)
  */
 public class CourseBook implements ReadOnlyCourseBook {
@@ -63,7 +62,7 @@ public class CourseBook implements ReadOnlyCourseBook {
     // module-level operations
 
     /**
-     * Returns true if a module with the same identity as {@code module} exists in the courseInfo book.
+     * Returns true if a module with the same identity as {@code module} exists in the course book.
      */
     public boolean hasModule(Module module) {
         requireNonNull(module);
@@ -71,14 +70,15 @@ public class CourseBook implements ReadOnlyCourseBook {
     }
 
     /**
-     * Adds the given courseInfo (only one courseInfo can exist(ever be created) in the system).
+     * Adds the given courseInfo (only one courseInfo can exist/ever be created in the system).
      */
     public void addCourseInfo(CourseInfo c) {
+        // TODO: Restrict to one
         courseInfo = c;
     }
 
     /**
-     * Replaces the given CourseInfo {@code target} with  {@code editedCourseInfo}.
+     * Replaces the given CourseInfo {@code target} with {@code editedCourseInfo}.
      */
     public void modifyCourseInfo(CourseInfo editedCourseInfo) {
         this.courseInfo = editedCourseInfo;
@@ -89,8 +89,8 @@ public class CourseBook implements ReadOnlyCourseBook {
     }
 
     /**
-     * Adds a module to the courseInfo book.
-     * The module must not already exist in the courseInfo book.
+     * Adds a module to the course book.
+     * The module must not already exist in the course book.
      */
     public void addModule(Module m) {
         modules.add(m);
@@ -98,9 +98,9 @@ public class CourseBook implements ReadOnlyCourseBook {
 
     /**
      * Replaces the given module {@code target} in the list with {@code editedModule}.
-     * {@code target} must exist in the courseInfo book.
+     * {@code target} must exist in the course book.
      * The module identity of {@code editedModule} must not be the same as another existing module
-     * in the courseInfo book.
+     * in the course book.
      */
     public void setModule(Module target, Module editedModule) {
         requireNonNull(editedModule);
@@ -110,7 +110,7 @@ public class CourseBook implements ReadOnlyCourseBook {
 
     /**
      * Removes {@code key} from this {@code CourseBook}.
-     * {@code key} must exist in the courseInfo book.
+     * {@code key} must exist in the course book.
      */
     public void removeModule(Module key) {
         modules.remove(key);
