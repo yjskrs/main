@@ -22,7 +22,7 @@ import igrad.model.tag.Tag;
 /**
  * Parses input arguments and creates a new ModuleEditCommand object.
  */
-public class EditCommandParser implements Parser<ModuleEditCommand> {
+public class ModuleEditCommandParser implements Parser<ModuleEditCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the ModuleEditCommand

@@ -11,8 +11,8 @@ import igrad.storage.AvatarStorage;
  */
 public class SelectAvatarCommand extends Command {
 
-    public final String MESSAGE_SUCCESS;
     public final String MESSAGE_ADD_COURSE = "Enter your course in the format: 'course add n/<NAME OF COURSE>'";
+    public final String MESSAGE_SUCCESS = "Hi, I'm %s, let's get started!\n" + MESSAGE_ADD_COURSE;
 
     private final Avatar toAdd;
 
@@ -22,17 +22,13 @@ public class SelectAvatarCommand extends Command {
     public SelectAvatarCommand(Avatar avatar) {
         requireNonNull(avatar);
         toAdd = avatar;
-
-        MESSAGE_SUCCESS = generateCapitalisedAvatarName();
     }
 
     private String generateCapitalisedAvatarName() {
         String avatarName = toAdd.getName();
-        String capitalizeAvatarName = avatarName.substring(0, 1).toUpperCase() + avatarName.substring(1);
+        String capitaliseAvatarName = avatarName.substring(0, 1).toUpperCase() + avatarName.substring(1);
 
-        String result = "Hi, I'm " + capitalizeAvatarName + ", let's get started!\n" + MESSAGE_ADD_COURSE;
-
-        return result;
+        return String.format(MESSAGE_SUCCESS, capitaliseAvatarName);
     }
 
     @Override
@@ -43,7 +39,7 @@ public class SelectAvatarCommand extends Command {
 
         AvatarStorage.writeAvatar(toAdd);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(String.format(generateCapitalisedAvatarName(), toAdd));
     }
 
     @Override

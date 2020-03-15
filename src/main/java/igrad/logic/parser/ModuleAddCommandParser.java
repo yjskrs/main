@@ -26,7 +26,7 @@ import igrad.model.tag.Tag;
 /**
  * Parses input arguments and creates a new ModuleAddCommand object.
  */
-public class AddCommandParser implements Parser<ModuleAddCommand> {
+public class ModuleAddCommandParser implements Parser<ModuleAddCommand> {
 
     /**
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given

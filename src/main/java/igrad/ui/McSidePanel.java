@@ -11,15 +11,15 @@ public class McSidePanel extends UiPart<Region> {
     HBox mcPanelPlaceholder;
     private String mcCounter;
 
-/*     TODO: Replace with CAP information when link to UI is done.
-    @FXML
-    Label currentCAP;
+   /* TODO: Replace with CAP information when link to UI is done.
+    * @FXML Label currentCAP;
 
-    @FXML
-    Label goalCAP;
+    * @FXML
+    * Label goalCAP;
 
-    @FXML
-    Label targetCAP;*/
+    * @FXML
+    * Label targetCAP;
+    */
 
     /**
      * Side panel displaying Modular Credits information.

@@ -68,14 +68,14 @@ public class CourseBookParser {
             if (ArgumentTokenizer.isFlagPresent(argumentsWithFlags, FLAG_AUTO.getFlag())) {
                 return new AddAutoCommandParser().parse(arguments);
             } else {
-                return new AddCommandParser().parse(arguments);
+                return new ModuleAddCommandParser().parse(arguments);
             }
 
         case ModuleEditCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments);
+            return new ModuleEditCommandParser().parse(arguments);
 
         case ModuleDeleteCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
+            return new ModuleDeleteCommandParser().parse(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
