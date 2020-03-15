@@ -26,7 +26,7 @@ public class CourseBook implements ReadOnlyCourseBook {
      */
     {
         modules = new UniqueModuleList();
-        courseInfo = null;
+        courseInfo = null; // TODO: change to Optional or default value
     }
 
     public CourseBook() {
@@ -78,7 +78,7 @@ public class CourseBook implements ReadOnlyCourseBook {
     }
 
     /**
-     * Replaces the given CourseInfo {@code target} with {@code editedCourseInfo}.
+     * Replaces the courseInfo with {@code editedCourseInfo}.
      */
     public void modifyCourseInfo(CourseInfo editedCourseInfo) {
         this.courseInfo = editedCourseInfo;
