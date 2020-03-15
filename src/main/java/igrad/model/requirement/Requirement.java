@@ -4,8 +4,8 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
-import igrad.model.module.UniqueModuleList;
 import igrad.model.module.Module;
+import igrad.model.module.UniqueModuleList;
 import javafx.collections.ObservableList;
 
 /**

@@ -51,7 +51,6 @@ public class UniqueRequirementList implements Iterable<Requirement> {
     /**
      * Replaces the requirement {@code target} in the list with {@code editedRequirement}.
      * {@code target} must exist in the list.
-     * The requirement identity of {@code editedRequirement} must not be the same as another existing requirement in the list.
      */
     public void setRequirement(Requirement target, Requirement editedRequirement) {
         requireAllNonNull(target, editedRequirement);

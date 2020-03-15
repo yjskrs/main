@@ -6,6 +6,7 @@ import java.util.List;
 
 import igrad.model.course.CourseInfo;
 import igrad.model.module.Module;
+import igrad.model.module.UniqueModuleList;
 import javafx.collections.ObservableList;
 
 /**
