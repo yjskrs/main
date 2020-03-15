@@ -3,15 +3,12 @@
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Scene?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 <?import javafx.stage.Stage?>
 
 <fx:root minHeight="800.0" minWidth="1000.0" onCloseRequest="#handleExit" title="iGrad" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
@@ -30,25 +27,12 @@
                 <StackPane fx:id="statusBarPlaceholder" styleClass="status-bar" />
                 <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="400.0" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
                     <children>
-                        <VBox maxWidth="500.0" minWidth="-Infinity" prefWidth="300.0" styleClass="pane-with-border" HBox.hgrow="ALWAYS">
+                        <VBox maxWidth="400.0" minWidth="-Infinity" prefWidth="400.0" styleClass="pane-with-border" HBox.hgrow="ALWAYS">
                             <children>
-                                <HBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="200.0">
-                                    <children>
-                                        <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                                        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                                            <image>
-                                                <Image url="@../images/module.png" />
-                                            </image>
-                                        </ImageView>
-                                        <Label fx:id="mcCount" alignment="CENTER" contentDisplay="RIGHT" minWidth="100.0" prefWidth="100.0" style="-fx-translate-y: 65; -fx-font-size: 24; -fx-text-fill: white; -fx-font-family: AkzidenzGrotesk;" styleClass="mc-Label" textFill="WHITE">
-                                            <font>
-                                                <Font name="Calibri Bold" size="23.0" />
-                                            </font>
-                                        </Label>
-                                        <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                                    </children>
-                                </HBox>
+                                <HBox fx:id="sidePanelPlaceholder" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="400.0" />
                                 <Region maxHeight="-Infinity" prefHeight="1.0" style="-fx-border-color: #3d3d3d;" />
+                        <VBox fx:id="capPanelPlaceholder" prefHeight="300.0" prefWidth="400.0" />
+                        <Region maxHeight="-Infinity" prefHeight="1.0" style="-fx-border-color: #3d3d3d;" />
                                 <ListView maxHeight="1.7976931348623157E308" style="-fx-background-color: #2d2d2d;" VBox.vgrow="ALWAYS" />
                             </children>
                             <padding>

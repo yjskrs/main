@@ -19,20 +19,16 @@ public class StatusBar extends UiPart<Region> {
     @FXML
     private Label course;
 
-    @FXML
-    private Label capMcDisplay;
 
     public StatusBar() {
         super(FXML);
 
         pane = new StackPane();
 
-        course.setText("Course: ");
-        capMcDisplay.setText("CAP: 4.24     Target: 4.00     Required: 3.90/Sem");
+        course.setText("Course: Computer Science");
 
         StackPane.setAlignment(course, Pos.CENTER_LEFT);
-        StackPane.setAlignment(capMcDisplay, Pos.CENTER_RIGHT);
-        pane.getChildren().addAll(course, capMcDisplay);
+        pane.getChildren().add(course);
     }
 
     public void setCourseName(String courseName) {

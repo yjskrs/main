@@ -15,7 +15,9 @@ import igrad.model.Model;
 import igrad.model.avatar.Avatar;
 import igrad.services.exceptions.ServiceException;
 import javafx.fxml.FXML;
+import javafx.geometry.Side;
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -48,6 +50,12 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private VBox moduleList;
+
+    @FXML
+    private HBox sidePanelPlaceholder;
+
+    @FXML
+    private VBox capPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -127,7 +135,8 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
         resultDisplay.setFeedbackToUser("Choose an animal guide by entering the NAME of the animal");
 
-        displayStatusPanels(model);
+        displayStatusBar(model);
+        displayCommandBox(model);
     }
 
     /**
@@ -149,21 +158,36 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplay = new ResultDisplay(model.getAvatar());
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        displayStatusPanels(model);
+        displayStatusBar(model);
+        displayCommandBox(model);
+        displaySidePanels(model);
     }
 
     /**
-     * Fills up and displays the the placeholders of the status window (with course information, and other
-     * miscellaneous information).
+     * Fills up and displays the the placeholders of the side panels (Modular credits info, CAP info).
      */
-    void displayStatusPanels(Model model) {
+    void displaySidePanels(Model model) {
+        McSidePanel mcSidePanel = new McSidePanel();
+        sidePanelPlaceholder.getChildren().add(mcSidePanel.getRoot());
+
+        CapPanel capPanel = new CapPanel();
+        capPanelPlaceholder.getChildren().add(capPanel.getRoot());
+    }
+
+    /**
+     * Fills up and displays the placeholder of the status bar.
+     */
+    void displayStatusBar(Model model) {
         StatusBar statusBar = new StatusBar();
         statusBarPlaceholder.getChildren().add(statusBar.getPane());
+    }
 
+    /**
+     * Fills up and displays the placeholder of the command box.
+     */
+    void displayCommandBox(Model model) {
         CommandBox commandBox = new CommandBox(c -> executeCommand(c, model));
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
-
-        mcCount.setText("MCs:\n40/160");
     }
 
     /**

@@ -146,6 +146,15 @@
     color: #fff;
 }
 
+.side-panel {
+    -fx-background-color: #2d2d2d;
+}
+
+.side-panel-cap .label {
+    -fx-font-size: 30;
+    -fx-font-family: "Calibri Light";
+}
+
 .status-bar {
     -fx-background-color: #3d3d3d;
 }
