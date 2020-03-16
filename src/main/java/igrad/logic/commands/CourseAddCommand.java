@@ -42,7 +42,7 @@ public class CourseAddCommand extends CourseCommand {
         requireNonNull(model);
 
         model.addCourseInfo(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), false, false, true);
     }
 
     @Override

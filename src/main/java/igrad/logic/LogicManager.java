@@ -38,7 +38,6 @@ public class LogicManager implements Logic {
 
     @Override
     public CommandResult executeAvatar(String avatarName) throws ParseException {
-
         CommandResult commandResult;
 
 
@@ -64,12 +63,6 @@ public class LogicManager implements Logic {
         }
 
         return commandResult;
-    }
-
-    @Override
-    public Command getCommandType(String commandText) throws ParseException, ServiceException, IOException {
-        Command command = courseBookParser.parseCommand(commandText);
-        return command;
     }
 
     @Override

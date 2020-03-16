@@ -90,6 +90,11 @@ public interface Model {
     void addCourseInfo(CourseInfo courseInfo);
 
     /**
+     * Returns the courseInfo.
+     */
+    CourseInfo getCourseInfo();
+
+    /**
      * Modifies the name of the course.
      */
     void modifyCourseInfo(CourseInfo courseInfo);
