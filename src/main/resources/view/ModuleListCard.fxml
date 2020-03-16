@@ -2,8 +2,6 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
@@ -21,41 +19,33 @@
       <padding>
         <Insets bottom="5" left="15" right="5" top="5" />
       </padding>
-      <HBox alignment="CENTER_LEFT" spacing="5">
-        <Label fx:id="id" styleClass="cell_big_label">
-          <minWidth>
-            <!-- Ensures that the label text is never truncated -->
-            <Region fx:constant="USE_PREF_SIZE" />
-          </minWidth>
-        </Label>
-        <Label fx:id="title" styleClass="cell_big_label" text="\$first" />
-      </HBox>
-      <FlowPane fx:id="tags" style="-fx-background-color: #3d3d3d;" />
-         <HBox prefHeight="100.0" prefWidth="400.0" VBox.vgrow="ALWAYS">
+      <Label fx:id="moduleCode" style="-fx-font-size: 36; -fx-text-fill: #FF7A2F;" styleClass="cell_big_label" text="\$moduleCode" />
+     <Label fx:id="title" styleClass="cell_big_label" text="\$first" />
+         <HBox spacing="10.0">
             <children>
-               <ImageView fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" scaleX="0.6" scaleY="0.6" scaleZ="0.6">
-                  <image>
-                     <Image url="@../images/info_icon.png" />
-                  </image>
-                  <HBox.margin>
-                     <Insets right="10.0" />
-                  </HBox.margin>
-               </ImageView>
-               <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
-                  <children>
-                  <Label fx:id="moduleCode" styleClass="cell_small_label" text="\$moduleCode" />
-                  <Label fx:id="credits" styleClass="cell_small_label" text="\$credits" />
-                  <Label fx:id="memo" styleClass="cell_small_label" text="\$memo" />
-                  <Label fx:id="semester" styleClass="cell_small_label" text="\$semester" />
-                  <Label fx:id="description" styleClass="cell_small_label" text="\$description" />
-                  </children>
-               </VBox>
+            <Label fx:id="semester" styleClass="cell_small_label" text="\$semester" />
+               <Region minHeight="-Infinity" prefWidth="1.0" style="-fx-border-color: #3d3d3d;" />
+            <Label fx:id="credits" styleClass="cell_small_label" text="\$credits" />
+               <Region prefWidth="1.0" style="-fx-border-color: #3d3d3d;" />
+               <Label styleClass="cell_small_label" text="Grade: A" />
             </children>
          </HBox>
+      <Label fx:id="memo" styleClass="cell_small_label" text="\$memo" />
+      <FlowPane fx:id="tags">
+            <padding>
+               <Insets bottom="3.0" top="3.0" />
+            </padding>
+         </FlowPane>
     </VBox>
       <rowConstraints>
          <RowConstraints />
       </rowConstraints>
+      <HBox.margin>
+         <Insets bottom="20.0" />
+      </HBox.margin>
   </GridPane>
+   <padding>
+      <Insets top="15.0" />
+   </padding>
 
 </HBox>
