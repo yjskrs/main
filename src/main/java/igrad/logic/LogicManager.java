@@ -15,6 +15,7 @@ import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.Model;
 import igrad.model.ReadOnlyCourseBook;
 import igrad.model.module.Module;
+import igrad.model.requirement.Requirement;
 import igrad.services.exceptions.ServiceException;
 import igrad.storage.Storage;
 import javafx.collections.ObservableList;
@@ -73,6 +74,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Module> getFilteredModuleList() {
         return model.getFilteredModuleList();
+    }
+
+    @Override
+    public ObservableList<Requirement> getRequirementList() {
+        return model.getRequirementList();
     }
 
     @Override

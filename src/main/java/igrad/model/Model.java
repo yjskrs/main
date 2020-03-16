@@ -7,6 +7,7 @@ import igrad.commons.core.GuiSettings;
 import igrad.model.avatar.Avatar;
 import igrad.model.course.CourseInfo;
 import igrad.model.module.Module;
+import igrad.model.requirement.Requirement;
 import javafx.collections.ObservableList;
 
 /**
@@ -17,6 +18,11 @@ public interface Model {
      * {@code Predicate} that always evaluate to true
      */
     Predicate<Module> PREDICATE_SHOW_ALL_MODULES = unused -> true;
+
+    /**
+     * {@code Predicate} that always evaluate to true
+     */
+    Predicate<Requirement> PREDICATE_SHOW_ALL_REQUIREMENTS = unused -> true;
 
     /**
      * Returns the user prefs.
@@ -112,10 +118,23 @@ public interface Model {
      */
     void setModule(Module target, Module editedModule);
 
+    boolean hasRequirement(Requirement requirement);
+
+    void addRequirement(Requirement requirement);
+
+    void setRequirements(Requirement target, Requirement editedRequirement);
+
+    void deleteRequirement(Requirement requirement);
+
     /**
-     * Returns an unmodifiable view of the filtered module list
+     * Returns an unmodifiable view of the filtered module list.
      */
     ObservableList<Module> getFilteredModuleList();
+
+    /**
+     * Returns an unmodifiable view of the requirements list.
+     */
+    ObservableList<Requirement> getRequirementList();
 
     /**
      * Updates the filter of the filtered module list to filter by the given {@code predicate}.
@@ -123,4 +142,11 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredModuleList(Predicate<Module> predicate);
+
+    /**
+     * Updates the filter of the filtered requirement list to filter by the given {@code predicate}.
+     *
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateRequirementList(Predicate<Requirement> predicate);
 }
