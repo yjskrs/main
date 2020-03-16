@@ -7,14 +7,16 @@ import java.util.List;
 import igrad.model.course.CourseInfo;
 import igrad.model.module.Module;
 import igrad.model.module.UniqueModuleList;
+import igrad.model.requirement.Requirement;
+import igrad.model.requirement.UniqueRequirementList;
 import javafx.collections.ObservableList;
 
 /**
  * Wraps all data at the course book level.
- * Duplicates are not allowed (by .isSameModule comparison)
  */
 public class CourseBook implements ReadOnlyCourseBook {
 
+    private final UniqueRequirementList requirements;
     private final UniqueModuleList modules;
     private CourseInfo courseInfo;
 
@@ -27,6 +29,7 @@ public class CourseBook implements ReadOnlyCourseBook {
      */
     {
         modules = new UniqueModuleList();
+        requirements = new UniqueRequirementList();
         courseInfo = null; // TODO: change to Optional or default value
     }
 
@@ -52,23 +55,24 @@ public class CourseBook implements ReadOnlyCourseBook {
     }
 
     /**
+     * Replaces the contents of the requirement list (which consists a list of modules) with {@code requirements}.
+     * {@code requirements} must not contain duplicate modules.
+     */
+    public void setRequirements(List<Requirement> requirements) {
+        this.requirements.setRequirements(requirements);
+    }
+
+    /**
      * Resets the existing data of this {@code CourseBook} with {@code newData}.
      */
     public void resetData(ReadOnlyCourseBook newData) {
         requireNonNull(newData);
 
         setModules(newData.getModuleList());
+        setRequirements(newData.getRequirementList());
     }
 
-    // module-level operations
-
-    /**
-     * Returns true if a module with the same identity as {@code module} exists in the course book.
-     */
-    public boolean hasModule(Module module) {
-        requireNonNull(module);
-        return modules.contains(module);
-    }
+    // Course-level operations
 
     /**
      * Adds the given courseInfo (only one courseInfo can exist/ever be created in the system).
@@ -87,6 +91,16 @@ public class CourseBook implements ReadOnlyCourseBook {
 
     public CourseInfo getCourseInfo() {
         return courseInfo;
+    }
+
+    // Module-level operations
+
+    /**
+     * Returns true if a module with the same identity as {@code module} exists in the course book.
+     */
+    public boolean hasModule(Module module) {
+        requireNonNull(module);
+        return modules.contains(module);
     }
 
     /**
@@ -117,6 +131,44 @@ public class CourseBook implements ReadOnlyCourseBook {
         modules.remove(key);
     }
 
+    // Requirement-level operations
+
+    /**
+     * Returns true if a requirement with the same identity as {@code requirement} exists in the course book.
+     */
+    public boolean hasRequirement(Requirement requirement) {
+        requireNonNull(requirement);
+        return requirements.contains(requirement);
+    }
+
+    /**
+     * Adds a requirement to the course book.
+     * The requirement must not already exist in the course book.
+     */
+    public void addRequirement(Requirement requirement) {
+        requirements.add(requirement);
+    }
+
+    /**
+     * Replaces the given requirement {@code target} in the list with {@code editedRequirement}.
+     * {@code target} must exist in the course book.
+     * The module identity of {@code editedRequirement} must not be the same as another existing requirement
+     * in the course book.
+     */
+    public void setRequirement(Requirement target, Requirement editedRequirement) {
+        requireNonNull(editedRequirement);
+
+        requirements.setRequirement(target, editedRequirement);
+    }
+
+    /**
+     * Removes {@code requirement} from this {@code CourseBook}.
+     * {@code requirement} must exist in the course book.
+     */
+    public void removeRequirement(Requirement requirement) {
+        requirements.remove(requirement);
+    }
+
     // util methods
 
     @Override
@@ -128,6 +180,11 @@ public class CourseBook implements ReadOnlyCourseBook {
     @Override
     public ObservableList<Module> getModuleList() {
         return modules.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Requirement> getRequirementList() {
+        return requirements.asUnmodifiableObservableList();
     }
 
     @Override

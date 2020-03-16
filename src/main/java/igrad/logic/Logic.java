@@ -10,6 +10,7 @@ import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.Model;
 import igrad.model.ReadOnlyCourseBook;
 import igrad.model.module.Module;
+import igrad.model.requirement.Requirement;
 import igrad.services.exceptions.ServiceException;
 import javafx.collections.ObservableList;
 
@@ -44,6 +45,8 @@ public interface Logic {
     ReadOnlyCourseBook getCourseBook();
 
     ObservableList<Module> getFilteredModuleList();
+
+    ObservableList<Requirement> getRequirementList();
 
     /**
      * Returns the user prefs' course book file path.
