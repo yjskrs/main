@@ -25,7 +25,7 @@ public class StatusBar extends UiPart<Region> {
 
         pane = new StackPane();
 
-        course.setText("Course: Computer Science");
+        course.setText("Course:");
 
         StackPane.setAlignment(course, Pos.CENTER_LEFT);
         pane.getChildren().add(course);

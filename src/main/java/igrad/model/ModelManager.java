@@ -123,6 +123,11 @@ public class ModelManager implements Model {
         courseBook.removeModule(target);
     }
 
+    @Override
+    public CourseInfo getCourseInfo() {
+        return courseBook.getCourseInfo();
+    }
+
     /**
      * Adds the given courseInfo to the course book.
      *

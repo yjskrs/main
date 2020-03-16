@@ -10,7 +10,7 @@ import igrad.logic.commands.CommandResult;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.Model;
-import igrad.model.avatar.Avatar;
+import igrad.model.course.CourseInfo;
 import igrad.services.exceptions.ServiceException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -39,8 +39,9 @@ public class MainWindow extends UiPart<Stage> {
     private ModuleListPanel moduleListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
-
-    private boolean isAvatarSet;
+    private StatusBar statusBar;
+    private McSidePanel mcSidePanel;
+    private CapPanel capPanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -136,7 +137,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Fills up and displays the window of all module placeholders, when in the module management state.
+     * Fills up and displays/refreshes the window of all module placeholders, when in the module management state.
      */
     void displayModulePanel(Model model) {
 
@@ -160,13 +161,13 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Fills up and displays the the placeholders of the side panels (Modular credits info, CAP info).
+     * Fills up and displays/refreshes the the placeholders of the side panels (Modular credits info, CAP info).
      */
     void displaySidePanels(Model model) {
-        McSidePanel mcSidePanel = new McSidePanel();
+        mcSidePanel = new McSidePanel();
         sidePanelPlaceholder.getChildren().add(mcSidePanel.getRoot());
 
-        CapPanel capPanel = new CapPanel();
+        capPanel = new CapPanel();
         capPanelPlaceholder.getChildren().add(capPanel.getRoot());
     }
 
@@ -174,12 +175,37 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up and displays the placeholder of the status bar.
      */
     void displayStatusBar(Model model) {
-        StatusBar statusBar = new StatusBar();
+        statusBar = new StatusBar();
         statusBarPlaceholder.getChildren().add(statusBar.getPane());
     }
 
     /**
-     * Fills up and displays the placeholder of the command box.
+     * Refreshes the status bar (UI component) with information from the {@code Model}.
+     */
+    void refreshStatusBar(Model model) {
+        // Extract the updated CourseInfo from our model.
+        CourseInfo courseInfo = model.getCourseInfo();
+
+        // Refresh the status bar now, with the updated course name.
+        statusBar.setCourseName(courseInfo.getName().toString());
+    }
+
+    /**
+     * Refreshes the result display (UI component) with information from {@code CommandResult}.
+     */
+    void refreshResultDisplay(CommandResult commandResult) {
+        resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+    }
+
+    /**
+     * Refreshes the result display (UI component) to reflect an error from error String.
+     */
+    void refreshResultDisplayError(String errorMessage) {
+        resultDisplay.setFeedbackToUser(errorMessage);
+    }
+
+    /**
+     * Fills up and displays/refreshes the placeholder of the command box.
      */
     void displayCommandBox(Model model) {
         CommandBox commandBox = new CommandBox(c -> executeCommand(c, model));
@@ -248,31 +274,27 @@ public class MainWindow extends UiPart<Stage> {
             if (isSelectingAvatar) {
                 commandResult = logic.executeAvatar(commandText);
 
-                Avatar selectedAvatar = new Avatar(commandText);
-                resultDisplay.setAvatar(selectedAvatar);
-
-                model.setAvatar(selectedAvatar);
-
-                this.displayModulePanel(model);
+                // Now we've already selected Avatar, time to display the Main module panel
+                displayModulePanel(model);
             } else {
                 commandResult = logic.execute(commandText);
             }
 
             logger.info("Result: " + commandResult.getFeedbackToUser());
-            resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            refreshResultDisplay(commandResult);
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
-            }
-
-            if (commandResult.isExit()) {
+            } else if (commandResult.isExit()) {
                 handleExit();
+            } else if (commandResult.isCourseAdd()) {
+                refreshStatusBar(model);
             }
 
             return commandResult;
         } catch (CommandException | ParseException | IOException | ServiceException e) {
             logger.info("Invalid command: " + commandText);
-            resultDisplay.setFeedbackToUser(e.getMessage());
+            refreshResultDisplayError(e.getMessage());
             throw e;
         }
     }

@@ -38,7 +38,6 @@ public class LogicManager implements Logic {
 
     @Override
     public CommandResult executeAvatar(String avatarName) throws ParseException {
-
         CommandResult commandResult;
 
 
