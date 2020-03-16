@@ -73,6 +73,7 @@ class JsonSerializableCourseBook {
             }
             courseBook.addRequirement(requirement);
         }
+
         return courseBook;
     }
 

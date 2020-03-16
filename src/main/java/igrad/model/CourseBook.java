@@ -55,8 +55,8 @@ public class CourseBook implements ReadOnlyCourseBook {
     }
 
     /**
-     * Replaces the contents of the module list with {@code modules}.
-     * {@code modules} must not contain duplicate modules.
+     * Replaces the contents of the requirement list (which consists a list of modules) with {@code requirements}.
+     * {@code requirements} must not contain duplicate modules.
      */
     public void setRequirements(List<Requirement> requirements) {
         this.requirements.setRequirements(requirements);
