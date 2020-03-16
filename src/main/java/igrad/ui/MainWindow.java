@@ -288,7 +288,9 @@ public class MainWindow extends UiPart<Stage> {
             } else if (commandResult.isExit()) {
                 handleExit();
             } else if (commandResult.isCourseAdd()) {
-                refreshStatusBar(model);
+                if(!statusBar.isCourseNameSet()) {
+                    refreshStatusBar(model);
+                }
             }
 
             return commandResult;
