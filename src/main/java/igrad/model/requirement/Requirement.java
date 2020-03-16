@@ -27,13 +27,6 @@ public class Requirement implements ReadOnlyRequirement {
     // requirement-level operations
 
     /**
-     * Replaces the title of the requirement with {@code newTitle}.
-     */
-    public void setTitle(Title newTitle) {
-        this.title = newTitle;
-    }
-
-    /**
      * Replaces the contents of the module list with {@code modules}.
      * {@code modules} must not contain duplicate modules.
      */
@@ -51,8 +44,6 @@ public class Requirement implements ReadOnlyRequirement {
         setModules(newData.getModuleList());
     }
 
-    // module-level operations
-
     /**
      * Returns true if a module with the same identity as {@code module} exists in the list.
      */
@@ -60,6 +51,8 @@ public class Requirement implements ReadOnlyRequirement {
         requireNonNull(module);
         return modules.contains(module);
     }
+
+    // module-level operations
 
     /**
      * Replaces the title with {@code newTitle}.
@@ -96,17 +89,24 @@ public class Requirement implements ReadOnlyRequirement {
         modules.remove(module);
     }
 
-    // util methods
-
     @Override
     public String toString() {
         return modules.asUnmodifiableObservableList().size() + " modules";
         // TODO: refine later
     }
 
+    // util methods
+
     @Override
     public Title getTitle() {
         return title;
+    }
+
+    /**
+     * Replaces the title of the requirement with {@code newTitle}.
+     */
+    public void setTitle(Title newTitle) {
+        this.title = newTitle;
     }
 
     public boolean hasSameTitle(Requirement requirement) {
@@ -121,9 +121,9 @@ public class Requirement implements ReadOnlyRequirement {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                   || (other instanceof Requirement // instanceof handles nulls
-                           && modules.equals(((Requirement) other).modules)
-                           && title.equals(((Requirement) other).title));
+            || (other instanceof Requirement // instanceof handles nulls
+            && modules.equals(((Requirement) other).modules)
+            && title.equals(((Requirement) other).title));
     }
 
     @Override

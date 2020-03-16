@@ -27,6 +27,7 @@ public class SelectAvatarCommand extends Command {
     /**
      * Generates the actual success message for the command replacing the placeholders in MESSAGE_SUCCESS
      * with the actual Avatar name. (This method also capitalises the first letter of the Avatar name)
+     *
      * @return String the (command) success message
      */
     private String generateSuccessMessage() {

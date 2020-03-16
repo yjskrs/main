@@ -152,6 +152,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public CourseInfo getCourseInfo() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void modifyCourseInfo(CourseInfo courseInfo) {
             throw new AssertionError("This method should not be called.");
         }
