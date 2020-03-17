@@ -12,6 +12,7 @@ import igrad.commons.exceptions.IllegalValueException;
 import igrad.model.CourseBook;
 import igrad.model.ReadOnlyCourseBook;
 import igrad.model.module.Module;
+import igrad.model.requirement.Requirement;
 
 /**
  * An Immutable CourseBook that is serializable to JSON format.
@@ -20,15 +21,19 @@ import igrad.model.module.Module;
 class JsonSerializableCourseBook {
 
     public static final String MESSAGE_DUPLICATE_MODULE = "Modules list contains duplicate module(s).";
+    public static final String MESSAGE_DUPLICATE_REQUIREMENT = "Requirement list contains duplicate requirement(s).";
 
     private final List<JsonAdaptedModule> modules = new ArrayList<>();
+    private final List<JsonAdaptedRequirement> requirements = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableCourseBook} with the given modules.
      */
     @JsonCreator
-    public JsonSerializableCourseBook(@JsonProperty("modules") List<JsonAdaptedModule> modules) {
+    public JsonSerializableCourseBook(@JsonProperty("modules") List<JsonAdaptedModule> modules,
+                                      @JsonProperty("requirements") List<JsonAdaptedRequirement> requirements) {
         this.modules.addAll(modules);
+        this.requirements.addAll(requirements);
     }
 
     /**
@@ -37,7 +42,13 @@ class JsonSerializableCourseBook {
      * @param source future changes to this will not affect the created {@code JsonSerializableCourseBook}.
      */
     public JsonSerializableCourseBook(ReadOnlyCourseBook source) {
-        modules.addAll(source.getModuleList().stream().map(JsonAdaptedModule::new).collect(Collectors.toList()));
+        modules.addAll(source.getModuleList().stream()
+                           .map(JsonAdaptedModule::new)
+                           .collect(Collectors.toList()));
+        requirements.addAll(source.getRequirementList().stream()
+                                .map(JsonAdaptedRequirement::new)
+                                .collect(Collectors.toList()));
+
     }
 
     /**
@@ -54,6 +65,15 @@ class JsonSerializableCourseBook {
             }
             courseBook.addModule(module);
         }
+        List<Module> moduleList = courseBook.getModuleList();
+        for (JsonAdaptedRequirement jsonAdaptedRequirement : requirements) {
+            Requirement requirement = jsonAdaptedRequirement.toModelType(moduleList);
+            if (courseBook.hasRequirement(requirement)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_REQUIREMENT);
+            }
+            courseBook.addRequirement(requirement);
+        }
+
         return courseBook;
     }
 
