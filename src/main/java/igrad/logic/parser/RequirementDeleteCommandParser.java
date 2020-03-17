@@ -19,7 +19,7 @@ public class RequirementDeleteCommandParser implements Parser<RequirementDeleteC
     public RequirementDeleteCommand parse(String userInput) throws ParseException, IOException, ServiceException {
         try {
             Specifier specifier = ParserUtil.parseSpecifier(userInput);
-            return new RequirementDeleteCommand(new Title(specifier));
+            return new RequirementDeleteCommand(new Title(specifier.getValue()));
         } catch (ParseException pe) {
             throw new ParseException(
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE), pe);
