@@ -33,14 +33,6 @@ public class Requirement implements ReadOnlyRequirement {
     // requirement-level operations
 
     /**
-     * Replaces the contents of the module list with {@code modules}.
-     * {@code modules} must not contain duplicate modules.
-     */
-    public void setModules(List<Module> modules) {
-        this.modules.setModules(modules);
-    }
-
-    /**
      * Resets the existing data of this {@code Requirement} with {@code newData}.
      */
     public void resetData(ReadOnlyRequirement newData) {
@@ -51,20 +43,28 @@ public class Requirement implements ReadOnlyRequirement {
     }
 
     /**
-     * Returns true if a module with the same identity as {@code module} exists in the list.
+     * Replaces the title of the requirement with {@code newTitle}.
      */
-    public boolean hasModule(Module module) {
-        requireNonNull(module);
-        return modules.contains(module);
+    public void setTitle(Title newTitle) {
+        this.title = newTitle;
+    }
+
+    /**
+     * Replaces the contents of the module list with {@code modules}.
+     * {@code modules} must not contain duplicate modules.
+     */
+    public void setModules(List<Module> modules) {
+        this.modules.setModules(modules);
     }
 
     // module-level operations
 
     /**
-     * Replaces the title with {@code newTitle}.
+     * Returns true if a module with the same identity as {@code module} exists in the list.
      */
-    public void modifyTitle(Title newTitle) {
-        this.title = newTitle;
+    public boolean hasModule(Module module) {
+        requireNonNull(module);
+        return modules.contains(module);
     }
 
     /**
@@ -95,12 +95,6 @@ public class Requirement implements ReadOnlyRequirement {
         modules.remove(module);
     }
 
-    @Override
-    public String toString() {
-        return modules.asUnmodifiableObservableList().size() + " modules";
-        // TODO: refine later
-    }
-
     // util methods
 
     @Override
@@ -109,19 +103,21 @@ public class Requirement implements ReadOnlyRequirement {
     }
 
     /**
-     * Replaces the title of the requirement with {@code newTitle}.
+     * Checks if {@code otherRequirement} has the same title as this requirement.
      */
-    public void setTitle(Title newTitle) {
-        this.title = newTitle;
-    }
-
-    public boolean hasSameTitle(Requirement requirement) {
-        return this.title.equals(requirement.title);
+    public boolean hasSameTitle(Requirement otherRequirement) {
+        return this.title.equals(otherRequirement.title);
     }
 
     @Override
     public ObservableList<Module> getModuleList() {
         return modules.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public String toString() {
+        return modules.asUnmodifiableObservableList().size() + " modules";
+        // TODO: refine later
     }
 
     @Override

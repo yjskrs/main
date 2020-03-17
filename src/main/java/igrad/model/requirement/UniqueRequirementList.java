@@ -49,6 +49,27 @@ public class UniqueRequirementList implements Iterable<Requirement> {
     }
 
     /**
+     * Replaces all requirements with {@code replacement}.
+     */
+    public void setRequirements(UniqueRequirementList replacement) {
+        requireNonNull(replacement);
+        internalList.setAll(replacement.internalList);
+    }
+
+    /**
+     * Replaces the contents of this list with {@code requirements}.
+     * {@code requirements} must not contain duplicate requirements.
+     */
+    public void setRequirements(List<Requirement> requirements) {
+        requireAllNonNull(requirements);
+        if (!requirementsAreUnique(requirements)) {
+            throw new DuplicateRequirementException();
+        }
+
+        internalList.setAll(requirements);
+    }
+
+    /**
      * Replaces the requirement {@code target} in the list with {@code editedRequirement}.
      * {@code target} must exist in the list.
      */
@@ -78,24 +99,6 @@ public class UniqueRequirementList implements Iterable<Requirement> {
         }
     }
 
-    public void setRequirements(UniqueRequirementList replacement) {
-        requireNonNull(replacement);
-        internalList.setAll(replacement.internalList);
-    }
-
-    /**
-     * Replaces the contents of this list with {@code requirements}.
-     * {@code requirements} must not contain duplicate requirements.
-     */
-    public void setRequirements(List<Requirement> requirements) {
-        requireAllNonNull(requirements);
-        if (!requirementsAreUnique(requirements)) {
-            throw new DuplicateRequirementException();
-        }
-
-        internalList.setAll(requirements);
-    }
-
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
@@ -110,9 +113,9 @@ public class UniqueRequirementList implements Iterable<Requirement> {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-            || (other instanceof UniqueRequirementList // instanceof handles nulls
-            && internalList.equals(((UniqueRequirementList) other).internalList));
+        return other == this
+                   || (other instanceof UniqueRequirementList
+                           && internalList.equals(((UniqueRequirementList) other).internalList));
     }
 
     @Override
