@@ -1,9 +1,9 @@
-package igrad.logic.parser.RequirementCommandParser;
+package igrad.logic.parser.requirement;
 
 import static igrad.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static igrad.logic.commands.RequirementCommand.RequirementDeleteCommand.MESSAGE_USAGE;
+import static igrad.logic.commands.requirement.RequirementDeleteCommand.MESSAGE_USAGE;
 
-import igrad.logic.commands.RequirementCommand.RequirementDeleteCommand;
+import igrad.logic.commands.requirement.RequirementDeleteCommand;
 import igrad.logic.parser.Parser;
 import igrad.logic.parser.ParserUtil;
 import igrad.logic.parser.Specifier;

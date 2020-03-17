@@ -1,4 +1,4 @@
-package igrad.logic.commands.RequirementCommand;
+package igrad.logic.commands.requirement;
 
 import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
 import static igrad.logic.parser.CliSyntax.PREFIX_NAME;

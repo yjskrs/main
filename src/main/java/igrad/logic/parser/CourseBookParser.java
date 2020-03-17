@@ -16,14 +16,14 @@ import igrad.logic.commands.HelpCommand;
 import igrad.logic.commands.ModuleAddCommand;
 import igrad.logic.commands.ModuleDeleteCommand;
 import igrad.logic.commands.ModuleEditCommand;
-import igrad.logic.commands.RequirementCommand.RequirementAddCommand;
-import igrad.logic.commands.RequirementCommand.RequirementDeleteCommand;
-import igrad.logic.commands.RequirementCommand.RequirementEditCommand;
 import igrad.logic.commands.SelectAvatarCommand;
-import igrad.logic.parser.RequirementCommandParser.RequirementAddCommandParser;
-import igrad.logic.parser.RequirementCommandParser.RequirementDeleteCommandParser;
-import igrad.logic.parser.RequirementCommandParser.RequirementEditCommandParser;
+import igrad.logic.commands.requirement.RequirementAddCommand;
+import igrad.logic.commands.requirement.RequirementDeleteCommand;
+import igrad.logic.commands.requirement.RequirementEditCommand;
 import igrad.logic.parser.exceptions.ParseException;
+import igrad.logic.parser.requirement.RequirementAddCommandParser;
+import igrad.logic.parser.requirement.RequirementDeleteCommandParser;
+import igrad.logic.parser.requirement.RequirementEditCommandParser;
 import igrad.services.exceptions.ServiceException;
 
 /**

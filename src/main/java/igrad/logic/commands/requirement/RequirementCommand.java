@@ -1,4 +1,4 @@
-package igrad.logic.commands.RequirementCommand;
+package igrad.logic.commands.requirement;
 
 import igrad.logic.commands.Command;
 

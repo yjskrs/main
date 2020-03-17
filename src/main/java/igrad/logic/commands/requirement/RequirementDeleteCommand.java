@@ -1,4 +1,4 @@
-package igrad.logic.commands.RequirementCommand;
+package igrad.logic.commands.requirement;
 
 import static java.util.Objects.requireNonNull;
 
