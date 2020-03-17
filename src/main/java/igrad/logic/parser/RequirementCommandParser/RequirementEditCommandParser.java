@@ -1,15 +1,20 @@
-package igrad.logic.parser;
+package igrad.logic.parser.RequirementCommandParser;
 
 import static igrad.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static igrad.logic.commands.RequirementEditCommand.MESSAGE_REQUIREMENT_NOT_EDITED;
-import static igrad.logic.commands.RequirementEditCommand.MESSAGE_USAGE;
+import static igrad.logic.commands.RequirementCommand.RequirementEditCommand.MESSAGE_REQUIREMENT_NOT_EDITED;
+import static igrad.logic.commands.RequirementCommand.RequirementEditCommand.MESSAGE_USAGE;
 import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
 import static igrad.logic.parser.CliSyntax.PREFIX_NAME;
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
 
-import igrad.logic.commands.RequirementEditCommand;
+import igrad.logic.commands.RequirementCommand.RequirementEditCommand;
+import igrad.logic.parser.ArgumentMultimap;
+import igrad.logic.parser.ArgumentTokenizer;
+import igrad.logic.parser.Parser;
+import igrad.logic.parser.ParserUtil;
+import igrad.logic.parser.Specifier;
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.requirement.Credits;
 import igrad.model.requirement.Requirement;

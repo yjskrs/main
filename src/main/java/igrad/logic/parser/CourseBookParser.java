@@ -16,7 +16,13 @@ import igrad.logic.commands.HelpCommand;
 import igrad.logic.commands.ModuleAddCommand;
 import igrad.logic.commands.ModuleDeleteCommand;
 import igrad.logic.commands.ModuleEditCommand;
+import igrad.logic.commands.RequirementCommand.RequirementAddCommand;
+import igrad.logic.commands.RequirementCommand.RequirementDeleteCommand;
+import igrad.logic.commands.RequirementCommand.RequirementEditCommand;
 import igrad.logic.commands.SelectAvatarCommand;
+import igrad.logic.parser.RequirementCommandParser.RequirementAddCommandParser;
+import igrad.logic.parser.RequirementCommandParser.RequirementDeleteCommandParser;
+import igrad.logic.parser.RequirementCommandParser.RequirementEditCommandParser;
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.services.exceptions.ServiceException;
 
@@ -64,6 +70,15 @@ public class CourseBookParser {
 
         switch (commandWord) {
 
+        case RequirementAddCommand.COMMAND_WORD:
+            return new RequirementAddCommandParser().parse(arguments);
+
+        case RequirementEditCommand.COMMAND_WORD:
+            return new RequirementEditCommandParser().parse(arguments);
+
+        case RequirementDeleteCommand.COMMAND_WORD:
+            return new RequirementDeleteCommandParser().parse(arguments);
+
         case ModuleAddCommand.COMMAND_WORD:
 
             if (ArgumentTokenizer.isFlagPresent(argumentsWithFlags, FLAG_AUTO.getFlag())) {
@@ -90,6 +105,7 @@ public class CourseBookParser {
         case CourseDeleteCommand.COMMAND_WORD:
             // course delete has no arguments, hence no parse(argument) method needed
             return new CourseDeleteCommand();
+
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

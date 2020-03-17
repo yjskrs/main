@@ -1,4 +1,6 @@
-package igrad.logic.commands;
+package igrad.logic.commands.RequirementCommand;
+
+import igrad.logic.commands.Command;
 
 /**
  * A generic Requirement class.

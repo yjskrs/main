@@ -1,11 +1,14 @@
-package igrad.logic.parser;
+package igrad.logic.parser.RequirementCommandParser;
 
 import static igrad.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static igrad.logic.commands.RequirementDeleteCommand.MESSAGE_USAGE;
+import static igrad.logic.commands.RequirementCommand.RequirementDeleteCommand.MESSAGE_USAGE;
 
 import java.io.IOException;
 
-import igrad.logic.commands.RequirementDeleteCommand;
+import igrad.logic.commands.RequirementCommand.RequirementDeleteCommand;
+import igrad.logic.parser.Parser;
+import igrad.logic.parser.ParserUtil;
+import igrad.logic.parser.Specifier;
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.requirement.Title;
 import igrad.services.exceptions.ServiceException;
