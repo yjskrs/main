@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import igrad.commons.exceptions.IllegalValueException;
 import igrad.model.module.Module;
 import igrad.model.module.ModuleCode;
+import igrad.model.requirement.Credits;
 import igrad.model.requirement.Requirement;
 import igrad.model.requirement.Title;
 
@@ -21,6 +22,7 @@ class JsonAdaptedRequirement {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Requirement's %s field is missing!";
 
     private final String title;
+    private final String credits;
     private final List<String> moduleCodes = new ArrayList<>();
 
     /**
@@ -28,8 +30,10 @@ class JsonAdaptedRequirement {
      */
     @JsonCreator
     public JsonAdaptedRequirement(@JsonProperty("title") String title,
+                                  @JsonProperty("credits") String credits,
                                   @JsonProperty("modules") List<String> moduleCodes) {
         this.title = title;
+        this.credits = credits;
         if (moduleCodes != null) {
             this.moduleCodes.addAll(moduleCodes);
         }
@@ -40,6 +44,7 @@ class JsonAdaptedRequirement {
      */
     public JsonAdaptedRequirement(Requirement source) {
         title = source.getTitle().value;
+        credits = source.getCredits().value;
         moduleCodes.addAll(source.getModuleList().stream()
             .map(module -> module.getModuleCode().toString())
             .collect(Collectors.toList()));
@@ -67,7 +72,9 @@ class JsonAdaptedRequirement {
 
         final Title modelTitle = new Title(title);
 
-        return new Requirement(modelTitle, modelModules);
+        final Credits modelCredits = new Credits(credits);
+
+        return new Requirement(modelTitle, modelCredits, modelModules);
     }
 
 }
