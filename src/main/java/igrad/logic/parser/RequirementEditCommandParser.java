@@ -22,10 +22,10 @@ public class RequirementEditCommandParser implements Parser<RequirementEditComma
 
     /**
      * Parses the given string of arguments {@code args} in the context of the
-     * RequirementEditCommand and returns a RequirementEditCommand object
-     * for execution.
-     * @throws ParseException if the user input does not conform the expected format
+     * RequirementEditCommand and returns a RequirementEditCommand object for execution.
+     * @throws ParseException If the user input does not conform the expected format.
      */
+    @Override
     public RequirementEditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_CREDITS);
