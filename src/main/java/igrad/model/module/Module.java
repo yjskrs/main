@@ -74,6 +74,18 @@ public class Module {
     }
 
     /**
+     * Returns true if both modules have the same module code.
+     * This defines a weaker notion of equality between two modules than Module#isSameModule.
+     */
+    public boolean hasModuleCodeOf(ModuleCode moduleCode) {
+        if (moduleCode == this.moduleCode) {
+            return true;
+        }
+
+        return getModuleCode().equals(moduleCode);
+    }
+
+    /**
      * Returns true if both modules of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two modules.
      */

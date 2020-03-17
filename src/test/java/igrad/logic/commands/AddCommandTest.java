@@ -22,6 +22,7 @@ import igrad.model.ReadOnlyUserPrefs;
 import igrad.model.avatar.Avatar;
 import igrad.model.course.CourseInfo;
 import igrad.model.module.Module;
+import igrad.model.requirement.Requirement;
 import igrad.testutil.ModuleBuilder;
 import javafx.collections.ObservableList;
 
@@ -172,12 +173,42 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean hasRequirement(Requirement requirement) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addRequirement(Requirement requirement) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setRequirements(Requirement target, Requirement editedRequirement) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteRequirement(Requirement requirement) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Module> getFilteredModuleList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
+        public ObservableList<Requirement> getRequirementList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updateFilteredModuleList(Predicate<Module> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateRequirementList(Predicate<Requirement> predicate) {
             throw new AssertionError("This method should not be called.");
         }
     }

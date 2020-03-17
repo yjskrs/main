@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 import igrad.logic.commands.CommandTestUtil;
 import igrad.model.module.Module;
 import igrad.model.module.exceptions.DuplicateModuleException;
+import igrad.model.requirement.Requirement;
 import igrad.testutil.ModuleBuilder;
 import igrad.testutil.TypicalModules;
 import javafx.collections.FXCollections;
@@ -96,6 +97,12 @@ public class CourseBookTest {
         @Override
         public ObservableList<Module> getModuleList() {
             return modules;
+        }
+
+        // We're not testing requirement as its similar to modules
+        @Override
+        public ObservableList<Requirement> getRequirementList() {
+            return null;
         }
     }
 
