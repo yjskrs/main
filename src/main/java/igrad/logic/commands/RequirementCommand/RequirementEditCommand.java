@@ -66,21 +66,23 @@ public class RequirementEditCommand extends RequirementCommand {
 
         Title editedTitle = newTitle.orElse(requirementToEdit.getTitle());
         Credits editedCredits = newCredits.orElse(requirementToEdit.getCredits());
-
         Requirement editedRequirement = new Requirement(editedTitle, editedCredits, requirementToEdit.getModuleList());
 
+        // if the edited title and the edited credits are the same as before
         if (requirementToEdit.hasSameTitle(editedRequirement) && requirementToEdit.hasSameCredits(editedRequirement)) {
             throw new CommandException(MESSAGE_REQUIREMENT_SAME_PARAMETERS);
         }
 
+        // if the title is edited and same as before OR if the credits is edited and same as before
         if (newTitle.isPresent() && requirementToEdit.getTitle().equals(editedTitle)
                 || newCredits.isPresent() && requirementToEdit.getCredits().equals(editedCredits)) {
             throw new CommandException(MESSAGE_REQUIREMENT_SAME_PARAMETERS);
         }
 
-        if (requirements.stream().anyMatch(requirement ->
-                                             !requirement.getTitle().equals(originalTitle)
-                                                 && requirement.hasSameTitle(editedRequirement))) {
+        // if changed title is the same as an existing title
+        if (requirements.stream()
+                .anyMatch(requirement -> !requirement.getTitle().equals(originalTitle)
+                                             && requirement.hasSameTitle(editedRequirement))) {
             throw new CommandException(MESSAGE_REQUIREMENT_DUPLICATE);
         }
 

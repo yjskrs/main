@@ -37,8 +37,8 @@ public class RequirementDeleteCommand extends RequirementCommand {
         List<Requirement> requirements = model.getRequirementList();
 
         Requirement requirementToDelete;
-        if (!requirements.stream()
-                .anyMatch(requirement -> requirement.getTitle().equals(title))) {
+        // check if requirement exists in course book
+        if (!requirements.stream().anyMatch(requirement -> requirement.getTitle().equals(title))) {
             throw new CommandException(MESSAGE_REQUIREMENT_NON_EXISTENT);
         } else {
             requirementToDelete = requirements.stream()

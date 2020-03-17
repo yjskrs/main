@@ -3,7 +3,7 @@ package igrad.logic.commands.RequirementCommand;
 import igrad.logic.commands.Command;
 
 /**
- * A generic Requirement class.
+ * A generic Requirement command class.
  */
 public abstract class RequirementCommand extends Command {
     public static final String REQUIREMENT_COMMAND_WORD = "requirement ";

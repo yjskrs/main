@@ -40,6 +40,7 @@ public class RequirementAddCommand extends RequirementCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
+        // if the title of the requirement has already been used
         if (model.hasRequirement(requirementToAdd)) {
             throw new CommandException(MESSAGE_REQUIREMENT_DUPLICATE);
         }
