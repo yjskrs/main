@@ -1,7 +1,7 @@
 package igrad.logic.parser;
 
 import static igrad.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static igrad.logic.commands.RequirementEditCommand.MESSAGE_REQUIREMENT_NOT_EDITED;
+import static igrad.logic.commands.RequirementAddCommand.MESSAGE_REQUIREMENT_NOT_ADDED;
 import static igrad.logic.commands.RequirementAddCommand.MESSAGE_USAGE;
 import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
 import static igrad.logic.parser.CliSyntax.PREFIX_NAME;
@@ -22,7 +22,7 @@ public class RequirementAddCommandParser implements Parser<RequirementAddCommand
 
     /**
      * Parses the given string of arguments {@code args} in the context of the
-     * RequirementEditCommand and returns a RequirementEditCommand object
+     * RequirementAddCommand and returns a RequirementAddCommand object
      * for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
@@ -43,8 +43,7 @@ public class RequirementAddCommandParser implements Parser<RequirementAddCommand
             title = new Title(argMultimap.getValue(PREFIX_NAME).get());
             credits = new Credits(argMultimap.getValue(PREFIX_CREDITS).get());
         } else {
-            throw new ParseException(
-                String.format(MESSAGE_REQUIREMENT_NOT_EDITED, MESSAGE_USAGE));
+            throw new ParseException(MESSAGE_REQUIREMENT_NOT_ADDED);
         }
 
         Requirement requirement = new Requirement(title, credits, new ArrayList<>());

@@ -25,13 +25,11 @@ public class RequirementEditCommand extends RequirementCommand {
                                                    + PREFIX_NAME + "Unrestricted Electives";
 
     public static final String MESSAGE_REQUIREMENT_EDIT_SUCCESS = "Edited Requirement: %1$s";
-    public static final String MESSAGE_REQUIREMENT_NOT_EDITED = "Edited title must be provided with prefix "
-                                                                    + PREFIX_NAME;
+    public static final String MESSAGE_REQUIREMENT_NOT_EDITED = "Edited requirement must be provided with prefix "
+                                                                    + PREFIX_NAME + PREFIX_CREDITS;
     public static final String MESSAGE_REQUIREMENT_SAME_TITLE = "Please rename to a different title.";
     public static final String MESSAGE_REQUIREMENT_DUPLICATE = "This requirement title already exists."
                                                                     + "Please rename to a different title.";
-    public static final String MESSAGE_EDIT_IDENTIFIER_MISSING = "Requirement does not exist. "
-                                                                     + "Please enter an existing requirement";
 
     private final Title originalTitle;
 
@@ -51,7 +49,7 @@ public class RequirementEditCommand extends RequirementCommand {
         Requirement requirementToEdit = model.getRequirementList().stream()
                                             .filter(requirement -> requirement.getTitle().equals(originalTitle))
                                             .findFirst()
-                                            .orElseThrow(() -> new CommandException(MESSAGE_EDIT_IDENTIFIER_MISSING));
+                                            .orElseThrow(() -> new CommandException(MESSAGE_REQUIREMENT_NON_EXISTENT));
 
         if (requirementToEdit.hasSameTitle(editedRequirement)) {
             throw new CommandException(MESSAGE_REQUIREMENT_SAME_TITLE);
