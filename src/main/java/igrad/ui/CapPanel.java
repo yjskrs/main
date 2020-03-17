@@ -30,12 +30,12 @@ public class CapPanel extends UiPart<Region> {
         this.capPanel = new AnchorPane();
     }
 
-    public void showPanels() {
+   /* public void showPanels() {
 
     }
 
-    public void setCap(String cap) {
-
+    public void setCap(double cap) {
+        currentCap.setText("cap");
     }
 
     public void setGoalCap(String cap) {
@@ -44,5 +44,5 @@ public class CapPanel extends UiPart<Region> {
 
     public void setTargetCap(String cap) {
 
-    }
+    }*/
 }
