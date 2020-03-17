@@ -41,6 +41,22 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String specifier} into a {@code Specifier}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code specifier} is invalid.
+     */
+    public static Specifier parseSpecifier(String specifier) throws ParseException {
+        requireNonNull(specifier);
+
+        String trimmedSpecifier = specifier.trim();
+        if (!Title.isValidTitle(specifier)) {
+            throw new ParseException(Title.MESSAGE_CONSTRAINTS);
+        }
+        return new Specifier(trimmedSpecifier);
+    }
+
+    /**
      * Parses a {@code String title} into a {@code Title}.
      * Leading and trailing whitespaces will be trimmed.
      *
