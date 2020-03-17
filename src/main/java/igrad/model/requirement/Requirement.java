@@ -13,7 +13,7 @@ import javafx.collections.ObservableList;
  */
 public class Requirement implements ReadOnlyRequirement {
     private final UniqueModuleList modules = new UniqueModuleList();
-    private Title title;
+    private final Title title;
 
     public Requirement(Title title) {
         requireNonNull(title);
@@ -27,26 +27,21 @@ public class Requirement implements ReadOnlyRequirement {
     }
 
     public Requirement(ReadOnlyRequirement toBeCopied) {
-        resetData(toBeCopied);
+        requireNonNull(toBeCopied);
+
+        this.title = toBeCopied.getTitle();
+        resetModules(toBeCopied);
     }
 
     // requirement-level operations
 
     /**
-     * Resets the existing data of this {@code Requirement} with {@code newData}.
+     * Resets the existing modules of this {@code Requirement} with {@code newData}.
      */
-    public void resetData(ReadOnlyRequirement newData) {
+    public void resetModules(ReadOnlyRequirement newData) {
         requireNonNull(newData);
 
-        setTitle(newData.getTitle());
         setModules(newData.getModuleList());
-    }
-
-    /**
-     * Replaces the title of the requirement with {@code newTitle}.
-     */
-    public void setTitle(Title newTitle) {
-        this.title = newTitle;
     }
 
     /**
