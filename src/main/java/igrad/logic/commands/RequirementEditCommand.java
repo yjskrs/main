@@ -1,6 +1,7 @@
 package igrad.logic.commands;
 
 import static igrad.commons.util.CollectionUtil.requireAllNonNull;
+import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
 import static igrad.logic.parser.CliSyntax.PREFIX_NAME;
 import static java.util.Objects.requireNonNull;
 
@@ -15,10 +16,11 @@ import igrad.model.requirement.Title;
 public class RequirementEditCommand extends RequirementCommand {
     public static final String COMMAND_WORD = REQUIREMENT_COMMAND_WORD + "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the requirement by the title of the requirement."
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the requirement title."
                                                    + "Existing title will be overwritten by the input title.\n"
-                                                   + "Parameter:"
-                                                   + PREFIX_NAME + "TITLE\n"
+                                                   + "Parameter: "
+                                                   + "[" + PREFIX_NAME + "NEW_TITLE]"
+                                                   + "[" + PREFIX_CREDITS + "NEW_CREDITS]\n"
                                                    + "Example: " + COMMAND_WORD + " Unrestrained Elves "
                                                    + PREFIX_NAME + "Unrestricted Electives";
 
@@ -33,13 +35,13 @@ public class RequirementEditCommand extends RequirementCommand {
 
     private final Title originalTitle;
 
-    private final Title newTitle;
+    private final Requirement editedRequirement;
 
-    public RequirementEditCommand(Title originalTitle, Title newTitle) {
-        requireAllNonNull(originalTitle, newTitle);
+    public RequirementEditCommand(Title originalTitle, Requirement editedRequirement) {
+        requireAllNonNull(originalTitle, editedRequirement);
 
         this.originalTitle = originalTitle;
-        this.newTitle = newTitle;
+        this.editedRequirement = editedRequirement;
     }
 
     @Override
@@ -50,15 +52,16 @@ public class RequirementEditCommand extends RequirementCommand {
                                             .filter(requirement -> requirement.getTitle().equals(originalTitle))
                                             .findFirst()
                                             .orElseThrow(() -> new CommandException(MESSAGE_EDIT_IDENTIFIER_MISSING));
-        if (originalTitle.equals(newTitle)) {
+
+        if (requirementToEdit.hasSameTitle(editedRequirement)) {
             throw new CommandException(MESSAGE_REQUIREMENT_SAME_TITLE);
         }
-
-        Requirement editedRequirement = new Requirement(newTitle, requirementToEdit.getModuleList());
 
         if (model.hasRequirement(editedRequirement)) {
             throw new CommandException(MESSAGE_REQUIREMENT_DUPLICATE);
         }
+
+        editedRequirement.setModules(requirementToEdit.getModuleList());
 
         model.setRequirement(requirementToEdit, editedRequirement);
         model.updateRequirementList(Model.PREDICATE_SHOW_ALL_REQUIREMENTS);

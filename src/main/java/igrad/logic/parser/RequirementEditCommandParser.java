@@ -3,11 +3,16 @@ package igrad.logic.parser;
 import static igrad.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static igrad.logic.commands.RequirementEditCommand.MESSAGE_REQUIREMENT_NOT_EDITED;
 import static igrad.logic.commands.RequirementEditCommand.MESSAGE_USAGE;
+import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
 import static igrad.logic.parser.CliSyntax.PREFIX_NAME;
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
+
 import igrad.logic.commands.RequirementEditCommand;
 import igrad.logic.parser.exceptions.ParseException;
+import igrad.model.requirement.Credits;
+import igrad.model.requirement.Requirement;
 import igrad.model.requirement.Title;
 
 /**
@@ -23,7 +28,7 @@ public class RequirementEditCommandParser implements Parser<RequirementEditComma
      */
     public RequirementEditCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_CREDITS);
 
         Specifier specifier;
         try {
@@ -33,13 +38,18 @@ public class RequirementEditCommandParser implements Parser<RequirementEditComma
         }
 
         Title title;
-        if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
+        Credits credits;
+
+        if (argMultimap.getValue(PREFIX_NAME).isPresent() && argMultimap.getValue(PREFIX_CREDITS).isPresent()) {
             title = new Title(argMultimap.getValue(PREFIX_NAME).get());
+            credits = new Credits(argMultimap.getValue(PREFIX_CREDITS).get());
         } else {
             throw new ParseException(MESSAGE_REQUIREMENT_NOT_EDITED);
         }
 
-        return new RequirementEditCommand(new Title(specifier.getValue()), title);
+        Requirement editedRequirement = new Requirement(title, credits, new ArrayList<>());
+
+        return new RequirementEditCommand(new Title(specifier.getValue()), editedRequirement);
     }
 
 }
