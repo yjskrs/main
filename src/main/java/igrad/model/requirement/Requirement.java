@@ -14,15 +14,18 @@ import javafx.collections.ObservableList;
 public class Requirement implements ReadOnlyRequirement {
     private final UniqueModuleList modules = new UniqueModuleList();
     private final Title title;
+    private final Credits credits;
 
-    public Requirement(Title title) {
+    public Requirement(Title title, Credits credits) {
         requireNonNull(title);
         this.title = title;
+        this.credits = credits;
     }
 
-    public Requirement(Title title, List<Module> modules) {
+    public Requirement(Title title, Credits credits, List<Module> modules) {
         requireNonNull(title);
         this.title = title;
+        this.credits = credits;
         setModules(modules);
     }
 
@@ -30,6 +33,7 @@ public class Requirement implements ReadOnlyRequirement {
         requireNonNull(toBeCopied);
 
         this.title = toBeCopied.getTitle();
+        this.credits = toBeCopied.getCredits();
         resetModules(toBeCopied);
     }
 
@@ -102,6 +106,11 @@ public class Requirement implements ReadOnlyRequirement {
      */
     public boolean hasSameTitle(Requirement otherRequirement) {
         return this.title.equals(otherRequirement.title);
+    }
+
+    @Override
+    public Credits getCredits() {
+        return credits;
     }
 
     @Override
