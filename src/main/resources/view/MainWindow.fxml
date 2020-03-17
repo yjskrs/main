@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.stage.Stage?>
 
-<fx:root minHeight="1000.0" minWidth="1000.0" onCloseRequest="#handleExit" title="iGrad" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root minHeight="1000.0" minWidth="1200.0" onCloseRequest="#handleExit" title="iGrad" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <icons>
         <Image url="@/images/iGrad_Shibu.png" />
     </icons>
@@ -21,13 +21,13 @@
                 <URL value="@Extensions.css" />
             </stylesheets>
 
-            <VBox prefHeight="800.0" prefWidth="1000.0">
+            <VBox prefHeight="800.0" prefWidth="1200.0">
 
                 <StackPane fx:id="statusBarPlaceholder" styleClass="status-bar" />
-                <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="400.0" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+                <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="1200.0" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
                     <children>
 
-                        <VBox fx:id="moduleList" alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="2000.0" minWidth="500.0" prefWidth="500.0" styleClass="pane-with-border" HBox.hgrow="ALWAYS">
+                        <VBox fx:id="moduleList" alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="2000.0" minWidth="500.0" prefWidth="600.0" styleClass="pane-with-border" HBox.hgrow="ALWAYS">
                             <children>
 <!--                                <StackPane fx:id="moduleListPanelPlaceholder" alignment="CENTER_RIGHT"-->
 <!--                                           maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"-->
@@ -48,11 +48,11 @@
                                 <Insets bottom="10.0" top="10.0" />
                             </HBox.margin>
                         </Region>
-                        <VBox maxWidth="400.0" minWidth="-Infinity" prefWidth="400.0" styleClass="pane-with-border" HBox.hgrow="ALWAYS">
+                        <VBox maxWidth="-Infinity" minWidth="-Infinity" prefWidth="350.0" styleClass="pane-with-border" HBox.hgrow="ALWAYS">
                             <children>
-                                <HBox fx:id="sidePanelPlaceholder" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="330.0" prefWidth="360.0" style="-fx-background-color: #2a2a2a;">
+                                <HBox fx:id="sidePanelPlaceholder" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="270.0" prefWidth="300.0" style="-fx-background-color: #2a2a2a;">
                            <VBox.margin>
-                              <Insets bottom="10.0" left="5.0" right="5.0" top="5.0" />
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </VBox.margin></HBox>
                                 <Region maxHeight="-Infinity" prefHeight="1.0" style="-fx-border-color: #3d3d3d;" />
                         <VBox fx:id="capPanelPlaceholder" prefHeight="300.0" prefWidth="400.0" />

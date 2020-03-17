@@ -202,6 +202,7 @@
 .progress-indicator {
     -fx-text-fill: transparent;
     -fx-progress-color: #359183;
+    -fx-text-alignment: center;
 }
 
 .mcSidePanel {

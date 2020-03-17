@@ -23,7 +23,7 @@ import javafx.stage.Screen;
  */
 public class AvatarSelectionPanel extends UiPart<Region> {
     private static final String FXML = "AvatarSelectionPanel.fxml";
-    private static final String WELCOME_MESSAGE = "Welcome to iGrad";
+    private static final String WELCOME_MESSAGE = "Welcome to iGrad.";
     private final Logger logger = LogsCenter.getLogger(AvatarSelectionPanel.class);
 
     @FXML
