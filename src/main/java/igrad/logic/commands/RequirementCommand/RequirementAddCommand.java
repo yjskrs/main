@@ -16,7 +16,7 @@ public class RequirementAddCommand extends RequirementCommand {
     public static final String COMMAND_WORD = REQUIREMENT_COMMAND_WORD + "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a requirement.\n"
-                                                   + "Parameter:"
+                                                   + "Parameter: "
                                                    + PREFIX_NAME + "TITLE "
                                                    + PREFIX_CREDITS + "CREDITS_NEEDED\n"
                                                    + "Example: " + COMMAND_WORD + " "

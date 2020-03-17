@@ -51,7 +51,7 @@ public class ParserUtil {
         requireNonNull(specifier);
 
         String trimmedSpecifier = specifier.trim();
-        if (!Title.isValidTitle(specifier)) {
+        if (!Title.isValidTitle(trimmedSpecifier)) {
             throw new ParseException(Title.MESSAGE_CONSTRAINTS);
         }
         return new Specifier(trimmedSpecifier);

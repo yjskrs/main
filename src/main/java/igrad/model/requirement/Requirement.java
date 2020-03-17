@@ -108,6 +108,13 @@ public class Requirement implements ReadOnlyRequirement {
         return this.title.equals(otherRequirement.title);
     }
 
+    /**
+     * Checks if {@code otherRequirement} has the same credits as this requirement.
+     */
+    public boolean hasSameCredits(Requirement otherRequirement) {
+        return this.credits.equals(otherRequirement.credits);
+    }
+
     @Override
     public Credits getCredits() {
         return credits;
@@ -120,7 +127,8 @@ public class Requirement implements ReadOnlyRequirement {
 
     @Override
     public String toString() {
-        return modules.asUnmodifiableObservableList().size() + " modules";
+        return "Requirement: " + title + " " + credits + " has "
+                   + modules.asUnmodifiableObservableList().size() + " modules";
         // TODO: refine later
     }
 
