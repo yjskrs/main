@@ -50,12 +50,17 @@
                         </Region>
                         <VBox maxWidth="-Infinity" minWidth="-Infinity" prefWidth="350.0" styleClass="pane-with-border" HBox.hgrow="ALWAYS">
                             <children>
+                        <Region maxHeight="-Infinity" prefHeight="1.0" style="-fx-border-color: #3d3d3d;" />
                                 <HBox fx:id="sidePanelPlaceholder" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="270.0" prefWidth="300.0" style="-fx-background-color: #2a2a2a;">
                            <VBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </VBox.margin></HBox>
                                 <Region maxHeight="-Infinity" prefHeight="1.0" style="-fx-border-color: #3d3d3d;" />
-                        <VBox fx:id="capPanelPlaceholder" prefHeight="300.0" prefWidth="400.0" />
+                        <VBox fx:id="capPanelPlaceholder" prefHeight="300.0" prefWidth="400.0">
+                           <VBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </VBox.margin></VBox>
+                        <Region maxHeight="-Infinity" prefHeight="1.0" style="-fx-border-color: #3d3d3d;" />
                             </children>
                             <padding>
                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
