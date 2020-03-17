@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="mcPanelPlaceholder" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="330.0" prefWidth="400.0" style="-fx-background-color: #2a2a2a;" styleClass="mcSidePanel" stylesheets="DarkTheme.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ProgressIndicator fx:id="progressIndicator" layoutX="170.0" layoutY="289.0" prefHeight="400.0" prefWidth="400.0" progress="0.25" scaleX="13.0" scaleY="13.0" styleClass="progress-indicator" />
+      <Circle fill="#1f93ff00" layoutX="190.0" layoutY="191.0" radius="116.0" stroke="#2a2a2a" strokeType="OUTSIDE" strokeWidth="30.0" />
+      <Circle fill="#2d2d2d" layoutX="190.0" layoutY="191.0" radius="110.0" stroke="#2a2a2a" strokeType="INSIDE" />
+      <Label fx:id="mcCount" contentDisplay="CENTER" layoutX="124.0" layoutY="167.0" style="-fx-font-size: 40;" text=" 40/160" textFill="WHITE">
+         <font>
+            <Font size="41.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="111.0" layoutY="12.0" style="-fx-font-size: 30;" text="MCs Completed" textFill="WHITE">
+         <font>
+            <Font name="Calibri Light" size="42.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="85.0" fitWidth="70.0" layoutX="31.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/module.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

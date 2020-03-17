@@ -3,7 +3,6 @@
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Scene?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
@@ -40,6 +39,9 @@
                             <padding>
                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                             </padding>
+                     <HBox.margin>
+                        <Insets left="20.0" right="20.0" top="10.0" />
+                     </HBox.margin>
                         </VBox>
                         <Region maxHeight="1.7976931348623157E308" maxWidth="-Infinity" prefWidth="1.0" style="-fx-border-color: #3d3d3d;">
                             <HBox.margin>
@@ -48,11 +50,12 @@
                         </Region>
                         <VBox maxWidth="400.0" minWidth="-Infinity" prefWidth="400.0" styleClass="pane-with-border" HBox.hgrow="ALWAYS">
                             <children>
-                                <HBox fx:id="sidePanelPlaceholder" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="400.0" />
+                                <HBox fx:id="sidePanelPlaceholder" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="330.0" prefWidth="360.0" style="-fx-background-color: #2a2a2a;">
+                           <VBox.margin>
+                              <Insets bottom="10.0" left="5.0" right="5.0" top="5.0" />
+                           </VBox.margin></HBox>
                                 <Region maxHeight="-Infinity" prefHeight="1.0" style="-fx-border-color: #3d3d3d;" />
                         <VBox fx:id="capPanelPlaceholder" prefHeight="300.0" prefWidth="400.0" />
-                        <Region maxHeight="-Infinity" prefHeight="1.0" style="-fx-border-color: #3d3d3d;" />
-                                <ListView maxHeight="1.7976931348623157E308" style="-fx-background-color: #2d2d2d;" VBox.vgrow="ALWAYS" />
                             </children>
                             <padding>
                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

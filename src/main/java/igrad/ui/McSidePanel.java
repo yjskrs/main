@@ -1,6 +1,9 @@
 package igrad.ui;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.scene.control.ProgressIndicator;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 
@@ -9,10 +12,19 @@ import javafx.scene.layout.Region;
  */
 public class McSidePanel extends UiPart<Region> {
 
-    public static final String FXML = "McSidePanel.fxml";
+    public static final String FXML = "McSidePanelIndicator.fxml";
+
     @FXML
-    private HBox mcPanelPlaceholder;
-    private String mcCounter;
+    private AnchorPane mcPanelPlaceholder;
+
+    @FXML
+    Label mcCount;
+
+    @FXML
+    ProgressIndicator progressIndicator;
+
+    private int mcCounter;
+    private int totalMcs;
 
     /*
      * TODO: Replace with CAP information when link to UI is done.
@@ -30,9 +42,19 @@ public class McSidePanel extends UiPart<Region> {
      */
     public McSidePanel() {
         super(FXML);
+
+        this.totalMcs = 160;
+        setMcCounter(40);
     }
 
-    public void setMcCounter(String mcCounter) {
+    public void setMcCounter(int count) {
 
+        if (count < 100) {
+            mcCount.setText(" " + count + "/" + this.totalMcs);
+        } else {
+            mcCount.setText(count + "/" + this.totalMcs);
+        }
+        double progress = (double) count / (double) totalMcs;
+        progressIndicator.setProgress(progress);
     }
 }
