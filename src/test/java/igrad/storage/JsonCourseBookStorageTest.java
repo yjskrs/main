@@ -1,7 +1,6 @@
 package igrad.storage;
 
 import static igrad.testutil.Assert.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.io.IOException;
@@ -14,7 +13,6 @@ import org.junit.jupiter.api.io.TempDir;
 import igrad.commons.exceptions.DataConversionException;
 import igrad.model.CourseBook;
 import igrad.model.ReadOnlyCourseBook;
-import igrad.testutil.TypicalModules;
 
 public class JsonCourseBookStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonCourseBookStorageTest");

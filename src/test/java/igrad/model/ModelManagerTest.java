@@ -1,6 +1,5 @@
 package igrad.model;
 
-import static igrad.model.Model.PREDICATE_SHOW_ALL_MODULES;
 import static igrad.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -8,13 +7,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
 import igrad.commons.core.GuiSettings;
-import igrad.model.module.TitleContainsKeywordsPredicate;
-import igrad.testutil.CourseBookBuilder;
 import igrad.testutil.TypicalModules;
 
 public class ModelManagerTest {
