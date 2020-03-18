@@ -25,7 +25,6 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Module> filteredModules;
     private final FilteredList<Requirement> requirements;
-    private Avatar avatar;
 
     /**
      * Initializes a ModelManager with the given courseBook and userPrefs.
@@ -36,11 +35,13 @@ public class ModelManager implements Model {
 
         logger.fine("Initializing with course book: " + courseBook + " and user prefs " + userPrefs);
 
-        this.avatar = Avatar.getAvatar();
+        // Retrieving all course book data (modules, course info, requirements, from storage)
         this.courseBook = new CourseBook(courseBook);
         this.userPrefs = new UserPrefs(userPrefs);
+
         this.requirements = new FilteredList<>(this.courseBook.getRequirementList());
         this.filteredModules = new FilteredList<>(this.courseBook.getModuleList());
+        //this.courseInfo = this.courseBook.getCourseInfo();
     }
 
     public ModelManager() {
@@ -84,13 +85,18 @@ public class ModelManager implements Model {
 
     @Override
     public Avatar getAvatar() {
-        return avatar;
+        return userPrefs.getAvatar();
     }
 
     @Override
     public void setAvatar(Avatar avatar) {
         requireNonNull(avatar);
-        this.avatar = avatar;
+        userPrefs.setAvatar(avatar);
+    }
+
+    @Override
+    public boolean isSampleAvatar() {
+        return this.getUserPrefs().getAvatar().equals(Avatar.getSampleAvatar());
     }
 
     //=========== CourseBook ================================================================================

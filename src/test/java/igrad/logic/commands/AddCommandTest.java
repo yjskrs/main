@@ -128,6 +128,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean isSampleAvatar() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ReadOnlyCourseBook getCourseBook() {
             throw new AssertionError("This method should not be called.");
         }

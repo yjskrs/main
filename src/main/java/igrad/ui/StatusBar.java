@@ -41,11 +41,7 @@ public class StatusBar extends UiPart<Region> {
     }
 
     public boolean isCourseNameSet() {
-        if (this.courseName.length() == 0) {
-            return false;
-        } else {
-            return true;
-        }
+        return this.courseName.length() != 0;
     }
 
     public StackPane getPane() {

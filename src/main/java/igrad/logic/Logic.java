@@ -25,7 +25,7 @@ public interface Logic {
      * @return the result of the command execution.
      * @throws ParseException If error occurs during parsing avatar name (i.e, it is not valid).
      */
-    CommandResult executeAvatar(String commandText) throws ParseException;
+    CommandResult executeAvatar(String commandText) throws ParseException, CommandException;
 
     /**
      * Executes the command and returns the result.
