@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 
 import igrad.model.Model;
 import igrad.model.avatar.Avatar;
-import igrad.storage.AvatarStorage;
 
 /**
  * Adds a module to the course book.
@@ -42,8 +41,6 @@ public class SelectAvatarCommand extends Command {
         requireNonNull(model);
 
         model.setAvatar(toAdd);
-
-        AvatarStorage.writeAvatar(toAdd);
 
         return new CommandResult(String.format(generateSuccessMessage(), toAdd));
     }

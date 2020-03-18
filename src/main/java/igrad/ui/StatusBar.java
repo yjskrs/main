@@ -13,6 +13,8 @@ public class StatusBar extends UiPart<Region> {
 
     private static final String FXML = "StatusBar.fxml";
 
+    private String courseName;
+
     @FXML
     private StackPane pane;
 
@@ -23,6 +25,8 @@ public class StatusBar extends UiPart<Region> {
     public StatusBar() {
         super(FXML);
 
+        this.courseName = "";
+
         pane = new StackPane();
 
         course.setText("Course:");
@@ -32,7 +36,12 @@ public class StatusBar extends UiPart<Region> {
     }
 
     public void setCourseName(String courseName) {
+        this.courseName = courseName;
         course.setText("Course: " + courseName);
+    }
+
+    public boolean isCourseNameSet() {
+        return this.courseName.length() != 0;
     }
 
     public StackPane getPane() {

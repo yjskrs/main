@@ -42,6 +42,7 @@ public class JsonCourseBookStorage implements CourseBookStorage {
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
+    @Override
     public Optional<ReadOnlyCourseBook> readCourseBook(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
@@ -69,6 +70,7 @@ public class JsonCourseBookStorage implements CourseBookStorage {
      *
      * @param filePath location of the data. Cannot be null.
      */
+    @Override
     public void saveCourseBook(ReadOnlyCourseBook courseBook, Path filePath) throws IOException {
         requireNonNull(courseBook);
         requireNonNull(filePath);

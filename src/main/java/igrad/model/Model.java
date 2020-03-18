@@ -70,6 +70,11 @@ public interface Model {
     void setAvatar(Avatar avatar);
 
     /**
+     * Checks whether the Avatar is a sample Avatar (i.e, Avatar not set yet)
+     */
+    boolean isSampleAvatar();
+
+    /**
      * Returns the CourseBook
      */
     ReadOnlyCourseBook getCourseBook();
