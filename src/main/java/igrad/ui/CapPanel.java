@@ -13,6 +13,7 @@ public class CapPanel extends UiPart<Region> {
 
     @FXML
     private AnchorPane capPanel;
+
     /*
      * @FXML
      * Label currentCAP;
