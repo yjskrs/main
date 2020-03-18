@@ -19,7 +19,7 @@
       <padding>
         <Insets bottom="5" left="15" right="5" top="5" />
       </padding>
-      <Label fx:id="moduleCode" style="-fx-font-size: 36; -fx-text-fill: #FF7A2F;" styleClass="cell_big_label" text="\$moduleCode" />
+      <Label fx:id="moduleCode" style="-fx-font-size: 28; -fx-text-fill: #FF7A2F;" styleClass="cell_big_label" text="\$moduleCode" />
      <Label fx:id="title" styleClass="cell_big_label" text="\$first" />
          <HBox spacing="10.0">
             <children>
