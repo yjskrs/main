@@ -269,7 +269,7 @@ public class MainWindow extends UiPart<Stage> {
         try {
             CommandResult commandResult;
 
-            boolean isSelectingAvatar = model.getAvatar().getIsSample();
+            boolean isSelectingAvatar = model.isSampleAvatar();
 
             if (isSelectingAvatar) {
                 commandResult = logic.executeAvatar(commandText);
@@ -288,7 +288,8 @@ public class MainWindow extends UiPart<Stage> {
             } else if (commandResult.isExit()) {
                 handleExit();
             } else if (commandResult.isCourseAdd()) {
-                if(!statusBar.isCourseNameSet()) {
+                // TODO (Nat): Further remodularise code here, breaking abstractions
+                if (!statusBar.isCourseNameSet()) {
                     refreshStatusBar(model);
                 }
             }

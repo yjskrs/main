@@ -128,6 +128,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean isSampleAvatar() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ReadOnlyCourseBook getCourseBook() {
             throw new AssertionError("This method should not be called.");
         }
@@ -183,7 +188,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setRequirements(Requirement target, Requirement editedRequirement) {
+        public void setRequirement(Requirement target, Requirement editedRequirement) {
             throw new AssertionError("This method should not be called.");
         }
 

@@ -24,8 +24,8 @@ public class ModuleCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on CourseBook level 4</a>
      */
 
-    public final Module module;
-    public int displayedIndex;
+    private final Module module;
+    private int displayedIndex;
 
     @FXML
     private HBox cardPane;
@@ -39,8 +39,8 @@ public class ModuleCard extends UiPart<Region> {
     private Label semester;
     @FXML
     private Label credits;
-/*    @FXML
-    private Label description;*/
+    /*    @FXML
+        private Label description;*/
     @FXML
     private FlowPane tags;
 
@@ -48,7 +48,7 @@ public class ModuleCard extends UiPart<Region> {
         super(FXML);
         this.module = module;
         this.displayedIndex = displayedIndex;
- /*       id.setText(displayedIndex + ". ");*/
+        /*       id.setText(displayedIndex + ". ");*/
         title.setText(module.getTitle().value);
         moduleCode.setText(module.getModuleCode().value);
         credits.setText(module.getCredits().value + " MCs");
@@ -59,9 +59,11 @@ public class ModuleCard extends UiPart<Region> {
         if (module.getSemester() != null) {
             semester.setText(module.getSemester().value);
         }
-/*        if (module.getDescription() != null) {
+        /*
+            if (module.getDescription() != null) {
             description.setText("Description:\t\t" + module.getDescription().value);
-        }*/
+            }
+        */
 
         module.getTags().stream()
             .sorted(Comparator.comparing(tag -> tag.tagName))

@@ -43,12 +43,11 @@ class JsonSerializableCourseBook {
      */
     public JsonSerializableCourseBook(ReadOnlyCourseBook source) {
         modules.addAll(source.getModuleList().stream()
-                           .map(JsonAdaptedModule::new)
-                           .collect(Collectors.toList()));
+            .map(JsonAdaptedModule::new)
+            .collect(Collectors.toList()));
         requirements.addAll(source.getRequirementList().stream()
-                                .map(JsonAdaptedRequirement::new)
-                                .collect(Collectors.toList()));
-
+            .map(JsonAdaptedRequirement::new)
+            .collect(Collectors.toList()));
     }
 
     /**
@@ -65,6 +64,7 @@ class JsonSerializableCourseBook {
             }
             courseBook.addModule(module);
         }
+
         List<Module> moduleList = courseBook.getModuleList();
         for (JsonAdaptedRequirement jsonAdaptedRequirement : requirements) {
             Requirement requirement = jsonAdaptedRequirement.toModelType(moduleList);

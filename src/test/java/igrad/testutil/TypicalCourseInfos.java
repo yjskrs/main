@@ -16,10 +16,8 @@ public class TypicalCourseInfos {
     public static final CourseInfo B_SCI_MATH = new CourseInfoBuilder()
         .withName("Bachelor of Science in Mathematics").build();
 
-    /*
-     * TODO: (Teri) Add one more CourseInfo test case example (same as above), and update
-     * getTypicalCourseInfos() (below) accordingly
-     */
+    public static final CourseInfo B_INFO_SYS = new CourseInfoBuilder()
+        .withName("Bachelor of Information Systems").build();
 
     // Manually added - CourseInfo's details found in {@code CommandTestUtil}
     public static final CourseInfo B_ARTS_PHILO = new CourseInfoBuilder()
@@ -32,6 +30,6 @@ public class TypicalCourseInfos {
     } // prevents instantiation
 
     public static List<CourseInfo> getTypicalCourseInfos() {
-        return new ArrayList<>(Arrays.asList(B_COMP_SCI));
+        return new ArrayList<>(Arrays.asList(B_COMP_SCI, B_INFO_SYS, B_SCI_MATH, B_ARTS_PHILO));
     }
 }

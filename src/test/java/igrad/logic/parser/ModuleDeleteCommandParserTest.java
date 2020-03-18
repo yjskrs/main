@@ -8,6 +8,7 @@ import static igrad.testutil.TypicalIndexes.INDEX_FIRST_MODULE;
 import org.junit.jupiter.api.Test;
 
 import igrad.logic.commands.ModuleDeleteCommand;
+import igrad.logic.parser.module.ModuleDeleteCommandParser;
 
 /**
  * As we are only doing white-box testing, our test cases do not cover path variations

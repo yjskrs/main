@@ -1,4 +1,4 @@
-package igrad.logic.parser;
+package igrad.logic.parser.module;
 
 import static igrad.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
@@ -14,6 +14,11 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 import igrad.logic.commands.ModuleAddAutoCommand;
+import igrad.logic.parser.ArgumentMultimap;
+import igrad.logic.parser.ArgumentTokenizer;
+import igrad.logic.parser.Parser;
+import igrad.logic.parser.ParserUtil;
+import igrad.logic.parser.Prefix;
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.module.Credits;
 import igrad.model.module.Description;
@@ -30,7 +35,7 @@ import igrad.services.exceptions.ServiceException;
 /**
  * Parses input arguments and creates a new ModuleAddCommand object
  */
-public class AddAutoCommandParser implements Parser<ModuleAddAutoCommand> {
+public class AddAutoCommandParser extends ModuleCommandParser implements Parser<ModuleAddAutoCommand> {
 
     /**
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given
@@ -68,15 +73,15 @@ public class AddAutoCommandParser implements Parser<ModuleAddAutoCommand> {
         Set<Tag> tagsList = ParserUtil.parseTag(argMultimap.getAllValues(PREFIX_TAG));
         JsonParsedModule jsonParsedModule = NusModsRequester.getModule(moduleCodeStr);
 
-        Title title = ParserUtil.parseTitle(jsonParsedModule.getTitle());
-        Credits credits = ParserUtil.parseCredits(jsonParsedModule.getCredits());
-        Description description = ParserUtil.parseDescription(jsonParsedModule.getDescription());
-        ModuleCode moduleCode = ParserUtil.parseModuleCode(jsonParsedModule.getModuleCode());
+        Title title = parseTitle(jsonParsedModule.getTitle());
+        Credits credits = parseCredits(jsonParsedModule.getCredits());
+        Description description = parseDescription(jsonParsedModule.getDescription());
+        ModuleCode moduleCode = parseModuleCode(jsonParsedModule.getModuleCode());
         Memo memo = argMultimap.getValue(PREFIX_MEMO).isPresent()
-            ? ParserUtil.parseMemo(argMultimap.getValue(PREFIX_MEMO).get())
+            ? parseMemo(argMultimap.getValue(PREFIX_MEMO).get())
             : null;
         Semester semester = argMultimap.getValue(PREFIX_SEMESTER).isPresent()
-            ? ParserUtil.parseSemester(argMultimap.getValue(PREFIX_SEMESTER).get())
+            ? parseSemester(argMultimap.getValue(PREFIX_SEMESTER).get())
             : null;
 
         Module module = new Module(title, moduleCode, credits, memo, semester, description, tagsList);

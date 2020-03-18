@@ -1,7 +1,7 @@
 = iGrad - Developer Guide
 :site-section: DeveloperGuide
 :toc:
-:toc-title:
+:toc-name:
 :toc-placement: preamble
 :sectnums:
 :imagesDir: images

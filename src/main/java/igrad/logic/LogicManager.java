@@ -38,12 +38,19 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public CommandResult executeAvatar(String avatarName) throws ParseException {
+    public CommandResult executeAvatar(String avatarName) throws ParseException, CommandException {
         CommandResult commandResult;
 
 
         SelectAvatarCommand selectAvatarCommand = courseBookParser.parseAvatarName(avatarName);
         commandResult = selectAvatarCommand.execute(model);
+
+        try {
+            // Saves to UserPref data file to save new Avatar, after successful Avatar command execution
+            storage.saveUserPrefs(model.getUserPrefs());
+        } catch (IOException ioe) {
+            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+        }
 
         return commandResult;
     }
@@ -58,6 +65,7 @@ public class LogicManager implements Logic {
         commandResult = command.execute(model);
 
         try {
+            // Saves to data file after every command
             storage.saveCourseBook(model.getCourseBook());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);

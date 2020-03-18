@@ -13,24 +13,40 @@ import javafx.collections.ObservableList;
  */
 public class Requirement implements ReadOnlyRequirement {
     private final UniqueModuleList modules = new UniqueModuleList();
-    private Title title;
+    private final Name name;
+    private final Credits credits;
 
-    public Requirement(Title title) {
-        requireNonNull(title);
-        this.title = title;
+    public Requirement(Name name, Credits credits) {
+        requireNonNull(name);
+        this.name = name;
+        this.credits = credits;
     }
 
-    public Requirement(Title title, List<Module> modules) {
-        requireNonNull(title);
-        this.title = title;
+    public Requirement(Name name, Credits credits, List<Module> modules) {
+        requireNonNull(name);
+        this.name = name;
+        this.credits = credits;
         setModules(modules);
     }
 
     public Requirement(ReadOnlyRequirement toBeCopied) {
-        resetData(toBeCopied);
+        requireNonNull(toBeCopied);
+
+        this.name = toBeCopied.getName();
+        this.credits = toBeCopied.getCredits();
+        resetModules(toBeCopied);
     }
 
     // requirement-level operations
+
+    /**
+     * Resets the existing modules of this {@code Requirement} with {@code newData}.
+     */
+    public void resetModules(ReadOnlyRequirement newData) {
+        requireNonNull(newData);
+
+        setModules(newData.getModuleList());
+    }
 
     /**
      * Replaces the contents of the module list with {@code modules}.
@@ -40,15 +56,7 @@ public class Requirement implements ReadOnlyRequirement {
         this.modules.setModules(modules);
     }
 
-    /**
-     * Resets the existing data of this {@code Requirement} with {@code newData}.
-     */
-    public void resetData(ReadOnlyRequirement newData) {
-        requireNonNull(newData);
-
-        setTitle(newData.getTitle());
-        setModules(newData.getModuleList());
-    }
+    // module-level operations
 
     /**
      * Returns true if a module with the same identity as {@code module} exists in the list.
@@ -56,15 +64,6 @@ public class Requirement implements ReadOnlyRequirement {
     public boolean hasModule(Module module) {
         requireNonNull(module);
         return modules.contains(module);
-    }
-
-    // module-level operations
-
-    /**
-     * Replaces the title with {@code newTitle}.
-     */
-    public void modifyTitle(Title newTitle) {
-        this.title = newTitle;
     }
 
     /**
@@ -95,28 +94,30 @@ public class Requirement implements ReadOnlyRequirement {
         modules.remove(module);
     }
 
-    @Override
-    public String toString() {
-        return modules.asUnmodifiableObservableList().size() + " modules";
-        // TODO: refine later
-    }
-
     // util methods
 
     @Override
-    public Title getTitle() {
-        return title;
+    public Name getName() {
+        return name;
     }
 
     /**
-     * Replaces the title of the requirement with {@code newTitle}.
+     * Checks if {@code otherRequirement} has the same name as this requirement.
      */
-    public void setTitle(Title newTitle) {
-        this.title = newTitle;
+    public boolean hasSameName(Requirement otherRequirement) {
+        return this.name.equals(otherRequirement.name);
     }
 
-    public boolean hasSameTitle(Requirement requirement) {
-        return this.title.equals(requirement.title);
+    /**
+     * Checks if {@code otherRequirement} has the same credits as this requirement.
+     */
+    public boolean hasSameCredits(Requirement otherRequirement) {
+        return this.credits.equals(otherRequirement.credits);
+    }
+
+    @Override
+    public Credits getCredits() {
+        return credits;
     }
 
     @Override
@@ -125,11 +126,18 @@ public class Requirement implements ReadOnlyRequirement {
     }
 
     @Override
+    public String toString() {
+        return "Requirement: " + name + " " + credits + " has "
+                   + modules.asUnmodifiableObservableList().size() + " modules";
+        // TODO: refine later
+    }
+
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
             || (other instanceof Requirement // instanceof handles nulls
             && modules.equals(((Requirement) other).modules)
-            && title.equals(((Requirement) other).title));
+            && name.equals(((Requirement) other).name));
     }
 
     @Override

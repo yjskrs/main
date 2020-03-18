@@ -55,7 +55,7 @@ public interface Model {
     void setCourseBookFilePath(Path courseBookFilePath);
 
     /**
-     * Resets course book data to a blank state with no data (e.g, modules, requirements, etc).
+     * Resets {@code courseBook} data to a blank state with no data (e.g, modules, requirements, etc).
      */
     void resetCourseBook(ReadOnlyCourseBook courseBook);
 
@@ -68,6 +68,11 @@ public interface Model {
      * Sets the Avatar
      */
     void setAvatar(Avatar avatar);
+
+    /**
+     * Checks whether the Avatar is a sample Avatar (i.e, Avatar not set yet)
+     */
+    boolean isSampleAvatar();
 
     /**
      * Returns the CourseBook
@@ -91,7 +96,7 @@ public interface Model {
     void deleteModule(Module target);
 
     /**
-     * Adds the given courseInfo to the course book.
+     * Adds the given {@code courseInfo} to the course book.
      */
     void addCourseInfo(CourseInfo courseInfo);
 
@@ -101,7 +106,7 @@ public interface Model {
     CourseInfo getCourseInfo();
 
     /**
-     * Modifies the name of the course.
+     * Modifies the name of the course to {@code courseInfo}.
      */
     void modifyCourseInfo(CourseInfo courseInfo);
 
@@ -118,12 +123,28 @@ public interface Model {
      */
     void setModule(Module target, Module editedModule);
 
+    /**
+     * Checks if the {@code requirement} exists in the course book.
+     * Returns true if it exists and false otherwise.
+     */
     boolean hasRequirement(Requirement requirement);
 
+    /**
+     * Adds the given requirement.
+     * {@code requirement} must not already exist in the course book.
+     */
     void addRequirement(Requirement requirement);
 
-    void setRequirements(Requirement target, Requirement editedRequirement);
+    /**
+     * Replaces the given requirement {@code target} with {@code editedRequirement}.
+     * {@code target} must exist in the course book and {@code editedRequirement} must not
+     * have the same title as another requirement in the course book.
+     */
+    void setRequirement(Requirement target, Requirement editedRequirement);
 
+    /**
+     * Deletes the given {@code requirement}.
+     */
     void deleteRequirement(Requirement requirement);
 
     /**

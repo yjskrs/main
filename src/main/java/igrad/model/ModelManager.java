@@ -25,7 +25,6 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Module> filteredModules;
     private final FilteredList<Requirement> requirements;
-    private Avatar avatar;
 
     /**
      * Initializes a ModelManager with the given courseBook and userPrefs.
@@ -36,11 +35,13 @@ public class ModelManager implements Model {
 
         logger.fine("Initializing with course book: " + courseBook + " and user prefs " + userPrefs);
 
-        this.avatar = Avatar.getAvatar();
+        // Retrieving all course book data (modules, course info, requirements, from storage)
         this.courseBook = new CourseBook(courseBook);
         this.userPrefs = new UserPrefs(userPrefs);
+
         this.requirements = new FilteredList<>(this.courseBook.getRequirementList());
         this.filteredModules = new FilteredList<>(this.courseBook.getModuleList());
+        //this.courseInfo = this.courseBook.getCourseInfo();
     }
 
     public ModelManager() {
@@ -84,22 +85,22 @@ public class ModelManager implements Model {
 
     @Override
     public Avatar getAvatar() {
-        return avatar;
+        return userPrefs.getAvatar();
     }
 
     @Override
     public void setAvatar(Avatar avatar) {
         requireNonNull(avatar);
-        this.avatar = avatar;
+        userPrefs.setAvatar(avatar);
+    }
+
+    @Override
+    public boolean isSampleAvatar() {
+        return this.getUserPrefs().getAvatar().equals(Avatar.getSampleAvatar());
     }
 
     //=========== CourseBook ================================================================================
 
-    /**
-     * Resets the course book data to a blank state with no data (e.g, modules, requirements, etc).
-     *
-     * @param courseBook
-     */
     @Override
     public void resetCourseBook(ReadOnlyCourseBook courseBook) {
         this.setCourseBook(new CourseBook());
@@ -131,21 +132,11 @@ public class ModelManager implements Model {
         return courseBook.getCourseInfo();
     }
 
-    /**
-     * Adds the given courseInfo to the course book.
-     *
-     * @param courseInfo
-     */
     @Override
     public void addCourseInfo(CourseInfo courseInfo) {
         courseBook.addCourseInfo(courseInfo);
     }
 
-    /**
-     * Modifies the name of the course.
-     *
-     * @param courseInfo
-     */
     @Override
     public void modifyCourseInfo(CourseInfo courseInfo) {
         courseBook.modifyCourseInfo(courseInfo);
@@ -177,7 +168,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setRequirements(Requirement target, Requirement editedRequirement) {
+    public void setRequirement(Requirement target, Requirement editedRequirement) {
         requireAllNonNull(target, editedRequirement);
 
         courseBook.setRequirement(target, editedRequirement);
