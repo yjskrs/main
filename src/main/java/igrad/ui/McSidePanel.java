@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 
 /**
@@ -13,17 +12,13 @@ import javafx.scene.layout.Region;
 public class McSidePanel extends UiPart<Region> {
 
     public static final String FXML = "McSidePanelIndicator.fxml";
-
+    @FXML
+    private Label mcCount;
+    @FXML
+    private ProgressIndicator progressIndicator;
     @FXML
     private AnchorPane mcPanelPlaceholder;
-
-    @FXML
-    Label mcCount;
-
-    @FXML
-    ProgressIndicator progressIndicator;
-
-    private int mcCounter;
+    //private int mcCounter;
     private int totalMcs;
 
     /*

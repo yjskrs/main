@@ -288,6 +288,7 @@ public class MainWindow extends UiPart<Stage> {
             } else if (commandResult.isExit()) {
                 handleExit();
             } else if (commandResult.isCourseAdd()) {
+                // TODO (Nat): Further remodularise code here, breaking abstractions
                 if (!statusBar.isCourseNameSet()) {
                     refreshStatusBar(model);
                 }
