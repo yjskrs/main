@@ -44,7 +44,6 @@ public class StorageManager implements Storage {
         userPrefsStorage.saveUserPrefs(userPrefs);
     }
 
-
     // ================ CourseBook methods ==============================
 
     @Override

@@ -16,6 +16,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
     private Path courseBookFilePath = Paths.get("data", "coursebook.json");
+    private Avatar avatar = new Avatar();
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -38,6 +39,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
         setCourseBookFilePath(newUserPrefs.getCourseBookFilePath());
+        setAvatar(newUserPrefs.getAvatar());
     }
 
     public GuiSettings getGuiSettings() {
@@ -58,9 +60,13 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.courseBookFilePath = courseBookFilePath;
     }
 
-    @Override
     public Avatar getAvatar() {
-        return null;
+        return avatar;
+    }
+
+    public void setAvatar(Avatar avatar) {
+        requireNonNull(avatar);
+        this.avatar = avatar;
     }
 
     @Override
@@ -75,7 +81,8 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
-            && courseBookFilePath.equals(o.courseBookFilePath);
+            && courseBookFilePath.equals(o.courseBookFilePath)
+            && avatar.equals(o.avatar);
     }
 
     @Override
@@ -88,6 +95,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
         sb.append("\nLocal data file location : " + courseBookFilePath);
+        sb.append("\nAvatar : " + avatar);
         return sb.toString();
     }
 

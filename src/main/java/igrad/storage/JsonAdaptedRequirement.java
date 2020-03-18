@@ -58,9 +58,9 @@ class JsonAdaptedRequirement {
     public Requirement toModelType(List<Module> moduleList) throws IllegalValueException {
         final List<Module> modelModules = new ArrayList<>();
         modelModules.addAll(moduleList.stream()
-                                .filter(module -> moduleCodes.stream()
-                                                      .anyMatch(code -> module.hasModuleCodeOf(new ModuleCode(code))))
-                                .collect(Collectors.toList()));
+            .filter(module -> moduleCodes.stream()
+                .anyMatch(code -> module.hasModuleCodeOf(new ModuleCode(code))))
+            .collect(Collectors.toList()));
 
         if (title == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Title.class.getSimpleName()));

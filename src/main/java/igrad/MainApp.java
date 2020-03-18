@@ -55,7 +55,7 @@ public class MainApp extends Application {
         config = initConfig(appParameters.getConfigPath());
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
-        UserPrefs userPrefs = initPrefs(userPrefsStorage);
+        ReadOnlyUserPrefs userPrefs = initPrefs(userPrefsStorage);
         CourseBookStorage courseBookStorage = new JsonCourseBookStorage(userPrefs.getCourseBookFilePath());
         storage = new StorageManager(courseBookStorage, userPrefsStorage);
 
@@ -75,12 +75,15 @@ public class MainApp extends Application {
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyCourseBook> courseBookOptional;
+        Optional<ReadOnlyUserPrefs> userPrefsOptional;
         ReadOnlyCourseBook initialData;
         try {
             courseBookOptional = storage.readCourseBook();
+
             if (!courseBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample CourseBook");
+                logger.info("CourseBook Data file not found. Will be starting with a sample CourseBook");
             }
+
             initialData = courseBookOptional.orElseGet(SampleDataUtil::getSampleCourseBook);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty CourseBook");
@@ -91,6 +94,43 @@ public class MainApp extends Application {
         }
 
         return new ModelManager(initialData, userPrefs);
+    }
+
+    /**
+     * Returns a {@code UserPrefs} using the file at {@code storage}'s user prefs file path,
+     * or a new {@code UserPrefs} with default configuration if errors occur when
+     * reading from the file.
+     */
+    protected ReadOnlyUserPrefs initPrefs(UserPrefsStorage storage) {
+        Path prefsFilePath = storage.getUserPrefsFilePath();
+        logger.info("Using prefs file : " + prefsFilePath);
+
+        UserPrefs initializedPrefs;
+        try {
+            Optional<UserPrefs> userPrefsOptional = storage.readUserPrefs();
+
+            if (!userPrefsOptional.isPresent()) {
+                logger.info("UserPrefs Data file not found. Will be starting with a sample UserPrefs");
+            }
+
+            initializedPrefs = userPrefsOptional.orElseGet(SampleDataUtil::getSampleUserPrefs);
+        } catch (DataConversionException e) {
+            logger.warning("UserPrefs file at " + prefsFilePath + " is not in the correct format. "
+                + "Using default user prefs");
+            initializedPrefs = new UserPrefs();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty UserPrefs");
+            initializedPrefs = new UserPrefs();
+        }
+
+        //Update prefs file in case it was missing to begin with or there are new/unused fields
+        try {
+            storage.saveUserPrefs(initializedPrefs);
+        } catch (IOException e) {
+            logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
+        }
+
+        return initializedPrefs;
     }
 
     private void initLogging(Config config) {
@@ -133,37 +173,6 @@ public class MainApp extends Application {
         return initializedConfig;
     }
 
-    /**
-     * Returns a {@code UserPrefs} using the file at {@code storage}'s user prefs file path,
-     * or a new {@code UserPrefs} with default configuration if errors occur when
-     * reading from the file.
-     */
-    protected UserPrefs initPrefs(UserPrefsStorage storage) {
-        Path prefsFilePath = storage.getUserPrefsFilePath();
-        logger.info("Using prefs file : " + prefsFilePath);
-
-        UserPrefs initializedPrefs;
-        try {
-            Optional<UserPrefs> prefsOptional = storage.readUserPrefs();
-            initializedPrefs = prefsOptional.orElse(new UserPrefs());
-        } catch (DataConversionException e) {
-            logger.warning("UserPrefs file at " + prefsFilePath + " is not in the correct format. "
-                + "Using default user prefs");
-            initializedPrefs = new UserPrefs();
-        } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty CourseBook");
-            initializedPrefs = new UserPrefs();
-        }
-
-        //Update prefs file in case it was missing to begin with or there are new/unused fields
-        try {
-            storage.saveUserPrefs(initializedPrefs);
-        } catch (IOException e) {
-            logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
-        }
-
-        return initializedPrefs;
-    }
 
     @Override
     public void start(Stage primaryStage) {

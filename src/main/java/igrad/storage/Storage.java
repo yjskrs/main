@@ -28,5 +28,4 @@ public interface Storage extends CourseBookStorage, UserPrefsStorage {
 
     @Override
     void saveCourseBook(ReadOnlyCourseBook courseBook) throws IOException;
-
 }

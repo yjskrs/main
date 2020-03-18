@@ -24,14 +24,13 @@ public class ModuleCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on CourseBook level 4</a>
      */
 
-    public final Module module;
+    private final Module module;
+    private int displayedIndex;
 
     @FXML
     private HBox cardPane;
     @FXML
     private Label title;
-    @FXML
-    private Label id;
     @FXML
     private Label moduleCode;
     @FXML
@@ -40,28 +39,31 @@ public class ModuleCard extends UiPart<Region> {
     private Label semester;
     @FXML
     private Label credits;
-    @FXML
-    private Label description;
+    /*    @FXML
+        private Label description;*/
     @FXML
     private FlowPane tags;
 
     public ModuleCard(Module module, int displayedIndex) {
         super(FXML);
         this.module = module;
-        id.setText(displayedIndex + ". ");
+        this.displayedIndex = displayedIndex;
+        /*       id.setText(displayedIndex + ". ");*/
         title.setText(module.getTitle().value);
-        moduleCode.setText("Code:\t\t" + module.getModuleCode().value);
-        credits.setText("Credits:\t\t" + module.getCredits().value);
+        moduleCode.setText(module.getModuleCode().value);
+        credits.setText(module.getCredits().value + " MCs");
 
         if (module.getMemo() != null) {
-            memo.setText("Memo:\t\t\t" + module.getMemo().value);
+            memo.setText("Memo: " + module.getMemo().value);
         }
         if (module.getSemester() != null) {
-            semester.setText("Semester:\t\t\t" + module.getSemester().value);
+            semester.setText(module.getSemester().value);
         }
-        if (module.getDescription() != null) {
+        /*
+            if (module.getDescription() != null) {
             description.setText("Description:\t\t" + module.getDescription().value);
-        }
+            }
+        */
 
         module.getTags().stream()
             .sorted(Comparator.comparing(tag -> tag.tagName))
@@ -82,7 +84,7 @@ public class ModuleCard extends UiPart<Region> {
 
         // state check
         ModuleCard card = (ModuleCard) other;
-        return id.getText().equals(card.id.getText())
+        return this.displayedIndex == card.displayedIndex
             && module.equals(card.module);
     }
 }
