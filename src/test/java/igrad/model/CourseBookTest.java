@@ -13,6 +13,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import igrad.logic.commands.CommandTestUtil;
+import igrad.model.course.CourseInfo;
 import igrad.model.module.Module;
 import igrad.model.module.exceptions.DuplicateModuleException;
 import igrad.model.requirement.Requirement;
@@ -102,6 +103,11 @@ public class CourseBookTest {
         // We're not testing requirement as its similar to modules
         @Override
         public ObservableList<Requirement> getRequirementList() {
+            return null;
+        }
+
+        @Override
+        public CourseInfo getCourseInfo() {
             return null;
         }
     }

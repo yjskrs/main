@@ -1,5 +1,6 @@
 package igrad.logic.parser;
 
+import static igrad.commons.core.Messages.MESSAGE_COURSE_NOT_SET;
 import static igrad.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static igrad.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static igrad.logic.parser.CliSyntax.FLAG_AUTO;
@@ -54,6 +55,30 @@ public class CourseBookParser {
 
         return selectAvatarCommand;
 
+    }
+
+    /**
+     * Parses avatar name entered by user into {@code SelectAvatarCommand} for execution.
+     *
+     * @param userInput full user input string
+     * @return the {@code CourseAddCommand} command
+     * @throws ParseException if the user input does not conform the expected format
+     */
+    public CourseAddCommand parseSetCourseName(String userInput) throws ParseException {
+        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
+        if (!matcher.matches()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+        }
+
+        final String commandWord = matcher.group("commandWord");
+        final String argumentsWithFlags = matcher.group("arguments");
+        final String arguments = ArgumentTokenizer.removeFlags(argumentsWithFlags);
+
+        if (commandWord.equals(CourseAddCommand.COMMAND_WORD)) {
+            return new CourseAddCommandParser().parse(arguments);
+        } else {
+            throw new ParseException(MESSAGE_COURSE_NOT_SET);
+        }
     }
 
     /**

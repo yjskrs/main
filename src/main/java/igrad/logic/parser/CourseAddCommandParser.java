@@ -1,7 +1,9 @@
 package igrad.logic.parser;
 
 import static igrad.logic.parser.CliSyntax.PREFIX_NAME;
+import static java.util.Objects.requireNonNull;
 
+import java.util.Optional;
 import java.util.stream.Stream;
 
 import igrad.commons.core.Messages;
@@ -30,6 +32,21 @@ public class CourseAddCommandParser extends CourseCommandParser implements Parse
     }
 
     /**
+     * Parses a {@code String name} into a {@code Name}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code title} is invalid.
+     */
+    public static Name parseName(String name) throws ParseException {
+        requireNonNull(name);
+        String trimmedName = name.trim();
+        if (!igrad.model.requirement.Name.isValidTitle(trimmedName)) {
+            throw new ParseException(igrad.model.module.Title.MESSAGE_CONSTRAINTS);
+        }
+        return new Name(trimmedName);
+    }
+
+    /**
      * Parses the given {@code String} of arguments in the context of the CourseAddCommand
      * and returns an CourseAddCommand object for execution.
      *
@@ -47,7 +64,7 @@ public class CourseAddCommandParser extends CourseCommandParser implements Parse
 
         Name name = parseName(argMultimap.getValue(PREFIX_NAME).get());
 
-        CourseInfo courseInfo = new CourseInfo(name);
+        CourseInfo courseInfo = new CourseInfo(Optional.of(name));
 
         return new CourseAddCommand(courseInfo);
     }
