@@ -133,6 +133,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean isCourseNameSet() {
+        return courseBook.getCourseInfo().getName().isPresent();
+    }
+
+    @Override
     public void addCourseInfo(CourseInfo courseInfo) {
         courseBook.addCourseInfo(courseInfo);
     }

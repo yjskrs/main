@@ -81,10 +81,10 @@ public class MainApp extends Application {
             courseBookOptional = storage.readCourseBook();
 
             if (!courseBookOptional.isPresent()) {
-                logger.info("CourseBook Data file not found. Will be starting with a sample CourseBook");
+                logger.info("CourseBook Data file not found. Will be starting with an empty CourseBook");
             }
 
-            initialData = courseBookOptional.orElseGet(SampleDataUtil::getSampleCourseBook);
+            initialData = courseBookOptional.orElseGet(SampleDataUtil::getEmptyCourseBook);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty CourseBook");
             initialData = new CourseBook();

@@ -61,6 +61,11 @@ public class SampleDataUtil {
         return sampleCourseBook;
     }
 
+    public static ReadOnlyCourseBook getEmptyCourseBook() {
+        CourseBook emptyCourseBook = new CourseBook();
+        return emptyCourseBook;
+    }
+
     public static UserPrefs getSampleUserPrefs() {
         UserPrefs sampleUserPrefs = new UserPrefs();
 

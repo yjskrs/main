@@ -1,5 +1,7 @@
 package igrad.testutil;
 
+import java.util.Optional;
+
 import igrad.model.course.CourseInfo;
 import igrad.model.course.Name;
 
@@ -10,10 +12,10 @@ public class CourseInfoBuilder {
 
     public static final String DEFAULT_NAME = "Bachelor of Computing in Computer Science";
 
-    private Name name;
+    private Optional<Name> name;
 
     public CourseInfoBuilder() {
-        name = new Name(DEFAULT_NAME);
+        name = Optional.of(new Name(DEFAULT_NAME));
     }
 
     /**
@@ -27,7 +29,7 @@ public class CourseInfoBuilder {
      * Sets the {@code Name} of the {@code CourseInfo} that we are building.
      */
     public CourseInfoBuilder withName(String name) {
-        this.name = new Name(name);
+        this.name = Optional.of(new Name(name));
         return this;
     }
 

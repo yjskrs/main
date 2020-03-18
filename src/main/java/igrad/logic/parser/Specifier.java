@@ -35,6 +35,6 @@ public class Specifier {
     public boolean equals(Object obj) {
         return obj == this
             || (obj instanceof Specifier
-                    && specifier.equals(((Specifier) obj).specifier));
+            && specifier.equals(((Specifier) obj).specifier));
     }
 }
