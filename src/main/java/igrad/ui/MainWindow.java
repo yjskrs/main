@@ -40,7 +40,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private StatusBar statusBar;
-    private McSidePanel mcSidePanel;
+/*    private McSidePanel mcSidePanel;*/
     private CapPanel capPanel;
 
     @FXML
@@ -49,8 +49,8 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private VBox moduleList;
 
-    @FXML
-    private HBox sidePanelPlaceholder;
+/*    @FXML
+    private HBox sidePanelPlaceholder;*/
 
     @FXML
     private VBox capPanelPlaceholder;
@@ -66,6 +66,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private Label mcCount;
+
+    @FXML
+    private Label commandReceived;
 
 
     public MainWindow(Stage primaryStage, Logic logic) {
@@ -164,8 +167,8 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up and displays/refreshes the the placeholders of the side panels (Modular credits info, CAP info).
      */
     void displaySidePanels(Model model) {
-        mcSidePanel = new McSidePanel();
-        sidePanelPlaceholder.getChildren().add(mcSidePanel.getRoot());
+/*        mcSidePanel = new McSidePanel();
+        sidePanelPlaceholder.getChildren().add(mcSidePanel.getRoot());*/
 
         capPanel = new CapPanel();
         capPanelPlaceholder.getChildren().add(capPanel.getRoot());
@@ -222,6 +225,10 @@ public class MainWindow extends UiPart<Stage> {
             primaryStage.setX(guiSettings.getWindowCoordinates().getX());
             primaryStage.setY(guiSettings.getWindowCoordinates().getY());
         }
+    }
+
+    private void setCommandReceived(String command) {
+        commandReceived.setText(command);
     }
 
     /**
@@ -294,6 +301,7 @@ public class MainWindow extends UiPart<Stage> {
                 }
             }
 
+            setCommandReceived(commandText);
             return commandResult;
         } catch (CommandException | ParseException | IOException | ServiceException e) {
             logger.info("Invalid command: " + commandText);

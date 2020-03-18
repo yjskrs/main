@@ -4,21 +4,21 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.text.Font?>
 
-<StackPane fx:id="placeHolder" prefHeight="140.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-    <HBox prefHeight="140.0">
-        <children>
-            <ImageView fx:id="avatarDisplay" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" style="-fx-scale-x: 0.8; -fx-scale-y: 0.8;" />
-            <TextArea fx:id="resultDisplay" editable="false" styleClass="result-display" wrapText="true" HBox.hgrow="ALWAYS">
-                <font>
-                    <Font name="Calibri" size="16.0" />
-                </font>
+<HBox fx:id="placeHolder" prefHeight="100.0" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="100.0" styleClass="result-display" HBox.hgrow="ALWAYS">
+         <children>
+            <ImageView fx:id="avatarDisplay" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" scaleX="0.8" scaleY="0.8" />
+            <TextArea fx:id="resultDisplay" maxWidth="1.7976931348623157E308" prefWidth="700.0" styleClass="result-display-text-area" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </HBox.margin>
             </TextArea>
-        </children>
-      <StackPane.margin>
-         <Insets left="10.0" right="10.0" />
-      </StackPane.margin>
-    </HBox>
-</StackPane>
+         </children>
+         <HBox.margin>
+            <Insets />
+         </HBox.margin>
+      </HBox>
+   </children>
+</HBox>

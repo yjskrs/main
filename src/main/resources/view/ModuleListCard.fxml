@@ -41,11 +41,11 @@
          <RowConstraints />
       </rowConstraints>
       <HBox.margin>
-         <Insets bottom="10.0" left="10.0" />
+         <Insets />
       </HBox.margin>
   </GridPane>
    <padding>
-      <Insets top="10.0" />
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
    </padding>
 
 </HBox>
