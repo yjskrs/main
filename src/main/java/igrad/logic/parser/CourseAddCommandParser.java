@@ -13,10 +13,15 @@ import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.course.CourseInfo;
 import igrad.model.course.Name;
 
+/*
+ * TODO (Teri): Please refactor CourseAddCommandParser, and CourseEditCommandParser,
+ *  into the logic.parser.course package (create a new one)
+ */
+
 /**
  * Parses input arguments and creates a new CourseAddCommand object.
  */
-public class CourseAddCommandParser implements Parser<CourseAddCommand> {
+public class CourseAddCommandParser extends CourseCommandParser implements Parser<CourseAddCommand> {
 
     /**
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given
@@ -32,7 +37,7 @@ public class CourseAddCommandParser implements Parser<CourseAddCommand> {
      *
      * @throws ParseException if the given {@code title} is invalid.
      */
-    private static Name parseName(String name) throws ParseException {
+    public static Name parseName(String name) throws ParseException {
         requireNonNull(name);
         String trimmedName = name.trim();
         if (!igrad.model.requirement.Name.isValidTitle(trimmedName)) {

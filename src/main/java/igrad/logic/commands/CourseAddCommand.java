@@ -7,6 +7,11 @@ import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
 import igrad.model.course.CourseInfo;
 
+/*
+ * TODO (Teri): Please refactor CourseCommand, CourseAddCommand, CourseDeleteCommand, CourseEditCommand, into
+ *  the logic.commands.course package (create a new one). This should give you some LOCs (lines of code) :p
+ */
+
 /**
  * Adds a course to the application (there can only be one such course).
  */
