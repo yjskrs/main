@@ -10,6 +10,7 @@ import igrad.model.ReadOnlyCourseBook;
  * TODO (Teri): Please refactor CourseCommand, CourseAddCommand, CourseDeleteCommand, CourseEditCommand, into
  *  the logic.commands.course package (create a new one). This should give you some LOCs (lines of code) :p
  */
+
 /**
  * Deletes the existing course (and all data within it).
  */

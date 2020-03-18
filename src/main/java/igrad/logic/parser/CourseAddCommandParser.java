@@ -1,7 +1,6 @@
 package igrad.logic.parser;
 
 import static igrad.logic.parser.CliSyntax.PREFIX_NAME;
-import static java.util.Objects.requireNonNull;
 
 import java.util.stream.Stream;
 
@@ -16,10 +15,11 @@ import igrad.model.course.Name;
  * TODO (Teri): Please refactor CourseAddCommandParser, and CourseEditCommandParser,
  *  into the logic.parser.course package (create a new one)
  */
+
 /**
  * Parses input arguments and creates a new CourseAddCommand object.
  */
-public class CourseAddCommandParser implements Parser<CourseAddCommand> {
+public class CourseAddCommandParser extends CourseCommandParser implements Parser<CourseAddCommand> {
 
     /**
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given
@@ -50,20 +50,5 @@ public class CourseAddCommandParser implements Parser<CourseAddCommand> {
         CourseInfo courseInfo = new CourseInfo(name);
 
         return new CourseAddCommand(courseInfo);
-    }
-
-    /**
-     * Parses a {@code String name} into a {@code Name}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code title} is invalid.
-     */
-    private static Name parseName(String name) throws ParseException {
-        requireNonNull(name);
-        String trimmedName = name.trim();
-        if (!igrad.model.requirement.Name.isValidTitle(trimmedName)) {
-            throw new ParseException(igrad.model.module.Title.MESSAGE_CONSTRAINTS);
-        }
-        return new Name(trimmedName);
     }
 }
