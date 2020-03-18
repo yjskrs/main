@@ -7,8 +7,8 @@ import java.util.List;
 import igrad.logic.commands.CommandResult;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
+import igrad.model.requirement.Name;
 import igrad.model.requirement.Requirement;
-import igrad.model.requirement.Title;
 
 /**
  * Deletes an existing requirement from the course book.
@@ -22,12 +22,12 @@ public class RequirementDeleteCommand extends RequirementCommand {
 
     public static final String MESSAGE_REQUIREMENT_DELETE_SUCCESS = "Deleted Requirement: %1$s";
 
-    private final Title title;
+    private final Name name;
 
-    public RequirementDeleteCommand(Title title) {
-        requireNonNull(title);
+    public RequirementDeleteCommand(Name name) {
+        requireNonNull(name);
 
-        this.title = title;
+        this.name = name;
     }
 
     @Override
@@ -38,11 +38,11 @@ public class RequirementDeleteCommand extends RequirementCommand {
 
         Requirement requirementToDelete;
         // check if requirement exists in course book
-        if (!requirements.stream().anyMatch(requirement -> requirement.getTitle().equals(title))) {
+        if (!requirements.stream().anyMatch(requirement -> requirement.getName().equals(name))) {
             throw new CommandException(MESSAGE_REQUIREMENT_NON_EXISTENT);
         } else {
             requirementToDelete = requirements.stream()
-                                  .filter(requirement -> requirement.getTitle().equals(title))
+                                  .filter(requirement -> requirement.getName().equals(name))
                                   .findFirst().get();
         }
 

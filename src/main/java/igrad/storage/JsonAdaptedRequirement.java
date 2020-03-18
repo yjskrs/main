@@ -10,9 +10,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import igrad.commons.exceptions.IllegalValueException;
 import igrad.model.module.Module;
 import igrad.model.module.ModuleCode;
+import igrad.model.module.Title;
 import igrad.model.requirement.Credits;
+import igrad.model.requirement.Name;
 import igrad.model.requirement.Requirement;
-import igrad.model.requirement.Title;
 
 /**
  * Jackson-friendly version of {@link Requirement}.
@@ -43,7 +44,7 @@ class JsonAdaptedRequirement {
      * Converts a given {@code Requirement} into this class for Jackson use.
      */
     public JsonAdaptedRequirement(Requirement source) {
-        title = source.getTitle().value;
+        title = source.getName().value;
         credits = source.getCredits().value;
         moduleCodes.addAll(source.getModuleList().stream()
             .map(module -> module.getModuleCode().toString())
@@ -70,11 +71,11 @@ class JsonAdaptedRequirement {
             throw new IllegalValueException(Title.MESSAGE_CONSTRAINTS);
         }
 
-        final Title modelTitle = new Title(title);
+        final Name modelName = new Name(title);
 
         final Credits modelCredits = new Credits(credits);
 
-        return new Requirement(modelTitle, modelCredits, modelModules);
+        return new Requirement(modelName, modelCredits, modelModules);
     }
 
 }

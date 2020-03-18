@@ -1,7 +1,6 @@
 package igrad.logic.parser.requirement;
 
 import static igrad.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static igrad.logic.commands.requirement.RequirementAddCommand.MESSAGE_REQUIREMENT_NOT_ADDED;
 import static igrad.logic.commands.requirement.RequirementAddCommand.MESSAGE_USAGE;
 import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
 import static igrad.logic.parser.CliSyntax.PREFIX_NAME;
@@ -16,13 +15,13 @@ import igrad.logic.parser.Parser;
 import igrad.logic.parser.ParserUtil;
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.requirement.Credits;
+import igrad.model.requirement.Name;
 import igrad.model.requirement.Requirement;
-import igrad.model.requirement.Title;
 
 /**
  * Parses requirement input argument and creates a new RequirementAddCommand object.
  */
-public class RequirementAddCommandParser implements Parser<RequirementAddCommand> {
+public class RequirementAddCommandParser extends RequirementCommandParser implements Parser<RequirementAddCommand> {
 
     /**
      * Parses the given string of arguments {@code args} in the context of the
@@ -40,19 +39,13 @@ public class RequirementAddCommandParser implements Parser<RequirementAddCommand
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         }
 
-        Title title;
-        Credits credits;
+        Name name = parseName(argMultimap.getValue(PREFIX_NAME).get());
+        Credits credits = parseCredits(argMultimap.getValue(PREFIX_CREDITS).get());
 
-        if (argMultimap.getValue(PREFIX_NAME).isPresent() && argMultimap.getValue(PREFIX_CREDITS).isPresent()) {
-            title = new Title(argMultimap.getValue(PREFIX_NAME).get());
-            credits = new Credits(argMultimap.getValue(PREFIX_CREDITS).get());
-        } else {
-            throw new ParseException(MESSAGE_REQUIREMENT_NOT_ADDED);
-        }
-
-        Requirement requirement = new Requirement(title, credits, new ArrayList<>());
+        Requirement requirement = new Requirement(name, credits, new ArrayList<>());
 
         return new RequirementAddCommand(requirement);
     }
+
 
 }

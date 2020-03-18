@@ -12,8 +12,8 @@ import igrad.logic.commands.CommandResult;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
 import igrad.model.requirement.Credits;
+import igrad.model.requirement.Name;
 import igrad.model.requirement.Requirement;
-import igrad.model.requirement.Title;
 
 /**
  * Modifies an existing requirement in the course book.
@@ -38,18 +38,18 @@ public class RequirementEditCommand extends RequirementCommand {
     public static final String MESSAGE_REQUIREMENT_DUPLICATE = "This requirement already exists. "
                                                                     + "Please rename to a different title.";
 
-    private final Title originalTitle;
+    private final Name originalName;
 
-    private final Optional<Title> newTitle;
+    private final Optional<Name> newName;
 
     private final Optional<Credits> newCredits;
 
-    public RequirementEditCommand(Title originalTitle,
-                                  Optional<Title> newTitle, Optional<Credits> newCredits) {
-        requireAllNonNull(originalTitle, newTitle, newCredits);
+    public RequirementEditCommand(Name originalName,
+                                  Optional<Name> newName, Optional<Credits> newCredits) {
+        requireAllNonNull(originalName, newName, newCredits);
 
-        this.originalTitle = originalTitle;
-        this.newTitle = newTitle;
+        this.originalName = originalName;
+        this.newName = newName;
         this.newCredits = newCredits;
     }
 
@@ -60,31 +60,33 @@ public class RequirementEditCommand extends RequirementCommand {
         List<Requirement> requirements = model.getRequirementList();
 
         Requirement requirementToEdit = requirements.stream()
-                                            .filter(requirement -> requirement.getTitle().equals(originalTitle))
+                                            .filter(requirement -> requirement.getName().equals(originalName))
                                             .findFirst()
                                             .orElseThrow(() -> new CommandException(MESSAGE_REQUIREMENT_NON_EXISTENT));
 
-        Title editedTitle = newTitle.orElse(requirementToEdit.getTitle());
+        Name editedName = newName.orElse(requirementToEdit.getName());
         Credits editedCredits = newCredits.orElse(requirementToEdit.getCredits());
-        Requirement editedRequirement = new Requirement(editedTitle, editedCredits, requirementToEdit.getModuleList());
+        Requirement editedRequirement = new Requirement(editedName, editedCredits, requirementToEdit.getModuleList());
 
-        // if the edited title and the edited credits are the same as before
-        if (requirementToEdit.hasSameTitle(editedRequirement) && requirementToEdit.hasSameCredits(editedRequirement)) {
+        // If the edited title and the edited credits are the same as before
+        // TODO: Possible duplicate, remove if it is
+        /*if (requirementToEdit.hasSameName(editedRequirement) && requirementToEdit.hasSameCredits(editedRequirement)) {
+            throw new CommandException(MESSAGE_REQUIREMENT_SAME_PARAMETERS);
+        }*/
+
+        // If the title is edited and same as before OR if the credits is edited and same as before
+        if (newName.isPresent() && requirementToEdit.hasSameName(editedRequirement)
+                || newCredits.isPresent() && requirementToEdit.hasSameCredits(editedRequirement)) {
             throw new CommandException(MESSAGE_REQUIREMENT_SAME_PARAMETERS);
         }
 
-        // if the title is edited and same as before OR if the credits is edited and same as before
-        if (newTitle.isPresent() && requirementToEdit.getTitle().equals(editedTitle)
-                || newCredits.isPresent() && requirementToEdit.getCredits().equals(editedCredits)) {
-            throw new CommandException(MESSAGE_REQUIREMENT_SAME_PARAMETERS);
-        }
-
-        // if changed title is the same as an existing title
-        if (requirements.stream()
-                .anyMatch(requirement -> !requirement.getTitle().equals(originalTitle)
-                                             && requirement.hasSameTitle(editedRequirement))) {
+        // If changed title is the same as an existing title
+        // TODO: Possible duplicate, remove if it is
+        /*if (requirements.stream()
+                .anyMatch(requirement -> !requirement.getName().equals(originalName)
+                                             && requirement.hasSameName(editedRequirement))) {
             throw new CommandException(MESSAGE_REQUIREMENT_DUPLICATE);
-        }
+        }*/
 
         model.setRequirement(requirementToEdit, editedRequirement);
         model.updateRequirementList(Model.PREDICATE_SHOW_ALL_REQUIREMENTS);

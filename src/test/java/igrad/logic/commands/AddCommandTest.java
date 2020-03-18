@@ -188,7 +188,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setRequirements(Requirement target, Requirement editedRequirement) {
+        public void setRequirement(Requirement target, Requirement editedRequirement) {
             throw new AssertionError("This method should not be called.");
         }
 

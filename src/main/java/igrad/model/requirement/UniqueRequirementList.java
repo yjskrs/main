@@ -20,7 +20,7 @@ import javafx.collections.ObservableList;
  * <p>
  * Supports a minimal set of list operations.
  *
- * @see Requirement#hasSameTitle(Requirement)
+ * @see Requirement#hasSameName(Requirement)
  */
 public class UniqueRequirementList implements Iterable<Requirement> {
 
@@ -33,7 +33,7 @@ public class UniqueRequirementList implements Iterable<Requirement> {
      */
     public boolean contains(Requirement toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::hasSameTitle);
+        return internalList.stream().anyMatch(toCheck::hasSameName);
     }
 
     /**
@@ -81,7 +81,7 @@ public class UniqueRequirementList implements Iterable<Requirement> {
             throw new RequirementNotFoundException();
         }
 
-        if (!target.hasSameTitle(editedRequirement) && contains(editedRequirement)) {
+        if (!target.hasSameName(editedRequirement) && contains(editedRequirement)) {
             throw new DuplicateRequirementException();
         }
 
@@ -129,7 +129,7 @@ public class UniqueRequirementList implements Iterable<Requirement> {
     private boolean requirementsAreUnique(List<Requirement> requirements) {
         for (int i = 0; i < requirements.size() - 1; i++) {
             for (int j = i + 1; j < requirements.size(); j++) {
-                if (requirements.get(i).hasSameTitle(requirements.get(j))) {
+                if (requirements.get(i).hasSameName(requirements.get(j))) {
                     return false;
                 }
             }

@@ -7,7 +7,7 @@ import static java.util.Objects.requireNonNull;
  * Represents a Requirement's title.
  * Guarantees: immutable; is valid as declared in {@link #isValidTitle(String)}
  */
-public class Title {
+public class Name {
 
     public static final String MESSAGE_CONSTRAINTS =
         "Names should only contain alphanumeric characters and spaces, and it should not be blank";
@@ -21,11 +21,11 @@ public class Title {
     public final String value;
 
     /**
-     * Constructs a {@code Title}.
+     * Constructs a {@code Name}.
      *
      * @param title A valid title.
      */
-    public Title(String title) {
+    public Name(String title) {
         requireNonNull(title);
         checkArgument(isValidTitle(title), MESSAGE_CONSTRAINTS);
         value = title;
@@ -46,8 +46,8 @@ public class Title {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof Title // instanceof handles nulls
-            && value.equals(((Title) other).value)); // state check
+            || (other instanceof Name // instanceof handles nulls
+            && value.equals(((Name) other).value)); // state check
     }
 
     @Override

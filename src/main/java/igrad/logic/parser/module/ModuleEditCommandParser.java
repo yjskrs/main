@@ -1,4 +1,4 @@
-package igrad.logic.parser;
+package igrad.logic.parser.module;
 
 import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
 import static igrad.logic.parser.CliSyntax.PREFIX_MEMO;
@@ -16,13 +16,17 @@ import java.util.Set;
 import igrad.commons.core.Messages;
 import igrad.commons.core.index.Index;
 import igrad.logic.commands.ModuleEditCommand;
+import igrad.logic.parser.ArgumentMultimap;
+import igrad.logic.parser.ArgumentTokenizer;
+import igrad.logic.parser.Parser;
+import igrad.logic.parser.ParserUtil;
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new ModuleEditCommand object.
  */
-public class ModuleEditCommandParser implements Parser<ModuleEditCommand> {
+public class ModuleEditCommandParser extends ModuleCommandParser implements Parser<ModuleEditCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the ModuleEditCommand
@@ -47,24 +51,24 @@ public class ModuleEditCommandParser implements Parser<ModuleEditCommand> {
 
         ModuleEditCommand.EditModuleDescriptor editModuleDescriptor = new ModuleEditCommand.EditModuleDescriptor();
         if (argMultimap.getValue(PREFIX_TITLE).isPresent()) {
-            editModuleDescriptor.setTitle(ParserUtil.parseTitle(argMultimap.getValue(PREFIX_TITLE).get()));
+            editModuleDescriptor.setTitle(parseTitle(argMultimap.getValue(PREFIX_TITLE).get()));
         }
 
         if (argMultimap.getValue(PREFIX_MODULE_CODE).isPresent()) {
-            editModuleDescriptor.setModuleCode(ParserUtil.parseModuleCode(
+            editModuleDescriptor.setModuleCode(parseModuleCode(
                 argMultimap.getValue(PREFIX_MODULE_CODE).get()));
         }
 
         if (argMultimap.getValue(PREFIX_CREDITS).isPresent()) {
-            editModuleDescriptor.setCredits(ParserUtil.parseCredits(argMultimap.getValue(PREFIX_CREDITS).get()));
+            editModuleDescriptor.setCredits(parseCredits(argMultimap.getValue(PREFIX_CREDITS).get()));
         }
 
         if (argMultimap.getValue(PREFIX_MEMO).isPresent()) {
-            editModuleDescriptor.setMemo(ParserUtil.parseMemo(argMultimap.getValue(PREFIX_MEMO).get()));
+            editModuleDescriptor.setMemo(parseMemo(argMultimap.getValue(PREFIX_MEMO).get()));
         }
 
         if (argMultimap.getValue(PREFIX_SEMESTER).isPresent()) {
-            editModuleDescriptor.setSemester(ParserUtil.parseSemester(argMultimap.getValue(PREFIX_SEMESTER).get()));
+            editModuleDescriptor.setSemester(parseSemester(argMultimap.getValue(PREFIX_SEMESTER).get()));
         }
 
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editModuleDescriptor::setTags);
