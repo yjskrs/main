@@ -13,6 +13,11 @@ public interface ReadOnlyRequirement {
     Title getTitle();
 
     /**
+     * Returns the credits of the requirement.
+     */
+    Credits getCredits();
+
+    /**
      * Returns an unmodifiable view of the modules in this requirement.
      * This list will not contain any duplicate modules.
      */

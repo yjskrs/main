@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import igrad.commons.core.index.Index;
 import igrad.commons.util.StringUtil;
@@ -38,6 +39,22 @@ public class ParserUtil {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
+    }
+
+    /**
+     * Parses a {@code String specifier} into a {@code Specifier}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code specifier} is invalid.
+     */
+    public static Specifier parseSpecifier(String specifier) throws ParseException {
+        requireNonNull(specifier);
+
+        String trimmedSpecifier = specifier.trim();
+        if (!Title.isValidTitle(trimmedSpecifier)) {
+            throw new ParseException(Title.MESSAGE_CONSTRAINTS);
+        }
+        return new Specifier(trimmedSpecifier);
     }
 
     /**
@@ -183,5 +200,13 @@ public class ParserUtil {
             tagsSet.add(parseTag(tagName));
         }
         return tagsSet;
+    }
+
+    /**
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    public static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 }

@@ -9,7 +9,6 @@ import static igrad.logic.parser.CliSyntax.PREFIX_TAG;
 import static igrad.logic.parser.CliSyntax.PREFIX_TITLE;
 
 import java.util.Set;
-import java.util.stream.Stream;
 
 import igrad.commons.core.Messages;
 import igrad.logic.commands.ModuleAddCommand;
@@ -29,14 +28,6 @@ import igrad.model.tag.Tag;
 public class ModuleAddCommandParser implements Parser<ModuleAddCommand> {
 
     /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
-    }
-
-    /**
      * Parses the given {@code String} of arguments in the context of the ModuleAddCommand
      * and returns an ModuleAddCommand object for execution.
      *
@@ -53,7 +44,7 @@ public class ModuleAddCommandParser implements Parser<ModuleAddCommand> {
          * As can be seen, MODULE_CODE is the only compulsory field, so we're just validating for its
          * presence in the below.
          */
-        if (!arePrefixesPresent(argMultimap, PREFIX_MODULE_CODE)
+        if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_MODULE_CODE)
             || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
                 ModuleAddCommand.MESSAGE_USAGE));
