@@ -7,13 +7,24 @@ import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
 import igrad.model.course.CourseInfo;
 
+/*
+ * TODO (Teri): Please refactor CourseCommand, CourseAddCommand, CourseDeleteCommand, CourseEditCommand, into
+ *  the logic.commands.course package (create a new one). This should give you some LOCs (lines of code) :p
+ */
 /**
  * Edits the details of an existing module in the course book.
  */
-public class CourseModifyCommand extends CourseCommand {
-
+public class CourseEditCommand extends CourseCommand {
+    /*
+     * TODO (Teri): Your main task is to implement the course edit COURSE_NAME n/NEW_COURSE_NAME command,
+     *  e.g, course edit Comp Sci n/Business.
+     *  Now, how would one do that? Well, let's start from the Parsers. We need to get the parsers to recognise the
+     *  'course edit' command.
+     *  The code is very similar to RequirementEditCommandParser.java (parse() method), you can use that
+     *  for reference.
+     */
     public static final String COMMAND_WORD = COURSE_COMMAND_WORD + "edit";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Modifies name of the course. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits name of the course. "
         + "Parameters: "
         + PREFIX_NAME + "COURSE NAME "
         + "Example: " + COMMAND_WORD + " "
@@ -22,7 +33,7 @@ public class CourseModifyCommand extends CourseCommand {
 
     private final CourseInfo toModify;
 
-    public CourseModifyCommand(CourseInfo courseInfo) {
+    public CourseEditCommand(CourseInfo courseInfo) {
         requireNonNull(courseInfo);
         toModify = courseInfo;
     }
@@ -39,6 +50,6 @@ public class CourseModifyCommand extends CourseCommand {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
             || (other instanceof ModuleAddCommand // instanceof handles nulls
-            && toModify.equals(((CourseModifyCommand) other).toModify));
+            && toModify.equals(((CourseEditCommand) other).toModify));
     }
 }

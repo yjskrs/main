@@ -12,6 +12,10 @@ import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.course.CourseInfo;
 import igrad.model.course.Name;
 
+/*
+ * TODO (Teri): Please refactor CourseAddCommandParser, and CourseEditCommandParser,
+ *  into the logic.parser.course package (create a new one)
+ */
 /**
  * Parses input arguments and creates a new CourseAddCommand object.
  */
