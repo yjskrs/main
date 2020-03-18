@@ -3,11 +3,8 @@ package igrad.model.avatar;
 import static igrad.commons.util.AppUtil.checkArgument;
 import static java.util.Objects.requireNonNull;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
-
-import igrad.storage.AvatarStorage;
 
 /**
  * Represents an Avatar (the user selects to represent him/herself) in the course book.
@@ -26,15 +23,21 @@ public class Avatar {
         "sample"
     };
 
-    private boolean isSample;
     private String name;
+
+    /*
+     * Model classes; Module.java, CourseInfo.java should not have such no-arg constructor, by convention.
+     * This is an exception here because the Model class (Avatar.java) needs to be saved (serialised)
+     * to a file. Hence the serialising library requires such constructor
+     */
+    public Avatar() {
+    }
 
     public Avatar(String name) {
         requireNonNull(name);
         checkArgument(isValidName(name), MESSAGE_CONSTRAINTS);
 
         this.name = name;
-        this.isSample = false;
     }
 
     /**
@@ -50,18 +53,17 @@ public class Avatar {
         return false;
     }
 
-    public static Avatar getAvatar() {
+    /*public static Avatar getAvatar() {
         try {
             return AvatarStorage.readAvatar();
         } catch (FileNotFoundException e) {
             return getSampleAvatar();
         }
 
-    }
+    }*/
 
-    private static Avatar getSampleAvatar() {
+    public static Avatar getSampleAvatar() {
         Avatar sampleAvatar = new Avatar("sample");
-        sampleAvatar.isSample = true;
 
         return sampleAvatar;
     }
@@ -76,12 +78,32 @@ public class Avatar {
         return avatarList;
     }
 
-    public boolean getIsSample() {
-        return isSample;
+    /**
+     * Returns true if both avatars have the same name.
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Avatar)) {
+            return false;
+        }
+
+        Avatar otherAvatar = (Avatar) other;
+        return otherAvatar.getName().equals(getName());
     }
 
     public String getName() {
         return this.name;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Name : " + name);
+        return sb.toString();
     }
 
 }

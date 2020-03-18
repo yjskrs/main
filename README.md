@@ -85,7 +85,7 @@ in order to achieve your dream Cumulative Point Average (CAP).
 
 ## Components
 
-<a title="fig-1">**Figure 1**</a>
+<a name="fig-1">**Figure 1**</a>
 ![](https://user-images.githubusercontent.com/34233605/75425925-9774ff80-597e-11ea-87f5-228f95b5c84f.png)
 
 #### Courses
@@ -271,7 +271,7 @@ Constraints
 :warning: A module cannot be assigned if there are not enough MCs left under 
 a graduation requirement
 
-:warning: The module code and title have to be unique
+:warning: The module code and name have to be unique
 
 Expected Outcome
 
