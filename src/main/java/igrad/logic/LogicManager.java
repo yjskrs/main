@@ -8,6 +8,7 @@ import igrad.commons.core.GuiSettings;
 import igrad.commons.core.LogsCenter;
 import igrad.logic.commands.Command;
 import igrad.logic.commands.CommandResult;
+import igrad.logic.commands.CourseAddCommand;
 import igrad.logic.commands.SelectAvatarCommand;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.logic.parser.CourseBookParser;
@@ -56,12 +57,30 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public CommandResult executeSetCourseName(String commandText) throws ParseException, CommandException {
+        CommandResult commandResult;
+
+        CourseAddCommand courseAddCommand = courseBookParser.parseSetCourseName(commandText);
+        commandResult = courseAddCommand.execute(model);
+
+        try {
+            // Saves to UserPref data file to save new Avatar, after successful Avatar command execution
+            storage.saveCourseBook(model.getCourseBook());
+        } catch (IOException ioe) {
+            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+        }
+
+        return commandResult;
+    }
+
+    @Override
     public CommandResult execute(String commandText) throws CommandException,
         ParseException, IOException, ServiceException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
         Command command = courseBookParser.parseCommand(commandText);
+
         commandResult = command.execute(model);
 
         try {

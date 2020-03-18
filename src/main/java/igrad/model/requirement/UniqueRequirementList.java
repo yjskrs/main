@@ -114,8 +114,8 @@ public class UniqueRequirementList implements Iterable<Requirement> {
     @Override
     public boolean equals(Object other) {
         return other == this
-                   || (other instanceof UniqueRequirementList
-                           && internalList.equals(((UniqueRequirementList) other).internalList));
+            || (other instanceof UniqueRequirementList
+            && internalList.equals(((UniqueRequirementList) other).internalList));
     }
 
     @Override

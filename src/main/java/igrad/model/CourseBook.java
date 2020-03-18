@@ -30,7 +30,7 @@ public class CourseBook implements ReadOnlyCourseBook {
     {
         modules = new UniqueModuleList();
         requirements = new UniqueRequirementList();
-        courseInfo = null; // TODO: change to Optional or default value
+        courseInfo = new CourseInfo();
     }
 
     public CourseBook() {
@@ -70,6 +70,7 @@ public class CourseBook implements ReadOnlyCourseBook {
 
         setModules(newData.getModuleList());
         setRequirements(newData.getRequirementList());
+        setCourseInfo(newData.getCourseInfo());
     }
 
     // Course-level operations
@@ -91,6 +92,10 @@ public class CourseBook implements ReadOnlyCourseBook {
 
     public CourseInfo getCourseInfo() {
         return courseInfo;
+    }
+
+    public void setCourseInfo(CourseInfo c) {
+        this.courseInfo = c;
     }
 
     // Module-level operations
@@ -192,6 +197,7 @@ public class CourseBook implements ReadOnlyCourseBook {
         return other == this // short circuit if same object
             || (other instanceof CourseBook // instanceof handles nulls
             && modules.equals(((CourseBook) other).modules)
+            && requirements.equals(((CourseBook) other).requirements)
             && courseInfo.equals(((CourseBook) other).courseInfo));
     }
 

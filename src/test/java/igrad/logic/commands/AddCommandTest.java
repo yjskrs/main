@@ -163,6 +163,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean isCourseNameSet() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void modifyCourseInfo(CourseInfo courseInfo) {
             throw new AssertionError("This method should not be called.");
         }
