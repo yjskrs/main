@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
@@ -9,14 +10,15 @@
 <StackPane fx:id="placeHolder" prefHeight="140.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <HBox prefHeight="140.0">
         <children>
-            <ImageView fx:id="avatarDisplay" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true"
-                       style="-fx-scale-x: 0.8; -fx-scale-y: 0.8;"/>
-            <TextArea fx:id="resultDisplay" editable="false"
-                      styleClass="result-display" wrapText="true" HBox.hgrow="ALWAYS">
+            <ImageView fx:id="avatarDisplay" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" style="-fx-scale-x: 0.8; -fx-scale-y: 0.8;" />
+            <TextArea fx:id="resultDisplay" editable="false" styleClass="result-display" wrapText="true" HBox.hgrow="ALWAYS">
                 <font>
                     <Font name="Calibri" size="16.0" />
                 </font>
             </TextArea>
         </children>
+      <StackPane.margin>
+         <Insets left="10.0" right="10.0" />
+      </StackPane.margin>
     </HBox>
 </StackPane>

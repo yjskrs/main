@@ -146,7 +146,7 @@
 }
 
 .pane-with-border {
-     -fx-background-color: #2d2d2d;
+     -fx-background-color: #2a2a2a;
      -fx-border-color: transparent;
 }
 
@@ -155,7 +155,10 @@
 }
 
 .side-panel {
-    -fx-background-color: #2d2d2d;
+    -fx-background-color: #2a2a2a;
+/*    -fx-border-style: solid;
+    -fx-border-width: 1;
+    -fx-border-color: #3d3d3d;*/
 }
 
 .side-panel-cap .label {
@@ -194,6 +197,21 @@
 
 .status-bar-with-border .label {
     -fx-text-fill: white;
+}
+
+.progress-indicator {
+    -fx-text-fill: transparent;
+    -fx-progress-color: #359183;
+    -fx-text-alignment: center;
+}
+
+.mcSidePanel {
+    -fx-background-color: #2a2a2a;
+}
+
+.mcSidePanel .label {
+    -fx-text-fill: white;
+    -fx-font-family: "Calibri Light";
 }
 
 .grid-pane {
@@ -342,9 +360,9 @@
 }
 
 #commandTextField {
-    -fx-background-color: #2d2d2d;
+    -fx-background-color: #2f2f2f;
     -fx-border-style: solid;
-    -fx-border-color: transparent;
+    -fx-border-color: #2d2d2d;
     -fx-text-fill: white;
 }
 
@@ -353,7 +371,7 @@
 }
 
 #resultDisplay .content {
-    -fx-background-color: #3d3d3d;
+    -fx-background-color: #2f2f2f;
     -fx-background-radius: 0;
     -fx-border-color: transparent;
     -fx-text-fill: white;

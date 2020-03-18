@@ -18,7 +18,7 @@ public class CourseAddCommand extends CourseCommand {
         + "Example: " + COMMAND_WORD + " "
         + PREFIX_NAME + "Bachelor of Computing (Honours) in Computer Science ";
 
-    public static final String MESSAGE_SUCCESS = "New course added: %1$s";
+    public static final String MESSAGE_SUCCESS = "Good job! I've added this course: %1$s\n";
 
     private final CourseInfo toAdd;
 
