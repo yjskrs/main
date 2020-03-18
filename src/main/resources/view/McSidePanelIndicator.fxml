@@ -11,7 +11,7 @@
 <AnchorPane fx:id="mcPanelPlaceholder" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="280.0" prefWidth="320.0" style="-fx-background-color: #2a2a2a;" styleClass="mcSidePanel" stylesheets="DarkTheme.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ProgressIndicator fx:id="progressIndicator" layoutX="142.0" layoutY="209.0" prefHeight="400.0" prefWidth="27.0" progress="0.52" scaleX="10.0" scaleY="10.0" styleClass="progress-indicator" />
-      <Circle fill="#1f93ff00" layoutX="160.0" layoutY="139.0" radius="88.0" stroke="#2a2a2a" strokeType="OUTSIDE" strokeWidth="60.0" />
+      <Circle fill="#1f93ff00" layoutX="160.0" layoutY="139.0" radius="88.0" stroke="#2a2a2a" strokeType="OUTSIDE" strokeWidth="50.0" />
       <Circle fill="#2d2d2d" layoutX="160.0" layoutY="139.0" radius="85.0" scaleX="0.99" scaleY="0.99" stroke="#2a2a2a" strokeType="INSIDE" />
       <Label fx:id="mcCount" contentDisplay="CENTER" layoutX="93.0" layoutY="112.0" style="-fx-font-size: 40;" text=" 40/160" textFill="WHITE">
          <font>
