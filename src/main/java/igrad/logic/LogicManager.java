@@ -16,6 +16,7 @@ import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.Model;
 import igrad.model.ReadOnlyCourseBook;
 import igrad.model.module.Module;
+import igrad.model.requirement.Requirement;
 import igrad.services.exceptions.ServiceException;
 import igrad.storage.Storage;
 import javafx.collections.ObservableList;

@@ -16,6 +16,7 @@ import igrad.logic.commands.CommandTestUtil;
 import igrad.model.course.CourseInfo;
 import igrad.model.module.Module;
 import igrad.model.module.exceptions.DuplicateModuleException;
+import igrad.model.requirement.Requirement;
 import igrad.testutil.ModuleBuilder;
 import igrad.testutil.TypicalModules;
 import javafx.collections.FXCollections;

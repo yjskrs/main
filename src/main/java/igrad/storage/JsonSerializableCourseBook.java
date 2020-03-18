@@ -13,6 +13,7 @@ import igrad.model.CourseBook;
 import igrad.model.ReadOnlyCourseBook;
 import igrad.model.course.CourseInfo;
 import igrad.model.module.Module;
+import igrad.model.requirement.Requirement;
 
 /**
  * An Immutable CourseBook that is serializable to JSON format.

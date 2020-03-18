@@ -13,6 +13,7 @@ import igrad.model.module.ModuleCode;
 import igrad.model.module.Title;
 import igrad.model.requirement.Credits;
 import igrad.model.requirement.Name;
+import igrad.model.requirement.Requirement;
 
 /**
  * Jackson-friendly version of {@link Requirement}.

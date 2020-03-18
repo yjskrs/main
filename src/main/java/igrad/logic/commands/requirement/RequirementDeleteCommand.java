@@ -8,6 +8,7 @@ import igrad.logic.commands.CommandResult;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
 import igrad.model.requirement.Name;
+import igrad.model.requirement.Requirement;
 
 /**
  * Deletes an existing requirement from the course book.

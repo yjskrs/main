@@ -16,6 +16,7 @@ import igrad.logic.parser.ParserUtil;
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.requirement.Credits;
 import igrad.model.requirement.Name;
+import igrad.model.requirement.Requirement;
 
 /**
  * Parses requirement input argument and creates a new RequirementAddCommand object.

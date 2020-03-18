@@ -18,11 +18,17 @@ import igrad.logic.commands.ModuleAddCommand;
 import igrad.logic.commands.ModuleDeleteCommand;
 import igrad.logic.commands.ModuleEditCommand;
 import igrad.logic.commands.SelectAvatarCommand;
+import igrad.logic.commands.requirement.RequirementAddCommand;
+import igrad.logic.commands.requirement.RequirementDeleteCommand;
+import igrad.logic.commands.requirement.RequirementEditCommand;
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.logic.parser.module.AddAutoCommandParser;
 import igrad.logic.parser.module.ModuleAddCommandParser;
 import igrad.logic.parser.module.ModuleDeleteCommandParser;
 import igrad.logic.parser.module.ModuleEditCommandParser;
+import igrad.logic.parser.requirement.RequirementAddCommandParser;
+import igrad.logic.parser.requirement.RequirementDeleteCommandParser;
+import igrad.logic.parser.requirement.RequirementEditCommandParser;
 import igrad.services.exceptions.ServiceException;
 
 /**
