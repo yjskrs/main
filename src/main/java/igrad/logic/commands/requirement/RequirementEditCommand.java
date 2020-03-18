@@ -13,7 +13,6 @@ import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
 import igrad.model.requirement.Credits;
 import igrad.model.requirement.Name;
-import igrad.model.requirement.Requirement;
 
 /**
  * Modifies an existing requirement in the course book.

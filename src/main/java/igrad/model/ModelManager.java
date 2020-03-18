@@ -12,7 +12,6 @@ import igrad.commons.core.LogsCenter;
 import igrad.model.avatar.Avatar;
 import igrad.model.course.CourseInfo;
 import igrad.model.module.Module;
-import igrad.model.requirement.Requirement;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 

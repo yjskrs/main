@@ -7,7 +7,6 @@ import static java.util.Objects.requireNonNull;
 import igrad.logic.commands.CommandResult;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
-import igrad.model.requirement.Requirement;
 
 /**
  * Adds a requirement to the course.

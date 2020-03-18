@@ -22,7 +22,6 @@ import igrad.model.ReadOnlyUserPrefs;
 import igrad.model.avatar.Avatar;
 import igrad.model.course.CourseInfo;
 import igrad.model.module.Module;
-import igrad.model.requirement.Requirement;
 import igrad.testutil.ModuleBuilder;
 import javafx.collections.ObservableList;
 
