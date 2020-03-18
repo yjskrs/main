@@ -36,13 +36,6 @@ public class CourseBookTest {
     }
 
     @Test
-    public void resetData_withValidReadOnlyCourseBook_replacesData() {
-        CourseBook newData = TypicalModules.getTypicalCourseBook();
-        courseBook.resetData(newData);
-        assertEquals(newData, courseBook);
-    }
-
-    @Test
     public void resetData_withDuplicateModules_throwsDuplicatePersonException() {
         // Two modules with the same identity fields
         Module editedProgrammingMethodology = new ModuleBuilder(TypicalModules.PROGRAMMING_METHODOLOGY)

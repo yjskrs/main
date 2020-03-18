@@ -58,32 +58,6 @@ public class JsonCourseBookStorageTest {
     }
 
     @Test
-    public void readAndSaveCourseBook_allInOrder_success() throws Exception {
-        Path filePath = testFolder.resolve("TempCourseBook.json");
-        CourseBook original = TypicalModules.getTypicalCourseBook();
-        JsonCourseBookStorage jsonCourseBookStorage = new JsonCourseBookStorage(filePath);
-
-        // Save in new file and read back
-        jsonCourseBookStorage.saveCourseBook(original, filePath);
-        ReadOnlyCourseBook readBack = jsonCourseBookStorage.readCourseBook(filePath).get();
-        assertEquals(original, new CourseBook(readBack));
-
-        // Modify data, overwrite existing file, and read back
-        //original.addModule(TypicalModules.PROGRAMMING_METHODOLOGY);
-        //original.removeModule(TypicalModules.COMPUTER_ORGANISATION);
-        //jsonCourseBookStorage.saveCourseBook(original, filePath);
-        //readBack = jsonCourseBookStorage.readCourseBook(filePath).get();
-        //assertEquals(original, new CourseBook(readBack));
-
-        // Save and read without specifying file path
-        //original.addModule(TypicalModules.PROGRAMMING_METHODOLOGY);
-        //jsonCourseBookStorage.saveCourseBook(original); // file path not specified
-        //readBack = jsonCourseBookStorage.readCourseBook().get(); // file path not specified
-        //assertEquals(original, new CourseBook(readBack));
-
-    }
-
-    @Test
     public void saveCourseBook_nullCourseBook_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> saveCourseBook(null, "SomeFile.json"));
     }

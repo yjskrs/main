@@ -54,30 +54,6 @@ public class AddCommandTest {
             ) -> moduleAddCommand.execute(modelStub));
     }
 
-    @Test
-    public void equals() {
-        Module programmingMethodology = new ModuleBuilder().withTitle("Programming Methodology").build();
-        Module computerOrganisation = new ModuleBuilder().withTitle("Computer Organisation").build();
-        ModuleAddCommand addProgrammingMethodologyCommand = new ModuleAddCommand(programmingMethodology);
-        ModuleAddCommand addComputerOrganisationCommand = new ModuleAddCommand(computerOrganisation);
-
-        // same object -> returns true
-        assertTrue(addProgrammingMethodologyCommand.equals(addComputerOrganisationCommand));
-
-        // same values -> returns true
-        ModuleAddCommand addProgrammingMethodologyCommandCopy = new ModuleAddCommand(programmingMethodology);
-        assertTrue(addProgrammingMethodologyCommand.equals(addProgrammingMethodologyCommandCopy));
-
-        // different types -> returns false
-        assertFalse(addProgrammingMethodologyCommand.equals(1));
-
-        // null -> returns false
-        assertFalse(addProgrammingMethodologyCommand.equals(null));
-
-        // different module -> returns false
-        assertFalse(addProgrammingMethodologyCommand.equals(addComputerOrganisationCommand));
-    }
-
     /**
      * A default model stub that have all of the methods failing.
      */

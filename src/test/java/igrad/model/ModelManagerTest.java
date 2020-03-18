@@ -22,13 +22,6 @@ public class ModelManagerTest {
     private ModelManager modelManager = new ModelManager();
 
     @Test
-    public void constructor() {
-        assertEquals(new UserPrefs(), modelManager.getUserPrefs());
-        assertEquals(new GuiSettings(), modelManager.getGuiSettings());
-        assertEquals(new CourseBook(), new CourseBook(modelManager.getCourseBook()));
-    }
-
-    @Test
     public void setUserPrefs_nullUserPrefs_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> modelManager.setUserPrefs(null));
     }
@@ -92,43 +85,4 @@ public class ModelManagerTest {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredModuleList().remove(0));
     }
 
-    @Test
-    public void equals() {
-        CourseBook courseBook = new CourseBookBuilder()
-            .withPerson(TypicalModules.PROGRAMMING_METHODOLOGY)
-            .withPerson(TypicalModules.COMPUTER_ORGANISATION)
-            .build();
-        CourseBook differentCourseBook = new CourseBook();
-        UserPrefs userPrefs = new UserPrefs();
-
-        // same values -> returns true
-        modelManager = new ModelManager(courseBook, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(courseBook, userPrefs);
-        assertTrue(modelManager.equals(modelManagerCopy));
-
-        // same object -> returns true
-        assertTrue(modelManager.equals(modelManager));
-
-        // null -> returns false
-        assertFalse(modelManager.equals(null));
-
-        // different types -> returns false
-        assertFalse(modelManager.equals(5));
-
-        // different courseBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentCourseBook, userPrefs)));
-
-        // different filteredList -> returns false
-        String[] keywords = TypicalModules.PROGRAMMING_METHODOLOGY.getTitle().value.split("\\s+");
-        modelManager.updateFilteredModuleList(new TitleContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(courseBook, userPrefs)));
-
-        // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
-
-        // different userPrefs -> returns false
-        UserPrefs differentUserPrefs = new UserPrefs();
-        differentUserPrefs.setCourseBookFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(courseBook, differentUserPrefs)));
-    }
 }

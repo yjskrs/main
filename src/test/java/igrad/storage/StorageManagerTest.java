@@ -34,33 +34,6 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void prefsReadSave() throws Exception {
-        /*
-         * Note: This is an integration test that verifies the StorageManager is properly wired to the
-         * {@link JsonUserPrefsStorage} class.
-         * More extensive testing of UserPref saving/reading is done in {@link JsonUserPrefsStorageTest} class.
-         */
-        UserPrefs original = new UserPrefs();
-        original.setGuiSettings(new GuiSettings(300, 600, 4, 6));
-        storageManager.saveUserPrefs(original);
-        UserPrefs retrieved = storageManager.readUserPrefs().get();
-        assertEquals(original, retrieved);
-    }
-
-    @Test
-    public void courseBookReadSave() throws Exception {
-        /*
-         * Note: This is an integration test that verifies the StorageManager is properly wired to the
-         * {@link JsonCourseBookStorage} class.
-         * More extensive testing of UserPref saving/reading is done in {@link JsonCourseBookStorageTest} class.
-         */
-        CourseBook original = TypicalModules.getTypicalCourseBook();
-        storageManager.saveCourseBook(original);
-        ReadOnlyCourseBook retrieved = storageManager.readCourseBook().get();
-        assertEquals(original, new CourseBook(retrieved));
-    }
-
-    @Test
     public void getCourseBookFilePath() {
         assertNotNull(storageManager.getCourseBookFilePath());
     }
