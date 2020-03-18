@@ -1,5 +1,6 @@
 package igrad.model.course;
 
+import static igrad.logic.commands.CommandTestUtil.VALID_NAME_B_ARTS_PHILO;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -7,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import igrad.testutil.CourseInfoBuilder;
 import igrad.testutil.TypicalCourseInfos;
+import igrad.testutil.TypicalModules;
 
 public class CourseInfoTest {
     @Test
@@ -21,17 +23,16 @@ public class CourseInfoTest {
         // null -> returns false
         assertFalse(TypicalCourseInfos.B_SCI_MATH.equals(null));
 
-        // TODO: (Teri) please help update the test method accordingly, you can refer to the 3 above examples
-
         // different type -> returns false
-        //assertFalse(TypicalPersons.ALICE.equals(5));
+        assertFalse(TypicalCourseInfos.B_COMP_SCI.equals(TypicalModules.COMPUTER_ORGANISATION));
 
-        // different module -> returns false
-        //assertFalse(TypicalPersons.ALICE.equals(TypicalPersons.BOB));
+        // different object -> returns false
+        assertFalse(TypicalCourseInfos.B_COMP_SCI.equals(TypicalCourseInfos.B_SCI_MATH));
 
         // different name -> returns false
-        //Module editedAlice = new ModuleBuilder(TypicalPersons.ALICE).withName(VALID_NAME_BOB).build();
-        //assertFalse(TypicalPersons.ALICE.equals(editedAlice));
+        CourseInfo editedCourseInfo = new CourseInfoBuilder(TypicalCourseInfos.B_COMP_SCI)
+            .withName(VALID_NAME_B_ARTS_PHILO).build();
+        assertFalse(TypicalCourseInfos.B_COMP_SCI.equals(editedCourseInfo));
     }
 }
 
