@@ -101,11 +101,6 @@ public class ModelManager implements Model {
 
     //=========== CourseBook ================================================================================
 
-    /**
-     * Resets the course book data to a blank state with no data (e.g, modules, requirements, etc).
-     *
-     * @param courseBook
-     */
     @Override
     public void resetCourseBook(ReadOnlyCourseBook courseBook) {
         this.setCourseBook(new CourseBook());
@@ -137,21 +132,11 @@ public class ModelManager implements Model {
         return courseBook.getCourseInfo();
     }
 
-    /**
-     * Adds the given courseInfo to the course book.
-     *
-     * @param courseInfo
-     */
     @Override
     public void addCourseInfo(CourseInfo courseInfo) {
         courseBook.addCourseInfo(courseInfo);
     }
 
-    /**
-     * Modifies the name of the course.
-     *
-     * @param courseInfo
-     */
     @Override
     public void modifyCourseInfo(CourseInfo courseInfo) {
         courseBook.modifyCourseInfo(courseInfo);
@@ -183,7 +168,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setRequirements(Requirement target, Requirement editedRequirement) {
+    public void setRequirement(Requirement target, Requirement editedRequirement) {
         requireAllNonNull(target, editedRequirement);
 
         courseBook.setRequirement(target, editedRequirement);

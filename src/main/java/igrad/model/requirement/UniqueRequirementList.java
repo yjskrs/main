@@ -20,7 +20,7 @@ import javafx.collections.ObservableList;
  * <p>
  * Supports a minimal set of list operations.
  *
- * @see Requirement#hasSameTitle(Requirement)
+ * @see Requirement#hasSameName(Requirement)
  */
 public class UniqueRequirementList implements Iterable<Requirement> {
 
@@ -33,7 +33,7 @@ public class UniqueRequirementList implements Iterable<Requirement> {
      */
     public boolean contains(Requirement toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::hasSameTitle);
+        return internalList.stream().anyMatch(toCheck::hasSameName);
     }
 
     /**
@@ -49,35 +49,8 @@ public class UniqueRequirementList implements Iterable<Requirement> {
     }
 
     /**
-     * Replaces the requirement {@code target} in the list with {@code editedRequirement}.
-     * {@code target} must exist in the list.
+     * Replaces all requirements with {@code replacement}.
      */
-    public void setRequirement(Requirement target, Requirement editedRequirement) {
-        requireAllNonNull(target, editedRequirement);
-
-        int index = internalList.indexOf(target);
-        if (index == -1) {
-            throw new RequirementNotFoundException();
-        }
-
-        if (!target.hasSameTitle(editedRequirement) && contains(editedRequirement)) {
-            throw new DuplicateRequirementException();
-        }
-
-        internalList.set(index, editedRequirement);
-    }
-
-    /**
-     * Removes the equivalent requirement from the list.
-     * The requirement must exist in the list.
-     */
-    public void remove(Requirement toRemove) {
-        requireNonNull(toRemove);
-        if (!internalList.remove(toRemove)) {
-            throw new RequirementNotFoundException();
-        }
-    }
-
     public void setRequirements(UniqueRequirementList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
@@ -97,6 +70,36 @@ public class UniqueRequirementList implements Iterable<Requirement> {
     }
 
     /**
+     * Replaces the requirement {@code target} in the list with {@code editedRequirement}.
+     * {@code target} must exist in the list.
+     */
+    public void setRequirement(Requirement target, Requirement editedRequirement) {
+        requireAllNonNull(target, editedRequirement);
+
+        int index = internalList.indexOf(target);
+        if (index == -1) {
+            throw new RequirementNotFoundException();
+        }
+
+        if (!target.hasSameName(editedRequirement) && contains(editedRequirement)) {
+            throw new DuplicateRequirementException();
+        }
+
+        internalList.set(index, editedRequirement);
+    }
+
+    /**
+     * Removes the equivalent requirement from the list.
+     * The requirement must exist in the list.
+     */
+    public void remove(Requirement toRemove) {
+        requireNonNull(toRemove);
+        if (!internalList.remove(toRemove)) {
+            throw new RequirementNotFoundException();
+        }
+    }
+
+    /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
     public ObservableList<Requirement> asUnmodifiableObservableList() {
@@ -110,9 +113,9 @@ public class UniqueRequirementList implements Iterable<Requirement> {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-            || (other instanceof UniqueRequirementList // instanceof handles nulls
-            && internalList.equals(((UniqueRequirementList) other).internalList));
+        return other == this
+                   || (other instanceof UniqueRequirementList
+                           && internalList.equals(((UniqueRequirementList) other).internalList));
     }
 
     @Override
@@ -126,7 +129,7 @@ public class UniqueRequirementList implements Iterable<Requirement> {
     private boolean requirementsAreUnique(List<Requirement> requirements) {
         for (int i = 0; i < requirements.size() - 1; i++) {
             for (int j = i + 1; j < requirements.size(); j++) {
-                if (requirements.get(i).hasSameTitle(requirements.get(j))) {
+                if (requirements.get(i).hasSameName(requirements.get(j))) {
                     return false;
                 }
             }

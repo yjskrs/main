@@ -1,4 +1,4 @@
-package igrad.logic.parser;
+package igrad.logic.parser.module;
 
 import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
 import static igrad.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
@@ -9,10 +9,13 @@ import static igrad.logic.parser.CliSyntax.PREFIX_TAG;
 import static igrad.logic.parser.CliSyntax.PREFIX_TITLE;
 
 import java.util.Set;
-import java.util.stream.Stream;
 
 import igrad.commons.core.Messages;
 import igrad.logic.commands.ModuleAddCommand;
+import igrad.logic.parser.ArgumentMultimap;
+import igrad.logic.parser.ArgumentTokenizer;
+import igrad.logic.parser.Parser;
+import igrad.logic.parser.ParserUtil;
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.module.Credits;
 import igrad.model.module.Description;
@@ -26,15 +29,7 @@ import igrad.model.tag.Tag;
 /**
  * Parses input arguments and creates a new ModuleAddCommand object.
  */
-public class ModuleAddCommandParser implements Parser<ModuleAddCommand> {
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
-    }
+public class ModuleAddCommandParser extends ModuleCommandParser implements Parser<ModuleAddCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the ModuleAddCommand
@@ -53,23 +48,23 @@ public class ModuleAddCommandParser implements Parser<ModuleAddCommand> {
          * As can be seen, MODULE_CODE is the only compulsory field, so we're just validating for its
          * presence in the below.
          */
-        if (!arePrefixesPresent(argMultimap, PREFIX_MODULE_CODE)
+        if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_MODULE_CODE)
             || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
                 ModuleAddCommand.MESSAGE_USAGE));
         }
 
-        Title title = ParserUtil.parseTitle(argMultimap.getValue(PREFIX_TITLE).get());
-        ModuleCode moduleCode = ParserUtil.parseModuleCode(argMultimap.getValue(PREFIX_MODULE_CODE).get());
-        Credits credits = ParserUtil.parseCredits(argMultimap.getValue(PREFIX_CREDITS).get());
+        Title title = parseTitle(argMultimap.getValue(PREFIX_TITLE).get());
+        ModuleCode moduleCode = parseModuleCode(argMultimap.getValue(PREFIX_MODULE_CODE).get());
+        Credits credits = parseCredits(argMultimap.getValue(PREFIX_CREDITS).get());
         Memo memo = argMultimap.getValue(PREFIX_MEMO).isPresent()
-            ? ParserUtil.parseMemo(argMultimap.getValue(PREFIX_MEMO).get())
+            ? parseMemo(argMultimap.getValue(PREFIX_MEMO).get())
             : null;
         Description description = argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()
-            ? ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get())
+            ? parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get())
             : null;
         Semester semester = argMultimap.getValue(PREFIX_SEMESTER).isPresent()
-            ? ParserUtil.parseSemester(argMultimap.getValue(PREFIX_SEMESTER).get())
+            ? parseSemester(argMultimap.getValue(PREFIX_SEMESTER).get())
             : null;
         Set<Tag> tagList = ParserUtil.parseTag(argMultimap.getAllValues(PREFIX_TAG));
 

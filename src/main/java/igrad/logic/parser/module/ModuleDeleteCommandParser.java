@@ -1,9 +1,11 @@
-package igrad.logic.parser;
+package igrad.logic.parser.module;
 
 import static igrad.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import igrad.commons.core.index.Index;
 import igrad.logic.commands.ModuleDeleteCommand;
+import igrad.logic.parser.Parser;
+import igrad.logic.parser.ParserUtil;
 import igrad.logic.parser.exceptions.ParseException;
 
 /**

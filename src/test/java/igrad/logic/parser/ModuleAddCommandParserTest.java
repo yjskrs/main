@@ -5,6 +5,7 @@ import static igrad.testutil.TypicalModules.COMPUTER_ORGANISATION;
 
 import org.junit.jupiter.api.Test;
 
+import igrad.logic.parser.module.ModuleAddCommandParser;
 import igrad.model.module.Module;
 import igrad.testutil.ModuleBuilder;
 
