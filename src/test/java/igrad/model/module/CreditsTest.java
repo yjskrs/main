@@ -27,6 +27,9 @@ public class CreditsTest {
         // invalid credits
         assertFalse(Credits.isValidCredits("")); // empty string
 
+        // invalid credits
+        assertFalse(Credits.isValidCredits("abc")); // malformed int
+
         // valid credits
         assertTrue(Credits.isValidCredits("4"));
     }

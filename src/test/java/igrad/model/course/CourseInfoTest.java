@@ -1,5 +1,6 @@
 package igrad.model.course;
 
+import static igrad.logic.commands.CommandTestUtil.VALID_NAME_B_ARTS_PHILO;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -29,8 +30,9 @@ public class CourseInfoTest {
         assertFalse(TypicalCourseInfos.B_COMP_SCI.equals(TypicalCourseInfos.B_SCI_MATH));
 
         // different name -> returns false
-        CourseInfo bCompSciCopy = new CourseInfoBuilder(TypicalCourseInfos.B_COMP_SCI).build();
-        assertFalse(TypicalCourseInfos.B_SCI_MATH.equals(bCompSciCopy));
+        CourseInfo editedCourseInfo = new CourseInfoBuilder(TypicalCourseInfos.B_COMP_SCI)
+            .withName(VALID_NAME_B_ARTS_PHILO).build();
+        assertFalse(TypicalCourseInfos.B_COMP_SCI.equals(editedCourseInfo));
     }
 }
 

@@ -16,11 +16,11 @@ public class SemesterTest {
 
     @Test
     public void isValidSemester() {
-        // invalid semester
-        assertFalse(Semester.isValidSemester("Y1S3"));
-
-        // invalid semester
+        // invalid semester (only digits)
         assertFalse(Semester.isValidSemester("11"));
+
+        // invalid semester (Sem 3 is not a valid sem)
+        assertFalse(Semester.isValidSemester("Y1S3"));
 
         // valid semester
         assertTrue(Semester.isValidSemester("Y1S1"));

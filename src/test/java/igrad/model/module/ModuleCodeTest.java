@@ -27,8 +27,11 @@ public class ModuleCodeTest {
         // invalid ModuleCode
         assertFalse(ModuleCode.isValidModuleCode("")); // empty string
 
-        // invalid ModuleCode
+        // invalid ModuleCode (only 4 digits, no 2 letters in front)
         assertFalse(ModuleCode.isValidModuleCode("1234"));
+
+        // valid ModuleCode (2 letters in front, followed by 4 digits, but no (optional) letter behind)
+        assertTrue(ModuleCode.isValidModuleCode("CS1231"));
 
         // valid ModuleCode
         assertTrue(ModuleCode.isValidModuleCode("CS2103T"));
