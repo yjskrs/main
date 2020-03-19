@@ -52,6 +52,12 @@ public interface Model {
     Path getCourseBookFilePath();
 
     /**
+     * Returns the user prefs' backup course book file path.
+     */
+    Path getBackupCourseBookFilePath();
+
+
+    /**
      * Sets the user prefs' course book file path.
      */
     void setCourseBookFilePath(Path courseBookFilePath);

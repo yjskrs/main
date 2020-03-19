@@ -20,6 +20,7 @@ import igrad.logic.commands.ModuleAddCommand;
 import igrad.logic.commands.ModuleDeleteCommand;
 import igrad.logic.commands.ModuleEditCommand;
 import igrad.logic.commands.SelectAvatarCommand;
+import igrad.logic.commands.UndoCommand;
 import igrad.logic.commands.requirement.RequirementAddCommand;
 import igrad.logic.commands.requirement.RequirementDeleteCommand;
 import igrad.logic.commands.requirement.RequirementEditCommand;
@@ -132,6 +133,9 @@ public class CourseBookParser {
 
         case ExportCommand.COMMAND_WORD:
             return new ExportCommand();
+
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommand();
 
         case CourseAddCommand.COMMAND_WORD:
             return new CourseAddCommandParser().parse(arguments);

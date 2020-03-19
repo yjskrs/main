@@ -52,6 +52,11 @@ public class StorageManager implements Storage {
     }
 
     @Override
+    public Path getBackupCourseBookFilePath() {
+        return courseBookStorage.getBackupCourseBookFilePath();
+    }
+
+    @Override
     public Optional<ReadOnlyCourseBook> readCourseBook() throws DataConversionException, IOException {
         return readCourseBook(courseBookStorage.getCourseBookFilePath());
     }
@@ -63,9 +68,20 @@ public class StorageManager implements Storage {
     }
 
     @Override
+    public Optional<ReadOnlyCourseBook> readBackupCourseBook() throws DataConversionException, IOException {
+        return readCourseBook(courseBookStorage.getBackupCourseBookFilePath());
+    }
+
+    @Override
+    public void saveBackupCourseBook(ReadOnlyCourseBook courseBook) throws IOException {
+        saveCourseBook(courseBook, courseBookStorage.getBackupCourseBookFilePath());
+    }
+
+    @Override
     public void saveCourseBook(ReadOnlyCourseBook courseBook) throws IOException {
         saveCourseBook(courseBook, courseBookStorage.getCourseBookFilePath());
     }
+
 
     @Override
     public void saveCourseBook(ReadOnlyCourseBook courseBook, Path filePath) throws IOException {

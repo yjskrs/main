@@ -10,6 +10,7 @@ import igrad.logic.commands.Command;
 import igrad.logic.commands.CommandResult;
 import igrad.logic.commands.CourseAddCommand;
 import igrad.logic.commands.SelectAvatarCommand;
+import igrad.logic.commands.UndoCommand;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.logic.parser.CourseBookParser;
 import igrad.logic.parser.exceptions.ParseException;
@@ -78,8 +79,18 @@ public class LogicManager implements Logic {
         ParseException, IOException, ServiceException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
+
         CommandResult commandResult;
         Command command = courseBookParser.parseCommand(commandText);
+
+        if (command.getClass() != UndoCommand.class) {
+            try {
+                // First, load current state into backup
+                storage.saveBackupCourseBook(model.getCourseBook());
+            } catch (IOException ioe) {
+                throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+            }
+        }
 
         commandResult = command.execute(model);
 
