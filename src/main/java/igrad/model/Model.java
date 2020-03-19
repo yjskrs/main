@@ -1,6 +1,8 @@
 package igrad.model;
 
 import java.nio.file.Path;
+import java.util.Comparator;
+import java.util.List;
 import java.util.function.Predicate;
 
 import igrad.commons.core.GuiSettings;
@@ -156,6 +158,11 @@ public interface Model {
      * Returns an unmodifiable view of the filtered module list.
      */
     ObservableList<Module> getFilteredModuleList();
+
+    /**
+     * Returns an sorted {@code List} sorted according to {@code Comparator<Module>}.
+     */
+    List<Module> getSortedModuleList(Comparator<Module> comparator);
 
     /**
      * Returns an unmodifiable view of the requirements list.

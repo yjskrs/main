@@ -14,6 +14,7 @@ import igrad.logic.commands.CourseAddCommand;
 import igrad.logic.commands.CourseDeleteCommand;
 import igrad.logic.commands.CourseEditCommand;
 import igrad.logic.commands.ExitCommand;
+import igrad.logic.commands.ExportCommand;
 import igrad.logic.commands.HelpCommand;
 import igrad.logic.commands.ModuleAddCommand;
 import igrad.logic.commands.ModuleDeleteCommand;
@@ -128,6 +129,9 @@ public class CourseBookParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case ExportCommand.COMMAND_WORD:
+            return new ExportCommand();
 
         case CourseAddCommand.COMMAND_WORD:
             return new CourseAddCommandParser().parse(arguments);
