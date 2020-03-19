@@ -273,6 +273,8 @@ public class MainWindow extends UiPart<Stage> {
         IOException,
         ServiceException {
 
+        setCommandReceived(commandText);
+
         try {
             CommandResult commandResult;
 
@@ -301,7 +303,6 @@ public class MainWindow extends UiPart<Stage> {
                 }
             }
 
-            setCommandReceived(commandText);
             return commandResult;
         } catch (CommandException | ParseException | IOException | ServiceException e) {
             logger.info("Invalid command: " + commandText);
