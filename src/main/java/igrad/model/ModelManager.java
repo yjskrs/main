@@ -4,7 +4,9 @@ import static igrad.commons.util.CollectionUtil.requireAllNonNull;
 import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -194,6 +196,15 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Module> getFilteredModuleList() {
         return filteredModules;
+    }
+
+    @Override
+    public List<Module> getSortedModuleList(Comparator<Module> comparator) {
+        ObservableList<Module> tempList = getFilteredModuleList();
+        List<Module> sortedList = new ArrayList<>(tempList);
+        sortedList.sort(comparator);
+
+        return sortedList;
     }
 
     @Override

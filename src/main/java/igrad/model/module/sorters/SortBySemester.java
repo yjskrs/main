@@ -1,10 +1,8 @@
 package igrad.model.module.sorters;
 
-import static java.util.Objects.requireNonNull;
-
 import java.util.Comparator;
-import igrad.model.module.Module;
 
+import igrad.model.module.Module;
 
 
 /**

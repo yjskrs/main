@@ -1,13 +1,10 @@
-package igrad.csv_writer;
+package igrad.csvwriter;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import igrad.csv_writer.exceptions.InvalidDataException;
-import igrad.logic.commands.ExportCommand;
+import java.util.List;
+
 import igrad.model.module.Module;
-import igrad.model.module.sorters.SortBySemester;
-import javafx.collections.ObservableList;
 
 /**
  * Writes the data stored as a human-readable CSV file.
@@ -16,29 +13,26 @@ public class CsvWriter {
 
     private static final String fileName = "study_plan.csv";
     private FileWriter csvWriter;
-    private ArrayList<Module> sortableList;
+    private List<Module> sortedList;
 
-    public CsvWriter(ObservableList<Module> filteredModuleList) throws IOException {
-
+    public CsvWriter(List<Module> sortedList) throws IOException {
         csvWriter = new FileWriter(fileName);
-        sortableList = new ArrayList<>(filteredModuleList);
-        try {
-            sortableList.sort(new SortBySemester());
-        } catch (NullPointerException e) {
-            throw new InvalidDataException(ExportCommand.EXPORT_ERROR_MESSAGE);
-        }
+
+        this.sortedList = sortedList;
     }
 
     /**
      * Writes to CSV
      */
     public void write() throws IOException {
-
         writeHeaders();
         writeBody();
+        closeWriter();
+    }
+
+    private void closeWriter() throws IOException {
         csvWriter.flush();
         csvWriter.close();
-
     }
 
     private void appendNewLine() throws IOException {
@@ -56,8 +50,8 @@ public class CsvWriter {
      */
     private void writeBody() throws IOException {
 
-        for (int i = 0; i < sortableList.size(); i++) {
-            Module module = sortableList.get(i);
+        for (int i = 0; i < sortedList.size(); i++) {
+            Module module = sortedList.get(i);
 
             append(module.getSemester().toString());
             append(module.getModuleCode().toString());
@@ -65,8 +59,8 @@ public class CsvWriter {
             append(module.getCredits().toString());
             appendNewLine();
 
-            if (i < sortableList.size() - 1) {
-                Module nextModule = sortableList.get(i + 1);
+            if (i < sortedList.size() - 1) {
+                Module nextModule = sortedList.get(i + 1);
                 if (!nextModule.getSemester().equals(module.getSemester())) {
                     appendNewLine();
                 }

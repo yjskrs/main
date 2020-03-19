@@ -2,7 +2,6 @@ package igrad.model.module;
 
 import static igrad.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;

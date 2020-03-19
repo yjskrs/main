@@ -1,4 +1,4 @@
-package igrad.csv_writer.exceptions;
+package igrad.csvwriter.exceptions;
 
 import java.io.IOException;
 
