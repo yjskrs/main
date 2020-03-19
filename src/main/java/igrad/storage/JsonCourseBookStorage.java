@@ -1,12 +1,10 @@
 package igrad.storage;
 
 import static java.util.Objects.requireNonNull;
-
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
-
 import igrad.commons.core.LogsCenter;
 import igrad.commons.exceptions.DataConversionException;
 import igrad.commons.exceptions.IllegalValueException;
@@ -27,6 +25,10 @@ public class JsonCourseBookStorage implements CourseBookStorage {
     public JsonCourseBookStorage(Path filePath, Path backupFilePath) {
         this.filePath = filePath;
         this.backupFilePath = backupFilePath;
+    }
+
+    public JsonCourseBookStorage(Path filePath) {
+        this.filePath = filePath;
     }
 
     public Path getCourseBookFilePath() {
