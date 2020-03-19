@@ -16,8 +16,11 @@ public class ExportCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Exports data to a CSV file.\n"
         + "Example: " + COMMAND_WORD;
 
-    public static final String SHOWING_EXPORT_MESSAGE = "Exported data to CSV file.";
-    public static final String EXPORT_ERROR_MESSAGE = "Unable to export data to CSV file. Please ensure that you do not have the file <study_plan.csv> open.";
+    public static final String SHOWING_EXPORT_MESSAGE = "I've exported your data to a CSV file."
+        + " You can find it in the same folder as this app's executable!";
+    public static final String EXPORT_ERROR_MESSAGE = "Unable to export data to CSV file."
+        + " Please ensure that you do not have the file <study_plan.csv> open and "
+        + "each module is tagged to a semester.";
 
     @Override
     public CommandResult execute(Model model) throws CommandException {

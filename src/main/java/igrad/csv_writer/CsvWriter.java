@@ -3,6 +3,8 @@ package igrad.csv_writer;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import igrad.csv_writer.exceptions.InvalidDataException;
+import igrad.logic.commands.ExportCommand;
 import igrad.model.module.Module;
 import igrad.model.module.sorters.SortBySemester;
 import javafx.collections.ObservableList;
@@ -17,10 +19,14 @@ public class CsvWriter {
     private ArrayList<Module> sortableList;
 
     public CsvWriter(ObservableList<Module> filteredModuleList) throws IOException {
+
         csvWriter = new FileWriter(fileName);
         sortableList = new ArrayList<>(filteredModuleList);
-
-        sortableList.sort(new SortBySemester());
+        try {
+            sortableList.sort(new SortBySemester());
+        } catch (NullPointerException e) {
+            throw new InvalidDataException(ExportCommand.EXPORT_ERROR_MESSAGE);
+        }
     }
 
     /**
