@@ -81,6 +81,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public Path getBackupCourseBookFilePath() {
+        return userPrefs.getBackupCourseBookFilePath();
+    }
+
+    @Override
     public void setCourseBookFilePath(Path courseBookFilePath) {
         requireNonNull(courseBookFilePath);
         userPrefs.setCourseBookFilePath(courseBookFilePath);

@@ -16,6 +16,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
     private Path courseBookFilePath = Paths.get("data", "coursebook.json");
+    private Path backupCourseBookFilePath = Paths.get("data", "backup_coursebook.json");
     private Avatar avatar = new Avatar();
 
     /**
@@ -39,6 +40,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
         setCourseBookFilePath(newUserPrefs.getCourseBookFilePath());
+        setBackupCourseBookFilePath(newUserPrefs.getBackupCourseBookFilePath());
         setAvatar(newUserPrefs.getAvatar());
     }
 
@@ -55,9 +57,19 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         return courseBookFilePath;
     }
 
+    @Override
+    public Path getBackupCourseBookFilePath() {
+        return backupCourseBookFilePath;
+    }
+
     public void setCourseBookFilePath(Path courseBookFilePath) {
         requireNonNull(courseBookFilePath);
         this.courseBookFilePath = courseBookFilePath;
+    }
+
+    public void setBackupCourseBookFilePath(Path backupCourseBookFilePath) {
+        requireNonNull(backupCourseBookFilePath);
+        this.backupCourseBookFilePath = backupCourseBookFilePath;
     }
 
     public Avatar getAvatar() {
@@ -82,6 +94,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
         return guiSettings.equals(o.guiSettings)
             && courseBookFilePath.equals(o.courseBookFilePath)
+            && backupCourseBookFilePath.equals(o.backupCourseBookFilePath)
             && avatar.equals(o.avatar);
     }
 
@@ -95,6 +108,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
         sb.append("\nLocal data file location : " + courseBookFilePath);
+        sb.append("\nBackup Local data file location : " + backupCourseBookFilePath);
         sb.append("\nAvatar : " + avatar);
         return sb.toString();
     }
