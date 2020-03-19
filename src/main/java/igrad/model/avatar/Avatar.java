@@ -45,7 +45,7 @@ public class Avatar {
      */
     public static boolean isValidName(String name) {
         for (String avatarName : AVATAR_NAMES) {
-            if (name.equals(avatarName)) {
+            if (name.equals(avatarName) || name.equals(avatarName + "-sad")) {
                 return true;
             }
         }
