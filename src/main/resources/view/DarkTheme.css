@@ -91,25 +91,25 @@
 .list-view {
     -fx-background-insets: 0;
     -fx-padding: 0;
-    -fx-background-color: #2d2d2d;
+    -fx-background-color: #3a3a3a;
 }
 
 .list-cell {
     -fx-label-padding: 0 0 0 0;
     -fx-graphic-text-gap : 0;
-    -fx-padding: 0 0 0 0;
+    -fx-padding: 10 20 10 20;
 }
 
 .list-cell:filled:even {
-    -fx-background-color: #3c3e3f;
+    -fx-background-color: #3a3a3a;
 }
 
 .list-cell:filled:odd {
-    -fx-background-color: #515658;
+    -fx-background-color: #3a3a3a;
 }
 
 .list-cell:filled:selected {
-    -fx-background-color: #424d5f;
+    -fx-background-color: #3a3a3a;
 }
 
 .list-cell:filled:selected #cardPane {
@@ -141,6 +141,20 @@
     -fx-text-fill: #010504;
 }
 
+.progress_panel {
+    -fx-background-color: #3a3a3a;
+    -fx-border-style: solid;
+    -fx-border-color: transparent;
+    -fx-background-radius: 20;
+    -fx-effect: dropshadow(gaussian, #1d1d1d, 20, 0.2, 0, 10);
+}
+
+.progress_panel .label {
+    -fx-font-family: Calibri;
+    -fx-text-fill: #d1d1d1;
+    -fx-font-size: 16;
+}
+
 .stack-pane {
      -fx-background-color: #2d2d2d;
 }
@@ -167,14 +181,22 @@
 }
 
 .status-bar {
-    -fx-background-color: #3d3d3d;
+    -fx-background-color: #2d2d2d;
 }
 
 .result-display {
+    -fx-background-color: #3a3a3a;
+    -fx-background-radius: 20;
+    -fx-border-color: transparent;
+    -fx-effect: dropshadow(gaussian, #1d1d1d, 20, 0.2, 0, 10);
+}
+
+.result-display-text-area {
     -fx-background-color: transparent;
-    -fx-font-family: "Calibri Light";
-    -fx-font-size: 16pt;
+    -fx-border-color: transparent;
+    -fx-font-size: 20;
     -fx-text-fill: white;
+    -fx-font-family: Calibri;
 }
 
 .result-display .label {
@@ -182,7 +204,7 @@
 }
 
 .status-bar .label {
-    -fx-font-family: "Calibri Light";
+    -fx-font-family: Calibri;
     -fx-font-size: 18pt;
     -fx-text-fill: white;
     -fx-padding: 4px;
@@ -347,11 +369,34 @@
     -fx-padding: 8 1 8 1;
 }
 
-#cardPane {
+.command-box {
+    -fx-background-color: #d1d1d1;
+    -fx-background-radius: 20;
+    -fx-font-family: Calibri;
+    -fx-font-size: 20;
+    -fx-text-fill: #2a2a2a;
+    -fx-border-color: transparent;
+}
+
+.command-received {
+    -fx-font-size: 16;
+    -fx-text-fill: white;
     -fx-background-color: #2d2d2d;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-border-style: solid solid solid solid;
+    -fx-border-color: #4d4d4d;
+    -fx-text-fill: white;
+    -fx-effect: innershadow(gaussian, #1d1d1d, 0.2, 1, 1);
+}
+
+#cardPane {
+    -fx-background-color: #303030;
+    -fx-background-radius: 20;
     -fx-border-width: 1;
     -fx-border-style: solid solid solid solid;
-    -fx-border-color: #3d3d3d;
+    -fx-border-radius: 20;
+    -fx-border-color: #4d4d4d;
 }
 
 #commandTypeLabel {
@@ -359,20 +404,29 @@
     -fx-text-fill: #F70D1A;
 }
 
-#commandTextField {
+/*#commandTextField {
     -fx-background-color: #2f2f2f;
+    -fx-background-radius: 20;
     -fx-border-style: solid;
-    -fx-border-color: #2d2d2d;
-    -fx-text-fill: white;
-}
+    -fx-border-color: transparent;
+    -fx-text-fill: black;
+}*/
 
 #filterField, #personListPanel, #personWebpage {
     -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
 }
 
 #resultDisplay .content {
-    -fx-background-color: #2f2f2f;
-    -fx-background-radius: 0;
+    -fx-background-color: #3a3a3a;
+    -fx-background-radius:0;
+    -fx-border-color: transparent;
+    -fx-text-fill: white;
+}
+
+#commandReceived .content {
+    -fx-background-color: #2a2a2a;
+    -fx-border-radius: 20;
+    -fx-border-style: solid;
     -fx-border-color: transparent;
     -fx-text-fill: white;
 }
