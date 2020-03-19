@@ -21,7 +21,7 @@ public class Semester {
      */
     public Semester(String semester) {
         checkArgument(isValidSemester(semester), MESSAGE_CONSTRAINTS);
-        value = semester;
+        value = semester.toUpperCase();
     }
 
     /**
