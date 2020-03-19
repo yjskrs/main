@@ -22,21 +22,21 @@ public class RequirementEditCommand extends RequirementCommand {
     public static final String COMMAND_WORD = REQUIREMENT_COMMAND_WORD + "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the requirement title. "
-                                                   + "Existing title will be overwritten by the input title.\n"
-                                                   + "Parameter: "
-                                                   + "[" + PREFIX_NAME + "NEW_TITLE] "
-                                                   + "[" + PREFIX_CREDITS + "NEW_CREDITS]\n"
-                                                   + "Example: " + COMMAND_WORD + " Unrestrained Elves "
-                                                   + PREFIX_NAME + "Unrestricted Electives";
+        + "Existing title will be overwritten by the input title.\n"
+        + "Parameter: "
+        + "[" + PREFIX_NAME + "NEW_TITLE] "
+        + "[" + PREFIX_CREDITS + "NEW_CREDITS]\n"
+        + "Example: " + COMMAND_WORD + " Unrestrained Elves "
+        + PREFIX_NAME + "Unrestricted Electives";
 
     public static final String MESSAGE_REQUIREMENT_EDIT_SUCCESS = "Edited Requirement: %1$s";
     public static final String MESSAGE_REQUIREMENT_NOT_EDITED = "Edited requirement must be provided with prefix "
-                                                                    + "[" + PREFIX_NAME + "] and/or "
-                                                                    + "[" + PREFIX_CREDITS + "].";
+        + "[" + PREFIX_NAME + "] and/or "
+        + "[" + PREFIX_CREDITS + "].";
     public static final String MESSAGE_REQUIREMENT_EMPTY_PARAMETERS = "Please provide a non-empty alphanumeric string.";
     public static final String MESSAGE_REQUIREMENT_SAME_PARAMETERS = "Please change the title or the credits.";
     public static final String MESSAGE_REQUIREMENT_DUPLICATE = "This requirement already exists. "
-                                                                    + "Please rename to a different title.";
+        + "Please rename to a different title.";
 
     private final Name originalName;
 
@@ -60,9 +60,9 @@ public class RequirementEditCommand extends RequirementCommand {
         List<Requirement> requirements = model.getRequirementList();
 
         Requirement requirementToEdit = requirements.stream()
-                                            .filter(requirement -> requirement.getName().equals(originalName))
-                                            .findFirst()
-                                            .orElseThrow(() -> new CommandException(MESSAGE_REQUIREMENT_NON_EXISTENT));
+            .filter(requirement -> requirement.getName().equals(originalName))
+            .findFirst()
+            .orElseThrow(() -> new CommandException(MESSAGE_REQUIREMENT_NON_EXISTENT));
 
         Name editedName = newName.orElse(requirementToEdit.getName());
         Credits editedCredits = newCredits.orElse(requirementToEdit.getCredits());
@@ -76,7 +76,7 @@ public class RequirementEditCommand extends RequirementCommand {
 
         // If the title is edited and same as before OR if the credits is edited and same as before
         if (newName.isPresent() && requirementToEdit.hasSameName(editedRequirement)
-                || newCredits.isPresent() && requirementToEdit.hasSameCredits(editedRequirement)) {
+            || newCredits.isPresent() && requirementToEdit.hasSameCredits(editedRequirement)) {
             throw new CommandException(MESSAGE_REQUIREMENT_SAME_PARAMETERS);
         }
 

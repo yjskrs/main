@@ -106,6 +106,11 @@ public interface Model {
     CourseInfo getCourseInfo();
 
     /**
+     * Checks if the course name has been set.
+     */
+    boolean isCourseNameSet();
+
+    /**
      * Modifies the name of the course to {@code courseInfo}.
      */
     void modifyCourseInfo(CourseInfo courseInfo);
