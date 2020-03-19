@@ -1,7 +1,5 @@
 package igrad.ui;
 
-import javafx.fxml.FXML;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 
 /**
@@ -9,10 +7,8 @@ import javafx.scene.layout.Region;
  */
 public class CapPanel extends UiPart<Region> {
 
-    public static final String FXML = "CapPanel.fxml";
+    public static final String FXML = "ProgressSidePanel.fxml";
 
-    @FXML
-    private AnchorPane capPanel;
 
     /*
      * @FXML
@@ -27,8 +23,6 @@ public class CapPanel extends UiPart<Region> {
 
     public CapPanel() {
         super(FXML);
-
-        this.capPanel = new AnchorPane();
     }
 
    /* public void showPanels() {

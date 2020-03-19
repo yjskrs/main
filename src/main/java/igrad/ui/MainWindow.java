@@ -14,7 +14,6 @@ import igrad.model.course.CourseInfo;
 import igrad.services.exceptions.ServiceException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -40,7 +39,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private StatusBar statusBar;
-    private McSidePanel mcSidePanel;
+    /*    private McSidePanel mcSidePanel;*/
     private CapPanel capPanel;
 
     @FXML
@@ -49,8 +48,10 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private VBox moduleList;
 
-    @FXML
-    private HBox sidePanelPlaceholder;
+    /*
+     * @FXML
+     * private HBox sidePanelPlaceholder;
+     */
 
     @FXML
     private VBox capPanelPlaceholder;
@@ -66,6 +67,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private Label mcCount;
+
+    @FXML
+    private Label commandReceived;
 
 
     public MainWindow(Stage primaryStage, Logic logic) {
@@ -165,8 +169,10 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up and displays/refreshes the the placeholders of the side panels (Modular credits info, CAP info).
      */
     void displaySidePanels(Model model) {
-        mcSidePanel = new McSidePanel();
-        sidePanelPlaceholder.getChildren().add(mcSidePanel.getRoot());
+        /*
+         * mcSidePanel = new McSidePanel();
+         * sidePanelPlaceholder.getChildren().add(mcSidePanel.getRoot());
+         */
 
         capPanel = new CapPanel();
         capPanelPlaceholder.getChildren().add(capPanel.getRoot());
@@ -227,6 +233,10 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    private void setCommandReceived(String command) {
+        commandReceived.setText(command);
+    }
+
     /**
      * Opens the help window or focuses on it if it's already opened.
      */
@@ -268,6 +278,8 @@ public class MainWindow extends UiPart<Stage> {
         ParseException,
         IOException,
         ServiceException {
+
+        setCommandReceived(commandText);
 
         try {
             CommandResult commandResult;
