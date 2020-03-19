@@ -18,8 +18,8 @@ public class UndoCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Undoes latest action.\n"
         + "Example: " + COMMAND_WORD;
 
-    public static final String SHOWING_UNDO_MESSAGE = "Undid last command.";
-    public static final String UNDO_ERROR_MESSAGE = "Unable to undo the last comamand.";
+    public static final String MESSAGE_SUCCESS = "Undid last command.";
+    public static final String MESSAGE_ERROR = "Unable to undo the last comamand.";
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
@@ -35,13 +35,13 @@ public class UndoCommand extends Command {
             if (backupCourseBook.isPresent()) {
                 model.setCourseBook(backupCourseBook.get());
             } else {
-                throw new CommandException(UNDO_ERROR_MESSAGE);
+                throw new CommandException(MESSAGE_ERROR);
             }
 
         } catch (DataConversionException e) {
-            throw new CommandException(UNDO_ERROR_MESSAGE);
+            throw new CommandException(MESSAGE_ERROR);
         }
 
-        return new CommandResult(SHOWING_UNDO_MESSAGE, false, false, false);
+        return new CommandResult(MESSAGE_SUCCESS, false, false, false);
     }
 }
