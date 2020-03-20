@@ -18,7 +18,7 @@ public class Credits {
     /**
      * Constructs an {@code Credits}.
      *
-     * @param credits A valid credits address.
+     * @param credits A valid credits value.
      */
     public Credits(String credits) {
         requireNonNull(credits);
@@ -31,6 +31,13 @@ public class Credits {
      */
     public static boolean isValidCredits(String test) {
         return test.matches(VALIDATION_REGEX);
+    }
+
+    /**
+     * Converts the string credits {@code value} to integer.
+     */
+    public int toInteger() {
+        return Integer.parseInt(value);
     }
 
     @Override
