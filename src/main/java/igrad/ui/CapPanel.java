@@ -1,9 +1,6 @@
 package igrad.ui;
 
-import javafx.fxml.FXML;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
 
 /**
  * Panel containing the current, target CAP for the user.

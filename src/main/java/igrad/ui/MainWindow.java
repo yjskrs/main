@@ -14,7 +14,6 @@ import igrad.model.course.CourseInfo;
 import igrad.services.exceptions.ServiceException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -40,7 +39,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private StatusBar statusBar;
-/*    private McSidePanel mcSidePanel;*/
+    /*    private McSidePanel mcSidePanel;*/
     private CapPanel capPanel;
 
     @FXML
@@ -49,8 +48,10 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private VBox moduleList;
 
-/*    @FXML
-    private HBox sidePanelPlaceholder;*/
+    /*
+     * @FXML
+     * private HBox sidePanelPlaceholder;
+     */
 
     @FXML
     private VBox capPanelPlaceholder;
@@ -159,6 +160,7 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
         displayStatusBar(model);
+        refreshStatusBar(model);
         displayCommandBox(model);
         displaySidePanels(model);
     }
@@ -167,8 +169,10 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up and displays/refreshes the the placeholders of the side panels (Modular credits info, CAP info).
      */
     void displaySidePanels(Model model) {
-/*        mcSidePanel = new McSidePanel();
-        sidePanelPlaceholder.getChildren().add(mcSidePanel.getRoot());*/
+        /*
+         * mcSidePanel = new McSidePanel();
+         * sidePanelPlaceholder.getChildren().add(mcSidePanel.getRoot());
+         */
 
         capPanel = new CapPanel();
         capPanelPlaceholder.getChildren().add(capPanel.getRoot());
@@ -189,8 +193,10 @@ public class MainWindow extends UiPart<Stage> {
         // Extract the updated CourseInfo from our model.
         CourseInfo courseInfo = model.getCourseInfo();
 
+        logger.fine("courseInfo.getName = " + courseInfo.getName().toString());
         // Refresh the status bar now, with the updated course name.
-        statusBar.setCourseName(courseInfo.getName().toString());
+        courseInfo.getName().ifPresentOrElse(
+            x -> statusBar.setCourseName(x.toString()), () -> statusBar.setCourseName(""));
     }
 
     /**
@@ -279,13 +285,24 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult;
 
             boolean isSelectingAvatar = model.isSampleAvatar();
+            boolean isCourseNameSet = model.isCourseNameSet();
+
+            logger.info("courseName = " + model.isCourseNameSet());
 
             if (isSelectingAvatar) {
+                // If user has not selected avatar, get her to do so.
                 commandResult = logic.executeAvatar(commandText);
 
                 // Now we've already selected Avatar, time to display the Main module panel
                 displayModulePanel(model);
+            } else if (!isCourseNameSet) {
+                /*
+                 * if user has not selected her course name, and she is trying to execute any other
+                 * command than course add n/course_name, prevent her from doing so.
+                 */
+                commandResult = logic.executeSetCourseName(commandText);
             } else {
+                // Finally, once the above 2 conditions are satisfied, let user execute commands normally.
                 commandResult = logic.execute(commandText);
             }
 
@@ -297,10 +314,7 @@ public class MainWindow extends UiPart<Stage> {
             } else if (commandResult.isExit()) {
                 handleExit();
             } else if (commandResult.isCourseAdd()) {
-                // TODO (Nat): Further remodularise code here, breaking abstractions
-                if (!statusBar.isCourseNameSet()) {
-                    refreshStatusBar(model);
-                }
+                refreshStatusBar(model);
             }
 
             return commandResult;

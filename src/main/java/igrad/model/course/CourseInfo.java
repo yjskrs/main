@@ -3,6 +3,7 @@ package igrad.model.course;
 import static igrad.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Represents all the (additional) details a Course (there's only one of which), might have e.g, course name.
@@ -11,19 +12,23 @@ import java.util.Objects;
 public class CourseInfo {
 
     // Identity fields
-    private final Name name;
+    private final Optional<Name> name;
 
     // Data fields
+
+    public CourseInfo() {
+        this.name = Optional.empty();
+    }
 
     /**
      * Every field must be present and not null.
      */
-    public CourseInfo(Name name) {
+    public CourseInfo(Optional<Name> name) {
         requireAllNonNull(name);
         this.name = name;
     }
 
-    public Name getName() {
+    public Optional<Name> getName() {
         return name;
     }
 
@@ -54,7 +59,7 @@ public class CourseInfo {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName());
+        builder.append(getName().get());
         return builder.toString();
     }
 

@@ -1,6 +1,8 @@
 package igrad.model;
 
 import java.nio.file.Path;
+import java.util.Comparator;
+import java.util.List;
 import java.util.function.Predicate;
 
 import igrad.commons.core.GuiSettings;
@@ -48,6 +50,12 @@ public interface Model {
      * Returns the user prefs' course book file path.
      */
     Path getCourseBookFilePath();
+
+    /**
+     * Returns the user prefs' backup course book file path.
+     */
+    Path getBackupCourseBookFilePath();
+
 
     /**
      * Sets the user prefs' course book file path.
@@ -106,6 +114,11 @@ public interface Model {
     CourseInfo getCourseInfo();
 
     /**
+     * Checks if the course name has been set.
+     */
+    boolean isCourseNameSet();
+
+    /**
      * Modifies the name of the course to {@code courseInfo}.
      */
     void modifyCourseInfo(CourseInfo courseInfo);
@@ -151,6 +164,11 @@ public interface Model {
      * Returns an unmodifiable view of the filtered module list.
      */
     ObservableList<Module> getFilteredModuleList();
+
+    /**
+     * Returns an sorted {@code List} sorted according to {@code Comparator<Module>}.
+     */
+    List<Module> getSortedModuleList(Comparator<Module> comparator);
 
     /**
      * Returns an unmodifiable view of the requirements list.

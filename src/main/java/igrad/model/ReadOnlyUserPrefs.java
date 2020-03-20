@@ -14,5 +14,7 @@ public interface ReadOnlyUserPrefs {
 
     Path getCourseBookFilePath();
 
+    Path getBackupCourseBookFilePath();
+
     Avatar getAvatar();
 }
