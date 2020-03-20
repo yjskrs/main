@@ -4,7 +4,6 @@ import static igrad.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static igrad.logic.commands.requirement.RequirementDeleteCommand.MESSAGE_USAGE;
 
 import igrad.logic.commands.requirement.RequirementDeleteCommand;
-import igrad.logic.parser.Parser;
 import igrad.logic.parser.ParserUtil;
 import igrad.logic.parser.Specifier;
 import igrad.logic.parser.exceptions.ParseException;
@@ -13,7 +12,7 @@ import igrad.model.requirement.Name;
 /**
  * Parses requirement input argument and creates a new RequirementAddCommand object.
  */
-public class RequirementDeleteCommandParser implements Parser<RequirementDeleteCommand> {
+public class RequirementDeleteCommandParser extends RequirementCommandParser {
 
     @Override
     public RequirementDeleteCommand parse(String userInput) throws ParseException {

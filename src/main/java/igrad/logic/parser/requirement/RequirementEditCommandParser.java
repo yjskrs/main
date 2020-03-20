@@ -12,7 +12,6 @@ import java.util.Optional;
 import igrad.logic.commands.requirement.RequirementEditCommand;
 import igrad.logic.parser.ArgumentMultimap;
 import igrad.logic.parser.ArgumentTokenizer;
-import igrad.logic.parser.Parser;
 import igrad.logic.parser.ParserUtil;
 import igrad.logic.parser.Specifier;
 import igrad.logic.parser.exceptions.ParseException;
@@ -22,7 +21,7 @@ import igrad.model.requirement.Name;
 /**
  * Parses requirement edit command input arguments and creates a new RequirementEditCommand object.
  */
-public class RequirementEditCommandParser extends RequirementCommandParser implements Parser<RequirementEditCommand> {
+public class RequirementEditCommandParser extends RequirementCommandParser {
 
     /**
      * Parses the given string of arguments {@code args} in the context of the
