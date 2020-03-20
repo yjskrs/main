@@ -5,7 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 
 /**
- * Panel containing the current, target CAP for the user.
+ * Panel containing the progress (MCs, modules completed, requirements completed, CAP info) of the user.
  */
 public class ProgressSidePanel extends UiPart<Region> {
 
