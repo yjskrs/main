@@ -16,16 +16,16 @@ public class RequirementAddCommand extends RequirementCommand {
     public static final String COMMAND_WORD = REQUIREMENT_COMMAND_WORD + "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a requirement.\n"
-                                                   + "Parameter: "
-                                                   + PREFIX_NAME + "NAME "
-                                                   + PREFIX_CREDITS + "CREDITS_NEEDED\n"
-                                                   + "Example: " + COMMAND_WORD + " "
-                                                   + PREFIX_NAME + "Unrestricted Electives "
-                                                   + PREFIX_CREDITS + "24\n";
+        + "Parameter: "
+        + PREFIX_NAME + "NAME "
+        + PREFIX_CREDITS + "CREDITS_NEEDED\n"
+        + "Example: " + COMMAND_WORD + " "
+        + PREFIX_NAME + "Unrestricted Electives "
+        + PREFIX_CREDITS + "24\n";
 
     public static final String MESSAGE_REQUIREMENT_ADD_SUCCESS = "New requirement added: %1$s";
     public static final String MESSAGE_REQUIREMENT_NOT_ADDED = "Added requirement must be provided with arguments "
-                                                                + PREFIX_NAME + "TITLE " + PREFIX_CREDITS + "CREDITS ";
+        + PREFIX_NAME + "TITLE " + PREFIX_CREDITS + "CREDITS ";
     public static final String MESSAGE_REQUIREMENT_DUPLICATE = "This requirement already exists in the course book.";
 
     private final Requirement requirementToAdd;

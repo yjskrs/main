@@ -19,6 +19,20 @@ public interface CourseBookStorage {
     Path getCourseBookFilePath();
 
     /**
+     * Returns the file path of the backup data file.
+     */
+    Path getBackupCourseBookFilePath();
+
+    /**
+     * Returns backup CourseBook data as a {@link ReadOnlyCourseBook}.
+     * Returns {@code Optional.empty()} if storage file is not found.
+     *
+     * @throws DataConversionException if the data in storage is not in the expected format.
+     * @throws IOException             if there was any problem when reading from the storage.
+     */
+    Optional<ReadOnlyCourseBook> readBackupCourseBook() throws DataConversionException, IOException;
+
+    /**
      * Returns CourseBook data as a {@link ReadOnlyCourseBook}.
      * Returns {@code Optional.empty()} if storage file is not found.
      *
@@ -44,5 +58,10 @@ public interface CourseBookStorage {
      * @see #saveCourseBook(ReadOnlyCourseBook)
      */
     void saveCourseBook(ReadOnlyCourseBook courseBook, Path filePath) throws IOException;
+
+    /**
+     * @see #saveBackupCourseBook(ReadOnlyCourseBook)
+     */
+    void saveBackupCourseBook(ReadOnlyCourseBook courseBook) throws IOException;
 
 }

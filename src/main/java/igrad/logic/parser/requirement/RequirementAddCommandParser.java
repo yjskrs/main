@@ -27,6 +27,7 @@ public class RequirementAddCommandParser extends RequirementCommandParser implem
      * Parses the given string of arguments {@code args} in the context of the
      * RequirementAddCommand and returns a RequirementAddCommand object
      * for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     @Override

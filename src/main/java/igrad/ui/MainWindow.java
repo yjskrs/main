@@ -43,6 +43,7 @@ public class MainWindow extends UiPart<Stage> {
     private ProgressSidePanel progressSidePanel;
     private CommandReceivedPanel commandReceivedPanel;
 
+
     @FXML
     private StackPane commandBoxPlaceholder;
 
@@ -160,6 +161,7 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
         displayStatusBar(model);
+        refreshStatusBar(model);
         displayCommandBox(model);
         displaySidePanels(model);
     }
@@ -188,8 +190,10 @@ public class MainWindow extends UiPart<Stage> {
         // Extract the updated CourseInfo from our model.
         CourseInfo courseInfo = model.getCourseInfo();
 
+        logger.fine("courseInfo.getName = " + courseInfo.getName().toString());
         // Refresh the status bar now, with the updated course name.
-        statusBar.setCourseName(courseInfo.getName().toString());
+        courseInfo.getName().ifPresentOrElse(
+            x -> statusBar.setCourseName(x.toString()), () -> statusBar.setCourseName(""));
     }
 
     /**
@@ -300,13 +304,24 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult;
 
             boolean isSelectingAvatar = model.isSampleAvatar();
+            boolean isCourseNameSet = model.isCourseNameSet();
+
+            logger.info("courseName = " + model.isCourseNameSet());
 
             if (isSelectingAvatar) {
+                // If user has not selected avatar, get her to do so.
                 commandResult = logic.executeAvatar(commandText);
 
                 // Now we've already selected Avatar, time to display the Main module panel
                 displayModulePanel(model);
+            } else if (!isCourseNameSet) {
+                /*
+                 * if user has not selected her course name, and she is trying to execute any other
+                 * command than course add n/course_name, prevent her from doing so.
+                 */
+                commandResult = logic.executeSetCourseName(commandText);
             } else {
+                // Finally, once the above 2 conditions are satisfied, let user execute commands normally.
                 commandResult = logic.execute(commandText);
             }
 
@@ -319,10 +334,7 @@ public class MainWindow extends UiPart<Stage> {
             } else if (commandResult.isExit()) {
                 handleExit();
             } else if (commandResult.isCourseAdd()) {
-                // TODO (Nat): Further remodularise code here, breaking abstractions
-                if (!statusBar.isCourseNameSet()) {
-                    refreshStatusBar(model);
-                }
+                refreshStatusBar(model);
             }
 
             return commandResult;

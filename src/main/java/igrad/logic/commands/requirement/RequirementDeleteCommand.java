@@ -18,7 +18,7 @@ public class RequirementDeleteCommand extends RequirementCommand {
     public static final String COMMAND_WORD = REQUIREMENT_COMMAND_WORD + "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes the requirement specified.\n"
-                                           + "Example: " + COMMAND_WORD + " Unrestricted Electives\n";
+        + "Example: " + COMMAND_WORD + " Unrestricted Electives\n";
 
     public static final String MESSAGE_REQUIREMENT_DELETE_SUCCESS = "Deleted Requirement: %1$s";
 
@@ -42,8 +42,8 @@ public class RequirementDeleteCommand extends RequirementCommand {
             throw new CommandException(MESSAGE_REQUIREMENT_NON_EXISTENT);
         } else {
             requirementToDelete = requirements.stream()
-                                  .filter(requirement -> requirement.getName().equals(name))
-                                  .findFirst().get();
+                .filter(requirement -> requirement.getName().equals(name))
+                .findFirst().get();
         }
 
         model.deleteRequirement(requirementToDelete);

@@ -27,5 +27,11 @@ public interface Storage extends CourseBookStorage, UserPrefsStorage {
     Optional<ReadOnlyCourseBook> readCourseBook() throws DataConversionException, IOException;
 
     @Override
+    Optional<ReadOnlyCourseBook> readBackupCourseBook() throws DataConversionException, IOException;
+
+    @Override
     void saveCourseBook(ReadOnlyCourseBook courseBook) throws IOException;
+
+    @Override
+    void saveBackupCourseBook(ReadOnlyCourseBook courseBook) throws IOException;
 }

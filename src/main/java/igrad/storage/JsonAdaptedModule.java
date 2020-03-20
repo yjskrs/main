@@ -62,7 +62,7 @@ class JsonAdaptedModule {
         credits = source.getCredits().value;
         memo = source.getMemo() != null ? source.getMemo().value : null;
         semester = source.getSemester() != null ? source.getSemester().value : null;
-        description = source.getDescription().value;
+        description = source.getDescription() != null ? source.getDescription().value : null;
         tags.addAll(source.getTags().stream()
             .map(JsonAdaptedTag::new)
             .collect(Collectors.toList()));
