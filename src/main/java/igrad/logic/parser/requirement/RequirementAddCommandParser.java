@@ -19,7 +19,7 @@ import igrad.model.requirement.Name;
 import igrad.model.requirement.Requirement;
 
 /**
- * Parses requirement input argument and creates a new RequirementAddCommand object.
+ * Parses requirement input arguments and creates a new RequirementAddCommand object.
  */
 public class RequirementAddCommandParser extends RequirementCommandParser implements Parser<RequirementAddCommand> {
 
