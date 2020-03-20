@@ -1,0 +1,17 @@
+{
+  "courseInfo" : {
+    "name" : {
+      "value" : "Computer Science"
+    }
+  },
+  "modules" : [ ],
+  "requirements" : [ {
+    "title" : "UEs",
+    "credits" : "32",
+    "moduleCodes" : [ ]
+  }, {
+    "title" : "GEs",
+    "credits" : "20",
+    "moduleCodes" : [ ]
+  } ]
+}

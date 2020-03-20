@@ -129,7 +129,7 @@ public class MainWindow extends UiPart<Stage> {
         avatarSelectionPanel = new AvatarSelectionPanel();
         avatarSelectionPanelPlaceholder.getChildren().add(avatarSelectionPanel.getRoot());
 
-        commandReceivedPanelPlaceholder = new VBox();
+        commandReceivedPanel = new CommandReceivedPanel();
 
         resultDisplay = new ResultDisplay(model.getAvatar());
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -152,7 +152,6 @@ public class MainWindow extends UiPart<Stage> {
         moduleListPanel = new ModuleListPanel(logic.getFilteredModuleList());
         moduleListPanelPlaceholder.getChildren().add(moduleListPanel.getRoot());
 
-        commandReceivedPanel = new CommandReceivedPanel();
         commandReceivedPanelPlaceholder.getChildren().add(commandReceivedPanel.getRoot());
 
         moduleListPanelPlaceholder.setPrefHeight(2000.0);

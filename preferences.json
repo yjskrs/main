@@ -1,0 +1,15 @@
+{
+  "guiSettings" : {
+    "windowWidth" : 1230.0,
+    "windowHeight" : 1030.0,
+    "windowCoordinates" : {
+      "x" : 2344,
+      "y" : -184
+    }
+  },
+  "courseBookFilePath" : "file:///C:/Users/Dargo/Documents/NUS/CS/CS2103T%20Software%20Engineering/CS2103%20iGrad/data/coursebook.json",
+  "backupCourseBookFilePath" : "file:///C:/Users/Dargo/Documents/NUS/CS/CS2103T%20Software%20Engineering/CS2103%20iGrad/data/backup_coursebook.json",
+  "avatar" : {
+    "name" : "po"
+  }
+}
