@@ -1,6 +1,6 @@
 package igrad.logic.parser.requirement;
 
-import static igrad.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static igrad.commons.core.Messages.MESSAGE_SPECIFIER_NOT_SPECIFIED;
 import static igrad.logic.commands.requirement.RequirementEditCommand.MESSAGE_REQUIREMENT_NOT_EDITED;
 import static igrad.logic.commands.requirement.RequirementEditCommand.MESSAGE_USAGE;
 import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
@@ -38,7 +38,7 @@ public class RequirementEditCommandParser extends RequirementCommandParser {
         try {
             specifier = ParserUtil.parseSpecifier(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE), pe);
+            throw new ParseException(String.format(MESSAGE_SPECIFIER_NOT_SPECIFIED, MESSAGE_USAGE), pe);
         }
 
         if (!argMultimap.getValue(PREFIX_NAME).isPresent() && !argMultimap.getValue(PREFIX_CREDITS).isPresent()) {

@@ -15,13 +15,16 @@ import igrad.model.requirement.Requirement;
 public class RequirementAddCommand extends RequirementCommand {
     public static final String COMMAND_WORD = REQUIREMENT_COMMAND_WORD + "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a requirement.\n"
-        + "Parameter: "
+    public static final String MESSAGE_DETAILS = COMMAND_WORD + ": Adds a requirement.\n";
+
+    public static final String MESSAGE_USAGE = "Parameter: "
         + PREFIX_NAME + "NAME "
         + PREFIX_CREDITS + "CREDITS_TO_FULFIL\n"
         + "Example: " + COMMAND_WORD + " "
         + PREFIX_NAME + "Unrestricted Electives "
         + PREFIX_CREDITS + "24\n";
+
+    public static final String MESSAGE_HELP = MESSAGE_DETAILS + MESSAGE_USAGE;
 
     public static final String MESSAGE_REQUIREMENT_ADD_SUCCESS = "New requirement added: %1$s";
     public static final String MESSAGE_REQUIREMENT_NOT_ADDED = "Added requirement must be provided with arguments "

@@ -17,8 +17,11 @@ public class RequirementDeleteCommand extends RequirementCommand {
 
     public static final String COMMAND_WORD = REQUIREMENT_COMMAND_WORD + "delete";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes the requirement specified.\n"
-        + "Example: " + COMMAND_WORD + " Unrestricted Electives\n";
+    public static final String MESSAGE_DETAILS = COMMAND_WORD + ": Deletes the requirement specified.\n";
+
+    public static final String MESSAGE_USAGE = "Example: " + COMMAND_WORD + " Unrestricted Electives\n";
+
+    public static final String MESSAGE_HELP = MESSAGE_DETAILS + MESSAGE_USAGE;
 
     public static final String MESSAGE_REQUIREMENT_DELETE_SUCCESS = "Deleted Requirement: %1$s";
 

@@ -1,6 +1,6 @@
 package igrad.logic.parser.requirement;
 
-import static igrad.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static igrad.commons.core.Messages.MESSAGE_SPECIFIER_NOT_SPECIFIED;
 import static igrad.logic.commands.requirement.RequirementDeleteCommand.MESSAGE_USAGE;
 
 import igrad.logic.commands.requirement.RequirementDeleteCommand;
@@ -10,7 +10,7 @@ import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.requirement.Name;
 
 /**
- * Parses requirement input argument and creates a new RequirementAddCommand object.
+ * Parses requirement input argument and creates a new RequirementDeleteCommand object.
  */
 public class RequirementDeleteCommandParser extends RequirementCommandParser {
 
@@ -21,7 +21,7 @@ public class RequirementDeleteCommandParser extends RequirementCommandParser {
             return new RequirementDeleteCommand(new Name(specifier.getValue()));
         } catch (ParseException pe) {
             throw new ParseException(
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE), pe);
+                String.format(MESSAGE_SPECIFIER_NOT_SPECIFIED, MESSAGE_USAGE), pe);
         }
     }
 }

@@ -21,13 +21,16 @@ import igrad.model.requirement.Requirement;
 public class RequirementEditCommand extends RequirementCommand {
     public static final String COMMAND_WORD = REQUIREMENT_COMMAND_WORD + "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the requirement. "
-        + "Existing requirement will be overwritten by the input name and/or credits.\n"
-        + "Parameter: "
+    public static final String MESSAGE_DETAILS = COMMAND_WORD + ": Edits the requirement. "
+        + "Existing requirement will be overwritten by the input name and/or credits.\n";
+
+    public static final String MESSAGE_USAGE = "Parameter: "
         + "[" + PREFIX_NAME + "NEW_NAME] "
         + "[" + PREFIX_CREDITS + "NEW_CREDITS]\n"
         + "Example: " + COMMAND_WORD + " Unrestrained Elves "
         + PREFIX_NAME + "Unrestricted Electives";
+
+    public static final String MESSAGE_HELP = MESSAGE_DETAILS + MESSAGE_USAGE;
 
     public static final String MESSAGE_REQUIREMENT_EDIT_SUCCESS = "Edited Requirement: %1$s";
     public static final String MESSAGE_REQUIREMENT_NOT_EDITED = "Edited requirement must be provided with prefix "
@@ -36,7 +39,7 @@ public class RequirementEditCommand extends RequirementCommand {
     public static final String MESSAGE_REQUIREMENT_EMPTY_PARAMETERS = "Please provide a non-empty string.";
     public static final String MESSAGE_REQUIREMENT_SAME_PARAMETERS = "Please change the name and/or the credits.";
     public static final String MESSAGE_REQUIREMENT_DUPLICATE = "This requirement already exists. "
-        + "Please change to a different name.";
+        + "Please change to a different name or delete the requirement if you no longer need it.";
 
     private final Name originalName;
 
