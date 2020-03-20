@@ -14,6 +14,7 @@ public class RequirementCard extends UiPart<Region> {
     private final static String FXML = "RequirementListCard.fxml";
 
     private Requirement requirement;
+    private int displayedIndex;
 
     @FXML
     private Label requirementTitle;
@@ -21,9 +22,10 @@ public class RequirementCard extends UiPart<Region> {
     @FXML
     private Label mcCount;
 
-    public RequirementCard(Requirement requirement) {
+    public RequirementCard(Requirement requirement, int displayedIndex) {
         super(FXML);
 
         this.requirement = requirement;
+        this.displayedIndex = displayedIndex;
     }
 }
