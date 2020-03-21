@@ -9,7 +9,7 @@ import javafx.scene.layout.Region;
  */
 public class CommandReceivedPanel extends UiPart<Region> {
 
-    private final static String FXML = "CommandReceivedPanel.fxml";
+    private static final String FXML = "CommandReceivedPanel.fxml";
 
     @FXML
     private Label commandReceived;

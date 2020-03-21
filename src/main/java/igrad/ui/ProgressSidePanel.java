@@ -35,16 +35,16 @@ public class ProgressSidePanel extends UiPart<Region> {
     private Label requirementsCompleted;
 
     @FXML
-    private Label currentCAP;
+    private Label currentCap;
 
     @FXML
     private Label semestersLeftLabel;
 
     @FXML
-    private Label goalCAP;
+    private Label goalCap;
 
     @FXML
-    private Label requiredCAP;
+    private Label requiredCap;
 
     public ProgressSidePanel() {
         super(FXML);
@@ -132,7 +132,7 @@ public class ProgressSidePanel extends UiPart<Region> {
      * Sets the Cumulative Average.
      */
     public void setCumulativeAverageLabel() {
-        currentCAP.setText(decimalFormat(cumulativeAverage));
+        currentCap.setText(decimalFormat(cumulativeAverage));
     }
 
     /**
@@ -146,14 +146,14 @@ public class ProgressSidePanel extends UiPart<Region> {
      * Sets the goal Cumulative Average.
      */
     public void setGoalCapLabel() {
-        goalCAP.setText(decimalFormat(cumulativeAverageGoal));
+        goalCap.setText(decimalFormat(cumulativeAverageGoal));
     }
 
     /**
      * Sets the target Cumulative Average per semester.
      */
     public void setTargetCapLabel() {
-        requiredCAP.setText(decimalFormat(cumulativeAverageRequired) + "/Sem");
+        requiredCap.setText(decimalFormat(cumulativeAverageRequired) + "/Sem");
     }
 
     /**
@@ -170,7 +170,7 @@ public class ProgressSidePanel extends UiPart<Region> {
     /**
      * Returns the decimal formatted string required for progress display.
      */
-    public String decimalFormat(double value){
+    public String decimalFormat(double value) {
         return String.format("%.2f", value);
     }
 }

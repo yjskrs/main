@@ -42,7 +42,7 @@
          <children>
             <Label text="Cumulative Average" />
             <Label text="Semesters Left" GridPane.rowIndex="1" />
-            <Label fx:id="currentCAP" text="-" GridPane.columnIndex="1" />
+            <Label fx:id="currentCap" text="-" GridPane.columnIndex="1" />
             <Label fx:id="semestersLeftLabel" text="-" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
@@ -60,8 +60,8 @@
             <Label style="-fx-font-size: 24; -fx-text-fill: #FF7A2F;" text="CAP Predictor" />
             <Label text="Goal" GridPane.rowIndex="1" />
             <Label text="Required" GridPane.rowIndex="2" />
-            <Label fx:id="goalCAP" text="-" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label fx:id="requiredCAP" text="-/Sem" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label fx:id="goalCap" text="-" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label fx:id="requiredCap" text="-/Sem" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
    </children>

@@ -1,6 +1,5 @@
 package igrad.ui;
 
-import igrad.model.Model;
 import igrad.model.requirement.Requirement;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -11,7 +10,7 @@ import javafx.scene.layout.Region;
  */
 public class RequirementCard extends UiPart<Region> {
 
-    private final static String FXML = "RequirementListCard.fxml";
+    private static final String FXML = "RequirementListCard.fxml";
 
     private Requirement requirement;
     private int displayedIndex;
