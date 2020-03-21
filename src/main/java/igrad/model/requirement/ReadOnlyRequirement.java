@@ -7,8 +7,9 @@ import javafx.collections.ObservableList;
  * Unmodifiable view of a requirement.
  */
 public interface ReadOnlyRequirement {
+
     /**
-     * Returns the title of the requirement.
+     * Returns the name of the requirement.
      */
     Name getName();
 

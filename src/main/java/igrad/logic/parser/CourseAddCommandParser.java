@@ -40,7 +40,8 @@ public class CourseAddCommandParser extends CourseCommandParser implements Parse
     public static Name parseName(String name) throws ParseException {
         requireNonNull(name);
         String trimmedName = name.trim();
-        if (!igrad.model.requirement.Name.isValidTitle(trimmedName)) {
+        // if (!igrad.model.requirement.Name.isValidTitle(trimmedName)) { //hmmmmm
+        if (!Name.isValidName(trimmedName)) {
             throw new ParseException(igrad.model.module.Title.MESSAGE_CONSTRAINTS);
         }
         return new Name(trimmedName);

@@ -17,8 +17,11 @@ public class RequirementDeleteCommand extends RequirementCommand {
 
     public static final String COMMAND_WORD = REQUIREMENT_COMMAND_WORD + "delete";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes the requirement specified.\n"
-        + "Example: " + COMMAND_WORD + " Unrestricted Electives\n";
+    public static final String MESSAGE_DETAILS = COMMAND_WORD + ": Deletes the requirement specified.\n";
+
+    public static final String MESSAGE_USAGE = "Example: " + COMMAND_WORD + " Unrestricted Electives\n";
+
+    public static final String MESSAGE_HELP = MESSAGE_DETAILS + MESSAGE_USAGE;
 
     public static final String MESSAGE_REQUIREMENT_DELETE_SUCCESS = "Deleted Requirement: %1$s";
 
@@ -37,6 +40,7 @@ public class RequirementDeleteCommand extends RequirementCommand {
         List<Requirement> requirements = model.getRequirementList();
 
         Requirement requirementToDelete;
+
         // check if requirement exists in course book
         if (!requirements.stream().anyMatch(requirement -> requirement.getName().equals(name))) {
             throw new CommandException(MESSAGE_REQUIREMENT_NON_EXISTENT);
@@ -47,6 +51,7 @@ public class RequirementDeleteCommand extends RequirementCommand {
         }
 
         model.deleteRequirement(requirementToDelete);
+
         return new CommandResult(
             String.format(MESSAGE_REQUIREMENT_DELETE_SUCCESS, requirementToDelete));
     }

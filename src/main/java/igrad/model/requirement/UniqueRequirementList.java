@@ -13,9 +13,9 @@ import javafx.collections.ObservableList;
 
 /**
  * A list of requirements that enforces uniqueness between its elements and does not allow nulls.
- * A requirement is considered unique by comparing using {@code Requirement#hasSameTitle(Requirement)}.
- * As such, adding and updating of requirements uses Requirement#hasSameTitle(Requirement) for equality
- * so as to ensure that the requirement being added or updated is unique in terms of title in this class.
+ * A requirement is considered unique by comparing using {@code Requirement#hasSameName(Requirement)}.
+ * As such, adding and updating of requirements uses Requirement#hasSameName(Requirement) for equality
+ * so as to ensure that the requirement being added or updated is unique in terms of name in this class.
  *
  * <p>
  * Supports a minimal set of list operations.
@@ -29,22 +29,25 @@ public class UniqueRequirementList implements Iterable<Requirement> {
         FXCollections.unmodifiableObservableList(internalList);
 
     /**
-     * Returns true if the list contains an equivalent requirement as the given argument.
+     * Returns true if the list contains an equivalent requirement to {@code toCheck}.
      */
     public boolean contains(Requirement toCheck) {
         requireNonNull(toCheck);
+
         return internalList.stream().anyMatch(toCheck::hasSameName);
     }
 
     /**
-     * Adds a requirement to the list.
+     * Adds a {@code requirement} to the list.
      * The requirement must not already exist in the list.
      */
-    public void add(Requirement toAdd) {
+    public void add(Requirement toAdd) throws DuplicateRequirementException {
         requireNonNull(toAdd);
+
         if (contains(toAdd)) {
             throw new DuplicateRequirementException();
         }
+
         internalList.add(toAdd);
     }
 
@@ -53,15 +56,17 @@ public class UniqueRequirementList implements Iterable<Requirement> {
      */
     public void setRequirements(UniqueRequirementList replacement) {
         requireNonNull(replacement);
+
         internalList.setAll(replacement.internalList);
     }
 
     /**
-     * Replaces the contents of this list with {@code requirements}.
-     * {@code requirements} must not contain duplicate requirements.
+     * Replaces the contents of this list with the list {@code requirements}.
+     * The {@code requirements} list must not contain duplicate requirements.
      */
-    public void setRequirements(List<Requirement> requirements) {
+    public void setRequirements(List<Requirement> requirements) throws DuplicateRequirementException {
         requireAllNonNull(requirements);
+
         if (!requirementsAreUnique(requirements)) {
             throw new DuplicateRequirementException();
         }
@@ -73,7 +78,7 @@ public class UniqueRequirementList implements Iterable<Requirement> {
      * Replaces the requirement {@code target} in the list with {@code editedRequirement}.
      * {@code target} must exist in the list.
      */
-    public void setRequirement(Requirement target, Requirement editedRequirement) {
+    public void setRequirement(Requirement target, Requirement editedRequirement) throws RequirementNotFoundException {
         requireAllNonNull(target, editedRequirement);
 
         int index = internalList.indexOf(target);
@@ -89,11 +94,12 @@ public class UniqueRequirementList implements Iterable<Requirement> {
     }
 
     /**
-     * Removes the equivalent requirement from the list.
+     * Removes the requirement {@code toRemove} from the list.
      * The requirement must exist in the list.
      */
     public void remove(Requirement toRemove) {
         requireNonNull(toRemove);
+
         if (!internalList.remove(toRemove)) {
             throw new RequirementNotFoundException();
         }
@@ -111,20 +117,8 @@ public class UniqueRequirementList implements Iterable<Requirement> {
         return internalList.iterator();
     }
 
-    @Override
-    public boolean equals(Object other) {
-        return other == this
-            || (other instanceof UniqueRequirementList
-            && internalList.equals(((UniqueRequirementList) other).internalList));
-    }
-
-    @Override
-    public int hashCode() {
-        return internalList.hashCode();
-    }
-
     /**
-     * Returns true if {@code requirements} contains only unique requirements.
+     * Returns true if {@code requirements} list contains only unique requirements.
      */
     private boolean requirementsAreUnique(List<Requirement> requirements) {
         for (int i = 0; i < requirements.size() - 1; i++) {
@@ -135,5 +129,17 @@ public class UniqueRequirementList implements Iterable<Requirement> {
             }
         }
         return true;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // check if same object
+            || (other instanceof UniqueRequirementList
+                && internalList.equals(((UniqueRequirementList) other).internalList));
+    }
+
+    @Override
+    public int hashCode() {
+        return internalList.hashCode();
     }
 }

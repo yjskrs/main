@@ -21,22 +21,25 @@ import igrad.model.requirement.Requirement;
 public class RequirementEditCommand extends RequirementCommand {
     public static final String COMMAND_WORD = REQUIREMENT_COMMAND_WORD + "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the requirement title. "
-        + "Existing title will be overwritten by the input title.\n"
-        + "Parameter: "
-        + "[" + PREFIX_NAME + "NEW_TITLE] "
+    public static final String MESSAGE_DETAILS = COMMAND_WORD + ": Edits the requirement. "
+        + "Existing requirement will be overwritten by the input name and/or credits.\n";
+
+    public static final String MESSAGE_USAGE = "Parameter: "
+        + "[" + PREFIX_NAME + "NEW_NAME] "
         + "[" + PREFIX_CREDITS + "NEW_CREDITS]\n"
         + "Example: " + COMMAND_WORD + " Unrestrained Elves "
         + PREFIX_NAME + "Unrestricted Electives";
+
+    public static final String MESSAGE_HELP = MESSAGE_DETAILS + MESSAGE_USAGE;
 
     public static final String MESSAGE_REQUIREMENT_EDIT_SUCCESS = "Edited Requirement: %1$s";
     public static final String MESSAGE_REQUIREMENT_NOT_EDITED = "Edited requirement must be provided with prefix "
         + "[" + PREFIX_NAME + "] and/or "
         + "[" + PREFIX_CREDITS + "].";
-    public static final String MESSAGE_REQUIREMENT_EMPTY_PARAMETERS = "Please provide a non-empty alphanumeric string.";
-    public static final String MESSAGE_REQUIREMENT_SAME_PARAMETERS = "Please change the title or the credits.";
+    public static final String MESSAGE_REQUIREMENT_EMPTY_PARAMETERS = "Please provide a non-empty string.";
+    public static final String MESSAGE_REQUIREMENT_SAME_PARAMETERS = "Please change the name and/or the credits.";
     public static final String MESSAGE_REQUIREMENT_DUPLICATE = "This requirement already exists. "
-        + "Please rename to a different title.";
+        + "Please change to a different name or delete the requirement if you no longer need it.";
 
     private final Name originalName;
 
@@ -68,29 +71,23 @@ public class RequirementEditCommand extends RequirementCommand {
         Credits editedCredits = newCredits.orElse(requirementToEdit.getCredits());
         Requirement editedRequirement = new Requirement(editedName, editedCredits, requirementToEdit.getModuleList());
 
-        // If the edited title and the edited credits are the same as before
-        // TODO: Possible duplicate, remove if it is
-        /*if (requirementToEdit.hasSameName(editedRequirement) && requirementToEdit.hasSameCredits(editedRequirement)) {
-            throw new CommandException(MESSAGE_REQUIREMENT_SAME_PARAMETERS);
-        }*/
-
-        // If the title is edited and same as before OR if the credits is edited and same as before
+        // If the provided name is same as before and/or if the provided credits is same as before
         if (newName.isPresent() && requirementToEdit.hasSameName(editedRequirement)
             || newCredits.isPresent() && requirementToEdit.hasSameCredits(editedRequirement)) {
             throw new CommandException(MESSAGE_REQUIREMENT_SAME_PARAMETERS);
         }
 
-        // If changed title is the same as an existing title
-        // TODO: Possible duplicate, remove if it is
-        /*if (requirements.stream()
+        // If changed name is the same as an existing name
+        if (requirements.stream()
                 .anyMatch(requirement -> !requirement.getName().equals(originalName)
                                              && requirement.hasSameName(editedRequirement))) {
             throw new CommandException(MESSAGE_REQUIREMENT_DUPLICATE);
-        }*/
+        }
 
         model.setRequirement(requirementToEdit, editedRequirement);
         model.updateRequirementList(Model.PREDICATE_SHOW_ALL_REQUIREMENTS);
 
-        return new CommandResult(String.format(MESSAGE_REQUIREMENT_EDIT_SUCCESS, editedRequirement));
+        return new CommandResult(
+            String.format(MESSAGE_REQUIREMENT_EDIT_SUCCESS, editedRequirement));
     }
 }
