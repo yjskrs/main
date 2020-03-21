@@ -255,7 +255,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Displays the sad version of the avatar when loading
+     * Displays the sad (loading) version of the avatar when loading
      */
     private void handleLoading(Avatar avatar) {
 
