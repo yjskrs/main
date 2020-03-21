@@ -7,7 +7,7 @@ import static java.util.Objects.requireNonNull;
  * <p>
  * A command specifier is the preamble string that occurs before any prefix tokens
  * and occurs after the command word(s).
- * A specifier is only used for {@code edit} commands and {@code delete} commands,
+ * A specifier is only used for {@code edit} commands and {@code delete} commands.
  */
 public class Specifier {
     private final String specifier;
@@ -35,6 +35,6 @@ public class Specifier {
     public boolean equals(Object obj) {
         return obj == this
             || (obj instanceof Specifier
-            && specifier.equals(((Specifier) obj).specifier));
+                && specifier.equals(((Specifier) obj).specifier));
     }
 }

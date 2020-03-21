@@ -5,24 +5,26 @@ import static java.util.Objects.requireNonNull;
 
 /**
  * Represents a Requirement's required credit units in the course book.
- * Guarantees: immutable; is valid as declared in {@link #isValidCredits(String)}
+ * Guarantees: immutable, non-null and is valid as declared by {@link #isValidCredits(String)}
  */
 public class Credits {
 
-    public static final String MESSAGE_CONSTRAINTS = "Modular credits should contain one or more digits!";
+    public static final String MESSAGE_CONSTRAINTS =
+        "Credits needed to satisfy requirement should be more than 0.";
 
-    public static final String VALIDATION_REGEX = "\\d+";
+    public static final String VALIDATION_REGEX = "^[0-9]\\d*$"; // allows any numbers more than or equals zero
 
     public final String value;
 
     /**
      * Constructs a {@code Credits}.
      *
-     * @param credits A valid credits address.
+     * @param credits A valid credits value.
      */
     public Credits(String credits) {
         requireNonNull(credits);
         checkArgument(isValidCredits(credits), MESSAGE_CONSTRAINTS);
+
         value = credits;
     }
 
@@ -33,6 +35,13 @@ public class Credits {
         return test.matches(VALIDATION_REGEX);
     }
 
+    /**
+     * Converts the string credits {@code value} to integer.
+     */
+    public int toInteger() {
+        return Integer.parseInt(value);
+    }
+
     @Override
     public String toString() {
         return value;
@@ -40,9 +49,8 @@ public class Credits {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-            || (other instanceof Credits // instanceof handles nulls
-            && value.equals(((Credits) other).value)); // state check
+        return other == this // return true if same object, else check
+            || (other instanceof Credits && value.equals(((Credits) other).value)); // check type and value
     }
 
     @Override

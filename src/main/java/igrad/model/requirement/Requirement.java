@@ -9,21 +9,26 @@ import igrad.model.module.UniqueModuleList;
 import javafx.collections.ObservableList;
 
 /**
- * Contains data at the requirement level.
+ * The Requirement class contains the data required at the requirement level.
+ * A Requirement has a Name attribute, a Credits attribute and a list of module.
+ * Guarantees: immutable, field values are validated, non-null.
  */
 public class Requirement implements ReadOnlyRequirement {
-    private final UniqueModuleList modules = new UniqueModuleList();
-    private final Name name;
-    private final Credits credits;
+
+    private final Name name; // name of the requirement
+    private final Credits credits; // number of credits required to fulfil for the requirement
+    private final UniqueModuleList modules = new UniqueModuleList(); // list of modules associated with requirement
 
     public Requirement(Name name, Credits credits) {
         requireNonNull(name);
+
         this.name = name;
         this.credits = credits;
     }
 
     public Requirement(Name name, Credits credits, List<Module> modules) {
         requireNonNull(name);
+
         this.name = name;
         this.credits = credits;
         setModules(modules);
@@ -50,7 +55,7 @@ public class Requirement implements ReadOnlyRequirement {
 
     /**
      * Replaces the contents of the module list with {@code modules}.
-     * {@code modules} must not contain duplicate modules.
+     * The list must not contain duplicate modules.
      */
     public void setModules(List<Module> modules) {
         this.modules.setModules(modules);
@@ -63,22 +68,25 @@ public class Requirement implements ReadOnlyRequirement {
      */
     public boolean hasModule(Module module) {
         requireNonNull(module);
+
         return modules.contains(module);
     }
 
     /**
-     * Adds a module to the list.
+     * Adds a {@code module} to the list.
      * The module must not already exist in the list.
      */
     public void addModule(Module module) {
+        requireNonNull(module);
+
         modules.add(module);
     }
 
     /**
      * Replaces the given module {@code target} in the list with {@code editedModule}.
-     * {@code target} must exist in the list.
-     * The module identity of {@code editedModule} must not be the same as another existing module
-     * in the list.
+     * The {@code target} module must exist in the list.
+     * The module identity of {@code editedModule} must not be the same as another
+     * existing module in the list.
      */
     public void setModule(Module target, Module editedModule) {
         requireNonNull(editedModule);
@@ -88,7 +96,7 @@ public class Requirement implements ReadOnlyRequirement {
 
     /**
      * Removes {@code module} from this {@code Requirement}.
-     * {@code module} must exist in the list.
+     * The {@code module} must exist in the list.
      */
     public void removeModule(Module module) {
         modules.remove(module);
@@ -135,9 +143,9 @@ public class Requirement implements ReadOnlyRequirement {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof Requirement // instanceof handles nulls
-            && modules.equals(((Requirement) other).modules)
-            && name.equals(((Requirement) other).name));
+            || (other instanceof Requirement // check if same properties
+                && modules.equals(((Requirement) other).modules)
+                && name.equals(((Requirement) other).name));
     }
 
     @Override
