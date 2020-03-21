@@ -48,7 +48,7 @@ public class ModuleCard extends UiPart<Region> {
         super(FXML);
         this.module = module;
         this.displayedIndex = displayedIndex;
-        /*       id.setText(displayedIndex + ". ");*/
+        //       id.setText(displayedIndex + ". ");
         title.setText(module.getTitle().value);
         moduleCode.setText(module.getModuleCode().value);
         credits.setText(module.getCredits().value + " MCs");
@@ -68,6 +68,10 @@ public class ModuleCard extends UiPart<Region> {
         module.getTags().stream()
             .sorted(Comparator.comparing(tag -> tag.tagName))
             .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+    }
+
+    public int getDisplayedIndex() {
+        return this.displayedIndex;
     }
 
     @Override

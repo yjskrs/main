@@ -25,9 +25,9 @@
             <Label text="Modular Credits" GridPane.rowIndex="1" />
             <Label text="Modules Completed" GridPane.rowIndex="2" />
             <Label text="Requirements Completed" GridPane.rowIndex="3" />
-            <Label text="24/160" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label text="20/48" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Label text="4/5" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label fx:id="modularCredits" text="-/-" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label fx:id="modulesCompleted" text="-/-" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label fx:id="requirementsCompleted" text="-/-" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
       </GridPane>
       <GridPane>
@@ -42,8 +42,8 @@
          <children>
             <Label text="Cumulative Average" />
             <Label text="Semesters Left" GridPane.rowIndex="1" />
-            <Label text="4.05" GridPane.columnIndex="1" />
-            <Label text="2" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label fx:id="currentCAP" text="-" GridPane.columnIndex="1" />
+            <Label fx:id="semestersLeftLabel" text="-" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
       <GridPane>
@@ -60,8 +60,8 @@
             <Label style="-fx-font-size: 24; -fx-text-fill: #FF7A2F;" text="CAP Predictor" />
             <Label text="Goal" GridPane.rowIndex="1" />
             <Label text="Required" GridPane.rowIndex="2" />
-            <Label text="4.05" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label text="4.05/Sem" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label fx:id="goalCAP" text="-" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label fx:id="requiredCAP" text="-/Sem" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
    </children>

@@ -12,6 +12,7 @@ import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.Model;
 import igrad.model.avatar.Avatar;
 import igrad.model.course.CourseInfo;
+import igrad.model.requirement.Requirement;
 import igrad.services.exceptions.ServiceException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -37,11 +38,13 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private AvatarSelectionPanel avatarSelectionPanel;
     private ModuleListPanel moduleListPanel;
+    private RequirementListPanel requirementListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private StatusBar statusBar;
-    /*    private McSidePanel mcSidePanel;*/
-    private CapPanel capPanel;
+    private ProgressSidePanel progressSidePanel;
+    private CommandReceivedPanel commandReceivedPanel;
+
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -49,13 +52,11 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private VBox moduleList;
 
-    /*
-     * @FXML
-     * private HBox sidePanelPlaceholder;
-     */
+    @FXML
+    private VBox progressPanelPlaceholder;
 
     @FXML
-    private VBox capPanelPlaceholder;
+    private VBox commandReceivedPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -68,10 +69,6 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private Label mcCount;
-
-    @FXML
-    private Label commandReceived;
-
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -134,6 +131,8 @@ public class MainWindow extends UiPart<Stage> {
         avatarSelectionPanel = new AvatarSelectionPanel();
         avatarSelectionPanelPlaceholder.getChildren().add(avatarSelectionPanel.getRoot());
 
+        commandReceivedPanel = new CommandReceivedPanel();
+
         resultDisplay = new ResultDisplay(model.getAvatar());
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
         resultDisplay.setFeedbackToUser("Choose an animal guide by entering the NAME of the animal");
@@ -155,6 +154,9 @@ public class MainWindow extends UiPart<Stage> {
         moduleListPanel = new ModuleListPanel(logic.getFilteredModuleList());
         moduleListPanelPlaceholder.getChildren().add(moduleListPanel.getRoot());
 
+        commandReceivedPanel = new CommandReceivedPanel();
+        commandReceivedPanelPlaceholder.getChildren().add(commandReceivedPanel.getRoot());
+
         moduleListPanelPlaceholder.setPrefHeight(2000.0);
 
         resultDisplay = new ResultDisplay(model.getAvatar());
@@ -170,13 +172,9 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up and displays/refreshes the the placeholders of the side panels (Modular credits info, CAP info).
      */
     void displaySidePanels(Model model) {
-        /*
-         * mcSidePanel = new McSidePanel();
-         * sidePanelPlaceholder.getChildren().add(mcSidePanel.getRoot());
-         */
-
-        capPanel = new CapPanel();
-        capPanelPlaceholder.getChildren().add(capPanel.getRoot());
+        progressSidePanel = new ProgressSidePanel();
+        refreshProgressPanel(model);
+        progressPanelPlaceholder.getChildren().add(progressSidePanel.getRoot());
     }
 
     /**
@@ -215,6 +213,25 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Sets the progress panel on startup.
+     */
+    void refreshProgressPanel(Model model) {
+        int totalMcs = 0;
+        int totalModules = 0;
+        for (Requirement req: model.getRequirementList()) {
+            totalMcs += Integer.parseInt(req.getCredits().value);
+            totalModules += req.getModuleList().size();
+        }
+        int totalRequirements = model.getRequirementList().size();
+
+        progressSidePanel.setTotalMcs(totalMcs);
+        progressSidePanel.setTotalModules(totalModules);
+        progressSidePanel.setTotalRequirements(totalRequirements);
+        progressSidePanel.setTotalSemesters(totalMcs);
+        progressSidePanel.updateProgress();
+    }
+
+    /**
      * Fills up and displays/refreshes the placeholder of the command box.
      */
     void displayCommandBox(Model model) {
@@ -234,8 +251,11 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Sets the last command received in the command received panel.
+     */
     private void setCommandReceived(String command) {
-        commandReceived.setText(command);
+        commandReceivedPanel.setCommandReceived(command);
     }
 
     /**
@@ -330,6 +350,7 @@ public class MainWindow extends UiPart<Stage> {
 
             logger.info("Result: " + commandResult.getFeedbackToUser());
             refreshResultDisplay(commandResult);
+            refreshProgressPanel(model);
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
