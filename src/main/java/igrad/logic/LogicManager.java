@@ -83,7 +83,7 @@ public class LogicManager implements Logic {
         CommandResult commandResult;
         Command command = courseBookParser.parseCommand(commandText);
 
-        if (command.getClass() != UndoCommand.class) {
+        if (!(command instanceof UndoCommand)) {
             try {
                 // First, load current state into backup
                 storage.saveBackupCourseBook(model.getCourseBook());

@@ -53,6 +53,10 @@ public class SampleDataUtil {
         return Paths.get("data", "coursebook.json");
     }
 
+    public static Path getSampleBackupCourseBookFilePath() {
+        return Paths.get("data", "backup_coursebook.json");
+    }
+
     public static ReadOnlyCourseBook getSampleCourseBook() {
         CourseBook sampleCourseBook = new CourseBook();
         for (Module sampleModule : getSamplePersons()) {
@@ -71,6 +75,7 @@ public class SampleDataUtil {
 
         sampleUserPrefs.setGuiSettings(new GuiSettings());
         sampleUserPrefs.setCourseBookFilePath(getSampleCourseBookFilePath());
+        sampleUserPrefs.setBackupCourseBookFilePath(getSampleBackupCourseBookFilePath());
         sampleUserPrefs.setAvatar(getSampleAvatar());
 
         return sampleUserPrefs;
