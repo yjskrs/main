@@ -10,6 +10,7 @@ import igrad.logic.commands.CommandResult;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.Model;
+import igrad.model.avatar.Avatar;
 import igrad.model.course.CourseInfo;
 import igrad.services.exceptions.ServiceException;
 import javafx.fxml.FXML;
@@ -254,6 +255,25 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Displays the sad (loading) version of the avatar when loading
+     */
+    private void handleLoading(Avatar avatar) {
+
+        Avatar sadAvatar = new Avatar(avatar.getName() + "-sad");
+
+        resultDisplay.setAvatar(sadAvatar);
+    }
+
+    private void handleStopLoading(Avatar avatar) {
+        resultDisplay.setAvatar(avatar);
+    }
+
+    @FXML
+    private void handleStopLoading() {
+
+    }
+
+    /**
      * Closes the application.
      */
     @FXML
@@ -278,6 +298,8 @@ public class MainWindow extends UiPart<Stage> {
         ParseException,
         IOException,
         ServiceException {
+
+        handleLoading(model.getAvatar());
 
         setCommandReceived(commandText);
 
@@ -317,11 +339,14 @@ public class MainWindow extends UiPart<Stage> {
                 refreshStatusBar(model);
             }
 
+            handleStopLoading(model.getAvatar());
+
             return commandResult;
         } catch (CommandException | ParseException | IOException | ServiceException e) {
             logger.info("Invalid command: " + commandText);
             refreshResultDisplayError(e.getMessage());
             throw e;
         }
+
     }
 }
