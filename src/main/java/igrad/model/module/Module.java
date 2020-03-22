@@ -24,6 +24,7 @@ public class Module {
     private final Memo memo;
     private final Description description;
     private final Semester semester;
+    private final Grade grade;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
@@ -38,6 +39,23 @@ public class Module {
         this.memo = memo;
         this.description = description;
         this.semester = semester;
+        this.grade = new Grade("-");
+        this.tags.addAll(tags);
+    }
+
+    /**
+     * Every field must be present and not null.
+     */
+    public Module(Title title, ModuleCode moduleCode, Credits credits, Memo memo, Semester semester,
+                  Description description, Grade grade, Set<Tag> tags) {
+        requireAllNonNull(title, moduleCode, credits);
+        this.title = title;
+        this.moduleCode = moduleCode;
+        this.credits = credits;
+        this.memo = memo;
+        this.description = description;
+        this.semester = semester;
+        this.grade = grade;
         this.tags.addAll(tags);
     }
 
@@ -65,12 +83,23 @@ public class Module {
         return semester;
     }
 
+    public Grade getGrade() {
+        return grade;
+    }
+
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    /**
+     * Returns true if module is done, else false.
+     */
+    public boolean isGraded() {
+        return grade.isGraded();
     }
 
     /**
