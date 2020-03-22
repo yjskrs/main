@@ -45,10 +45,6 @@ public class Grade {
         }
     }
 
-    public boolean isGraded() {
-        return !value.equals("-");
-    }
-
     @Override
     public String toString() {
         return value;

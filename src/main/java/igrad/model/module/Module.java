@@ -5,6 +5,7 @@ import static igrad.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
 import igrad.model.tag.Tag;
@@ -24,7 +25,7 @@ public class Module {
     private final Memo memo;
     private final Description description;
     private final Semester semester;
-    private final Grade grade;
+    private final Optional<Grade> grade;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
@@ -39,7 +40,7 @@ public class Module {
         this.memo = memo;
         this.description = description;
         this.semester = semester;
-        this.grade = new Grade("-");
+        this.grade = Optional.empty();
         this.tags.addAll(tags);
     }
 
@@ -55,7 +56,7 @@ public class Module {
         this.memo = memo;
         this.description = description;
         this.semester = semester;
-        this.grade = grade;
+        this.grade = Optional.of(grade);
         this.tags.addAll(tags);
     }
 
@@ -84,7 +85,7 @@ public class Module {
     }
 
     public Grade getGrade() {
-        return grade;
+        return grade.orElse(new Grade("-"));
     }
 
     /**
@@ -98,8 +99,8 @@ public class Module {
     /**
      * Returns true if module is done, else false.
      */
-    public boolean isGraded() {
-        return grade.isGraded();
+    public boolean isDone() {
+        return grade.isPresent();
     }
 
     /**
