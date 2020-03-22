@@ -150,8 +150,9 @@ public class Requirement implements ReadOnlyRequirement {
 
     @Override
     public String toString() {
-        return "Requirement: " + name + " " + credits + " has "
-            + modules.asUnmodifiableObservableList().size() + " modules";
+        return "Requirement: " + name + ", " + credits + " creditsRequired and "
+                   + getCreditsFulfilled() + " creditsFulfilled has "
+                   + modules.asUnmodifiableObservableList().size() + " modules";
         // TODO: refine later
     }
 
