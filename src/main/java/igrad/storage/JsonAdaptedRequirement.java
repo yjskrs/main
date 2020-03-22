@@ -58,7 +58,7 @@ class JsonAdaptedRequirement {
     public Requirement toModelType(List<Module> moduleList) throws IllegalValueException {
         final List<Module> modelModules = new ArrayList<>();
 
-        modelModules.addAll(moduleList.stream()    // for all modules
+        modelModules.addAll(moduleList.stream() // for all modules
             .filter(module -> moduleCodes.stream() // find a module which has the same moduleCode as one in moduleCodes
                 .anyMatch(moduleCode -> module.hasModuleCodeOf(new ModuleCode(moduleCode))))
             .collect(Collectors.toList()));

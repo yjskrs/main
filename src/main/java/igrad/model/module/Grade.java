@@ -14,6 +14,13 @@ public class Grade {
     public final String value;
 
     /**
+     * Constructs a default {@code Grade}.
+     */
+    public Grade() {
+        value = "-";
+    }
+
+    /**
      * Constructs an {@code Grade}.
      *
      * @param grade A valid grade value.
@@ -24,6 +31,9 @@ public class Grade {
         value = grade;
     }
 
+    /**
+     * Returns true if {@code String grade} is valid grade.
+     */
     public static boolean isValidGrade(String grade) {
         switch (grade) {
         case "A+":
@@ -38,7 +48,7 @@ public class Grade {
         case "F":
         case "S":
         case "U":
-        case "-": // ungraded
+        case "-": // ungraded, default value
             return true;
         default:
             return false;

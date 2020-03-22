@@ -85,7 +85,7 @@ public class Module {
     }
 
     public Grade getGrade() {
-        return grade.orElse(new Grade("-"));
+        return grade.orElse(new Grade());
     }
 
     /**
