@@ -8,7 +8,7 @@ import igrad.commons.core.GuiSettings;
 import igrad.commons.core.LogsCenter;
 import igrad.logic.commands.Command;
 import igrad.logic.commands.CommandResult;
-import igrad.logic.commands.CourseAddCommand;
+import igrad.logic.commands.course.CourseAddCommand;
 import igrad.logic.commands.SelectAvatarCommand;
 import igrad.logic.commands.UndoCommand;
 import igrad.logic.commands.exceptions.CommandException;

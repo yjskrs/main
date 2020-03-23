@@ -1,4 +1,4 @@
-package igrad.logic.commands;
+package igrad.logic.commands.course;
 
 import static igrad.commons.util.CollectionUtil.requireAllNonNull;
 import static igrad.logic.parser.CliSyntax.PREFIX_NAME;
@@ -6,15 +6,11 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Optional;
 
+import igrad.logic.commands.CommandResult;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
 import igrad.model.course.CourseInfo;
 import igrad.model.course.Name;
-
-/*
- * TODO (Teri): Please refactor CourseCommand, CourseAddCommand, CourseDeleteCommand, CourseEditCommand, into
- *  the logic.commands.course package (create a new one). This should give you some LOCs (lines of code) :p
- */
 
 /**
  * Edits the details of an existing module in the course book.

@@ -1,4 +1,4 @@
-package igrad.logic.parser;
+package igrad.logic.parser.course;
 
 import static igrad.logic.parser.CliSyntax.PREFIX_NAME;
 import static java.util.Objects.requireNonNull;
@@ -7,16 +7,12 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 import igrad.commons.core.Messages;
-import igrad.logic.commands.CourseAddCommand;
+import igrad.logic.commands.course.CourseAddCommand;
 import igrad.logic.commands.ModuleAddCommand;
+import igrad.logic.parser.*;
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.course.CourseInfo;
 import igrad.model.course.Name;
-
-/*
- * TODO (Teri): Please refactor CourseAddCommandParser, and CourseEditCommandParser,
- *  into the logic.parser.course package (create a new one)
- */
 
 /**
  * Parses input arguments and creates a new CourseAddCommand object.
