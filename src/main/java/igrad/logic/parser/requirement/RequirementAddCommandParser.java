@@ -1,7 +1,6 @@
 package igrad.logic.parser.requirement;
 
-import static igrad.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static igrad.logic.commands.requirement.RequirementAddCommand.MESSAGE_USAGE;
+import static igrad.logic.commands.requirement.RequirementAddCommand.MESSAGE_REQUIREMENT_NOT_ADDED;
 import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
 import static igrad.logic.parser.CliSyntax.PREFIX_NAME;
 import static java.util.Objects.requireNonNull;
@@ -32,12 +31,10 @@ public class RequirementAddCommandParser extends RequirementCommandParser {
     public RequirementAddCommand parse(String args) throws ParseException {
         requireNonNull(args);
 
-        ArgumentMultimap argMultimap = ArgumentTokenizer
-                                           .tokenize(args, PREFIX_NAME, PREFIX_CREDITS);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_CREDITS);
 
         if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_CREDITS)) {
-            throw new ParseException(
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
+            throw new ParseException(MESSAGE_REQUIREMENT_NOT_ADDED);
         }
 
         Name name = parseName(argMultimap.getValue(PREFIX_NAME).get());
