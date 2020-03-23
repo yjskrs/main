@@ -41,18 +41,18 @@ public class RequirementEditCommand extends RequirementCommand {
     public static final String MESSAGE_REQUIREMENT_DUPLICATE = "This requirement already exists. "
         + "Please change to a different name or delete the requirement if you no longer need it.";
 
-    private final Title originalName;
+    private final Title originalTitle;
 
-    private final Optional<Title> newName;
+    private final Optional<Title> newTitle;
 
     private final Optional<Credits> newCredits;
 
-    public RequirementEditCommand(Title originalName,
-                                  Optional<Title> newName, Optional<Credits> newCredits) {
-        requireAllNonNull(originalName, newName, newCredits);
+    public RequirementEditCommand(Title originalTitle,
+                                  Optional<Title> newTitle, Optional<Credits> newCredits) {
+        requireAllNonNull(originalTitle, newTitle, newCredits);
 
-        this.originalName = originalName;
-        this.newName = newName;
+        this.originalTitle = originalTitle;
+        this.newTitle = newTitle;
         this.newCredits = newCredits;
     }
 
@@ -63,23 +63,23 @@ public class RequirementEditCommand extends RequirementCommand {
         List<Requirement> requirements = model.getRequirementList();
 
         Requirement requirementToEdit = requirements.stream()
-            .filter(requirement -> requirement.getTitle().equals(originalName))
+            .filter(requirement -> requirement.getTitle().equals(originalTitle))
             .findFirst()
             .orElseThrow(() -> new CommandException(MESSAGE_REQUIREMENT_NON_EXISTENT));
 
-        Title editedName = newName.orElse(requirementToEdit.getTitle());
+        Title editedName = newTitle.orElse(requirementToEdit.getTitle());
         Credits editedCredits = newCredits.orElse(requirementToEdit.getCredits());
         Requirement editedRequirement = new Requirement(editedName, editedCredits, requirementToEdit.getModuleList());
 
         // If the provided name is same as before and/or if the provided credits is same as before
-        if (newName.isPresent() && requirementToEdit.hasSameName(editedRequirement)
+        if (newTitle.isPresent() && requirementToEdit.hasSameName(editedRequirement)
             || newCredits.isPresent() && requirementToEdit.hasSameCredits(editedRequirement)) {
             throw new CommandException(MESSAGE_REQUIREMENT_SAME_PARAMETERS);
         }
 
         // If changed name is the same as an existing name
         if (requirements.stream()
-                .anyMatch(requirement -> !requirement.getTitle().equals(originalName)
+                .anyMatch(requirement -> !requirement.getTitle().equals(originalTitle)
                                              && requirement.hasSameName(editedRequirement))) {
             throw new CommandException(MESSAGE_REQUIREMENT_DUPLICATE);
         }
