@@ -15,21 +15,21 @@ import javafx.collections.ObservableList;
  */
 public class Requirement implements ReadOnlyRequirement {
 
-    private final Title title; // name of the requirement
+    private final Name name; // name of the requirement
     private final Credits credits; // credit information for the requirement
     private final UniqueModuleList modules = new UniqueModuleList(); // list of modules associated with requirement
 
-    public Requirement(Title title, Credits credits) {
-        requireNonNull(title);
+    public Requirement(Name name, Credits credits) {
+        requireNonNull(name);
 
-        this.title = title;
+        this.name = name;
         this.credits = credits;
     }
 
-    public Requirement(Title title, Credits credits, List<Module> modules) {
-        requireNonNull(title);
+    public Requirement(Name name, Credits credits, List<Module> modules) {
+        requireNonNull(name);
 
-        this.title = title;
+        this.name = name;
         this.credits = credits;
         setModules(modules);
     }
@@ -37,7 +37,7 @@ public class Requirement implements ReadOnlyRequirement {
     public Requirement(ReadOnlyRequirement toBeCopied) {
         requireNonNull(toBeCopied);
 
-        this.title = toBeCopied.getTitle();
+        this.name = toBeCopied.getName();
         this.credits = toBeCopied.getCredits();
         resetModules(toBeCopied);
     }
@@ -105,15 +105,15 @@ public class Requirement implements ReadOnlyRequirement {
     // util methods
 
     @Override
-    public Title getTitle() {
-        return title;
+    public Name getName() {
+        return name;
     }
 
     /**
      * Checks if {@code otherRequirement} has the same name as this requirement.
      */
     public boolean hasSameName(Requirement otherRequirement) {
-        return this.title.equals(otherRequirement.title);
+        return this.name.equals(otherRequirement.name);
     }
 
     /**
@@ -150,7 +150,7 @@ public class Requirement implements ReadOnlyRequirement {
 
     @Override
     public String toString() {
-        return "Requirement: " + title + ", " + credits + " creditsRequired and "
+        return "Requirement: " + name + ", " + credits + " creditsRequired and "
                    + getCreditsFulfilled() + " creditsFulfilled has "
                    + modules.asUnmodifiableObservableList().size() + " modules";
         // TODO: refine later
@@ -160,7 +160,7 @@ public class Requirement implements ReadOnlyRequirement {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                    || (other instanceof Requirement // check properties
-                           && title.equals(((Requirement) other).title)
+                           && name.equals(((Requirement) other).name)
                            && credits.equals(((Requirement) other).credits)
                            && modules.equals(((Requirement) other).modules));
 

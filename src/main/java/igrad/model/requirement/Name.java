@@ -7,7 +7,7 @@ import static java.util.Objects.requireNonNull;
  * Represents a Requirement's name.
  * Guarantees: immutable, non-null and is valid as declared by {@link #isValidName(String)}
  */
-public class Title {
+public class Name {
 
     public static final String MESSAGE_CONSTRAINTS = "Names should not start with a space and should not be blank.";
 
@@ -20,7 +20,7 @@ public class Title {
      *
      * @param value A valid name string.
      */
-    public Title(String value) {
+    public Name(String value) {
         requireNonNull(value);
         checkArgument(isValidName(value), MESSAGE_CONSTRAINTS);
 
@@ -42,7 +42,7 @@ public class Title {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object, else check
-                   || (other instanceof Title && value.equals(((Title) other).value)); // check same type and value
+                   || (other instanceof Name && value.equals(((Name) other).value)); // check same type and value
     }
 
     @Override

@@ -14,7 +14,7 @@ import igrad.logic.parser.ArgumentTokenizer;
 import igrad.logic.parser.ParserUtil;
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.requirement.Credits;
-import igrad.model.requirement.Title;
+import igrad.model.requirement.Name;
 import igrad.model.requirement.Requirement;
 
 /**
@@ -40,7 +40,7 @@ public class RequirementAddCommandParser extends RequirementCommandParser {
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         }
 
-        Title name = parseName(argMultimap.getValue(PREFIX_NAME).get());
+        Name name = parseName(argMultimap.getValue(PREFIX_NAME).get());
         Credits credits = parseCredits(argMultimap.getValue(PREFIX_CREDITS).get());
 
         Requirement requirement = new Requirement(name, credits, new ArrayList<>());
