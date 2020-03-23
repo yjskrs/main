@@ -4,20 +4,23 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-
-<AnchorPane fx:id="capPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="300.0" styleClass="mcSidePanel" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <Label alignment="CENTER" layoutX="143.0" prefHeight="50.0" style="-fx-font-size: 20;" text="C.A.P" />
-      <ImageView fitHeight="35.0" fitWidth="37.0" layoutX="102.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/cap.png" />
-         </image>
-      </ImageView>
-      <Label layoutX="127.0" layoutY="105.0" style="-fx-font-size: 15;" text="Current" />
-      <Label alignment="CENTER" layoutX="96.0" layoutY="43.0" prefHeight="71.0" prefWidth="109.0" style="-fx-font-size: 50;" text="4.24" textAlignment="CENTER" />
-      <Label layoutX="185.0" layoutY="169.0" style="-fx-font-size: 15;" text="Target/Sem" />
-      <Label layoutX="59.0" layoutY="169.0" style="-fx-font-size: 15;" text="Goal" />
-      <Label layoutX="42.0" layoutY="123.0" style="-fx-font-size: 40;" text="4.00" />
-      <Label layoutX="185.0" layoutY="123.0" style="-fx-font-size: 40;" text="3.94" />
-   </children>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="capPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity" prefHeight="200.0" prefWidth="300.0" styleClass="mcSidePanel"
+            stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/11.0.1">
+    <children>
+        <Label alignment="CENTER" layoutX="143.0" prefHeight="50.0" style="-fx-font-size: 20;" text="C.A.P"/>
+        <ImageView fitHeight="35.0" fitWidth="37.0" layoutX="102.0" layoutY="8.0" pickOnBounds="true"
+                   preserveRatio="true">
+            <image>
+                <Image url="@../images/cap.png"/>
+            </image>
+        </ImageView>
+        <Label layoutX="127.0" layoutY="105.0" style="-fx-font-size: 15;" text="Current"/>
+        <Label alignment="CENTER" layoutX="96.0" layoutY="43.0" prefHeight="71.0" prefWidth="109.0"
+               style="-fx-font-size: 50;" text="4.24" textAlignment="CENTER"/>
+        <Label layoutX="185.0" layoutY="169.0" style="-fx-font-size: 15;" text="Target/Sem"/>
+        <Label layoutX="59.0" layoutY="169.0" style="-fx-font-size: 15;" text="Goal"/>
+        <Label layoutX="42.0" layoutY="123.0" style="-fx-font-size: 40;" text="4.00"/>
+        <Label layoutX="185.0" layoutY="123.0" style="-fx-font-size: 40;" text="3.94"/>
+    </children>
 </AnchorPane>

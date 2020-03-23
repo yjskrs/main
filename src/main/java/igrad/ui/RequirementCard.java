@@ -26,5 +26,8 @@ public class RequirementCard extends UiPart<Region> {
 
         this.requirement = requirement;
         this.displayedIndex = displayedIndex;
+
+        requirementTitle.setText(requirement.getName().toString());
+        mcCount.setText(requirement.getCredits().toString());
     }
 }
