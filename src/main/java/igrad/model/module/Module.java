@@ -5,6 +5,7 @@ import static igrad.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
 import igrad.model.tag.Tag;
@@ -24,6 +25,7 @@ public class Module {
     private final Memo memo;
     private final Description description;
     private final Semester semester;
+    private final Optional<Grade> grade;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
@@ -38,6 +40,23 @@ public class Module {
         this.memo = memo;
         this.description = description;
         this.semester = semester;
+        this.grade = Optional.empty();
+        this.tags.addAll(tags);
+    }
+
+    /**
+     * Every field must be present and not null.
+     */
+    public Module(Title title, ModuleCode moduleCode, Credits credits, Memo memo, Semester semester,
+                  Description description, Grade grade, Set<Tag> tags) {
+        requireAllNonNull(title, moduleCode, credits);
+        this.title = title;
+        this.moduleCode = moduleCode;
+        this.credits = credits;
+        this.memo = memo;
+        this.description = description;
+        this.semester = semester;
+        this.grade = Optional.of(grade);
         this.tags.addAll(tags);
     }
 
@@ -65,12 +84,23 @@ public class Module {
         return semester;
     }
 
+    public Grade getGrade() {
+        return grade.orElse(new Grade());
+    }
+
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    /**
+     * Returns true if module is done, else false.
+     */
+    public boolean isDone() {
+        return grade.isPresent();
     }
 
     /**
