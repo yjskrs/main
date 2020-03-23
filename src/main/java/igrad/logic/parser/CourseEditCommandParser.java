@@ -1,10 +1,17 @@
 package igrad.logic.parser;
 
+import static igrad.logic.commands.CourseEditCommand.MESSAGE_COURSE_NOT_EDITED;
+import static igrad.logic.parser.CliSyntax.PREFIX_NAME;
+import static java.util.Objects.requireNonNull;
+
 import java.io.IOException;
+import java.util.Optional;
 
 import igrad.logic.commands.CourseEditCommand;
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.services.exceptions.ServiceException;
+import igrad.model.course.Name;
+
 
 /*
  * TODO (Teri): Please refactor CourseAddCommandParser, and CourseEditCommandParser,
@@ -15,19 +22,6 @@ import igrad.services.exceptions.ServiceException;
  * Parses input arguments and creates a new CourseEditCommand object.
  */
 public class CourseEditCommandParser extends CourseCommandParser implements Parser<CourseEditCommand> {
-    /*
-     * TODO (Teri): Your main task is to implement the course edit COURSE_NAME n/NEW_COURSE_NAME command,
-     *  e.g, course edit n/Business (changes the name of the current course, say 'Comp Sci', to 'Business').
-     *  Now, how would one do that? Well, let's start from the Parsers. We need to get the parsers to recognise the
-     *  'course edit' command.
-     *  The code is very similar to RequirementEditCommandParser.java (parse() method), you can use that
-     *  for reference. But there's a slight twist here. Notice requirement is something like this;
-     *  requirement CURRENT_REQ_NAME n/NEW_REQ_NAME u/NEW_REQ_MCs?
-     *  Since there is only one course in the system, the course edit command is only;
-     *  course edit n/NEW_COURSE_NAME,
-     *  and you don't have to specify the CURRENT_COURSE_NAME that you want to modify.
-     *  (Hint: no need to use Specify like in Requirement, but instead use what you have in model)
-     */
 
     /**
      * Parses the given string of arguments {@code args} in the context of the
@@ -37,23 +31,17 @@ public class CourseEditCommandParser extends CourseCommandParser implements Pars
      */
     @Override
     public CourseEditCommand parse(String args) throws ParseException, IOException, ServiceException {
-        /*
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME);
 
         Name name;
-        ...
-        (Hint: an if-block here to check if the n/ tag is in the command)
-        ...
-        name = ...
-        return new CourseEditCommand(name);
-         */
-        /*
-         * TODO (Teri): Congrats on successfully implementing the parser! Now's the CourseEditCommand object
-         *  (which this parse method returns). You'll need to write some code there as well!
-         */
 
-        // Please comment this out after implementation
-        return null;
+        if (!argMultimap.getValue(PREFIX_NAME).isPresent()) {
+            throw new ParseException(MESSAGE_COURSE_NOT_EDITED);
+        }
+
+        name = parseName(argMultimap.getValue(PREFIX_NAME).get());
+
+        return new CourseEditCommand(Optional.of(name));
     }
 }

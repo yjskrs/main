@@ -119,9 +119,9 @@ public interface Model {
     boolean isCourseNameSet();
 
     /**
-     * Modifies the name of the course to {@code courseInfo}.
+     * Edits the name of the course to {@code courseInfo}.
      */
-    void modifyCourseInfo(CourseInfo courseInfo);
+    void editCourseInfo(CourseInfo courseInfo);
 
     /**
      * Adds the given module.

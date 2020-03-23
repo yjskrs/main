@@ -151,8 +151,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void modifyCourseInfo(CourseInfo courseInfo) {
-        courseBook.modifyCourseInfo(courseInfo);
+    public void editCourseInfo(CourseInfo courseInfo) {
+        courseBook.editCourseInfo(courseInfo);
     }
 
     @Override
