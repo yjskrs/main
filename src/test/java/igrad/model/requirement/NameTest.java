@@ -27,7 +27,7 @@ public class NameTest {
         // invalid name
         assertFalse(Name.isValidName("")); // empty string
         assertFalse(Name.isValidName(" ")); // spaces only
-        assertFalse(Name.isValidName(" name")); // starts with a whitespace
+        assertFalse(Name.isValidName(" Foundation")); // starts with a whitespace
 
         // valid name
         assertTrue(Name.isValidName("computersciencefoundation"));
@@ -36,5 +36,6 @@ public class NameTest {
         assertTrue(Name.isValidName("1")); // numbers only
         assertTrue(Name.isValidName("Computer Science Foundation 1")); // contains alphanumeric characters
         assertTrue(Name.isValidName("Requirements (for 2nd major)")); // contains non-alphanumeric characters
+        assertTrue(Name.isValidName("日本研究学科")); // contains only non-alphaneumeric characters
     }
 }
