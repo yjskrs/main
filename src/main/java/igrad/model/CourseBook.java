@@ -1,7 +1,7 @@
 package igrad.model;
 
-import static java.util.Objects.requireNonNull;
 import static igrad.commons.core.Messages.MESSAGE_COURSE_ALREADY_SET;
+import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
