@@ -12,7 +12,7 @@ import igrad.logic.commands.CommandResult;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
 import igrad.model.requirement.Credits;
-import igrad.model.requirement.Name;
+import igrad.model.requirement.Title;
 import igrad.model.requirement.Requirement;
 
 /**
@@ -41,14 +41,14 @@ public class RequirementEditCommand extends RequirementCommand {
     public static final String MESSAGE_REQUIREMENT_DUPLICATE = "This requirement already exists. "
         + "Please change to a different name or delete the requirement if you no longer need it.";
 
-    private final Name originalName;
+    private final Title originalName;
 
-    private final Optional<Name> newName;
+    private final Optional<Title> newName;
 
     private final Optional<Credits> newCredits;
 
-    public RequirementEditCommand(Name originalName,
-                                  Optional<Name> newName, Optional<Credits> newCredits) {
+    public RequirementEditCommand(Title originalName,
+                                  Optional<Title> newName, Optional<Credits> newCredits) {
         requireAllNonNull(originalName, newName, newCredits);
 
         this.originalName = originalName;
@@ -63,11 +63,11 @@ public class RequirementEditCommand extends RequirementCommand {
         List<Requirement> requirements = model.getRequirementList();
 
         Requirement requirementToEdit = requirements.stream()
-            .filter(requirement -> requirement.getName().equals(originalName))
+            .filter(requirement -> requirement.getTitle().equals(originalName))
             .findFirst()
             .orElseThrow(() -> new CommandException(MESSAGE_REQUIREMENT_NON_EXISTENT));
 
-        Name editedName = newName.orElse(requirementToEdit.getName());
+        Title editedName = newName.orElse(requirementToEdit.getTitle());
         Credits editedCredits = newCredits.orElse(requirementToEdit.getCredits());
         Requirement editedRequirement = new Requirement(editedName, editedCredits, requirementToEdit.getModuleList());
 
@@ -79,7 +79,7 @@ public class RequirementEditCommand extends RequirementCommand {
 
         // If changed name is the same as an existing name
         if (requirements.stream()
-                .anyMatch(requirement -> !requirement.getName().equals(originalName)
+                .anyMatch(requirement -> !requirement.getTitle().equals(originalName)
                                              && requirement.hasSameName(editedRequirement))) {
             throw new CommandException(MESSAGE_REQUIREMENT_DUPLICATE);
         }

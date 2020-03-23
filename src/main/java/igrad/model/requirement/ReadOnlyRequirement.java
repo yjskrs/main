@@ -11,7 +11,7 @@ public interface ReadOnlyRequirement {
     /**
      * Returns the name of the requirement.
      */
-    Name getName();
+    Title getTitle();
 
     /**
      * Returns the credits of the requirement.

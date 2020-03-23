@@ -16,7 +16,7 @@ import igrad.logic.parser.ParserUtil;
 import igrad.logic.parser.Specifier;
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.requirement.Credits;
-import igrad.model.requirement.Name;
+import igrad.model.requirement.Title;
 
 /**
  * Parses requirement edit command input arguments and creates a new RequirementEditCommand object.
@@ -45,7 +45,7 @@ public class RequirementEditCommandParser extends RequirementCommandParser {
             throw new ParseException(MESSAGE_REQUIREMENT_NOT_EDITED);
         }
 
-        Name name = null;
+        Title name = null;
         Credits credits = null;
 
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
@@ -56,7 +56,7 @@ public class RequirementEditCommandParser extends RequirementCommandParser {
             credits = parseCredits(argMultimap.getValue(PREFIX_CREDITS).get());
         }
 
-        return new RequirementEditCommand(new Name(specifier.getValue()),
+        return new RequirementEditCommand(new Title(specifier.getValue()),
                                             Optional.ofNullable(name),
                                             Optional.ofNullable(credits));
     }

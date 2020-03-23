@@ -11,7 +11,7 @@ import igrad.commons.exceptions.IllegalValueException;
 import igrad.model.module.Module;
 import igrad.model.module.ModuleCode;
 import igrad.model.requirement.Credits;
-import igrad.model.requirement.Name;
+import igrad.model.requirement.Title;
 import igrad.model.requirement.Requirement;
 
 /**
@@ -43,7 +43,7 @@ class JsonAdaptedRequirement {
      * Converts a given {@code Requirement} into this class for Jackson use.
      */
     public JsonAdaptedRequirement(Requirement source) {
-        name = source.getName().toString();
+        name = source.getTitle().toString();
         credits = source.getCreditsRequired();
         moduleCodes.addAll(source.getModuleList().stream()
             .map(module -> module.getModuleCode().toString())
@@ -64,11 +64,11 @@ class JsonAdaptedRequirement {
             .collect(Collectors.toList()));
 
         if (name == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Title.class.getSimpleName()));
         }
 
-        if (!Name.isValidName(name)) {
-            throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
+        if (!Title.isValidName(name)) {
+            throw new IllegalValueException(Title.MESSAGE_CONSTRAINTS);
         }
 
         if (credits == null) {
@@ -79,7 +79,7 @@ class JsonAdaptedRequirement {
             throw new IllegalValueException(Credits.MESSAGE_CONSTRAINTS);
         }
 
-        final Name modelName = new Name(name);
+        final Title modelName = new Title(name);
 
         final Credits modelCredits;
 
