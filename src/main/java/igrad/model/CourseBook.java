@@ -1,9 +1,11 @@
 package igrad.model;
 
 import static java.util.Objects.requireNonNull;
+import static igrad.commons.core.Messages.MESSAGE_COURSE_ALREADY_SET;
 
 import java.util.List;
 
+import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.course.CourseInfo;
 import igrad.model.module.Module;
 import igrad.model.module.UniqueModuleList;
@@ -19,6 +21,8 @@ public class CourseBook implements ReadOnlyCourseBook {
     private final UniqueRequirementList requirements;
     private final UniqueModuleList modules;
     private CourseInfo courseInfo;
+    private boolean firstSet = true;
+
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -78,8 +82,12 @@ public class CourseBook implements ReadOnlyCourseBook {
     /**
      * Adds the given courseInfo (only one courseInfo can exist/ever be created in the system).
      */
-    public void addCourseInfo(CourseInfo c) {
-        // TODO: Restrict to one
+    public void addCourseInfo(CourseInfo c) throws CommandException {
+        if (firstSet == false) {
+            throw new CommandException(MESSAGE_COURSE_ALREADY_SET);
+        }
+
+        firstSet = false;
         courseInfo = c;
     }
 
