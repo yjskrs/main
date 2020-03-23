@@ -13,8 +13,8 @@ import igrad.logic.parser.ArgumentTokenizer;
 import igrad.logic.parser.CourseCommandParser;
 import igrad.logic.parser.Parser;
 import igrad.logic.parser.exceptions.ParseException;
-import igrad.services.exceptions.ServiceException;
 import igrad.model.course.Name;
+import igrad.services.exceptions.ServiceException;
 
 /**
  * Parses input arguments and creates a new CourseEditCommand object.
