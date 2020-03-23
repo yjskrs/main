@@ -146,11 +146,7 @@ public class CourseBookParser {
             // course delete has no arguments, hence no parse(argument) method needed
             return new CourseDeleteCommand();
         case CourseEditCommand.COMMAND_WORD:
-            /*
-             * TODO: (Teri) Here's the starting point of your implementation. There's nothing much to do here
-             *  since I've already done it for you. Now, its time to get your hands dirty! First dig into
-             *  the CourseEditCommandParser.java class
-             */
+
             return new CourseEditCommandParser().parse(arguments);
 
         default:

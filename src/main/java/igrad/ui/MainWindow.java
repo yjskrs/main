@@ -360,6 +360,7 @@ public class MainWindow extends UiPart<Stage> {
                 refreshStatusBar(model);
             }
 
+            refreshStatusBar(model);
             handleStopLoading(model.getAvatar());
 
             return commandResult;
