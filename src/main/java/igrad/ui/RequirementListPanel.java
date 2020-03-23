@@ -1,15 +1,14 @@
 package igrad.ui;
 
+import java.util.logging.Logger;
+
 import igrad.commons.core.LogsCenter;
-import igrad.model.module.Module;
 import igrad.model.requirement.Requirement;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
-
-import java.util.logging.Logger;
 
 /**
  * Panel showing the list of requirements entered.

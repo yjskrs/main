@@ -15,17 +15,20 @@ import igrad.model.requirement.Requirement;
 public class RequirementAddCommand extends RequirementCommand {
     public static final String COMMAND_WORD = REQUIREMENT_COMMAND_WORD + "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a requirement.\n"
-        + "Parameter: "
+    public static final String MESSAGE_DETAILS = COMMAND_WORD + ": Adds a requirement.\n";
+
+    public static final String MESSAGE_USAGE = "Parameter: "
         + PREFIX_NAME + "NAME "
-        + PREFIX_CREDITS + "CREDITS_NEEDED\n"
+        + PREFIX_CREDITS + "CREDITS_TO_FULFIL\n"
         + "Example: " + COMMAND_WORD + " "
         + PREFIX_NAME + "Unrestricted Electives "
         + PREFIX_CREDITS + "24\n";
 
+    public static final String MESSAGE_HELP = MESSAGE_DETAILS + MESSAGE_USAGE;
+
     public static final String MESSAGE_REQUIREMENT_ADD_SUCCESS = "New requirement added: %1$s";
     public static final String MESSAGE_REQUIREMENT_NOT_ADDED = "Added requirement must be provided with arguments "
-        + PREFIX_NAME + "TITLE " + PREFIX_CREDITS + "CREDITS ";
+        + PREFIX_NAME + "NAME " + PREFIX_CREDITS + "CREDITS ";
     public static final String MESSAGE_REQUIREMENT_DUPLICATE = "This requirement already exists in the course book.";
 
     private final Requirement requirementToAdd;
@@ -40,7 +43,7 @@ public class RequirementAddCommand extends RequirementCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        // if the title of the requirement has already been used
+        // if the name of the requirement has already been used
         if (model.hasRequirement(requirementToAdd)) {
             throw new CommandException(MESSAGE_REQUIREMENT_DUPLICATE);
         }

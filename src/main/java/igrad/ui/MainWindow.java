@@ -10,6 +10,7 @@ import igrad.logic.commands.CommandResult;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.Model;
+import igrad.model.avatar.Avatar;
 import igrad.model.course.CourseInfo;
 import igrad.model.requirement.Requirement;
 import igrad.services.exceptions.ServiceException;
@@ -218,7 +219,7 @@ public class MainWindow extends UiPart<Stage> {
         int totalMcs = 0;
         int totalModules = 0;
         for (Requirement req: model.getRequirementList()) {
-            totalMcs += Integer.parseInt(req.getCredits().value);
+            totalMcs += Integer.parseInt(req.getCreditsRequired());
             totalModules += req.getModuleList().size();
         }
         int totalRequirements = model.getRequirementList().size();
@@ -274,6 +275,25 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Displays the sad (loading) version of the avatar when loading
+     */
+    private void handleLoading(Avatar avatar) {
+
+        Avatar sadAvatar = new Avatar(avatar.getName() + "-sad");
+
+        resultDisplay.setAvatar(sadAvatar);
+    }
+
+    private void handleStopLoading(Avatar avatar) {
+        resultDisplay.setAvatar(avatar);
+    }
+
+    @FXML
+    private void handleStopLoading() {
+
+    }
+
+    /**
      * Closes the application.
      */
     @FXML
@@ -298,6 +318,8 @@ public class MainWindow extends UiPart<Stage> {
         ParseException,
         IOException,
         ServiceException {
+
+        handleLoading(model.getAvatar());
 
         setCommandReceived(commandText);
 
@@ -338,11 +360,14 @@ public class MainWindow extends UiPart<Stage> {
                 refreshStatusBar(model);
             }
 
+            handleStopLoading(model.getAvatar());
+
             return commandResult;
         } catch (CommandException | ParseException | IOException | ServiceException e) {
             logger.info("Invalid command: " + commandText);
             refreshResultDisplayError(e.getMessage());
             throw e;
         }
+
     }
 }
