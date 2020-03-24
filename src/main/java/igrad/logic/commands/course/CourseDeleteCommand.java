@@ -1,15 +1,11 @@
-package igrad.logic.commands;
+package igrad.logic.commands.course;
 
 import static java.util.Objects.requireNonNull;
 
+import igrad.logic.commands.CommandResult;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
 import igrad.model.ReadOnlyCourseBook;
-
-/*
- * TODO (Teri): Please refactor CourseCommand, CourseAddCommand, CourseDeleteCommand, CourseEditCommand, into
- *  the logic.commands.course package (create a new one). This should give you some LOCs (lines of code) :p
- */
 
 /**
  * Deletes the existing course (and all data within it).

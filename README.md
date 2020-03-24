@@ -15,7 +15,7 @@
 3. [Components](#Components)
 
     3.1 [Course](#courses)
-   
+
     3.2 [Requirements](#requirements)
 
     3.3 [Modules](#modules)
@@ -24,17 +24,17 @@
 5. [Command List](#command-list)
 
     5.1.[`help`](#help)
-   
+
     5.2 [`courseInfo`](#courseInfo)
-   
+
     5.3 [`requirement`](#requirements)
-   
+
     5.4 [`module`](#module)
-    
+
     5.5 [`assign`](#assign)
- 
+
     5.6 [`exam`](#exam)
- 
+
     5.7 [`achieve`](#achieve)
 
     5.8 [`export`](#export)
@@ -49,14 +49,14 @@
 
 ## Introduction
 
-Sick of having tracking your university progress the manual way? 
+Sick of having tracking your university progress the manual way?
 Start getting rid of your Excel sheets and scribbled down notes and download *iGrad* right now!
 
-What is *iGrad*? 
+What is *iGrad*?
 
 *iGrad* is the app to track your university progress, for students who are frustrated with the
 limited features the university provides, by students who are frustrated by the limited
-features the university provides. 
+features the university provides.
 
 *iGrad* offers users the ability to create custom courses and graduation requirements,
 ensuring the **maximum** degree of flexibility when planning and keeping track of your progress
@@ -68,7 +68,7 @@ information is always up to date.
 
 Finally, the *iGrad* team is always open to feedback and suggestions from the public will always be followed up on.
 
-## Features  
+## Features
 
 #### Course Builder
 iGrad was built with every NUS student in mind. Our custom courseInfo builder allows you to build
@@ -90,7 +90,7 @@ in order to achieve your dream Cumulative Point Average (CAP).
 
 #### Courses
 A courseInfo is simply a group of requirements. It is also how we keep track of your overall CAP
-and MCs. 
+and MCs.
 
 #### Requirements
 A requirement consists of at least one module. Fulfill all modules within a requirement to
@@ -123,7 +123,7 @@ Double-click the .jar file to get started right away!
 
 #### 6. Key in a memo
 
-#### 7. Track your MCs 
+#### 7. Track your MCs
 
 #### 8. View your CAP
 
@@ -162,7 +162,7 @@ Creates a courseInfo. (TODO: Add in modify and remove)
 
 Command Format
 
-    
+
 Command Sample
 
     /*
@@ -171,12 +171,12 @@ Command Sample
     courseInfo add n/Computer Science
 
 Constraints
-   
+
 :warning: You can only have one courseInfo at a time
-   
+
 Expected Outcome
 
-:white_check_mark: You should be able to see the courseInfo name in the 
+:white_check_mark: You should be able to see the courseInfo name in the
 top panel
     courseInfo add n/COURSE_NAME
 
@@ -193,17 +193,17 @@ Command Format
 Command Sample
 
     /**
-    * Creating a requirement named "Unrestricted Electives" 
+    * Creating a requirement named "Unrestricted Electives"
     * which requires 32 MCs to fulfill
     */
     requirement add n/Unrestricted Electives u/32
 
 Constraints
-   
+
 :warning: The number of MCs needed to fulfill the requirement is needed
 
-:warning: Requirement names have to be unique 
-   
+:warning: Requirement names have to be unique
+
 Expected Outcome
 
 :white_check_mark: You should be able to see the requirement name in the
@@ -219,7 +219,7 @@ Command Format
 
     /**
     * At least one option must be specified.
-    * SEMESTER is specified in format Y_S_ ( e.g. Y1S2 - Year 1 Semester 2 ) 
+    * SEMESTER is specified in format Y_S_ ( e.g. Y1S2 - Year 1 Semester 2 )
     */
     module add n/MODULE_CODE [n/MODULE_TITLE] [u/MCs] [s/SEMESTER] [g/GRADE] [m/MEMO_NOTES]
 
@@ -268,7 +268,7 @@ Command Sample
 
 Constraints
 
-:warning: A module cannot be assigned if there are not enough MCs left under 
+:warning: A module cannot be assigned if there are not enough MCs left under
 a graduation requirement
 
 :warning: The module code and name have to be unique
@@ -295,7 +295,7 @@ Command Format
 Command Sample
 
     /**
-    * Displays exam results for Year 3 Semester 2 
+    * Displays exam results for Year 3 Semester 2
     */
     exam s/Y3S2
 
@@ -337,7 +337,7 @@ the CAP you desire
 ---
 #### `export`
 
-Exports all data in a text file. If information is sufficient, 
+Exports all data in a text file. If information is sufficient,
 this file can be submitted to NUS as a study plan.
 
 Command Format
@@ -347,14 +347,14 @@ Command Format
 Constraints
 
 :warning: NIL
-   
+
 Expected Outcome
 
 :white_check_mark: A text file "study_plan.txt" should be generated in
 the same folder as the iGrad application.
 
 ---
- 
+
 #### `exit`
 
 Exits the program
@@ -364,15 +364,15 @@ Command Format
     exit
 
 Constraints
-      
+
 :warning: NIL
-   
+
 Expected Outcome
 
 :white_check_mark: The application should exit.
- 
+
  ## FAQs
- 
+
 *I'm not an NUS student. Can I still use iGrad?*
 
 As long as your university follows a similar [hierachical structure](#fig-1)!
@@ -381,7 +381,7 @@ However, we will be unable to provide features such as validation from NUS Mods.
 ## Cheat Sheet
 
 > This segment contains all the commands detailed in this guide in a consolidated list
-   
+
 `help`
 
 `courseInfo add n/COURSE_NAME`
