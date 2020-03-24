@@ -8,6 +8,9 @@ import igrad.model.requirement.Credits;
 import igrad.model.requirement.Name;
 import igrad.model.requirement.Requirement;
 
+/**
+ * A utility class to help with building {@code Requirement} objects.
+ */
 public class RequirementBuilder {
     public static final String DEFAULT_NAME = "Computer Science Foundation";
     public static final String DEFAULT_CREDITS = "48";
@@ -62,8 +65,8 @@ public class RequirementBuilder {
     /**
      * Sets the {@code UniqueModuleList} of the {@code Requirement} that we are building.
      */
-    public RequirementBuilder withModules(UniqueModuleList modules) {
-        this.modules = modules;
+    public RequirementBuilder withModules(List<Module> moduleList) {
+        modules.setModules(moduleList);
         return this;
     }
 
