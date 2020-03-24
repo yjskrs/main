@@ -10,13 +10,13 @@ import javafx.collections.ObservableList;
 
 /**
  * The Requirement class contains the data required at the requirement level.
- * A Requirement has a Name attribute, a Credits attribute and a list of module.
+ * A Requirement has a Name attribute, a Credits attribute and a list of modules.
  * Guarantees: immutable, field values are validated, non-null.
  */
 public class Requirement implements ReadOnlyRequirement {
 
     private final Name name; // name of the requirement
-    private final Credits credits; // number of credits required to fulfil for the requirement
+    private final Credits credits; // credit information for the requirement
     private final UniqueModuleList modules = new UniqueModuleList(); // list of modules associated with requirement
 
     public Requirement(Name name, Credits credits) {
@@ -129,14 +129,30 @@ public class Requirement implements ReadOnlyRequirement {
     }
 
     @Override
+    public String getCreditsRequired() {
+        return credits.getCreditsRequired();
+    }
+
+    @Override
+    public String getCreditsFulfilled() {
+        return credits.getCreditsFulfilled();
+    }
+
+    @Override
     public ObservableList<Module> getModuleList() {
         return modules.asUnmodifiableObservableList();
     }
 
     @Override
+    public boolean isFulfilled() {
+        return credits.isFulfilled();
+    }
+
+    @Override
     public String toString() {
-        return "Requirement: " + name + " " + credits + " has "
-            + modules.asUnmodifiableObservableList().size() + " modules";
+        return "Requirement: " + name + ", " + credits + " creditsRequired and "
+                   + getCreditsFulfilled() + " creditsFulfilled has "
+                   + modules.asUnmodifiableObservableList().size() + " modules";
         // TODO: refine later
     }
 
