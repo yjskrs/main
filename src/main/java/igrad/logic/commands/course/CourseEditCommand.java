@@ -28,6 +28,7 @@ public class CourseEditCommand extends CourseCommand {
     public static final String MESSAGE_COURSE_NOT_EDITED = "Edited course must be provided with prefix "
             + "[" + PREFIX_NAME + "]";
 
+
     //private final Name originalName;
 
     private final Optional<Name> newName;
@@ -44,14 +45,19 @@ public class CourseEditCommand extends CourseCommand {
         requireNonNull(model);
 
         CourseInfo courseToEdit = model.getCourseInfo();
+
+        if (courseToEdit.getName().isEmpty()) {
+            throw new CommandException(MESSAGE_COURSE_INFO_NON_EXISTENT);
+        }
+
         Name editedName = newName.orElse(courseToEdit.getName().get());
-        CourseInfo editedCourse = new CourseInfo(Optional.ofNullable(editedName));
+        CourseInfo editedCourseInfo = new CourseInfo(Optional.ofNullable(editedName));
 
         if (newName.isPresent() && courseToEdit.getName().equals(editedName)) {
             throw new CommandException(MESSAGE_EDIT_COURSE_SAME_PARAMETERS);
         }
 
-        model.editCourseInfo(editedCourse);
-        return new CommandResult(String.format(MESSAGE_EDIT_COURSE_SUCCESS, editedCourse));
+        model.setCourseInfo(editedCourseInfo);
+        return new CommandResult(String.format(MESSAGE_EDIT_COURSE_SUCCESS, editedCourseInfo));
     }
 }

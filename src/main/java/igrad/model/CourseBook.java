@@ -95,7 +95,7 @@ public class CourseBook implements ReadOnlyCourseBook {
      * Replaces the courseInfo with {@code editedCourseInfo}.
      */
     public void editCourseInfo(CourseInfo editedCourseInfo) {
-        courseInfo = editedCourseInfo;
+        this.courseInfo = editedCourseInfo;
     }
 
     public CourseInfo getCourseInfo() {

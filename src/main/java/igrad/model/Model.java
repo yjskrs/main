@@ -120,9 +120,11 @@ public interface Model {
     boolean isCourseNameSet();
 
     /**
-     * Edits the name of the course to {@code courseInfo}.
+     * Replaces the given module {@code target} with {@code editedModule}.
+     * {@code target} must exist in the course book.
+     * The module identity of {@code editedModule} must not be the same as another existing module in the course book.
      */
-    void editCourseInfo(CourseInfo courseInfo);
+    void setCourseInfo(CourseInfo editedCourseInfo);
 
     /**
      * Adds the given module.
