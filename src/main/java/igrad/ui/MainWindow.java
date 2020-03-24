@@ -34,6 +34,7 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
     private StackPane avatarSelectionPanelPlaceholder;
     private StackPane moduleListPanelPlaceholder;
+    private StackPane requirementListPanelPlaceholder;
 
     // Independent Ui parts residing in this Ui container
     private AvatarSelectionPanel avatarSelectionPanel;
@@ -51,6 +52,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private VBox moduleList;
+
+    @FXML
+    private VBox requirementList;
 
     @FXML
     private VBox progressPanelPlaceholder;
@@ -148,16 +152,21 @@ public class MainWindow extends UiPart<Stage> {
         moduleList.getChildren().remove(avatarSelectionPanelPlaceholder);
 
         moduleListPanelPlaceholder = new StackPane();
+        requirementListPanelPlaceholder = new StackPane();
 
         moduleList.getChildren().add(moduleListPanelPlaceholder);
+        requirementList.getChildren().add(requirementListPanelPlaceholder);
 
         moduleListPanel = new ModuleListPanel(logic.getFilteredModuleList());
         moduleListPanelPlaceholder.getChildren().add(moduleListPanel.getRoot());
+        requirementListPanel = new RequirementListPanel(logic.getRequirementList());
+        requirementListPanelPlaceholder.getChildren().add(requirementListPanel.getRoot());
 
         commandReceivedPanel = new CommandReceivedPanel();
         commandReceivedPanelPlaceholder.getChildren().add(commandReceivedPanel.getRoot());
 
         moduleListPanelPlaceholder.setPrefHeight(2000.0);
+        requirementListPanelPlaceholder.setPrefHeight(2000.0);
 
         resultDisplay = new ResultDisplay(model.getAvatar());
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());

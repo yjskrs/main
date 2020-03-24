@@ -9,43 +9,43 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-
-<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-  <GridPane HBox.hgrow="ALWAYS">
-    <columnConstraints>
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
-    </columnConstraints>
-    <VBox alignment="CENTER_LEFT" minHeight="105" spacing="3.0" GridPane.columnIndex="0">
-      <padding>
-        <Insets bottom="5" left="15" right="5" top="5" />
-      </padding>
-      <Label fx:id="moduleCode" style="-fx-font-size: 28; -fx-text-fill: #FF7A2F;" styleClass="cell_big_label" text="\$moduleCode" />
-     <Label fx:id="title" styleClass="cell_big_label" text="\$first" />
-         <HBox spacing="10.0">
-            <children>
-            <Label fx:id="semester" styleClass="cell_small_label" text="\$semester" />
-               <Region minHeight="-Infinity" prefWidth="1.0" style="-fx-border-color: #3d3d3d;" />
-            <Label fx:id="credits" styleClass="cell_small_label" text="\$credits" />
-               <Region prefWidth="1.0" style="-fx-border-color: #3d3d3d;" />
-               <Label styleClass="cell_small_label" text="Grade: A" />
-            </children>
-         </HBox>
-      <Label fx:id="memo" styleClass="cell_small_label" text="\$memo" />
-      <FlowPane fx:id="tags">
+<HBox xmlns:fx="http://javafx.com/fxml/1" id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/11.0.1">
+    <GridPane HBox.hgrow="ALWAYS">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150"/>
+        </columnConstraints>
+        <VBox alignment="CENTER_LEFT" minHeight="105" spacing="3.0" GridPane.columnIndex="0">
             <padding>
-               <Insets bottom="3.0" top="3.0" />
+                <Insets bottom="5" left="15" right="5" top="5"/>
             </padding>
-         </FlowPane>
-    </VBox>
-      <rowConstraints>
-         <RowConstraints />
-      </rowConstraints>
-      <HBox.margin>
-         <Insets />
-      </HBox.margin>
-  </GridPane>
-   <padding>
-      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-   </padding>
+            <Label fx:id="moduleCode" style="-fx-font-size: 28; -fx-text-fill: #FF7A2F;" styleClass="cell_big_label"
+                   text="\$moduleCode"/>
+            <Label fx:id="title" styleClass="cell_big_label" text="\$first"/>
+            <HBox spacing="10.0">
+                <children>
+                    <Label fx:id="semester" styleClass="cell_small_label" text="\$semester"/>
+                    <Region minHeight="-Infinity" prefWidth="1.0" style="-fx-border-color: #3d3d3d;"/>
+                    <Label fx:id="credits" styleClass="cell_small_label" text="\$credits"/>
+                    <Region prefWidth="1.0" style="-fx-border-color: #3d3d3d;"/>
+                    <Label styleClass="cell_small_label" text="Grade: A"/>
+                </children>
+            </HBox>
+            <Label fx:id="memo" styleClass="cell_small_label" text="\$memo"/>
+            <FlowPane fx:id="tags">
+                <padding>
+                    <Insets bottom="3.0" top="3.0"/>
+                </padding>
+            </FlowPane>
+        </VBox>
+        <rowConstraints>
+            <RowConstraints/>
+        </rowConstraints>
+        <HBox.margin>
+            <Insets/>
+        </HBox.margin>
+    </GridPane>
+    <padding>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+    </padding>
 
 </HBox>

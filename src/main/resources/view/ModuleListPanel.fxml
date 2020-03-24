@@ -3,14 +3,15 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.VBox?>
-
-<VBox styleClass="progress_panel" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-    <ListView fx:id="moduleListView" maxHeight="1.7976931348623157E308" stylesheets="@DarkTheme.css" VBox.vgrow="ALWAYS">
-      <padding>
-         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-      </padding>
-   </ListView>
-   <padding>
-      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-   </padding>
+<VBox xmlns:fx="http://javafx.com/fxml/1" styleClass="progress_panel" stylesheets="@DarkTheme.css"
+      xmlns="http://javafx.com/javafx/11.0.1">
+    <ListView fx:id="moduleListView" maxHeight="1.7976931348623157E308" stylesheets="@DarkTheme.css"
+              VBox.vgrow="ALWAYS">
+        <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+        </padding>
+    </ListView>
+    <padding>
+        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+    </padding>
 </VBox>
