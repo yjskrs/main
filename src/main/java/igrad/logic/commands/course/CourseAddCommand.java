@@ -1,5 +1,6 @@
 package igrad.logic.commands.course;
 
+import static igrad.commons.core.Messages.MESSAGE_COURSE_ALREADY_SET;
 import static igrad.logic.parser.CliSyntax.PREFIX_NAME;
 import static java.util.Objects.requireNonNull;
 
@@ -42,6 +43,9 @@ public class CourseAddCommand extends CourseCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
+        if (model.getCourseInfo().getName().isPresent()) {
+            throw new CommandException(MESSAGE_COURSE_ALREADY_SET);
+        }
         model.addCourseInfo(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), false, false, true);
     }
