@@ -22,7 +22,7 @@ public class RequirementEditCommand extends RequirementCommand {
     public static final String COMMAND_WORD = REQUIREMENT_COMMAND_WORD + "edit";
 
     public static final String MESSAGE_DETAILS = COMMAND_WORD + ": Edits the requirement. "
-        + "Existing requirement will be overwritten by the input name and/or credits.\n";
+        + "Existing requirement will be overwritten by the new name and/or credits.\n";
 
     public static final String MESSAGE_USAGE = "Parameter: "
         + "[" + PREFIX_NAME + "NEW_NAME] "
@@ -36,7 +36,6 @@ public class RequirementEditCommand extends RequirementCommand {
     public static final String MESSAGE_REQUIREMENT_NOT_EDITED = "Edited requirement must be provided with prefix "
         + "[" + PREFIX_NAME + "] and/or "
         + "[" + PREFIX_CREDITS + "].";
-    public static final String MESSAGE_REQUIREMENT_EMPTY_PARAMETERS = "Please provide a non-empty string.";
     public static final String MESSAGE_REQUIREMENT_SAME_PARAMETERS = "Please change the name and/or the credits.";
     public static final String MESSAGE_REQUIREMENT_DUPLICATE = "This requirement already exists. "
         + "Please change to a different name or delete the requirement if you no longer need it.";
