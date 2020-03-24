@@ -256,6 +256,36 @@
     -fx-background-color: black;
 }
 
+.help-window {
+    -fx-background-color: #2a2a2a;
+}
+
+.help-window .label {
+    -fx-font-family: Calibri;
+    -fx-font-weight: 100;
+    -fx-font-size: 14;
+    -fx-text-fill: white;
+}
+
+.help-window .button {
+    -fx-border-color: transparent;
+    -fx-background-radius: 20;
+    -fx-background-color: #3d3d3d;
+}
+
+.help-window .button:pressed {
+    -fx-border-color: transparent;
+    -fx-background-radius: 20;
+    -fx-background-color: #3d3d3d;
+}
+
+.help-window .hyperlink {
+    -fx-font-family: Calibri;
+    -fx-font-weight: 100;
+    -fx-font-size: 14;
+    -fx-border-color: transparent;
+}
+
 /*
  * Metro style Push Button
  * Author: Pedro Duque Vieira
