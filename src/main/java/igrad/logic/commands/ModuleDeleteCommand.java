@@ -1,14 +1,14 @@
 package igrad.logic.commands;
 
+import static igrad.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
 import static java.util.Objects.requireNonNull;
-
 import java.util.List;
-
+import java.util.Optional;
 import igrad.commons.core.Messages;
-import igrad.commons.core.index.Index;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
 import igrad.model.module.Module;
+import igrad.model.module.ModuleCode;
 
 /**
  * Deletes a module identified using it's displayed index from the course book.
@@ -18,16 +18,16 @@ public class ModuleDeleteCommand extends ModuleCommand {
     public static final String COMMAND_WORD = MODULE_COMMAND_WORD + "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-        + ": Deletes the module identified by the index number used in the displayed module list.\n"
-        + "Parameters: INDEX (must be a positive integer)\n"
-        + "Example: " + COMMAND_WORD + " 1";
+        + ": Deletes the module identified by its module code.\n"
+        + "Parameters: MODULE_CODE\n"
+        + "Example: " + COMMAND_WORD + " " + PREFIX_MODULE_CODE + "CS2103T";
 
     public static final String MESSAGE_DELETE_MODULE_SUCCESS = "Deleted Module: %1$s";
 
-    private final Index targetIndex;
+    private final ModuleCode moduleCode;
 
-    public ModuleDeleteCommand(Index targetIndex) {
-        this.targetIndex = targetIndex;
+    public ModuleDeleteCommand(ModuleCode moduleCode) {
+        this.moduleCode = moduleCode;
     }
 
     @Override
@@ -35,11 +35,20 @@ public class ModuleDeleteCommand extends ModuleCommand {
         requireNonNull(model);
         List<Module> lastShownList = model.getFilteredModuleList();
 
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
+        Optional<Module> moduleToDeleteOpt = Optional.empty();
+
+        for (Module module : lastShownList) {
+            if (module.getModuleCode().equals(moduleCode)) {
+                moduleToDeleteOpt = Optional.of(module);
+            }
+        }
+
+        if (moduleToDeleteOpt.isEmpty()) {
             throw new CommandException(Messages.MESSAGE_INVALID_MODULE_DISPLAYED_INDEX);
         }
 
-        Module moduleToDelete = lastShownList.get(targetIndex.getZeroBased());
+        Module moduleToDelete = moduleToDeleteOpt.get();
+
         model.deleteModule(moduleToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_MODULE_SUCCESS, moduleToDelete));
     }
@@ -48,6 +57,6 @@ public class ModuleDeleteCommand extends ModuleCommand {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
             || (other instanceof ModuleDeleteCommand // instanceof handles nulls
-            && targetIndex.equals(((ModuleDeleteCommand) other).targetIndex)); // state check
+            && moduleCode.equals(((ModuleDeleteCommand) other).moduleCode)); // state check
     }
 }

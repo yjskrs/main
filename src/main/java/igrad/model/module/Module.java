@@ -1,12 +1,10 @@
 package igrad.model.module;
 
 import static igrad.commons.util.CollectionUtil.requireAllNonNull;
-
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
-
 import igrad.model.tag.Tag;
 
 /**
@@ -19,15 +17,14 @@ public class Module {
     private final Title title;
     private final ModuleCode moduleCode;
     private final Credits credits;
-
-    // Data fields
-    private final Memo memo;
-    private final Description description;
-    private final Semester semester;
     private final Set<Tag> tags = new HashSet<>();
+    // Data fields
+    private Memo memo;
+    private Description description;
+    private Semester semester;
 
     /**
-     * Every field must be present and not null.
+     * {@code title, moduleCode, credits} are compulsory fields
      */
     public Module(Title title, ModuleCode moduleCode, Credits credits, Memo memo, Semester semester,
                   Description description, Set<Tag> tags) {
@@ -39,6 +36,14 @@ public class Module {
         this.description = description;
         this.semester = semester;
         this.tags.addAll(tags);
+    }
+
+    public Module(Title title, ModuleCode moduleCode, Credits credits) {
+        requireAllNonNull(title, moduleCode, credits);
+
+        this.title = title;
+        this.moduleCode = moduleCode;
+        this.credits = credits;
     }
 
     public Title getTitle() {
@@ -57,12 +62,24 @@ public class Module {
         return memo;
     }
 
+    public void setMemo(Memo memo) {
+        this.memo = memo;
+    }
+
     public Description getDescription() {
         return description;
     }
 
+    public void setDescription(Description description) {
+        this.description = description;
+    }
+
     public Semester getSemester() {
         return semester;
+    }
+
+    public void setSemester(Semester semester) {
+        this.semester = semester;
     }
 
     /**
@@ -128,20 +145,35 @@ public class Module {
 
     @Override
     public String toString() {
+
+        Title title = getTitle();
+        ModuleCode moduleCode = getModuleCode();
+        Credits credits = getCredits();
+
+        Memo memo = getMemo();
+        Description description = getDescription();
+        Semester semester = getSemester();
+
         final StringBuilder builder = new StringBuilder();
-        builder.append(getTitle())
+        builder
+            .append("Title: ")
+            .append(title)
             .append(" Code: ")
-            .append(getModuleCode())
+            .append(moduleCode)
             .append(" Credits: ")
-            .append(getCredits())
-            .append(" Memo: ")
-            .append(getMemo())
-            .append(" Description: ")
-            .append(getDescription())
-            .append(" Semester: ")
-            .append(getSemester())
-            .append("Tags: ");
-        getTags().forEach(builder::append);
+            .append(credits);
+
+        if (Objects.nonNull(memo)) {
+            builder.append(" Memo: ").append(memo);
+        }
+        if (Objects.nonNull(description)) {
+            builder.append(" Description: ").append(description);
+        }
+        if (Objects.nonNull(semester)) {
+            builder.append(" Semester: ").append(semester);
+        }
+
+
         return builder.toString();
     }
 
