@@ -9,7 +9,7 @@ import static java.util.Objects.requireNonNull;
  */
 public class Name {
 
-    public static final String MESSAGE_CONSTRAINTS = "Names should not start with a space and should not be blank.";
+    public static final String MESSAGE_CONSTRAINTS = "Name should not start with a space and should not be blank.";
 
     public static final String VALIDATION_REGEX = "^[^\\s].*";
 
