@@ -79,14 +79,13 @@ public class CourseBook implements ReadOnlyCourseBook {
      * Adds the given courseInfo (only one courseInfo can exist/ever be created in the system).
      */
     public void addCourseInfo(CourseInfo c) {
-        // TODO: Restrict to one
         courseInfo = c;
     }
 
     /**
      * Replaces the courseInfo with {@code editedCourseInfo}.
      */
-    public void modifyCourseInfo(CourseInfo editedCourseInfo) {
+    public void editCourseInfo(CourseInfo editedCourseInfo) {
         this.courseInfo = editedCourseInfo;
     }
 
