@@ -63,7 +63,7 @@ class JsonSerializableCourseBook {
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public CourseBook toModelType() throws IllegalValueException, CommandException {
+    public CourseBook toModelType() throws IllegalValueException {
         CourseBook courseBook = new CourseBook();
 
         courseBook.addCourseInfo(courseInfo);
