@@ -1,10 +1,15 @@
 package igrad.ui;
 
+import java.awt.*;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.logging.Logger;
 
 import igrad.commons.core.LogsCenter;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
@@ -15,17 +20,17 @@ import javafx.stage.Stage;
  */
 public class HelpWindow extends UiPart<Stage> {
 
-    public static final String USERGUIDE_URL = "https://se-education.org/addressbook-level3/UserGuide.html";
-    public static final String HELP_MESSAGE = "Refer to the user guide: " + USERGUIDE_URL;
+    public static final String USERGUIDE_URL = "https://ay1920s2-cs2103t-f09-3.github.io/main/";
+    public static final String USER_GUIDE_TITLE = "User Guide Link:";
 
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String FXML = "HelpWindow.fxml";
 
     @FXML
-    private Button copyButton;
+    Hyperlink hyperlink;
 
     @FXML
-    private Label helpMessage;
+    private Label userGuide;
 
     /**
      * Creates a new HelpWindow.
@@ -34,7 +39,9 @@ public class HelpWindow extends UiPart<Stage> {
      */
     public HelpWindow(Stage root) {
         super(FXML, root);
-        helpMessage.setText(HELP_MESSAGE);
+        userGuide.setText(USER_GUIDE_TITLE);
+
+        hyperlink.setText("iGrad UG");
     }
 
     /**
@@ -87,6 +94,21 @@ public class HelpWindow extends UiPart<Stage> {
      */
     public void focus() {
         getRoot().requestFocus();
+    }
+
+    /**
+     * Opens the iGrad User Guide in the user's default browser.
+     */
+    public void openUserGuide() {
+        if(Desktop.isDesktopSupported()) {
+            try {
+                Desktop.getDesktop().browse(new URI(USERGUIDE_URL));
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            } catch (URISyntaxException e1) {
+                e1.printStackTrace();
+            }
+        }
     }
 
     /**
