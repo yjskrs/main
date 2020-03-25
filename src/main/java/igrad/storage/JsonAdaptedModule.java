@@ -34,6 +34,7 @@ class JsonAdaptedModule {
     private final String memo;
     private final String semester;
     private final String description;
+    private final String grade;
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
 
     /**
@@ -43,13 +44,14 @@ class JsonAdaptedModule {
     public JsonAdaptedModule(@JsonProperty("title") String name, @JsonProperty("moduleCode") String moduleCode,
                              @JsonProperty("credits") String credits, @JsonProperty("memo") String memo,
                              @JsonProperty("semester") String semester, @JsonProperty("description") String description,
-                             @JsonProperty("tagged") List<JsonAdaptedTag> tags) {
+                             @JsonProperty("grade") String grade, @JsonProperty("tagged") List<JsonAdaptedTag> tags) {
         this.title = name;
         this.moduleCode = moduleCode;
         this.credits = credits;
         this.memo = memo;
         this.semester = semester;
         this.description = description;
+        this.grade = grade;
         if (tags != null) {
             this.tags.addAll(tags);
         }
@@ -62,9 +64,10 @@ class JsonAdaptedModule {
         title = source.getTitle().value;
         moduleCode = source.getModuleCode().value;
         credits = source.getCredits().value;
-        memo = source.getMemo() != null ? source.getMemo().get().value : null;
-        semester = source.getSemester() != null ? source.getSemester().get().value : null;
-        description = source.getDescription() != null ? source.getDescription().get().value : null;
+        memo = source.getMemo().isPresent() ? source.getMemo().get().value : null;
+        semester = source.getSemester().isPresent() ? source.getSemester().get().value : null;
+        description = source.getDescription().isPresent() ? source.getDescription().get().value : null;
+        grade = source.getGrade().isPresent() ? source.getGrade().get().value : null;
         tags.addAll(source.getTags().stream()
             .map(JsonAdaptedTag::new)
             .collect(Collectors.toList()));
@@ -119,7 +122,7 @@ class JsonAdaptedModule {
         final Optional<Semester> modelSemester = Optional.of(new Semester(semester));
         final Optional<Memo> modelMemo = Optional.of(new Memo(memo));
         final Optional<Description> modelDescription = Optional.of(new Description(description));
-        final Optional<Grade> modelGrade = Optional.empty();
+        final Optional<Grade> modelGrade = Optional.of(new Grade(grade));
 
         final Set<Tag> modelTags = new HashSet<>(moduleTags);
 
