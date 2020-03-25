@@ -222,6 +222,13 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Refreshes the last command received in the last command received panel.
+     */
+    private void refreshCommandReceived(String command) {
+        commandReceivedPanel.setCommandReceived(command);
+    }
+
+    /**
      * Sets the progress panel on startup.
      */
     void refreshProgressPanel(Model model) {
@@ -260,12 +267,6 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    /**
-     * Sets the last command received in the command received panel.
-     */
-    private void setCommandReceived(String command) {
-        commandReceivedPanel.setCommandReceived(command);
-    }
 
     /**
      * Opens the help window or focuses on it if it's already opened.
@@ -330,7 +331,7 @@ public class MainWindow extends UiPart<Stage> {
 
         handleLoading(model.getAvatar());
 
-        setCommandReceived(commandText);
+        refreshCommandReceived(commandText);
 
         try {
             CommandResult commandResult;
