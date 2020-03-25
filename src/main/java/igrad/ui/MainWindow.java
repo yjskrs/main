@@ -234,7 +234,7 @@ public class MainWindow extends UiPart<Stage> {
     void refreshProgressPanel(Model model) {
         int totalMcs = 0;
         int totalModules = 0;
-        for (Requirement req: model.getRequirementList()) {
+        for (Requirement req : model.getRequirementList()) {
             totalMcs += Integer.parseInt(req.getCreditsRequired());
             totalModules += req.getModuleList().size();
         }

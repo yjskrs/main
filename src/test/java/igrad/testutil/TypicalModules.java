@@ -61,14 +61,14 @@ public class TypicalModules {
     } // prevents instantiation
 
     /**
-     * Returns an {@code CourseBook} with all the typical persons.
+     * Returns an {@code CourseBook} with all the typical modules.
      */
     public static CourseBook getTypicalCourseBook() {
-        CourseBook ab = new CourseBook();
+        CourseBook courseBook = new CourseBook();
         for (Module module : getTypicalModules()) {
-            ab.addModule(module);
+            courseBook.addModule(module);
         }
-        return ab;
+        return courseBook;
     }
 
     public static List<Module> getTypicalModules() {
