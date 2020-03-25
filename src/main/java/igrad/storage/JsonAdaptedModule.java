@@ -115,11 +115,11 @@ class JsonAdaptedModule {
             throw new IllegalValueException(Credits.MESSAGE_CONSTRAINTS);
         }
 
-        if (!Semester.isValidSemester(semester)) {
+        if (semester != null && !Semester.isValidSemester(semester)) {
             throw new IllegalValueException(Semester.MESSAGE_CONSTRAINTS);
         }
 
-        if (!Grade.isValidGrade(grade)) {
+        if (grade != null && !Grade.isValidGrade(grade)) {
             throw new IllegalValueException(Grade.MESSAGE_CONSTRAINTS);
         }
 
@@ -127,10 +127,13 @@ class JsonAdaptedModule {
 
         final Optional<Semester> modelSemester = semester != null
             ? Optional.of(new Semester(semester)) : Optional.empty();
+
         final Optional<Memo> modelMemo = memo != null
             ? Optional.of(new Memo(memo)) : Optional.empty();
+
         final Optional<Description> modelDescription = description != null
             ? Optional.of(new Description(description)) : Optional.empty();
+
         final Optional<Grade> modelGrade = grade != null
             ? Optional.of(new Grade(grade)) : Optional.empty();
 

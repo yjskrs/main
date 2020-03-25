@@ -83,7 +83,7 @@ public class MainApp extends Application {
         try {
             courseBookOptional = storage.readCourseBook();
 
-            if (!courseBookOptional.isPresent()) {
+            if (courseBookOptional.isEmpty()) {
                 logger.info("CourseBook Data file not found. Will be starting with an empty CourseBook");
             }
 
