@@ -6,9 +6,9 @@ import static igrad.commons.util.AppUtil.checkArgument;
  * Represents a Module's grade.
  */
 public class Grade {
-    public static final String MESSAGE_CONSTRAINTS = "Grade should be.";
+    public static final String MESSAGE_CONSTRAINTS = "Grade should be a valid format";
 
-    // public static final String VALIDATION_REGEX = ".+";
+    public static final String VALIDATION_REGEX = "(A\\+)|(A)|(A-)|(B\\+)|(B)|(B-)|(C+)|(C)|(D)|(F)|(S)|(U)";
 
     public final String value;
 
@@ -26,14 +26,7 @@ public class Grade {
      * @param grade A valid grade value.
      */
     public Grade(String grade) {
-        /*
-         * If argument passed into constructor non-null, we've to check if its valid grade format.
-         * Note that this is unlike the Description and other optional fields where no valid format
-         * is neccessary
-         */
-        if (grade != null) {
-            checkArgument(isValidGrade(grade), MESSAGE_CONSTRAINTS);
-        }
+        checkArgument(isValidGrade(grade), MESSAGE_CONSTRAINTS);
 
         value = grade;
     }
@@ -41,25 +34,8 @@ public class Grade {
     /**
      * Returns true if {@code String grade} is valid grade.
      */
-    public static boolean isValidGrade(String grade) {
-        switch (grade) {
-        case "A+":
-        case "A":
-        case "A-":
-        case "B+":
-        case "B":
-        case "B-":
-        case "C+":
-        case "C":
-        case "D":
-        case "F":
-        case "S":
-        case "U":
-        case "-": // ungraded, default value
-            return true;
-        default:
-            return false;
-        }
+    public static boolean isValidGrade(String test) {
+        return test == null || test.matches(VALIDATION_REGEX);
     }
 
     @Override

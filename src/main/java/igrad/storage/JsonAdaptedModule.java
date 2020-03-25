@@ -117,6 +117,10 @@ class JsonAdaptedModule {
             throw new IllegalValueException(Semester.MESSAGE_CONSTRAINTS);
         }
 
+        if (!Grade.isValidGrade(grade)) {
+            throw new IllegalValueException(Grade.MESSAGE_CONSTRAINTS);
+        }
+
         final Credits modelCredits = new Credits(credits);
 
         final Optional<Semester> modelSemester = Optional.of(new Semester(semester));
