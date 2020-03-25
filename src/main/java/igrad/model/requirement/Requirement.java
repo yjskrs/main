@@ -93,10 +93,29 @@ public class Requirement implements ReadOnlyRequirement {
     }
 
     /**
+     * Returns true if any modules in {@code modules} with the same identity as {@code module} exists in the list.
+     */
+    public boolean hasModule(List<Module> modules) {
+        requireNonNull(modules);
+
+        return this.modules.contains(modules);
+    }
+
+    /**
      * Adds a {@code module} to the list.
      * The module must not already exist in the list.
      */
     public void addModule(Module module) {
+        requireNonNull(module);
+
+        modules.add(module);
+    }
+
+    /**
+     * Adds a {@code module} to the list.
+     * The module must not already exist in the list.
+     */
+    public void addModules(List<Module> module) {
         requireNonNull(module);
 
         modules.add(module);
@@ -166,6 +185,13 @@ public class Requirement implements ReadOnlyRequirement {
     @Override
     public boolean isFulfilled() {
         return credits.isFulfilled();
+    }
+
+    @Override
+    public boolean isFulfilled(List<Module> modules) {
+        int creditsCount = modules.stream().map(x -> x.getCredits().value).mapToInt(Integer::parseInt).sum();
+
+        return ((creditsCount + credits.getCreditsFulfilledInteger()) >= credits.getCreditsRequiredInteger());
     }
 
     @Override

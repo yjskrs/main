@@ -45,6 +45,8 @@ public class ParserUtil {
         requireNonNull(specifier);
 
         String trimmedSpecifier = specifier.trim();
+
+        // TODO: I think this should be changed to model.Requirement.Name
         if (!Title.isValidTitle(trimmedSpecifier)) {
             throw new ParseException(Title.MESSAGE_CONSTRAINTS);
         }

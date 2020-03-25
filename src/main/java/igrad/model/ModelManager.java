@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -16,6 +17,7 @@ import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.avatar.Avatar;
 import igrad.model.course.CourseInfo;
 import igrad.model.module.Module;
+import igrad.model.requirement.Name;
 import igrad.model.requirement.Requirement;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -132,6 +134,13 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasAllModules(List<Module> modules) {
+        requireNonNull(modules);
+
+        return filteredModules.containsAll(modules);
+    }
+
+    @Override
     public void deleteModule(Module target) {
         courseBook.removeModule(target);
     }
@@ -173,6 +182,13 @@ public class ModelManager implements Model {
     public boolean hasRequirement(Requirement requirement) {
         requireNonNull(requirement);
         return courseBook.hasRequirement(requirement);
+    }
+
+    @Override
+    public Optional<Requirement> getRequirementByName(Name requirementName) {
+        return requirements.stream()
+            .filter(requirement -> requirement.getName().equals(requirementName))
+            .findFirst();
     }
 
     @Override

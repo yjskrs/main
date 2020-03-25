@@ -3,6 +3,7 @@ package igrad.model;
 import java.nio.file.Path;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import igrad.commons.core.GuiSettings;
@@ -10,6 +11,7 @@ import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.avatar.Avatar;
 import igrad.model.course.CourseInfo;
 import igrad.model.module.Module;
+import igrad.model.requirement.Name;
 import igrad.model.requirement.Requirement;
 import javafx.collections.ObservableList;
 
@@ -98,6 +100,11 @@ public interface Model {
     boolean hasModule(Module module);
 
     /**
+     * Returns true if all modules in {@code modules} has same identity as the modules existing in the course book.
+     */
+    boolean hasAllModules(List<Module> module);
+
+    /**
      * Deletes the given module.
      * The module must exist in the course book.
      */
@@ -143,6 +150,13 @@ public interface Model {
      * Returns true if it exists and false otherwise.
      */
     boolean hasRequirement(Requirement requirement);
+
+    /**
+     * Checks if the {@code requirement} exists in the course book.
+     * This is different from the above method as it checks only by name
+     * Returns true if it exists and false otherwise.
+     */
+    Optional<Requirement> getRequirementByName(Name requirementName);
 
     /**
      * Adds the given requirement.

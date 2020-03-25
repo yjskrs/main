@@ -37,6 +37,14 @@ public class UniqueModuleList implements Iterable<Module> {
     }
 
     /**
+     * Returns true if the internal list contains one of the modules in the given argument module list.
+     */
+    public boolean contains(List<Module> modulesToCheck) {
+        requireNonNull(modulesToCheck);
+        return internalList.stream().anyMatch(x -> modulesToCheck.contains(x));
+    }
+
+    /**
      * Adds a module to the list.
      * The module must not already exist in the list.
      */
@@ -46,6 +54,20 @@ public class UniqueModuleList implements Iterable<Module> {
             throw new DuplicateModuleException();
         }
         internalList.add(toAdd);
+    }
+
+    /**
+     * Adds all modules to the current list.
+     * The module must not already exist in the list.
+     */
+    public void add(List<Module> modulesToAdd) {
+        requireNonNull(modulesToAdd);
+
+        if (contains(modulesToAdd)) {
+            throw new DuplicateModuleException();
+        }
+
+        internalList.addAll(modulesToAdd);
     }
 
     /**
