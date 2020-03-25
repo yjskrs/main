@@ -52,6 +52,7 @@ class JsonAdaptedModule {
         this.semester = semester;
         this.description = description;
         this.grade = grade;
+
         if (tags != null) {
             this.tags.addAll(tags);
         }
@@ -68,6 +69,7 @@ class JsonAdaptedModule {
         semester = source.getSemester().isPresent() ? source.getSemester().get().value : null;
         description = source.getDescription().isPresent() ? source.getDescription().get().value : null;
         grade = source.getGrade().isPresent() ? source.getGrade().get().value : null;
+
         tags.addAll(source.getTags().stream()
             .map(JsonAdaptedTag::new)
             .collect(Collectors.toList()));
@@ -113,16 +115,27 @@ class JsonAdaptedModule {
             throw new IllegalValueException(Credits.MESSAGE_CONSTRAINTS);
         }
 
-        if (!Semester.isValidSemester(semester)) {
+        if (semester != null && !Semester.isValidSemester(semester)) {
             throw new IllegalValueException(Semester.MESSAGE_CONSTRAINTS);
+        }
+
+        if (grade != null && !Grade.isValidGrade(grade)) {
+            throw new IllegalValueException(Grade.MESSAGE_CONSTRAINTS);
         }
 
         final Credits modelCredits = new Credits(credits);
 
-        final Optional<Semester> modelSemester = Optional.of(new Semester(semester));
-        final Optional<Memo> modelMemo = Optional.of(new Memo(memo));
-        final Optional<Description> modelDescription = Optional.of(new Description(description));
-        final Optional<Grade> modelGrade = Optional.of(new Grade(grade));
+        final Optional<Semester> modelSemester = semester != null
+            ? Optional.of(new Semester(semester)) : Optional.empty();
+
+        final Optional<Memo> modelMemo = memo != null
+            ? Optional.of(new Memo(memo)) : Optional.empty();
+
+        final Optional<Description> modelDescription = description != null
+            ? Optional.of(new Description(description)) : Optional.empty();
+
+        final Optional<Grade> modelGrade = grade != null
+            ? Optional.of(new Grade(grade)) : Optional.empty();
 
         final Set<Tag> modelTags = new HashSet<>(moduleTags);
 

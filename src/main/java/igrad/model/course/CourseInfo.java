@@ -58,8 +58,12 @@ public class CourseInfo {
 
     @Override
     public String toString() {
+
+        Optional<Name> name = getName();
+
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName().get());
+
+        name.ifPresent(x -> builder.append(" Name ").append(x));
         return builder.toString();
     }
 

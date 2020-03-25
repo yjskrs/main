@@ -1,5 +1,7 @@
 package igrad.model.module;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * Represents a Module's memo in the course book.
  */
@@ -15,6 +17,7 @@ public class Memo {
      * @param memo A valid memo.
      */
     public Memo(String memo) {
+        requireNonNull(memo);
         value = memo;
     }
 
