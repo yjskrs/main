@@ -10,9 +10,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import igrad.logic.commands.Command;
-import igrad.logic.commands.CourseAddCommand;
-import igrad.logic.commands.CourseDeleteCommand;
-import igrad.logic.commands.CourseEditCommand;
 import igrad.logic.commands.ExitCommand;
 import igrad.logic.commands.ExportCommand;
 import igrad.logic.commands.HelpCommand;
@@ -21,9 +18,14 @@ import igrad.logic.commands.ModuleDeleteCommand;
 import igrad.logic.commands.ModuleEditCommand;
 import igrad.logic.commands.SelectAvatarCommand;
 import igrad.logic.commands.UndoCommand;
+import igrad.logic.commands.course.CourseAddCommand;
+import igrad.logic.commands.course.CourseDeleteCommand;
+import igrad.logic.commands.course.CourseEditCommand;
 import igrad.logic.commands.requirement.RequirementAddCommand;
 import igrad.logic.commands.requirement.RequirementDeleteCommand;
 import igrad.logic.commands.requirement.RequirementEditCommand;
+import igrad.logic.parser.course.CourseAddCommandParser;
+import igrad.logic.parser.course.CourseEditCommandParser;
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.logic.parser.module.AddAutoCommandParser;
 import igrad.logic.parser.module.ModuleAddCommandParser;
@@ -144,11 +146,7 @@ public class CourseBookParser {
             // course delete has no arguments, hence no parse(argument) method needed
             return new CourseDeleteCommand();
         case CourseEditCommand.COMMAND_WORD:
-            /*
-             * TODO: (Teri) Here's the starting point of your implementation. There's nothing much to do here
-             *  since I've already done it for you. Now, its time to get your hands dirty! First dig into
-             *  the CourseEditCommandParser.java class
-             */
+
             return new CourseEditCommandParser().parse(arguments);
 
         default:

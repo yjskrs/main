@@ -1,15 +1,8 @@
 package igrad.logic.parser.module;
 
-import static igrad.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
-import static igrad.logic.parser.CliSyntax.PREFIX_MEMO;
 import static igrad.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
-import static igrad.logic.parser.CliSyntax.PREFIX_SEMESTER;
-import static igrad.logic.parser.CliSyntax.PREFIX_TITLE;
 
 import igrad.commons.core.Messages;
-import igrad.commons.core.index.Index;
-import igrad.logic.commands.ModuleAddCommand;
 import igrad.logic.commands.ModuleDeleteCommand;
 import igrad.logic.parser.ArgumentMultimap;
 import igrad.logic.parser.ArgumentTokenizer;

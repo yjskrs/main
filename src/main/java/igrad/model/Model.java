@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import igrad.commons.core.GuiSettings;
+import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.avatar.Avatar;
 import igrad.model.course.CourseInfo;
 import igrad.model.module.Module;
@@ -106,7 +107,7 @@ public interface Model {
     /**
      * Adds the given {@code courseInfo} to the course book.
      */
-    void addCourseInfo(CourseInfo courseInfo);
+    void addCourseInfo(CourseInfo courseInfo) throws CommandException;
 
     /**
      * Returns the courseInfo.
@@ -119,9 +120,11 @@ public interface Model {
     boolean isCourseNameSet();
 
     /**
-     * Modifies the name of the course to {@code courseInfo}.
+     * Replaces the given module {@code target} with {@code editedModule}.
+     * {@code target} must exist in the course book.
+     * The module identity of {@code editedModule} must not be the same as another existing module in the course book.
      */
-    void modifyCourseInfo(CourseInfo courseInfo);
+    void setCourseInfo(CourseInfo editedCourseInfo);
 
     /**
      * Adds the given module.

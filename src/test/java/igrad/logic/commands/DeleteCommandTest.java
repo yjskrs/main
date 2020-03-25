@@ -1,17 +1,10 @@
 package igrad.logic.commands;
 
-import static igrad.logic.commands.CommandTestUtil.assertCommandFailure;
-import static igrad.logic.commands.CommandTestUtil.showModuleAtIndex;
-import static igrad.testutil.TypicalIndexes.INDEX_FIRST_MODULE;
-import static igrad.testutil.TypicalIndexes.INDEX_SECOND_MODULE;
 import static igrad.testutil.TypicalModules.getTypicalCourseBook;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import igrad.commons.core.Messages;
-import igrad.commons.core.index.Index;
 import igrad.model.Model;
 import igrad.model.ModelManager;
 import igrad.model.UserPrefs;
@@ -38,6 +31,7 @@ public class DeleteCommandTest {
          */
     }
 
+    /*
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredModuleList().size() + 1);
@@ -45,6 +39,7 @@ public class DeleteCommandTest {
 
         assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_MODULE_DISPLAYED_INDEX);
     }
+    */
 
     @Test
     public void execute_validIndexFilteredList_success() {
@@ -63,6 +58,7 @@ public class DeleteCommandTest {
          */
     }
 
+    /*
     @Test
     public void execute_invalidIndexFilteredList_throwsCommandException() {
         showModuleAtIndex(model, INDEX_FIRST_MODULE);
@@ -74,8 +70,9 @@ public class DeleteCommandTest {
         ModuleDeleteCommand deleteCommand = new ModuleDeleteCommand(outOfBoundIndex);
 
         assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_MODULE_DISPLAYED_INDEX);
-    }
+    }*/
 
+    /*
     @Test
     public void equals() {
         ModuleDeleteCommand deleteFirstCommand = new ModuleDeleteCommand(INDEX_FIRST_MODULE);
@@ -96,7 +93,7 @@ public class DeleteCommandTest {
 
         // different module -> returns false
         assertFalse(deleteFirstCommand.equals(deleteSecondCommand));
-    }
+    }*/
 
     /**
      * Updates {@code model}'s filtered list to show no one.

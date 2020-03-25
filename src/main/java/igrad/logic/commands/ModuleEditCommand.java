@@ -15,12 +15,12 @@ import java.util.Optional;
 import java.util.Set;
 
 import igrad.commons.core.Messages;
-import igrad.commons.core.index.Index;
 import igrad.commons.util.CollectionUtil;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
 import igrad.model.module.Credits;
 import igrad.model.module.Description;
+import igrad.model.module.Grade;
 import igrad.model.module.Memo;
 import igrad.model.module.Module;
 import igrad.model.module.ModuleCode;
@@ -75,15 +75,22 @@ public class ModuleEditCommand extends ModuleCommand {
         assert moduleToEdit != null;
 
         ModuleCode moduleCode = moduleToEdit.getModuleCode();
+
+        // All fields can be optionally updated
         Title updatedTitle = editModuleDescriptor.getTitle().orElse(moduleToEdit.getTitle());
         Credits updatedCredits = editModuleDescriptor.getCredits().orElse(moduleToEdit.getCredits());
-        Memo updatedMemo = editModuleDescriptor.getMemo().orElse(moduleToEdit.getMemo());
-        Semester updatedSemester = editModuleDescriptor.getSemester().orElse(moduleToEdit.getSemester());
-        Description updatedDescription = editModuleDescriptor.getDescription().orElse(moduleToEdit.getDescription());
+        Optional<Memo> updatedMemo = editModuleDescriptor.getMemo().orElse(moduleToEdit.getMemo());
+        Optional<Semester> updatedSemester = editModuleDescriptor.getSemester().orElse(moduleToEdit.getSemester());
+        Optional<Description> updatedDescription = editModuleDescriptor.getDescription()
+                                                    .orElse(moduleToEdit.getDescription());
+
+        // TODO: set Grade too
+        Optional<Grade> updatedGrade = Optional.empty();
+
         Set<Tag> updatedTags = editModuleDescriptor.getTags().orElse(moduleToEdit.getTags());
 
         return new Module(updatedTitle, moduleCode, updatedCredits, updatedMemo, updatedSemester,
-            updatedDescription, updatedTags);
+            updatedDescription, updatedGrade, updatedTags);
     }
 
     @Override
@@ -141,9 +148,9 @@ public class ModuleEditCommand extends ModuleCommand {
         private Title title;
         private ModuleCode moduleCode;
         private Credits credits;
-        private Memo memo;
-        private Description description;
-        private Semester semester;
+        private Optional<Memo> memo;
+        private Optional<Description> description;
+        private Optional<Semester> semester;
         private Set<Tag> tags;
 
         public EditModuleDescriptor() {
@@ -194,27 +201,27 @@ public class ModuleEditCommand extends ModuleCommand {
             this.credits = credits;
         }
 
-        public Optional<Memo> getMemo() {
+        public Optional<Optional<Memo>> getMemo() {
             return Optional.ofNullable(memo);
         }
 
-        public void setMemo(Memo memo) {
+        public void setMemo(Optional<Memo> memo) {
             this.memo = memo;
         }
 
-        public Optional<Semester> getSemester() {
+        public Optional<Optional<Semester>> getSemester() {
             return Optional.ofNullable(semester);
         }
 
-        public void setSemester(Semester semester) {
+        public void setSemester(Optional<Semester> semester) {
             this.semester = semester;
         }
 
-        public Optional<Description> getDescription() {
+        public Optional<Optional<Description>> getDescription() {
             return Optional.ofNullable(description);
         }
 
-        public void setDescription(Description description) {
+        public void setDescription(Optional<Description> description) {
             this.description = description;
         }
 

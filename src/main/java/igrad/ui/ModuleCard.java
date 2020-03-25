@@ -54,10 +54,10 @@ public class ModuleCard extends UiPart<Region> {
         credits.setText(module.getCredits().value + " MCs");
 
         if (module.getMemo() != null) {
-            memo.setText("Memo: " + module.getMemo().value);
+            memo.setText("Memo: " + module.getMemo().get().value);
         }
         if (module.getSemester() != null) {
-            semester.setText(module.getSemester().value);
+            semester.setText(module.getSemester().get().value);
         }
         /*
             if (module.getDescription() != null) {

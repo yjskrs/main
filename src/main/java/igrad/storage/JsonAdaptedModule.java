@@ -3,6 +3,7 @@ package igrad.storage;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -12,6 +13,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import igrad.commons.exceptions.IllegalValueException;
 import igrad.model.module.Credits;
 import igrad.model.module.Description;
+import igrad.model.module.Grade;
 import igrad.model.module.Memo;
 import igrad.model.module.Module;
 import igrad.model.module.ModuleCode;
@@ -60,9 +62,9 @@ class JsonAdaptedModule {
         title = source.getTitle().value;
         moduleCode = source.getModuleCode().value;
         credits = source.getCredits().value;
-        memo = source.getMemo() != null ? source.getMemo().value : null;
-        semester = source.getSemester() != null ? source.getSemester().value : null;
-        description = source.getDescription() != null ? source.getDescription().value : null;
+        memo = source.getMemo() != null ? source.getMemo().get().value : null;
+        semester = source.getSemester() != null ? source.getSemester().get().value : null;
+        description = source.getDescription() != null ? source.getDescription().get().value : null;
         tags.addAll(source.getTags().stream()
             .map(JsonAdaptedTag::new)
             .collect(Collectors.toList()));
@@ -113,14 +115,16 @@ class JsonAdaptedModule {
         }
 
         final Credits modelCredits = new Credits(credits);
-        final Semester modelSemester = new Semester(semester);
-        final Memo modelMemo = new Memo(memo);
-        final Description modelDescription = new Description(description);
+
+        final Optional<Semester> modelSemester = Optional.of(new Semester(semester));
+        final Optional<Memo> modelMemo = Optional.of(new Memo(memo));
+        final Optional<Description> modelDescription = Optional.of(new Description(description));
+        final Optional<Grade> modelGrade = Optional.empty();
 
         final Set<Tag> modelTags = new HashSet<>(moduleTags);
 
         return new Module(modelTitle, modelModuleCode, modelCredits, modelMemo, modelSemester,
-            modelDescription, modelTags);
+            modelDescription, modelGrade, modelTags);
     }
 
 }

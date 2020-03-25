@@ -2,8 +2,10 @@ package igrad.logic.commands;
 
 import static igrad.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
 import static java.util.Objects.requireNonNull;
+
 import java.util.List;
 import java.util.Optional;
+
 import igrad.commons.core.Messages;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;

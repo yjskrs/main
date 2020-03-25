@@ -2,6 +2,8 @@ package igrad.logic.parser.module;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Optional;
+
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.module.Credits;
 import igrad.model.module.Description;
@@ -65,11 +67,11 @@ public class ModuleCommandParser {
      *
      * @throws ParseException if the given {@code address} is invalid.
      */
-    public static Description parseDescription(String description) throws ParseException {
+    public static Optional<Description> parseDescription(String description) throws ParseException {
         requireNonNull(description);
         String trimmedDescription = description.trim();
 
-        return new Description(trimmedDescription);
+        return Optional.of(new Description(trimmedDescription));
     }
 
     /**
@@ -78,13 +80,13 @@ public class ModuleCommandParser {
      *
      * @throws ParseException if the given {@code memo} is invalid.
      */
-    public static Memo parseMemo(String memo) throws ParseException {
+    public static Optional<Memo> parseMemo(String memo) throws ParseException {
         requireNonNull(memo);
         String trimmedMemo = memo.trim();
         // if (!Address.isValidAddress(trimmedAddress)) {
         //     throw new ParseException(Address.MESSAGE_CONSTRAINTS);
         // }
-        return new Memo(trimmedMemo);
+        return Optional.of(new Memo(trimmedMemo));
     }
 
     /**
@@ -93,12 +95,12 @@ public class ModuleCommandParser {
      *
      * @throws ParseException if the given {@code semester} is invalid.
      */
-    public static Semester parseSemester(String semester) throws ParseException {
+    public static Optional<Semester> parseSemester(String semester) throws ParseException {
         requireNonNull(semester);
         String trimmedSemester = semester.trim();
         if (!Semester.isValidSemester(trimmedSemester)) {
             throw new ParseException(Semester.MESSAGE_CONSTRAINTS);
         }
-        return new Semester(trimmedSemester);
+        return Optional.of(new Semester(trimmedSemester));
     }
 }

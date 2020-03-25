@@ -228,7 +228,7 @@ public class MainWindow extends UiPart<Stage> {
         int totalMcs = 0;
         int totalModules = 0;
         for (Requirement req: model.getRequirementList()) {
-            totalMcs += Integer.parseInt(req.getCredits().value);
+            totalMcs += Integer.parseInt(req.getCreditsRequired());
             totalModules += req.getModuleList().size();
         }
         int totalRequirements = model.getRequirementList().size();
@@ -365,10 +365,11 @@ public class MainWindow extends UiPart<Stage> {
                 handleHelp();
             } else if (commandResult.isExit()) {
                 handleExit();
-            } else if (commandResult.isCourseAdd()) {
+            } else if (commandResult.isCourseEdit()) {
                 refreshStatusBar(model);
             }
 
+            refreshStatusBar(model);
             handleStopLoading(model.getAvatar());
 
             return commandResult;

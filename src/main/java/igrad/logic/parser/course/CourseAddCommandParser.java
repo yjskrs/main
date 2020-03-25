@@ -1,4 +1,4 @@
-package igrad.logic.parser;
+package igrad.logic.parser.course;
 
 import static igrad.logic.parser.CliSyntax.PREFIX_NAME;
 import static java.util.Objects.requireNonNull;
@@ -7,16 +7,16 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 import igrad.commons.core.Messages;
-import igrad.logic.commands.CourseAddCommand;
 import igrad.logic.commands.ModuleAddCommand;
+import igrad.logic.commands.course.CourseAddCommand;
+import igrad.logic.parser.ArgumentMultimap;
+import igrad.logic.parser.ArgumentTokenizer;
+import igrad.logic.parser.CourseCommandParser;
+import igrad.logic.parser.Parser;
+import igrad.logic.parser.Prefix;
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.course.CourseInfo;
 import igrad.model.course.Name;
-
-/*
- * TODO (Teri): Please refactor CourseAddCommandParser, and CourseEditCommandParser,
- *  into the logic.parser.course package (create a new one)
- */
 
 /**
  * Parses input arguments and creates a new CourseAddCommand object.
@@ -40,7 +40,7 @@ public class CourseAddCommandParser extends CourseCommandParser implements Parse
     public static Name parseName(String name) throws ParseException {
         requireNonNull(name);
         String trimmedName = name.trim();
-        // if (!igrad.model.requirement.Name.isValidTitle(trimmedName)) { //hmmmmm
+
         if (!Name.isValidName(trimmedName)) {
             throw new ParseException(igrad.model.module.Title.MESSAGE_CONSTRAINTS);
         }

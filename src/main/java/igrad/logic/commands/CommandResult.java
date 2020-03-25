@@ -25,16 +25,16 @@ public class CommandResult {
     /**
      * Course information (name) updated on the UI panel.
      */
-    private final boolean courseAdd;
+    private final boolean courseEdit;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean courseAdd) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean courseEdit) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
-        this.courseAdd = courseAdd;
+        this.courseEdit = courseEdit;
     }
 
     /**
@@ -57,8 +57,8 @@ public class CommandResult {
         return exit;
     }
 
-    public boolean isCourseAdd() {
-        return courseAdd;
+    public boolean isCourseEdit() {
+        return courseEdit;
     }
 
     @Override

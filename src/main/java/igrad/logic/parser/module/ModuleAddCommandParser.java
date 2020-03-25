@@ -7,8 +7,10 @@ import static igrad.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
 import static igrad.logic.parser.CliSyntax.PREFIX_SEMESTER;
 import static igrad.logic.parser.CliSyntax.PREFIX_TAG;
 import static igrad.logic.parser.CliSyntax.PREFIX_TITLE;
+
 import java.util.Optional;
 import java.util.Set;
+
 import igrad.commons.core.Messages;
 import igrad.logic.commands.ModuleAddCommand;
 import igrad.logic.parser.ArgumentMultimap;
@@ -18,6 +20,7 @@ import igrad.logic.parser.ParserUtil;
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.module.Credits;
 import igrad.model.module.Description;
+import igrad.model.module.Grade;
 import igrad.model.module.Memo;
 import igrad.model.module.Module;
 import igrad.model.module.ModuleCode;
@@ -58,21 +61,21 @@ public class ModuleAddCommandParser extends ModuleCommandParser implements Parse
         Credits credits = parseCredits(argMultimap.getValue(PREFIX_CREDITS).get());
 
         Optional<Memo> memo = argMultimap.getValue(PREFIX_MEMO).isPresent()
-            ? Optional.of(parseMemo(argMultimap.getValue(PREFIX_MEMO).get()))
+            ? parseMemo(argMultimap.getValue(PREFIX_MEMO).get())
             : Optional.empty();
         Optional<Description> description = argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()
-            ? Optional.of(parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get()))
+            ? parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get())
             : Optional.empty();
         Optional<Semester> semester = argMultimap.getValue(PREFIX_SEMESTER).isPresent()
-            ? Optional.of(parseSemester(argMultimap.getValue(PREFIX_SEMESTER).get()))
+            ? parseSemester(argMultimap.getValue(PREFIX_SEMESTER).get())
             : Optional.empty();
+
+        // TODO: support grade parsing too! i'll just leave it like that for now
+        Optional<Grade> grade = Optional.empty();
+
         Set<Tag> tagList = ParserUtil.parseTag(argMultimap.getAllValues(PREFIX_TAG));
 
-        Module module = new Module(title, moduleCode, credits);
-
-        memo.ifPresent(module::setMemo);
-        description.ifPresent(module::setDescription);
-        semester.ifPresent(module::setSemester);
+        Module module = new Module(title, moduleCode, credits, memo, semester, description, grade, tagList);
 
         return new ModuleAddCommand(module);
     }

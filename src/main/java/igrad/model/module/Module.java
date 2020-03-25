@@ -1,10 +1,13 @@
 package igrad.model.module;
 
 import static igrad.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
+
 import igrad.model.tag.Tag;
 
 /**
@@ -17,17 +20,23 @@ public class Module {
     private final Title title;
     private final ModuleCode moduleCode;
     private final Credits credits;
-    private final Set<Tag> tags = new HashSet<>();
+
     // Data fields
-    private Memo memo;
-    private Description description;
-    private Semester semester;
+
+    // A module object can be created without all these fields (which are optional)
+    private final Optional<Memo> memo;
+    private final Optional<Description> description;
+    private final Optional<Semester> semester;
+    private final Optional<Grade> grade;
+
+    private final Set<Tag> tags = new HashSet<>();
 
     /**
-     * {@code title, moduleCode, credits} are compulsory fields
+     * Every field must be present and not null.
      */
-    public Module(Title title, ModuleCode moduleCode, Credits credits, Memo memo, Semester semester,
-                  Description description, Set<Tag> tags) {
+    public Module(Title title, ModuleCode moduleCode, Credits credits,
+                  Optional<Memo> memo, Optional<Semester> semester,
+                  Optional<Description> description, Optional<Grade> grade, Set<Tag> tags) {
         requireAllNonNull(title, moduleCode, credits);
         this.title = title;
         this.moduleCode = moduleCode;
@@ -35,15 +44,8 @@ public class Module {
         this.memo = memo;
         this.description = description;
         this.semester = semester;
+        this.grade = grade;
         this.tags.addAll(tags);
-    }
-
-    public Module(Title title, ModuleCode moduleCode, Credits credits) {
-        requireAllNonNull(title, moduleCode, credits);
-
-        this.title = title;
-        this.moduleCode = moduleCode;
-        this.credits = credits;
     }
 
     public Title getTitle() {
@@ -58,28 +60,20 @@ public class Module {
         return credits;
     }
 
-    public Memo getMemo() {
+    public Optional<Memo> getMemo() {
         return memo;
     }
 
-    public void setMemo(Memo memo) {
-        this.memo = memo;
-    }
-
-    public Description getDescription() {
+    public Optional<Description> getDescription() {
         return description;
     }
 
-    public void setDescription(Description description) {
-        this.description = description;
-    }
-
-    public Semester getSemester() {
+    public Optional<Semester> getSemester() {
         return semester;
     }
 
-    public void setSemester(Semester semester) {
-        this.semester = semester;
+    public Optional<Grade> getGrade() {
+        return grade;
     }
 
     /**
@@ -88,6 +82,13 @@ public class Module {
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    /**
+     * Returns true if module is done, else false.
+     */
+    public boolean isDone() {
+        return grade.isPresent();
     }
 
     /**
@@ -150,9 +151,9 @@ public class Module {
         ModuleCode moduleCode = getModuleCode();
         Credits credits = getCredits();
 
-        Memo memo = getMemo();
-        Description description = getDescription();
-        Semester semester = getSemester();
+        Optional<Memo> memo = getMemo();
+        Optional<Description> description = getDescription();
+        Optional<Semester> semester = getSemester();
 
         final StringBuilder builder = new StringBuilder();
         builder
@@ -163,16 +164,9 @@ public class Module {
             .append(" Credits: ")
             .append(credits);
 
-        if (Objects.nonNull(memo)) {
-            builder.append(" Memo: ").append(memo);
-        }
-        if (Objects.nonNull(description)) {
-            builder.append(" Description: ").append(description);
-        }
-        if (Objects.nonNull(semester)) {
-            builder.append(" Semester: ").append(semester);
-        }
-
+        memo.ifPresent(x -> builder.append(" Memo: ").append(x));
+        description.ifPresent(x -> builder.append(" Description: ").append(x));
+        semester.ifPresent(x -> builder.append(" Semester: ").append(x));
 
         return builder.toString();
     }

@@ -12,6 +12,7 @@ import igrad.commons.exceptions.DataConversionException;
 import igrad.commons.exceptions.IllegalValueException;
 import igrad.commons.util.FileUtil;
 import igrad.commons.util.JsonUtil;
+import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.ReadOnlyCourseBook;
 
 /**
@@ -70,7 +71,7 @@ public class JsonCourseBookStorage implements CourseBookStorage {
 
         try {
             return Optional.of(jsonCourseBook.get().toModelType());
-        } catch (IllegalValueException ive) {
+        } catch (IllegalValueException | CommandException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);
         }
