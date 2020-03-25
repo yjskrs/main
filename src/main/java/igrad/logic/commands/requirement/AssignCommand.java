@@ -1,14 +1,17 @@
-package igrad.logic.commands;
+package igrad.logic.commands.requirement;
 
 import static igrad.commons.util.CollectionUtil.requireAllNonNull;
 import static igrad.logic.commands.requirement.RequirementCommand.MESSAGE_MODULES_ALREADY_EXIST_IN_REQUIREMENT;
 import static igrad.logic.commands.requirement.RequirementCommand.MESSAGE_REQUIREMENT_ALREADY_FULFILLED;
 import static igrad.logic.commands.requirement.RequirementCommand.MESSAGE_REQUIREMENT_NON_EXISTENT;
 import static igrad.logic.commands.requirement.RequirementCommand.MESSAGE_REQUIREMENT_POTENTIALLY_FULFILLED;
+import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
+import static igrad.logic.parser.CliSyntax.PREFIX_NAME;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
+import igrad.logic.commands.CommandResult;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
 import igrad.model.module.Module;
@@ -18,8 +21,19 @@ import igrad.model.requirement.Requirement;
 /**
  * Assigns modules under a particular requirement.
  */
-public class AssignCommand extends Command {
+public class AssignCommand extends RequirementCommand {
     public static final String COMMAND_WORD = "assign";
+
+    public static final String MESSAGE_DETAILS = COMMAND_WORD + ": Edits the requirement. "
+        + "Existing requirement will be overwritten by the new name and/or credits.\n";
+
+    public static final String MESSAGE_USAGE = "Parameter: "
+        + "[" + PREFIX_NAME + "NEW_NAME] "
+        + "[" + PREFIX_CREDITS + "NEW_CREDITS]\n"
+        + "Example: " + COMMAND_WORD + " Unrestrained Elves "
+        + PREFIX_NAME + "Unrestricted Electives";
+
+    public static final String MESSAGE_REQUIREMENT_ASSIGN_MODULE_SUCCESS = "Modules assigned under Requirement: %1$s";
 
     private Name requirementName;
     private List<Module> modules;
@@ -63,10 +77,11 @@ public class AssignCommand extends Command {
         }
 
         // Finally if everything alright, we can assign the specified modules under this requirement
-
         requirementToAssign.addModules(modules);
 
         model.setRequirement(requirementToAssign, editedRequirement);
-        return null;
+
+        return new CommandResult(
+            String.format(MESSAGE_REQUIREMENT_ASSIGN_MODULE_SUCCESS, editedRequirement));
     }
 }
