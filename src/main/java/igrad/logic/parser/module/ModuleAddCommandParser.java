@@ -8,6 +8,7 @@ import static igrad.logic.parser.CliSyntax.PREFIX_SEMESTER;
 import static igrad.logic.parser.CliSyntax.PREFIX_TAG;
 import static igrad.logic.parser.CliSyntax.PREFIX_TITLE;
 
+import java.util.Optional;
 import java.util.Set;
 
 import igrad.commons.core.Messages;
@@ -19,6 +20,7 @@ import igrad.logic.parser.ParserUtil;
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.module.Credits;
 import igrad.model.module.Description;
+import igrad.model.module.Grade;
 import igrad.model.module.Memo;
 import igrad.model.module.Module;
 import igrad.model.module.ModuleCode;
@@ -57,18 +59,23 @@ public class ModuleAddCommandParser extends ModuleCommandParser implements Parse
         Title title = parseTitle(argMultimap.getValue(PREFIX_TITLE).get());
         ModuleCode moduleCode = parseModuleCode(argMultimap.getValue(PREFIX_MODULE_CODE).get());
         Credits credits = parseCredits(argMultimap.getValue(PREFIX_CREDITS).get());
-        Memo memo = argMultimap.getValue(PREFIX_MEMO).isPresent()
+
+        Optional<Memo> memo = argMultimap.getValue(PREFIX_MEMO).isPresent()
             ? parseMemo(argMultimap.getValue(PREFIX_MEMO).get())
-            : null;
-        Description description = argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()
+            : Optional.empty();
+        Optional<Description> description = argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()
             ? parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get())
-            : null;
-        Semester semester = argMultimap.getValue(PREFIX_SEMESTER).isPresent()
+            : Optional.empty();
+        Optional<Semester> semester = argMultimap.getValue(PREFIX_SEMESTER).isPresent()
             ? parseSemester(argMultimap.getValue(PREFIX_SEMESTER).get())
-            : null;
+            : Optional.empty();
+
+        // TODO: support grade parsing too! i'll just leave it like that for now
+        Optional<Grade> grade = Optional.empty();
+
         Set<Tag> tagList = ParserUtil.parseTag(argMultimap.getAllValues(PREFIX_TAG));
 
-        Module module = new Module(title, moduleCode, credits, memo, semester, description, tagList);
+        Module module = new Module(title, moduleCode, credits, memo, semester, description, grade, tagList);
 
         return new ModuleAddCommand(module);
     }

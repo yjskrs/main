@@ -19,8 +19,8 @@ public abstract class RequestManager {
         url = new URL(urlName);
         connection = (HttpURLConnection) url.openConnection();
         connection.setRequestProperty("Content-Type", "application/json");
-        connection.setConnectTimeout(5000);
-        connection.setReadTimeout(5000);
+        connection.setConnectTimeout(1000);
+        connection.setReadTimeout(1000);
     }
 
 }

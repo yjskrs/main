@@ -15,12 +15,12 @@ import java.util.Optional;
 import java.util.Set;
 
 import igrad.commons.core.Messages;
-import igrad.commons.core.index.Index;
 import igrad.commons.util.CollectionUtil;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
 import igrad.model.module.Credits;
 import igrad.model.module.Description;
+import igrad.model.module.Grade;
 import igrad.model.module.Memo;
 import igrad.model.module.Module;
 import igrad.model.module.ModuleCode;
@@ -36,16 +36,15 @@ public class ModuleEditCommand extends ModuleCommand {
     public static final String COMMAND_WORD = MODULE_COMMAND_WORD + "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the module identified "
-        + "by the index number used in the displayed module list. "
+        + "by its module code. "
         + "Existing values will be overwritten by the input values.\n"
-        + "Parameters: INDEX (must be a positive integer) "
-        + "[" + PREFIX_MODULE_CODE + "MODULE CODE] "
+        + "Parameters: MODULE CODE "
         + "[" + PREFIX_TITLE + "TITLE] "
         + "[" + PREFIX_CREDITS + "CREDITS] "
         + "[" + PREFIX_MEMO + "MEMO] "
         + "[" + PREFIX_SEMESTER + "SEMESTER]"
         + "[" + PREFIX_TAG + "TAGS]...\n"
-        + "Example: " + COMMAND_WORD + " 1 "
+        + "Example: " + COMMAND_WORD + " "
         + PREFIX_MODULE_CODE + "CS2103T "
         + PREFIX_CREDITS + "4";
 
@@ -53,41 +52,19 @@ public class ModuleEditCommand extends ModuleCommand {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_MODULE = "This module already exists in the course book.";
 
-    private final Index index;
+    private final ModuleCode moduleCode;
     private final EditModuleDescriptor editModuleDescriptor;
 
     /**
-     * @param index                of the module in the filtered module list to edit
+     * @param moduleCode                of the module in the filtered module list to edit
      * @param editModuleDescriptor details to edit the module with
      */
-    public ModuleEditCommand(Index index, EditModuleDescriptor editModuleDescriptor) {
-        requireNonNull(index);
+    public ModuleEditCommand(ModuleCode moduleCode, EditModuleDescriptor editModuleDescriptor) {
+        requireNonNull(moduleCode);
         requireNonNull(editModuleDescriptor);
 
-        this.index = index;
+        this.moduleCode = moduleCode;
         this.editModuleDescriptor = new EditModuleDescriptor(editModuleDescriptor);
-    }
-
-    /**
-     * Creates and returns a {@code Person} with the details of {@code personToEdit}
-     * edited with {@code editModuleDescriptor}.
-     */
-    private static Module createEditedPerson(Module moduleToEdit, EditModuleDescriptor editModuleDescriptor) {
-        assert moduleToEdit != null;
-
-        Title updatedTitle = editModuleDescriptor.getTitle().orElse(moduleToEdit.getTitle());
-        ModuleCode updatedModuleCode = editModuleDescriptor.getModuleCode().orElse(moduleToEdit.getModuleCode());
-        Credits updatedCredits = editModuleDescriptor.getCredits().orElse(moduleToEdit.getCredits());
-        Memo updatedMemo = editModuleDescriptor.getMemo().orElse(moduleToEdit.getMemo());
-        Description updatedDescription = editModuleDescriptor.getDescription().orElse(moduleToEdit.getDescription());
-        Semester updatedSemester = editModuleDescriptor.getSemester().orElse(moduleToEdit.getSemester());
-        Set<Tag> updatedTags = editModuleDescriptor.getTags().orElse(moduleToEdit.getTags());
-
-        return new Module(updatedTitle, updatedModuleCode, updatedCredits, updatedMemo,
-            updatedSemester,
-            updatedDescription,
-            updatedTags
-        );
     }
 
     /**
@@ -97,16 +74,23 @@ public class ModuleEditCommand extends ModuleCommand {
     private static Module createEditedModule(Module moduleToEdit, EditModuleDescriptor editModuleDescriptor) {
         assert moduleToEdit != null;
 
+        ModuleCode moduleCode = moduleToEdit.getModuleCode();
+
+        // All fields can be optionally updated
         Title updatedTitle = editModuleDescriptor.getTitle().orElse(moduleToEdit.getTitle());
-        ModuleCode updatedModuleCode = editModuleDescriptor.getModuleCode().orElse(moduleToEdit.getModuleCode());
         Credits updatedCredits = editModuleDescriptor.getCredits().orElse(moduleToEdit.getCredits());
-        Memo updatedMemo = editModuleDescriptor.getMemo().orElse(moduleToEdit.getMemo());
-        Semester updatedSemester = editModuleDescriptor.getSemester().orElse(moduleToEdit.getSemester());
-        Description updatedDescription = editModuleDescriptor.getDescription().orElse(moduleToEdit.getDescription());
+        Optional<Memo> updatedMemo = editModuleDescriptor.getMemo().orElse(moduleToEdit.getMemo());
+        Optional<Semester> updatedSemester = editModuleDescriptor.getSemester().orElse(moduleToEdit.getSemester());
+        Optional<Description> updatedDescription = editModuleDescriptor.getDescription()
+                                                    .orElse(moduleToEdit.getDescription());
+
+        // TODO: set Grade too
+        Optional<Grade> updatedGrade = Optional.empty();
+
         Set<Tag> updatedTags = editModuleDescriptor.getTags().orElse(moduleToEdit.getTags());
 
-        return new Module(updatedTitle, updatedModuleCode, updatedCredits, updatedMemo, updatedSemester,
-            updatedDescription, updatedTags);
+        return new Module(updatedTitle, moduleCode, updatedCredits, updatedMemo, updatedSemester,
+            updatedDescription, updatedGrade, updatedTags);
     }
 
     @Override
@@ -114,11 +98,19 @@ public class ModuleEditCommand extends ModuleCommand {
         requireNonNull(model);
         List<Module> lastShownList = model.getFilteredModuleList();
 
-        if (index.getZeroBased() >= lastShownList.size()) {
+        Optional<Module> moduleToEditOpt = Optional.empty();
+
+        for (Module module : lastShownList) {
+            if (module.getModuleCode().equals(moduleCode)) {
+                moduleToEditOpt = Optional.of(module);
+            }
+        }
+
+        if (moduleToEditOpt.isEmpty()) {
             throw new CommandException(Messages.MESSAGE_INVALID_MODULE_DISPLAYED_INDEX);
         }
 
-        Module moduleToEdit = lastShownList.get(index.getZeroBased());
+        Module moduleToEdit = moduleToEditOpt.get();
         Module editedModule = createEditedModule(moduleToEdit, editModuleDescriptor);
 
         if (!moduleToEdit.isSameModule(editedModule) && model.hasModule(editedModule)) {
@@ -144,7 +136,7 @@ public class ModuleEditCommand extends ModuleCommand {
 
         // state check
         ModuleEditCommand e = (ModuleEditCommand) other;
-        return index.equals(e.index)
+        return moduleCode.equals(e.moduleCode)
             && editModuleDescriptor.equals(e.editModuleDescriptor);
     }
 
@@ -156,9 +148,9 @@ public class ModuleEditCommand extends ModuleCommand {
         private Title title;
         private ModuleCode moduleCode;
         private Credits credits;
-        private Memo memo;
-        private Description description;
-        private Semester semester;
+        private Optional<Memo> memo;
+        private Optional<Description> description;
+        private Optional<Semester> semester;
         private Set<Tag> tags;
 
         public EditModuleDescriptor() {
@@ -209,27 +201,27 @@ public class ModuleEditCommand extends ModuleCommand {
             this.credits = credits;
         }
 
-        public Optional<Memo> getMemo() {
+        public Optional<Optional<Memo>> getMemo() {
             return Optional.ofNullable(memo);
         }
 
-        public void setMemo(Memo memo) {
+        public void setMemo(Optional<Memo> memo) {
             this.memo = memo;
         }
 
-        public Optional<Semester> getSemester() {
+        public Optional<Optional<Semester>> getSemester() {
             return Optional.ofNullable(semester);
         }
 
-        public void setSemester(Semester semester) {
+        public void setSemester(Optional<Semester> semester) {
             this.semester = semester;
         }
 
-        public Optional<Description> getDescription() {
+        public Optional<Optional<Description>> getDescription() {
             return Optional.ofNullable(description);
         }
 
-        public void setDescription(Description description) {
+        public void setDescription(Optional<Description> description) {
             this.description = description;
         }
 

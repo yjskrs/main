@@ -33,7 +33,7 @@ public class ModuleAddAutoCommand extends ModuleCommand {
         + PREFIX_SEMESTER + "Y2S2 ";
 
     public static final String MESSAGE_SUCCESS = "New module added based on NUS Mods data: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_MODULE = "This module already exists in the course book";
 
     private final Module toAdd;
 
@@ -50,7 +50,7 @@ public class ModuleAddAutoCommand extends ModuleCommand {
         requireNonNull(model);
 
         if (model.hasModule(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            throw new CommandException(MESSAGE_DUPLICATE_MODULE);
         }
 
         model.addModule(toAdd);

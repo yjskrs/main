@@ -10,6 +10,7 @@ import static igrad.logic.parser.CliSyntax.PREFIX_TAG;
 import static igrad.logic.parser.CliSyntax.PREFIX_TITLE;
 
 import java.io.IOException;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -22,6 +23,7 @@ import igrad.logic.parser.Prefix;
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.module.Credits;
 import igrad.model.module.Description;
+import igrad.model.module.Grade;
 import igrad.model.module.Memo;
 import igrad.model.module.Module;
 import igrad.model.module.ModuleCode;
@@ -75,16 +77,21 @@ public class AddAutoCommandParser extends ModuleCommandParser implements Parser<
 
         Title title = parseTitle(jsonParsedModule.getTitle());
         Credits credits = parseCredits(jsonParsedModule.getCredits());
-        Description description = parseDescription(jsonParsedModule.getDescription());
         ModuleCode moduleCode = parseModuleCode(jsonParsedModule.getModuleCode());
-        Memo memo = argMultimap.getValue(PREFIX_MEMO).isPresent()
-            ? parseMemo(argMultimap.getValue(PREFIX_MEMO).get())
-            : null;
-        Semester semester = argMultimap.getValue(PREFIX_SEMESTER).isPresent()
-            ? parseSemester(argMultimap.getValue(PREFIX_SEMESTER).get())
-            : null;
 
-        Module module = new Module(title, moduleCode, credits, memo, semester, description, tagsList);
+        Optional<Description> description = parseDescription(jsonParsedModule.getDescription());
+
+        Optional<Memo> memo = argMultimap.getValue(PREFIX_MEMO).isPresent()
+            ? parseMemo(argMultimap.getValue(PREFIX_MEMO).get())
+            : Optional.empty();
+        Optional<Semester> semester = argMultimap.getValue(PREFIX_SEMESTER).isPresent()
+            ? parseSemester(argMultimap.getValue(PREFIX_SEMESTER).get())
+            : Optional.empty();
+
+        // TODO: support grade parsing too! i'll just leave it like that for now
+        Optional<Grade> grade = Optional.empty();
+
+        Module module = new Module(title, moduleCode, credits, memo, semester, description, grade, tagsList);
 
         return new ModuleAddAutoCommand(module);
     }

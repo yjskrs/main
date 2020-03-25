@@ -22,17 +22,21 @@ public class Module {
     private final Credits credits;
 
     // Data fields
-    private final Memo memo;
-    private final Description description;
-    private final Semester semester;
+
+    // A module object can be created without all these fields (which are optional)
+    private final Optional<Memo> memo;
+    private final Optional<Description> description;
+    private final Optional<Semester> semester;
     private final Optional<Grade> grade;
+
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Module(Title title, ModuleCode moduleCode, Credits credits, Memo memo, Semester semester,
-                  Description description, Set<Tag> tags) {
+    public Module(Title title, ModuleCode moduleCode, Credits credits,
+                  Optional<Memo> memo, Optional<Semester> semester,
+                  Optional<Description> description, Optional<Grade> grade, Set<Tag> tags) {
         requireAllNonNull(title, moduleCode, credits);
         this.title = title;
         this.moduleCode = moduleCode;
@@ -40,23 +44,7 @@ public class Module {
         this.memo = memo;
         this.description = description;
         this.semester = semester;
-        this.grade = Optional.empty();
-        this.tags.addAll(tags);
-    }
-
-    /**
-     * Every field must be present and not null.
-     */
-    public Module(Title title, ModuleCode moduleCode, Credits credits, Memo memo, Semester semester,
-                  Description description, Grade grade, Set<Tag> tags) {
-        requireAllNonNull(title, moduleCode, credits);
-        this.title = title;
-        this.moduleCode = moduleCode;
-        this.credits = credits;
-        this.memo = memo;
-        this.description = description;
-        this.semester = semester;
-        this.grade = Optional.of(grade);
+        this.grade = grade;
         this.tags.addAll(tags);
     }
 
@@ -72,20 +60,20 @@ public class Module {
         return credits;
     }
 
-    public Memo getMemo() {
+    public Optional<Memo> getMemo() {
         return memo;
     }
 
-    public Description getDescription() {
+    public Optional<Description> getDescription() {
         return description;
     }
 
-    public Semester getSemester() {
+    public Optional<Semester> getSemester() {
         return semester;
     }
 
-    public Grade getGrade() {
-        return grade.orElse(new Grade());
+    public Optional<Grade> getGrade() {
+        return grade;
     }
 
     /**
@@ -158,20 +146,28 @@ public class Module {
 
     @Override
     public String toString() {
+
+        Title title = getTitle();
+        ModuleCode moduleCode = getModuleCode();
+        Credits credits = getCredits();
+
+        Optional<Memo> memo = getMemo();
+        Optional<Description> description = getDescription();
+        Optional<Semester> semester = getSemester();
+
         final StringBuilder builder = new StringBuilder();
-        builder.append(getTitle())
+        builder
+            .append("Title: ")
+            .append(title)
             .append(" Code: ")
-            .append(getModuleCode())
+            .append(moduleCode)
             .append(" Credits: ")
-            .append(getCredits())
-            .append(" Memo: ")
-            .append(getMemo())
-            .append(" Description: ")
-            .append(getDescription())
-            .append(" Semester: ")
-            .append(getSemester())
-            .append("Tags: ");
-        getTags().forEach(builder::append);
+            .append(credits);
+
+        memo.ifPresent(x -> builder.append(" Memo: ").append(x));
+        description.ifPresent(x -> builder.append(" Description: ").append(x));
+        semester.ifPresent(x -> builder.append(" Semester: ").append(x));
+
         return builder.toString();
     }
 

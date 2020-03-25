@@ -3,6 +3,7 @@ package igrad.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Optional;
 
 import igrad.model.course.CourseInfo;
 import igrad.model.module.Module;
@@ -30,7 +31,7 @@ public class CourseBook implements ReadOnlyCourseBook {
     {
         modules = new UniqueModuleList();
         requirements = new UniqueRequirementList();
-        courseInfo = new CourseInfo();
+        courseInfo = new CourseInfo(Optional.empty());
     }
 
     public CourseBook() {
