@@ -1,5 +1,7 @@
 package igrad.model.module;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * Represents a Person's address in the address book.
  */
@@ -15,6 +17,7 @@ public class Description {
      * @param description A valid description.
      */
     public Description(String description) {
+        requireNonNull(description);
         value = description;
     }
 

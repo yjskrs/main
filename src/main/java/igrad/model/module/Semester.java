@@ -1,6 +1,7 @@
 package igrad.model.module;
 
 import static igrad.commons.util.AppUtil.checkArgument;
+import static java.util.Objects.requireNonNull;
 
 /**
  * Represents the semester a module was taken.
@@ -20,20 +21,17 @@ public class Semester {
      * @param semester A valid module code.
      */
     public Semester(String semester) {
+        requireNonNull(semester);
         checkArgument(isValidSemester(semester), MESSAGE_CONSTRAINTS);
 
-        if (semester != null) {
-            value = semester.toUpperCase();
-        } else {
-            value = null;
-        }
+        value = semester.toUpperCase();
     }
 
     /**
      * Returns true if a given string is a valid module code.
      */
     public static boolean isValidSemester(String test) {
-        return test == null || test.matches(VALIDATION_REGEX);
+        return test.matches(VALIDATION_REGEX);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package igrad.model.module;
 
 import static igrad.commons.util.AppUtil.checkArgument;
+import static java.util.Objects.requireNonNull;
 
 /**
  * Represents a Module's grade.
@@ -26,6 +27,7 @@ public class Grade {
      * @param grade A valid grade value.
      */
     public Grade(String grade) {
+        requireNonNull(grade);
         checkArgument(isValidGrade(grade), MESSAGE_CONSTRAINTS);
 
         value = grade;
@@ -35,7 +37,7 @@ public class Grade {
      * Returns true if {@code String grade} is valid grade.
      */
     public static boolean isValidGrade(String test) {
-        return test == null || test.matches(VALIDATION_REGEX);
+        return test.matches(VALIDATION_REGEX);
     }
 
     @Override
