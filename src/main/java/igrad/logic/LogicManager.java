@@ -60,23 +60,6 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public CommandResult executeSetCourseName(String commandText) throws ParseException, CommandException {
-        CommandResult commandResult;
-
-        CourseAddCommand courseAddCommand = courseBookParser.parseSetCourseName(commandText);
-        commandResult = courseAddCommand.execute(model);
-
-        try {
-            // Saves to UserPref data file to save new Avatar, after successful Avatar command execution
-            storage.saveCourseBook(model.getCourseBook());
-        } catch (IOException ioe) {
-            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
-        }
-
-        return commandResult;
-    }
-
-    @Override
     public CommandResult execute(String commandText) throws CommandException,
         ParseException, IOException, ServiceException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
