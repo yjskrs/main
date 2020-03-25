@@ -8,7 +8,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import igrad.commons.exceptions.IllegalValueException;
 import igrad.model.course.CourseInfo;
 import igrad.model.course.Name;
-import igrad.model.module.Title;
 
 /**
  * Jackson-friendly version of {@link CourseInfo}.
@@ -39,7 +38,7 @@ public class JsonAdaptedCourseInfo {
      * @throws IllegalValueException if there were any data constraints violated in the adapted module.
      */
     public CourseInfo toModelType() throws IllegalValueException {
-        if (name == null && Name.isValidName(name)) {
+        if (name != null && Name.isValidName(name)) {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         }
 

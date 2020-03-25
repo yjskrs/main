@@ -11,7 +11,6 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import igrad.commons.exceptions.IllegalValueException;
 import igrad.model.CourseBook;
 import igrad.model.ReadOnlyCourseBook;
-import igrad.model.course.CourseInfo;
 import igrad.model.module.Module;
 import igrad.model.requirement.Requirement;
 
@@ -24,7 +23,7 @@ class JsonSerializableCourseBook {
     public static final String MESSAGE_DUPLICATE_MODULE = "Modules list contains duplicate module(s).";
     public static final String MESSAGE_DUPLICATE_REQUIREMENT = "Requirement list contains duplicate requirement(s).";
 
-    private final CourseInfo courseInfo;
+    private final JsonAdaptedCourseInfo courseInfo;
     private final List<JsonAdaptedModule> modules = new ArrayList<>();
     private final List<JsonAdaptedRequirement> requirements = new ArrayList<>();
 
@@ -32,7 +31,7 @@ class JsonSerializableCourseBook {
      * Constructs a {@code JsonSerializableCourseBook} with the given modules.
      */
     @JsonCreator
-    public JsonSerializableCourseBook(@JsonProperty("courseInfo") CourseInfo courseInfo,
+    public JsonSerializableCourseBook(@JsonProperty("courseInfo") JsonAdaptedCourseInfo courseInfo,
                                       @JsonProperty("modules") List<JsonAdaptedModule> modules,
                                       @JsonProperty("requirements") List<JsonAdaptedRequirement> requirements) {
         this.courseInfo = courseInfo;
@@ -46,7 +45,7 @@ class JsonSerializableCourseBook {
      * @param source future changes to this will not affect the created {@code JsonSerializableCourseBook}.
      */
     public JsonSerializableCourseBook(ReadOnlyCourseBook source) {
-        courseInfo = source.getCourseInfo();
+        courseInfo = new JsonAdaptedCourseInfo(source.getCourseInfo());
 
         modules.addAll(source.getModuleList().stream()
             .map(JsonAdaptedModule::new)
@@ -65,7 +64,7 @@ class JsonSerializableCourseBook {
     public CourseBook toModelType() throws IllegalValueException {
         CourseBook courseBook = new CourseBook();
 
-        courseBook.addCourseInfo(courseInfo);
+        courseBook.addCourseInfo(courseInfo.toModelType());
 
         for (JsonAdaptedModule jsonAdaptedModule : modules) {
             Module module = jsonAdaptedModule.toModelType();
