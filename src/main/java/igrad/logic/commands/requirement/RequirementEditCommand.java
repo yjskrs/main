@@ -78,8 +78,8 @@ public class RequirementEditCommand extends RequirementCommand {
 
         // If changed name is the same as an existing name
         if (requirements.stream()
-                .anyMatch(requirement -> !requirement.getName().equals(originalName)
-                                             && requirement.hasSameName(editedRequirement))) {
+            .anyMatch(requirement -> !requirement.getName().equals(originalName)
+                && requirement.hasSameName(editedRequirement))) {
             throw new CommandException(MESSAGE_REQUIREMENT_DUPLICATE);
         }
 

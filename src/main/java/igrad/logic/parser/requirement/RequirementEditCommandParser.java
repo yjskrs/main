@@ -57,8 +57,8 @@ public class RequirementEditCommandParser extends RequirementCommandParser {
         }
 
         return new RequirementEditCommand(new Name(specifier.getValue()),
-                                            Optional.ofNullable(name),
-                                            Optional.ofNullable(credits));
+            Optional.ofNullable(name),
+            Optional.ofNullable(credits));
     }
 
 }

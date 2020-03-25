@@ -5,7 +5,7 @@ import static igrad.logic.parser.CliSyntax.PREFIX_TAG;
 
 import org.junit.jupiter.api.Test;
 
-import igrad.logic.commands.ModuleEditCommand;
+import igrad.logic.commands.module.ModuleEditCommand;
 import igrad.logic.parser.module.ModuleEditCommandParser;
 
 public class ModuleEditCommandParserTest {

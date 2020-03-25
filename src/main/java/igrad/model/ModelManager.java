@@ -82,14 +82,14 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getBackupCourseBookFilePath() {
-        return userPrefs.getBackupCourseBookFilePath();
-    }
-
-    @Override
     public void setCourseBookFilePath(Path courseBookFilePath) {
         requireNonNull(courseBookFilePath);
         userPrefs.setCourseBookFilePath(courseBookFilePath);
+    }
+
+    @Override
+    public Path getBackupCourseBookFilePath() {
+        return userPrefs.getBackupCourseBookFilePath();
     }
 
     @Override
@@ -142,6 +142,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void setCourseInfo(CourseInfo editedCourseInfo) {
+        courseBook.setCourseInfo(editedCourseInfo);
+    }
+
+    @Override
     public boolean isCourseNameSet() {
         return courseBook.getCourseInfo().getName().isPresent();
     }
@@ -149,11 +154,6 @@ public class ModelManager implements Model {
     @Override
     public void addCourseInfo(CourseInfo courseInfo) throws CommandException {
         courseBook.addCourseInfo(courseInfo);
-    }
-
-    @Override
-    public void setCourseInfo(CourseInfo editedCourseInfo) {
-        courseBook.setCourseInfo(editedCourseInfo);
     }
 
     @Override

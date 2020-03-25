@@ -1,4 +1,4 @@
-package igrad.logic.commands;
+package igrad.logic.commands.module;
 
 import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
 import static igrad.logic.parser.CliSyntax.PREFIX_MEMO;
@@ -16,6 +16,7 @@ import java.util.Set;
 
 import igrad.commons.core.Messages;
 import igrad.commons.util.CollectionUtil;
+import igrad.logic.commands.CommandResult;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
 import igrad.model.module.Credits;
@@ -56,7 +57,7 @@ public class ModuleEditCommand extends ModuleCommand {
     private final EditModuleDescriptor editModuleDescriptor;
 
     /**
-     * @param moduleCode                of the module in the filtered module list to edit
+     * @param moduleCode           of the module in the filtered module list to edit
      * @param editModuleDescriptor details to edit the module with
      */
     public ModuleEditCommand(ModuleCode moduleCode, EditModuleDescriptor editModuleDescriptor) {
@@ -82,7 +83,7 @@ public class ModuleEditCommand extends ModuleCommand {
         Optional<Memo> updatedMemo = editModuleDescriptor.getMemo().orElse(moduleToEdit.getMemo());
         Optional<Semester> updatedSemester = editModuleDescriptor.getSemester().orElse(moduleToEdit.getSemester());
         Optional<Description> updatedDescription = editModuleDescriptor.getDescription()
-                                                    .orElse(moduleToEdit.getDescription());
+            .orElse(moduleToEdit.getDescription());
 
         // TODO: set Grade too
         Optional<Grade> updatedGrade = Optional.empty();

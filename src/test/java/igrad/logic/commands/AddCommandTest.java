@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import igrad.commons.core.GuiSettings;
 import igrad.logic.commands.exceptions.CommandException;
+import igrad.logic.commands.module.ModuleAddCommand;
 import igrad.model.CourseBook;
 import igrad.model.Model;
 import igrad.model.ReadOnlyCourseBook;

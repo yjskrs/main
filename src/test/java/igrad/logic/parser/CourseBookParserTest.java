@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import igrad.logic.commands.ExitCommand;
 import igrad.logic.commands.HelpCommand;
-import igrad.logic.commands.ModuleAddCommand;
+import igrad.logic.commands.module.ModuleAddCommand;
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.module.Module;
 import igrad.testutil.ModuleBuilder;

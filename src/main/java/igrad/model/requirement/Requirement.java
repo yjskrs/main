@@ -23,7 +23,7 @@ public class Requirement implements ReadOnlyRequirement {
      * Creates a {@code Requirement} object with given {@code name} and {@code credits}
      * and a default empty modules list.
      *
-     * @param name Name of the requirement.
+     * @param name    Name of the requirement.
      * @param credits Credits of the requirement.
      */
     public Requirement(Name name, Credits credits) {
@@ -37,7 +37,7 @@ public class Requirement implements ReadOnlyRequirement {
      * Creates a {@code Requirement} object with given {@code name}, {@code credits} and
      * a list of {@code modules}.
      *
-     * @param name Name of the requirement.
+     * @param name    Name of the requirement.
      * @param credits Credits of the requirement.
      * @param modules List of modules belonging in the requirement.
      */
@@ -171,18 +171,18 @@ public class Requirement implements ReadOnlyRequirement {
     @Override
     public String toString() {
         return "Requirement: " + name + ", " + credits + " creditsRequired and "
-                   + getCreditsFulfilled() + " creditsFulfilled has "
-                   + modules.asUnmodifiableObservableList().size() + " modules";
+            + getCreditsFulfilled() + " creditsFulfilled has "
+            + modules.asUnmodifiableObservableList().size() + " modules";
         // TODO: refine later
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                   || (other instanceof Requirement // check properties
-                           && name.equals(((Requirement) other).name)
-                           && credits.equals(((Requirement) other).credits)
-                           && modules.equals(((Requirement) other).modules));
+            || (other instanceof Requirement // check properties
+            && name.equals(((Requirement) other).name)
+            && credits.equals(((Requirement) other).credits)
+            && modules.equals(((Requirement) other).modules));
 
     }
 

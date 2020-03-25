@@ -53,15 +53,14 @@ public interface Model {
     Path getCourseBookFilePath();
 
     /**
-     * Returns the user prefs' backup course book file path.
-     */
-    Path getBackupCourseBookFilePath();
-
-
-    /**
      * Sets the user prefs' course book file path.
      */
     void setCourseBookFilePath(Path courseBookFilePath);
+
+    /**
+     * Returns the user prefs' backup course book file path.
+     */
+    Path getBackupCourseBookFilePath();
 
     /**
      * Resets {@code courseBook} data to a blank state with no data (e.g, modules, requirements, etc).
@@ -115,16 +114,16 @@ public interface Model {
     CourseInfo getCourseInfo();
 
     /**
-     * Checks if the course name has been set.
-     */
-    boolean isCourseNameSet();
-
-    /**
      * Replaces the given module {@code target} with {@code editedModule}.
      * {@code target} must exist in the course book.
      * The module identity of {@code editedModule} must not be the same as another existing module in the course book.
      */
     void setCourseInfo(CourseInfo editedCourseInfo);
+
+    /**
+     * Checks if the course name has been set.
+     */
+    boolean isCourseNameSet();
 
     /**
      * Adds the given module.

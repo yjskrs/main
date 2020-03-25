@@ -5,8 +5,8 @@ import static igrad.logic.parser.CliSyntax.PREFIX_NAME;
 import static java.util.Objects.requireNonNull;
 
 import igrad.logic.commands.CommandResult;
-import igrad.logic.commands.ModuleAddCommand;
 import igrad.logic.commands.exceptions.CommandException;
+import igrad.logic.commands.module.ModuleAddCommand;
 import igrad.model.Model;
 import igrad.model.course.CourseInfo;
 

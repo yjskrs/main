@@ -1,4 +1,6 @@
-package igrad.logic.commands;
+package igrad.logic.commands.module;
+
+import igrad.logic.commands.Command;
 
 /**
  * Represents a generic module command.
