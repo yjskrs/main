@@ -337,7 +337,6 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult;
 
             boolean isSelectingAvatar = model.isSampleAvatar();
-            boolean isCourseNameSet = model.isCourseNameSet();
 
             logger.info("courseName = " + model.isCourseNameSet());
 
@@ -345,16 +344,10 @@ public class MainWindow extends UiPart<Stage> {
                 // If user has not selected avatar, get her to do so.
                 commandResult = logic.executeAvatar(commandText);
 
-                // Now we've already selected Avatar, time to display the Main module panel
+                // Now we've already selected Avatar, remove Avatar selection panel to display the Main module panel
                 displayModulePanel(model);
-            } else if (!isCourseNameSet) {
-                /*
-                 * If user has not selected her course name, and she is trying to execute any other
-                 * command than course add n/course_name, prevent her from doing so.
-                 */
-                commandResult = logic.executeSetCourseName(commandText);
             } else {
-                // Finally, once the above 2 conditions are satisfied, let user execute commands normally.
+                // Else, let user execute commands normally.
                 commandResult = logic.execute(commandText);
             }
 

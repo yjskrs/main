@@ -1,5 +1,7 @@
 package igrad.logic;
 
+import static igrad.commons.core.Messages.MESSAGE_COURSE_NOT_SET;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.logging.Logger;
@@ -82,6 +84,14 @@ public class LogicManager implements Logic {
 
         CommandResult commandResult;
         Command command = courseBookParser.parseCommand(commandText);
+
+        /*
+         * If user has not selected her course name, and she is trying to execute any other
+         * command except course add n/course_name, prevent her from doing so.
+         */
+        if (!model.isCourseNameSet() && !(command instanceof CourseAddCommand)) {
+            throw new CommandException(MESSAGE_COURSE_NOT_SET);
+        }
 
         if (!(command instanceof UndoCommand)) {
             try {
