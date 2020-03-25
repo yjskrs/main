@@ -349,7 +349,7 @@ public class MainWindow extends UiPart<Stage> {
                 displayModulePanel(model);
             } else if (!isCourseNameSet) {
                 /*
-                 * if user has not selected her course name, and she is trying to execute any other
+                 * If user has not selected her course name, and she is trying to execute any other
                  * command than course add n/course_name, prevent her from doing so.
                  */
                 commandResult = logic.executeSetCourseName(commandText);
