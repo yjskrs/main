@@ -1,0 +1,58 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":CourseBookParser" as CourseBookParser LOGIC_COLOR
+participant ":RequirementAddCommandParser" as RequirementAddCommandParser LOGIC_COLOR
+participant "r:RequirementAddCommand" as RequirementAddCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":CourseBook" as CourseBook MODEL_COLOR
+end box
+
+[-> LogicManager : execute(add requirement)
+activate LogicManager
+
+LogicManager -> CourseBookParser : parseCommand(add requirement)
+activate CourseBookParser
+
+create RequirementAddCommandParser
+CourseBookParser -> RequirementAddCommandParser : new RequirementAddCommandParser(\nname, credits)
+activate RequirementAddCommandParser
+
+create RequirementAddCommand
+RequirementAddCommandParser -> RequirementAddCommand : new RequirementAddCommand(\nrequirement)
+activate RequirementAddCommand
+
+RequirementAddCommand --> RequirementAddCommandParser
+RequirementAddCommandParser --> CourseBookParser : r
+
+CourseBookParser --> LogicManager : r
+deactivate CourseBookParser
+
+LogicManager -> RequirementAddCommand : execute()
+activate RequirementAddCommand
+
+RequirementAddCommand -> Model : addRequirement()
+activate Model
+
+Model -> CourseBook : addRequirement()
+activate CourseBook
+
+CourseBook --> Model
+deactivate CourseBook
+
+Model --> RequirementAddCommand
+deactivate Model
+
+RequirementAddCommand --> LogicManager : result
+deactivate RequirementAddCommand
+RequirementAddCommand -[hidden]-> LogicManager : result
+destroy RequirementAddCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
