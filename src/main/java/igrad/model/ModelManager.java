@@ -191,7 +191,7 @@ public class ModelManager implements Model {
     public List<Module> getModulesByModuleCode(List<ModuleCode> moduleCodes) {
         return filteredModules.stream()
             .filter(requirement -> moduleCodes.stream()
-                    .anyMatch(moduleCode -> moduleCode.equals(requirement.getModuleCode())))
+                .anyMatch(moduleCode -> moduleCode.equals(requirement.getModuleCode())))
             .collect(Collectors.toList());
     }
 

@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -15,7 +14,6 @@ import igrad.commons.core.index.Index;
 import igrad.commons.util.StringUtil;
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.avatar.Avatar;
-import igrad.model.module.Module;
 import igrad.model.module.ModuleCode;
 import igrad.model.module.Title;
 import igrad.model.tag.Tag;

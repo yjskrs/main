@@ -22,6 +22,7 @@ import igrad.logic.commands.module.ModuleAddCommand;
 import igrad.logic.commands.module.ModuleDeleteCommand;
 import igrad.logic.commands.module.ModuleEditCommand;
 import igrad.logic.commands.requirement.RequirementAddCommand;
+import igrad.logic.commands.requirement.RequirementAssignCommand;
 import igrad.logic.commands.requirement.RequirementDeleteCommand;
 import igrad.logic.commands.requirement.RequirementEditCommand;
 import igrad.logic.parser.course.CourseAddCommandParser;
@@ -32,6 +33,7 @@ import igrad.logic.parser.module.ModuleAddCommandParser;
 import igrad.logic.parser.module.ModuleDeleteCommandParser;
 import igrad.logic.parser.module.ModuleEditCommandParser;
 import igrad.logic.parser.requirement.RequirementAddCommandParser;
+import igrad.logic.parser.requirement.RequirementAssignCommandParser;
 import igrad.logic.parser.requirement.RequirementDeleteCommandParser;
 import igrad.logic.parser.requirement.RequirementEditCommandParser;
 import igrad.services.exceptions.ServiceException;
@@ -112,6 +114,9 @@ public class CourseBookParser {
 
         case RequirementDeleteCommand.COMMAND_WORD:
             return new RequirementDeleteCommandParser().parse(arguments);
+
+        case RequirementAssignCommand.COMMAND_WORD:
+            return new RequirementAssignCommandParser().parse(arguments);
 
         case ModuleAddCommand.COMMAND_WORD:
 

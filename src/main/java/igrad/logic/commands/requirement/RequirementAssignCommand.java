@@ -1,7 +1,6 @@
 package igrad.logic.commands.requirement;
 
 import static igrad.commons.util.CollectionUtil.requireAllNonNull;
-import static igrad.logic.commands.requirement.RequirementCommand.MESSAGE_REQUIREMENT_NON_EXISTENT;
 import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
 import static igrad.logic.parser.CliSyntax.PREFIX_NAME;
 import static java.util.Objects.requireNonNull;
@@ -106,7 +105,7 @@ public class RequirementAssignCommand extends RequirementCommand {
         }
 
         // Finally if everything alright, we can actually then assign the specified modules under this requirement
-        requirementToAssign.addModules(modules);
+        editedRequirement.addModules(modules);
 
         model.setRequirement(requirementToAssign, editedRequirement);
 
