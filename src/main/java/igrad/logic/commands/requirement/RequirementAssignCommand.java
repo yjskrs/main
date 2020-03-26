@@ -12,6 +12,7 @@ import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
 import igrad.model.module.Module;
 import igrad.model.module.ModuleCode;
+import igrad.model.requirement.Credits;
 import igrad.model.requirement.Name;
 import igrad.model.requirement.Requirement;
 
@@ -99,13 +100,18 @@ public class RequirementAssignCommand extends RequirementCommand {
         if (editedRequirement.isFulfilled()) {
             // If requirement is already full, don't allow to add
             throw new CommandException(MESSAGE_REQUIREMENT_ALREADY_FULFILLED);
-        } else if (editedRequirement.isFulfilled(modules)) {
+        } else if (editedRequirement.isFulfilled(modulesToAssign)) {
             // If requirement would be potentially full, don't allow to add
             throw new CommandException(MESSAGE_REQUIREMENT_POTENTIALLY_FULFILLED);
         }
 
         // Finally if everything alright, we can actually then assign the specified modules under this requirement
-        editedRequirement.addModules(modules);
+        int creditsAdded = editedRequirement.addModules(modulesToAssign);
+
+        Credits newCreditsFulfilled = editedRequirement.getNewCreditsFulfilled(creditsAdded);
+
+        editedRequirement = new Requirement(editedRequirement.getName(),
+            newCreditsFulfilled, editedRequirement.getModuleList());
 
         model.setRequirement(requirementToAssign, editedRequirement);
 

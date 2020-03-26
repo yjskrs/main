@@ -37,13 +37,13 @@ public interface ReadOnlyRequirement {
     ObservableList<Module> getModuleList();
 
     /**
-     * Returns a boolean value to indicate whether the requirement is fulfilled.
+     * Returns a boolean value to indicate whether the requirement is already fulfilled.
      * Returns true if requirement is fulfilled (credits are fulfilled), else return false.
      */
     boolean isFulfilled();
 
     /**
-     * Returns a boolean value to indicate whether the assignment of {@code modules} would result in the
+     * Returns a boolean value to indicate whether the assignment of {@code modules} would potentially result in the
      * requirement being fulfilled.
      * Returns true if requirement is fulfilled (credits are fulfilled), else return false.
      */
