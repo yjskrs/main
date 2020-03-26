@@ -15,6 +15,7 @@ import igrad.logic.parser.ArgumentTokenizer;
 import igrad.logic.parser.ParserUtil;
 import igrad.logic.parser.Specifier;
 import igrad.logic.parser.exceptions.ParseException;
+import igrad.model.module.Title;
 import igrad.model.requirement.Credits;
 import igrad.model.requirement.Name;
 
@@ -36,7 +37,8 @@ public class RequirementEditCommandParser extends RequirementCommandParser {
 
         Specifier specifier;
         try {
-            specifier = ParserUtil.parseSpecifier(argMultimap.getPreamble());
+            specifier = ParserUtil.parseSpecifier(argMultimap.getPreamble(),
+                RequirementCommandParser.REQUIREMENT_NAME_SPECIFIER_RULE, Title.MESSAGE_CONSTRAINTS);
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_SPECIFIER_NOT_SPECIFIED, MESSAGE_USAGE), pe);
         }

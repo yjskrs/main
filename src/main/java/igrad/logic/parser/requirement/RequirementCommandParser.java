@@ -2,9 +2,13 @@ package igrad.logic.parser.requirement;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.function.Function;
+
 import igrad.logic.commands.requirement.RequirementCommand;
 import igrad.logic.parser.Parser;
 import igrad.logic.parser.exceptions.ParseException;
+import igrad.model.module.ModuleCode;
+import igrad.model.module.Title;
 import igrad.model.requirement.Credits;
 import igrad.model.requirement.Name;
 
@@ -12,6 +16,8 @@ import igrad.model.requirement.Name;
  * Represents a generic requirement command parser.
  */
 public abstract class RequirementCommandParser implements Parser<RequirementCommand> {
+    public static final Function<String, Boolean> REQUIREMENT_NAME_SPECIFIER_RULE = Title::isValidTitle;
+    public static final Function<String, Boolean> MODULE_MODULE_CODE_SPECIFIER_RULE = ModuleCode::isValidModuleCode;
 
     /**
      * Parses a {@code String name} into a {@code Name}.

@@ -7,6 +7,7 @@ import igrad.logic.commands.requirement.RequirementDeleteCommand;
 import igrad.logic.parser.ParserUtil;
 import igrad.logic.parser.Specifier;
 import igrad.logic.parser.exceptions.ParseException;
+import igrad.model.module.Title;
 import igrad.model.requirement.Name;
 
 /**
@@ -17,7 +18,8 @@ public class RequirementDeleteCommandParser extends RequirementCommandParser {
     @Override
     public RequirementDeleteCommand parse(String userInput) throws ParseException {
         try {
-            Specifier specifier = ParserUtil.parseSpecifier(userInput);
+            Specifier specifier = ParserUtil.parseSpecifier(userInput,
+                RequirementCommandParser.REQUIREMENT_NAME_SPECIFIER_RULE, Title.MESSAGE_CONSTRAINTS);
             return new RequirementDeleteCommand(new Name(specifier.getValue()));
         } catch (ParseException pe) {
             throw new ParseException(
