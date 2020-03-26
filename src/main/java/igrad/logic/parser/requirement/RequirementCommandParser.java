@@ -16,8 +16,6 @@ import igrad.model.requirement.Name;
  * Represents a generic requirement command parser.
  */
 public abstract class RequirementCommandParser implements Parser<RequirementCommand> {
-    public static final Function<String, Boolean> REQUIREMENT_NAME_SPECIFIER_RULE = Title::isValidTitle;
-    public static final Function<String, Boolean> MODULE_MODULE_CODE_SPECIFIER_RULE = ModuleCode::isValidModuleCode;
 
     /**
      * Parses a {@code String name} into a {@code Name}.

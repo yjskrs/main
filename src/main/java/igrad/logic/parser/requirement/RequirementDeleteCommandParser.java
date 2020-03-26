@@ -19,7 +19,7 @@ public class RequirementDeleteCommandParser extends RequirementCommandParser {
     public RequirementDeleteCommand parse(String userInput) throws ParseException {
         try {
             Specifier specifier = ParserUtil.parseSpecifier(userInput,
-                RequirementCommandParser.REQUIREMENT_NAME_SPECIFIER_RULE, Title.MESSAGE_CONSTRAINTS);
+                ParserUtil.REQUIREMENT_NAME_SPECIFIER_RULE, Title.MESSAGE_CONSTRAINTS);
             return new RequirementDeleteCommand(new Name(specifier.getValue()));
         } catch (ParseException pe) {
             throw new ParseException(

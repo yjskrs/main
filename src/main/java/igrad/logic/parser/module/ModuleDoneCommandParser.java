@@ -11,8 +11,10 @@ import igrad.logic.commands.module.ModuleDoneCommand;
 import igrad.logic.parser.ArgumentMultimap;
 import igrad.logic.parser.ArgumentTokenizer;
 import igrad.logic.parser.Parser;
+import igrad.logic.parser.ParserUtil;
 import igrad.logic.parser.Specifier;
 import igrad.logic.parser.exceptions.ParseException;
+import igrad.model.module.ModuleCode;
 import igrad.services.exceptions.ServiceException;
 
 /**
@@ -31,7 +33,8 @@ public class ModuleDoneCommandParser extends ModuleCommandParser implements Pars
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_GRADE);
 
-        Specifier specifier;
+        Specifier specifier = ParserUtil.parseSpecifier(argMultimap.getPreamble(),
+            ParserUtil.MODULE_MODULE_CODE_SPECIFIER_RULE, ModuleCode.MESSAGE_CONSTRAINTS);
 
         return null;
     }

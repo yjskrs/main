@@ -26,6 +26,9 @@ public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
 
+    public static final Function<String, Boolean> REQUIREMENT_NAME_SPECIFIER_RULE = Title::isValidTitle;
+    public static final Function<String, Boolean> MODULE_MODULE_CODE_SPECIFIER_RULE = ModuleCode::isValidModuleCode;
+
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.

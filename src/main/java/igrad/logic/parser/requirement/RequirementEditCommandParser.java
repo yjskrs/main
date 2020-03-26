@@ -38,7 +38,7 @@ public class RequirementEditCommandParser extends RequirementCommandParser {
         Specifier specifier;
         try {
             specifier = ParserUtil.parseSpecifier(argMultimap.getPreamble(),
-                RequirementCommandParser.REQUIREMENT_NAME_SPECIFIER_RULE, Title.MESSAGE_CONSTRAINTS);
+                ParserUtil.REQUIREMENT_NAME_SPECIFIER_RULE, Title.MESSAGE_CONSTRAINTS);
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_SPECIFIER_NOT_SPECIFIED, MESSAGE_USAGE), pe);
         }
