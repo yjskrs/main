@@ -210,14 +210,28 @@ image::ModuleClassDiagram.png[]
 
 1. Successful addition of module is not always guaranteed.
 
-// tag::undoredo[]
 === Requirements Feature
 Within a course, there are multiple requirements to be tracked.
 
 ==== Implementation
+.The Requirement class
+
+.Structure of the Requirement class
 image::RequirementClassDiagram.png[]
+A requirement consists of three components: name, credits and unique module list.
+The unique module list implies that each requirement stores modules assigned to that requirement.
+Multiple requirements can exist in the course book at any one time.
 
+The requirement-related commands that can be called are:
 
+* `requirement add` - adds a new requirement to the course book
+* `requirement edit` - edits an existing requirement in the course book
+* `requirement delete` - deletes an existing requirement from the course book
+* `assign` - assigns a module to the requirement
+
+Here is how the requirement class updates when a requirement is added:
+
+`[insert diagram here]`
 
 === [Proposed] Undo/Redo feature
 
