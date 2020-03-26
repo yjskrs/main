@@ -82,15 +82,9 @@ you took the module.
 
 ==== Start up the application
 
-
-
 ==== Enter your course details
 
-
-
 ==== Key in your graduation requirements
-
-
 
 ==== Assign your modules
 
@@ -358,41 +352,6 @@ Expected Outcome
 You should now see the grade reflected under the module you assigned to.
 
 '''
-==== exam
-
-View your examination results.
-
-Command Format
-
-----
-/**
-* SEMESTER is optional.
-* If not specified, displays results for all semesters.
-*/
-exam s/SEMESTER
-----
-
-Command Sample
-
-----
-/**
-* Displays exam results for Year 3 Semester 2
-*/
-exam s/Y3S2
-----
-
-Constraints
-[WARNING]
-====
-- Nil
-====
-
-Expected Outcome
-[NOTE]
-You should be able to view your exam results (in a pop-up)
-
-'''
-
 ==== achieve
 
 Calculates the average grade needed to achieve the CAP you desire/
@@ -507,8 +466,6 @@ ____
 `assign REQUIREMENT_NAME n/MODULE_CODE`
 
 `grade MODULE_CODE g/GRADE`
-
-`exam s/SEMESTER`
 
 `achieve c/DESIRED_CAP`
 
