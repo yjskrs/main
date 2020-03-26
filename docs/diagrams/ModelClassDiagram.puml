@@ -16,6 +16,7 @@ Class UserPrefs
 Class ReadOnlyUserPrefs
 
 Package Requirement {
+Class Requirement
 Class Name
 Class "Credits" as c1
 Class UniqueRequirementList
