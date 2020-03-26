@@ -211,6 +211,14 @@ image::ModuleClassDiagram.png[]
 1. Successful addition of module is not always guaranteed.
 
 // tag::undoredo[]
+=== Requirements Feature
+Within a course, there are multiple requirements to be tracked.
+
+==== Implementation
+image::RequirementClassDiagram.png[]
+
+
+
 === [Proposed] Undo/Redo feature
 
 ==== Proposed Implementation
