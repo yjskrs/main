@@ -64,14 +64,6 @@ public class Credits {
     }
 
     /**
-     * Returns a new {@code Credits} after adding specified {@code creditsToAdd} to {@code creditsFulfilled}
-     */
-    public Credits getNewCredits(int creditsToAdd) {
-        String newCredits = String.valueOf(Integer.parseInt(creditsFulfilled) + creditsToAdd);
-        return new Credits(creditsRequired, newCredits);
-    }
-
-    /**
      * Returns the {@code String creditsRequired} as integer.
      */
     public int getCreditsRequiredInteger() {

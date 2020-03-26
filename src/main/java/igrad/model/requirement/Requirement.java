@@ -105,33 +105,20 @@ public class Requirement implements ReadOnlyRequirement {
      * Adds a {@code module} to the list.
      * The module must not already exist in the list.
      */
-    public int addModule(Module module) {
+    public void addModule(Module module) {
         requireNonNull(module);
 
         modules.add(module);
-
-        return module.getCredits().toInteger();
     }
 
     /**
      * Adds a {@code module} to the list.
      * The module must not already exist in the list.
-     * @return the number of MCs added to requirement
      */
-    public int addModules(List<Module> modules) {
+    public void addModules(List<Module> modules) {
         requireNonNull(modules);
 
         this.modules.add(modules);
-        int totalCreditsAdded = modules.stream().mapToInt(module -> module.getCredits().toInteger()).sum();
-
-        return totalCreditsAdded;
-    }
-
-    /**
-     * Returns a new {@code Credits} after adding {@code creditsToAdd} into the current {@code Credits}
-     */
-    public Credits getNewCreditsFulfilled(int creditsToAdd) {
-        return credits.getNewCredits(creditsToAdd);
     }
 
     /**

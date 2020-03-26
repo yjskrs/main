@@ -12,7 +12,6 @@ import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
 import igrad.model.module.Module;
 import igrad.model.module.ModuleCode;
-import igrad.model.requirement.Credits;
 import igrad.model.requirement.Name;
 import igrad.model.requirement.Requirement;
 
@@ -75,12 +74,7 @@ public class RequirementAssignCommand extends RequirementCommand {
         }
 
         // Finally if everything alright, we can actually then assign the specified modules under this requirement
-        int creditsAdded = editedRequirement.addModules(modulesToAssign);
-
-        Credits newCreditsFulfilled = editedRequirement.getNewCreditsFulfilled(creditsAdded);
-
-        editedRequirement = new Requirement(editedRequirement.getName(),
-            newCreditsFulfilled, editedRequirement.getModuleList());
+        editedRequirement.addModules(modulesToAssign);
 
         model.setRequirement(requirementToAssign, editedRequirement);
 
