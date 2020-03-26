@@ -1,0 +1,17 @@
+@startuml
+start
+:User executes command;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+:NusModsRequester makes a get request\nto NUSMods for current academic year;
+
+if () then([receive valid response])
+else([else])
+:NusModsRequester makes a get request\nto NUSMods for previous academic year;
+
+endif
+:create Module with information in response;
+stop
+@enduml

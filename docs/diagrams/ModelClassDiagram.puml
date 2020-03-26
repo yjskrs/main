@@ -5,23 +5,33 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 Package Model <<Rectangle>>{
-Interface ReadOnlyAddressBook <<Interface>>
+Interface ReadOnlyCourseBook <<Interface>>
 Interface Model <<Interface>>
 Interface ObservableList <<Interface>>
-Class AddressBook
-Class ReadOnlyAddressBook
+Class CourseBook
+Class ReadOnlyCourseBook
 Class Model
 Class ModelManager
 Class UserPrefs
 Class ReadOnlyUserPrefs
 
-Package Person {
-Class Person
-Class Address
-Class Email
+Package Requirement {
+Class Requirement
 Class Name
-Class Phone
-Class UniquePersonList
+Class "Credits" as c1
+Class UniqueRequirementList
+}
+
+Package Module {
+Class Module
+Class "Credits" as c2
+Class Description
+Class Grade
+Class Memo
+Class ModuleCode
+Class Semester
+Class Title
+Class UniqueModuleList
 }
 
 Package Tag {
@@ -32,25 +42,41 @@ Class Tag
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
-AddressBook .up.|> ReadOnlyAddressBook
+CourseBook .up.|> ReadOnlyCourseBook
 
 ModelManager .up.|> Model
 Model .right.> ObservableList
-ModelManager o--> "1" AddressBook
+ModelManager o-down-> "1" CourseBook
 ModelManager o-left-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-AddressBook *--> "1" UniquePersonList
-UniquePersonList o--> "*" Person
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
-Person *--> "*" Tag
+CourseBook ---> "1" UniqueRequirementList
+CourseBook *--> "1" UniqueModuleList
 
-Name -[hidden]right-> Phone
-Phone -[hidden]right-> Address
-Address -[hidden]right-> Email
+UniqueRequirementList o--> "*" Requirement
+Requirement *--> "1" Name
+Requirement *--> "1" c1
+Requirement *--> "1" UniqueModuleList
 
-ModelManager -->"1" Person : filtered list
+UniqueModuleList o--> "*" Module
+Module *--> "1" Title
+Module *--> "1" ModuleCode
+Module *--> "1" c2
+Module *--> "1" Memo
+Module *--> "1" Description
+Module *--> "1" Semester
+Module *--> "1" Grade
+Module *--> "*" Tag
+
+
+Title -[hidden]right-> ModuleCode
+ModuleCode -[hidden]right-> c2
+c2 -[hidden]right-> Memo
+Memo -[hidden]right-> Description
+Description -[hidden]right-> Semester
+Semester -[hidden]right-> Grade
+
+
+ModelManager -->"1" Module : filtered list
+ModelManager -->"1" Requirement : filtered list
 @enduml
