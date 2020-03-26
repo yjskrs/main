@@ -47,6 +47,6 @@ public interface ReadOnlyRequirement {
      * requirement being fulfilled.
      * Returns true if requirement is fulfilled (credits are fulfilled), else return false.
      */
-    boolean isFulfilled(List<Module> modules);
+    boolean isPotentiallyFulfilled(List<Module> modules);
 
 }

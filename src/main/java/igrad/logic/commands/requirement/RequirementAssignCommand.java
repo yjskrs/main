@@ -100,7 +100,7 @@ public class RequirementAssignCommand extends RequirementCommand {
         if (editedRequirement.isFulfilled()) {
             // If requirement is already full, don't allow to add
             throw new CommandException(MESSAGE_REQUIREMENT_ALREADY_FULFILLED);
-        } else if (editedRequirement.isFulfilled(modulesToAssign)) {
+        } else if (editedRequirement.isPotentiallyFulfilled(modulesToAssign)) {
             // If requirement would be potentially full, don't allow to add
             throw new CommandException(MESSAGE_REQUIREMENT_POTENTIALLY_FULFILLED);
         }

@@ -201,10 +201,10 @@ public class Requirement implements ReadOnlyRequirement {
     }
 
     @Override
-    public boolean isFulfilled(List<Module> modules) {
-        int creditsCount = modules.stream().map(x -> x.getCredits().value).mapToInt(Integer::parseInt).sum();
+    public boolean isPotentiallyFulfilled(List<Module> modules) {
+        int creditsToAdd = modules.stream().map(x -> x.getCredits().value).mapToInt(Integer::parseInt).sum();
 
-        return ((creditsCount + credits.getCreditsFulfilledInteger()) >= credits.getCreditsRequiredInteger());
+        return credits.getNewCredits(creditsToAdd).isFulfilled();
     }
 
     @Override
