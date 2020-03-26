@@ -9,8 +9,10 @@ Package " "<<Rectangle>>{
     Class Logic LOGIC_COLOR
     Class Storage STORAGE_COLOR
     Class Model MODEL_COLOR
+    Class Services SERVICES_COLOR
     Class Main MODEL_COLOR_T1
     Class Commons LOGIC_COLOR_T2
+    Class Services SERVICES_COLOR_T1
     Class "Log Center" as Logs UI_COLOR_T2
     Class Hidden #FFFFFF
     Class HiddenUI #FFFFFF
@@ -29,6 +31,7 @@ Main -left-> HiddenModel
 UI -> Logic
 UI -right-> Model
 Logic -> Storage
+Logic -down-> Services
 Logic -down-> Model
 
 Logs -right- Commons

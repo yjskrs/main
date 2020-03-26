@@ -1,4 +1,4 @@
-= iGrad - Setting Up
+= AddressBook Level 3 - Setting Up
 :site-section: DeveloperGuide
 :toc:
 :toc-name:
