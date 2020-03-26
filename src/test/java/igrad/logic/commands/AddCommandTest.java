@@ -24,6 +24,7 @@ import igrad.model.ReadOnlyUserPrefs;
 import igrad.model.avatar.Avatar;
 import igrad.model.course.CourseInfo;
 import igrad.model.module.Module;
+import igrad.model.module.ModuleCode;
 import igrad.model.requirement.Name;
 import igrad.model.requirement.Requirement;
 import igrad.testutil.ModuleBuilder;
@@ -157,11 +158,6 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasAllModules(List<Module> module) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void deleteModule(Module target) {
             throw new AssertionError("This method should not be called.");
         }
@@ -203,6 +199,11 @@ public class AddCommandTest {
 
         @Override
         public Optional<Requirement> getRequirementByName(Name requirementName) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public List<Module> getModulesByModuleCode(List<ModuleCode> moduleCodes) {
             throw new AssertionError("This method should not be called.");
         }
 

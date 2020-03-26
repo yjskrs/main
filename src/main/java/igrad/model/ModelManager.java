@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import igrad.commons.core.GuiSettings;
 import igrad.commons.core.LogsCenter;
@@ -17,6 +18,7 @@ import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.avatar.Avatar;
 import igrad.model.course.CourseInfo;
 import igrad.model.module.Module;
+import igrad.model.module.ModuleCode;
 import igrad.model.requirement.Name;
 import igrad.model.requirement.Requirement;
 import javafx.collections.ObservableList;
@@ -130,14 +132,8 @@ public class ModelManager implements Model {
     @Override
     public boolean hasModule(Module module) {
         requireNonNull(module);
+
         return courseBook.hasModule(module);
-    }
-
-    @Override
-    public boolean hasAllModules(List<Module> modules) {
-        requireNonNull(modules);
-
-        return filteredModules.containsAll(modules);
     }
 
     @Override
@@ -189,6 +185,14 @@ public class ModelManager implements Model {
         return requirements.stream()
             .filter(requirement -> requirement.getName().equals(requirementName))
             .findFirst();
+    }
+
+    @Override
+    public List<Module> getModulesByModuleCode(List<ModuleCode> moduleCodes) {
+        return filteredModules.stream()
+            .filter(requirement -> moduleCodes.stream()
+                    .anyMatch(moduleCode -> moduleCode.equals(requirement.getModuleCode())))
+            .collect(Collectors.toList());
     }
 
     @Override

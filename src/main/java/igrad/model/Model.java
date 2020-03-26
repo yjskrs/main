@@ -11,6 +11,7 @@ import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.avatar.Avatar;
 import igrad.model.course.CourseInfo;
 import igrad.model.module.Module;
+import igrad.model.module.ModuleCode;
 import igrad.model.requirement.Name;
 import igrad.model.requirement.Requirement;
 import javafx.collections.ObservableList;
@@ -100,11 +101,6 @@ public interface Model {
     boolean hasModule(Module module);
 
     /**
-     * Returns true if all modules in {@code modules} has same identity as the modules existing in the course book.
-     */
-    boolean hasAllModules(List<Module> module);
-
-    /**
      * Deletes the given module.
      * The module must exist in the course book.
      */
@@ -152,11 +148,15 @@ public interface Model {
     boolean hasRequirement(Requirement requirement);
 
     /**
-     * Checks if the {@code requirement} exists in the course book.
-     * This is different from the above method as it checks only by name
-     * Returns true if it exists and false otherwise.
+     * Retrieves the {@code Requirement} exists in the course book, by checking only its given {@code Name}.
+     * Returns the @{code Requirement} if it exists else {@code Optional.empty} otherwise.
      */
     Optional<Requirement> getRequirementByName(Name requirementName);
+
+    /**
+     * Retrieves a list of {@code Module} which exists in the course book, by checking only its {@code ModuleCode}.
+     */
+    List<Module> getModulesByModuleCode(List<ModuleCode> moduleCodes);
 
     /**
      * Adds the given requirement.

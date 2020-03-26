@@ -41,7 +41,10 @@ public class UniqueModuleList implements Iterable<Module> {
      */
     public boolean contains(List<Module> modulesToCheck) {
         requireNonNull(modulesToCheck);
-        return internalList.stream().anyMatch(x -> modulesToCheck.contains(x));
+
+        return internalList.stream()
+            .anyMatch(moduleFromList -> modulesToCheck.stream()
+                .anyMatch(module -> module.getModuleCode().equals(moduleFromList.getModuleCode())));
     }
 
     /**
