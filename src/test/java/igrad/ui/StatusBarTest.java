@@ -6,7 +6,11 @@ import org.junit.jupiter.api.Test;
 
 public class StatusBarTest {
 
-    private StatusBar statusBar = new StatusBar();
+    private StatusBar statusBar;
+
+    public StatusBarTest() {
+        statusBar = new StatusBar();
+    }
 
     @Test
     public void constructor() {
