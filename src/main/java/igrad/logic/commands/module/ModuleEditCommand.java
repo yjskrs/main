@@ -30,7 +30,7 @@ import igrad.model.module.Title;
 import igrad.model.tag.Tag;
 
 /**
- * Edits the details (course name) of the existing course.
+ * Edits the details (course name) of the existing module.
  */
 public class ModuleEditCommand extends ModuleCommand {
 
