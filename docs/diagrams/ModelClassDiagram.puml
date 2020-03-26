@@ -15,9 +15,15 @@ Class ModelManager
 Class UserPrefs
 Class ReadOnlyUserPrefs
 
+Package Requirement {
+Class Name
+Class "Credits" as c1
+Class UniqueRequirementList
+}
+
 Package Module {
 Class Module
-Class Credits
+Class "Credits" as c2
 Class Description
 Class Grade
 Class Memo
@@ -39,28 +45,37 @@ CourseBook .up.|> ReadOnlyCourseBook
 
 ModelManager .up.|> Model
 Model .right.> ObservableList
-ModelManager o--> "1" CourseBook
+ModelManager o-down-> "1" CourseBook
 ModelManager o-left-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
+CourseBook ---> "1" UniqueRequirementList
 CourseBook *--> "1" UniqueModuleList
-UniqueModuleList o--> "*" Module
-Module *--> ModuleCode
-Module *--> Title
-Module *--> Credits
-Module *--> Description
-Module *--> Semester
-Module *--> Grade
 
-Module *--> Memo
+UniqueRequirementList o--> "*" Requirement
+Requirement *--> "1" Name
+Requirement *--> "1" c1
+Requirement *--> "1" UniqueModuleList
+
+UniqueModuleList o--> "*" Module
+Module *--> "1" Title
+Module *--> "1" ModuleCode
+Module *--> "1" c2
+Module *--> "1" Memo
+Module *--> "1" Description
+Module *--> "1" Semester
+Module *--> "1" Grade
 Module *--> "*" Tag
 
-ModuleCode -[hidden]right-> Title
-Title -[hidden]right-> Credits
-Credits -[hidden]right-> Grade
-Grade -[hidden]right-> Semester
-Semester -[hidden]right-> Description
-Description -[hidden]right-> Memo
+
+Title -[hidden]right-> ModuleCode
+ModuleCode -[hidden]right-> c2
+c2 -[hidden]right-> Memo
+Memo -[hidden]right-> Description
+Description -[hidden]right-> Semester
+Semester -[hidden]right-> Grade
+
 
 ModelManager -->"1" Module : filtered list
+ModelManager -->"1" Requirement : filtered list
 @enduml
