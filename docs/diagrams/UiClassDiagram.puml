@@ -56,7 +56,6 @@ CommandBox --|> UiPart
 ModuleListPanel --|> UiPart
 ModuleCard --|> UiPart
 StatusBar --|> UiPart
-HelpWindow -down-|> UiPart
 CommandReceivedPanel --|> UiPart
 ProgressSidePanel --|> UiPart
 RequirementListPanel --|> UiPart
