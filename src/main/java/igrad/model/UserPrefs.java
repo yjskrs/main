@@ -57,14 +57,14 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         return courseBookFilePath;
     }
 
-    @Override
-    public Path getBackupCourseBookFilePath() {
-        return backupCourseBookFilePath;
-    }
-
     public void setCourseBookFilePath(Path courseBookFilePath) {
         requireNonNull(courseBookFilePath);
         this.courseBookFilePath = courseBookFilePath;
+    }
+
+    @Override
+    public Path getBackupCourseBookFilePath() {
+        return backupCourseBookFilePath;
     }
 
     public void setBackupCourseBookFilePath(Path backupCourseBookFilePath) {

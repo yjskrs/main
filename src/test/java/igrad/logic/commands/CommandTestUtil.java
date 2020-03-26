@@ -16,6 +16,7 @@ import java.util.List;
 
 import igrad.commons.core.index.Index;
 import igrad.logic.commands.exceptions.CommandException;
+import igrad.logic.commands.module.ModuleEditCommand;
 import igrad.model.CourseBook;
 import igrad.model.Model;
 import igrad.model.module.Module;

@@ -42,7 +42,7 @@ public class Name {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object, else check
-                   || (other instanceof Name && value.equals(((Name) other).value)); // check same type and value
+            || (other instanceof Name && value.equals(((Name) other).value)); // check same type and value
     }
 
     @Override

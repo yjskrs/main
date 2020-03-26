@@ -9,12 +9,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
 import igrad.commons.core.GuiSettings;
 import igrad.logic.commands.exceptions.CommandException;
+import igrad.logic.commands.module.ModuleAddCommand;
 import igrad.model.CourseBook;
 import igrad.model.Model;
 import igrad.model.ReadOnlyCourseBook;
@@ -22,6 +24,8 @@ import igrad.model.ReadOnlyUserPrefs;
 import igrad.model.avatar.Avatar;
 import igrad.model.course.CourseInfo;
 import igrad.model.module.Module;
+import igrad.model.module.ModuleCode;
+import igrad.model.requirement.Name;
 import igrad.model.requirement.Requirement;
 import igrad.testutil.ModuleBuilder;
 import javafx.collections.ObservableList;
@@ -190,6 +194,16 @@ public class AddCommandTest {
 
         @Override
         public boolean hasRequirement(Requirement requirement) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Optional<Requirement> getRequirementByName(Name requirementName) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public List<Module> getModulesByModuleCode(List<ModuleCode> moduleCodes) {
             throw new AssertionError("This method should not be called.");
         }
 

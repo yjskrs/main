@@ -1,9 +1,12 @@
 package igrad.logic.parser;
 
+import static igrad.logic.parser.module.ModuleCommandParser.parseModuleCode;
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -11,6 +14,7 @@ import igrad.commons.core.index.Index;
 import igrad.commons.util.StringUtil;
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.avatar.Avatar;
+import igrad.model.module.ModuleCode;
 import igrad.model.module.Title;
 import igrad.model.tag.Tag;
 
@@ -45,6 +49,8 @@ public class ParserUtil {
         requireNonNull(specifier);
 
         String trimmedSpecifier = specifier.trim();
+
+        // TODO: I think this should be changed to model.Requirement.Name
         if (!Title.isValidTitle(trimmedSpecifier)) {
             throw new ParseException(Title.MESSAGE_CONSTRAINTS);
         }
@@ -91,6 +97,21 @@ public class ParserUtil {
             tagsSet.add(parseTag(tagName));
         }
         return tagsSet;
+    }
+
+    /**
+     * Parses {@code Collection<String> moduleCodes} into a {@code List<ModuleCode>}.
+     */
+    public static List<ModuleCode> parseModuleCodes(Collection<String> moduleCodes) throws ParseException {
+        requireNonNull(moduleCodes);
+
+        final List<ModuleCode> moduleCodesList = new ArrayList<>();
+
+        for (String moduleCode : moduleCodes) {
+            moduleCodesList.add(parseModuleCode(moduleCode));
+        }
+
+        return moduleCodesList;
     }
 
     /**

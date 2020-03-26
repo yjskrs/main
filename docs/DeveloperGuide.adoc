@@ -69,7 +69,7 @@ image::LogicClassDiagram.png[]
 
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
 
-.Component interactions for `delete 1` command
+.Component interactions for `module delete CS1010` command
 image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
@@ -129,7 +129,8 @@ The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Course Book data.
-* exposes an unmodifiable `ObservableList<Module>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* exposes an unmodifiable `ObservableList<Requirement>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* exposes an unmodifiable `ObservableList<Module>` that can be 'observed'.
 * does not depend on any of the other three components.
 
 [NOTE]

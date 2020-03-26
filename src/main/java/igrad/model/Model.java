@@ -3,6 +3,7 @@ package igrad.model;
 import java.nio.file.Path;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import igrad.commons.core.GuiSettings;
@@ -10,6 +11,8 @@ import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.avatar.Avatar;
 import igrad.model.course.CourseInfo;
 import igrad.model.module.Module;
+import igrad.model.module.ModuleCode;
+import igrad.model.requirement.Name;
 import igrad.model.requirement.Requirement;
 import javafx.collections.ObservableList;
 
@@ -53,15 +56,14 @@ public interface Model {
     Path getCourseBookFilePath();
 
     /**
-     * Returns the user prefs' backup course book file path.
-     */
-    Path getBackupCourseBookFilePath();
-
-
-    /**
      * Sets the user prefs' course book file path.
      */
     void setCourseBookFilePath(Path courseBookFilePath);
+
+    /**
+     * Returns the user prefs' backup course book file path.
+     */
+    Path getBackupCourseBookFilePath();
 
     /**
      * Resets {@code courseBook} data to a blank state with no data (e.g, modules, requirements, etc).
@@ -115,16 +117,16 @@ public interface Model {
     CourseInfo getCourseInfo();
 
     /**
-     * Checks if the course name has been set.
-     */
-    boolean isCourseNameSet();
-
-    /**
      * Replaces the given module {@code target} with {@code editedModule}.
      * {@code target} must exist in the course book.
      * The module identity of {@code editedModule} must not be the same as another existing module in the course book.
      */
     void setCourseInfo(CourseInfo editedCourseInfo);
+
+    /**
+     * Checks if the course name has been set.
+     */
+    boolean isCourseNameSet();
 
     /**
      * Adds the given module.
@@ -144,6 +146,17 @@ public interface Model {
      * Returns true if it exists and false otherwise.
      */
     boolean hasRequirement(Requirement requirement);
+
+    /**
+     * Retrieves the {@code Requirement} exists in the course book, by checking only its given {@code Name}.
+     * Returns the @{code Requirement} if it exists else {@code Optional.empty} otherwise.
+     */
+    Optional<Requirement> getRequirementByName(Name requirementName);
+
+    /**
+     * Retrieves a list of {@code Module} which exists in the course book, by checking only its {@code ModuleCode}.
+     */
+    List<Module> getModulesByModuleCode(List<ModuleCode> moduleCodes);
 
     /**
      * Adds the given requirement.
