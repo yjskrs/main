@@ -7,8 +7,10 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import igrad.commons.core.GuiSettings;
 import igrad.commons.core.LogsCenter;
@@ -16,6 +18,8 @@ import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.avatar.Avatar;
 import igrad.model.course.CourseInfo;
 import igrad.model.module.Module;
+import igrad.model.module.ModuleCode;
+import igrad.model.requirement.Name;
 import igrad.model.requirement.Requirement;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -82,14 +86,14 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getBackupCourseBookFilePath() {
-        return userPrefs.getBackupCourseBookFilePath();
-    }
-
-    @Override
     public void setCourseBookFilePath(Path courseBookFilePath) {
         requireNonNull(courseBookFilePath);
         userPrefs.setCourseBookFilePath(courseBookFilePath);
+    }
+
+    @Override
+    public Path getBackupCourseBookFilePath() {
+        return userPrefs.getBackupCourseBookFilePath();
     }
 
     @Override
@@ -128,6 +132,7 @@ public class ModelManager implements Model {
     @Override
     public boolean hasModule(Module module) {
         requireNonNull(module);
+
         return courseBook.hasModule(module);
     }
 
@@ -142,6 +147,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void setCourseInfo(CourseInfo editedCourseInfo) {
+        courseBook.setCourseInfo(editedCourseInfo);
+    }
+
+    @Override
     public boolean isCourseNameSet() {
         return courseBook.getCourseInfo().getName().isPresent();
     }
@@ -149,11 +159,6 @@ public class ModelManager implements Model {
     @Override
     public void addCourseInfo(CourseInfo courseInfo) throws CommandException {
         courseBook.addCourseInfo(courseInfo);
-    }
-
-    @Override
-    public void setCourseInfo(CourseInfo editedCourseInfo) {
-        courseBook.setCourseInfo(editedCourseInfo);
     }
 
     @Override
@@ -173,6 +178,21 @@ public class ModelManager implements Model {
     public boolean hasRequirement(Requirement requirement) {
         requireNonNull(requirement);
         return courseBook.hasRequirement(requirement);
+    }
+
+    @Override
+    public Optional<Requirement> getRequirementByName(Name requirementName) {
+        return requirements.stream()
+            .filter(requirement -> requirement.getName().equals(requirementName))
+            .findFirst();
+    }
+
+    @Override
+    public List<Module> getModulesByModuleCode(List<ModuleCode> moduleCodes) {
+        return filteredModules.stream()
+            .filter(requirement -> moduleCodes.stream()
+                .anyMatch(moduleCode -> moduleCode.equals(requirement.getModuleCode())))
+            .collect(Collectors.toList());
     }
 
     @Override

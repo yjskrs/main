@@ -14,7 +14,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import igrad.logic.commands.ModuleAddAutoCommand;
+import igrad.logic.commands.module.ModuleAddAutoCommand;
 import igrad.logic.parser.ArgumentMultimap;
 import igrad.logic.parser.ArgumentTokenizer;
 import igrad.logic.parser.Parser;

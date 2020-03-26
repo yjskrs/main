@@ -40,6 +40,7 @@ public class RequirementEditCommand extends RequirementCommand {
     public static final String MESSAGE_REQUIREMENT_DUPLICATE = "This requirement already exists. "
         + "Please change to a different name or delete the requirement if you no longer need it.";
 
+
     private final Name originalName;
 
     private final Optional<Name> newName;
@@ -61,6 +62,7 @@ public class RequirementEditCommand extends RequirementCommand {
 
         List<Requirement> requirements = model.getRequirementList();
 
+        // TODO: change to model.getRequirementByName(Name name), which I've created and used in Requirement assign
         Requirement requirementToEdit = requirements.stream()
             .filter(requirement -> requirement.getName().equals(originalName))
             .findFirst()
@@ -78,8 +80,8 @@ public class RequirementEditCommand extends RequirementCommand {
 
         // If changed name is the same as an existing name
         if (requirements.stream()
-                .anyMatch(requirement -> !requirement.getName().equals(originalName)
-                                             && requirement.hasSameName(editedRequirement))) {
+            .anyMatch(requirement -> !requirement.getName().equals(originalName)
+                && requirement.hasSameName(editedRequirement))) {
             throw new CommandException(MESSAGE_REQUIREMENT_DUPLICATE);
         }
 

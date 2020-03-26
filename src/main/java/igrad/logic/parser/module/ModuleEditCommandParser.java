@@ -14,7 +14,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import igrad.commons.core.Messages;
-import igrad.logic.commands.ModuleEditCommand;
+import igrad.logic.commands.module.ModuleEditCommand;
 import igrad.logic.parser.ArgumentMultimap;
 import igrad.logic.parser.ArgumentTokenizer;
 import igrad.logic.parser.Parser;

@@ -37,7 +37,7 @@ public class Credits {
      * Constructs a {@code Credits} with {@code creditsRequired} credits required and
      * {@code creditsFulfilled} creditsFulfilled.
      *
-     * @param creditsRequired A valid credits value (integer).
+     * @param creditsRequired  A valid credits value (integer).
      * @param creditsFulfilled A valid credits value (integer).
      */
     public Credits(String creditsRequired, String creditsFulfilled) {
@@ -61,6 +61,14 @@ public class Credits {
      */
     public String getCreditsRequired() {
         return creditsRequired;
+    }
+
+    /**
+     * Returns a new {@code Credits} after adding specified {@code creditsToAdd} to {@code creditsFulfilled}
+     */
+    public Credits getNewCredits(int creditsToAdd) {
+        String newCredits = String.valueOf(Integer.parseInt(creditsFulfilled) + creditsToAdd);
+        return new Credits(creditsRequired, newCredits);
     }
 
     /**
@@ -103,8 +111,8 @@ public class Credits {
     public boolean equals(Object other) {
         return other == this // return true if same object, else check
             || (other instanceof Credits
-                    && creditsRequired.equals(((Credits) other).creditsRequired)
-                    && creditsFulfilled.equals(((Credits) other).creditsFulfilled));
+            && creditsRequired.equals(((Credits) other).creditsRequired)
+            && creditsFulfilled.equals(((Credits) other).creditsFulfilled));
     }
 
     @Override

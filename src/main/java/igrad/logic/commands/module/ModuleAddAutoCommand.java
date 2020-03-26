@@ -1,4 +1,4 @@
-package igrad.logic.commands;
+package igrad.logic.commands.module;
 
 import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
 import static igrad.logic.parser.CliSyntax.PREFIX_MEMO;
@@ -7,6 +7,7 @@ import static igrad.logic.parser.CliSyntax.PREFIX_SEMESTER;
 import static igrad.logic.parser.CliSyntax.PREFIX_TITLE;
 import static java.util.Objects.requireNonNull;
 
+import igrad.logic.commands.CommandResult;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
 import igrad.model.module.Module;
@@ -14,7 +15,7 @@ import igrad.model.module.Module;
 /**
  * Adds a module to the course book.
  */
-public class ModuleAddCommand extends ModuleCommand {
+public class ModuleAddAutoCommand extends ModuleCommand {
 
     public static final String COMMAND_WORD = MODULE_COMMAND_WORD + "add";
 
@@ -32,15 +33,15 @@ public class ModuleAddCommand extends ModuleCommand {
         + PREFIX_MEMO + "Hard module. Good teachers. "
         + PREFIX_SEMESTER + "Y2S2 ";
 
-    public static final String MESSAGE_SUCCESS = "New module added: %1$s";
+    public static final String MESSAGE_SUCCESS = "New module added based on NUSMods data: %1$s";
     public static final String MESSAGE_DUPLICATE_MODULE = "This module already exists in the course book";
 
     private final Module toAdd;
 
     /**
-     * Creates an ModuleAddCommand to add the specified {@code Module}
+     * Creates an ModuleAddCommand to add the specified {@code Person}
      */
-    public ModuleAddCommand(Module module) {
+    public ModuleAddAutoCommand(Module module) {
         requireNonNull(module);
         toAdd = module;
     }
@@ -60,7 +61,7 @@ public class ModuleAddCommand extends ModuleCommand {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof ModuleAddCommand // instanceof handles nulls
-            && toAdd.equals(((ModuleAddCommand) other).toAdd));
+            || (other instanceof ModuleAddAutoCommand // instanceof handles nulls
+            && toAdd.equals(((ModuleAddAutoCommand) other).toAdd));
     }
 }

@@ -9,8 +9,8 @@ import static igrad.logic.parser.CliSyntax.PREFIX_TITLE;
 
 import java.util.Set;
 
-import igrad.logic.commands.ModuleAddCommand;
-import igrad.logic.commands.ModuleEditCommand.EditModuleDescriptor;
+import igrad.logic.commands.module.ModuleAddCommand;
+import igrad.logic.commands.module.ModuleEditCommand.EditModuleDescriptor;
 import igrad.model.module.Module;
 import igrad.model.tag.Tag;
 

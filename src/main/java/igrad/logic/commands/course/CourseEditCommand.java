@@ -26,7 +26,7 @@ public class CourseEditCommand extends CourseCommand {
     public static final String MESSAGE_EDIT_COURSE_SUCCESS = "Edited Course: %1$s";
     public static final String MESSAGE_EDIT_COURSE_SAME_PARAMETERS = "Please change the name of the course";
     public static final String MESSAGE_COURSE_NOT_EDITED = "Edited course must be provided with prefix "
-            + "[" + PREFIX_NAME + "]";
+        + "[" + PREFIX_NAME + "]";
 
 
     //private final Name originalName;

@@ -3,7 +3,7 @@ package igrad.logic.parser.module;
 import static igrad.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
 
 import igrad.commons.core.Messages;
-import igrad.logic.commands.ModuleDeleteCommand;
+import igrad.logic.commands.module.ModuleDeleteCommand;
 import igrad.logic.parser.ArgumentMultimap;
 import igrad.logic.parser.ArgumentTokenizer;
 import igrad.logic.parser.Parser;

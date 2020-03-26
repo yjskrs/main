@@ -5,8 +5,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import igrad.logic.commands.ModuleEditCommand;
-import igrad.logic.commands.ModuleEditCommand.EditModuleDescriptor;
+import igrad.logic.commands.module.ModuleEditCommand;
+import igrad.logic.commands.module.ModuleEditCommand.EditModuleDescriptor;
 import igrad.model.module.Credits;
 import igrad.model.module.Memo;
 import igrad.model.module.Module;
