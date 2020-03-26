@@ -14,6 +14,7 @@ ifdef::env-github[]
 :important-caption: :heavy_exclamation_mark:
 :caution-caption: :fire:
 :warning-caption: :warning:
+:icons: :font:
 endif::[]
 :repoURL: https://github.com/AY1920S2-CS2103T-F09-3/main
 
@@ -78,6 +79,21 @@ A module is the building block of all other components. Mark your modules as don
 a grade. You can also add optional memos to help you remember why
 you took the module.
 
+== How to use this guide
+
+You may proceed to <<Walkthrough>> if you want a step-by-step break down of how to navigate the app,
+<<Command List>> if you would like to learn how to use each of the commands, and <<Cheat Sheet>>
+if you would just like a list of all the commands for easy reference.
+
+The figure below explains the symbols used throughout the user guide.
+
+WARNING: Specifies the constraints of the command or situation.
+
+NOTE: Specifies command outcomes.
+
+TIP: Specifies extra tips you can use when navigating through our app.
+
+
 == Walkthrough
 
 ==== Start up the application
@@ -104,10 +120,11 @@ you took the module.
 Here are the list of commands you can use to make full use of iGrad.
 
 Take note of the following when using our commands:
-----
-Comamnds with fields wrapped within square brackets (i.e. []) require at least one of these fields to be specified when using the command.
+
+WARNING: Commands with fields wrapped within square brackets (i.e. []) require at least one of these fields to be specified
+when using the command.
 This means that you need just specify one of these fields while others may be optional based on your usage.
-----
+
 
 ==== help
 
@@ -120,13 +137,10 @@ Command Format
 help
 ----
 
-WARNING: Constraints
-
-NIL
-
-TIP: Expected Outcome
-
-A help message should be displayed
+Expected Outcome
+[NOTE]
+A popup for the list of all commands as well as the link to the user guide is shown.
+`INSERT POPUP PHOTO`
 
 '''
 
@@ -165,6 +179,7 @@ course remove
 ----
 
 Constraints
+[WARNING]
 ====
 1. `(all)`: You can only have at most one course at any one time
 2. `course remove`: Removing a course removes all data from the system (including modules, requirements, etc)
@@ -341,12 +356,6 @@ Command Sample
 grade CS2103T g/A
 ----
 
-Constraints
-[WARNING]
-====
-- Nil
-====
-
 Expected Outcome
 [NOTE]
 You should now see the grade reflected under the module you assigned to.
@@ -372,12 +381,6 @@ Command Sample
 achieve c/4.50
 ----
 
-Constraints
-[WARNING]
-====
-- Nil
-====
-
 Expected Outcome
 [NOTE]
 You should be able to view the average grade needed to achieve the CAP you desire (in a pop-up)
@@ -393,14 +396,8 @@ this file can be submitted to NUS as a study plan.
 Command Format
 
 ----
-1. export
+export
 ----
-
-Constraints
-[WARNING]
-====
-- Nil
-====
 
 Expected Outcome
 [NOTE]
@@ -418,12 +415,6 @@ Command Format
 exit
 ----
 
-Constraints
-[WARNING]
-====
-- Nil
-====
-
 Expected Outcome
 [NOTE]
 The application should exit
@@ -439,7 +430,7 @@ However, we will be unable to provide features such as validation from NUSMods.
 
 ____
 
-This segment contains all the commands detailed in this guide in a consolidated list
+This segment contains all the commands detailed in this guide in a consolidated list.
 
 ____
 
