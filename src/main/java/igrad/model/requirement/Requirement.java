@@ -201,13 +201,6 @@ public class Requirement implements ReadOnlyRequirement {
     }
 
     @Override
-    public boolean isPotentiallyFulfilled(List<Module> modules) {
-        int creditsToAdd = modules.stream().map(x -> x.getCredits().value).mapToInt(Integer::parseInt).sum();
-
-        return credits.getNewCredits(creditsToAdd).isFulfilled();
-    }
-
-    @Override
     public String toString() {
         return "Requirement: " + name + ", " + credits + " creditsRequired and "
             + getCreditsFulfilled() + " creditsFulfilled has "

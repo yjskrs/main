@@ -1,7 +1,5 @@
 package igrad.model.requirement;
 
-import java.util.List;
-
 import igrad.model.module.Module;
 import javafx.collections.ObservableList;
 
@@ -41,12 +39,4 @@ public interface ReadOnlyRequirement {
      * Returns true if requirement is fulfilled (credits are fulfilled), else return false.
      */
     boolean isFulfilled();
-
-    /**
-     * Returns a boolean value to indicate whether the assignment of {@code modules} would potentially result in the
-     * requirement being fulfilled.
-     * Returns true if requirement is fulfilled (credits are fulfilled), else return false.
-     */
-    boolean isPotentiallyFulfilled(List<Module> modules);
-
 }
