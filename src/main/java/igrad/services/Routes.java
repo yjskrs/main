@@ -1,7 +1,7 @@
 package igrad.services;
 
 /**
- * Contains NUS MODS path and file names.
+ * Contains NUSMods path and file names.
  */
 public class Routes {
 

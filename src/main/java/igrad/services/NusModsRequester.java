@@ -17,7 +17,7 @@ public class NusModsRequester {
 
     private static final Logger logger = LogsCenter.getLogger(NusModsRequester.class);
     private static final String fileNotFoundMsg = "The specified module could not be"
-        + " found on NUS Mods. Please remove the " + CliSyntax.FLAG_AUTO
+        + " found on NUSMods. Please remove the " + CliSyntax.FLAG_AUTO
         + " flag and add the file manually";
 
     /**
