@@ -11,7 +11,7 @@ import static java.util.Objects.requireNonNull;
 public class Credits {
 
     public static final String MESSAGE_CONSTRAINTS =
-        "Modular credits needed to satisfy requirement should be more than 0.";
+        "Modular credits needed to satisfy requirement should be a number more than 0.";
 
     // TODO
     public static final String VALIDATION_REGEX = "^[0-9]\\d*$"; // allows any numbers more than or equals zero
@@ -21,9 +21,9 @@ public class Credits {
     public final String creditsFulfilled;
 
     /**
-     * Constructs a {@code Credits} with 0 credits fulfilled.
+     * Constructs a {@code Credits} with 0 fulfilled credits.
      *
-     * @param creditsRequired A valid credits value.
+     * @param creditsRequired A valid credits value (integer).
      */
     public Credits(String creditsRequired) {
         requireNonNull(creditsRequired);
@@ -33,14 +33,20 @@ public class Credits {
         this.creditsFulfilled = "0";
     }
 
+    /**
+     * Constructs a {@code Credits} with {@code creditsRequired} credits required and
+     * {@code creditsFulfilled} creditsFulfilled.
+     *
+     * @param creditsRequired A valid credits value (integer).
+     * @param creditsFulfilled A valid credits value (integer).
+     */
     public Credits(String creditsRequired, String creditsFulfilled) {
         requireAllNonNull(creditsRequired, creditsFulfilled);
         checkArgument(isValidCredits(creditsRequired), MESSAGE_CONSTRAINTS);
         checkArgument(isValidCredits(creditsFulfilled), MESSAGE_CONSTRAINTS);
 
-
         this.creditsRequired = creditsRequired;
-        this.creditsFulfilled = "0";
+        this.creditsFulfilled = creditsFulfilled;
     }
 
     /**

@@ -7,15 +7,16 @@ import static java.util.Objects.requireNonNull;
  * Represents a Module's grade.
  */
 public class Grade {
-    public static final String MESSAGE_CONSTRAINTS = "Grade should be.";
+    public static final String MESSAGE_CONSTRAINTS = "Grade should be a valid format";
 
-    // public static final String VALIDATION_REGEX = ".+";
+    public static final String VALIDATION_REGEX = "(A\\+)|(A)|(A-)|(B\\+)|(B)|(B-)|(C+)|(C)|(D)|(F)|(S)|(U)";
 
     public final String value;
 
     /**
      * Constructs a default {@code Grade}.
      */
+    // TODO: If Grade is Optional in Module, we should not be having default values here, can just use isPresent
     public Grade() {
         value = "-";
     }
@@ -28,31 +29,15 @@ public class Grade {
     public Grade(String grade) {
         requireNonNull(grade);
         checkArgument(isValidGrade(grade), MESSAGE_CONSTRAINTS);
+
         value = grade;
     }
 
     /**
      * Returns true if {@code String grade} is valid grade.
      */
-    public static boolean isValidGrade(String grade) {
-        switch (grade) {
-        case "A+":
-        case "A":
-        case "A-":
-        case "B+":
-        case "B":
-        case "B-":
-        case "C+":
-        case "C":
-        case "D":
-        case "F":
-        case "S":
-        case "U":
-        case "-": // ungraded, default value
-            return true;
-        default:
-            return false;
-        }
+    public static boolean isValidGrade(String test) {
+        return test.matches(VALIDATION_REGEX);
     }
 
     @Override

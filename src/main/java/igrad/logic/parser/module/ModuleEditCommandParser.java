@@ -14,13 +14,13 @@ import java.util.Optional;
 import java.util.Set;
 
 import igrad.commons.core.Messages;
-import igrad.commons.core.index.Index;
 import igrad.logic.commands.ModuleEditCommand;
 import igrad.logic.parser.ArgumentMultimap;
 import igrad.logic.parser.ArgumentTokenizer;
 import igrad.logic.parser.Parser;
 import igrad.logic.parser.ParserUtil;
 import igrad.logic.parser.exceptions.ParseException;
+import igrad.model.module.ModuleCode;
 import igrad.model.tag.Tag;
 
 /**
@@ -40,23 +40,21 @@ public class ModuleEditCommandParser extends ModuleCommandParser implements Pars
             ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_MODULE_CODE, PREFIX_CREDITS,
                 PREFIX_MEMO, PREFIX_SEMESTER, PREFIX_TAG);
 
-        Index index;
-
-        try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
-        } catch (ParseException pe) {
-            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
-                ModuleEditCommand.MESSAGE_USAGE), pe);
-        }
 
         ModuleEditCommand.EditModuleDescriptor editModuleDescriptor = new ModuleEditCommand.EditModuleDescriptor();
-        if (argMultimap.getValue(PREFIX_TITLE).isPresent()) {
-            editModuleDescriptor.setTitle(parseTitle(argMultimap.getValue(PREFIX_TITLE).get()));
-        }
+        ModuleCode moduleCode;
 
         if (argMultimap.getValue(PREFIX_MODULE_CODE).isPresent()) {
-            editModuleDescriptor.setModuleCode(parseModuleCode(
-                argMultimap.getValue(PREFIX_MODULE_CODE).get()));
+            moduleCode = parseModuleCode(
+                argMultimap.getValue(PREFIX_MODULE_CODE).get()
+            );
+        } else {
+            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                ModuleEditCommand.MESSAGE_USAGE));
+        }
+
+        if (argMultimap.getValue(PREFIX_TITLE).isPresent()) {
+            editModuleDescriptor.setTitle(parseTitle(argMultimap.getValue(PREFIX_TITLE).get()));
         }
 
         if (argMultimap.getValue(PREFIX_CREDITS).isPresent()) {
@@ -77,7 +75,7 @@ public class ModuleEditCommandParser extends ModuleCommandParser implements Pars
             throw new ParseException(ModuleEditCommand.MESSAGE_NOT_EDITED);
         }
 
-        return new ModuleEditCommand(index, editModuleDescriptor);
+        return new ModuleEditCommand(moduleCode, editModuleDescriptor);
     }
 
     /**

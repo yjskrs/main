@@ -1,5 +1,7 @@
 package igrad.logic;
 
+import static igrad.commons.core.Messages.MESSAGE_COURSE_NOT_SET;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.logging.Logger;
@@ -58,23 +60,6 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public CommandResult executeSetCourseName(String commandText) throws ParseException, CommandException {
-        CommandResult commandResult;
-
-        CourseAddCommand courseAddCommand = courseBookParser.parseSetCourseName(commandText);
-        commandResult = courseAddCommand.execute(model);
-
-        try {
-            // Saves to UserPref data file to save new Avatar, after successful Avatar command execution
-            storage.saveCourseBook(model.getCourseBook());
-        } catch (IOException ioe) {
-            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
-        }
-
-        return commandResult;
-    }
-
-    @Override
     public CommandResult execute(String commandText) throws CommandException,
         ParseException, IOException, ServiceException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
@@ -82,6 +67,14 @@ public class LogicManager implements Logic {
 
         CommandResult commandResult;
         Command command = courseBookParser.parseCommand(commandText);
+
+        /*
+         * If user has not selected her course name, and she is trying to execute any other
+         * command except course add n/course_name, prevent her from doing so.
+         */
+        if (!model.isCourseNameSet() && !(command instanceof CourseAddCommand)) {
+            throw new CommandException(MESSAGE_COURSE_NOT_SET);
+        }
 
         if (!(command instanceof UndoCommand)) {
             try {

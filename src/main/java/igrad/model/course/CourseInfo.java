@@ -1,7 +1,5 @@
 package igrad.model.course;
 
-import static igrad.commons.util.CollectionUtil.requireAllNonNull;
-
 import java.util.Objects;
 import java.util.Optional;
 
@@ -12,19 +10,21 @@ import java.util.Optional;
 public class CourseInfo {
 
     // Identity fields
+
+    // A course info object can be created without a name, this is the case when the user hasn't done course add cmd
     private final Optional<Name> name;
 
     // Data fields
 
+    // This constructor is only used for JSON Serialising classes
     public CourseInfo() {
-        this.name = Optional.empty();
+        name = Optional.empty();
     }
 
     /**
      * Every field must be present and not null.
      */
     public CourseInfo(Optional<Name> name) {
-        requireAllNonNull(name);
         this.name = name;
     }
 
@@ -58,8 +58,12 @@ public class CourseInfo {
 
     @Override
     public String toString() {
+
+        Optional<Name> name = getName();
+
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName().get());
+
+        name.ifPresent(x -> builder.append(" Name ").append(x));
         return builder.toString();
     }
 

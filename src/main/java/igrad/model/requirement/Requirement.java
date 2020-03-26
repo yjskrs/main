@@ -19,6 +19,13 @@ public class Requirement implements ReadOnlyRequirement {
     private final Credits credits; // credit information for the requirement
     private final UniqueModuleList modules = new UniqueModuleList(); // list of modules associated with requirement
 
+    /**
+     * Creates a {@code Requirement} object with given {@code name} and {@code credits}
+     * and a default empty modules list.
+     *
+     * @param name Name of the requirement.
+     * @param credits Credits of the requirement.
+     */
     public Requirement(Name name, Credits credits) {
         requireNonNull(name);
 
@@ -26,6 +33,14 @@ public class Requirement implements ReadOnlyRequirement {
         this.credits = credits;
     }
 
+    /**
+     * Creates a {@code Requirement} object with given {@code name}, {@code credits} and
+     * a list of {@code modules}.
+     *
+     * @param name Name of the requirement.
+     * @param credits Credits of the requirement.
+     * @param modules List of modules belonging in the requirement.
+     */
     public Requirement(Name name, Credits credits, List<Module> modules) {
         requireNonNull(name);
 
@@ -34,6 +49,11 @@ public class Requirement implements ReadOnlyRequirement {
         setModules(modules);
     }
 
+    /**
+     * Creates a requirement by making a copy from an existing requirement {@code toBeCopied}.
+     *
+     * @param toBeCopied Requirement to copy from.
+     */
     public Requirement(ReadOnlyRequirement toBeCopied) {
         requireNonNull(toBeCopied);
 
@@ -159,9 +179,11 @@ public class Requirement implements ReadOnlyRequirement {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof Requirement // check if same properties
-                && modules.equals(((Requirement) other).modules)
-                && name.equals(((Requirement) other).name));
+                   || (other instanceof Requirement // check properties
+                           && name.equals(((Requirement) other).name)
+                           && credits.equals(((Requirement) other).credits)
+                           && modules.equals(((Requirement) other).modules));
+
     }
 
     @Override

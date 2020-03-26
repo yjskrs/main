@@ -53,11 +53,11 @@ public class ModuleCard extends UiPart<Region> {
         moduleCode.setText(module.getModuleCode().value);
         credits.setText(module.getCredits().value + " MCs");
 
-        if (module.getMemo() != null) {
-            memo.setText("Memo: " + module.getMemo().value);
+        if (module.getMemo().isPresent()) {
+            memo.setText("Memo: " + module.getMemo().get().value);
         }
-        if (module.getSemester() != null) {
-            semester.setText(module.getSemester().value);
+        if (module.getSemester().isPresent()) {
+            semester.setText(module.getSemester().get().value);
         }
         /*
             if (module.getDescription() != null) {

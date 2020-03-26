@@ -1,5 +1,6 @@
 package igrad.testutil;
 
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -70,7 +71,7 @@ public class EditModuleDescriptorBuilder {
      * Sets the {@code Memo} of the {@code EditModuleDescriptor} that we are building.
      */
     public EditModuleDescriptorBuilder withMemo(String memo) {
-        descriptor.setMemo(new Memo(memo));
+        descriptor.setMemo(Optional.of(new Memo(memo)));
         return this;
     }
 
@@ -78,7 +79,7 @@ public class EditModuleDescriptorBuilder {
      * Sets the {@code Semester} of the {@code EditModuleDescriptor} that we are building.
      */
     public EditModuleDescriptorBuilder withSemester(String semester) {
-        descriptor.setSemester(new Semester(semester));
+        descriptor.setSemester(Optional.of(new Semester(semester)));
         return this;
     }
 

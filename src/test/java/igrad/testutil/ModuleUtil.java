@@ -34,8 +34,8 @@ public class ModuleUtil {
         sb.append(PREFIX_TITLE + module.getTitle().value + " ");
         sb.append(PREFIX_MODULE_CODE + module.getModuleCode().value + " ");
         sb.append(PREFIX_CREDITS + module.getCredits().value + " ");
-        sb.append(PREFIX_MEMO + module.getMemo().value + " ");
-        sb.append(PREFIX_SEMESTER + module.getSemester().value + " ");
+        sb.append(PREFIX_MEMO + module.getMemo().get().value + " ");
+        sb.append(PREFIX_SEMESTER + module.getSemester().get().value + " ");
         module.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")
         );
@@ -56,10 +56,10 @@ public class ModuleUtil {
             .append(credits.value).append(" "));
 
         descriptor.getMemo().ifPresent(memo -> sb.append(PREFIX_MEMO)
-            .append(memo.value).append(" "));
+            .append(memo.get().value).append(" "));
 
         descriptor.getSemester().ifPresent(semester -> sb.append(PREFIX_SEMESTER)
-            .append(semester.value).append(" "));
+            .append(semester.get().value).append(" "));
 
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();

@@ -28,15 +28,6 @@ public interface Logic {
     CommandResult executeAvatar(String commandText) throws ParseException, CommandException;
 
     /**
-     * Executes only the course add command and none others.
-     *
-     * @param commandText The command as entered by the user.
-     * @return the result of the command execution.
-     * @throws ParseException If any other command except course add has been entered.
-     */
-    CommandResult executeSetCourseName(String commandText) throws ParseException, CommandException;
-
-    /**
      * Executes the command and returns the result.
      *
      * @param commandText The command as entered by the user.

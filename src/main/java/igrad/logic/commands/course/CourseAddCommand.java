@@ -43,7 +43,7 @@ public class CourseAddCommand extends CourseCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (model.getCourseInfo().getName().isPresent()) {
+        if (model.isCourseNameSet()) {
             throw new CommandException(MESSAGE_COURSE_ALREADY_SET);
         }
         model.addCourseInfo(toAdd);

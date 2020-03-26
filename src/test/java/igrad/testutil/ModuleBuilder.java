@@ -1,10 +1,12 @@
 package igrad.testutil;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import igrad.model.module.Credits;
 import igrad.model.module.Description;
+import igrad.model.module.Grade;
 import igrad.model.module.Memo;
 import igrad.model.module.Module;
 import igrad.model.module.ModuleCode;
@@ -28,18 +30,18 @@ public class ModuleBuilder {
     private Title title;
     private ModuleCode moduleCode;
     private Credits credits;
-    private Memo memo;
-    private Semester semester;
-    private Description description;
+    private Optional<Memo> memo;
+    private Optional<Semester> semester;
+    private Optional<Description> description;
     private Set<Tag> tags;
 
     public ModuleBuilder() {
         title = new Title(DEFAULT_TITLE);
         moduleCode = new ModuleCode(DEFAULT_MODULE_CODE);
         credits = new Credits(DEFAULT_CREDITS);
-        memo = new Memo(DEFAULT_MEMO);
-        semester = new Semester(DEFAULT_SEMESTER);
-        description = new Description(DEFAULT_DESCRIPTION);
+        memo = Optional.of(new Memo(DEFAULT_MEMO));
+        semester = Optional.of(new Semester(DEFAULT_SEMESTER));
+        description = Optional.of(new Description(DEFAULT_DESCRIPTION));
         tags = new HashSet<>();
     }
 
@@ -91,7 +93,7 @@ public class ModuleBuilder {
      * Sets the {@code Memo} of the {@code Module} that we are building.
      */
     public ModuleBuilder withMemo(String memo) {
-        this.memo = new Memo(memo);
+        this.memo = Optional.of(new Memo(memo));
         return this;
     }
 
@@ -99,7 +101,7 @@ public class ModuleBuilder {
      * Sets the {@code Semester} of the {@code Module} that we are building.
      */
     public ModuleBuilder withSemester(String semester) {
-        this.semester = new Semester(semester);
+        this.semester = Optional.of(new Semester(semester));
         return this;
     }
 
@@ -107,12 +109,17 @@ public class ModuleBuilder {
      * Sets the {@code Semester} of the {@code Module} that we are building.
      */
     public ModuleBuilder withDescription(String description) {
-        this.description = new Description(description);
+        this.description = Optional.of(new Description(description));
         return this;
     }
 
+    /**
+     * Builds a {@code Module} for testing
+     */
     public Module build() {
-        return new Module(title, moduleCode, credits, memo, semester, description, tags);
+        // TODO: Add support for grade
+        Optional<Grade> grade = Optional.empty();
+        return new Module(title, moduleCode, credits, memo, semester, description, grade, tags);
     }
 
 }

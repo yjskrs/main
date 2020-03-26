@@ -1,6 +1,6 @@
 package igrad.ui;
 
-import java.awt.*;
+import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -8,7 +8,6 @@ import java.util.logging.Logger;
 
 import igrad.commons.core.LogsCenter;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.input.Clipboard;
@@ -27,7 +26,7 @@ public class HelpWindow extends UiPart<Stage> {
     private static final String FXML = "HelpWindow.fxml";
 
     @FXML
-    Hyperlink hyperlink;
+    private Hyperlink hyperlink;
 
     @FXML
     private Label userGuide;
@@ -100,7 +99,7 @@ public class HelpWindow extends UiPart<Stage> {
      * Opens the iGrad User Guide in the user's default browser.
      */
     public void openUserGuide() {
-        if(Desktop.isDesktopSupported()) {
+        if (Desktop.isDesktopSupported()) {
             try {
                 Desktop.getDesktop().browse(new URI(USERGUIDE_URL));
             } catch (IOException e1) {
