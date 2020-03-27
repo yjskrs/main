@@ -18,19 +18,19 @@
             <padding>
                 <Insets bottom="5" left="15" right="5" top="5"/>
             </padding>
-            <Label fx:id="moduleCode" style="-fx-font-size: 28; -fx-text-fill: #FF7A2F;" styleClass="cell_big_label"
+            <Label fx:id="moduleCode" style="-fx-font-size: 28; -fx-text-fill: #FF7A2F;" styleClass="module-cell-title"
                    text="\$moduleCode"/>
-            <Label fx:id="title" styleClass="cell_big_label" text="\$first"/>
+            <Label fx:id="title" styleClass="module-cell-title" text="\$first"/>
             <HBox spacing="10.0">
                 <children>
                     <Label fx:id="semester" styleClass="cell_small_label" text="Y?S?"/>
                     <Region minHeight="-Infinity" prefWidth="1.0" style="-fx-border-color: #3d3d3d;"/>
-                    <Label fx:id="credits" styleClass="cell_small_label" text="\$credits"/>
+                    <Label fx:id="credits" styleClass="module-cell-default" text="\$credits"/>
                     <Region prefWidth="1.0" style="-fx-border-color: #3d3d3d;"/>
-                    <Label styleClass="cell_small_label" text="A"/>
+                    <Label styleClass="module-cell-default" text="Grade: A"/>
                 </children>
             </HBox>
-            <Label fx:id="memo" styleClass="cell_small_label" text="Your notes here"/>
+            <Label fx:id="memo" styleClass="module-cell-default" text="\$memo"/>
             <FlowPane fx:id="tags">
                 <padding>
                     <Insets bottom="3.0" top="3.0"/>
