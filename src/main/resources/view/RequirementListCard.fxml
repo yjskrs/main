@@ -8,11 +8,13 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.Region?>
 <HBox xmlns:fx="http://javafx.com/fxml/1"
       styleClass="requirement-card"
       xmlns="http://javafx.com/javafx/11.0.1">
-    <GridPane>
+    <GridPane hgap="20.0" vgap="4" styleClass="inner">
         <Label
+                wrapText="true"
             styleClass="title"
             GridPane.rowIndex="0"
             fx:id="requirementTitle" text="Label">
