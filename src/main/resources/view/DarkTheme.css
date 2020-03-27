@@ -1,19 +1,19 @@
 /*
 ModuleListCard
 */
-.module-cell-title .label {
+.module-card-title .label {
     -fx-font-weight: 800;
     -fx-font-size: 18px;
     -fx-text-fill: #010504;
 }
 
-.module-cell-code .label {
+.module-card-code .label {
     -fx-font-weight: 1200;
     -fx-font-size: 28px;
     -fx-text-fill: #ff7a2f;
 }
 
-.module-cell-default .label {
+.module-card-default .label {
     -fx-font-size: 12px;
     -fx-text-fill: #010504;
 }
