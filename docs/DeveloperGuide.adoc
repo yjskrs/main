@@ -217,7 +217,7 @@ Within a course, there are multiple requirements to be tracked.
 ==== Implementation
 .The Requirement class
 
-.Structure of the Requirement class
+.Structure of the Requirement class.
 image::RequirementClassDiagram.png[]
 A requirement consists of three components: name, credits and unique module list.
 The unique module list implies that each requirement stores modules assigned to that requirement.
@@ -232,7 +232,20 @@ The requirement-related commands that can be called are:
 
 Here is how the requirement class updates when a requirement is added:
 
-`[insert diagram here]`
+.Sequence Diagram when adding a requirement.
+image::RequirementAddSequenceDiagram.png[]
+
+When the user adds a requirement, the user has to specify two prefixes: `n/` for name and `u/` for credits value (number of credits needed to fulfill for the requirement).
+Then, the application proceeds to do the following steps
+
+Step 1: The RequirementAddCommandParser is called to parse the RequirementAddCommand with the `n/` and the `u/` prefixes into a new requirement.
+
+Step 2: The RequirementAddCommand is executed to add the new requirement to the model. In this step, the following check is performed:
+
+* Check if a requirement with the same name already exists in the course book.
+
+Step 3: The new requirement is added to the course book.
+
 
 === [Proposed] Undo/Redo feature
 
