@@ -23,7 +23,7 @@
             <Label fx:id="title" styleClass="module-cell-title" text="\$first"/>
             <HBox spacing="10.0">
                 <children>
-                    <Label fx:id="semester" styleClass="module-cell-default" text="\$semester"/>
+                    <Label fx:id="semester" styleClass="cell_small_label" text="Y?S?"/>
                     <Region minHeight="-Infinity" prefWidth="1.0" style="-fx-border-color: #3d3d3d;"/>
                     <Label fx:id="credits" styleClass="module-cell-default" text="\$credits"/>
                     <Region prefWidth="1.0" style="-fx-border-color: #3d3d3d;"/>
