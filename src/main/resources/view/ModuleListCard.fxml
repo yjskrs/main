@@ -23,14 +23,14 @@
             <Label fx:id="title" styleClass="cell_big_label" text="\$first"/>
             <HBox spacing="10.0">
                 <children>
-                    <Label fx:id="semester" styleClass="cell_small_label" text="\$semester"/>
+                    <Label fx:id="semester" styleClass="cell_small_label" text="Y?S?"/>
                     <Region minHeight="-Infinity" prefWidth="1.0" style="-fx-border-color: #3d3d3d;"/>
                     <Label fx:id="credits" styleClass="cell_small_label" text="\$credits"/>
                     <Region prefWidth="1.0" style="-fx-border-color: #3d3d3d;"/>
-                    <Label styleClass="cell_small_label" text="Grade: A"/>
+                    <Label styleClass="cell_small_label" text="A"/>
                 </children>
             </HBox>
-            <Label fx:id="memo" styleClass="cell_small_label" text="\$memo"/>
+            <Label fx:id="memo" styleClass="cell_small_label" text="Your notes here"/>
             <FlowPane fx:id="tags">
                 <padding>
                     <Insets bottom="3.0" top="3.0"/>

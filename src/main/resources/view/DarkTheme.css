@@ -460,12 +460,34 @@
 }
 
 .requirement-card {
-    -fx-text-fill: white;
-    -fx-background-color: #3a3a3a;
-    -fx-border-radius: 20;
-    -fx-background-radius: 20;
-    -fx-border-color: white;
-    -fx-padding: 5;
-    -fx-min-width: 195;
+   -fx-background-color: #303030;
+   -fx-background-radius: 20;
+   -fx-border-width: 1;
+   -fx-border-style: solid;
+   -fx-border-radius: 20;
+   -fx-border-color: #4d4d4d;
+   -fx-padding: 12px;
+}
+
+.requirement-card .inner {
+    -fx-padding: 12px;
+}
+
+.requirement-card .inner .title {
+    -fx-text-fill: #FF7A2F;
+}
+
+.requirement-card .inner .module-codes {
+    -fx-max-width: 100%;
+}
+
+.requirement-card-module-code {
+    -fx-text-fill: #fff !important;
+    -fx-font-weight: bold;
+    -fx-background-color: #FF7A2F;
+    -fx-background-radius: 5px;
+    -fx-padding: 7px;
+    -fx-border-insets: 7px 7px 7px 5px;
+    -fx-background-insets: 7px 7px 7px 5px;
 }
 
