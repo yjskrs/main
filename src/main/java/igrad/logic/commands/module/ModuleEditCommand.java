@@ -1,5 +1,6 @@
 package igrad.logic.commands.module;
 
+import static igrad.commons.util.CollectionUtil.requireAllNonNull;
 import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
 import static igrad.logic.parser.CliSyntax.PREFIX_MEMO;
 import static igrad.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
@@ -61,8 +62,7 @@ public class ModuleEditCommand extends ModuleCommand {
      * @param editModuleDescriptor details to edit the module with
      */
     public ModuleEditCommand(ModuleCode moduleCode, EditModuleDescriptor editModuleDescriptor) {
-        requireNonNull(moduleCode);
-        requireNonNull(editModuleDescriptor);
+        requireAllNonNull(moduleCode, editModuleDescriptor);
 
         this.moduleCode = moduleCode;
         this.editModuleDescriptor = new EditModuleDescriptor(editModuleDescriptor);
