@@ -58,6 +58,12 @@ public class RequirementEditCommandParser extends RequirementCommandParser {
             credits = parseCredits(argMultimap.getValue(PREFIX_CREDITS).get());
         }
 
+        /*
+         * TODO: you might want to follow how ModuleEditCommandParser is done, i.e,
+         *  wrap all of these into a class like EditModuleDescriptor, before passing it to
+         *  the RequirementEditCommand(..) constructor, to keep it neater.
+         *  ~ nathanael
+         */
         return new RequirementEditCommand(new Name(specifier.getValue()),
             Optional.ofNullable(name),
             Optional.ofNullable(credits));

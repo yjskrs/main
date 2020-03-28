@@ -6,7 +6,6 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 import java.util.Optional;
 
-import igrad.commons.core.Messages;
 import igrad.logic.commands.CommandResult;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
@@ -47,7 +46,7 @@ public class ModuleDeleteCommand extends ModuleCommand {
         }
 
         if (moduleToDeleteOpt.isEmpty()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_MODULE_DISPLAYED_INDEX);
+            throw new CommandException(MESSAGE_MODULE_NON_EXISTENT);
         }
 
         Module moduleToDelete = moduleToDeleteOpt.get();

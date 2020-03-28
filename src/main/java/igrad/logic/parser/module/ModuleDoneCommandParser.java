@@ -31,10 +31,22 @@ public class ModuleDoneCommandParser extends ModuleCommandParser implements Pars
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_GRADE);
 
+
+        ModuleDoneCommand.EditModuleGradeDescriptor editModuleGradeDescriptor =
+            new ModuleDoneCommand.EditModuleGradeDescriptor();
+        ModuleCode moduleCode;
+
         Specifier specifier = ParserUtil.parseSpecifier(argMultimap.getPreamble(),
             ParserUtil.MODULE_MODULE_CODE_SPECIFIER_RULE, ModuleCode.MESSAGE_CONSTRAINTS);
 
-        // return new ModuleDoneCommand(new ModuleCode(specifier.getValue()), moduleCodes);
-        return null;
+        moduleCode = new ModuleCode(specifier.getValue());
+
+        if (argMultimap.getValue(PREFIX_GRADE).isPresent()) {
+            editModuleGradeDescriptor.setGrade(parseGrade(argMultimap.getValue(PREFIX_GRADE).get()));
+        } else {
+            throw new ParseException(ModuleDoneCommand.MESSAGE_NOT_EDITED);
+        }
+
+        return new ModuleDoneCommand(moduleCode, editModuleGradeDescriptor);
     }
 }

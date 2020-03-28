@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import igrad.commons.core.Messages;
 import igrad.commons.util.CollectionUtil;
 import igrad.logic.commands.CommandResult;
 import igrad.logic.commands.exceptions.CommandException;
@@ -54,8 +53,8 @@ public class ModuleEditCommand extends ModuleCommand {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_MODULE = "This module already exists in the course book.";
 
-    private final ModuleCode moduleCode;
-    private final EditModuleDescriptor editModuleDescriptor;
+    protected final ModuleCode moduleCode;
+    protected final EditModuleDescriptor editModuleDescriptor;
 
     /**
      * @param moduleCode           of the module in the filtered module list to edit
@@ -84,11 +83,13 @@ public class ModuleEditCommand extends ModuleCommand {
         Optional<Semester> updatedSemester = editModuleDescriptor.getSemester().orElse(moduleToEdit.getSemester());
         Optional<Description> updatedDescription = editModuleDescriptor.getDescription()
             .orElse(moduleToEdit.getDescription());
-
-        // TODO: set Grade too
-        Optional<Grade> updatedGrade = Optional.empty();
-
         Set<Tag> updatedTags = editModuleDescriptor.getTags().orElse(moduleToEdit.getTags());
+
+        /*
+         * (Note): Grade cannot be edited here (using the edit command), have to do so using the module done
+         * command instead. Hence, we're just setting it to whatever value it originally was in the Model classes.
+         */
+        Optional<Grade> updatedGrade = moduleToEdit.getGrade();
 
         return new Module(updatedTitle, moduleCode, updatedCredits, updatedMemo, updatedSemester,
             updatedDescription, updatedGrade, updatedTags);
@@ -99,6 +100,13 @@ public class ModuleEditCommand extends ModuleCommand {
         requireNonNull(model);
         List<Module> lastShownList = model.getFilteredModuleList();
 
+        /*
+         * TODO: For this i still prefer how yijie does it, using streams to query
+         *  the list, it looks much neater, please take a look at RequirementEditCommand.java.
+         *  However, over there I've also recommended her to have a method in the Model interface
+         *  which gets a requirement/module (in your case), by RequirementName/ModuleCode
+         *  ~ nathanael
+         */
         Optional<Module> moduleToEditOpt = Optional.empty();
 
         for (Module module : lastShownList) {
@@ -108,7 +116,7 @@ public class ModuleEditCommand extends ModuleCommand {
         }
 
         if (moduleToEditOpt.isEmpty()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_MODULE_DISPLAYED_INDEX);
+            throw new CommandException(MESSAGE_MODULE_NON_EXISTENT);
         }
 
         Module moduleToEdit = moduleToEditOpt.get();
