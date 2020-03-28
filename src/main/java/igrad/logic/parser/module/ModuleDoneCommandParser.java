@@ -1,8 +1,6 @@
 package igrad.logic.parser.module;
 
-import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
 import static igrad.logic.parser.CliSyntax.PREFIX_GRADE;
-import static igrad.logic.parser.CliSyntax.PREFIX_NAME;
 import static java.util.Objects.requireNonNull;
 
 import java.io.IOException;
@@ -36,6 +34,7 @@ public class ModuleDoneCommandParser extends ModuleCommandParser implements Pars
         Specifier specifier = ParserUtil.parseSpecifier(argMultimap.getPreamble(),
             ParserUtil.MODULE_MODULE_CODE_SPECIFIER_RULE, ModuleCode.MESSAGE_CONSTRAINTS);
 
+        // return new ModuleDoneCommand(new ModuleCode(specifier.getValue()), moduleCodes);
         return null;
     }
 }

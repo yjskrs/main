@@ -23,12 +23,12 @@ import igrad.model.requirement.Name;
 public class RequirementAssignCommandParser implements Parser<RequirementAssignCommand> {
 
     @Override
-    public RequirementAssignCommand parse(String userInput) throws ParseException {
+    public RequirementAssignCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-            ArgumentTokenizer.tokenize(userInput, PREFIX_MODULE_CODE);
+            ArgumentTokenizer.tokenize(args, PREFIX_MODULE_CODE);
 
         Specifier specifier = ParserUtil.parseSpecifier(argMultimap.getPreamble(),
-            RequirementCommandParser.MODULE_MODULE_CODE_SPECIFIER_RULE, ModuleCode.MESSAGE_CONSTRAINTS);
+            ParserUtil.MODULE_MODULE_CODE_SPECIFIER_RULE, ModuleCode.MESSAGE_CONSTRAINTS);
 
         List<ModuleCode> moduleCodes = parseModulesToAssign(argMultimap.getAllValues(PREFIX_MODULE_CODE));
 

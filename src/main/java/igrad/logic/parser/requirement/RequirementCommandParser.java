@@ -2,13 +2,9 @@ package igrad.logic.parser.requirement;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.function.Function;
-
 import igrad.logic.commands.requirement.RequirementCommand;
 import igrad.logic.parser.Parser;
 import igrad.logic.parser.exceptions.ParseException;
-import igrad.model.module.ModuleCode;
-import igrad.model.module.Title;
 import igrad.model.requirement.Credits;
 import igrad.model.requirement.Name;
 
