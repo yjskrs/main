@@ -65,7 +65,7 @@ public class ModuleDoneCommand extends ModuleCommand {
          * It's compulsory for Grade to be optionally edited/updated. This should have already been
          * guaranteed through the validations in the ModuleDoneCommandParser
          */
-        Optional<Grade> updatedGrade = moduleToEdit.getGrade();
+        Optional<Grade> updatedGrade = editModuleGradeDescriptor.getGrade();
 
         return new Module(updatedTitle, moduleCode, updatedCredits, updatedMemo, updatedSemester,
             updatedDescription, updatedGrade, updatedTags);
