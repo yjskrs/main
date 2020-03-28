@@ -7,104 +7,18 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.layout.HBox?>
 <VBox xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-      styleClass="progress-side-panel-container" stylesheets="@DarkTheme.css"
+      styleClass="progress-side-panel" stylesheets="@DarkTheme.css"
       xmlns="http://javafx.com/javafx/11.0.1">
     <children>
-        <GridPane vgap="6.0">
+        <HBox>
             <Label
-                    GridPane.rowIndex="0"
-                    styleClass="progress-title" text="Progress"/>
-            <GridPane
-                    vgap="4.0"
-                    alignment="CENTER"
-                    GridPane.rowIndex="1"
-                    styleClass="module-tracker">
-                <columnConstraints>
-                    <ColumnConstraints prefWidth="250.0" />
-                    <ColumnConstraints prefWidth="100.0" />
-                    <ColumnConstraints />
-                </columnConstraints>
-                <children>
-
-                    <Label
-                            styleClass="progress-label"
-                            text="Credits"
-                           GridPane.columnIndex="0"
-                           GridPane.rowIndex="1"/>
-                    <ProgressBar
-                            styleClass="progress-bar"
-                            fx:id="creditsProgressBar"
-                            GridPane.columnIndex="0"
-                        GridPane.rowIndex="2"
-                    />
-                    <Label textAlignment="RIGHT" fx:id="modularCredits" text="-/-" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-
-                    <Label
-                            styleClass="progress-label"
-                            text="Modules" GridPane.rowIndex="3"/>
-                    <ProgressBar
-                            styleClass="progress-bar"
-                            fx:id="modulesProgressBar"
-                            GridPane.columnIndex="0"
-                            GridPane.rowIndex="4"
-                    />
-                    <Label fx:id="modulesCompleted" text="-/-" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
-                    <Label
-                            styleClass="progress-label"
-                            text="Requirements" GridPane.rowIndex="5"/>
-                    <ProgressBar
-                            styleClass="progress-bar"
-                            fx:id="requirementsProgressBar"
-                            GridPane.columnIndex="0"
-                            GridPane.rowIndex="6"
-                    />
-                    <Label fx:id="requirementsCompleted" text="-/-" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
-
-    <!--                <Label text="Requirements Completed" GridPane.rowIndex="3"/>-->
-    <!--                <Label fx:id="requirementsCompleted" text="-/-" GridPane.columnIndex="1" GridPane.rowIndex="3"/>-->
-                </children>
-            </GridPane>
-<!--            <GridPane-->
-<!--                    GridPane.rowIndex="2">-->
-<!--                <columnConstraints>-->
-<!--                    <ColumnConstraints prefWidth="250.0" />-->
-<!--                    <ColumnConstraints prefWidth="100.0" />-->
-<!--                    <ColumnConstraints />-->
-<!--                </columnConstraints>-->
-<!--                <Label-->
-<!--                        styleClass="progress-label"-->
-<!--                        text="Requirements" GridPane.rowIndex="1"/>-->
-<!--                <ProgressBar-->
-<!--                        styleClass="progress-bar"-->
-<!--                        fx:id="requirementsProgressBar"-->
-<!--                        GridPane.columnIndex="0"-->
-<!--                        GridPane.rowIndex="2"-->
-<!--                />-->
-<!--                <Label fx:id="requirementsCompleted" text="-/-" GridPane.columnIndex="1" GridPane.rowIndex="2"/>-->
-<!--            </GridPane>-->
-<!--            <GridPane GridPane.rowIndex="2">-->
-<!--                <columnConstraints>-->
-<!--                    <ColumnConstraints prefWidth="250.0" />-->
-<!--                    <ColumnConstraints prefWidth="100.0" />-->
-<!--                    <ColumnConstraints />-->
-<!--                </columnConstraints>-->
-<!--                <children>-->
-<!--                    <Label text="Cumulative Average"/>-->
-<!--                    <Label text="Semesters Left" GridPane.rowIndex="1"/>-->
-<!--                    <Label fx:id="currentCap" text="-" GridPane.columnIndex="1"/>-->
-<!--                    <Label fx:id="semestersLeftLabel" text="-" GridPane.columnIndex="1" GridPane.rowIndex="1"/>-->
-<!--                </children>-->
-<!--            </GridPane>-->
-<!--            <GridPane GridPane.rowIndex="3">-->
-<!--                <children>-->
-<!--                    <Label text="CAP Predictor"/>-->
-<!--                    <Label text="Goal" GridPane.rowIndex="1"/>-->
-<!--                    <Label text="Required" GridPane.rowIndex="2"/>-->
-<!--                    <Label fx:id="goalCap" text="-" GridPane.columnIndex="1" GridPane.rowIndex="1"/>-->
-<!--                    <Label fx:id="requiredCap" text="-/Sem" GridPane.columnIndex="1" GridPane.rowIndex="2"/>-->
-<!--                </children>-->
-<!--            </GridPane>-->
-        </GridPane>
+                    styleClass="progress-title" text="My Progress"/>
+            <Label
+                    wrapText="false"
+                styleClass="progress-rank"
+                text="Novice Student"/>
+        </HBox>
     </children>
 </VBox>

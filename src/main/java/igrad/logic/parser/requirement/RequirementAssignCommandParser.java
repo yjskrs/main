@@ -15,7 +15,7 @@ import igrad.logic.parser.ParserUtil;
 import igrad.logic.parser.Specifier;
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.module.ModuleCode;
-import igrad.model.requirement.Name;
+import igrad.model.requirement.RequirementCode;
 
 /**
  * Parses module assign (to requirement) input argument and creates a new AssignCommand object.
@@ -31,7 +31,7 @@ public class RequirementAssignCommandParser implements Parser<RequirementAssignC
 
         List<ModuleCode> moduleCodes = parseModulesToAssign(argMultimap.getAllValues(PREFIX_MODULE_CODE));
 
-        return new RequirementAssignCommand(new Name(specifier.getValue()), moduleCodes);
+        return new RequirementAssignCommand(new RequirementCode(specifier.getValue()), moduleCodes);
     }
 
     /**

@@ -12,8 +12,8 @@ import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
 import igrad.model.module.Module;
 import igrad.model.module.ModuleCode;
-import igrad.model.requirement.Name;
 import igrad.model.requirement.Requirement;
+import igrad.model.requirement.RequirementCode;
 
 /**
  * Assigns modules under a particular requirement.
@@ -39,13 +39,13 @@ public class RequirementAssignCommand extends RequirementCommand {
         "Some Modules already exists in this requirement. Please try other modules.";
     public static final String MESSAGE_REQUIREMENT_ASSIGN_MODULE_SUCCESS = "Modules assigned under Requirement: %1$s";
 
-    private Name requirementName;
+    private RequirementCode requirementCode;
     private List<ModuleCode> moduleCodes;
 
-    public RequirementAssignCommand(Name requirementName, List<ModuleCode> moduleCodes) {
-        requireAllNonNull(requirementName, moduleCodes);
+    public RequirementAssignCommand(RequirementCode requirementCode, List<ModuleCode> moduleCodes) {
+        requireAllNonNull(requirementCode, moduleCodes);
 
-        this.requirementName = requirementName;
+        this.requirementCode = requirementCode;
         this.moduleCodes = moduleCodes;
     }
 
@@ -56,7 +56,7 @@ public class RequirementAssignCommand extends RequirementCommand {
         // Retrieve the requirement in question that we want to assign modules under..
 
         // First check if the requirement exists in the course book
-        Requirement requirementToAssign = model.getRequirementByName(requirementName)
+        Requirement requirementToAssign = model.getRequirementByCode(requirementCode)
             .orElseThrow(() -> new CommandException(MESSAGE_REQUIREMENT_NON_EXISTENT));
 
         Requirement editedRequirement = new Requirement(requirementToAssign);

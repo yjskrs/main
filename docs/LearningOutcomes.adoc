@@ -1,7 +1,7 @@
 = Learning Outcomes
 :site-section: LearningOutcomes
 :toc: macro
-:toc-name:
+:toc-title:
 :toclevels: 1
 :imagesDir: images
 :stylesDir: stylesheets

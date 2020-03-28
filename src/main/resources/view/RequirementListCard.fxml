@@ -12,21 +12,26 @@
 <HBox xmlns:fx="http://javafx.com/fxml/1"
       styleClass="requirement-card"
       xmlns="http://javafx.com/javafx/11.0.1">
-    <GridPane hgap="20.0" vgap="4" styleClass="inner">
+    <GridPane hgap="20.0" vgap="2" styleClass="inner">
+        <Label
+                styleClass="code"
+                GridPane.rowIndex="0"
+                fx:id="requirementCode" text="Label">
+        </Label>
         <Label
                 wrapText="true"
-            styleClass="title"
-            GridPane.rowIndex="0"
+            styleClass="title" GridPane.columnIndex=""
+            GridPane.rowIndex="1"
             fx:id="requirementTitle" text="Label">
         </Label>
         <Label
             styleClass="credits"
-            GridPane.rowIndex="1"
+            GridPane.rowIndex="2"
             fx:id="creditsCount" text="Label">
         </Label>
         <FlowPane
             styleClass="module-codes"
-            GridPane.rowIndex="2"
+            GridPane.rowIndex="3"
             fx:id="moduleCodes">
         </FlowPane>
     </GridPane>

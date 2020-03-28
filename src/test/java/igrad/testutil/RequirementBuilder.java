@@ -5,7 +5,7 @@ import java.util.List;
 import igrad.model.module.Module;
 import igrad.model.module.UniqueModuleList;
 import igrad.model.requirement.Credits;
-import igrad.model.requirement.Name;
+import igrad.model.requirement.Title;
 import igrad.model.requirement.Requirement;
 
 /**
@@ -15,7 +15,7 @@ public class RequirementBuilder {
     public static final String DEFAULT_NAME = "Computer Science Foundation";
     public static final String DEFAULT_CREDITS = "48";
 
-    private Name name;
+    private Title title;
     private Credits credits;
     private UniqueModuleList modules;
 
@@ -23,7 +23,7 @@ public class RequirementBuilder {
      * Initializes the RequirementBuilder with the default data.
      */
     public RequirementBuilder() {
-        name = new Name(DEFAULT_NAME);
+        title = new Title(DEFAULT_NAME);
         credits = new Credits(DEFAULT_CREDITS);
         modules = new UniqueModuleList();
     }
@@ -32,7 +32,7 @@ public class RequirementBuilder {
      * Initializes the RequirementBuilder with the {@code Requirement requirementToCopy}.
      */
     public RequirementBuilder(Requirement requirementToCopy) {
-        name = requirementToCopy.getName();
+        title = requirementToCopy.getTitle();
         credits = requirementToCopy.getCredits();
         modules = new UniqueModuleList();
         modules.setModules(requirementToCopy.getModuleList());
@@ -42,7 +42,7 @@ public class RequirementBuilder {
      * Sets the {@code Name} of the {@code Requirement} that we are building.
      */
     public RequirementBuilder withName(String name) {
-        this.name = new Name(name);
+        this.title = new Title(name);
         return this;
     }
 
@@ -75,7 +75,7 @@ public class RequirementBuilder {
      */
     public Requirement build() {
         List<Module> moduleList = modules.asUnmodifiableObservableList();
-        return new Requirement(name, credits, moduleList);
+        return new Requirement(title, credits, moduleList);
     }
 
 }
