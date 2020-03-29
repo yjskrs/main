@@ -11,6 +11,7 @@ public class Title {
 
     public static final String MESSAGE_CONSTRAINTS = "Title should not start with a space and should not be blank.";
 
+    // TODO: the regex looks abit complicated here, can you provide some comments or try to simplify it
     public static final String VALIDATION_REGEX = "^[^\\s].*";
 
     public final String value;

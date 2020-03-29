@@ -46,8 +46,8 @@ public class ModuleEditCommand extends ModuleCommand {
         + "[" + PREFIX_MEMO + "MEMO] "
         + "[" + PREFIX_SEMESTER + "SEMESTER] "
         + "[" + PREFIX_TAG + "TAGS]...\n"
-        + "Example: " + COMMAND_WORD + " "
-        + PREFIX_MODULE_CODE + "CS2103T "
+        + "Example: " + COMMAND_WORD + " CS2040 "
+        + PREFIX_MODULE_CODE + "CS2040S "
         + PREFIX_CREDITS + "4";
 
     public static final String MESSAGE_HELP = MESSAGE_DETAILS + MESSAGE_USAGE;
