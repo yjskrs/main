@@ -2,6 +2,7 @@ package igrad.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.Region;
 
 /**
@@ -27,6 +28,15 @@ public class ProgressSidePanel extends UiPart<Region> {
 
     @FXML
     private Label modularCredits;
+
+    @FXML
+    private ProgressBar creditsProgressBar;
+
+    @FXML
+    private ProgressBar modulesProgressBar;
+
+    @FXML
+    private ProgressBar requirementsProgressBar;
 
     @FXML
     private Label modulesCompleted;
@@ -98,20 +108,29 @@ public class ProgressSidePanel extends UiPart<Region> {
      * Updates the progress panel.
      */
     public void updateProgress() {
-        setModularCreditsLabel();
-        setModulesCompletedLabel();
-        setRequirementsCompletedLabel();
-        setCumulativeAverageLabel();
-        setSemestersLeftLabel();
-        setGoalCapLabel();
-        setTargetCapLabel();
+        // setModularCreditsLabel();
+        // setModulesCompletedLabel();
+        // setRequirementsCompletedLabel();
+        // setCumulativeAverageLabel();
+        // setSemestersLeftLabel();
+        // setGoalCapLabel();
+        // setTargetCapLabel();
     }
 
     /**
      * Sets the progress for Modular Credits.
      */
     public void setModularCreditsLabel() {
+
         modularCredits.setText(countFormat(completedMcs, totalMcs));
+
+        double progress = 0.0;
+
+        if (totalMcs > 0) {
+            progress = completedMcs / totalMcs;
+        }
+
+        creditsProgressBar.setProgress(progress);
     }
 
     /**
@@ -119,6 +138,15 @@ public class ProgressSidePanel extends UiPart<Region> {
      */
     public void setModulesCompletedLabel() {
         modulesCompleted.setText(countFormat(completedModules, totalModules));
+
+        double progress = 0.0;
+
+        if (totalModules > 0) {
+            progress = completedModules / totalModules;
+        }
+
+        modulesProgressBar.setProgress(progress);
+
     }
 
     /**
@@ -126,6 +154,15 @@ public class ProgressSidePanel extends UiPart<Region> {
      */
     public void setRequirementsCompletedLabel() {
         requirementsCompleted.setText(countFormat(completedRequirements, totalRequirements));
+
+        double progress = 0.0;
+
+        if (totalRequirements > 0) {
+            progress = completedRequirements / totalRequirements;
+        }
+
+        requirementsProgressBar.setProgress(progress);
+
     }
 
     /**

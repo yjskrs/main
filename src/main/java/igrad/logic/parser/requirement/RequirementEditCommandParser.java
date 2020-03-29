@@ -4,7 +4,7 @@ import static igrad.commons.core.Messages.MESSAGE_SPECIFIER_NOT_SPECIFIED;
 import static igrad.logic.commands.requirement.RequirementEditCommand.MESSAGE_REQUIREMENT_NOT_EDITED;
 import static igrad.logic.commands.requirement.RequirementEditCommand.MESSAGE_USAGE;
 import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
-import static igrad.logic.parser.CliSyntax.PREFIX_NAME;
+import static igrad.logic.parser.CliSyntax.PREFIX_TITLE;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Optional;
@@ -15,9 +15,9 @@ import igrad.logic.parser.ArgumentTokenizer;
 import igrad.logic.parser.ParserUtil;
 import igrad.logic.parser.Specifier;
 import igrad.logic.parser.exceptions.ParseException;
-import igrad.model.module.Title;
 import igrad.model.requirement.Credits;
-import igrad.model.requirement.Name;
+import igrad.model.requirement.RequirementCode;
+import igrad.model.requirement.Title;
 
 /**
  * Parses requirement edit command input arguments and creates a new RequirementEditCommand object.
@@ -33,25 +33,25 @@ public class RequirementEditCommandParser extends RequirementCommandParser {
     @Override
     public RequirementEditCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_CREDITS);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_CREDITS);
 
         Specifier specifier;
         try {
             specifier = ParserUtil.parseSpecifier(argMultimap.getPreamble(),
-                ParserUtil.REQUIREMENT_NAME_SPECIFIER_RULE, Title.MESSAGE_CONSTRAINTS);
+                ParserUtil.REQUIREMENT_CODE_SPECIFIER_RULE, Title.MESSAGE_CONSTRAINTS);
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_SPECIFIER_NOT_SPECIFIED, MESSAGE_USAGE), pe);
         }
 
-        if (!argMultimap.getValue(PREFIX_NAME).isPresent() && !argMultimap.getValue(PREFIX_CREDITS).isPresent()) {
+        if (!argMultimap.getValue(PREFIX_TITLE).isPresent() && !argMultimap.getValue(PREFIX_CREDITS).isPresent()) {
             throw new ParseException(MESSAGE_REQUIREMENT_NOT_EDITED);
         }
 
-        Name name = null;
+        Title title = null;
         Credits credits = null;
 
-        if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
-            name = parseName(argMultimap.getValue(PREFIX_NAME).get());
+        if (argMultimap.getValue(PREFIX_TITLE).isPresent()) {
+            title = parseTitle(argMultimap.getValue(PREFIX_TITLE).get());
         }
 
         if (argMultimap.getValue(PREFIX_CREDITS).isPresent()) {
@@ -64,8 +64,8 @@ public class RequirementEditCommandParser extends RequirementCommandParser {
          *  the RequirementEditCommand(..) constructor, to keep it neater.
          *  ~ nathanael
          */
-        return new RequirementEditCommand(new Name(specifier.getValue()),
-            Optional.ofNullable(name),
+        return new RequirementEditCommand(new RequirementCode(specifier.getValue()),
+            Optional.ofNullable(title),
             Optional.ofNullable(credits));
     }
 

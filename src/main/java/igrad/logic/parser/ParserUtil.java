@@ -16,7 +16,7 @@ import igrad.commons.util.StringUtil;
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.avatar.Avatar;
 import igrad.model.module.ModuleCode;
-import igrad.model.module.Title;
+import igrad.model.requirement.RequirementCode;
 import igrad.model.tag.Tag;
 
 /**
@@ -26,7 +26,8 @@ public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
 
-    public static final Function<String, Boolean> REQUIREMENT_NAME_SPECIFIER_RULE = Title::isValidTitle;
+    public static final Function<String, Boolean> REQUIREMENT_CODE_SPECIFIER_RULE =
+        RequirementCode::isValidRequirementCode;
     public static final Function<String, Boolean> MODULE_MODULE_CODE_SPECIFIER_RULE = ModuleCode::isValidModuleCode;
 
     /**

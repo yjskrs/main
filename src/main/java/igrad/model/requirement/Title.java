@@ -4,33 +4,33 @@ import static igrad.commons.util.AppUtil.checkArgument;
 import static java.util.Objects.requireNonNull;
 
 /**
- * Represents a Requirement's name.
- * Guarantees: immutable, non-null and is valid as declared by {@link #isValidName(String)}
+ * Represents a Requirement's title.
+ * Guarantees: immutable, non-null and is valid as declared by {@link #isValidTitle(String)}
  */
-public class Name {
+public class Title {
 
-    public static final String MESSAGE_CONSTRAINTS = "Name should not start with a space and should not be blank.";
+    public static final String MESSAGE_CONSTRAINTS = "Title should not start with a space and should not be blank.";
 
     public static final String VALIDATION_REGEX = "^[^\\s].*";
 
     public final String value;
 
     /**
-     * Constructs a {@code Name}.
+     * Constructs a {@code Title}.
      *
-     * @param value A valid name string.
+     * @param value A valid title string.
      */
-    public Name(String value) {
+    public Title(String value) {
         requireNonNull(value);
-        checkArgument(isValidName(value), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidTitle(value), MESSAGE_CONSTRAINTS);
 
         this.value = value;
     }
 
     /**
-     * Returns true if a given string is a valid name.
+     * Returns true if a given string is a valid title.
      */
-    public static boolean isValidName(String test) {
+    public static boolean isValidTitle(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 
@@ -42,7 +42,7 @@ public class Name {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object, else check
-            || (other instanceof Name && value.equals(((Name) other).value)); // check same type and value
+            || (other instanceof Title && value.equals(((Title) other).value)); // check same type and value
     }
 
     @Override

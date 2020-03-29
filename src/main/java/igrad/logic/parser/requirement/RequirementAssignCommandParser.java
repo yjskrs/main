@@ -15,7 +15,7 @@ import igrad.logic.parser.ParserUtil;
 import igrad.logic.parser.Specifier;
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.module.ModuleCode;
-import igrad.model.requirement.Name;
+import igrad.model.requirement.RequirementCode;
 
 /**
  * Parses module assign (to requirement) input argument and creates a new AssignCommand object.
@@ -28,11 +28,11 @@ public class RequirementAssignCommandParser implements Parser<RequirementAssignC
             ArgumentTokenizer.tokenize(args, PREFIX_MODULE_CODE);
 
         Specifier specifier = ParserUtil.parseSpecifier(argMultimap.getPreamble(),
-            ParserUtil.MODULE_MODULE_CODE_SPECIFIER_RULE, ModuleCode.MESSAGE_CONSTRAINTS);
+            ParserUtil.REQUIREMENT_CODE_SPECIFIER_RULE, RequirementCode.MESSAGE_CONSTRAINTS);
 
         List<ModuleCode> moduleCodes = parseModulesToAssign(argMultimap.getAllValues(PREFIX_MODULE_CODE));
 
-        return new RequirementAssignCommand(new Name(specifier.getValue()), moduleCodes);
+        return new RequirementAssignCommand(new RequirementCode(specifier.getValue()), moduleCodes);
     }
 
     /**
