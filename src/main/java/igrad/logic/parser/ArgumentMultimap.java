@@ -63,7 +63,7 @@ public class ArgumentMultimap {
     /**
      * Returns true if {@code getPreamble().isEmpty()} is true, and the values of all key-value pairs in the
      * {@code argMultimap} field (of this class), is {@code Optional.empty}.
-     *
+     * <p>
      * In other words, this method returns true if and only if there are no other arguments or specifiers
      * entered after a command; e.g, 'module edit', 'module delete', 'requirement add', etc,
      */
@@ -72,7 +72,7 @@ public class ArgumentMultimap {
             return true;
         }
 
-        for (Prefix key: argMultimap.keySet()) {
+        for (Prefix key : argMultimap.keySet()) {
             if (getValue(key).isEmpty()) {
                 return true;
             }

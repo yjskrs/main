@@ -38,11 +38,13 @@ public class ModuleEditCommand extends ModuleCommand {
 
     public static final String MESSAGE_DETAILS = COMMAND_WORD + ": Edits the details of the module identified "
         + "by its module code. Existing module will be overwritten by the input values.\n";
+
     public static final String MESSAGE_USAGE = "Parameter(s): MODULE CODE "
+        + "[" + PREFIX_MODULE_CODE + "MODULE_CODE] "
         + "[" + PREFIX_TITLE + "TITLE] "
         + "[" + PREFIX_CREDITS + "CREDITS] "
         + "[" + PREFIX_MEMO + "MEMO] "
-        + "[" + PREFIX_SEMESTER + "SEMESTER]"
+        + "[" + PREFIX_SEMESTER + "SEMESTER] "
         + "[" + PREFIX_TAG + "TAGS]...\n"
         + "Example: " + COMMAND_WORD + " "
         + PREFIX_MODULE_CODE + "CS2103T "

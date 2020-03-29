@@ -14,6 +14,7 @@ import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
 
+import igrad.commons.core.Messages;
 import igrad.logic.commands.module.ModuleEditCommand;
 import igrad.logic.parser.ArgumentMultimap;
 import igrad.logic.parser.ArgumentTokenizer;
@@ -46,7 +47,8 @@ public class ModuleEditCommandParser extends ModuleCommandParser implements Pars
          * the help message for this command
          */
         if (argMultimap.isEmpty()) {
-            throw new ParseException(MESSAGE_HELP);
+            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                MESSAGE_HELP));
         }
 
         ModuleEditCommand.EditModuleDescriptor editModuleDescriptor = new ModuleEditCommand.EditModuleDescriptor();

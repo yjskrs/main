@@ -4,6 +4,7 @@ import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
 import static igrad.logic.parser.CliSyntax.PREFIX_MEMO;
 import static igrad.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
 import static igrad.logic.parser.CliSyntax.PREFIX_SEMESTER;
+import static igrad.logic.parser.CliSyntax.PREFIX_TAG;
 import static igrad.logic.parser.CliSyntax.PREFIX_TITLE;
 import static java.util.Objects.requireNonNull;
 
@@ -19,19 +20,22 @@ public class ModuleAddCommand extends ModuleCommand {
 
     public static final String COMMAND_WORD = MODULE_COMMAND_WORD + "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a module. "
-        + "Parameters: "
-        + PREFIX_TITLE + "MODULE TITLE "
+    public static final String MESSAGE_DETAILS = COMMAND_WORD + ": Adds a module with relevant details specified.\n";
+
+    public static final String MESSAGE_USAGE = "Parameter(s): "
         + PREFIX_MODULE_CODE + "MODULE CODE "
+        + PREFIX_TITLE + " TITLE "
         + PREFIX_CREDITS + "CREDITS "
-        + PREFIX_MEMO + "MEMO "
-        + "[" + PREFIX_SEMESTER + "SEMESTER]...\n"
+        + "[" + PREFIX_MEMO + "MEMO] "
+        + "[" + PREFIX_SEMESTER + "SEMESTER] "
+        + "[" + PREFIX_TAG + "TAGS]...\n"
         + "Example: " + COMMAND_WORD + " "
-        + PREFIX_TITLE + "Software Engineering "
         + PREFIX_MODULE_CODE + "CS2103T "
+        + PREFIX_TITLE + "Software Engineering "
         + PREFIX_CREDITS + "4 "
-        + PREFIX_MEMO + "Hard module. Good teachers. "
-        + PREFIX_SEMESTER + "Y2S2 ";
+        + PREFIX_SEMESTER + "Y2S2";
+
+    public static final String MESSAGE_HELP = MESSAGE_DETAILS + MESSAGE_USAGE;
 
     public static final String MESSAGE_SUCCESS = "New module added: %1$s";
     public static final String MESSAGE_DUPLICATE_MODULE = "This module already exists in the course book";
