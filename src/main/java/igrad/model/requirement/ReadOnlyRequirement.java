@@ -48,5 +48,5 @@ public interface ReadOnlyRequirement {
     /**
      * Returns a requirement code generated from requirement title
      */
-    String generateRequirementCode( String requirementTitle );
+    String generateRequirementCode(String requirementTitle);
 }

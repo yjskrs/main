@@ -3,15 +3,17 @@ package igrad.storage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import igrad.commons.exceptions.IllegalValueException;
 import igrad.model.module.Module;
 import igrad.model.module.ModuleCode;
 import igrad.model.requirement.Credits;
-import igrad.model.requirement.Title;
 import igrad.model.requirement.Requirement;
 import igrad.model.requirement.RequirementCode;
+import igrad.model.requirement.Title;
 
 /**
  * Jackson-friendly version of {@link Requirement}.
@@ -95,8 +97,8 @@ class JsonAdaptedRequirement {
 
         modelCredits = new Credits(credits, String.valueOf(creditsFulfilled));
 
-        if( requirementCode == null ){
-            return new Requirement(modelName, modelCredits, modelModules );
+        if (requirementCode == null) {
+            return new Requirement(modelName, modelCredits, modelModules);
         } else {
             final RequirementCode modelRequirementCode = new RequirementCode(requirementCode);
             return new Requirement(modelName, modelCredits, modelModules, modelRequirementCode);

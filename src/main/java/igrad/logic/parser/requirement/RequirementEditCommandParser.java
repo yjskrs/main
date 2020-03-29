@@ -16,8 +16,8 @@ import igrad.logic.parser.ParserUtil;
 import igrad.logic.parser.Specifier;
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.requirement.Credits;
-import igrad.model.requirement.Title;
 import igrad.model.requirement.RequirementCode;
+import igrad.model.requirement.Title;
 
 /**
  * Parses requirement edit command input arguments and creates a new RequirementEditCommand object.

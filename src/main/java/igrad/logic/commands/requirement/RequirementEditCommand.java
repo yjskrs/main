@@ -12,9 +12,9 @@ import igrad.logic.commands.CommandResult;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
 import igrad.model.requirement.Credits;
-import igrad.model.requirement.Title;
 import igrad.model.requirement.Requirement;
 import igrad.model.requirement.RequirementCode;
+import igrad.model.requirement.Title;
 
 /**
  * Modifies an existing requirement in the course book.

@@ -13,8 +13,8 @@ import igrad.logic.parser.ArgumentTokenizer;
 import igrad.logic.parser.ParserUtil;
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.requirement.Credits;
-import igrad.model.requirement.Title;
 import igrad.model.requirement.Requirement;
+import igrad.model.requirement.Title;
 
 /**
  * Parses requirement input arguments and returns a new RequirementAddCommand object.
