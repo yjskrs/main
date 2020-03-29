@@ -21,8 +21,7 @@ import igrad.model.requirement.RequirementCode;
 public class RequirementAssignCommand extends RequirementCommand {
     public static final String COMMAND_WORD = REQUIREMENT_COMMAND_WORD + "assign";
 
-    public static final String MESSAGE_DETAILS = COMMAND_WORD + ": Edits the requirement. "
-        + "Existing requirement will be overwritten by the new name and/or credits.\n";
+    public static final String MESSAGE_DETAILS = COMMAND_WORD + ": Assigns the requirement with modules.\n";
 
     public static final String MESSAGE_USAGE = "Parameter: "
         + "[" + PREFIX_NAME + "NEW_NAME] "
@@ -31,6 +30,8 @@ public class RequirementAssignCommand extends RequirementCommand {
         + PREFIX_NAME + "Unrestricted Electives";
 
     public static final String MESSAGE_REQUIREMENT_NO_MODULES = "There must be at least one modules assigned.";
+
+    public static final String MESSAGE_HELP = MESSAGE_DETAILS + MESSAGE_USAGE;
 
     public static final String MESSAGE_MODULES_NON_EXISTENT =
         "Not all Modules exist in the system. Please try other modules.";

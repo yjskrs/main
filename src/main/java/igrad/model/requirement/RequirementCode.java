@@ -1,5 +1,6 @@
 package igrad.model.requirement;
 
+import static igrad.commons.util.AppUtil.checkArgument;
 import static java.util.Objects.requireNonNull;
 
 /**
@@ -8,19 +9,30 @@ import static java.util.Objects.requireNonNull;
  * Guarantees: immutable;
  */
 public class RequirementCode {
+    public static final String MESSAGE_CONSTRAINTS = "Requirement Code should not start with a space and "
+        + "should not be blank.";
+
+    public static final String VALIDATION_REGEX = ".*";
 
     public final String value;
 
     /**
      * Constructs a {@code requirementCode}.
      *
-     * @param requirementCode A requirement code.
+     * @param value A requirement code string.
      */
-    public RequirementCode(String requirementCode) {
-        requireNonNull(requirementCode);
+    public RequirementCode(String value) {
+        requireNonNull(value);
+        checkArgument(isValidRequirementCode(value), MESSAGE_CONSTRAINTS);
 
-        value = requirementCode;
+        this.value = value;
+    }
 
+    /**
+     * Returns true if a given string is a valid title.
+     */
+    public static boolean isValidRequirementCode(String test) {
+        return test.matches(VALIDATION_REGEX);
     }
 
     @Override

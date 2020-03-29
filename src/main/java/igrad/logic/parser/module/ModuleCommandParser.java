@@ -7,6 +7,7 @@ import java.util.Optional;
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.module.Credits;
 import igrad.model.module.Description;
+import igrad.model.module.Grade;
 import igrad.model.module.Memo;
 import igrad.model.module.ModuleCode;
 import igrad.model.module.Semester;
@@ -102,5 +103,20 @@ public class ModuleCommandParser {
             throw new ParseException(Semester.MESSAGE_CONSTRAINTS);
         }
         return Optional.of(new Semester(trimmedSemester));
+    }
+
+    /**
+     * Parses a {@code String grade} into an {@code Grade}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code grade} is invalid.
+     */
+    public static Optional<Grade> parseGrade(String grade) throws ParseException {
+        requireNonNull(grade);
+        String trimmedGrade = grade.trim();
+        if (!Grade.isValidGrade(trimmedGrade)) {
+            throw new ParseException(Grade.MESSAGE_CONSTRAINTS);
+        }
+        return Optional.of(new Grade(trimmedGrade));
     }
 }

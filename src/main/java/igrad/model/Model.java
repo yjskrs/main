@@ -155,6 +155,12 @@ public interface Model {
     Optional<Requirement> getRequirementByRequirementCode(RequirementCode requirementCode);
 
     /**
+     * Retrieves the {@code Module} exists in the course book, by checking only its given {@code ModuleCode}.
+     * Returns the @{code Module} if it exists else {@code Optional.empty} otherwise.
+     */
+    Optional<Module> getModuleByModuleCode(ModuleCode moduleCode);
+
+    /**
      * Retrieves a list of {@code Module} which exists in the course book, by checking only its {@code ModuleCode}.
      */
     List<Module> getModulesByModuleCode(List<ModuleCode> moduleCodes);

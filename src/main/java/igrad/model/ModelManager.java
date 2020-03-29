@@ -189,6 +189,13 @@ public class ModelManager implements Model {
 
 
     @Override
+    public Optional<Module> getModuleByModuleCode(ModuleCode moduleCode) {
+        return filteredModules.stream()
+            .filter(module -> module.getModuleCode().equals(moduleCode))
+            .findFirst();
+    }
+
+    @Override
     public List<Module> getModulesByModuleCode(List<ModuleCode> moduleCodes) {
         return filteredModules.stream()
             .filter(requirement -> moduleCodes.stream()

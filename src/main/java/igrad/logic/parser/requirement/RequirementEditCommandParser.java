@@ -37,7 +37,8 @@ public class RequirementEditCommandParser extends RequirementCommandParser {
 
         Specifier specifier;
         try {
-            specifier = ParserUtil.parseSpecifier(argMultimap.getPreamble());
+            specifier = ParserUtil.parseSpecifier(argMultimap.getPreamble(),
+                ParserUtil.REQUIREMENT_CODE_SPECIFIER_RULE, Title.MESSAGE_CONSTRAINTS);
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_SPECIFIER_NOT_SPECIFIED, MESSAGE_USAGE), pe);
         }
@@ -57,6 +58,12 @@ public class RequirementEditCommandParser extends RequirementCommandParser {
             credits = parseCredits(argMultimap.getValue(PREFIX_CREDITS).get());
         }
 
+        /*
+         * TODO: you might want to follow how ModuleEditCommandParser is done, i.e,
+         *  wrap all of these into a class like EditModuleDescriptor, before passing it to
+         *  the RequirementEditCommand(..) constructor, to keep it neater.
+         *  ~ nathanael
+         */
         return new RequirementEditCommand(new RequirementCode(specifier.getValue()),
             Optional.ofNullable(title),
             Optional.ofNullable(credits));
