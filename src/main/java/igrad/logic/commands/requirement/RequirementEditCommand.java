@@ -74,6 +74,7 @@ public class RequirementEditCommand extends RequirementCommand {
             .findFirst()
             .orElseThrow(() -> new CommandException(MESSAGE_REQUIREMENT_NON_EXISTENT));
 
+        // Note: requirementCode should never be edited, its the unique ID
         Title editedTitle = newTitle.orElse(requirementToEdit.getTitle());
         Credits editedCredits = newCredits.orElse(requirementToEdit.getCredits());
         Requirement editedRequirement = new Requirement(editedTitle, editedCredits, requirementToEdit.getModuleList(),

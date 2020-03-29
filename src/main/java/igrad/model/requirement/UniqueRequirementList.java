@@ -86,6 +86,7 @@ public class UniqueRequirementList implements Iterable<Requirement> {
             throw new RequirementNotFoundException();
         }
 
+        // TODO: change to requirementCode, for equality checking?
         if (!target.hasSameTitle(editedRequirement) && contains(editedRequirement)) {
             throw new DuplicateRequirementException();
         }
