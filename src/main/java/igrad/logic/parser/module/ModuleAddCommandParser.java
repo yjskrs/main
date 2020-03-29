@@ -1,6 +1,7 @@
 package igrad.logic.parser.module;
 
 import static igrad.logic.commands.module.ModuleAddCommand.MESSAGE_HELP;
+import static igrad.logic.commands.module.ModuleAddCommand.MESSAGE_NOT_ADDED;
 import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
 import static igrad.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static igrad.logic.parser.CliSyntax.PREFIX_MEMO;
@@ -60,10 +61,9 @@ public class ModuleAddCommandParser extends ModuleCommandParser implements Parse
          * We have that; MODULE_CODE, MODULE_TITLE, MCs, are the compulsory fields, so we're just validating for its
          * presence in the below.
          */
-        if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_MODULE_CODE)
-            || !argMultimap.getPreamble().isEmpty()) {
+        if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_MODULE_CODE, PREFIX_TITLE, PREFIX_CREDITS)) {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
-                ModuleAddCommand.MESSAGE_USAGE));
+                MESSAGE_NOT_ADDED));
         }
 
         Title title = parseTitle(argMultimap.getValue(PREFIX_TITLE).get());

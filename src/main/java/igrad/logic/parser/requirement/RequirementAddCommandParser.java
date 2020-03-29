@@ -1,6 +1,6 @@
 package igrad.logic.parser.requirement;
 
-import static igrad.logic.commands.requirement.RequirementAddCommand.MESSAGE_REQUIREMENT_NOT_ADDED;
+import static igrad.logic.commands.requirement.RequirementAddCommand.MESSAGE_NOT_ADDED;
 import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
 import static igrad.logic.parser.CliSyntax.PREFIX_TITLE;
 import static java.util.Objects.requireNonNull;
@@ -34,7 +34,7 @@ public class RequirementAddCommandParser extends RequirementCommandParser {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_CREDITS);
 
         if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_TITLE, PREFIX_CREDITS)) {
-            throw new ParseException(MESSAGE_REQUIREMENT_NOT_ADDED);
+            throw new ParseException(MESSAGE_NOT_ADDED);
         }
 
         Title title = parseTitle(argMultimap.getValue(PREFIX_TITLE).get());

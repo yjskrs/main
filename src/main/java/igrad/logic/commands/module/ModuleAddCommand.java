@@ -39,6 +39,8 @@ public class ModuleAddCommand extends ModuleCommand {
 
     public static final String MESSAGE_SUCCESS = "New module added: %1$s";
     public static final String MESSAGE_DUPLICATE_MODULE = "This module already exists in the course book";
+    public static final String MESSAGE_NOT_ADDED = "Added module must be provided with arguments "
+        + PREFIX_MODULE_CODE + "MODULE_CODE " + PREFIX_TITLE + "TITLE " + PREFIX_CREDITS + "CREDITS ";
 
     private final Module toAdd;
 
