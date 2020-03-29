@@ -1,9 +1,7 @@
 package igrad.model.requirement;
 
 import static java.util.Objects.requireNonNull;
-
 import java.util.List;
-
 import igrad.model.module.Module;
 import igrad.model.module.UniqueModuleList;
 import javafx.collections.ObservableList;
@@ -15,7 +13,8 @@ import javafx.collections.ObservableList;
  */
 public class Requirement implements ReadOnlyRequirement {
 
-    private final Name name; // name of the requirement
+    private RequirementCode requirementCode;
+    private final Title title; // name of the requirement
     private final Credits credits; // credit information for the requirement
     private final UniqueModuleList modules = new UniqueModuleList(); // list of modules associated with requirement
 
@@ -23,29 +22,45 @@ public class Requirement implements ReadOnlyRequirement {
      * Creates a {@code Requirement} object with given {@code name} and {@code credits}
      * and a default empty modules list.
      *
-     * @param name    Name of the requirement.
+     * @param title    Name of the requirement.
      * @param credits Credits of the requirement.
      */
-    public Requirement(Name name, Credits credits) {
-        requireNonNull(name);
+    public Requirement(Title title, Credits credits) {
+        requireNonNull(title);
 
-        this.name = name;
+        this.title = title;
         this.credits = credits;
+
+        this.requirementCode = new RequirementCode(generateRequirementCode(title.toString()));
     }
 
     /**
      * Creates a {@code Requirement} object with given {@code name}, {@code credits} and
      * a list of {@code modules}.
      *
-     * @param name    Name of the requirement.
+     * @param title    Name of the requirement.
      * @param credits Credits of the requirement.
      * @param modules List of modules belonging in the requirement.
      */
-    public Requirement(Name name, Credits credits, List<Module> modules) {
-        requireNonNull(name);
+    public Requirement(Title title, Credits credits, List<Module> modules) {
+        requireNonNull(title);
 
-        this.name = name;
+        this.title = title;
         this.credits = credits;
+
+        this.requirementCode = new RequirementCode(generateRequirementCode(title.toString()));
+
+        setModules(modules);
+    }
+
+    public Requirement(Title title, Credits credits, List<Module> modules, RequirementCode requirementCode ){
+        requireNonNull(title);
+
+        this.title = title;
+        this.credits = credits;
+
+        this.requirementCode = requirementCode;
+
         setModules(modules);
     }
 
@@ -57,8 +72,10 @@ public class Requirement implements ReadOnlyRequirement {
     public Requirement(ReadOnlyRequirement toBeCopied) {
         requireNonNull(toBeCopied);
 
-        this.name = toBeCopied.getName();
+        this.title = toBeCopied.getTitle();
         this.credits = toBeCopied.getCredits();
+
+        this.requirementCode = new RequirementCode(generateRequirementCode(title.toString()));
         resetModules(toBeCopied);
     }
 
@@ -143,16 +160,20 @@ public class Requirement implements ReadOnlyRequirement {
 
     // util methods
 
+    public void setRequirementCode( RequirementCode requirementCode ){
+        this.requirementCode = requirementCode;
+    }
+
     @Override
-    public Name getName() {
-        return name;
+    public Title getTitle() {
+        return title;
     }
 
     /**
      * Checks if {@code otherRequirement} has the same name as this requirement.
      */
     public boolean hasSameName(Requirement otherRequirement) {
-        return this.name.equals(otherRequirement.name);
+        return this.title.equals(otherRequirement.title);
     }
 
     /**
@@ -166,6 +187,12 @@ public class Requirement implements ReadOnlyRequirement {
     public Credits getCredits() {
         return credits;
     }
+
+    @Override
+    public RequirementCode getRequirementCode() {
+        return requirementCode;
+    }
+
 
     @Override
     public String getCreditsRequired() {
@@ -188,8 +215,23 @@ public class Requirement implements ReadOnlyRequirement {
     }
 
     @Override
+    public String generateRequirementCode(String requirementTitle) {
+
+        String code = "";
+        String[] words = requirementTitle.split(" ");
+
+        for (String word : words) {
+
+            code += word.split("")[0];
+
+        }
+
+        return code;
+    }
+
+    @Override
     public String toString() {
-        return "Requirement: " + name + ", " + credits + " creditsRequired and "
+        return "Requirement: " + title + ", " + credits + " creditsRequired and "
             + getCreditsFulfilled() + " creditsFulfilled has "
             + modules.asUnmodifiableObservableList().size() + " modules";
         // TODO: refine later
@@ -199,7 +241,7 @@ public class Requirement implements ReadOnlyRequirement {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
             || (other instanceof Requirement // check properties
-            && name.equals(((Requirement) other).name)
+            && title.equals(((Requirement) other).title)
             && credits.equals(((Requirement) other).credits)
             && modules.equals(((Requirement) other).modules));
 

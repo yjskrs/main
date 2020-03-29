@@ -28,7 +28,7 @@
                     <Region styleClass="vertical-divider"/>
                     <Label styleClass="module-card-default" fx:id="credits" text="\$credits"/>
                     <Region styleClass="vertical-divider"/>
-                    <Label styleClass="module-card-default" text="Grade: A"/>
+                    <Label styleClass="module-card-default" text="-"/>
                 </children>
             </HBox>
             <Label styleClass="module-card-default" fx:id="memo" text="Notes here"/>

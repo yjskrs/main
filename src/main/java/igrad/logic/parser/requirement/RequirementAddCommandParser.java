@@ -13,7 +13,7 @@ import igrad.logic.parser.ArgumentTokenizer;
 import igrad.logic.parser.ParserUtil;
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.requirement.Credits;
-import igrad.model.requirement.Name;
+import igrad.model.requirement.Title;
 import igrad.model.requirement.Requirement;
 
 /**
@@ -37,10 +37,10 @@ public class RequirementAddCommandParser extends RequirementCommandParser {
             throw new ParseException(MESSAGE_REQUIREMENT_NOT_ADDED);
         }
 
-        Name name = parseName(argMultimap.getValue(PREFIX_NAME).get());
+        Title title = parseName(argMultimap.getValue(PREFIX_NAME).get());
         Credits credits = parseCredits(argMultimap.getValue(PREFIX_CREDITS).get());
 
-        Requirement requirement = new Requirement(name, credits, new ArrayList<>());
+        Requirement requirement = new Requirement(title, credits, new ArrayList<>());
 
         return new RequirementAddCommand(requirement);
     }

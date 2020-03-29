@@ -25,7 +25,7 @@ import igrad.model.avatar.Avatar;
 import igrad.model.course.CourseInfo;
 import igrad.model.module.Module;
 import igrad.model.module.ModuleCode;
-import igrad.model.requirement.Name;
+import igrad.model.requirement.Title;
 import igrad.model.requirement.Requirement;
 import igrad.testutil.ModuleBuilder;
 import javafx.collections.ObservableList;
@@ -198,7 +198,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public Optional<Requirement> getRequirementByName(Name requirementName) {
+        public Optional<Requirement> getRequirementByName(Title requirementTitle) {
             throw new AssertionError("This method should not be called.");
         }
 

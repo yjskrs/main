@@ -19,6 +19,9 @@ public class RequirementCard extends UiPart<Region> {
     private int displayedIndex;
 
     @FXML
+    private Label requirementCode;
+
+    @FXML
     private Label requirementTitle;
 
     @FXML
@@ -33,7 +36,8 @@ public class RequirementCard extends UiPart<Region> {
         this.requirement = requirement;
         this.displayedIndex = displayedIndex;
 
-        requirementTitle.setText(requirement.getName().toString());
+        requirementCode.setText(requirement.getRequirementCode().toString());
+        requirementTitle.setText(requirement.getTitle().toString());
 
         String creditsCountText = requirement.getCreditsFulfilled()
             + " out of " + requirement.getCredits().toString()

@@ -1,7 +1,7 @@
 = iGrad - User Guide
 :site-section: UserGuide
 :toc:
-:toc-name:
+:toc-title:
 :toc-placement: preamble
 :sectnums:
 :imagesDir: images
@@ -187,7 +187,7 @@ Constraints
 
 Expected Outcome
 [NOTE]
-You should be able to see the added and/or modified course name in the
+You should be able to see the added and/or modified course title in the
 top panel. For remove course, all data would be reset
 
 '''

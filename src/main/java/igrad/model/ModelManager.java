@@ -19,8 +19,9 @@ import igrad.model.avatar.Avatar;
 import igrad.model.course.CourseInfo;
 import igrad.model.module.Module;
 import igrad.model.module.ModuleCode;
-import igrad.model.requirement.Name;
+import igrad.model.requirement.Title;
 import igrad.model.requirement.Requirement;
+import igrad.model.requirement.RequirementCode;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
@@ -181,11 +182,19 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Optional<Requirement> getRequirementByName(Name requirementName) {
+    public Optional<Requirement> getRequirementByName(Title requirementTitle) {
         return requirements.stream()
-            .filter(requirement -> requirement.getName().equals(requirementName))
+            .filter(requirement -> requirement.getTitle().equals(requirementTitle))
             .findFirst();
     }
+
+    @Override
+    public Optional<Requirement> getRequirementByCode(RequirementCode requirementCode) {
+        return requirements.stream()
+            .filter(requirement -> requirement.getRequirementCode().equals(requirementCode))
+            .findFirst();
+    }
+
 
     @Override
     public List<Module> getModulesByModuleCode(List<ModuleCode> moduleCodes) {

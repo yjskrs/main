@@ -1,7 +1,7 @@
 = iGrad - Developer Guide
 :site-section: DeveloperGuide
 :toc:
-:toc-name:
+:toc-title:
 :toc-placement: preamble
 :sectnums:
 :imagesDir: images
@@ -56,7 +56,7 @@ The rest of the App consists of five components.
 
 Each of the first four components
 
-* Defines its _API_ in an `interface` with the same name as the Component.
+* Defines its _API_ in an `interface` with the same title as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
 For example, the `Logic` component (see the class diagram given below) defines its API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
@@ -219,7 +219,7 @@ Within a course, there are multiple requirements to be tracked.
 
 .Structure of the Requirement class.
 image::RequirementClassDiagram.png[]
-A requirement consists of three components: name, credits and unique module list.
+A requirement consists of three components: title, credits and unique module list.
 The unique module list implies that each requirement stores modules assigned to that requirement.
 Multiple requirements can exist in the course book at any one time.
 
@@ -235,14 +235,14 @@ Here is how the requirement class updates when a requirement is added:
 .Sequence Diagram when adding a requirement.
 image::RequirementAddSequenceDiagram.png[]
 
-When the user adds a requirement, the user has to specify two prefixes: `n/` for name and `u/` for credits value (number of credits needed to fulfill for the requirement).
+When the user adds a requirement, the user has to specify two prefixes: `n/` for title and `u/` for credits value (number of credits needed to fulfill for the requirement).
 Then, the application proceeds to do the following steps
 
 Step 1: The RequirementAddCommandParser is called to parse the RequirementAddCommand with the `n/` and the `u/` prefixes into a new requirement.
 
 Step 2: The RequirementAddCommand is executed to add the new requirement to the model. In this step, the following check is performed:
 
-* Check if a requirement with the same name already exists in the course book.
+* Check if a requirement with the same title already exists in the course book.
 
 Step 3: The new requirement is added to the course book.
 
@@ -468,11 +468,11 @@ Use case ends.
 
 [none]
 * 2a.
-The course name is not provided.
-** 2a1. iGrad prompts user for course name.
-** 2a2. User enters a course name.
+The course title is not provided.
+** 2a1. iGrad prompts user for course title.
+** 2a2. User enters a course title.
 +
-Steps 2a1-2a2 are repeated until the a non-empty course name is provided.
+Steps 2a1-2a2 are repeated until the a non-empty course title is provided.
 +
 Use case resumes at step 3.
 
@@ -492,11 +492,11 @@ Use case ends.
 
 [none]
 * 3a.
-The requirement name is not provided.
-** 3a1. iGrad prompts user for requirement name.
-** 3a2. User enters a requirement name.
+The requirement title is not provided.
+** 3a1. iGrad prompts user for requirement title.
+** 3a2. User enters a requirement title.
 +
-Steps 3a1-3a2 are repeated until the a non-empty requirement name is provided.
+Steps 3a1-3a2 are repeated until the a non-empty requirement title is provided.
 +
 Use case resumes at step 4.
 
