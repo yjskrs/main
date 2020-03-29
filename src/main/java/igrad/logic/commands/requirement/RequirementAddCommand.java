@@ -1,7 +1,6 @@
 package igrad.logic.commands.requirement;
 
 import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
-import static igrad.logic.parser.CliSyntax.PREFIX_NAME;
 import static igrad.logic.parser.CliSyntax.PREFIX_TITLE;
 import static java.util.Objects.requireNonNull;
 
@@ -20,7 +19,8 @@ import javafx.collections.ObservableList;
 public class RequirementAddCommand extends RequirementCommand {
     public static final String COMMAND_WORD = REQUIREMENT_COMMAND_WORD + "add";
 
-    public static final String MESSAGE_DETAILS = COMMAND_WORD + ": Adds a requirement with relevant details specified.\n";
+    public static final String MESSAGE_DETAILS = COMMAND_WORD + ": Adds a requirement with relevant details "
+        + "specified.\n";
 
     public static final String MESSAGE_USAGE = "Parameter(s): "
         + PREFIX_TITLE + "TITLE "

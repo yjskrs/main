@@ -56,9 +56,9 @@ public class ModuleAddCommandParser extends ModuleCommandParser implements Parse
         }
 
         /*
-         * module add n/MODULE_CODE t/MODULE_TITLE u/MCs [m/MEMO_NOTES] [s/SEMESTER] [x/TAGS]...
+         * module add n/MODULE_CODE t/TITLE u/MCs [m/MEMO_NOTES] [s/SEMESTER] [x/TAGS]...
          *
-         * We have that; MODULE_CODE, MODULE_TITLE, MCs, are the compulsory fields, so we're just validating for its
+         * We have that; MODULE_CODE, TITLE, MCs, are the compulsory fields, so we're just validating for its
          * presence in the below.
          */
         if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_MODULE_CODE, PREFIX_TITLE, PREFIX_CREDITS)) {
