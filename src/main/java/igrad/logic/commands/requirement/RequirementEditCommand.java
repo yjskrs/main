@@ -33,11 +33,9 @@ public class RequirementEditCommand extends RequirementCommand {
 
     public static final String MESSAGE_HELP = MESSAGE_DETAILS + MESSAGE_USAGE;
 
-    public static final String MESSAGE_REQUIREMENT_EDIT_SUCCESS = "Edited Requirement: %1$s";
+    public static final String MESSAGE_SUCCESS = "Edited Requirement: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_REQUIREMENT_SAME_PARAMETERS = "Please change the name and/or the credits.";
-    public static final String MESSAGE_REQUIREMENT_DUPLICATE = "This requirement already exists. "
-        + "Please change to a different name or delete the requirement if you no longer need it.";
 
 
     private final RequirementCode requirementCode;
@@ -100,6 +98,6 @@ public class RequirementEditCommand extends RequirementCommand {
         model.updateRequirementList(Model.PREDICATE_SHOW_ALL_REQUIREMENTS);
 
         return new CommandResult(
-            String.format(MESSAGE_REQUIREMENT_EDIT_SUCCESS, editedRequirement));
+            String.format(MESSAGE_SUCCESS, editedRequirement));
     }
 }

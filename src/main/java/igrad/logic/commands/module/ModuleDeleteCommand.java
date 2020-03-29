@@ -12,13 +12,13 @@ import igrad.model.module.Module;
 import igrad.model.module.ModuleCode;
 
 /**
- * Deletes a module identified using it's displayed index from the course book.
+ * Deletes a {@code Module} identified using it's displayed index from the course book.
  */
 public class ModuleDeleteCommand extends ModuleCommand {
 
     public static final String COMMAND_WORD = MODULE_COMMAND_WORD + "delete";
 
-    public static final String MESSAGE_DELETE_MODULE_SUCCESS = "Deleted Module: %1$s";
+    public static final String MESSAGE_SUCCESS = "Deleted Module: %1$s";
 
     private final ModuleCode moduleCode;
 
@@ -46,7 +46,7 @@ public class ModuleDeleteCommand extends ModuleCommand {
         Module moduleToDelete = moduleToDeleteOpt.get();
 
         model.deleteModule(moduleToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_MODULE_SUCCESS, moduleToDelete));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, moduleToDelete));
     }
 
     @Override

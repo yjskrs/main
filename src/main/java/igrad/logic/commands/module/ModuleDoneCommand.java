@@ -40,7 +40,7 @@ public class ModuleDoneCommand extends ModuleCommand {
 
     public static final String MESSAGE_NOT_EDITED = "Grade must be provided.";
 
-    public static final String MESSAGE_EDIT_MODULE_SUCCESS = "Marked Module as done: %1$s";
+    public static final String MESSAGE_SUCCESS = "Marked Module as done: %1$s";
 
     private ModuleCode moduleCode;
     private EditModuleGradeDescriptor editModuleGradeDescriptor;
@@ -94,7 +94,7 @@ public class ModuleDoneCommand extends ModuleCommand {
 
         model.setModule(moduleToEdit, editedModule);
         model.updateFilteredModuleList(Model.PREDICATE_SHOW_ALL_MODULES);
-        return new CommandResult(String.format(MESSAGE_EDIT_MODULE_SUCCESS, editedModule));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, editedModule));
     }
 
     /**

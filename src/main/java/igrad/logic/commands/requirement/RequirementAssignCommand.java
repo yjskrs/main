@@ -35,7 +35,7 @@ public class RequirementAssignCommand extends RequirementCommand {
 
     public static final String MESSAGE_MODULES_ALREADY_EXIST_IN_REQUIREMENT =
         "Some Modules already exists in this requirement. Please try other modules.";
-    public static final String MESSAGE_REQUIREMENT_ASSIGN_MODULE_SUCCESS = "Modules assigned under Requirement: %1$s";
+    public static final String MESSAGE_SUCCESS = "Modules assigned under Requirement: %1$s";
 
     private RequirementCode requirementCode;
     private List<ModuleCode> moduleCodes;
@@ -77,6 +77,6 @@ public class RequirementAssignCommand extends RequirementCommand {
         model.setRequirement(requirementToAssign, editedRequirement);
 
         return new CommandResult(
-            String.format(MESSAGE_REQUIREMENT_ASSIGN_MODULE_SUCCESS, editedRequirement));
+            String.format(MESSAGE_SUCCESS, editedRequirement));
     }
 }
