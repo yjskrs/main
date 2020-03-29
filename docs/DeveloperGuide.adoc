@@ -1,7 +1,7 @@
 = iGrad - Developer Guide
 :site-section: DeveloperGuide
 :toc:
-:toc-title:
+:toc-name:
 :toc-placement: preamble
 :sectnums:
 :imagesDir: images
@@ -56,7 +56,7 @@ The rest of the App consists of five components.
 
 Each of the first four components
 
-* Defines its _API_ in an `interface` with the same title as the Component.
+* Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
 For example, the `Logic` component (see the class diagram given below) defines its API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
@@ -468,11 +468,11 @@ Use case ends.
 
 [none]
 * 2a.
-The course title is not provided.
-** 2a1. iGrad prompts user for course title.
-** 2a2. User enters a course title.
+The course name is not provided.
+** 2a1. iGrad prompts user for course name.
+** 2a2. User enters a course name.
 +
-Steps 2a1-2a2 are repeated until the a non-empty course title is provided.
+Steps 2a1-2a2 are repeated until the a non-empty course name is provided.
 +
 Use case resumes at step 3.
 
