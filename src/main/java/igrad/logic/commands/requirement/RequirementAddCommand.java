@@ -32,7 +32,7 @@ public class RequirementAddCommand extends RequirementCommand {
     public static final String MESSAGE_HELP = MESSAGE_DETAILS + MESSAGE_USAGE;
 
     public static final String MESSAGE_SUCCESS = "New requirement added: %1$s";
-    public static final String MESSAGE_NOT_ADDED = "Added requirement must be provided with arguments "
+    public static final String MESSAGE_NOT_ADDED = "Added requirement must be provided with at least these argument(s) "
         + PREFIX_TITLE + "TITLE " + PREFIX_CREDITS + "CREDITS ";
     public static final String MESSAGE_REQUIREMENT_DUPLICATE = "This requirement already exists in the course book.";
     private static final String STRIP_DIGITS_REGEX = "[0123456789]";

@@ -32,14 +32,17 @@ public class CourseEditCommandParser extends CourseCommandParser implements Pars
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME);
 
-        Name name;
-
+        /*
+         * Course is special, unlike Module and Requirement, it does not need a specifier, because there
+         * is only one course in the system. Hence the command syntax for course edit, goes like this;
+         * course edit n/NEW_COURSE_NAME
+         */
         if (!argMultimap.getValue(PREFIX_NAME).isPresent()) {
             throw new ParseException(MESSAGE_COURSE_NOT_EDITED);
         }
 
-        name = parseName(argMultimap.getValue(PREFIX_NAME).get());
+        Optional<Name> name = parseName(argMultimap.getValue(PREFIX_NAME).get());
 
-        return new CourseEditCommand(Optional.of(name));
+        return new CourseEditCommand(name);
     }
 }

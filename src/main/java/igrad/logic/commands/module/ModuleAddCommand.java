@@ -23,7 +23,7 @@ public class ModuleAddCommand extends ModuleCommand {
     public static final String MESSAGE_DETAILS = COMMAND_WORD + ": Adds a module with relevant details specified.\n";
 
     public static final String MESSAGE_USAGE = "Parameter(s): "
-        + PREFIX_MODULE_CODE + "MODULE CODE "
+        + PREFIX_MODULE_CODE + "MODULE_CODE "
         + PREFIX_TITLE + " TITLE "
         + PREFIX_CREDITS + "CREDITS "
         + "[" + PREFIX_MEMO + "MEMO] "
@@ -39,7 +39,7 @@ public class ModuleAddCommand extends ModuleCommand {
 
     public static final String MESSAGE_SUCCESS = "New module added: %1$s";
     public static final String MESSAGE_DUPLICATE_MODULE = "This module already exists in the course book";
-    public static final String MESSAGE_NOT_ADDED = "Added module must be provided with arguments "
+    public static final String MESSAGE_NOT_ADDED = "Added module must be provided with at least these argument(s) "
         + PREFIX_MODULE_CODE + "MODULE_CODE " + PREFIX_TITLE + "TITLE " + PREFIX_CREDITS + "CREDITS ";
 
     private final Module toAdd;
