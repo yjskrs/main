@@ -47,7 +47,7 @@ public class ModuleAddCommandParser extends ModuleCommandParser implements Parse
                 PREFIX_MEMO, PREFIX_SEMESTER, PREFIX_TAG);
 
         /*
-         * If all arguments in the command are empty; i.e, 'module add', and nothing else, show
+         * If all arguments in the command are empty; i.e, 'module add', and nothing else (except preambles), show
          * the help message for this command
          */
         if (argMultimap.isEmpty(false)) {

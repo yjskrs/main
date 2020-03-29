@@ -9,7 +9,7 @@ import static java.util.Objects.requireNonNull;
 public class Grade {
     public static final String MESSAGE_CONSTRAINTS = "Grade should be a valid format";
 
-    public static final String VALIDATION_REGEX = "(A\\+)|(A)|(A-)|(B\\+)|(B)|(B-)|(C+)|(C)|(D)|(F)|(S)|(U)";
+    public static final String VALIDATION_REGEX = "(A\\+)|(A)|(A-)|(B\\+)|(B)|(B-)|(C\\+)|(C)|(D)|(F)|(S)|(U)";
 
     public final String value;
 

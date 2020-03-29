@@ -1,6 +1,7 @@
 package igrad.logic.parser.module;
 
 import static igrad.logic.commands.module.ModuleEditCommand.MESSAGE_HELP;
+import static igrad.logic.commands.module.ModuleEditCommand.MESSAGE_NOT_EDITED;
 import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
 import static igrad.logic.parser.CliSyntax.PREFIX_MEMO;
 import static igrad.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
@@ -81,7 +82,7 @@ public class ModuleEditCommandParser extends ModuleCommandParser implements Pars
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editModuleDescriptor::setTags);
 
         if (!editModuleDescriptor.isAnyFieldEdited()) {
-            throw new ParseException(ModuleEditCommand.MESSAGE_NOT_EDITED);
+            throw new ParseException(MESSAGE_NOT_EDITED);
         }
 
         return new ModuleEditCommand(moduleCode, editModuleDescriptor);
