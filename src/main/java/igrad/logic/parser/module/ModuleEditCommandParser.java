@@ -45,10 +45,7 @@ public class ModuleEditCommandParser extends ModuleCommandParser implements Pars
          * If all arguments in the command are empty; i.e, 'module edit', and nothing else, show
          * the help message for this command
          */
-        if (argMultimap.getPreamble().isEmpty() && argMultimap.getValue(PREFIX_TITLE).isEmpty()
-            && argMultimap.getValue(PREFIX_MODULE_CODE).isEmpty() && argMultimap.getValue(PREFIX_CREDITS).isEmpty()
-            && argMultimap.getValue(PREFIX_MEMO).isEmpty() && argMultimap.getValue(PREFIX_SEMESTER).isEmpty()
-            && argMultimap.getAllValues(PREFIX_TAG).isEmpty()) {
+        if (argMultimap.isEmpty()) {
             throw new ParseException(MESSAGE_HELP);
         }
 
