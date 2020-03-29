@@ -1,7 +1,6 @@
 package igrad.logic.commands.requirement;
 
 import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
-import static igrad.logic.parser.CliSyntax.PREFIX_NAME;
 import static igrad.logic.parser.CliSyntax.PREFIX_TITLE;
 import static java.util.Objects.requireNonNull;
 
@@ -20,21 +19,24 @@ import javafx.collections.ObservableList;
 public class RequirementAddCommand extends RequirementCommand {
     public static final String COMMAND_WORD = REQUIREMENT_COMMAND_WORD + "add";
 
-    public static final String MESSAGE_DETAILS = COMMAND_WORD + ": Adds a requirement.\n";
+    public static final String MESSAGE_DETAILS = COMMAND_WORD + ": Adds a requirement with relevant details "
+        + "specified.\n";
 
-    public static final String MESSAGE_USAGE = "Parameter: "
-        + PREFIX_NAME + "NAME "
+    public static final String MESSAGE_USAGE = "Parameter(s): "
+        + PREFIX_TITLE + "TITLE "
         + PREFIX_CREDITS + "CREDITS_TO_FULFIL\n"
         + "Example: " + COMMAND_WORD + " "
-        + PREFIX_NAME + "Unrestricted Electives "
+        + PREFIX_TITLE + "Unrestricted Electives "
         + PREFIX_CREDITS + "24\n";
 
     public static final String MESSAGE_HELP = MESSAGE_DETAILS + MESSAGE_USAGE;
 
-    public static final String MESSAGE_REQUIREMENT_ADD_SUCCESS = "New requirement added: %1$s";
-    public static final String MESSAGE_REQUIREMENT_NOT_ADDED = "Added requirement must be provided with arguments "
+    public static final String MESSAGE_SUCCESS = "New requirement added: %1$s";
+    public static final String MESSAGE_NOT_ADDED = "Added requirement must be provided with at least these argument(s) "
         + PREFIX_TITLE + "TITLE " + PREFIX_CREDITS + "CREDITS ";
     public static final String MESSAGE_REQUIREMENT_DUPLICATE = "This requirement already exists in the course book.";
+    private static final String STRIP_DIGITS_REGEX = "[0123456789]";
+    private static final String STRIP_ALPHA_REGEX = "\\D+";
 
     private final Requirement requirementToAdd;
 
@@ -82,14 +84,14 @@ public class RequirementAddCommand extends RequirementCommand {
         }
 
         model.addRequirement(requirementToAdd);
-        return new CommandResult(String.format(MESSAGE_REQUIREMENT_ADD_SUCCESS, requirementToAdd));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, requirementToAdd));
     }
 
     private String stripDigits(String str) {
-        return str.replaceAll("[0123456789]", "");
+        return str.replaceAll(STRIP_DIGITS_REGEX, "");
     }
 
     private String stripAlpha(String str) {
-        return str.replaceAll("\\D+", "");
+        return str.replaceAll(STRIP_ALPHA_REGEX, "");
     }
 }

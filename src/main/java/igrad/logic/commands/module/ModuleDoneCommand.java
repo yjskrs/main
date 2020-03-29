@@ -1,6 +1,8 @@
 package igrad.logic.commands.module;
 
 import static igrad.commons.util.CollectionUtil.requireAllNonNull;
+import static igrad.logic.parser.CliSyntax.PREFIX_GRADE;
+import static igrad.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Optional;
@@ -25,9 +27,20 @@ import igrad.model.tag.Tag;
 public class ModuleDoneCommand extends ModuleCommand {
     public static final String COMMAND_WORD = MODULE_COMMAND_WORD + "done";
 
+    public static final String MESSAGE_DETAILS = COMMAND_WORD + ": Marks a module as done (with a grade) of the "
+        + "module identified by its module code. Existing module (grade) will be overwritten by the input values.\n";
+
+    public static final String MESSAGE_USAGE = "Parameter(s): MODULE CODE "
+        + PREFIX_GRADE + "GRADE\n"
+        + "Example: " + COMMAND_WORD + " "
+        + PREFIX_MODULE_CODE + "CS2103T "
+        + PREFIX_GRADE + "A+";
+
+    public static final String MESSAGE_HELP = MESSAGE_DETAILS + MESSAGE_USAGE;
+
     public static final String MESSAGE_NOT_EDITED = "Grade must be provided.";
 
-    public static final String MESSAGE_EDIT_MODULE_SUCCESS = "Marked Module as done: %1$s";
+    public static final String MESSAGE_SUCCESS = "Marked Module as done: %1$s";
 
     private ModuleCode moduleCode;
     private EditModuleGradeDescriptor editModuleGradeDescriptor;
@@ -81,7 +94,7 @@ public class ModuleDoneCommand extends ModuleCommand {
 
         model.setModule(moduleToEdit, editedModule);
         model.updateFilteredModuleList(Model.PREDICATE_SHOW_ALL_MODULES);
-        return new CommandResult(String.format(MESSAGE_EDIT_MODULE_SUCCESS, editedModule));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, editedModule));
     }
 
     /**

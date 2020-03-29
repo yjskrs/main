@@ -11,8 +11,8 @@ public class ModuleCode {
 
 
     public static final String MESSAGE_CONSTRAINTS =
-        "Module code should contain two letters at the front and four"
-            + " numbers at the back, with an optional letter at the end.";
+        "Module code should contain two letters at the front and four "
+            + "numbers at the back, with an optional letter at the end.";
     public static final String VALIDATION_REGEX = ".{2,3}\\d{4}.?";
     public final String value;
 

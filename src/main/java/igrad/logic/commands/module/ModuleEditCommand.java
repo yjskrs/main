@@ -36,20 +36,23 @@ public class ModuleEditCommand extends ModuleCommand {
 
     public static final String COMMAND_WORD = MODULE_COMMAND_WORD + "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the module identified "
-        + "by its module code. "
-        + "Existing values will be overwritten by the input values.\n"
-        + "Parameters: MODULE CODE "
+    public static final String MESSAGE_DETAILS = COMMAND_WORD + ": Edits the details of the module identified "
+        + "by its module code. Existing module will be overwritten by the input values.\n";
+
+    public static final String MESSAGE_USAGE = "Parameter(s): MODULE CODE "
+        + "[" + PREFIX_MODULE_CODE + "MODULE_CODE] "
         + "[" + PREFIX_TITLE + "TITLE] "
         + "[" + PREFIX_CREDITS + "CREDITS] "
         + "[" + PREFIX_MEMO + "MEMO] "
-        + "[" + PREFIX_SEMESTER + "SEMESTER]"
+        + "[" + PREFIX_SEMESTER + "SEMESTER] "
         + "[" + PREFIX_TAG + "TAGS]...\n"
-        + "Example: " + COMMAND_WORD + " "
-        + PREFIX_MODULE_CODE + "CS2103T "
+        + "Example: " + COMMAND_WORD + " CS2040 "
+        + PREFIX_MODULE_CODE + "CS2040S "
         + PREFIX_CREDITS + "4";
 
-    public static final String MESSAGE_EDIT_MODULE_SUCCESS = "Edited Module: %1$s";
+    public static final String MESSAGE_HELP = MESSAGE_DETAILS + MESSAGE_USAGE;
+
+    public static final String MESSAGE_SUCCESS = "Edited Module: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_MODULE = "This module already exists in the course book.";
 
@@ -78,6 +81,7 @@ public class ModuleEditCommand extends ModuleCommand {
 
         // All fields can be optionally updated
         Title updatedTitle = editModuleDescriptor.getTitle().orElse(moduleToEdit.getTitle());
+        ModuleCode updatedModuleCode = editModuleDescriptor.getModuleCode().orElse(moduleToEdit.getModuleCode());
         Credits updatedCredits = editModuleDescriptor.getCredits().orElse(moduleToEdit.getCredits());
         Optional<Memo> updatedMemo = editModuleDescriptor.getMemo().orElse(moduleToEdit.getMemo());
         Optional<Semester> updatedSemester = editModuleDescriptor.getSemester().orElse(moduleToEdit.getSemester());
@@ -91,7 +95,7 @@ public class ModuleEditCommand extends ModuleCommand {
          */
         Optional<Grade> updatedGrade = moduleToEdit.getGrade();
 
-        return new Module(updatedTitle, moduleCode, updatedCredits, updatedMemo, updatedSemester,
+        return new Module(updatedTitle, updatedModuleCode, updatedCredits, updatedMemo, updatedSemester,
             updatedDescription, updatedGrade, updatedTags);
     }
 
@@ -128,7 +132,7 @@ public class ModuleEditCommand extends ModuleCommand {
 
         model.setModule(moduleToEdit, editedModule);
         model.updateFilteredModuleList(Model.PREDICATE_SHOW_ALL_MODULES);
-        return new CommandResult(String.format(MESSAGE_EDIT_MODULE_SUCCESS, editedModule));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, editedModule));
     }
 
     @Override

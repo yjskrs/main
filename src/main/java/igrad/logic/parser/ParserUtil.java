@@ -1,5 +1,7 @@
 package igrad.logic.parser;
 
+import static igrad.commons.core.Messages.MESSAGE_SPECIFIER_INVALID;
+import static igrad.commons.core.Messages.MESSAGE_SPECIFIER_NOT_SPECIFIED;
 import static igrad.logic.parser.module.ModuleCommandParser.parseModuleCode;
 import static java.util.Objects.requireNonNull;
 
@@ -58,8 +60,17 @@ public class ParserUtil {
 
         String trimmedSpecifier = specifier.trim();
 
-        if (!rule.apply(specifier)) {
-            throw new ParseException(messageError);
+        // We know that in any case, a specifier can never be empty (empty string "")
+        if (trimmedSpecifier.isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_SPECIFIER_NOT_SPECIFIED, messageError));
+        }
+
+        /*
+         * Now apply other specifier specific semantic rule as according to {@code rule} parameter, and see if
+         * there is any other violation.
+         */
+        if (!rule.apply(trimmedSpecifier)) {
+            throw new ParseException(String.format(MESSAGE_SPECIFIER_INVALID, messageError));
         }
 
         return new Specifier(trimmedSpecifier);

@@ -112,11 +112,8 @@ public class Module {
             return true;
         }
 
-        // TODO: something doesn't make sense here, we should just check for module code, nothing else (~nathanael)
         return otherModule != null
-            && otherModule.getTitle().equals(getTitle())
-            && otherModule.getModuleCode().equals(getModuleCode())
-            && otherModule.getCredits().equals(getCredits());
+            && otherModule.getModuleCode().equals(getModuleCode());
     }
 
     /**

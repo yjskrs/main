@@ -2,7 +2,6 @@ package igrad.logic.commands.requirement;
 
 import static igrad.commons.util.CollectionUtil.requireAllNonNull;
 import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
-import static igrad.logic.parser.CliSyntax.PREFIX_NAME;
 import static igrad.logic.parser.CliSyntax.PREFIX_TITLE;
 import static java.util.Objects.requireNonNull;
 
@@ -23,24 +22,20 @@ import igrad.model.requirement.Title;
 public class RequirementEditCommand extends RequirementCommand {
     public static final String COMMAND_WORD = REQUIREMENT_COMMAND_WORD + "edit";
 
-    public static final String MESSAGE_DETAILS = COMMAND_WORD + ": Edits the requirement. "
-        + "Existing requirement will be overwritten by the new name and/or credits.\n";
+    public static final String MESSAGE_DETAILS = COMMAND_WORD + ": Edits the requirement identified "
+        + "by its requirement code. Existing requirement will be overwritten by the input values.\n";
 
-    public static final String MESSAGE_USAGE = "Parameter: "
-        + "[" + PREFIX_TITLE + "NEW_TITLE] "
-        + "[" + PREFIX_CREDITS + "NEW_CREDITS]\n"
-        + "Example: " + COMMAND_WORD + " Unrestrained Elves "
-        + PREFIX_NAME + "Unrestricted Electives";
+    public static final String MESSAGE_USAGE = "Parameter(s): REQUIREMENT_CODE "
+        + "[" + PREFIX_TITLE + "TITLE] "
+        + "[" + PREFIX_CREDITS + "CREDITS]\n"
+        + "Example: " + COMMAND_WORD + " UE0 "
+        + PREFIX_TITLE + "Unrestricted Electives";
 
     public static final String MESSAGE_HELP = MESSAGE_DETAILS + MESSAGE_USAGE;
 
-    public static final String MESSAGE_REQUIREMENT_EDIT_SUCCESS = "Edited Requirement: %1$s";
-    public static final String MESSAGE_REQUIREMENT_NOT_EDITED = "Edited requirement must be provided with prefix "
-        + "[" + PREFIX_NAME + "] and/or "
-        + "[" + PREFIX_CREDITS + "].";
+    public static final String MESSAGE_SUCCESS = "Edited Requirement: %1$s";
+    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_REQUIREMENT_SAME_PARAMETERS = "Please change the name and/or the credits.";
-    public static final String MESSAGE_REQUIREMENT_DUPLICATE = "This requirement already exists. "
-        + "Please change to a different name or delete the requirement if you no longer need it.";
 
 
     private final RequirementCode requirementCode;
@@ -103,6 +98,6 @@ public class RequirementEditCommand extends RequirementCommand {
         model.updateRequirementList(Model.PREDICATE_SHOW_ALL_REQUIREMENTS);
 
         return new CommandResult(
-            String.format(MESSAGE_REQUIREMENT_EDIT_SUCCESS, editedRequirement));
+            String.format(MESSAGE_SUCCESS, editedRequirement));
     }
 }

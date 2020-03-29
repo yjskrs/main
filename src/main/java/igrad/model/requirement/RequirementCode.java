@@ -12,7 +12,7 @@ public class RequirementCode {
     public static final String MESSAGE_CONSTRAINTS = "Requirement Code should not start with a space and "
         + "should not be blank.";
 
-    public static final String VALIDATION_REGEX = ".*";
+    public static final String VALIDATION_REGEX = "[A-Za-z0-9]+";
 
     public final String value;
 
