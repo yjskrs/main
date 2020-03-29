@@ -61,7 +61,7 @@ public class ParserUtil {
         String trimmedSpecifier = specifier.trim();
 
         // We know that in any case, a specifier can never be empty (empty string "")
-        if (specifier.isEmpty()) {
+        if (trimmedSpecifier.isEmpty()) {
             throw new ParseException(String.format(MESSAGE_SPECIFIER_NOT_SPECIFIED, messageError));
         }
 
@@ -69,7 +69,7 @@ public class ParserUtil {
          * Now apply other specifier specific semantic rule as according to {@code rule} parameter, and see if
          * there is any other violation.
          */
-        if (!rule.apply(specifier)) {
+        if (!rule.apply(trimmedSpecifier)) {
             throw new ParseException(String.format(MESSAGE_SPECIFIER_INVALID, messageError));
         }
 

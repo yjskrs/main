@@ -1,8 +1,5 @@
 package igrad.logic.parser.requirement;
 
-import static igrad.commons.core.Messages.MESSAGE_SPECIFIER_NOT_SPECIFIED;
-import static igrad.logic.commands.requirement.RequirementDeleteCommand.MESSAGE_USAGE;
-
 import igrad.logic.commands.requirement.RequirementDeleteCommand;
 import igrad.logic.parser.ParserUtil;
 import igrad.logic.parser.Specifier;
@@ -16,13 +13,11 @@ public class RequirementDeleteCommandParser extends RequirementCommandParser {
 
     @Override
     public RequirementDeleteCommand parse(String args) throws ParseException {
-        try {
-            Specifier specifier = ParserUtil.parseSpecifier(args,
-                ParserUtil.REQUIREMENT_CODE_SPECIFIER_RULE, RequirementCode.MESSAGE_CONSTRAINTS);
-            return new RequirementDeleteCommand(new RequirementCode(specifier.getValue()));
-        } catch (ParseException pe) {
-            throw new ParseException(
-                String.format(MESSAGE_SPECIFIER_NOT_SPECIFIED, MESSAGE_USAGE), pe);
-        }
+        Specifier specifier = ParserUtil.parseSpecifier(args,
+            ParserUtil.REQUIREMENT_CODE_SPECIFIER_RULE, RequirementCode.MESSAGE_CONSTRAINTS);
+
+        RequirementCode requirementCode = new RequirementCode(specifier.getValue());
+
+        return new RequirementDeleteCommand(requirementCode);
     }
 }
