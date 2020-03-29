@@ -15,9 +15,9 @@ import igrad.model.requirement.RequirementCode;
 public class RequirementDeleteCommandParser extends RequirementCommandParser {
 
     @Override
-    public RequirementDeleteCommand parse(String userInput) throws ParseException {
+    public RequirementDeleteCommand parse(String args) throws ParseException {
         try {
-            Specifier specifier = ParserUtil.parseSpecifier(userInput,
+            Specifier specifier = ParserUtil.parseSpecifier(args,
                 ParserUtil.REQUIREMENT_CODE_SPECIFIER_RULE, RequirementCode.MESSAGE_CONSTRAINTS);
             return new RequirementDeleteCommand(new RequirementCode(specifier.getValue()));
         } catch (ParseException pe) {

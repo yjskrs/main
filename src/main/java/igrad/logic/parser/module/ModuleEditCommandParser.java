@@ -52,12 +52,11 @@ public class ModuleEditCommandParser extends ModuleCommandParser implements Pars
         }
 
         ModuleEditCommand.EditModuleDescriptor editModuleDescriptor = new ModuleEditCommand.EditModuleDescriptor();
-        ModuleCode moduleCode;
 
         Specifier specifier = ParserUtil.parseSpecifier(argMultimap.getPreamble(),
             ParserUtil.MODULE_MODULE_CODE_SPECIFIER_RULE, ModuleCode.MESSAGE_CONSTRAINTS);
 
-        moduleCode = new ModuleCode(specifier.getValue());
+        ModuleCode moduleCode = new ModuleCode(specifier.getValue());
 
         if (argMultimap.getValue(PREFIX_MODULE_CODE).isPresent()) {
             editModuleDescriptor.setModuleCode(parseModuleCode(argMultimap.getValue(PREFIX_MODULE_CODE).get()));
