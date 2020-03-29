@@ -1,6 +1,7 @@
 package igrad.logic.parser.requirement;
 
 import static igrad.commons.core.Messages.MESSAGE_SPECIFIER_NOT_SPECIFIED;
+import static igrad.logic.commands.requirement.RequirementEditCommand.MESSAGE_HELP;
 import static igrad.logic.commands.requirement.RequirementEditCommand.MESSAGE_REQUIREMENT_NOT_EDITED;
 import static igrad.logic.commands.requirement.RequirementEditCommand.MESSAGE_USAGE;
 import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
@@ -35,10 +36,19 @@ public class RequirementEditCommandParser extends RequirementCommandParser {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_CREDITS);
 
+        /*
+         * If all arguments in the command are empty; i.e, 'requirement edit', and nothing else, show
+         * the help message for this command
+         */
+        if (argMultimap.getPreamble().isEmpty() && argMultimap.getValue(PREFIX_TITLE).isEmpty()
+            && argMultimap.getValue(PREFIX_CREDITS).isEmpty()) {
+            throw new ParseException(MESSAGE_HELP);
+        }
+
         Specifier specifier;
         try {
             specifier = ParserUtil.parseSpecifier(argMultimap.getPreamble(),
-                ParserUtil.REQUIREMENT_CODE_SPECIFIER_RULE, Title.MESSAGE_CONSTRAINTS);
+                ParserUtil.REQUIREMENT_CODE_SPECIFIER_RULE, RequirementCode.MESSAGE_CONSTRAINTS);
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_SPECIFIER_NOT_SPECIFIED, MESSAGE_USAGE), pe);
         }

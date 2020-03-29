@@ -23,14 +23,14 @@ import igrad.model.requirement.Title;
 public class RequirementEditCommand extends RequirementCommand {
     public static final String COMMAND_WORD = REQUIREMENT_COMMAND_WORD + "edit";
 
-    public static final String MESSAGE_DETAILS = COMMAND_WORD + ": Edits the requirement. "
-        + "Existing requirement will be overwritten by the new name and/or credits.\n";
+    public static final String MESSAGE_DETAILS = COMMAND_WORD + ": Edits the requirement identified "
+        + "by its requirement code. Existing requirement will be overwritten by the input values.\n";
 
-    public static final String MESSAGE_USAGE = "Parameter: "
+    public static final String MESSAGE_USAGE = "Parameter(s): REQUIREMENT_CODE "
         + "[" + PREFIX_TITLE + "NEW_TITLE] "
         + "[" + PREFIX_CREDITS + "NEW_CREDITS]\n"
-        + "Example: " + COMMAND_WORD + " Unrestrained Elves "
-        + PREFIX_NAME + "Unrestricted Electives";
+        + "Example: " + COMMAND_WORD + " UE0 "
+        + PREFIX_TITLE + "Unrestricted Electives";
 
     public static final String MESSAGE_HELP = MESSAGE_DETAILS + MESSAGE_USAGE;
 
