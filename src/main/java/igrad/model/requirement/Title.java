@@ -22,7 +22,7 @@ public class Title {
      */
     public Title(String value) {
         requireNonNull(value);
-        checkArgument(isValidName(value), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidTitle(value), MESSAGE_CONSTRAINTS);
 
         this.value = value;
     }
@@ -30,7 +30,7 @@ public class Title {
     /**
      * Returns true if a given string is a valid name.
      */
-    public static boolean isValidName(String test) {
+    public static boolean isValidTitle(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 

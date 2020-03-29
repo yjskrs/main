@@ -72,7 +72,7 @@ class JsonAdaptedRequirement {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Title.class.getSimpleName()));
         }
 
-        if (!Title.isValidName(name)) {
+        if (!Title.isValidTitle(name)) {
             throw new IllegalValueException(Title.MESSAGE_CONSTRAINTS);
         }
 

@@ -19,11 +19,11 @@ public abstract class RequirementCommandParser implements Parser<RequirementComm
      *
      * @throws ParseException If the given {@code name} is invalid.
      */
-    public static Title parseName(String name) throws ParseException {
-        requireNonNull(name);
+    public static Title parseTitle(String title) throws ParseException {
+        requireNonNull(title);
 
-        String trimmedName = name.trim();
-        if (!Title.isValidName(trimmedName)) {
+        String trimmedName = title.trim();
+        if (!Title.isValidTitle(trimmedName)) {
             throw new ParseException(Title.MESSAGE_CONSTRAINTS);
         }
 

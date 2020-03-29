@@ -44,16 +44,16 @@ public class RequirementEditCommand extends RequirementCommand {
 
     private final RequirementCode requirementCode;
 
-    private final Optional<Title> newName;
+    private final Optional<Title> newTitle;
 
     private final Optional<Credits> newCredits;
 
     public RequirementEditCommand(RequirementCode requirementCode,
-                                  Optional<Title> newName, Optional<Credits> newCredits) {
-        requireAllNonNull(requirementCode, newName, newCredits);
+                                  Optional<Title> newTitle, Optional<Credits> newCredits) {
+        requireAllNonNull(requirementCode, newTitle, newCredits);
 
         this.requirementCode = requirementCode;
-        this.newName = newName;
+        this.newTitle = newTitle;
         this.newCredits = newCredits;
     }
 
@@ -69,12 +69,13 @@ public class RequirementEditCommand extends RequirementCommand {
             .findFirst()
             .orElseThrow(() -> new CommandException(MESSAGE_REQUIREMENT_NON_EXISTENT));
 
-        Title editedTitle = newName.orElse(requirementToEdit.getTitle());
+        Title editedTitle = newTitle.orElse(requirementToEdit.getTitle());
         Credits editedCredits = newCredits.orElse(requirementToEdit.getCredits());
-        Requirement editedRequirement = new Requirement(editedTitle, editedCredits, requirementToEdit.getModuleList(), requirementToEdit.getRequirementCode());
+        Requirement editedRequirement = new Requirement(editedTitle, editedCredits, requirementToEdit.getModuleList(),
+            requirementToEdit.getRequirementCode());
 
         // If the provided name is same as before and/or if the provided credits is same as before
-        if (newName.isPresent() && requirementToEdit.hasSameName(editedRequirement)
+        if (newTitle.isPresent() && requirementToEdit.hasSameTitle(editedRequirement)
             || newCredits.isPresent() && requirementToEdit.hasSameCredits(editedRequirement)) {
             throw new CommandException(MESSAGE_REQUIREMENT_SAME_PARAMETERS);
         }

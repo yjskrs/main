@@ -182,14 +182,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Optional<Requirement> getRequirementByName(Title requirementTitle) {
-        return requirements.stream()
-            .filter(requirement -> requirement.getTitle().equals(requirementTitle))
-            .findFirst();
-    }
-
-    @Override
-    public Optional<Requirement> getRequirementByCode(RequirementCode requirementCode) {
+    public Optional<Requirement> getRequirementByRequirementCode(RequirementCode requirementCode) {
         return requirements.stream()
             .filter(requirement -> requirement.getRequirementCode().equals(requirementCode))
             .findFirst();

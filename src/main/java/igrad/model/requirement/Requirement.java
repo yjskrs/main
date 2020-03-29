@@ -17,8 +17,8 @@ public class Requirement implements ReadOnlyRequirement {
 
     private final Title title; // name of the requirement
     private final Credits credits; // credit information for the requirement
+    private RequirementCode requirementCode; // unique requirement code of a requirement
     private final UniqueModuleList modules = new UniqueModuleList(); // list of modules associated with requirement
-    private RequirementCode requirementCode;
 
     /**
      * Creates a {@code Requirement} object with given {@code name} and {@code credits}
@@ -168,9 +168,9 @@ public class Requirement implements ReadOnlyRequirement {
     }
 
     /**
-     * Checks if {@code otherRequirement} has the same name as this requirement.
+     * Checks if {@code otherRequirement} has the same title as this requirement.
      */
-    public boolean hasSameName(Requirement otherRequirement) {
+    public boolean hasSameTitle(Requirement otherRequirement) {
         return this.title.equals(otherRequirement.title);
     }
 
