@@ -26,8 +26,8 @@ public class RequirementEditCommand extends RequirementCommand {
         + "by its requirement code. Existing requirement will be overwritten by the input values.\n";
 
     public static final String MESSAGE_USAGE = "Parameter(s): REQUIREMENT_CODE "
-        + "[" + PREFIX_TITLE + "NEW_TITLE] "
-        + "[" + PREFIX_CREDITS + "NEW_CREDITS]\n"
+        + "[" + PREFIX_TITLE + "TITLE] "
+        + "[" + PREFIX_CREDITS + "CREDITS]\n"
         + "Example: " + COMMAND_WORD + " UE0 "
         + PREFIX_TITLE + "Unrestricted Electives";
 
