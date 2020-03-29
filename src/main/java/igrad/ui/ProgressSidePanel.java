@@ -108,13 +108,13 @@ public class ProgressSidePanel extends UiPart<Region> {
      * Updates the progress panel.
      */
     public void updateProgress() {
-//        setModularCreditsLabel();
-//        setModulesCompletedLabel();
-//        setRequirementsCompletedLabel();
-//        setCumulativeAverageLabel();
-//        setSemestersLeftLabel();
-//        setGoalCapLabel();
-//        setTargetCapLabel();
+        // setModularCreditsLabel();
+        // setModulesCompletedLabel();
+        // setRequirementsCompletedLabel();
+        // setCumulativeAverageLabel();
+        // setSemestersLeftLabel();
+        // setGoalCapLabel();
+        // setTargetCapLabel();
     }
 
     /**

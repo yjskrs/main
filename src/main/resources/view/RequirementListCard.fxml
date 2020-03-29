@@ -20,7 +20,7 @@
         </Label>
         <Label
                 wrapText="true"
-            styleClass="title" GridPane.columnIndex=""
+            styleClass="title" GridPane.columnIndex="0"
             GridPane.rowIndex="1"
             fx:id="requirementTitle" text="Label">
         </Label>

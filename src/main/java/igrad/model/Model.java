@@ -12,7 +12,6 @@ import igrad.model.avatar.Avatar;
 import igrad.model.course.CourseInfo;
 import igrad.model.module.Module;
 import igrad.model.module.ModuleCode;
-import igrad.model.requirement.Title;
 import igrad.model.requirement.Requirement;
 import igrad.model.requirement.RequirementCode;
 import javafx.collections.ObservableList;
@@ -149,16 +148,11 @@ public interface Model {
     boolean hasRequirement(Requirement requirement);
 
     /**
-     * Retrieves the {@code Requirement} exists in the course book, by checking only its given {@code Name}.
+     * Retrieves the {@code Requirement} exists in the course book, by checking only its given
+     * {@code RequirementCode}.
      * Returns the @{code Requirement} if it exists else {@code Optional.empty} otherwise.
      */
-    Optional<Requirement> getRequirementByName(Title requirementTitle);
-
-    /**
-     * Retrieves the {@code Requirement} exists in the course book, by checking only its given {@code Name}.
-     * Returns the @{code Requirement} if it exists else {@code Optional.empty} otherwise.
-     */
-    Optional<Requirement> getRequirementByCode(RequirementCode requirementCode);
+    Optional<Requirement> getRequirementByRequirementCode(RequirementCode requirementCode);
 
     /**
      * Retrieves a list of {@code Module} which exists in the course book, by checking only its {@code ModuleCode}.

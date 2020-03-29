@@ -20,22 +20,22 @@ public class TitleTest {
     }
 
     @Test
-    public void isValidName() {
-        // null name
-        assertThrows(NullPointerException.class, () -> Title.isValidName(null));
+    public void isValidTitle() {
+        // null title
+        assertThrows(NullPointerException.class, () -> Title.isValidTitle(null));
 
-        // invalid name
-        assertFalse(Title.isValidName("")); // empty string
-        assertFalse(Title.isValidName(" ")); // spaces only
-        assertFalse(Title.isValidName(" Foundation")); // starts with a whitespace
+        // invalid title
+        assertFalse(Title.isValidTitle("")); // empty string
+        assertFalse(Title.isValidTitle(" ")); // spaces only
+        assertFalse(Title.isValidTitle(" Foundation")); // starts with a whitespace
 
-        // valid name
-        assertTrue(Title.isValidName("computersciencefoundation"));
-        assertTrue(Title.isValidName("computer science foundation")); // contains spaces
-        assertTrue(Title.isValidName("Computer Science Foundation")); // contains capital letters
-        assertTrue(Title.isValidName("1")); // numbers only
-        assertTrue(Title.isValidName("Computer Science Foundation 1")); // contains alphanumeric characters
-        assertTrue(Title.isValidName("Requirements (for 2nd major)")); // contains non-alphanumeric characters
-        assertTrue(Title.isValidName("日本研究学科")); // contains only non-alphaneumeric characters
+        // valid title
+        assertTrue(Title.isValidTitle("computersciencefoundation"));
+        assertTrue(Title.isValidTitle("computer science foundation")); // contains spaces
+        assertTrue(Title.isValidTitle("Computer Science Foundation")); // contains capital letters
+        assertTrue(Title.isValidTitle("1")); // numbers only
+        assertTrue(Title.isValidTitle("Computer Science Foundation 1")); // contains alphanumeric characters
+        assertTrue(Title.isValidTitle("Requirements (for 2nd major)")); // contains non-alphanumeric characters
+        assertTrue(Title.isValidTitle("日本研究学科")); // contains only non-alphaneumeric characters
     }
 }

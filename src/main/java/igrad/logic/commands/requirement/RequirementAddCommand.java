@@ -2,9 +2,11 @@ package igrad.logic.commands.requirement;
 
 import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
 import static igrad.logic.parser.CliSyntax.PREFIX_NAME;
+import static igrad.logic.parser.CliSyntax.PREFIX_TITLE;
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
+
 import igrad.logic.commands.CommandResult;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
@@ -31,7 +33,7 @@ public class RequirementAddCommand extends RequirementCommand {
 
     public static final String MESSAGE_REQUIREMENT_ADD_SUCCESS = "New requirement added: %1$s";
     public static final String MESSAGE_REQUIREMENT_NOT_ADDED = "Added requirement must be provided with arguments "
-        + PREFIX_NAME + "NAME " + PREFIX_CREDITS + "CREDITS ";
+        + PREFIX_TITLE + "TITLE " + PREFIX_CREDITS + "CREDITS ";
     public static final String MESSAGE_REQUIREMENT_DUPLICATE = "This requirement already exists in the course book.";
 
     private final Requirement requirementToAdd;
@@ -52,11 +54,11 @@ public class RequirementAddCommand extends RequirementCommand {
 
         ArrayList<Integer> usedDigits = new ArrayList<>();
 
-        for( Requirement requirement: requirementList ){
+        for (Requirement requirement : requirementList) {
             String requirementCodeStr = requirement.getRequirementCode().toString();
             String alphaCodeCmp = stripDigits(requirementCodeStr);
 
-            if( alphaCode.equals(alphaCodeCmp) ){
+            if (alphaCode.equals(alphaCodeCmp)) {
                 String numCodeCmp = stripAlpha(requirementCodeStr);
                 usedDigits.add(Integer.parseInt(numCodeCmp));
             }
@@ -64,15 +66,15 @@ public class RequirementAddCommand extends RequirementCommand {
 
         int max = -1;
 
-        for ( Integer digit: usedDigits ){
-            if( digit > max ){
+        for (Integer digit : usedDigits) {
+            if (digit > max) {
                 max = digit;
             }
         }
 
         int index = max + 1;
 
-        requirementToAdd.setRequirementCode(new RequirementCode(alphaCode + index ));
+        requirementToAdd.setRequirementCode(new RequirementCode(alphaCode + index));
 
         // if the name of the requirement has already been used
         if (model.hasRequirement(requirementToAdd)) {
@@ -83,11 +85,11 @@ public class RequirementAddCommand extends RequirementCommand {
         return new CommandResult(String.format(MESSAGE_REQUIREMENT_ADD_SUCCESS, requirementToAdd));
     }
 
-    private String stripDigits( String str ){
-        return str.replaceAll("[0123456789]","");
+    private String stripDigits(String str) {
+        return str.replaceAll("[0123456789]", "");
     }
 
-    private String stripAlpha( String str ){
-        return str.replaceAll("\\D+","");
+    private String stripAlpha(String str) {
+        return str.replaceAll("\\D+", "");
     }
 }

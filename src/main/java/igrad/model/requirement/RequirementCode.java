@@ -14,7 +14,7 @@ public class RequirementCode {
     /**
      * Constructs a {@code requirementCode}.
      *
-     * @param requirementCode A requirement title.
+     * @param requirementCode A requirement code.
      */
     public RequirementCode(String requirementCode) {
         requireNonNull(requirementCode);

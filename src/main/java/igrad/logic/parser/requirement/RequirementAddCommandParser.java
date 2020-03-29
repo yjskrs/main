@@ -2,7 +2,7 @@ package igrad.logic.parser.requirement;
 
 import static igrad.logic.commands.requirement.RequirementAddCommand.MESSAGE_REQUIREMENT_NOT_ADDED;
 import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
-import static igrad.logic.parser.CliSyntax.PREFIX_NAME;
+import static igrad.logic.parser.CliSyntax.PREFIX_TITLE;
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
@@ -13,8 +13,8 @@ import igrad.logic.parser.ArgumentTokenizer;
 import igrad.logic.parser.ParserUtil;
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.requirement.Credits;
-import igrad.model.requirement.Title;
 import igrad.model.requirement.Requirement;
+import igrad.model.requirement.Title;
 
 /**
  * Parses requirement input arguments and returns a new RequirementAddCommand object.
@@ -31,13 +31,13 @@ public class RequirementAddCommandParser extends RequirementCommandParser {
     public RequirementAddCommand parse(String args) throws ParseException {
         requireNonNull(args);
 
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_CREDITS);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_CREDITS);
 
-        if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_CREDITS)) {
+        if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_TITLE, PREFIX_CREDITS)) {
             throw new ParseException(MESSAGE_REQUIREMENT_NOT_ADDED);
         }
 
-        Title title = parseName(argMultimap.getValue(PREFIX_NAME).get());
+        Title title = parseTitle(argMultimap.getValue(PREFIX_TITLE).get());
         Credits credits = parseCredits(argMultimap.getValue(PREFIX_CREDITS).get());
 
         Requirement requirement = new Requirement(title, credits, new ArrayList<>());

@@ -46,7 +46,8 @@ public interface ReadOnlyRequirement {
     boolean isFulfilled();
 
     /**
-     * Returns a requirement code generated from requirement title
+     * Generates (automatically) a requirement code generated from requirement title,
+     * used in the constructor
      */
-    String generateRequirementCode( String requirementTitle );
+    String generateRequirementCode(String requirementTitle);
 }
