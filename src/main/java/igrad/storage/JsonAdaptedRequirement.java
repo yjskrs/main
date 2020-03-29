@@ -22,7 +22,7 @@ class JsonAdaptedRequirement {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Requirement's %s field is missing!";
 
-    private final String name;
+    private final String title;
     private final String credits;
     private final String requirementCode;
     private final List<String> moduleCodes = new ArrayList<>();
@@ -31,13 +31,14 @@ class JsonAdaptedRequirement {
      * Constructs a {@code JsonAdaptedRequirement} with the given module details.
      */
     @JsonCreator
-    public JsonAdaptedRequirement(@JsonProperty("name") String name,
+    public JsonAdaptedRequirement(@JsonProperty("title") String title,
                                   @JsonProperty("credits") String credits,
                                   @JsonProperty("requirementCode") String requirementCode,
                                   @JsonProperty("modules") List<String> moduleCodes) {
-        this.name = name;
+        this.title = title;
         this.credits = credits;
         this.requirementCode = requirementCode;
+
         if (moduleCodes != null) {
             this.moduleCodes.addAll(moduleCodes);
         }
@@ -47,7 +48,7 @@ class JsonAdaptedRequirement {
      * Converts a given {@code Requirement} into this class for Jackson use.
      */
     public JsonAdaptedRequirement(Requirement source) {
-        name = source.getTitle().toString();
+        title = source.getTitle().toString();
         credits = source.getCreditsRequired();
         requirementCode = source.getRequirementCode().toString();
         moduleCodes.addAll(source.getModuleList().stream()
@@ -68,11 +69,11 @@ class JsonAdaptedRequirement {
                 .anyMatch(moduleCode -> module.hasModuleCodeOf(new ModuleCode(moduleCode))))
             .collect(Collectors.toList()));
 
-        if (name == null) {
+        if (title == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Title.class.getSimpleName()));
         }
 
-        if (!Title.isValidTitle(name)) {
+        if (!Title.isValidTitle(title)) {
             throw new IllegalValueException(Title.MESSAGE_CONSTRAINTS);
         }
 
@@ -84,7 +85,7 @@ class JsonAdaptedRequirement {
             throw new IllegalValueException(Credits.MESSAGE_CONSTRAINTS);
         }
 
-        final Title modelName = new Title(name);
+        final Title modelName = new Title(title);
 
         final Credits modelCredits;
 

@@ -2,6 +2,7 @@ package igrad.logic.commands.requirement;
 
 import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
 import static igrad.logic.parser.CliSyntax.PREFIX_NAME;
+import static igrad.logic.parser.CliSyntax.PREFIX_TITLE;
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ public class RequirementAddCommand extends RequirementCommand {
 
     public static final String MESSAGE_REQUIREMENT_ADD_SUCCESS = "New requirement added: %1$s";
     public static final String MESSAGE_REQUIREMENT_NOT_ADDED = "Added requirement must be provided with arguments "
-        + PREFIX_NAME + "NAME " + PREFIX_CREDITS + "CREDITS ";
+        + PREFIX_TITLE + "TITLE " + PREFIX_CREDITS + "CREDITS ";
     public static final String MESSAGE_REQUIREMENT_DUPLICATE = "This requirement already exists in the course book.";
 
     private final Requirement requirementToAdd;

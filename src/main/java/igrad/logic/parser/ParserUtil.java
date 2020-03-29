@@ -15,7 +15,7 @@ import igrad.commons.util.StringUtil;
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.avatar.Avatar;
 import igrad.model.module.ModuleCode;
-import igrad.model.module.Title;
+import igrad.model.requirement.Title;
 import igrad.model.tag.Tag;
 
 /**

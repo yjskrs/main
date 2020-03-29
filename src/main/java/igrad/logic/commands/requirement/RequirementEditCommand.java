@@ -3,6 +3,7 @@ package igrad.logic.commands.requirement;
 import static igrad.commons.util.CollectionUtil.requireAllNonNull;
 import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
 import static igrad.logic.parser.CliSyntax.PREFIX_NAME;
+import static igrad.logic.parser.CliSyntax.PREFIX_TITLE;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
@@ -26,7 +27,7 @@ public class RequirementEditCommand extends RequirementCommand {
         + "Existing requirement will be overwritten by the new name and/or credits.\n";
 
     public static final String MESSAGE_USAGE = "Parameter: "
-        + "[" + PREFIX_NAME + "NEW_NAME] "
+        + "[" + PREFIX_TITLE + "NEW_TITLE] "
         + "[" + PREFIX_CREDITS + "NEW_CREDITS]\n"
         + "Example: " + COMMAND_WORD + " Unrestrained Elves "
         + PREFIX_NAME + "Unrestricted Electives";
@@ -63,7 +64,10 @@ public class RequirementEditCommand extends RequirementCommand {
 
         List<Requirement> requirements = model.getRequirementList();
 
-        // TODO: change to model.getRequirementByName(Name name), which I've created and used in Requirement assign
+        /*
+         * TODO: change to model.getRequirementByRequirementCode(RequirementCode requirementCode),
+         *  which I've created and used in Requirement assign
+         */
         Requirement requirementToEdit = requirements.stream()
             .filter(requirement -> requirement.getRequirementCode().equals(requirementCode))
             .findFirst()

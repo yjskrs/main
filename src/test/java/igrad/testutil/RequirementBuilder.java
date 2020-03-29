@@ -5,14 +5,14 @@ import java.util.List;
 import igrad.model.module.Module;
 import igrad.model.module.UniqueModuleList;
 import igrad.model.requirement.Credits;
-import igrad.model.requirement.Title;
 import igrad.model.requirement.Requirement;
+import igrad.model.requirement.Title;
 
 /**
  * A utility class to help with building {@code Requirement} objects.
  */
 public class RequirementBuilder {
-    public static final String DEFAULT_NAME = "Computer Science Foundation";
+    public static final String DEFAULT_TITLE = "Computer Science Foundation";
     public static final String DEFAULT_CREDITS = "48";
 
     private Title title;
@@ -23,7 +23,7 @@ public class RequirementBuilder {
      * Initializes the RequirementBuilder with the default data.
      */
     public RequirementBuilder() {
-        title = new Title(DEFAULT_NAME);
+        title = new Title(DEFAULT_TITLE);
         credits = new Credits(DEFAULT_CREDITS);
         modules = new UniqueModuleList();
     }
@@ -39,10 +39,10 @@ public class RequirementBuilder {
     }
 
     /**
-     * Sets the {@code Name} of the {@code Requirement} that we are building.
+     * Sets the {@code Title} of the {@code Requirement} that we are building.
      */
-    public RequirementBuilder withName(String name) {
-        this.title = new Title(name);
+    public RequirementBuilder withTitle(String title) {
+        this.title = new Title(title);
         return this;
     }
 

@@ -17,8 +17,8 @@ public class Requirement implements ReadOnlyRequirement {
 
     private final Title title; // name of the requirement
     private final Credits credits; // credit information for the requirement
-    private RequirementCode requirementCode; // unique requirement code of a requirement
     private final UniqueModuleList modules = new UniqueModuleList(); // list of modules associated with requirement
+    private RequirementCode requirementCode; // unique requirement code of a requirement
 
     /**
      * Creates a {@code Requirement} object with given {@code name} and {@code credits}
@@ -218,16 +218,16 @@ public class Requirement implements ReadOnlyRequirement {
     @Override
     public String generateRequirementCode(String requirementTitle) {
 
-        String code = "";
+        StringBuilder code = new StringBuilder();
         String[] words = requirementTitle.split(" ");
 
         for (String word : words) {
 
-            code += word.split("")[0];
+            code.append(word.split("")[0]);
 
         }
 
-        return code;
+        return code.toString();
     }
 
     @Override

@@ -14,7 +14,6 @@ import igrad.model.module.Module;
 import igrad.model.module.ModuleCode;
 import igrad.model.requirement.Requirement;
 import igrad.model.requirement.RequirementCode;
-import igrad.model.requirement.Title;
 import javafx.collections.ObservableList;
 
 /**

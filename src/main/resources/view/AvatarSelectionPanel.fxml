@@ -15,7 +15,7 @@
             <Label fx:id="avatarLabel" alignment="TOP_CENTER" style="-fx-font-size: 60;" textFill="WHITE"
                    StackPane.alignment="TOP_CENTER">
                 <font>
-                    <Font title="Calibri" size="40.0"/>
+                    <Font name="Calibri" size="40.0"/>
                 </font>
             </Label>
             <HBox alignment="BOTTOM_CENTER">

@@ -4,7 +4,6 @@ import static igrad.commons.core.Messages.MESSAGE_SPECIFIER_NOT_SPECIFIED;
 import static igrad.logic.commands.requirement.RequirementEditCommand.MESSAGE_REQUIREMENT_NOT_EDITED;
 import static igrad.logic.commands.requirement.RequirementEditCommand.MESSAGE_USAGE;
 import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
-import static igrad.logic.parser.CliSyntax.PREFIX_NAME;
 import static igrad.logic.parser.CliSyntax.PREFIX_TITLE;
 import static java.util.Objects.requireNonNull;
 
@@ -51,7 +50,7 @@ public class RequirementEditCommandParser extends RequirementCommandParser {
         Credits credits = null;
 
         if (argMultimap.getValue(PREFIX_TITLE).isPresent()) {
-            title = parseTitle(argMultimap.getValue(PREFIX_NAME).get());
+            title = parseTitle(argMultimap.getValue(PREFIX_TITLE).get());
         }
 
         if (argMultimap.getValue(PREFIX_CREDITS).isPresent()) {

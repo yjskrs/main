@@ -25,9 +25,8 @@ import igrad.model.avatar.Avatar;
 import igrad.model.course.CourseInfo;
 import igrad.model.module.Module;
 import igrad.model.module.ModuleCode;
-import igrad.model.requirement.RequirementCode;
-import igrad.model.requirement.Title;
 import igrad.model.requirement.Requirement;
+import igrad.model.requirement.RequirementCode;
 import igrad.testutil.ModuleBuilder;
 import javafx.collections.ObservableList;
 
@@ -114,12 +113,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public Path getBackupCourseBookFilePath() {
+        public void setCourseBookFilePath(Path courseBookFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setCourseBookFilePath(Path courseBookFilePath) {
+        public Path getBackupCourseBookFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -169,12 +168,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setCourseInfo(CourseInfo editedCourseInfo) {
+        public CourseInfo getCourseInfo() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public CourseInfo getCourseInfo() {
+        public void setCourseInfo(CourseInfo editedCourseInfo) {
             throw new AssertionError("This method should not be called.");
         }
 
