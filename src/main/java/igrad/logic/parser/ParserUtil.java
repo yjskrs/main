@@ -59,7 +59,7 @@ public class ParserUtil {
         String trimmedSpecifier = specifier.trim();
 
         if (!rule.apply(specifier)) {
-            throw new ParseException(messageError);
+            throw new ParseException("Specifier " + messageError);
         }
 
         return new Specifier(trimmedSpecifier);

@@ -44,13 +44,13 @@ public class ModuleAddCommandParser extends ModuleCommandParser implements Parse
     public ModuleAddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
             ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_MODULE_CODE, PREFIX_CREDITS,
-                PREFIX_MEMO, PREFIX_SEMESTER);
+                PREFIX_MEMO, PREFIX_SEMESTER, PREFIX_TAG);
 
         /*
          * If all arguments in the command are empty; i.e, 'module add', and nothing else, show
          * the help message for this command
          */
-        if (argMultimap.isEmpty()) {
+        if (argMultimap.isEmpty(false)) {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
                 MESSAGE_HELP));
         }
