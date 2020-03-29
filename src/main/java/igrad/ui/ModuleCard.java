@@ -56,14 +56,10 @@ public class ModuleCard extends UiPart<Region> {
         if (module.getMemo().isPresent()) {
             memo.setText("Memo: " + module.getMemo().get().value);
         }
+
         if (module.getSemester().isPresent()) {
             semester.setText(module.getSemester().get().value);
         }
-        /*
-            if (module.getDescription() != null) {
-            description.setText("Description:\t\t" + module.getDescription().value);
-            }
-        */
 
         module.getTags().stream()
             .sorted(Comparator.comparing(tag -> tag.tagName))
