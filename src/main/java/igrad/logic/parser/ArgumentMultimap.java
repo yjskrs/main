@@ -69,7 +69,8 @@ public class ArgumentMultimap {
      *
      * In other words, this method returns true if and only if there are no other arguments or specifiers
      * entered after a command whose format have preambles (i.e, checkPreamble is true);
-     * e.g, 'module edit', 'module delete', 'requirement edit', etc.
+     * e.g, 'module edit', 'requirement edit', etc.
+     * (Note: doesn't apply to all commands; e.g, module delete)
      *
      * For those command whose format have preambles (i.e, checkPreamble is false), this method ignores them
      * and returns true if and only if there are no other arguments within it;

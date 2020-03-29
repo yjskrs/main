@@ -1,7 +1,6 @@
 package igrad.logic.parser.course;
 
 import static igrad.logic.commands.course.CourseAddCommand.MESSAGE_HELP;
-import static igrad.logic.commands.course.CourseAddCommand.MESSAGE_NOT_ADDED;
 import static igrad.logic.parser.CliSyntax.PREFIX_NAME;
 
 import java.util.Optional;
@@ -12,7 +11,6 @@ import igrad.logic.parser.ArgumentMultimap;
 import igrad.logic.parser.ArgumentTokenizer;
 import igrad.logic.parser.CourseCommandParser;
 import igrad.logic.parser.Parser;
-import igrad.logic.parser.ParserUtil;
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.course.CourseInfo;
 import igrad.model.course.Name;
@@ -55,8 +53,8 @@ public class CourseAddCommandParser extends CourseCommandParser implements Parse
          * This is because course has only one field; name, and fulfilling the above condition;
          * where {@code argMultimap.isEmpty(false)} would automatically mean that the map has the
          * argument we need, hence we don't need to re-validate for its presence.
-         * (Please read the Javadoc comments for {@code argMultimap.isEmpty(false)} for more details, if you would
-         * like to know more.)
+         * (Please read the Javadoc comments for {@code argMultimap.isEmpty(boolean checkPreamble)} for more
+         * details, if you would like to know more.)
          */
 
         Optional<Name> name = parseName(argMultimap.getValue(PREFIX_NAME).get());

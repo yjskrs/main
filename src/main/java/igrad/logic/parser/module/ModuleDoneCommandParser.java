@@ -43,20 +43,19 @@ public class ModuleDoneCommandParser extends ModuleCommandParser implements Pars
                 MESSAGE_HELP));
         }
 
-        ModuleDoneCommand.EditModuleGradeDescriptor editModuleGradeDescriptor =
-            new ModuleDoneCommand.EditModuleGradeDescriptor();
-        ModuleCode moduleCode;
-
         Specifier specifier = ParserUtil.parseSpecifier(argMultimap.getPreamble(),
             ParserUtil.MODULE_MODULE_CODE_SPECIFIER_RULE, ModuleCode.MESSAGE_CONSTRAINTS);
 
-        moduleCode = new ModuleCode(specifier.getValue());
+        ModuleDoneCommand.EditModuleGradeDescriptor editModuleGradeDescriptor =
+            new ModuleDoneCommand.EditModuleGradeDescriptor();
 
-        if (argMultimap.getValue(PREFIX_GRADE).isPresent()) {
-            editModuleGradeDescriptor.setGrade(parseGrade(argMultimap.getValue(PREFIX_GRADE).get()));
-        } else {
+        ModuleCode moduleCode = new ModuleCode(specifier.getValue());
+
+        if (argMultimap.getValue(PREFIX_GRADE).isEmpty()) {
             throw new ParseException(MESSAGE_NOT_EDITED);
         }
+
+        editModuleGradeDescriptor.setGrade(parseGrade(argMultimap.getValue(PREFIX_GRADE).get()));
 
         return new ModuleDoneCommand(moduleCode, editModuleGradeDescriptor);
     }
