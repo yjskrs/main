@@ -20,13 +20,13 @@ import javafx.collections.ObservableList;
 public class RequirementAddCommand extends RequirementCommand {
     public static final String COMMAND_WORD = REQUIREMENT_COMMAND_WORD + "add";
 
-    public static final String MESSAGE_DETAILS = COMMAND_WORD + ": Adds a requirement.\n";
+    public static final String MESSAGE_DETAILS = COMMAND_WORD + ": Adds a requirement with relevant details specified.\n";
 
-    public static final String MESSAGE_USAGE = "Parameter: "
-        + PREFIX_NAME + "NAME "
+    public static final String MESSAGE_USAGE = "Parameter(s): "
+        + PREFIX_TITLE + "TITLE "
         + PREFIX_CREDITS + "CREDITS_TO_FULFIL\n"
         + "Example: " + COMMAND_WORD + " "
-        + PREFIX_NAME + "Unrestricted Electives "
+        + PREFIX_TITLE + "Unrestricted Electives "
         + PREFIX_CREDITS + "24\n";
 
     public static final String MESSAGE_HELP = MESSAGE_DETAILS + MESSAGE_USAGE;
