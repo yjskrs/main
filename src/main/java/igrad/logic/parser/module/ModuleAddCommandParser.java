@@ -1,5 +1,7 @@
 package igrad.logic.parser.module;
 
+import static igrad.logic.commands.module.ModuleAddCommand.MESSAGE_HELP;
+import static igrad.logic.commands.module.ModuleAddCommand.MESSAGE_NOT_ADDED;
 import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
 import static igrad.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static igrad.logic.parser.CliSyntax.PREFIX_MEMO;
@@ -42,18 +44,26 @@ public class ModuleAddCommandParser extends ModuleCommandParser implements Parse
     public ModuleAddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
             ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_MODULE_CODE, PREFIX_CREDITS,
-                PREFIX_MEMO, PREFIX_SEMESTER);
+                PREFIX_MEMO, PREFIX_SEMESTER, PREFIX_TAG);
 
         /*
-         * module add n/MODULE_CODE [n/MODULE_TITLE] [u/MCs] [s/SEMESTER] [g/GRADE] [m/MEMO_NOTES]
+         * If all arguments in the command are empty; i.e, 'module add', and nothing else (except preambles), show
+         * the help message for this command
+         */
+        if (argMultimap.isEmpty(false)) {
+            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                MESSAGE_HELP));
+        }
+
+        /*
+         * module add n/MODULE_CODE t/TITLE u/MCs [m/MEMO_NOTES] [s/SEMESTER] [x/TAGS]...
          *
-         * As can be seen, MODULE_CODE is the only compulsory field, so we're just validating for its
+         * We have that; MODULE_CODE, TITLE, MCs, are the compulsory fields, so we're just validating for its
          * presence in the below.
          */
-        if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_MODULE_CODE)
-            || !argMultimap.getPreamble().isEmpty()) {
+        if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_MODULE_CODE, PREFIX_TITLE, PREFIX_CREDITS)) {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
-                ModuleAddCommand.MESSAGE_USAGE));
+                MESSAGE_NOT_ADDED));
         }
 
         Title title = parseTitle(argMultimap.getValue(PREFIX_TITLE).get());
@@ -70,7 +80,10 @@ public class ModuleAddCommandParser extends ModuleCommandParser implements Parse
             ? parseSemester(argMultimap.getValue(PREFIX_SEMESTER).get())
             : Optional.empty();
 
-        // TODO: support grade parsing too! i'll just leave it like that for now
+        /*
+         * Grade is not allowed to be here, as we have the module done command for that, hence
+         * we're initialising it to Optional.empty()
+         */
         Optional<Grade> grade = Optional.empty();
 
         Set<Tag> tagList = ParserUtil.parseTag(argMultimap.getAllValues(PREFIX_TAG));

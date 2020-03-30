@@ -6,28 +6,27 @@ import igrad.logic.commands.CommandResult;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
 import igrad.model.ReadOnlyCourseBook;
+import igrad.model.course.CourseInfo;
 
 /**
- * Deletes the existing course (and all data within it).
+ * Deletes the existing {@code Course} (and all data within it, e.g, {@code Module}, {@code Requirement}).
  */
 public class CourseDeleteCommand extends CourseCommand {
 
     public static final String COMMAND_WORD = COURSE_COMMAND_WORD + "delete";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-        + ": Deletes the course and clears all data in the application.\n"
-        + "Parameters: -Nill\n"
-        + "Example: " + COMMAND_WORD;
-
-    public static final String MESSAGE_DELETE_COURSE_SUCCESS = "Deleted CourseInfo (all data cleared!): %1$s";
+    public static final String MESSAGE_SUCCESS = "Deleted Course: %1$s. All data cleared!";
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
         ReadOnlyCourseBook courseBookToDelete = model.getCourseBook();
+
+        CourseInfo oldCourseInfo = model.getCourseInfo();
+
         model.resetCourseBook(courseBookToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_COURSE_SUCCESS, courseBookToDelete));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, oldCourseInfo));
     }
 
     @Override

@@ -15,13 +15,18 @@ import igrad.model.course.CourseInfo;
  */
 public class CourseAddCommand extends CourseCommand {
     public static final String COMMAND_WORD = COURSE_COMMAND_WORD + "add";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a course. "
-        + "Parameters: "
-        + PREFIX_NAME + "COURSE NAME "
+    public static final String MESSAGE_DETAILS = COMMAND_WORD + ": Adds a course with relevant details specified.\n";
+
+    public static final String MESSAGE_USAGE = "Parameter(s): "
+        + PREFIX_NAME + "COURSE_NAME\n"
         + "Example: " + COMMAND_WORD + " "
         + PREFIX_NAME + "Bachelor of Computing (Honours) in Computer Science ";
 
-    public static final String MESSAGE_SUCCESS = "Good job! I've added this course: %1$s\n";
+    public static final String MESSAGE_HELP = MESSAGE_DETAILS + MESSAGE_USAGE;
+
+    public static final String MESSAGE_SUCCESS = "New course added: %1$s";
+    public static final String MESSAGE_NOT_ADDED = "Added course must be provided with at least these argument(s) "
+        + PREFIX_NAME + "NAME ";
     private final CourseInfo toAdd;
 
     /**

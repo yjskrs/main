@@ -40,7 +40,7 @@ public class StatusBar extends UiPart<Region> {
      */
     public void setCourseName(String courseName) {
         this.courseName = courseName;
-        course.setText("Course: " + courseName);
+        course.setText(courseName);
     }
 
     /**

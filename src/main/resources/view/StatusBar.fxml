@@ -7,7 +7,7 @@
            prefWidth="600.0" styleClass="status-bar" stylesheets="@DarkTheme.css"
            xmlns="http://javafx.com/javafx/11.0.1">
     <children>
-        <Label fx:id="course" style="-fx-background-color: transparent;" text="Course" textFill="WHITE">
+        <Label fx:id="course" text="Course" styleClass="course">
             <StackPane.margin>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
             </StackPane.margin>

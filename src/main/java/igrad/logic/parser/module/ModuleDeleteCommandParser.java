@@ -1,13 +1,9 @@
 package igrad.logic.parser.module;
 
-import static igrad.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
-
-import igrad.commons.core.Messages;
 import igrad.logic.commands.module.ModuleDeleteCommand;
-import igrad.logic.parser.ArgumentMultimap;
-import igrad.logic.parser.ArgumentTokenizer;
 import igrad.logic.parser.Parser;
 import igrad.logic.parser.ParserUtil;
+import igrad.logic.parser.Specifier;
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.module.ModuleCode;
 
@@ -23,15 +19,10 @@ public class ModuleDeleteCommandParser implements Parser<ModuleDeleteCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public ModuleDeleteCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap =
-            ArgumentTokenizer.tokenize(args, PREFIX_MODULE_CODE);
+        Specifier specifier = ParserUtil.parseSpecifier(args,
+            ParserUtil.MODULE_MODULE_CODE_SPECIFIER_RULE, ModuleCode.MESSAGE_CONSTRAINTS);
 
-        if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_MODULE_CODE)
-            || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
-                ModuleDeleteCommand.MESSAGE_USAGE));
-        }
-        ModuleCode moduleCode = ModuleCommandParser.parseModuleCode(argMultimap.getValue(PREFIX_MODULE_CODE).get());
+        ModuleCode moduleCode = new ModuleCode(specifier.getValue());
 
         return new ModuleDeleteCommand(moduleCode);
     }
