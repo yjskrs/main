@@ -13,7 +13,7 @@ import igrad.model.course.CourseInfo;
  */
 public class CourseDeleteCommand extends CourseCommand {
 
-    public static final String COMMAND_WORD = COURSE_COMMAND_WORD + "delete";
+    public static final String COMMAND_WORD = COURSE_COMMAND_WORD + SPACE + "delete";
 
     public static final String MESSAGE_SUCCESS = "Deleted Course: %1$s. All data cleared!";
 

@@ -25,7 +25,7 @@ import igrad.model.tag.Tag;
  * Marks the module as done, with a specified grade.
  */
 public class ModuleDoneCommand extends ModuleCommand {
-    public static final String COMMAND_WORD = MODULE_COMMAND_WORD + "done";
+    public static final String COMMAND_WORD = MODULE_COMMAND_WORD + SPACE + "done";
 
     public static final String MESSAGE_DETAILS = COMMAND_WORD + ": Marks a module as done (with a grade) of the "
         + "module identified by its module code. Existing module (grade) will be overwritten by the input values.\n";

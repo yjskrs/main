@@ -3,6 +3,9 @@ package igrad.logic.parser;
 import static igrad.commons.core.Messages.MESSAGE_COURSE_NOT_SET;
 import static igrad.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static igrad.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static igrad.commons.core.Messages.MESSAGE_UNKNOWN_COURSE_COMMAND;
+import static igrad.commons.core.Messages.MESSAGE_UNKNOWN_MODULE_COMMAND;
+import static igrad.commons.core.Messages.MESSAGE_UNKNOWN_REQUIREMENT_COMMAND;
 import static igrad.logic.parser.CliSyntax.FLAG_AUTO;
 
 import java.io.IOException;
@@ -16,14 +19,17 @@ import igrad.logic.commands.HelpCommand;
 import igrad.logic.commands.SelectAvatarCommand;
 import igrad.logic.commands.UndoCommand;
 import igrad.logic.commands.course.CourseAddCommand;
+import igrad.logic.commands.course.CourseCommand;
 import igrad.logic.commands.course.CourseDeleteCommand;
 import igrad.logic.commands.course.CourseEditCommand;
 import igrad.logic.commands.module.ModuleAddCommand;
+import igrad.logic.commands.module.ModuleCommand;
 import igrad.logic.commands.module.ModuleDeleteCommand;
 import igrad.logic.commands.module.ModuleDoneCommand;
 import igrad.logic.commands.module.ModuleEditCommand;
 import igrad.logic.commands.requirement.RequirementAddCommand;
 import igrad.logic.commands.requirement.RequirementAssignCommand;
+import igrad.logic.commands.requirement.RequirementCommand;
 import igrad.logic.commands.requirement.RequirementDeleteCommand;
 import igrad.logic.commands.requirement.RequirementEditCommand;
 import igrad.logic.parser.course.CourseAddCommandParser;
@@ -160,6 +166,20 @@ public class CourseBookParser {
             return new CourseEditCommandParser().parse(arguments);
 
         default:
+            /*
+             * If the first command word (of a 2-word command) is valid, (at least) provide a
+             * feedback to user  instead of throwing an error, e.g, 'course', 'requirement', 'module'.
+             */
+            System.out.println("went herrrr");
+            System.out.println(commandWord);
+            if (commandWord.equals(CourseCommand.COURSE_COMMAND_WORD)) {
+                throw new ParseException(MESSAGE_UNKNOWN_COURSE_COMMAND);
+            } else if (commandWord.equals(RequirementCommand.REQUIREMENT_COMMAND_WORD)) {
+                throw new ParseException(MESSAGE_UNKNOWN_REQUIREMENT_COMMAND);
+            } else if (commandWord.equals(ModuleCommand.MODULE_COMMAND_WORD)) {
+                throw new ParseException(MESSAGE_UNKNOWN_MODULE_COMMAND);
+            }
+
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }
