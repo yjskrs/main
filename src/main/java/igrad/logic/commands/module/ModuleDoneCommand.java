@@ -102,6 +102,12 @@ public class ModuleDoneCommand extends ModuleCommand {
         model.updateFilteredModuleList(Model.PREDICATE_SHOW_ALL_MODULES);
 
         /*
+         * We need to recalculate the credits fulfiled for all requirements that has this module now
+         * that it is satisfied (fulfilled) with a grade through this done command
+         */
+        model.recalculateRequirementList();
+
+        /*
          * Also, we need to recompute the cap when a module is marked done, i.e,
          * given a grade/grade changed.
          */

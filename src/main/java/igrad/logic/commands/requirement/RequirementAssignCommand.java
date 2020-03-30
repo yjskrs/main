@@ -76,6 +76,10 @@ public class RequirementAssignCommand extends RequirementCommand {
 
         model.setRequirement(requirementToAssign, editedRequirement);
 
+        model.updateRequirementList(Model.PREDICATE_SHOW_ALL_REQUIREMENTS);
+
+        model.recalculateRequirementList();
+
         return new CommandResult(
             String.format(MESSAGE_SUCCESS, editedRequirement));
     }

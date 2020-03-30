@@ -246,6 +246,21 @@ Step 2: The RequirementAddCommand is executed to add the new requirement to the 
 
 Step 3: The new requirement is added to the course book.
 
+=== CourseInfo Feature
+
+A `CourseBook` contains only one course information.
+
+==== Implementation
+
+.Structure of CourseInfo Class
+image::CourseInfoClassDiagram.png[]
+A course consists of one information: Name. One course should only have one name.
+
+The course related commands that can be called are:
+
+* `course add` - adds a new course with name to the course book
+* `course edit` - edits name of existing course in the course book
+* `course delete` - deletes existing course and all information in the course book
 
 === [Proposed] Undo/Redo feature
 
