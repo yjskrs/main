@@ -11,6 +11,9 @@ import java.util.Set;
 import igrad.logic.commands.CommandResult;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
+import igrad.model.course.Cap;
+import igrad.model.course.CourseInfo;
+import igrad.model.course.Name;
 import igrad.model.module.Credits;
 import igrad.model.module.Description;
 import igrad.model.module.Grade;
@@ -94,8 +97,25 @@ public class ModuleDoneCommand extends ModuleCommand {
         // Create a new module based on the edited grade.
         Module editedModule = createEditedModule(moduleToEdit, editModuleGradeDescriptor);
 
+        // Update the module in our model
         model.setModule(moduleToEdit, editedModule);
         model.updateFilteredModuleList(Model.PREDICATE_SHOW_ALL_MODULES);
+
+        /*
+         * Also, we need to recompute the cap when a module is marked done, i.e,
+         * given a grade/grade changed.
+         */
+        // Here we extract the current course name first
+        Optional<Name> currentName = model.getCourseInfo().getName();
+
+        // Now we actually go to our model and recompute cap based on updated module list in model
+        Optional<Cap> updatedCap = Optional.of(model.recomputeCap());
+
+        CourseInfo courseInfo = new CourseInfo(currentName, updatedCap);
+
+        // Updating the model with the latest course info (cap)
+        model.setCourseInfo(courseInfo);
+      
         return new CommandResult(String.format(MESSAGE_SUCCESS, editedModule));
     }
 

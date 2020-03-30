@@ -73,7 +73,7 @@ public class JsonCourseBookStorageTest {
          */
         Name name = new Name("abc");
         Cap cap = CourseInfo.computeCap(original.getModuleList());
-        CourseInfo courseInfo = new CourseInfo(Optional.of(new Name("abc")), Optional.of(cap));
+        CourseInfo courseInfo = new CourseInfo(Optional.of(name), Optional.of(cap));
         original.setCourseInfo(courseInfo);
 
         JsonCourseBookStorage jsonCourseBookStorage = new JsonCourseBookStorage(filePath);

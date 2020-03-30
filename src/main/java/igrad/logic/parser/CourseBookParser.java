@@ -170,8 +170,6 @@ public class CourseBookParser {
              * If the first command word (of a 2-word command) is valid, (at least) provide a
              * feedback to user  instead of throwing an error, e.g, 'course', 'requirement', 'module'.
              */
-            System.out.println("went herrrr");
-            System.out.println(commandWord);
             if (commandWord.equals(CourseCommand.COURSE_COMMAND_WORD)) {
                 throw new ParseException(MESSAGE_UNKNOWN_COURSE_COMMAND);
             } else if (commandWord.equals(RequirementCommand.REQUIREMENT_COMMAND_WORD)) {
