@@ -138,7 +138,10 @@ public class Requirement implements ReadOnlyRequirement {
     public void addModule(Module module) {
         requireNonNull(module);
 
-        modules.add(module);
+        this.modules.add(module);
+        this.credits.setCreditsFulfilled(
+            Integer.toString(calculateCreditsFulfilled())
+        );
     }
 
     /**
@@ -149,6 +152,9 @@ public class Requirement implements ReadOnlyRequirement {
         requireNonNull(modules);
 
         this.modules.add(modules);
+        this.credits.setCreditsFulfilled(
+            Integer.toString(calculateCreditsFulfilled())
+        );
     }
 
     /**

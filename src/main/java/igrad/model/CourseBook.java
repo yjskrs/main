@@ -1,13 +1,12 @@
 package igrad.model;
 
 import static java.util.Objects.requireNonNull;
-
 import java.util.List;
 import java.util.Optional;
-
 import igrad.model.course.CourseInfo;
 import igrad.model.module.Module;
 import igrad.model.module.UniqueModuleList;
+import igrad.model.requirement.Credits;
 import igrad.model.requirement.Requirement;
 import igrad.model.requirement.UniqueRequirementList;
 import javafx.collections.ObservableList;
@@ -27,8 +26,7 @@ public class CourseBook implements ReadOnlyCourseBook {
      *
      * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
      *   among constructors.
-     */
-    {
+     */ {
         modules = new UniqueModuleList();
         requirements = new UniqueRequirementList();
         courseInfo = new CourseInfo(Optional.empty());
@@ -172,6 +170,21 @@ public class CourseBook implements ReadOnlyCourseBook {
      */
     public void removeRequirement(Requirement requirement) {
         requirements.remove(requirement);
+    }
+
+
+    public void removeModuleFromRequirement(Module module) {
+
+        for (Requirement requirement : requirements) {
+            ObservableList<Module> moduleList = requirement.getModuleList();
+            Credits credits = requirement.getCredits();
+
+            if (moduleList.contains(module)) {
+                requirement.removeModule(module);
+                credits.setCreditsFulfilled(Integer.toString(Integer.parseInt(credits.getCreditsFulfilled()) - module.getCredits().toInteger()));
+            }
+        }
+
     }
 
     // util methods

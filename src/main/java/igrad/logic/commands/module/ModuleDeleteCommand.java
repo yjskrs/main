@@ -46,6 +46,8 @@ public class ModuleDeleteCommand extends ModuleCommand {
         Module moduleToDelete = moduleToDeleteOpt.get();
 
         model.deleteModule(moduleToDelete);
+        model.updateRequirementList(Model.PREDICATE_SHOW_ALL_REQUIREMENTS);
+        
         return new CommandResult(String.format(MESSAGE_SUCCESS, moduleToDelete));
     }
 
