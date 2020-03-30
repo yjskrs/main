@@ -46,8 +46,8 @@ public class Cap {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof Name // instanceof handles nulls
-            && value.equals(((Name) other).value)); // state check
+            || (other instanceof Cap // instanceof handles nulls
+            && value.equals(((Cap) other).value)); // state check
     }
 
     @Override

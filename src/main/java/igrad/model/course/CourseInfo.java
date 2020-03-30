@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-import igrad.model.requirement.Requirement;
+import igrad.model.module.Module;
 
 /**
  * Represents all the (additional) details a Course (there's only one of which), might have e.g, course name, cap, etc
@@ -46,11 +46,11 @@ public class CourseInfo {
      * Given a requirement list, compute the cap based on all modules in the requirements of the
      * requirement list.
      */
-    public static Cap computeCap(List<Requirement> requirementList) {
+    public static Cap computeCap(List<Module> moduleList) {
         double cap = 4.5;
         /**
-         * TODO: Teri, please fill the details. Iterate through requirement list and for each
-         * requirement in the list, get all modules, their grades and compute the cap.
+         * TODO: Teri, please fill the details. Iterate through all modules in the module list and
+         * for each module with a grade, add them together to calcualte the cap
          * Lemme know if you find this too hard, i can do it :)
          */
 

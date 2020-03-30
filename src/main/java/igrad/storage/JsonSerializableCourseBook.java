@@ -81,7 +81,13 @@ class JsonSerializableCourseBook {
             courseBook.addRequirement(requirement);
         }
 
-        courseBook.addCourseInfo(courseInfo.toModelType(courseBook.getRequirementList()));
+        /*
+         * If the modules and all requirements are valid (from storage), we now populate course info
+         * from storage. However, to do that, we need a list of all {@code Module} in the system
+         * to calculate the CAP (i.e, those modules that has grade would be added to cumulative CAP
+         * of course info.
+         */
+        courseBook.addCourseInfo(courseInfo.toModelType(moduleList));
 
         return courseBook;
     }

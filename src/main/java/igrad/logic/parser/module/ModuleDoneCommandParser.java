@@ -35,7 +35,7 @@ public class ModuleDoneCommandParser extends ModuleCommandParser implements Pars
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_GRADE);
 
         /*
-         * If all arguments in the command are empty; i.e, 'module edit', and nothing else, show
+         * If all arguments in the command are empty; i.e, 'module done', and nothing else, show
          * the help message for this command
          */
         if (argMultimap.isEmpty(true)) {

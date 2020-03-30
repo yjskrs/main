@@ -12,7 +12,7 @@ import igrad.commons.exceptions.IllegalValueException;
 import igrad.model.course.Cap;
 import igrad.model.course.CourseInfo;
 import igrad.model.course.Name;
-import igrad.model.requirement.Requirement;
+import igrad.model.module.Module;
 
 /**
  * Jackson-friendly version of {@link CourseInfo}.
@@ -42,7 +42,7 @@ public class JsonAdaptedCourseInfo {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted module.
      */
-    public CourseInfo toModelType(List<Requirement> requirementList) throws IllegalValueException {
+    public CourseInfo toModelType(List<Module> moduleList) throws IllegalValueException {
         // Course name can be null (in the event that the user hasn't run course add command
         if (name != null && !Name.isValidName(name)) {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
@@ -54,11 +54,10 @@ public class JsonAdaptedCourseInfo {
 
 
         /*
-         * However, if course name is null (Optional.empty()), but we still have requirements for
-         * it, that's an invalid state and we have to throw an IllegalValueException.
+         * However, if course name is null (Optional.empty()), but we still have modules in
+         * the course book, that's an invalid state and we have to throw an IllegalValueException.
          */
-
-        if (modelName.isEmpty() && !requirementList.isEmpty()) {
+        if (modelName.isEmpty() && !moduleList.isEmpty()) {
             throw new IllegalValueException(MESSAGE_COURSE_NOT_SET);
         }
 
@@ -66,8 +65,8 @@ public class JsonAdaptedCourseInfo {
          * Else if everything (the state) of the course info is valid, we can then proceed to
          * compute cap (if applicable; course name exists)
          */
-        final Optional<Cap> cap = (!modelName.isEmpty() && !requirementList.isEmpty())
-            ? Optional.of(CourseInfo.computeCap(requirementList))
+        final Optional<Cap> cap = (!modelName.isEmpty() && !moduleList.isEmpty())
+            ? Optional.of(CourseInfo.computeCap(moduleList))
             : Optional.empty();
 
         return new CourseInfo(modelName, cap);
