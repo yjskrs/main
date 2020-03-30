@@ -1,9 +1,7 @@
 package igrad.model.requirement;
 
 import static java.util.Objects.requireNonNull;
-
 import java.util.List;
-
 import igrad.model.module.Module;
 import igrad.model.module.UniqueModuleList;
 import javafx.collections.ObservableList;
@@ -34,6 +32,9 @@ public class Requirement implements ReadOnlyRequirement {
         this.credits = credits;
 
         this.requirementCode = new RequirementCode(generateRequirementCode(title.toString()));
+
+        int creditsFulfilled = calculateCreditsFulfilled();
+        this.credits.setCreditsFulfilled(Integer.toString(creditsFulfilled));
     }
 
     /**
@@ -53,6 +54,9 @@ public class Requirement implements ReadOnlyRequirement {
         this.requirementCode = new RequirementCode(generateRequirementCode(title.toString()));
 
         setModules(modules);
+
+        int creditsFulfilled = calculateCreditsFulfilled();
+        this.credits.setCreditsFulfilled(Integer.toString(creditsFulfilled));
     }
 
     public Requirement(Title title, Credits credits, List<Module> modules, RequirementCode requirementCode) {
@@ -64,6 +68,9 @@ public class Requirement implements ReadOnlyRequirement {
         this.requirementCode = requirementCode;
 
         setModules(modules);
+
+        int creditsFulfilled = calculateCreditsFulfilled();
+        this.credits.setCreditsFulfilled(Integer.toString(creditsFulfilled));
     }
 
     /**
@@ -77,8 +84,12 @@ public class Requirement implements ReadOnlyRequirement {
         this.title = toBeCopied.getTitle();
         this.credits = toBeCopied.getCredits();
 
+
         this.requirementCode = new RequirementCode(generateRequirementCode(title.toString()));
         resetModules(toBeCopied);
+
+        int creditsFulfilled = calculateCreditsFulfilled();
+        this.credits.setCreditsFulfilled(Integer.toString(creditsFulfilled));
     }
 
     // requirement-level operations
@@ -161,6 +172,23 @@ public class Requirement implements ReadOnlyRequirement {
     }
 
     // util methods
+
+    /**
+     * Calculates the credits fulfilled of this requirement
+     * based on its module list
+     */
+    private int calculateCreditsFulfilled() {
+
+        int creditsFulfilled = 0;
+
+        for (Module module : modules) {
+            if (module.isDone()) {
+                creditsFulfilled += module.getCredits().toInteger();
+            }
+        }
+
+        return creditsFulfilled;
+    }
 
     @Override
     public Title getTitle() {

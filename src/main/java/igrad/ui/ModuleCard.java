@@ -1,11 +1,8 @@
 package igrad.ui;
 
-import java.util.Comparator;
-
 import igrad.model.module.Module;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 
@@ -59,7 +56,7 @@ public class ModuleCard extends UiPart<Region> {
             semester.setText(module.getSemester().get().value);
         }
 
-        if( module.getGrade().isPresent()){
+        if (module.getGrade().isPresent()) {
             grade.setText(module.getGrade().get().value);
         }
     }

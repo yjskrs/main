@@ -94,6 +94,8 @@ public class ModuleDoneCommand extends ModuleCommand {
 
         model.setModule(moduleToEdit, editedModule);
         model.updateFilteredModuleList(Model.PREDICATE_SHOW_ALL_MODULES);
+        model.recalculateRequirementList();
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, editedModule));
     }
 

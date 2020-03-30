@@ -2,7 +2,6 @@ package igrad.model;
 
 import static igrad.commons.util.CollectionUtil.requireAllNonNull;
 import static java.util.Objects.requireNonNull;
-
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -11,7 +10,6 @@ import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
-
 import igrad.commons.core.GuiSettings;
 import igrad.commons.core.LogsCenter;
 import igrad.logic.commands.exceptions.CommandException;
@@ -258,6 +256,30 @@ public class ModelManager implements Model {
     public void updateRequirementList(Predicate<Requirement> predicate) {
         requireNonNull(predicate);
         requirements.setPredicate(predicate);
+    }
+
+    @Override
+    public void recalculateRequirementList() {
+
+        int[] requirementCredits = new int[requirements.size()];
+
+        for (Module module : filteredModules) {
+            int requirementIndex = 0;
+            for (Requirement requirement : requirements) {
+                ObservableList<Module> requirementModules = requirement.getModuleList();
+                if (requirementModules.contains(module)) {
+                    requirementCredits[requirementIndex] += module.getCredits().toInteger();
+                }
+                requirementIndex++;
+            }
+        }
+
+        for (int i = 0; i < requirementCredits.length; i++) {
+            requirements.get(i).getCredits().setCreditsFulfilled(Integer.toString(requirementCredits[i]));
+        }
+
+        this.updateRequirementList(PREDICATE_SHOW_ALL_REQUIREMENTS);
+
     }
 
     @Override
