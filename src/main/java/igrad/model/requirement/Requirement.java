@@ -98,15 +98,15 @@ public class Requirement implements ReadOnlyRequirement {
         requireNonNull(toBeCopied);
 
         this.title = toBeCopied.getTitle();
+        this.requirementCode = toBeCopied.getRequirementCode();
 
-        this.requirementCode = new RequirementCode(generateRequirementCode(title.toString()));
         resetModules(toBeCopied);
 
         // Compute credits fulfilled based on modules in the module list
 
         // Copy over the credits required
         String creditsRequired = toBeCopied.getCreditsRequired();
-
+        System.out.println(creditsRequired);
         /*
          * But since here we have already resetted (cleared) the module list, we've to recompute
          * credits fulfilled again.

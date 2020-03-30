@@ -289,19 +289,15 @@ public class ModelManager implements Model {
             // Compute credits fulfilled based on modules in the module list
             Requirement requirement = requirements.get(i);
 
-            String creditsRequired = requirement.getCreditsFulfilled();
-            String creditsFulfilled = Integer.toString(requirementCredits[i]);
-
-            Credits updatedCredits = new Credits(creditsRequired, creditsFulfilled);
-
             // TODO: Improve design of this part, can move  logic to CourseBook itself maybe hmm
 
             // Copy all other requirement fields over
             Title title = requirement.getTitle();
             List<Module> modules = requirement.getModuleList();
             RequirementCode requirementCode = requirement.getRequirementCode();
+            Credits credits = new Credits(requirement.getCreditsRequired(), Integer.toString(requirementCredits[i]));
 
-            Requirement updatedRequirement = new Requirement(title, updatedCredits, modules, requirementCode);
+            Requirement updatedRequirement = new Requirement(title, credits, modules, requirementCode);
             setRequirement(requirement, updatedRequirement);
         }
 
