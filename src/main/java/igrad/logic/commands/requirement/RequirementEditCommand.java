@@ -20,7 +20,7 @@ import igrad.model.requirement.Title;
  * Modifies an existing requirement in the course book.
  */
 public class RequirementEditCommand extends RequirementCommand {
-    public static final String COMMAND_WORD = REQUIREMENT_COMMAND_WORD + "edit";
+    public static final String COMMAND_WORD = REQUIREMENT_COMMAND_WORD + SPACE + "edit";
 
     public static final String MESSAGE_DETAILS = COMMAND_WORD + ": Edits the requirement identified "
         + "by its requirement code. Existing requirement will be overwritten by the input values.\n";

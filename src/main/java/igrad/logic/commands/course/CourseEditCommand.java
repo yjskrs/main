@@ -1,6 +1,5 @@
 package igrad.logic.commands.course;
 
-import static igrad.commons.util.CollectionUtil.requireAllNonNull;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Optional;
@@ -16,21 +15,36 @@ import igrad.model.course.Name;
  */
 public class CourseEditCommand extends CourseCommand {
 
-    public static final String COMMAND_WORD = COURSE_COMMAND_WORD + "edit";
+    public static final String COMMAND_WORD = COURSE_COMMAND_WORD + SPACE + "edit";
     public static final String MESSAGE_SUCCESS = "Edited Course: %1$s";
     public static final String MESSAGE_EDIT_COURSE_SAME_PARAMETERS = "Please change the name of the course";
     public static final String MESSAGE_NOT_EDITED = "Course name must be provided.";
 
+    private EditCourseDescriptor editCourseDescriptor;
 
-    //private final Name originalName;
+    /**
+     * @param editCourseDescriptor details (course name) to edit the course with
+     * (Note: course is special unlike module and requirement as there is only
+     * one course in the course book, hence we don't need a 'Name'/'ModuleCode', or any
+     * kind of identifier to identify the course we want to edit)
+     */
+    public CourseEditCommand(EditCourseDescriptor editCourseDescriptor) {
+    }
 
-    private final Optional<Name> newName;
-
-    public CourseEditCommand(Optional<Name> newName) {
-        requireAllNonNull(newName);
-
-        //this.originalName = originalName;
-        this.newName = newName;
+    /**
+     * Creates and returns a {@code CourseInfo} with the details of {@code courseInfoToEdit}
+     * edited with {@code editCourseDescriptor}.
+     */
+    private static CourseInfo createEditedCourseInfo(CourseInfo courseInfoToEdit,
+                                             CourseEditCommand.EditCourseDescriptor editCourseDescriptor) {
+        /*
+         * TODO (Teri): I leave the details to you, you may refer to how ModuleDoneCommand is done.
+         * Essentially, the idea here is to create a new CourseInfo with the
+         * edited course Name inside. However, note that alike the ModuleDone command, we want to
+         * leave the Optional<Cap> unedited
+         * Optional<Name> name = ...
+         */
+        return null;
     }
 
     @Override
@@ -39,18 +53,68 @@ public class CourseEditCommand extends CourseCommand {
 
         CourseInfo courseToEdit = model.getCourseInfo();
 
-        if (courseToEdit.getName().isEmpty()) {
-            throw new CommandException(MESSAGE_COURSE_INFO_NON_EXISTENT);
+        // The course name has to first be set, else we can't proceed to even edit it.
+        courseToEdit.getName().orElseThrow(() -> new CommandException(MESSAGE_COURSE_INFO_NON_EXISTENT));
+
+        /*
+         * TODO (Teri): I'll leave the rest to you.
+         * But you can reference the ModuleDonneCommand.java for this.
+         */
+
+        return null;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        /*
+         * TODO (Teri): Please take a look at how ModuleEditCommand.java
+         * implements this, and fill it up!
+         */
+
+        return false;
+    }
+
+    /**
+     * Stores the details to edit the module with. Each non-empty field value will replace the
+     * corresponding field value of the module.
+     */
+    public static class EditCourseDescriptor {
+        private Optional<Name> name;
+
+        public EditCourseDescriptor() {
         }
 
-        Name editedName = newName.orElse(courseToEdit.getName().get());
-        CourseInfo editedCourseInfo = new CourseInfo(Optional.ofNullable(editedName));
-
-        if (newName.isPresent() && courseToEdit.getName().equals(editedName)) {
-            throw new CommandException(MESSAGE_EDIT_COURSE_SAME_PARAMETERS);
+        /**
+         * Copy constructor.
+         */
+        public EditCourseDescriptor(EditCourseDescriptor toCopy) {
+            setName(toCopy.name);
         }
 
-        model.setCourseInfo(editedCourseInfo);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, editedCourseInfo));
+        public Optional<Name> getName() {
+            return name;
+        }
+
+        public void setName(Optional<Name> name) {
+            this.name = name;
+        }
+
+        @Override
+        public boolean equals(Object other) {
+            // short circuit if same object
+            if (other == this) {
+                return true;
+            }
+
+            // instanceof handles nulls
+            if (!(other instanceof EditCourseDescriptor)) {
+                return false;
+            }
+
+            // state check
+            EditCourseDescriptor e = (EditCourseDescriptor) other;
+
+            return getName().equals(e.getName());
+        }
     }
 }

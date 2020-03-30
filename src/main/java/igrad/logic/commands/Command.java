@@ -7,6 +7,7 @@ import igrad.model.Model;
  * Represents a command with hidden internal logic and the ability to be executed.
  */
 public abstract class Command {
+    public static final String SPACE = " ";
 
     /**
      * Executes the command and returns the result message.

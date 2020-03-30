@@ -9,6 +9,7 @@ import java.util.function.Predicate;
 import igrad.commons.core.GuiSettings;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.avatar.Avatar;
+import igrad.model.course.Cap;
 import igrad.model.course.CourseInfo;
 import igrad.model.module.Module;
 import igrad.model.module.ModuleCode;
@@ -127,6 +128,12 @@ public interface Model {
      * Checks if the course name has been set.
      */
     boolean isCourseNameSet();
+
+    /**
+     * Recomputes (and returns) a {@Code Cap} based on the the current {@code Module} in the module list
+     * (which is maintained by the {@code CourseBook}).
+     */
+    Cap recomputeCap();
 
     /**
      * Adds the given module.

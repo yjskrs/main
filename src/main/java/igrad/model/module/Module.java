@@ -131,6 +131,7 @@ public class Module {
         }
 
         Module otherModule = (Module) other;
+
         return otherModule.getTitle().equals(getTitle())
             && otherModule.getModuleCode().equals(getModuleCode())
             && otherModule.getCredits().equals(getCredits());

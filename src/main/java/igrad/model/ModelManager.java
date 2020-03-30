@@ -16,6 +16,7 @@ import igrad.commons.core.GuiSettings;
 import igrad.commons.core.LogsCenter;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.avatar.Avatar;
+import igrad.model.course.Cap;
 import igrad.model.course.CourseInfo;
 import igrad.model.module.Module;
 import igrad.model.module.ModuleCode;
@@ -157,6 +158,11 @@ public class ModelManager implements Model {
     @Override
     public boolean isCourseNameSet() {
         return courseBook.getCourseInfo().getName().isPresent();
+    }
+
+    @Override
+    public Cap recomputeCap() {
+        return CourseInfo.computeCap(courseBook.getModuleList());
     }
 
     @Override
