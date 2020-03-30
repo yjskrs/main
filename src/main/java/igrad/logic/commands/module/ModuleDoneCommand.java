@@ -101,17 +101,6 @@ public class ModuleDoneCommand extends ModuleCommand {
         model.setModule(moduleToEdit, editedModule);
         model.updateFilteredModuleList(Model.PREDICATE_SHOW_ALL_MODULES);
 
-        /*
-         * We need to recalculate the credits fulfiled for all requirements that has this module now
-         * that it is satisfied (fulfilled) with a grade through this done command
-         */
-        model.recalculateRequirementList();
-
-        /*
-         * Also, we need to recompute the cap when a module is marked done, i.e,
-         * given a grade/grade changed.
-         */
-        // Here we extract the current course name first
         Optional<Name> currentName = model.getCourseInfo().getName();
 
         // Now we actually go to our model and recompute cap based on updated module list in model
@@ -121,6 +110,8 @@ public class ModuleDoneCommand extends ModuleCommand {
 
         // Updating the model with the latest course info (cap)
         model.setCourseInfo(courseInfo);
+
+        model.recalculateRequirementList();
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, editedModule));
     }
