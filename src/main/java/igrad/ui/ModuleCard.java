@@ -39,10 +39,8 @@ public class ModuleCard extends UiPart<Region> {
     private Label semester;
     @FXML
     private Label credits;
-    /*    @FXML
-        private Label description;*/
     @FXML
-    private FlowPane tags;
+    private Label grade;
 
     public ModuleCard(Module module, int displayedIndex) {
         super(FXML);
@@ -61,9 +59,9 @@ public class ModuleCard extends UiPart<Region> {
             semester.setText(module.getSemester().get().value);
         }
 
-        module.getTags().stream()
-            .sorted(Comparator.comparing(tag -> tag.tagName))
-            .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        if( module.getGrade().isPresent()){
+            grade.setText(module.getGrade().get().value);
+        }
     }
 
     public int getDisplayedIndex() {
