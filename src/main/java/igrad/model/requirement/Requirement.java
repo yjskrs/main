@@ -35,7 +35,7 @@ public class Requirement implements ReadOnlyRequirement {
         this.requirementCode = new RequirementCode(generateRequirementCode(title.toString()));
 
         // Compute credits fulfilled based on modules in the module list
-        String creditsRequired = credits.getCreditsFulfilled();
+        String creditsRequired = credits.getCreditsRequired();
         int creditsFulfilled = calculateCreditsFulfilled();
 
         this.credits = new Credits(creditsRequired, Integer.toString(creditsFulfilled));
@@ -67,7 +67,7 @@ public class Requirement implements ReadOnlyRequirement {
         setModules(modules);
 
         // Compute credits fulfilled based on modules in the module list
-        String creditsRequired = credits.getCreditsFulfilled();
+        String creditsRequired = credits.getCreditsRequired();
         int creditsFulfilled = calculateCreditsFulfilled();
 
         this.credits = new Credits(creditsRequired, Integer.toString(creditsFulfilled));
@@ -83,7 +83,7 @@ public class Requirement implements ReadOnlyRequirement {
         setModules(modules);
 
         // Compute credits fulfilled based on modules in the module list
-        String creditsRequired = credits.getCreditsFulfilled();
+        String creditsRequired = credits.getCreditsRequired();
         int creditsFulfilled = calculateCreditsFulfilled();
 
         this.credits = new Credits(creditsRequired, Integer.toString(creditsFulfilled));
@@ -105,7 +105,7 @@ public class Requirement implements ReadOnlyRequirement {
         // Compute credits fulfilled based on modules in the module list
 
         // Copy over the credits required
-        String creditsRequired = toBeCopied.getCreditsFulfilled();
+        String creditsRequired = toBeCopied.getCreditsRequired();
 
         /*
          * But since here we have already resetted (cleared) the module list, we've to recompute
