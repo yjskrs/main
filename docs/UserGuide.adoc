@@ -1,7 +1,7 @@
 = iGrad - User Guide
 :site-section: UserGuide
 :toc:
-:toc-name:
+:toc-title:
 :toc-placement: preamble
 :sectnums:
 :imagesDir: images
@@ -14,6 +14,7 @@ ifdef::env-github[]
 :important-caption: :heavy_exclamation_mark:
 :caution-caption: :fire:
 :warning-caption: :warning:
+:icons: :font:
 endif::[]
 :repoURL: https://github.com/AY1920S2-CS2103T-F09-3/main
 
@@ -38,9 +39,13 @@ information is always up to date.
 
 _iGrad_ calculates your CAP at every step, ensuring you never have to use a CAP calculator again
 
-Finally, the _iGrad_ team is always open to feedback and suggestions from the public will always be followed up on.
+Finally, the _iGrad_ team is always open to feedback and suggestions from the public which
+will always be followed up on.
 
 == Features
+____
+This segment highlights the key features of iGrad.
+____
 
 ==== Course Builder
 
@@ -59,6 +64,9 @@ even offers predictive services so you know how well you have to do
 in order to achieve your dream CAP.
 
 == Components
+____
+This segment contains details on the structure of iGrad.
+____
 
 image:https://user-images.githubusercontent.com/34233605/75425925-9774ff80-597e-11ea-87f5-228f95b5c84f.png[]
 
@@ -77,6 +85,21 @@ complete it.
 A module is the building block of all other components. Mark your modules as done and give it
 a grade. You can also add optional memos to help you remember why
 you took the module.
+
+== How to use this guide
+
+You may proceed to <<Walkthrough>> if you want a step-by-step break down of how to navigate the app,
+<<Command List>> if you would like to learn how to use each of the commands, and <<Cheat Sheet>>
+if you would just like a list of all the commands for easy reference.
+
+The figure below explains the symbols used throughout the user guide.
+
+WARNING: Specifies the constraints of the command or situation.
+
+NOTE: Specifies expected command outcomes.
+
+TIP: Specifies extra tips you can use when navigating through our app.
+
 
 == Walkthrough
 
@@ -101,13 +124,16 @@ you took the module.
 ==== Export your data
 
 == Command List
-Here are the list of commands you can use to make full use of iGrad.
+____
+This segment contains a list of commands with examples that you can use to make full use of iGrad.
+____
 
 Take note of the following when using our commands:
-----
-Comamnds with fields wrapped within square brackets (i.e. []) require at least one of these fields to be specified when using the command.
+
+WARNING: Commands with fields wrapped within square brackets (i.e. []) require at least one of these fields to be specified
+when using the command.
 This means that you need just specify one of these fields while others may be optional based on your usage.
-----
+
 
 ==== help
 
@@ -120,108 +146,106 @@ Command Format
 help
 ----
 
-WARNING: Constraints
-
-NIL
-
-TIP: Expected Outcome
-
-A help message should be displayed
+Expected Outcome
+[NOTE]
+A popup for the list of all commands as well as the link to the user guide is shown.
+`INSERT POPUP PHOTO`
 
 '''
 
 ==== course
 
-Add, edit or remove your course.
+Add, edit or delete your course.
 
 Command Format
 
 ----
 course add n/COURSE_NAME
 
-course edit COURSE_NAME [n/COURSE_NAME] [u/MCs]
+course edit [n/COURSE_NAME] [u/MCs]
 
-course remove n/COURSE_NAME
+course delete n/COURSE_NAME
 ----
 
 Command Sample
 
+Creating a course named "Computer Science"
 ----
-/*
- * Creating a course named "Computer Science"
- */
 course add n/Computer Science
+----
 
 
-/*
- * Renaming your current course to "Information Systems"
- */
-course edit Computer Science n/Information Systems
+Renaming your current course to "Information Systems"
+----
+course edit n/Information Systems
+----
 
-/*
- * Removing your current course
- */
-course remove
+Removing your current course
+----
+course delete
 ----
 
 Constraints
+[WARNING]
 ====
 1. `(all)`: You can only have at most one course at any one time
-2. `course remove`: Removing a course removes all data from the system (including modules, requirements, etc)
+2. `course delete`: Removing a course deletes all data from the system (including modules, requirements, etc)
 ====
 
 Expected Outcome
 [NOTE]
 You should be able to see the added and/or modified course name in the
-top panel. For remove course, all data would be reset
+top panel. For delete course, all data would be reset
 
 '''
 
 ==== requirement
 
-Add, edit or remove a graduation requirement.
+Add, edit or delete a graduation requirement.
 
 Command Format
 
 ----
-requirement add n/REQUIREMENT_NAME u/MCS_REQUIRED
+requirement add n/REQUIREMENT_TITLE u/MCS_REQUIRED
 
-requirement edit REQUIREMENT_NAME [n/NEW_REQUIREMENT_NAME] [u/NEW_MCS_REQUIRED]
+requirement edit REQUIREMENT_CODE [n/NEW_REQUIREMENT_TITLE] [u/NEW_MCS_REQUIRED]
 
-requirement remove NAME
+requirement delete REQUIREMENT_CODE
+
+requirement assign REQUIREMENT_CODE [n/MODULE_CODE ...]
 ----
 
 Command Sample
 
+Adding a requirement named "Unrestricted Electives" which requires 32 MCs.
 ----
-/*
- * Adding a requirement named "Unrestricted Electives" which
- * requires 32 MCs.
- */
 requirement add n/Unrestricted Electives u/32
+----
 
+Renaming requirement "Unrestricted Electives" to "Maths and Sciences", and changing the number of MCs required to 20.
 
-/*
- * Renaming requirement "Unrestricted Electives" to "Maths and Sciences",
- * and changing the number of MCs required to 20.
- */
+----
 requirement edit Unrestricted Electives n/Maths and Sciences u/32
+----
 
-/*
- * Renaming requirement "Unrestricted Electives" to "Maths and Sciences".
- */
+Renaming requirement "Unrestricted Electives" to "Maths and Sciences".
+----
 requirement edit Unrestricted Electives n/Maths and Sciences
+----
 
-/*
- * Changing number of required MCs for requirement "Unrestricted Electives"
- * to 20.
- */
+Changing number of required MCs for requirement "Unrestricted Electives" to 20.
+----
 requirement edit Unrestricted Electives u/20
+----
 
-/*
- * Removing requirement named "Unrestricted Electives".
- */
-requirement remove Unrestricted Electives
+Removing requirement named "Unrestricted Electives".
+----
+requirement delete Unrestricted Electives
+----
+
+Assigning modules to requirement.
+----
+requirement assign UE0 n/CS1101S n/CS1231S n/CS2030S n/CS2040S
 ----
 
 Constraints
@@ -238,44 +262,35 @@ You should be able to see the requirement created and/or edited in the main pane
 
 ==== module
 
-Modify or remove a module. You would be able to tag (edit) a module with information such as; semester, grade or memo notes information.
+Modify or delete a module. You would be able to tag (edit) a module with information such as; semester, grade or memo notes information.
 
 Command Format
 
 ----
-/*
- * SEMESTER is specified in format Y_S_ ( e.g. Y1S2 - Year 1 Semester 2 )
- */
+module edit MODULE_CODE [n/MODULE_CODE] [n/MODULE_TITLE] [u/MCs] [s/SEMESTER] [g/GRADE] [m/MEMO_NOTES]
 
-
-/*
- * At least one option must be specified.
- */
-1. module edit MODULE_CODE [n/MODULE_CODE] [n/MODULE_TITLE] [u/MCs] [s/SEMESTER] [g/GRADE] [m/MEMO_NOTES]
-
-
-2. module remove MODULE_CODE
+module delete MODULE_CODE
 ----
+Note:
+[WARNING]
+SEMESTER is specified in format Y_S_ ( e.g. Y1S2 - Year 1 Semester 2 )
+
 
 Command Sample
 
+Tagging the module, CS1101, with "Y1S2" and grade "A+", and also renaming it to CS1101S
 ----
-/*
- * Tagging the module, CS1101, with "Y1S2" and grade "A+", and also renaming it to CS1101S
- */
 module edit n/CS1101: n/CS1101S s/Y1S2 g/A+
+----
 
-
-/*
- * Tagging the module, ST2234, with "Y2S1" and giving it a memo "pretty easy module"
-*/
+Tagging the module, ST2234, with "Y2S1" and giving it a memo "pretty easy module"
+----
 module edit n/ST2334: s/Y2S1 m/pretty easy module
+----
 
-
-/*
- * Removing a module named "CS1101S"
- */
-module remove n/CS1101S
+Removing a module named "CS1101S"
+----
+module delete n/CS1101S
 ----
 
 Constraints
@@ -290,39 +305,6 @@ Expected Outcome
 You should be able to see the modified module details reflected in the main panel
 
 '''
-
-==== assign
-
-Assigns (and creates) a module under a graduation requirement category.
-
-Command Format
-
-----
-1. assign REQUIREMENT_NAME n/MODULE_CODE, t/MODULE_TITLE u/MCs; ...
-----
-
-Command Sample
-
-----
-/**
-* Assigns (and creates) a module "LAJ1201" (4 MCs) and another module "CS1101S" (4 MCs) to the requirement "Unrestricted Electives"
-*/
-assign Unrestricted Electives n/LAJ1201 u/4, n/CS1101S u/4
-----
-
-Constraints
-[WARNING]
-====
-1. A module cannot be assigned if there are not enough MCs left under a graduation requirement (category).
-2. The module code (e.g, CS1101S, ST2334), have to be unique
-====
-
-Expected Outcome
-[NOTE]
-You should be able to see the newly assigned module(s) displayed in the main panel, under their respective requirement categories.
-main panel
-
-'''
 ==== grade
 Assigns a grade to a module.
 
@@ -334,18 +316,10 @@ grade MODULE_CODE g/GRADE
 
 Command Sample
 
+Assigns grade 'A' to the module 'CS2103T'.
 ----
-/*
- * Assigns grade 'A' to the module 'CS2103T'.
- */
 grade CS2103T g/A
 ----
-
-Constraints
-[WARNING]
-====
-- Nil
-====
 
 Expected Outcome
 [NOTE]
@@ -354,29 +328,20 @@ You should now see the grade reflected under the module you assigned to.
 '''
 ==== achieve
 
-Calculates the average grade needed to achieve the CAP you desire/
+Calculates the average grade needed to achieve the CAP you desire
 
 Command Format
 
 ----
-1. achieve c/DESIRED_CAP
+achieve c/DESIRED_CAP
 ----
 
 Command Sample
 
+Calculates the average grade needed to achieve a CAP of 4.50
 ----
-/**
-* Calculates the avergae grade needed
-* to achieve a CAP of 4.50
-*/
 achieve c/4.50
 ----
-
-Constraints
-[WARNING]
-====
-- Nil
-====
 
 Expected Outcome
 [NOTE]
@@ -393,14 +358,8 @@ this file can be submitted to NUS as a study plan.
 Command Format
 
 ----
-1. export
+export
 ----
-
-Constraints
-[WARNING]
-====
-- Nil
-====
 
 Expected Outcome
 [NOTE]
@@ -418,12 +377,6 @@ Command Format
 exit
 ----
 
-Constraints
-[WARNING]
-====
-- Nil
-====
-
 Expected Outcome
 [NOTE]
 The application should exit
@@ -439,7 +392,7 @@ However, we will be unable to provide features such as validation from NUSMods.
 
 ____
 
-This segment contains all the commands detailed in this guide in a consolidated list
+This segment contains all the commands detailed in this guide in a consolidated list.
 
 ____
 
@@ -449,25 +402,29 @@ ____
 
 `course edit [n/COURSE_NAME] [u/MCs]`
 
-`course remove COURSE_NAME`
+`course delete COURSE_NAME`
 
-`requirement add n/REQUIREMENT_NAME u/MCS_REQUIRED`
+`requirement add n/REQUIREMENT_TITLE u/MCS_REQUIRED`
 
-`requirement edit REQUIREMENT_NAME [n/REQUIREMENT_NAME] [u/MCS_REQUIRED]`
+`requirement edit REQUIREMENT_CODE [n/REQUIREMENT_TITLE] [u/MCS_REQUIRED]`
 
-`requirement remove REQUIREMENT_NAME`
+`requirement delete REQUIREMENT_CODE`
 
-`module add n/MODULE_CODE [n/MODULE_TITLE] [n/DESCRIPTION]`
+`requirement assign REQUIREMENT_CODE [n/MODULE_CODE ...]`
 
-`module edit MODULE_CODE [n/MODULE_CODE] [n/MODULE_TITLE] [u/MCs] [s/SEMESTER] [g/GRADE] [m/MEMO_NOTES]`
+`requirement unassign REQUIREMENT_CODE [n/MODULE_CODE ...]`
 
-`module remove [MODULE_CODE]`
+`module add n/MODULE_CODE [n/MODULE_TITLE] [n/DESCRIPTION] [u/MCs] [s/SEMESTER] [g/GRADE] [m/MEMO_NOTES]`
 
-`assign REQUIREMENT_NAME n/MODULE_CODE`
+`module edit MODULE_CODE [n/MODULE_CODE] [n/MODULE_TITLE] [n/DESCRIPTION] [u/MCs] [s/SEMESTER] [g/GRADE] [m/MEMO_NOTES]`
 
-`grade MODULE_CODE g/GRADE`
+`module delete MODULE_CODE`
+
+`module done MODULE_CODE g/GRADE`
 
 `achieve c/DESIRED_CAP`
+
+`undo`
 
 `export`
 
@@ -476,7 +433,7 @@ ____
 ## Glossary
 
 |===
-| |
+|Terms |Definition
 
 |Course |A course is the entire programme of studies required to complete a university degree
 |Graduation requirement |Requirements specified by the university in order for a student to graduate
@@ -490,10 +447,8 @@ ____
 
 *Handy Links*
 
-http://www.nus.edu.sg/registrar/academic-information-policies/graduate/modular-system[NUS - Modular System]
-
 http://www.nus.edu.sg/registrar/academic-information-policies/undergraduate-students/degree-requirements[NUS - Degree Requirements]
 
-http://www.nus.edu.sg/nusbulletin/yong-siew-toh-conservatory-of-music/undergraduate-education/degree-requirements/grading-system-and-regulations/[NUS - Grading System and Regulations]
+http://www.nus.edu.sg/registrar/academic-information-policies/undergraduate-students/modular-system[NUS - Modular System, Grading and Regulations]
 
 http://www.nus.edu.sg/registrar/calendar[NUS - Academic Calendar]

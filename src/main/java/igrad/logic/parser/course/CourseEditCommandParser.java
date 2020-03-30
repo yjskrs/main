@@ -1,6 +1,6 @@
 package igrad.logic.parser.course;
 
-import static igrad.logic.commands.course.CourseEditCommand.MESSAGE_COURSE_NOT_EDITED;
+import static igrad.logic.commands.course.CourseEditCommand.MESSAGE_NOT_EDITED;
 import static igrad.logic.parser.CliSyntax.PREFIX_NAME;
 import static java.util.Objects.requireNonNull;
 
@@ -32,14 +32,18 @@ public class CourseEditCommandParser extends CourseCommandParser implements Pars
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME);
 
-        Name name;
-
-        if (!argMultimap.getValue(PREFIX_NAME).isPresent()) {
-            throw new ParseException(MESSAGE_COURSE_NOT_EDITED);
+        /*
+         * Course is special, unlike Module and Requirement, it does not need a specifier, because there
+         * is only one course in the system. Hence the command syntax for course edit, goes like this;
+         * course edit n/NEW_COURSE_NAME.
+         * Hence we don't have to parse for a specifier as there's none.
+         */
+        if (argMultimap.getValue(PREFIX_NAME).isEmpty()) {
+            throw new ParseException(MESSAGE_NOT_EDITED);
         }
 
-        name = parseName(argMultimap.getValue(PREFIX_NAME).get());
+        Optional<Name> name = parseName(argMultimap.getValue(PREFIX_NAME).get());
 
-        return new CourseEditCommand(Optional.of(name));
+        return new CourseEditCommand(name);
     }
 }

@@ -1,8 +1,11 @@
 package igrad.ui;
 
+import igrad.model.module.Module;
 import igrad.model.requirement.Requirement;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
 
 /**
@@ -16,10 +19,16 @@ public class RequirementCard extends UiPart<Region> {
     private int displayedIndex;
 
     @FXML
+    private Label requirementCode;
+
+    @FXML
     private Label requirementTitle;
 
     @FXML
-    private Label mcCount;
+    private Label creditsCount;
+
+    @FXML
+    private FlowPane moduleCodes;
 
     public RequirementCard(Requirement requirement, int displayedIndex) {
         super(FXML);
@@ -27,7 +36,24 @@ public class RequirementCard extends UiPart<Region> {
         this.requirement = requirement;
         this.displayedIndex = displayedIndex;
 
-        requirementTitle.setText(requirement.getName().toString());
-        mcCount.setText(requirement.getCredits().toString());
+        requirementCode.setText(requirement.getRequirementCode().toString());
+        requirementTitle.setText(requirement.getTitle().toString());
+
+        String creditsCountText = requirement.getCreditsFulfilled()
+            + " out of " + requirement.getCredits().toString()
+            + " MCs fulfilled";
+
+        creditsCount.setText(creditsCountText);
+
+        ObservableList<Module> moduleList = requirement.getModuleList();
+
+        for (Module module : moduleList) {
+
+            Label moduleCode = new Label(module.getModuleCode().toString());
+            moduleCode.getStyleClass().add("requirement-card-module-code");
+
+            moduleCodes.getChildren().add(moduleCode);
+        }
+
     }
 }

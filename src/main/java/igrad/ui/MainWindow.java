@@ -72,7 +72,7 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane modularCreditsPanelPlaceholder;
 
     @FXML
-    private Label mcCount;
+    private Label creditsCount;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);

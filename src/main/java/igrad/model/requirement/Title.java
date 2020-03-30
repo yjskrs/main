@@ -1,17 +1,18 @@
-package igrad.model.module;
+package igrad.model.requirement;
 
 import static igrad.commons.util.AppUtil.checkArgument;
 import static java.util.Objects.requireNonNull;
 
 /**
- * Represents a Module's title in the course book.
- * Guarantees: immutable; is valid as declared in {@link #isValidTitle(String)}
+ * Represents a Requirement's title.
+ * Guarantees: immutable, non-null and is valid as declared by {@link #isValidTitle(String)}
  */
 public class Title {
+
     public static final String MESSAGE_CONSTRAINTS = "Title should not start with a space or slash and should not "
         + "be blank.";
 
-    // The first character of the module title must not be a whitespace; " ", slash; /, or blank.
+    // The first character of the requirement title must not be a whitespace; " ", slash; /, or blank.
     public static final String VALIDATION_REGEX = "^[^\\s/].*";
 
     public final String value;
@@ -19,12 +20,13 @@ public class Title {
     /**
      * Constructs a {@code Title}.
      *
-     * @param title A valid title.
+     * @param value A valid title string.
      */
-    public Title(String title) {
-        requireNonNull(title);
-        checkArgument(isValidTitle(title), MESSAGE_CONSTRAINTS);
-        value = title;
+    public Title(String value) {
+        requireNonNull(value);
+        checkArgument(isValidTitle(value), MESSAGE_CONSTRAINTS);
+
+        this.value = value;
     }
 
     /**
@@ -41,9 +43,8 @@ public class Title {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-            || (other instanceof Title // instanceof handles nulls
-            && value.equals(((Title) other).value)); // state check
+        return other == this // short circuit if same object, else check
+            || (other instanceof Title && value.equals(((Title) other).value)); // check same type and value
     }
 
     @Override

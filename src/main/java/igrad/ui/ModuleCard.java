@@ -1,11 +1,9 @@
 package igrad.ui;
 
-import java.util.Comparator;
-
 import igrad.model.module.Module;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 
@@ -39,10 +37,8 @@ public class ModuleCard extends UiPart<Region> {
     private Label semester;
     @FXML
     private Label credits;
-    /*    @FXML
-        private Label description;*/
     @FXML
-    private FlowPane tags;
+    private Label grade;
 
     public ModuleCard(Module module, int displayedIndex) {
         super(FXML);
@@ -56,18 +52,14 @@ public class ModuleCard extends UiPart<Region> {
         if (module.getMemo().isPresent()) {
             memo.setText("Memo: " + module.getMemo().get().value);
         }
+
         if (module.getSemester().isPresent()) {
             semester.setText(module.getSemester().get().value);
         }
-        /*
-            if (module.getDescription() != null) {
-            description.setText("Description:\t\t" + module.getDescription().value);
-            }
-        */
 
-        module.getTags().stream()
-            .sorted(Comparator.comparing(tag -> tag.tagName))
-            .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        if (module.getGrade().isPresent()) {
+            grade.setText(module.getGrade().get().value);
+        }
     }
 
     public int getDisplayedIndex() {

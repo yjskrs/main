@@ -1,5 +1,6 @@
 package igrad.logic.parser.requirement;
 
+import static igrad.logic.commands.requirement.RequirementAssignCommand.MESSAGE_HELP;
 import static igrad.logic.commands.requirement.RequirementAssignCommand.MESSAGE_REQUIREMENT_NO_MODULES;
 import static igrad.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
 import static igrad.logic.parser.ParserUtil.parseModuleCodes;
@@ -7,6 +8,7 @@ import static igrad.logic.parser.ParserUtil.parseModuleCodes;
 import java.util.Collection;
 import java.util.List;
 
+import igrad.commons.core.Messages;
 import igrad.logic.commands.requirement.RequirementAssignCommand;
 import igrad.logic.parser.ArgumentMultimap;
 import igrad.logic.parser.ArgumentTokenizer;
@@ -15,7 +17,7 @@ import igrad.logic.parser.ParserUtil;
 import igrad.logic.parser.Specifier;
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.module.ModuleCode;
-import igrad.model.requirement.Name;
+import igrad.model.requirement.RequirementCode;
 
 /**
  * Parses module assign (to requirement) input argument and creates a new AssignCommand object.
@@ -23,15 +25,25 @@ import igrad.model.requirement.Name;
 public class RequirementAssignCommandParser implements Parser<RequirementAssignCommand> {
 
     @Override
-    public RequirementAssignCommand parse(String userInput) throws ParseException {
+    public RequirementAssignCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-            ArgumentTokenizer.tokenize(userInput, PREFIX_MODULE_CODE);
+            ArgumentTokenizer.tokenize(args, PREFIX_MODULE_CODE);
 
-        Specifier specifier = ParserUtil.parseSpecifier(argMultimap.getPreamble());
+        /*
+         * If all arguments in the command are empty; i.e, 'requirement assign', and nothing else, show
+         * the help message for this command
+         */
+        if (argMultimap.isEmpty(true)) {
+            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                MESSAGE_HELP));
+        }
+
+        Specifier specifier = ParserUtil.parseSpecifier(argMultimap.getPreamble(),
+            ParserUtil.REQUIREMENT_CODE_SPECIFIER_RULE, RequirementCode.MESSAGE_CONSTRAINTS);
 
         List<ModuleCode> moduleCodes = parseModulesToAssign(argMultimap.getAllValues(PREFIX_MODULE_CODE));
 
-        return new RequirementAssignCommand(new Name(specifier.getValue()), moduleCodes);
+        return new RequirementAssignCommand(new RequirementCode(specifier.getValue()), moduleCodes);
     }
 
     /**

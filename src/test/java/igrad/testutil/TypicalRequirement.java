@@ -15,20 +15,20 @@ import igrad.model.requirement.Requirement;
 public class TypicalRequirement {
 
     public static final Requirement CS_FOUNDATION = new RequirementBuilder()
-                                                        .withName("Computer Science Foundation")
-                                                        .withCreditsOneParameter("48")
-                                                        .withModules(getTypicalModules())
-                                                        .build();
+        .withTitle("Computer Science Foundation")
+        .withCreditsOneParameter("48")
+        .withModules(getTypicalModules())
+        .build();
 
     public static final Requirement UNRESTRICTED_ELECTIVES = new RequirementBuilder()
-                                                                 .withName("Unrestricted Electives")
-                                                                 .withCreditsOneParameter("32")
-                                                                 .build();
+        .withTitle("Unrestricted Electives")
+        .withCreditsOneParameter("32")
+        .build();
 
     public static final Requirement GENERAL_ELECTIVES = new RequirementBuilder()
-                                                            .withName("General Electives")
-                                                            .withCreditsOneParameter("20")
-                                                            .build();
+        .withTitle("General Electives")
+        .withCreditsOneParameter("20")
+        .build();
 
     /**
      * Returns an {@code CourseBook} with all the typical requirements.

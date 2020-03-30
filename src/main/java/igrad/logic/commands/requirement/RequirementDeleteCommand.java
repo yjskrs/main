@@ -7,8 +7,8 @@ import java.util.List;
 import igrad.logic.commands.CommandResult;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
-import igrad.model.requirement.Name;
 import igrad.model.requirement.Requirement;
+import igrad.model.requirement.RequirementCode;
 
 /**
  * Deletes an existing requirement from the course book.
@@ -17,20 +17,14 @@ public class RequirementDeleteCommand extends RequirementCommand {
 
     public static final String COMMAND_WORD = REQUIREMENT_COMMAND_WORD + "delete";
 
-    public static final String MESSAGE_DETAILS = COMMAND_WORD + ": Deletes the requirement specified.\n";
+    public static final String MESSAGE_SUCCESS = "Deleted Requirement: %1$s";
 
-    public static final String MESSAGE_USAGE = "Example: " + COMMAND_WORD + " Unrestricted Electives\n";
+    private final RequirementCode requirementCode;
 
-    public static final String MESSAGE_HELP = MESSAGE_DETAILS + MESSAGE_USAGE;
+    public RequirementDeleteCommand(RequirementCode requirementCode) {
+        requireNonNull(requirementCode);
 
-    public static final String MESSAGE_REQUIREMENT_DELETE_SUCCESS = "Deleted Requirement: %1$s";
-
-    private final Name name;
-
-    public RequirementDeleteCommand(Name name) {
-        requireNonNull(name);
-
-        this.name = name;
+        this.requirementCode = requirementCode;
     }
 
     @Override
@@ -42,18 +36,18 @@ public class RequirementDeleteCommand extends RequirementCommand {
         Requirement requirementToDelete;
 
         // check if requirement exists in course book
-        if (!requirements.stream().anyMatch(requirement -> requirement.getName().equals(name))) {
+        if (!requirements.stream().anyMatch(requirement -> requirement.getRequirementCode().equals(requirementCode))) {
             throw new CommandException(MESSAGE_REQUIREMENT_NON_EXISTENT);
         } else {
             requirementToDelete = requirements.stream()
-                .filter(requirement -> requirement.getName().equals(name))
+                .filter(requirement -> requirement.getRequirementCode().equals(requirementCode))
                 .findFirst().get();
         }
 
         model.deleteRequirement(requirementToDelete);
 
         return new CommandResult(
-            String.format(MESSAGE_REQUIREMENT_DELETE_SUCCESS, requirementToDelete));
+            String.format(MESSAGE_SUCCESS, requirementToDelete));
     }
 
 }
