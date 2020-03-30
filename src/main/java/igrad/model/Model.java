@@ -211,4 +211,9 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateRequirementList(Predicate<Requirement> predicate);
+
+    /**
+     * Recalculates the credits fulfilled of all requirements
+     */
+    void recalculateRequirementList();
 }
