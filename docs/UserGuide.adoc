@@ -43,6 +43,9 @@ Finally, the _iGrad_ team is always open to feedback and suggestions from the pu
 will always be followed up on.
 
 == Features
+____
+This segment highlights the key features of iGrad.
+____
 
 ==== Course Builder
 
