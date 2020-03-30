@@ -64,8 +64,6 @@ class JsonSerializableCourseBook {
     public CourseBook toModelType() throws IllegalValueException {
         CourseBook courseBook = new CourseBook();
 
-        courseBook.addCourseInfo(courseInfo.toModelType());
-
         for (JsonAdaptedModule jsonAdaptedModule : modules) {
             Module module = jsonAdaptedModule.toModelType();
             if (courseBook.hasModule(module)) {
@@ -82,6 +80,8 @@ class JsonSerializableCourseBook {
             }
             courseBook.addRequirement(requirement);
         }
+
+        courseBook.addCourseInfo(courseInfo.toModelType(courseBook.getRequirementList()));
 
         return courseBook;
     }

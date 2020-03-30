@@ -33,7 +33,11 @@ public class CourseInfoBuilder {
         return this;
     }
 
+    /**
+     * Constructs a {@code CourseInfo} object based on the details supplied (if any)
+     */
     public CourseInfo build() {
-        return new CourseInfo(name);
+        // TODO: just put optional for now, construct test cases involving cap as well
+        return new CourseInfo(name, Optional.empty());
     }
 }

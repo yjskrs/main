@@ -31,7 +31,7 @@ public class CourseBook implements ReadOnlyCourseBook {
     {
         modules = new UniqueModuleList();
         requirements = new UniqueRequirementList();
-        courseInfo = new CourseInfo(Optional.empty());
+        courseInfo = new CourseInfo(Optional.empty(), Optional.empty());
     }
 
     public CourseBook() {

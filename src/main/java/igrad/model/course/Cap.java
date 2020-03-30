@@ -4,19 +4,19 @@ import static igrad.commons.util.AppUtil.checkArgument;
 import static java.util.Objects.requireNonNull;
 
 /**
- * Represents a Course Info's name in the course book.
- * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
+ * Represents a Course Info's cap in the course book.
+ * Guarantees: immutable; is valid as declared in {@link #isValidCap(String)}
  */
-public class Name {
+public class Cap {
     public static final String MESSAGE_CONSTRAINTS = "Names should not start with a space or slash and should not "
         + "be blank.";
 
     // The first character of the course name must not be a whitespace, " ", slash; /, or blank.
-    public static final String VALIDATION_REGEX = "^[^\\s/].*";
+    public static final String VALIDATION_REGEX = "[0-9](\\.[0-9]+)?";
 
     public final String value;
 
-    public Name() {
+    public Cap() {
         value = null;
     }
 
@@ -25,16 +25,16 @@ public class Name {
      *
      * @param name A valid name.
      */
-    public Name(String name) {
+    public Cap(String name) {
         requireNonNull(name);
-        checkArgument(isValidName(name), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidCap(name), MESSAGE_CONSTRAINTS);
         value = name;
     }
 
     /**
      * Returns true if a given string is a valid name.
      */
-    public static boolean isValidName(String test) {
+    public static boolean isValidCap(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 

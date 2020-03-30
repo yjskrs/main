@@ -47,7 +47,7 @@ public class ModuleDoneCommand extends ModuleCommand {
 
     /**
      * @param moduleCode                of the module in the filtered module list to edit
-     * @param editModuleGradeDescriptor details to edit the module with
+     * @param editModuleGradeDescriptor details (grade) to edit the module with
      */
     public ModuleDoneCommand(ModuleCode moduleCode, EditModuleGradeDescriptor editModuleGradeDescriptor) {
         requireAllNonNull(moduleCode, editModuleGradeDescriptor);
@@ -64,9 +64,8 @@ public class ModuleDoneCommand extends ModuleCommand {
                                              ModuleDoneCommand.EditModuleGradeDescriptor editModuleGradeDescriptor) {
         assert moduleToEdit != null;
 
-        ModuleCode moduleCode = moduleToEdit.getModuleCode();
-
         // Just copy everything from {@code moduleToEdit} to our new {@code Module}
+        ModuleCode moduleCode = moduleToEdit.getModuleCode();
         Title updatedTitle = moduleToEdit.getTitle();
         Credits updatedCredits = moduleToEdit.getCredits();
         Optional<Memo> updatedMemo = moduleToEdit.getMemo();
@@ -75,7 +74,7 @@ public class ModuleDoneCommand extends ModuleCommand {
         Set<Tag> updatedTags = moduleToEdit.getTags();
 
         /*
-         * It's compulsory for Grade to be optionally edited/updated. This should have already been
+         * But for Grade, It's compulsory for Grade to be optionally edited/updated. This should have already been
          * guaranteed through the validations in the ModuleDoneCommandParser
          */
         Optional<Grade> updatedGrade = editModuleGradeDescriptor.getGrade();
@@ -95,6 +94,16 @@ public class ModuleDoneCommand extends ModuleCommand {
         model.setModule(moduleToEdit, editedModule);
         model.updateFilteredModuleList(Model.PREDICATE_SHOW_ALL_MODULES);
         return new CommandResult(String.format(MESSAGE_SUCCESS, editedModule));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        /*
+         * TODO (Teri): Please take a look at how ModuleEditCommand.java
+         * implements this, and fill it up!
+         */
+
+        return false;
     }
 
     /**

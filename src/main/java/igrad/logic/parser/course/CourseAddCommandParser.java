@@ -12,7 +12,7 @@ import igrad.logic.parser.ArgumentTokenizer;
 import igrad.logic.parser.CourseCommandParser;
 import igrad.logic.parser.Parser;
 import igrad.logic.parser.exceptions.ParseException;
-import igrad.model.course.CourseInfo;
+import igrad.model.course.Cap;
 import igrad.model.course.Name;
 
 /**
@@ -59,8 +59,18 @@ public class CourseAddCommandParser extends CourseCommandParser implements Parse
 
         Optional<Name> name = parseName(argMultimap.getValue(PREFIX_NAME).get());
 
-        CourseInfo courseInfo = new CourseInfo(name);
+        /*
+         * When a new course is created, there are no requirements (or modules under those requirements)
+         * by which cap can be computed by, hence cap is always 0 (although non Optional.empty())
+         */
+        Optional<Cap> grade = Optional.empty();
 
-        return new CourseAddCommand(courseInfo);
+        /*
+         * TODO (Teri): Please fill in the blanks here
+         * CourseInfo courseInfo = ...
+         * return new CourseAddCommand(...)
+         */
+
+        return null;
     }
 }
