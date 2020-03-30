@@ -1,7 +1,9 @@
 package igrad.model.requirement;
 
 import static java.util.Objects.requireNonNull;
+
 import java.util.List;
+
 import igrad.model.module.Module;
 import igrad.model.module.UniqueModuleList;
 import javafx.collections.ObservableList;
@@ -29,12 +31,14 @@ public class Requirement implements ReadOnlyRequirement {
         requireNonNull(title);
 
         this.title = title;
-        this.credits = credits;
 
         this.requirementCode = new RequirementCode(generateRequirementCode(title.toString()));
 
+        // Compute credits fulfilled based on modules in the module list
+        String creditsRequired = credits.getCreditsFulfilled();
         int creditsFulfilled = calculateCreditsFulfilled();
-        this.credits.setCreditsFulfilled(Integer.toString(creditsFulfilled));
+
+        this.credits = new Credits(creditsRequired, Integer.toString(creditsFulfilled));
     }
 
     /**
@@ -45,32 +49,44 @@ public class Requirement implements ReadOnlyRequirement {
      * @param credits Credits of the requirement.
      * @param modules List of modules belonging in the requirement.
      */
+
+    /*
+     * TODO: Idk what's the prob here, but it seems that in the Credits class, creditsRequired is
+     * only need, as creditsFulfilled can be computed based on the modules passed into the
+     * constructor. Perhaps,  the design of Credits class or even maybe Requirement class could be
+     * enhanced.
+     * ~nathanael
+     */
     public Requirement(Title title, Credits credits, List<Module> modules) {
         requireNonNull(title);
 
         this.title = title;
-        this.credits = credits;
 
         this.requirementCode = new RequirementCode(generateRequirementCode(title.toString()));
 
         setModules(modules);
 
+        // Compute credits fulfilled based on modules in the module list
+        String creditsRequired = credits.getCreditsFulfilled();
         int creditsFulfilled = calculateCreditsFulfilled();
-        this.credits.setCreditsFulfilled(Integer.toString(creditsFulfilled));
+
+        this.credits = new Credits(creditsRequired, Integer.toString(creditsFulfilled));
     }
 
     public Requirement(Title title, Credits credits, List<Module> modules, RequirementCode requirementCode) {
         requireNonNull(title);
 
         this.title = title;
-        this.credits = credits;
 
         this.requirementCode = requirementCode;
 
         setModules(modules);
 
+        // Compute credits fulfilled based on modules in the module list
+        String creditsRequired = credits.getCreditsFulfilled();
         int creditsFulfilled = calculateCreditsFulfilled();
-        this.credits.setCreditsFulfilled(Integer.toString(creditsFulfilled));
+
+        this.credits = new Credits(creditsRequired, Integer.toString(creditsFulfilled));
     }
 
     /**
@@ -82,14 +98,22 @@ public class Requirement implements ReadOnlyRequirement {
         requireNonNull(toBeCopied);
 
         this.title = toBeCopied.getTitle();
-        this.credits = toBeCopied.getCredits();
-
 
         this.requirementCode = new RequirementCode(generateRequirementCode(title.toString()));
         resetModules(toBeCopied);
 
+        // Compute credits fulfilled based on modules in the module list
+
+        // Copy over the credits required
+        String creditsRequired = toBeCopied.getCreditsFulfilled();
+
+        /*
+         * But since here we have already resetted (cleared) the module list, we've to recompute
+         * credits fulfilled again.
+         */
         int creditsFulfilled = calculateCreditsFulfilled();
-        this.credits.setCreditsFulfilled(Integer.toString(creditsFulfilled));
+
+        this.credits = new Credits(creditsRequired, Integer.toString(creditsFulfilled));
     }
 
     // requirement-level operations
@@ -139,9 +163,6 @@ public class Requirement implements ReadOnlyRequirement {
         requireNonNull(module);
 
         this.modules.add(module);
-        this.credits.setCreditsFulfilled(
-            Integer.toString(calculateCreditsFulfilled())
-        );
     }
 
     /**
@@ -152,9 +173,6 @@ public class Requirement implements ReadOnlyRequirement {
         requireNonNull(modules);
 
         this.modules.add(modules);
-        this.credits.setCreditsFulfilled(
-            Integer.toString(calculateCreditsFulfilled())
-        );
     }
 
     /**

@@ -16,9 +16,9 @@ public class Credits {
     // TODO
     public static final String VALIDATION_REGEX = "^[0-9]\\d*$"; // allows any numbers more than or equals zero
 
-    public final String creditsRequired;
+    private final String creditsRequired;
 
-    public String creditsFulfilled;
+    private String creditsFulfilled;
 
     /**
      * Constructs a {@code Credits} with 0 fulfilled credits.
@@ -33,21 +33,21 @@ public class Credits {
         this.creditsFulfilled = "0";
     }
 
-//    /**
-//     * Constructs a {@code Credits} with {@code creditsRequired} credits required and
-//     * {@code creditsFulfilled} creditsFulfilled.
-//     *
-//     * @param creditsRequired  A valid credits value (integer).
-//     * @param creditsFulfilled A valid credits value (integer).
-//     */
-//    public Credits(String creditsRequired, String creditsFulfilled) {
-//        requireAllNonNull(creditsRequired, creditsFulfilled);
-//        checkArgument(isValidCredits(creditsRequired), MESSAGE_CONSTRAINTS);
-//        checkArgument(isValidCredits(creditsFulfilled), MESSAGE_CONSTRAINTS);
-//
-//        this.creditsRequired = creditsRequired;
-//        this.creditsFulfilled = creditsFulfilled;
-//    }
+    /**
+     * Constructs a {@code Credits} with {@code creditsRequired} credits required and
+     * {@code creditsFulfilled} creditsFulfilled.
+     *
+     * @param creditsRequired  A valid credits value (integer).
+     * @param creditsFulfilled A valid credits value (integer).
+     */
+    public Credits(String creditsRequired, String creditsFulfilled) {
+        requireAllNonNull(creditsRequired, creditsFulfilled);
+        checkArgument(isValidCredits(creditsRequired), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidCredits(creditsFulfilled), MESSAGE_CONSTRAINTS);
+
+        this.creditsRequired = creditsRequired;
+        this.creditsFulfilled = creditsFulfilled;
+    }
 
     /**
      * Returns true if given string {@code test} is a valid credits (i.e. more than or equals 0).
@@ -75,10 +75,6 @@ public class Credits {
      */
     public String getCreditsFulfilled() {
         return creditsFulfilled;
-    }
-
-    public void setCreditsFulfilled( String creditsFulfilled ) {
-        this.creditsFulfilled = creditsFulfilled;
     }
 
     /**

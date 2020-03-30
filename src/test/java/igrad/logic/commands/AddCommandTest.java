@@ -251,6 +251,11 @@ public class AddCommandTest {
         public void updateRequirementList(Predicate<Requirement> predicate) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void recalculateRequirementList() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
