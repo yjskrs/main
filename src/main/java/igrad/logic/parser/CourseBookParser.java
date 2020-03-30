@@ -165,6 +165,9 @@ public class CourseBookParser {
 
             return new CourseEditCommandParser().parse(arguments);
 
+        // TODO (Teri): add the relevant case here for the parser to work
+
+
         default:
             /*
              * If the first command word (of a 2-word command) is valid, (at least) provide a

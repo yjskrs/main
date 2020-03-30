@@ -115,7 +115,7 @@ public class ModuleDoneCommand extends ModuleCommand {
 
         // Updating the model with the latest course info (cap)
         model.setCourseInfo(courseInfo);
-      
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, editedModule));
     }
 
