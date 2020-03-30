@@ -39,7 +39,8 @@ information is always up to date.
 
 _iGrad_ calculates your CAP at every step, ensuring you never have to use a CAP calculator again
 
-Finally, the _iGrad_ team is always open to feedback and suggestions from the public will always be followed up on.
+Finally, the _iGrad_ team is always open to feedback and suggestions from the public which
+will always be followed up on.
 
 == Features
 
@@ -60,6 +61,9 @@ even offers predictive services so you know how well you have to do
 in order to achieve your dream CAP.
 
 == Components
+____
+This segment contains details on the structure of iGrad.
+____
 
 image:https://user-images.githubusercontent.com/34233605/75425925-9774ff80-597e-11ea-87f5-228f95b5c84f.png[]
 
@@ -89,7 +93,7 @@ The figure below explains the symbols used throughout the user guide.
 
 WARNING: Specifies the constraints of the command or situation.
 
-NOTE: Specifies command outcomes.
+NOTE: Specifies expected command outcomes.
 
 TIP: Specifies extra tips you can use when navigating through our app.
 
@@ -117,7 +121,9 @@ TIP: Specifies extra tips you can use when navigating through our app.
 ==== Export your data
 
 == Command List
-Here are the list of commands you can use to make full use of iGrad.
+____
+This segment contains a list of commands with examples that you can use to make full use of iGrad.
+____
 
 Take note of the following when using our commands:
 
@@ -153,28 +159,26 @@ Command Format
 ----
 course add n/COURSE_NAME
 
-course edit COURSE_NAME [n/COURSE_NAME] [u/MCs]
+course edit [n/COURSE_NAME] [u/MCs]
 
 course remove n/COURSE_NAME
 ----
 
 Command Sample
 
+Creating a course named "Computer Science"
 ----
-/*
- * Creating a course named "Computer Science"
- */
 course add n/Computer Science
+----
 
 
-/*
- * Renaming your current course to "Information Systems"
- */
-course edit Computer Science n/Information Systems
+Renaming your current course to "Information Systems"
+----
+course edit n/Information Systems
+----
 
-/*
- * Removing your current course
- */
+Removing your current course
+----
 course remove
 ----
 
@@ -208,34 +212,29 @@ requirement remove NAME
 
 Command Sample
 
+Adding a requirement named "Unrestricted Electives" which requires 32 MCs.
 ----
-/*
- * Adding a requirement named "Unrestricted Electives" which
- * requires 32 MCs.
- */
 requirement add n/Unrestricted Electives u/32
+----
 
+Renaming requirement "Unrestricted Electives" to "Maths and Sciences", and changing the number of MCs required to 20.
 
-/*
- * Renaming requirement "Unrestricted Electives" to "Maths and Sciences",
- * and changing the number of MCs required to 20.
- */
+----
 requirement edit Unrestricted Electives n/Maths and Sciences u/32
+----
 
-/*
- * Renaming requirement "Unrestricted Electives" to "Maths and Sciences".
- */
+Renaming requirement "Unrestricted Electives" to "Maths and Sciences".
+----
 requirement edit Unrestricted Electives n/Maths and Sciences
+----
 
-/*
- * Changing number of required MCs for requirement "Unrestricted Electives"
- * to 20.
- */
+Changing number of required MCs for requirement "Unrestricted Electives" to 20.
+----
 requirement edit Unrestricted Electives u/20
+----
 
-/*
- * Removing requirement named "Unrestricted Electives".
- */
+Removing requirement named "Unrestricted Electives".
+----
 requirement remove Unrestricted Electives
 ----
 
@@ -258,38 +257,29 @@ Modify or remove a module. You would be able to tag (edit) a module with informa
 Command Format
 
 ----
-/*
- * SEMESTER is specified in format Y_S_ ( e.g. Y1S2 - Year 1 Semester 2 )
- */
+module edit MODULE_CODE [n/MODULE_CODE] [n/MODULE_TITLE] [u/MCs] [s/SEMESTER] [g/GRADE] [m/MEMO_NOTES]
 
-
-/*
- * At least one option must be specified.
- */
-1. module edit MODULE_CODE [n/MODULE_CODE] [n/MODULE_TITLE] [u/MCs] [s/SEMESTER] [g/GRADE] [m/MEMO_NOTES]
-
-
-2. module remove MODULE_CODE
+module remove MODULE_CODE
 ----
+Note:
+[WARNING]
+SEMESTER is specified in format Y_S_ ( e.g. Y1S2 - Year 1 Semester 2 )
+
 
 Command Sample
 
+Tagging the module, CS1101, with "Y1S2" and grade "A+", and also renaming it to CS1101S
 ----
-/*
- * Tagging the module, CS1101, with "Y1S2" and grade "A+", and also renaming it to CS1101S
- */
 module edit n/CS1101: n/CS1101S s/Y1S2 g/A+
+----
 
-
-/*
- * Tagging the module, ST2234, with "Y2S1" and giving it a memo "pretty easy module"
-*/
+Tagging the module, ST2234, with "Y2S1" and giving it a memo "pretty easy module"
+----
 module edit n/ST2334: s/Y2S1 m/pretty easy module
+----
 
-
-/*
- * Removing a module named "CS1101S"
- */
+Removing a module named "CS1101S"
+----
 module remove n/CS1101S
 ----
 
@@ -313,15 +303,14 @@ Assigns (and creates) a module under a graduation requirement category.
 Command Format
 
 ----
-1. assign REQUIREMENT_NAME n/MODULE_CODE, t/MODULE_TITLE u/MCs; ...
+assign REQUIREMENT_NAME n/MODULE_CODE, t/MODULE_TITLE u/MCs; ...
 ----
 
 Command Sample
 
+Assigns (and creates) a module "LAJ1201" (4 MCs) and another module "CS1101S" (4 MCs) to the requirement
+"Unrestricted Electives"
 ----
-/**
-* Assigns (and creates) a module "LAJ1201" (4 MCs) and another module "CS1101S" (4 MCs) to the requirement "Unrestricted Electives"
-*/
 assign Unrestricted Electives n/LAJ1201 u/4, n/CS1101S u/4
 ----
 
@@ -349,10 +338,8 @@ grade MODULE_CODE g/GRADE
 
 Command Sample
 
+Assigns grade 'A' to the module 'CS2103T'.
 ----
-/*
- * Assigns grade 'A' to the module 'CS2103T'.
- */
 grade CS2103T g/A
 ----
 
@@ -363,21 +350,18 @@ You should now see the grade reflected under the module you assigned to.
 '''
 ==== achieve
 
-Calculates the average grade needed to achieve the CAP you desire/
+Calculates the average grade needed to achieve the CAP you desire
 
 Command Format
 
 ----
-1. achieve c/DESIRED_CAP
+achieve c/DESIRED_CAP
 ----
 
 Command Sample
 
+Calculates the average grade needed to achieve a CAP of 4.50
 ----
-/**
-* Calculates the avergae grade needed
-* to achieve a CAP of 4.50
-*/
 achieve c/4.50
 ----
 
