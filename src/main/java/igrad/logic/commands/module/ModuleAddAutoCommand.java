@@ -7,6 +7,7 @@ import static igrad.logic.parser.CliSyntax.PREFIX_SEMESTER;
 import static igrad.logic.parser.CliSyntax.PREFIX_TITLE;
 import static java.util.Objects.requireNonNull;
 
+import igrad.logic.commands.Command;
 import igrad.logic.commands.CommandResult;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
@@ -36,19 +37,23 @@ public class ModuleAddAutoCommand extends ModuleCommand {
 
     public static final String MESSAGE_SUCCESS = "New module added based on NUSMods data: %1$s";
     public static final String MESSAGE_DUPLICATE_MODULE = "This module already exists in the course book";
+    public static final String MESSAGE_PREREQUISITE_NOT_PRESENT =
+            "A prerequisite module %s has not been added into the course book.";
     public static final String MESSAGE_PRECLUSION_PRESENT =
             "A preclusion for this module %s already exists in the course book.";
 
     private final Module toAdd;
     private final String[] preclusionModules;
+    private final String[] prerequisiteModules;
 
     /**
      * Creates an ModuleAddCommand to add the specified {@code Person}
      */
-    public ModuleAddAutoCommand(Module module, String[] preclusionModules) {
+    public ModuleAddAutoCommand(Module module, String[] preclusionModules, String[] prerequisiteModules) {
         requireNonNull(module);
         toAdd = module;
         this.preclusionModules = preclusionModules;
+        this.prerequisiteModules = prerequisiteModules;
     }
 
     @Override
@@ -59,8 +64,24 @@ public class ModuleAddAutoCommand extends ModuleCommand {
             throw new CommandException(MESSAGE_DUPLICATE_MODULE);
         }
 
-        for (Module module: model.getFilteredModuleList()) {
-            for (String preclusion: preclusionModules) {
+        for (String prerequisite: prerequisiteModules) {
+            boolean isPrereqPresent = false;
+            ModuleCode prerequisiteModuleCode = new ModuleCode(prerequisite);
+            for (Module module: model.getFilteredModuleList()) {
+                if (module.hasModuleCodeOf(prerequisiteModuleCode)) {
+                    isPrereqPresent = true;
+                    break;
+                }
+            }
+
+            if (!isPrereqPresent) {
+                String exceptionMessage = formatPrerequisiteExceptionMessage(prerequisiteModuleCode);
+                throw new CommandException(exceptionMessage);
+            }
+        }
+
+        for (String preclusion: preclusionModules) {
+            for (Module module: model.getFilteredModuleList()) {
                 ModuleCode preclusionModuleCode = new ModuleCode(preclusion);
                 if (module.hasModuleCodeOf(preclusionModuleCode)) {
                     String exceptionMessage = formatPreclusionExceptionMessage(preclusionModuleCode);
@@ -83,9 +104,18 @@ public class ModuleAddAutoCommand extends ModuleCommand {
     /**
      * Formats the exception message for when a preclusion module is present in the model.
      */
-    public String formatPreclusionExceptionMessage(ModuleCode moduleCode) {
+    private String formatPreclusionExceptionMessage(ModuleCode moduleCode) {
         String moduleCodeString = "(" + moduleCode.toString() + ")";
 
         return String.format(MESSAGE_PRECLUSION_PRESENT, moduleCodeString);
+    }
+
+    /**
+     * Formats the exception message for when a prerequisite module is not present in the model.
+     */
+    private String formatPrerequisiteExceptionMessage(ModuleCode moduleCode) {
+        String moduleCodeString = "(" + moduleCode.toString() + ")";
+
+        return String.format(MESSAGE_PREREQUISITE_NOT_PRESENT, moduleCodeString);
     }
 }

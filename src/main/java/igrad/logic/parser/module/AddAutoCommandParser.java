@@ -82,6 +82,9 @@ public class AddAutoCommandParser extends ModuleCommandParser implements Parser<
         String prerequisiteModulesString = jsonParsedModule.getPrerequisite();
         String preclusionModulesString = jsonParsedModule.getPreclusion();
 
+        ModulePrerequisiteParser prerequisiteParser = new ModulePrerequisiteParser(prerequisiteModulesString);
+        String[] prerequisiteModules = prerequisiteParser.getPrerequisiteModules();
+
         ModulePreclusionParser preclusionParser = new ModulePreclusionParser(preclusionModulesString);
         String[] preclusionModules = preclusionParser.getPreclusionModules();
 
@@ -99,7 +102,7 @@ public class AddAutoCommandParser extends ModuleCommandParser implements Parser<
 
         Module module = new Module(title, moduleCode, credits, memo, semester, description, grade, tagsList);
 
-        return new ModuleAddAutoCommand(module, preclusionModules);
+        return new ModuleAddAutoCommand(module, preclusionModules, prerequisiteModules);
     }
 
 }
