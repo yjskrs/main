@@ -87,16 +87,7 @@ class JsonAdaptedRequirement {
 
         final Title modelName = new Title(title);
 
-        final Credits modelCredits;
-
-        int creditsFulfilled = 0;
-        for (Module module : modelModules) {
-            if (module.isDone()) {
-                creditsFulfilled += module.getCredits().toInteger();
-            }
-        }
-
-        modelCredits = new Credits(credits, String.valueOf(creditsFulfilled));
+        final Credits modelCredits = new Credits(credits);
 
         if (requirementCode == null) {
             return new Requirement(modelName, modelCredits, modelModules);

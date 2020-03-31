@@ -18,7 +18,7 @@ import igrad.model.requirement.RequirementCode;
  * Assigns modules under a particular requirement.
  */
 public class RequirementAssignCommand extends RequirementCommand {
-    public static final String COMMAND_WORD = REQUIREMENT_COMMAND_WORD + "assign";
+    public static final String COMMAND_WORD = REQUIREMENT_COMMAND_WORD + SPACE + "assign";
 
     public static final String MESSAGE_DETAILS = COMMAND_WORD + ": Assigns the requirement identified with modules "
         + "by its requirement code. Existing requirement will be overwritten by the input values\n";
@@ -75,6 +75,8 @@ public class RequirementAssignCommand extends RequirementCommand {
         editedRequirement.addModules(modulesToAssign);
 
         model.setRequirement(requirementToAssign, editedRequirement);
+
+        model.recalculateRequirementList();
 
         return new CommandResult(
             String.format(MESSAGE_SUCCESS, editedRequirement));

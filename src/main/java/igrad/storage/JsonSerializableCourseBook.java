@@ -64,8 +64,6 @@ class JsonSerializableCourseBook {
     public CourseBook toModelType() throws IllegalValueException {
         CourseBook courseBook = new CourseBook();
 
-        courseBook.addCourseInfo(courseInfo.toModelType());
-
         for (JsonAdaptedModule jsonAdaptedModule : modules) {
             Module module = jsonAdaptedModule.toModelType();
             if (courseBook.hasModule(module)) {
@@ -82,6 +80,14 @@ class JsonSerializableCourseBook {
             }
             courseBook.addRequirement(requirement);
         }
+
+        /*
+         * If the modules and all requirements are valid (from storage), we now populate course info
+         * from storage. However, to do that, we need a list of all {@code Module} in the system
+         * to calculate the CAP (i.e, those modules that has grade would be added to cumulative CAP
+         * of course info.
+         */
+        courseBook.addCourseInfo(courseInfo.toModelType(moduleList));
 
         return courseBook;
     }
