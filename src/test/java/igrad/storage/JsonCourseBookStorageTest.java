@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -14,6 +15,9 @@ import org.junit.jupiter.api.io.TempDir;
 import igrad.commons.exceptions.DataConversionException;
 import igrad.model.CourseBook;
 import igrad.model.ReadOnlyCourseBook;
+import igrad.model.course.Cap;
+import igrad.model.course.CourseInfo;
+import igrad.model.course.Name;
 import igrad.testutil.TypicalModules;
 
 public class JsonCourseBookStorageTest {
@@ -61,11 +65,23 @@ public class JsonCourseBookStorageTest {
     public void readAndSaveCourseBook_allInOrder_success() throws Exception {
         Path filePath = testFolder.resolve("TempCourseBook.json");
         CourseBook original = TypicalModules.getTypicalCourseBook();
+
+        /*
+         * Creating a course info for this test, because a course book with modules must have a course info
+         * Also, since there are modules in a course book, the cap has to be computed as well
+         * based on those modules and placed in the course info
+         */
+        Name name = new Name("abc");
+        Cap cap = CourseInfo.computeCap(original.getModuleList());
+        CourseInfo courseInfo = new CourseInfo(Optional.of(name), Optional.of(cap));
+        original.setCourseInfo(courseInfo);
+
         JsonCourseBookStorage jsonCourseBookStorage = new JsonCourseBookStorage(filePath);
 
         // Save in new file and read back
         jsonCourseBookStorage.saveCourseBook(original, filePath);
         ReadOnlyCourseBook readBack = jsonCourseBookStorage.readCourseBook(filePath).get();
+
         assertEquals(original, new CourseBook(readBack));
 
         // Modify data, overwrite existing file, and read back

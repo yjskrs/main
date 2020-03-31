@@ -11,6 +11,9 @@ import java.util.Set;
 import igrad.logic.commands.CommandResult;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
+import igrad.model.course.Cap;
+import igrad.model.course.CourseInfo;
+import igrad.model.course.Name;
 import igrad.model.module.Credits;
 import igrad.model.module.Description;
 import igrad.model.module.Grade;
@@ -25,7 +28,7 @@ import igrad.model.tag.Tag;
  * Marks the module as done, with a specified grade.
  */
 public class ModuleDoneCommand extends ModuleCommand {
-    public static final String COMMAND_WORD = MODULE_COMMAND_WORD + "done";
+    public static final String COMMAND_WORD = MODULE_COMMAND_WORD + SPACE + "done";
 
     public static final String MESSAGE_DETAILS = COMMAND_WORD + ": Marks a module as done (with a grade) of the "
         + "module identified by its module code. Existing module (grade) will be overwritten by the input values.\n";
@@ -47,7 +50,7 @@ public class ModuleDoneCommand extends ModuleCommand {
 
     /**
      * @param moduleCode                of the module in the filtered module list to edit
-     * @param editModuleGradeDescriptor details to edit the module with
+     * @param editModuleGradeDescriptor details (grade) to edit the module with
      */
     public ModuleDoneCommand(ModuleCode moduleCode, EditModuleGradeDescriptor editModuleGradeDescriptor) {
         requireAllNonNull(moduleCode, editModuleGradeDescriptor);
@@ -64,9 +67,8 @@ public class ModuleDoneCommand extends ModuleCommand {
                                              ModuleDoneCommand.EditModuleGradeDescriptor editModuleGradeDescriptor) {
         assert moduleToEdit != null;
 
-        ModuleCode moduleCode = moduleToEdit.getModuleCode();
-
         // Just copy everything from {@code moduleToEdit} to our new {@code Module}
+        ModuleCode moduleCode = moduleToEdit.getModuleCode();
         Title updatedTitle = moduleToEdit.getTitle();
         Credits updatedCredits = moduleToEdit.getCredits();
         Optional<Memo> updatedMemo = moduleToEdit.getMemo();
@@ -75,7 +77,7 @@ public class ModuleDoneCommand extends ModuleCommand {
         Set<Tag> updatedTags = moduleToEdit.getTags();
 
         /*
-         * It's compulsory for Grade to be optionally edited/updated. This should have already been
+         * But for Grade, It's compulsory for Grade to be optionally edited/updated. This should have already been
          * guaranteed through the validations in the ModuleDoneCommandParser
          */
         Optional<Grade> updatedGrade = editModuleGradeDescriptor.getGrade();
@@ -88,13 +90,40 @@ public class ModuleDoneCommand extends ModuleCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
+        // Retrieve the module we want to mark a grade done with
         Module moduleToEdit = model.getModuleByModuleCode(moduleCode)
             .orElseThrow(() -> new CommandException(MESSAGE_MODULE_NON_EXISTENT));
+
+        // Create a new module based on the edited grade.
         Module editedModule = createEditedModule(moduleToEdit, editModuleGradeDescriptor);
 
+        // Update the module in our model
         model.setModule(moduleToEdit, editedModule);
         model.updateFilteredModuleList(Model.PREDICATE_SHOW_ALL_MODULES);
+
+        Optional<Name> currentName = model.getCourseInfo().getName();
+
+        // Now we actually go to our model and recompute cap based on updated module list in model
+        Optional<Cap> updatedCap = Optional.of(model.recomputeCap());
+
+        CourseInfo courseInfo = new CourseInfo(currentName, updatedCap);
+
+        // Updating the model with the latest course info (cap)
+        model.setCourseInfo(courseInfo);
+
+        model.recalculateRequirementList();
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, editedModule));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        /*
+         * TODO (Teri): Please take a look at how ModuleEditCommand.java
+         * implements this, and fill it up!
+         */
+
+        return false;
     }
 
     /**

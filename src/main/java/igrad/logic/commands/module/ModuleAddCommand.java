@@ -18,7 +18,7 @@ import igrad.model.module.Module;
  */
 public class ModuleAddCommand extends ModuleCommand {
 
-    public static final String COMMAND_WORD = MODULE_COMMAND_WORD + "add";
+    public static final String COMMAND_WORD = MODULE_COMMAND_WORD + SPACE + "add";
 
     public static final String MESSAGE_DETAILS = COMMAND_WORD + ": Adds a module with relevant details specified.\n";
 

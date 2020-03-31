@@ -16,7 +16,7 @@ import igrad.model.module.ModuleCode;
  */
 public class ModuleDeleteCommand extends ModuleCommand {
 
-    public static final String COMMAND_WORD = MODULE_COMMAND_WORD + "delete";
+    public static final String COMMAND_WORD = MODULE_COMMAND_WORD + SPACE + "delete";
 
     public static final String MESSAGE_SUCCESS = "Deleted Module: %1$s";
 
@@ -46,6 +46,8 @@ public class ModuleDeleteCommand extends ModuleCommand {
         Module moduleToDelete = moduleToDeleteOpt.get();
 
         model.deleteModule(moduleToDelete);
+        model.updateRequirementList(Model.PREDICATE_SHOW_ALL_REQUIREMENTS);
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, moduleToDelete));
     }
 

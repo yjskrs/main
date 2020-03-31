@@ -9,6 +9,7 @@ import java.util.function.Predicate;
 import igrad.commons.core.GuiSettings;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.avatar.Avatar;
+import igrad.model.course.Cap;
 import igrad.model.course.CourseInfo;
 import igrad.model.module.Module;
 import igrad.model.module.ModuleCode;
@@ -129,6 +130,12 @@ public interface Model {
     boolean isCourseNameSet();
 
     /**
+     * Recomputes (and returns) a {@Code Cap} based on the the current {@code Module} in the module list
+     * (which is maintained by the {@code CourseBook}).
+     */
+    Cap recomputeCap();
+
+    /**
      * Adds the given module.
      * {@code module} must not already exist in the course book.
      */
@@ -211,4 +218,9 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateRequirementList(Predicate<Requirement> predicate);
+
+    /**
+     * Recalculates the credits fulfilled of all requirements
+     */
+    void recalculateRequirementList();
 }

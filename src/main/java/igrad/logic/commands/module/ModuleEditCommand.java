@@ -34,7 +34,7 @@ import igrad.model.tag.Tag;
  */
 public class ModuleEditCommand extends ModuleCommand {
 
-    public static final String COMMAND_WORD = MODULE_COMMAND_WORD + "edit";
+    public static final String COMMAND_WORD = MODULE_COMMAND_WORD + SPACE + "edit";
 
     public static final String MESSAGE_DETAILS = COMMAND_WORD + ": Edits the details of the module identified "
         + "by its module code. Existing module will be overwritten by the input values.\n";

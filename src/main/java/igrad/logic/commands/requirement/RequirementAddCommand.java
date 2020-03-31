@@ -17,7 +17,7 @@ import javafx.collections.ObservableList;
  * Adds a requirement to the course.
  */
 public class RequirementAddCommand extends RequirementCommand {
-    public static final String COMMAND_WORD = REQUIREMENT_COMMAND_WORD + "add";
+    public static final String COMMAND_WORD = REQUIREMENT_COMMAND_WORD + SPACE + "add";
 
     public static final String MESSAGE_DETAILS = COMMAND_WORD + ": Adds a requirement with relevant details "
         + "specified.\n";

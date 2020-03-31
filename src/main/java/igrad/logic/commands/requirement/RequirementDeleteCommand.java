@@ -15,7 +15,7 @@ import igrad.model.requirement.RequirementCode;
  */
 public class RequirementDeleteCommand extends RequirementCommand {
 
-    public static final String COMMAND_WORD = REQUIREMENT_COMMAND_WORD + "delete";
+    public static final String COMMAND_WORD = REQUIREMENT_COMMAND_WORD + SPACE + "delete";
 
     public static final String MESSAGE_SUCCESS = "Deleted Requirement: %1$s";
 
