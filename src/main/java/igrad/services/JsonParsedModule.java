@@ -9,12 +9,17 @@ public class JsonParsedModule {
     private String moduleCode;
     private String credits;
     private String description;
+    private String prerequisite;
+    private String preclusion;
 
-    public JsonParsedModule(String title, String moduleCode, String credits, String description) {
+    public JsonParsedModule(String title, String moduleCode, String credits, String description,
+                            String prerequisite, String preclusion) {
         this.title = title;
         this.moduleCode = moduleCode;
         this.credits = credits;
         this.description = description;
+        this.prerequisite = prerequisite;
+        this.preclusion = preclusion;
     }
 
     /**
@@ -33,6 +38,8 @@ public class JsonParsedModule {
         String moduleCode = "";
         String credits = "";
         String description = "";
+        String prerequisite = "";
+        String preclusion = "";
 
         data = data.substring(1, data.length() - 2);
         String[] keyValueStrArray = data.split("\",");
@@ -67,13 +74,19 @@ public class JsonParsedModule {
             case "ModuleDescription":
                 description = valueStr;
                 break;
+            case "Prerequisite":
+                prerequisite = valueStr;
+                break;
+            case "Preclusion":
+                preclusion = valueStr;
+                break;
             default:
                 break;
             }
 
         }
 
-        return new JsonParsedModule(title, moduleCode, credits, description);
+        return new JsonParsedModule(title, moduleCode, credits, description, prerequisite, preclusion);
     }
 
     public String getTitle() {
@@ -90,6 +103,14 @@ public class JsonParsedModule {
 
     public String getDescription() {
         return description;
+    }
+
+    public String getPrerequisite() {
+        return prerequisite;
+    }
+
+    public String getPreclusion() {
+        return preclusion;
     }
 
     @Override

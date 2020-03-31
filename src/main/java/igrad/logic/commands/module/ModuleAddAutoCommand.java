@@ -11,6 +11,7 @@ import igrad.logic.commands.CommandResult;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
 import igrad.model.module.Module;
+import igrad.model.module.ModuleCode;
 
 /**
  * Adds a module to the course book.
@@ -35,15 +36,19 @@ public class ModuleAddAutoCommand extends ModuleCommand {
 
     public static final String MESSAGE_SUCCESS = "New module added based on NUSMods data: %1$s";
     public static final String MESSAGE_DUPLICATE_MODULE = "This module already exists in the course book";
+    public static final String MESSAGE_PRECLUSION_PRESENT =
+            "A preclusion for this module %s already exists in the course book.";
 
     private final Module toAdd;
+    private final String[] preclusionModules;
 
     /**
      * Creates an ModuleAddCommand to add the specified {@code Person}
      */
-    public ModuleAddAutoCommand(Module module) {
+    public ModuleAddAutoCommand(Module module, String[] preclusionModules) {
         requireNonNull(module);
         toAdd = module;
+        this.preclusionModules = preclusionModules;
     }
 
     @Override
@@ -52,6 +57,16 @@ public class ModuleAddAutoCommand extends ModuleCommand {
 
         if (model.hasModule(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_MODULE);
+        }
+
+        for (Module module: model.getFilteredModuleList()) {
+            for (String preclusion: preclusionModules) {
+                ModuleCode preclusionModuleCode = new ModuleCode(preclusion);
+                if (module.hasModuleCodeOf(preclusionModuleCode)) {
+                    String exceptionMessage = formatPreclusionExceptionMessage(preclusionModuleCode);
+                    throw new CommandException(exceptionMessage);
+                }
+            }
         }
 
         model.addModule(toAdd);
@@ -63,5 +78,11 @@ public class ModuleAddAutoCommand extends ModuleCommand {
         return other == this // short circuit if same object
             || (other instanceof ModuleAddAutoCommand // instanceof handles nulls
             && toAdd.equals(((ModuleAddAutoCommand) other).toAdd));
+    }
+
+    public String formatPreclusionExceptionMessage(ModuleCode moduleCode) {
+        String moduleCodeString = "(" + moduleCode.toString() + ")";
+
+        return String.format(MESSAGE_PRECLUSION_PRESENT, moduleCodeString);
     }
 }
