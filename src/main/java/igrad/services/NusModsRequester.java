@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 
 import igrad.commons.core.LogsCenter;
 import igrad.logic.parser.CliSyntax;
+import igrad.logic.parser.module.ModulePreclusionParser;
 import igrad.services.exceptions.ServiceException;
 
 /**

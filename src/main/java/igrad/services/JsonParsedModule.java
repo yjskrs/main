@@ -113,6 +113,10 @@ public class JsonParsedModule {
         return preclusion;
     }
 
+    public void addPreclusionEquivalents(String equivalents) {
+        this.preclusion += " " + equivalents;
+    }
+
     @Override
     public String toString() {
         return "Module Title: " + title

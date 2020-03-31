@@ -7,9 +7,9 @@ public class ModulePreclusionParser {
     private String preclusionString;
     private String[] preclusionModules;
 
-    public ModulePreclusionParser(String prerequisiteString) {
-        this.preclusionString = prerequisiteString;
-        this.preclusionModules = splitPreclusionModules(preclusionString);
+    public ModulePreclusionParser(String preclusionString) {
+        this.preclusionString = preclusionString;
+        this.preclusionModules = splitPreclusionModules(this.preclusionString);
     }
 
     public String[] splitPreclusionModules(String prerequisiteString) {
