@@ -80,6 +80,9 @@ public class ModuleAddAutoCommand extends ModuleCommand {
             && toAdd.equals(((ModuleAddAutoCommand) other).toAdd));
     }
 
+    /**
+     * Formats the exception message for when a preclusion module is present in the model.
+     */
     public String formatPreclusionExceptionMessage(ModuleCode moduleCode) {
         String moduleCodeString = "(" + moduleCode.toString() + ")";
 
