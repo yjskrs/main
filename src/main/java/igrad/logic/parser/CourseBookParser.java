@@ -18,6 +18,7 @@ import igrad.logic.commands.ExportCommand;
 import igrad.logic.commands.HelpCommand;
 import igrad.logic.commands.SelectAvatarCommand;
 import igrad.logic.commands.UndoCommand;
+import igrad.logic.commands.course.CourseAchieveCommand;
 import igrad.logic.commands.course.CourseAddCommand;
 import igrad.logic.commands.course.CourseCommand;
 import igrad.logic.commands.course.CourseDeleteCommand;
@@ -32,6 +33,7 @@ import igrad.logic.commands.requirement.RequirementAssignCommand;
 import igrad.logic.commands.requirement.RequirementCommand;
 import igrad.logic.commands.requirement.RequirementDeleteCommand;
 import igrad.logic.commands.requirement.RequirementEditCommand;
+import igrad.logic.parser.course.CourseAchieveCommandParser;
 import igrad.logic.parser.course.CourseAddCommandParser;
 import igrad.logic.parser.course.CourseEditCommandParser;
 import igrad.logic.parser.exceptions.ParseException;
@@ -165,7 +167,8 @@ public class CourseBookParser {
 
             return new CourseEditCommandParser().parse(arguments);
 
-        // TODO (Teri): add the relevant case here for the parser to work
+        case CourseAchieveCommand.COMMAND_WORD:
+            return new CourseAchieveCommandParser().parse(arguments);
 
 
         default:
