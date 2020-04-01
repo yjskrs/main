@@ -305,9 +305,9 @@ public class Requirement implements ReadOnlyRequirement {
     }
 
     @Override
-    public String generateRequirementCode(String title) {
+    public String generateRequirementCode(String requirementTitle) {
         StringBuilder code = new StringBuilder();
-        String[] words = title.split(" ");
+        String[] words = requirementTitle.split(" ");
 
         for (String word : words) {
             code.append(word.split("")[0]);
