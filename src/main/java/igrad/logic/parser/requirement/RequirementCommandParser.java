@@ -6,6 +6,7 @@ import igrad.logic.commands.requirement.RequirementCommand;
 import igrad.logic.parser.Parser;
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.requirement.Credits;
+import igrad.model.requirement.RequirementCode;
 import igrad.model.requirement.Title;
 
 /**
@@ -14,20 +15,45 @@ import igrad.model.requirement.Title;
 public abstract class RequirementCommandParser implements Parser<RequirementCommand> {
 
     /**
-     * Parses a {@code String name} into a {@code Name}.
+     * Parses a {@code String title} into a {@code RequirementCode} (without the identifying number).
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException If the given {@code name} is invalid.
+     * @throws ParseException If the given {@code title} is invalid.
+     */
+    public static RequirementCode parseRequirementCode(String title) throws ParseException {
+        requireNonNull(title);
+
+        String trimmedTitle = title.trim();
+        if (!Title.isValidTitle(trimmedTitle)) {
+            throw new ParseException(Title.MESSAGE_CONSTRAINTS);
+        }
+
+        // parses the title into a requirement code, but without the identifying number
+        StringBuilder code = new StringBuilder();
+        String[] requirementWords = title.split(" ");
+
+        for (String word : requirementWords) {
+            code.append(word.split("")[0].toUpperCase());
+        }
+
+        return new RequirementCode(code.toString());
+    }
+
+    /**
+     * Parses a {@code String title} into a {@code Title}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException If the given {@code title} is invalid.
      */
     public static Title parseTitle(String title) throws ParseException {
         requireNonNull(title);
 
-        String trimmedName = title.trim();
-        if (!Title.isValidTitle(trimmedName)) {
+        String trimmedTitle = title.trim();
+        if (!Title.isValidTitle(trimmedTitle)) {
             throw new ParseException(Title.MESSAGE_CONSTRAINTS);
         }
 
-        return new Title(trimmedName);
+        return new Title(trimmedTitle);
     }
 
     /**
@@ -45,5 +71,12 @@ public abstract class RequirementCommandParser implements Parser<RequirementComm
         }
 
         return new Credits(trimmedCredits);
+    }
+
+    /**
+     * Removes all digits from the string {@code str}.
+     */
+    private static String stripDigits(String str) {
+        return str.replaceAll("[0123456789]", "");
     }
 }

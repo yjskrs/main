@@ -72,8 +72,8 @@ public class RequirementEditCommand extends RequirementCommand {
         // Note: requirementCode should never be edited, its the unique ID
         Title editedTitle = newTitle.orElse(requirementToEdit.getTitle());
         Credits editedCredits = newCredits.orElse(requirementToEdit.getCredits());
-        Requirement editedRequirement = new Requirement(editedTitle, editedCredits, requirementToEdit.getModuleList(),
-            requirementToEdit.getRequirementCode());
+        Requirement editedRequirement = new Requirement(requirementToEdit.getRequirementCode(),
+            editedTitle, editedCredits, requirementToEdit.getModuleList());
 
         // If the provided name is same as before and/or if the provided credits is same as before
         /*

@@ -235,7 +235,7 @@ public class MainWindow extends UiPart<Stage> {
         int totalMcs = 0;
         int totalModules = 0;
         for (Requirement req : model.getRequirementList()) {
-            totalMcs += Integer.parseInt(req.getCreditsRequired());
+            totalMcs += req.getCreditsRequired();
             totalModules += req.getModuleList().size();
         }
         int totalRequirements = model.getRequirementList().size();
