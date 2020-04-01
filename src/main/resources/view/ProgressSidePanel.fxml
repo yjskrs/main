@@ -20,5 +20,11 @@
                 styleClass="progress-rank"
                 text="Novice Student"/>
         </HBox>
+        <ProgressBar
+                styleClass="progress-bar"
+            fx:id="progressBar"
+        >
+
+        </ProgressBar>
     </children>
 </VBox>

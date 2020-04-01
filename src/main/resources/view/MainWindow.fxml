@@ -23,12 +23,16 @@
             <VBox minHeight="560.0" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #2a2a2a;">
 
                 <StackPane fx:id="statusBarPlaceholder" styleClass="status-bar"/>
-                <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="400.0"
+                <HBox
+                        fx:id="mainContainer"
+                        maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="400.0"
                       minWidth="800.0" prefWidth="800.0" styleClass="stack-pane-with-border" VBox.vgrow="ALWAYS">
                     <children>
                         <VBox maxWidth="1.7976931348623157E308" minHeight="550.0" prefWidth="300.0">
                             <children>
-                                <VBox fx:id="progressPanelPlaceholder" maxHeight="-Infinity"
+                                <VBox
+
+                                        fx:id="progressPanelPlaceholder" maxHeight="-Infinity"
                                       maxWidth="1.7976931348623157E308" prefWidth="300.0"/>
                                 <VBox fx:id="commandReceivedPanelPlaceholder" prefWidth="100.0" VBox.vgrow="ALWAYS">
                                     <VBox.margin>
