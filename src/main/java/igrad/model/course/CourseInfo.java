@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+import igrad.model.module.Grade;
 import igrad.model.module.Module;
 
 /**
@@ -47,12 +48,68 @@ public class CourseInfo {
      * requirement list.
      */
     public static Cap computeCap(List<Module> moduleList) {
-        double cap = 4.5;
+        double cap = 0;
         /**
          * TODO: Teri, please fill the details. Iterate through all modules in the module list and
          * for each module with a grade, add them together to calcualte the cap
          * Lemme know if you find this too hard, i can do it :)
          */
+
+        int totalNumOfModules = moduleList.size();
+
+        for (int i = 0; i < totalNumOfModules; i++) {
+            String grade = moduleList.get(i).getGrade().toString();
+
+            switch (grade) {
+            case "A+":
+                cap += 5.0;
+                break;
+
+            case "A":
+                cap += 5.0;
+                break;
+
+            case "A-":
+                cap += 4.5;
+                break;
+
+            case "B+":
+                cap += 4.0;
+                break;
+
+            case "B":
+                cap += 3.5;
+                break;
+
+            case "B-":
+                cap += 3.0;
+                break;
+
+            case "C+":
+                cap += 2.5;
+                break;
+
+            case "C":
+                cap += 2.0;
+                break;
+
+            case "D+":
+                cap += 1.5;
+                break;
+
+            case "D":
+                cap += 1.0;
+                break;
+
+            case "F":
+                cap += 0;
+                break;
+
+            default:
+                cap = cap;
+                break;
+            }
+        }
 
         Cap capResult = new Cap(Double.toString(cap));
 

@@ -1,4 +1,4 @@
-package igrad.logic.parser.module;
+package igrad.logic.parser.course;
 
 import igrad.logic.commands.course.CourseAchieveCommand;
 import igrad.logic.parser.Parser;
