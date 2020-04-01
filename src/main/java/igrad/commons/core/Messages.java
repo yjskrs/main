@@ -9,7 +9,7 @@ public class Messages {
     public static final String MESSAGE_UNKNOWN_COURSE_COMMAND = "Unknown course command, possible options;\n"
         + "course add ...\n"
         + "course edit ...\n"
-        + "course assign ...\n"
+        + "course achieve ...\n"
         + "course delete\n";
     public static final String MESSAGE_UNKNOWN_REQUIREMENT_COMMAND = "Unknown requirement command, possible options;\n"
         + "requirement add ...\n"
