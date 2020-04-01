@@ -23,14 +23,14 @@ public abstract class RequirementCommandParser implements Parser<RequirementComm
     public static RequirementCode parseRequirementCode(String title) throws ParseException {
         requireNonNull(title);
 
-        String trimmedTitle = title.trim();
+        String trimmedTitle = stripDigits(title).trim();
         if (!Title.isValidTitle(trimmedTitle)) {
             throw new ParseException(Title.MESSAGE_CONSTRAINTS);
         }
 
         // parses the title into a requirement code, but without the identifying number
         StringBuilder code = new StringBuilder();
-        String[] requirementWords = title.split(" ");
+        String[] requirementWords = trimmedTitle.split(" ");
 
         for (String word : requirementWords) {
             code.append(word.split("")[0].toUpperCase());

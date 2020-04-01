@@ -156,7 +156,6 @@ public class Requirement implements ReadOnlyRequirement {
      * based on its module list
      */
     private int calculateCreditsFulfilled() {
-
         int creditsFulfilled = 0;
 
         for (Module module : modules) {

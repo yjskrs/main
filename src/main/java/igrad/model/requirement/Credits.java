@@ -82,9 +82,7 @@ public class Credits {
      * Otherwise return false.
      */
     public boolean isFulfilled() {
-        int required = creditsRequired;
-        int fulfilled = creditsFulfilled;
-        return fulfilled >= required;
+        return creditsFulfilled >= creditsRequired;
     }
 
     @Override

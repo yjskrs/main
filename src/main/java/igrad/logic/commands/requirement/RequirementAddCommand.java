@@ -69,7 +69,7 @@ public class RequirementAddCommand extends RequirementCommand {
         }
 
         RequirementCode codeWithNumber =
-            new RequirementCode(codeWithoutNumber.getAlphabets() + String.valueOf(lastUsedNumber));
+            new RequirementCode(codeWithoutNumber.getAlphabets() + String.valueOf(lastUsedNumber + 1));
 
         Requirement requirement = new Requirement(codeWithNumber,
             requirementToAdd.getTitle(),

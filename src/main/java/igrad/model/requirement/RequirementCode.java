@@ -52,14 +52,14 @@ public class RequirementCode {
      * Returns the first starting alphabets of the requirement code.
      */
     public String getAlphabets() {
-        return value.replaceAll(STRIP_ALPHABETS_REGEX, "");
+        return value.replaceAll(STRIP_DIGITS_REGEX, "");
     }
 
     /**
      * Returns the identifying number of the requirement code.
      */
     public int getNumber() {
-        String number = value.replaceAll(STRIP_DIGITS_REGEX, "");
+        String number = value.replaceAll(STRIP_ALPHABETS_REGEX, "");
         return Integer.parseInt(number);
     }
 
