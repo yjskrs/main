@@ -13,8 +13,6 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
-import igrad.commons.core.index.Index;
-import igrad.commons.util.StringUtil;
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.avatar.Avatar;
 import igrad.model.module.ModuleCode;
@@ -26,25 +24,9 @@ import igrad.model.tag.Tag;
  */
 public class ParserUtil {
 
-    public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
-
     public static final Function<String, Boolean> REQUIREMENT_CODE_SPECIFIER_RULE =
         RequirementCode::isValidRequirementCode;
     public static final Function<String, Boolean> MODULE_MODULE_CODE_SPECIFIER_RULE = ModuleCode::isValidModuleCode;
-
-    /**
-     * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
-     * trimmed.
-     *
-     * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
-     */
-    public static Index parseIndex(String oneBasedIndex) throws ParseException {
-        String trimmedIndex = oneBasedIndex.trim();
-        if (!StringUtil.isNonZeroUnsignedInteger(trimmedIndex)) {
-            throw new ParseException(MESSAGE_INVALID_INDEX);
-        }
-        return Index.fromOneBased(Integer.parseInt(trimmedIndex));
-    }
 
     /**
      * Parses a generic {@code String specifier} into a {@code Specifier}.
