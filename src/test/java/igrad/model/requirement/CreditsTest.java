@@ -11,14 +11,12 @@ public class CreditsTest {
     @Test
     public void constructor_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new Credits(null));
-        assertThrows(NullPointerException.class, () -> new Credits(null, null));
     }
 
     @Test
     public void constructor_invalidCredits_throwsIllegalArgumentException() {
         String invalidCredits = "";
         assertThrows(IllegalArgumentException.class, () -> new Credits(invalidCredits));
-        assertThrows(IllegalArgumentException.class, () -> new Credits(invalidCredits, invalidCredits));
     }
 
     @Test
@@ -49,7 +47,7 @@ public class CreditsTest {
         Credits creditsWithOneParameterConstructor = new Credits("40");
         assertFalse(creditsWithOneParameterConstructor.isFulfilled());
 
-        Credits creditsWithTwoParameterConstructor = new Credits("20", "4");
+        Credits creditsWithTwoParameterConstructor = new Credits(20, 4);
         assertFalse(creditsWithTwoParameterConstructor.isFulfilled());
     }
 
@@ -58,10 +56,10 @@ public class CreditsTest {
         Credits creditsWithOneParameterConstructor = new Credits("0");
         assertTrue(creditsWithOneParameterConstructor.isFulfilled());
 
-        Credits creditsWithTwoParameterSameArguments = new Credits("20", "20");
+        Credits creditsWithTwoParameterSameArguments = new Credits(20, 20);
         assertTrue(creditsWithTwoParameterSameArguments.isFulfilled());
 
-        Credits creditsWithTwoParameterDifferentArguments = new Credits("20", "32");
+        Credits creditsWithTwoParameterDifferentArguments = new Credits(20, 32);
         assertTrue(creditsWithTwoParameterDifferentArguments.isFulfilled());
     }
 }

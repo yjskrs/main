@@ -62,7 +62,7 @@ public class RequirementBuilder {
     /**
      * Sets the {@code Credits} of the {@code Requirement} that we are building.
      */
-    public RequirementBuilder withCreditsTwoParameters(String creditsRequired, String creditsFulfilled) {
+    public RequirementBuilder withCreditsTwoParameters(int creditsRequired, int creditsFulfilled) {
         this.credits = new Credits(creditsRequired, creditsFulfilled);
         return this;
     }

@@ -1,7 +1,6 @@
 package igrad.model.requirement;
 
 import static igrad.commons.util.AppUtil.checkArgument;
-import static igrad.commons.util.CollectionUtil.requireAllNonNull;
 import static java.util.Objects.requireNonNull;
 
 /**
@@ -42,7 +41,6 @@ public class Credits {
      * @param creditsFulfilled A valid credits value (integer).
      */
     public Credits(int creditsRequired, int creditsFulfilled) {
-        requireAllNonNull(creditsRequired, creditsFulfilled);
         checkArgument(isValidCreditsRequired(creditsRequired), MESSAGE_CONSTRAINTS);
 
         this.creditsRequired = creditsRequired;
