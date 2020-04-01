@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-import igrad.model.module.Grade;
 import igrad.model.module.Module;
 
 /**
@@ -49,11 +48,6 @@ public class CourseInfo {
      */
     public static Cap computeCap(List<Module> moduleList) {
         double cap = 0;
-        /**
-         * TODO: Teri, please fill the details. Iterate through all modules in the module list and
-         * for each module with a grade, add them together to calcualte the cap
-         * Lemme know if you find this too hard, i can do it :)
-         */
 
         int totalNumOfModules = moduleList.size();
 

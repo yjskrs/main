@@ -1,8 +1,8 @@
 package igrad.logic.parser.course;
 
+import static igrad.logic.commands.course.CourseAchieveCommand.MESSAGE_HELP;
 import static igrad.logic.commands.course.CourseAchieveCommand.MESSAGE_NOT_CALCULATED;
 import static igrad.logic.commands.course.CourseAchieveCommand.MESSAGE_SEMS_LEFT_NEEDED;
-import static igrad.logic.commands.course.CourseAchieveCommand.MESSAGE_HELP;
 import static igrad.logic.parser.CliSyntax.PREFIX_CAP;
 import static igrad.logic.parser.CliSyntax.PREFIX_SEMESTER;
 import static java.util.Objects.requireNonNull;
