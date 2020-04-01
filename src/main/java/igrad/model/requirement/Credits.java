@@ -51,7 +51,9 @@ public class Credits {
      * Returns true if given String {@code test} is a valid credits (i.e. integer more than or equals 0).
      */
     public static boolean isValidCredits(String test) {
-        return Integer.parseInt(test) > 0 && test.matches(VALIDATION_REGEX);
+        requireNonNull(test);
+
+        return test.matches(VALIDATION_REGEX) && Integer.parseInt(test) > 0;
     }
 
     /**

@@ -33,11 +33,11 @@ public class CreditsTest {
         assertFalse(Credits.isValidCredits("12 12")); // space-separated integer string
         assertFalse(Credits.isValidCredits("12.3")); // non-integer number
         assertFalse(Credits.isValidCredits("12+4")); // special character
+        assertFalse(Credits.isValidCredits("0")); // value 0
 
         // valid credits
         assertTrue(Credits.isValidCredits("1"));
         assertTrue(Credits.isValidCredits("10"));
-        assertTrue(Credits.isValidCredits("0"));
         assertTrue(Credits.isValidCredits("01")); // starts with 0
         assertTrue(Credits.isValidCredits("010")); // starts with 0
     }
@@ -53,9 +53,6 @@ public class CreditsTest {
 
     @Test
     public void isFulfilled_creditsFulfilledMoreThanOrEqualsCreditsRequired_returnsTrue() {
-        Credits creditsWithOneParameterConstructor = new Credits("0");
-        assertTrue(creditsWithOneParameterConstructor.isFulfilled());
-
         Credits creditsWithTwoParameterSameArguments = new Credits(20, 20);
         assertTrue(creditsWithTwoParameterSameArguments.isFulfilled());
 
