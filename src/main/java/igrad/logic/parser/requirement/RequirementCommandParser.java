@@ -14,20 +14,37 @@ import igrad.model.requirement.Title;
 public abstract class RequirementCommandParser implements Parser<RequirementCommand> {
 
     /**
-     * Parses a {@code String name} into a {@code Name}.
+     * Parses a {@code String title} into a {@code Title}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException If the given {@code name} is invalid.
+     * @throws ParseException If the given {@code title} is invalid.
      */
     public static Title parseTitle(String title) throws ParseException {
         requireNonNull(title);
 
-        String trimmedName = title.trim();
-        if (!Title.isValidTitle(trimmedName)) {
+        String trimmedTitle = title.trim();
+        if (!Title.isValidTitle(trimmedTitle)) {
             throw new ParseException(Title.MESSAGE_CONSTRAINTS);
         }
 
-        return new Title(trimmedName);
+        return new Title(trimmedTitle);
+    }
+
+    /**
+     * Parses a {@code String title} into a {@code Title}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException If the given {@code title} is invalid.
+     */
+    public static Title parseTitle(String title) throws ParseException {
+        requireNonNull(title);
+
+        String trimmedTitle = title.trim();
+        if (!Title.isValidTitle(trimmedTitle)) {
+            throw new ParseException(Title.MESSAGE_CONSTRAINTS);
+        }
+
+        return new Title(trimmedTitle);
     }
 
     /**
