@@ -295,7 +295,7 @@ public class ModelManager implements Model {
             Title title = requirement.getTitle();
             List<Module> modules = requirement.getModuleList();
             RequirementCode requirementCode = requirement.getRequirementCode();
-            Credits credits = new Credits(requirement.getCreditsRequired(), Integer.toString(requirementCredits[i]));
+            Credits credits = new Credits(requirement.getCreditsRequired(), requirementCredits[i]);
 
             Requirement updatedRequirement = new Requirement(requirementCode, title, credits, modules);
             setRequirement(requirement, updatedRequirement);

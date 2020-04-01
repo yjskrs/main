@@ -189,9 +189,8 @@ public class CourseBook implements ReadOnlyCourseBook {
             if (moduleList.contains(module)) {
                 requirement.removeModule(module);
 
-                String creditsRequired = requirement.getCreditsRequired();
-                String creditsFulfilled = Integer.toString(Integer.parseInt(credits.getCreditsFulfilled())
-                    - module.getCredits().toInteger());
+                int creditsRequired = requirement.getCreditsRequired();
+                int creditsFulfilled = credits.getCreditsFulfilled() - module.getCredits().toInteger();
                 Credits updatedCredits = new Credits(creditsRequired, creditsFulfilled);
 
                 // TODO: Improve design of this part, can move logic to CourseBook itself maybe hmm

@@ -51,7 +51,7 @@ class JsonAdaptedRequirement {
     public JsonAdaptedRequirement(Requirement source) {
         requirementCode = source.getRequirementCode().toString();
         title = source.getTitle().toString();
-        credits = source.getCreditsRequired();
+        credits = String.valueOf(source.getCreditsRequired());
         moduleCodes.addAll(source.getModuleList().stream()
             .map(module -> module.getModuleCode().toString())
             .collect(Collectors.toList()));
@@ -106,7 +106,7 @@ class JsonAdaptedRequirement {
                 creditsFulfilled += module.getCredits().toInteger();
             }
         }
-        modelCredits = new Credits(credits, String.valueOf(creditsFulfilled));
+        modelCredits = new Credits(Integer.parseInt(credits), creditsFulfilled);
 
         return new Requirement(modelRequirementCode, modelName, modelCredits, modelModules);
     }

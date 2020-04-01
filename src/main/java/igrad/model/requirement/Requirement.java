@@ -198,12 +198,12 @@ public class Requirement implements ReadOnlyRequirement {
     }
 
     @Override
-    public String getCreditsRequired() {
+    public int getCreditsRequired() {
         return credits.getCreditsRequired();
     }
 
     @Override
-    public String getCreditsFulfilled() {
+    public int getCreditsFulfilled() {
         return credits.getCreditsFulfilled();
     }
 
