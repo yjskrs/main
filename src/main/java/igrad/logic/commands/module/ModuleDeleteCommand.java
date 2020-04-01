@@ -1,30 +1,24 @@
-package igrad.logic.commands;
+package igrad.logic.commands.module;
 
-import static igrad.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 import java.util.Optional;
 
-import igrad.commons.core.Messages;
+import igrad.logic.commands.CommandResult;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
 import igrad.model.module.Module;
 import igrad.model.module.ModuleCode;
 
 /**
- * Deletes a module identified using it's displayed index from the course book.
+ * Deletes a {@code Module} identified using it's displayed index from the course book.
  */
 public class ModuleDeleteCommand extends ModuleCommand {
 
-    public static final String COMMAND_WORD = MODULE_COMMAND_WORD + "delete";
+    public static final String COMMAND_WORD = MODULE_COMMAND_WORD + SPACE + "delete";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-        + ": Deletes the module identified by its module code.\n"
-        + "Parameters: MODULE_CODE\n"
-        + "Example: " + COMMAND_WORD + " " + PREFIX_MODULE_CODE + "CS2103T";
-
-    public static final String MESSAGE_DELETE_MODULE_SUCCESS = "Deleted Module: %1$s";
+    public static final String MESSAGE_SUCCESS = "Deleted Module: %1$s";
 
     private final ModuleCode moduleCode;
 
@@ -46,13 +40,15 @@ public class ModuleDeleteCommand extends ModuleCommand {
         }
 
         if (moduleToDeleteOpt.isEmpty()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_MODULE_DISPLAYED_INDEX);
+            throw new CommandException(MESSAGE_MODULE_NON_EXISTENT);
         }
 
         Module moduleToDelete = moduleToDeleteOpt.get();
 
         model.deleteModule(moduleToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_MODULE_SUCCESS, moduleToDelete));
+        model.updateRequirementList(Model.PREDICATE_SHOW_ALL_REQUIREMENTS);
+
+        return new CommandResult(String.format(MESSAGE_SUCCESS, moduleToDelete));
     }
 
     @Override

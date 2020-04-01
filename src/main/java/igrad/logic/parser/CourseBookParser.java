@@ -3,6 +3,9 @@ package igrad.logic.parser;
 import static igrad.commons.core.Messages.MESSAGE_COURSE_NOT_SET;
 import static igrad.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static igrad.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static igrad.commons.core.Messages.MESSAGE_UNKNOWN_COURSE_COMMAND;
+import static igrad.commons.core.Messages.MESSAGE_UNKNOWN_MODULE_COMMAND;
+import static igrad.commons.core.Messages.MESSAGE_UNKNOWN_REQUIREMENT_COMMAND;
 import static igrad.logic.parser.CliSyntax.FLAG_AUTO;
 
 import java.io.IOException;
@@ -13,15 +16,20 @@ import igrad.logic.commands.Command;
 import igrad.logic.commands.ExitCommand;
 import igrad.logic.commands.ExportCommand;
 import igrad.logic.commands.HelpCommand;
-import igrad.logic.commands.ModuleAddCommand;
-import igrad.logic.commands.ModuleDeleteCommand;
-import igrad.logic.commands.ModuleEditCommand;
 import igrad.logic.commands.SelectAvatarCommand;
 import igrad.logic.commands.UndoCommand;
 import igrad.logic.commands.course.CourseAddCommand;
+import igrad.logic.commands.course.CourseCommand;
 import igrad.logic.commands.course.CourseDeleteCommand;
 import igrad.logic.commands.course.CourseEditCommand;
+import igrad.logic.commands.module.ModuleAddCommand;
+import igrad.logic.commands.module.ModuleCommand;
+import igrad.logic.commands.module.ModuleDeleteCommand;
+import igrad.logic.commands.module.ModuleDoneCommand;
+import igrad.logic.commands.module.ModuleEditCommand;
 import igrad.logic.commands.requirement.RequirementAddCommand;
+import igrad.logic.commands.requirement.RequirementAssignCommand;
+import igrad.logic.commands.requirement.RequirementCommand;
 import igrad.logic.commands.requirement.RequirementDeleteCommand;
 import igrad.logic.commands.requirement.RequirementEditCommand;
 import igrad.logic.parser.course.CourseAddCommandParser;
@@ -30,8 +38,10 @@ import igrad.logic.parser.exceptions.ParseException;
 import igrad.logic.parser.module.AddAutoCommandParser;
 import igrad.logic.parser.module.ModuleAddCommandParser;
 import igrad.logic.parser.module.ModuleDeleteCommandParser;
+import igrad.logic.parser.module.ModuleDoneCommandParser;
 import igrad.logic.parser.module.ModuleEditCommandParser;
 import igrad.logic.parser.requirement.RequirementAddCommandParser;
+import igrad.logic.parser.requirement.RequirementAssignCommandParser;
 import igrad.logic.parser.requirement.RequirementDeleteCommandParser;
 import igrad.logic.parser.requirement.RequirementEditCommandParser;
 import igrad.services.exceptions.ServiceException;
@@ -113,6 +123,9 @@ public class CourseBookParser {
         case RequirementDeleteCommand.COMMAND_WORD:
             return new RequirementDeleteCommandParser().parse(arguments);
 
+        case RequirementAssignCommand.COMMAND_WORD:
+            return new RequirementAssignCommandParser().parse(arguments);
+
         case ModuleAddCommand.COMMAND_WORD:
 
             if (ArgumentTokenizer.isFlagPresent(argumentsWithFlags, FLAG_AUTO.getFlag())) {
@@ -126,6 +139,9 @@ public class CourseBookParser {
 
         case ModuleDeleteCommand.COMMAND_WORD:
             return new ModuleDeleteCommandParser().parse(arguments);
+
+        case ModuleDoneCommand.COMMAND_WORD:
+            return new ModuleDoneCommandParser().parse(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -149,7 +165,22 @@ public class CourseBookParser {
 
             return new CourseEditCommandParser().parse(arguments);
 
+        // TODO (Teri): add the relevant case here for the parser to work
+
+
         default:
+            /*
+             * If the first command word (of a 2-word command) is valid, (at least) provide a
+             * feedback to user  instead of throwing an error, e.g, 'course', 'requirement', 'module'.
+             */
+            if (commandWord.equals(CourseCommand.COURSE_COMMAND_WORD)) {
+                throw new ParseException(MESSAGE_UNKNOWN_COURSE_COMMAND);
+            } else if (commandWord.equals(RequirementCommand.REQUIREMENT_COMMAND_WORD)) {
+                throw new ParseException(MESSAGE_UNKNOWN_REQUIREMENT_COMMAND);
+            } else if (commandWord.equals(ModuleCommand.MODULE_COMMAND_WORD)) {
+                throw new ParseException(MESSAGE_UNKNOWN_MODULE_COMMAND);
+            }
+
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }

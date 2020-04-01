@@ -3,29 +3,25 @@ package igrad.logic.parser;
 import static igrad.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static igrad.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static igrad.testutil.Assert.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
 import igrad.logic.commands.ExitCommand;
 import igrad.logic.commands.HelpCommand;
-import igrad.logic.commands.ModuleAddCommand;
 import igrad.logic.parser.exceptions.ParseException;
-import igrad.model.module.Module;
-import igrad.testutil.ModuleBuilder;
-import igrad.testutil.ModuleUtil;
 
 public class CourseBookParserTest {
 
     private final CourseBookParser parser = new CourseBookParser();
 
+    /*
     @Test
     public void parseCommand_add() throws Exception {
         Module module = new ModuleBuilder().build();
         ModuleAddCommand command = (ModuleAddCommand) parser.parseCommand(ModuleUtil.getAddCommand(module));
         assertEquals(new ModuleAddCommand(module), command);
-    }
+    }*/
 
     /*
     @Test

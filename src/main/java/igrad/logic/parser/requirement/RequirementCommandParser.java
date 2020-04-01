@@ -6,7 +6,7 @@ import igrad.logic.commands.requirement.RequirementCommand;
 import igrad.logic.parser.Parser;
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.requirement.Credits;
-import igrad.model.requirement.Name;
+import igrad.model.requirement.Title;
 
 /**
  * Represents a generic requirement command parser.
@@ -19,15 +19,15 @@ public abstract class RequirementCommandParser implements Parser<RequirementComm
      *
      * @throws ParseException If the given {@code name} is invalid.
      */
-    public static Name parseName(String name) throws ParseException {
-        requireNonNull(name);
+    public static Title parseTitle(String title) throws ParseException {
+        requireNonNull(title);
 
-        String trimmedName = name.trim();
-        if (!Name.isValidName(trimmedName)) {
-            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+        String trimmedName = title.trim();
+        if (!Title.isValidTitle(trimmedName)) {
+            throw new ParseException(Title.MESSAGE_CONSTRAINTS);
         }
 
-        return new Name(trimmedName);
+        return new Title(trimmedName);
     }
 
     /**

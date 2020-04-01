@@ -11,8 +11,9 @@ import igrad.commons.exceptions.IllegalValueException;
 import igrad.model.module.Module;
 import igrad.model.module.ModuleCode;
 import igrad.model.requirement.Credits;
-import igrad.model.requirement.Name;
 import igrad.model.requirement.Requirement;
+import igrad.model.requirement.RequirementCode;
+import igrad.model.requirement.Title;
 
 /**
  * Jackson-friendly version of {@link Requirement}.
@@ -21,19 +22,23 @@ class JsonAdaptedRequirement {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Requirement's %s field is missing!";
 
-    private final String name;
+    private final String title;
     private final String credits;
+    private final String requirementCode;
     private final List<String> moduleCodes = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedRequirement} with the given module details.
      */
     @JsonCreator
-    public JsonAdaptedRequirement(@JsonProperty("name") String name,
+    public JsonAdaptedRequirement(@JsonProperty("title") String title,
                                   @JsonProperty("credits") String credits,
+                                  @JsonProperty("requirementCode") String requirementCode,
                                   @JsonProperty("modules") List<String> moduleCodes) {
-        this.name = name;
+        this.title = title;
         this.credits = credits;
+        this.requirementCode = requirementCode;
+
         if (moduleCodes != null) {
             this.moduleCodes.addAll(moduleCodes);
         }
@@ -43,8 +48,9 @@ class JsonAdaptedRequirement {
      * Converts a given {@code Requirement} into this class for Jackson use.
      */
     public JsonAdaptedRequirement(Requirement source) {
-        name = source.getName().toString();
+        title = source.getTitle().toString();
         credits = source.getCreditsRequired();
+        requirementCode = source.getRequirementCode().toString();
         moduleCodes.addAll(source.getModuleList().stream()
             .map(module -> module.getModuleCode().toString())
             .collect(Collectors.toList()));
@@ -63,12 +69,12 @@ class JsonAdaptedRequirement {
                 .anyMatch(moduleCode -> module.hasModuleCodeOf(new ModuleCode(moduleCode))))
             .collect(Collectors.toList()));
 
-        if (name == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
+        if (title == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Title.class.getSimpleName()));
         }
 
-        if (!Name.isValidName(name)) {
-            throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
+        if (!Title.isValidTitle(title)) {
+            throw new IllegalValueException(Title.MESSAGE_CONSTRAINTS);
         }
 
         if (credits == null) {
@@ -79,20 +85,17 @@ class JsonAdaptedRequirement {
             throw new IllegalValueException(Credits.MESSAGE_CONSTRAINTS);
         }
 
-        final Name modelName = new Name(name);
+        final Title modelName = new Title(title);
 
-        final Credits modelCredits;
+        final Credits modelCredits = new Credits(credits);
 
-        int creditsFulfilled = 0;
-        for (Module module : modelModules) {
-            if (module.isDone()) {
-                creditsFulfilled += module.getCredits().toInteger();
-            }
+        if (requirementCode == null) {
+            return new Requirement(modelName, modelCredits, modelModules);
+        } else {
+            final RequirementCode modelRequirementCode = new RequirementCode(requirementCode);
+            return new Requirement(modelName, modelCredits, modelModules, modelRequirementCode);
         }
 
-        modelCredits = new Credits(credits, String.valueOf(creditsFulfilled));
-
-        return new Requirement(modelName, modelCredits, modelModules);
     }
 
 }

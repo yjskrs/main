@@ -1,0 +1,11 @@
+@startuml
+class CourseInfo {
+    +getName()
+    +equals()
+    +hashCode()
+    +toString()
+}
+class Name {}
+
+CourseInfo *-- "1" Name
+@enduml

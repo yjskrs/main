@@ -1,4 +1,4 @@
-package igrad.logic.commands;
+package igrad.logic.commands.module;
 
 import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
 import static igrad.logic.parser.CliSyntax.PREFIX_MEMO;
@@ -7,6 +7,7 @@ import static igrad.logic.parser.CliSyntax.PREFIX_SEMESTER;
 import static igrad.logic.parser.CliSyntax.PREFIX_TITLE;
 import static java.util.Objects.requireNonNull;
 
+import igrad.logic.commands.CommandResult;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
 import igrad.model.module.Module;
@@ -16,7 +17,7 @@ import igrad.model.module.Module;
  */
 public class ModuleAddAutoCommand extends ModuleCommand {
 
-    public static final String COMMAND_WORD = MODULE_COMMAND_WORD + "add";
+    public static final String COMMAND_WORD = MODULE_COMMAND_WORD + SPACE + "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a module. "
         + "Parameters: "

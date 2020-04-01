@@ -15,38 +15,78 @@ import javafx.collections.ObservableList;
  */
 public class Requirement implements ReadOnlyRequirement {
 
-    private final Name name; // name of the requirement
+    private final Title title; // name of the requirement
     private final Credits credits; // credit information for the requirement
     private final UniqueModuleList modules = new UniqueModuleList(); // list of modules associated with requirement
+    private RequirementCode requirementCode; // unique requirement code of a requirement
 
     /**
      * Creates a {@code Requirement} object with given {@code name} and {@code credits}
      * and a default empty modules list.
      *
-     * @param name Name of the requirement.
+     * @param title   Name of the requirement.
      * @param credits Credits of the requirement.
      */
-    public Requirement(Name name, Credits credits) {
-        requireNonNull(name);
+    public Requirement(Title title, Credits credits) {
+        requireNonNull(title);
 
-        this.name = name;
-        this.credits = credits;
+        this.title = title;
+
+        this.requirementCode = new RequirementCode(generateRequirementCode(title.toString()));
+
+        // Compute credits fulfilled based on modules in the module list
+        String creditsRequired = credits.getCreditsRequired();
+        int creditsFulfilled = calculateCreditsFulfilled();
+
+        this.credits = new Credits(creditsRequired, Integer.toString(creditsFulfilled));
     }
 
     /**
      * Creates a {@code Requirement} object with given {@code name}, {@code credits} and
      * a list of {@code modules}.
      *
-     * @param name Name of the requirement.
+     * @param title   Name of the requirement.
      * @param credits Credits of the requirement.
      * @param modules List of modules belonging in the requirement.
      */
-    public Requirement(Name name, Credits credits, List<Module> modules) {
-        requireNonNull(name);
 
-        this.name = name;
-        this.credits = credits;
+    /*
+     * TODO: Idk what's the prob here, but it seems that in the Credits class, creditsRequired is
+     * only need, as creditsFulfilled can be computed based on the modules passed into the
+     * constructor. Perhaps,  the design of Credits class or even maybe Requirement class could be
+     * enhanced.
+     * ~nathanael
+     */
+    public Requirement(Title title, Credits credits, List<Module> modules) {
+        requireNonNull(title);
+
+        this.title = title;
+
+        this.requirementCode = new RequirementCode(generateRequirementCode(title.toString()));
+
         setModules(modules);
+
+        // Compute credits fulfilled based on modules in the module list
+        String creditsRequired = credits.getCreditsRequired();
+        int creditsFulfilled = calculateCreditsFulfilled();
+
+        this.credits = new Credits(creditsRequired, Integer.toString(creditsFulfilled));
+    }
+
+    public Requirement(Title title, Credits credits, List<Module> modules, RequirementCode requirementCode) {
+        requireNonNull(title);
+
+        this.title = title;
+
+        this.requirementCode = requirementCode;
+
+        setModules(modules);
+
+        // Compute credits fulfilled based on modules in the module list
+        String creditsRequired = credits.getCreditsRequired();
+        int creditsFulfilled = calculateCreditsFulfilled();
+
+        this.credits = new Credits(creditsRequired, Integer.toString(creditsFulfilled));
     }
 
     /**
@@ -57,9 +97,23 @@ public class Requirement implements ReadOnlyRequirement {
     public Requirement(ReadOnlyRequirement toBeCopied) {
         requireNonNull(toBeCopied);
 
-        this.name = toBeCopied.getName();
-        this.credits = toBeCopied.getCredits();
+        this.title = toBeCopied.getTitle();
+        this.requirementCode = toBeCopied.getRequirementCode();
+
         resetModules(toBeCopied);
+
+        // Compute credits fulfilled based on modules in the module list
+
+        // Copy over the credits required
+        String creditsRequired = toBeCopied.getCreditsRequired();
+        System.out.println(creditsRequired);
+        /*
+         * But since here we have already resetted (cleared) the module list, we've to recompute
+         * credits fulfilled again.
+         */
+        int creditsFulfilled = calculateCreditsFulfilled();
+
+        this.credits = new Credits(creditsRequired, Integer.toString(creditsFulfilled));
     }
 
     // requirement-level operations
@@ -93,13 +147,32 @@ public class Requirement implements ReadOnlyRequirement {
     }
 
     /**
+     * Returns true if any modules in {@code modules} with the same identity as {@code module} exists in the list.
+     */
+    public boolean hasModule(List<Module> modules) {
+        requireNonNull(modules);
+
+        return this.modules.contains(modules);
+    }
+
+    /**
      * Adds a {@code module} to the list.
      * The module must not already exist in the list.
      */
     public void addModule(Module module) {
         requireNonNull(module);
 
-        modules.add(module);
+        this.modules.add(module);
+    }
+
+    /**
+     * Adds a {@code module} to the list.
+     * The module must not already exist in the list.
+     */
+    public void addModules(List<Module> modules) {
+        requireNonNull(modules);
+
+        this.modules.add(modules);
     }
 
     /**
@@ -124,16 +197,33 @@ public class Requirement implements ReadOnlyRequirement {
 
     // util methods
 
+    /**
+     * Calculates the credits fulfilled of this requirement
+     * based on its module list
+     */
+    private int calculateCreditsFulfilled() {
+
+        int creditsFulfilled = 0;
+
+        for (Module module : modules) {
+            if (module.isDone()) {
+                creditsFulfilled += module.getCredits().toInteger();
+            }
+        }
+
+        return creditsFulfilled;
+    }
+
     @Override
-    public Name getName() {
-        return name;
+    public Title getTitle() {
+        return title;
     }
 
     /**
-     * Checks if {@code otherRequirement} has the same name as this requirement.
+     * Checks if {@code otherRequirement} has the same title as this requirement.
      */
-    public boolean hasSameName(Requirement otherRequirement) {
-        return this.name.equals(otherRequirement.name);
+    public boolean hasSameTitle(Requirement otherRequirement) {
+        return this.title.equals(otherRequirement.title);
     }
 
     /**
@@ -146,6 +236,15 @@ public class Requirement implements ReadOnlyRequirement {
     @Override
     public Credits getCredits() {
         return credits;
+    }
+
+    @Override
+    public RequirementCode getRequirementCode() {
+        return requirementCode;
+    }
+
+    public void setRequirementCode(RequirementCode requirementCode) {
+        this.requirementCode = requirementCode;
     }
 
     @Override
@@ -169,20 +268,35 @@ public class Requirement implements ReadOnlyRequirement {
     }
 
     @Override
+    public String generateRequirementCode(String requirementTitle) {
+
+        StringBuilder code = new StringBuilder();
+        String[] words = requirementTitle.split(" ");
+
+        for (String word : words) {
+
+            code.append(word.split("")[0]);
+
+        }
+
+        return code.toString();
+    }
+
+    @Override
     public String toString() {
-        return "Requirement: " + name + ", " + credits + " creditsRequired and "
-                   + getCreditsFulfilled() + " creditsFulfilled has "
-                   + modules.asUnmodifiableObservableList().size() + " modules";
+        return "Requirement: " + title + ", " + credits + " creditsRequired and "
+            + getCreditsFulfilled() + " creditsFulfilled has "
+            + modules.asUnmodifiableObservableList().size() + " modules";
         // TODO: refine later
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                   || (other instanceof Requirement // check properties
-                           && name.equals(((Requirement) other).name)
-                           && credits.equals(((Requirement) other).credits)
-                           && modules.equals(((Requirement) other).modules));
+            || (other instanceof Requirement // check properties
+            && title.equals(((Requirement) other).title)
+            && credits.equals(((Requirement) other).credits)
+            && modules.equals(((Requirement) other).modules));
 
     }
 

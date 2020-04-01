@@ -1,5 +1,7 @@
 package igrad.logic.parser.module;
 
+import static igrad.logic.commands.module.ModuleEditCommand.MESSAGE_HELP;
+import static igrad.logic.commands.module.ModuleEditCommand.MESSAGE_NOT_EDITED;
 import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
 import static igrad.logic.parser.CliSyntax.PREFIX_MEMO;
 import static igrad.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
@@ -14,11 +16,12 @@ import java.util.Optional;
 import java.util.Set;
 
 import igrad.commons.core.Messages;
-import igrad.logic.commands.ModuleEditCommand;
+import igrad.logic.commands.module.ModuleEditCommand;
 import igrad.logic.parser.ArgumentMultimap;
 import igrad.logic.parser.ArgumentTokenizer;
 import igrad.logic.parser.Parser;
 import igrad.logic.parser.ParserUtil;
+import igrad.logic.parser.Specifier;
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.module.ModuleCode;
 import igrad.model.tag.Tag;
@@ -40,17 +43,24 @@ public class ModuleEditCommandParser extends ModuleCommandParser implements Pars
             ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_MODULE_CODE, PREFIX_CREDITS,
                 PREFIX_MEMO, PREFIX_SEMESTER, PREFIX_TAG);
 
+        /*
+         * If all arguments in the command are empty; i.e, 'module edit', and nothing else, show
+         * the help message for this command
+         */
+        if (argMultimap.isEmpty(true)) {
+            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                MESSAGE_HELP));
+        }
 
         ModuleEditCommand.EditModuleDescriptor editModuleDescriptor = new ModuleEditCommand.EditModuleDescriptor();
-        ModuleCode moduleCode;
+
+        Specifier specifier = ParserUtil.parseSpecifier(argMultimap.getPreamble(),
+            ParserUtil.MODULE_MODULE_CODE_SPECIFIER_RULE, ModuleCode.MESSAGE_CONSTRAINTS);
+
+        ModuleCode moduleCode = new ModuleCode(specifier.getValue());
 
         if (argMultimap.getValue(PREFIX_MODULE_CODE).isPresent()) {
-            moduleCode = parseModuleCode(
-                argMultimap.getValue(PREFIX_MODULE_CODE).get()
-            );
-        } else {
-            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
-                ModuleEditCommand.MESSAGE_USAGE));
+            editModuleDescriptor.setModuleCode(parseModuleCode(argMultimap.getValue(PREFIX_MODULE_CODE).get()));
         }
 
         if (argMultimap.getValue(PREFIX_TITLE).isPresent()) {
@@ -72,7 +82,7 @@ public class ModuleEditCommandParser extends ModuleCommandParser implements Pars
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editModuleDescriptor::setTags);
 
         if (!editModuleDescriptor.isAnyFieldEdited()) {
-            throw new ParseException(ModuleEditCommand.MESSAGE_NOT_EDITED);
+            throw new ParseException(MESSAGE_NOT_EDITED);
         }
 
         return new ModuleEditCommand(moduleCode, editModuleDescriptor);

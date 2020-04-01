@@ -7,16 +7,23 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import igrad.commons.core.GuiSettings;
 import igrad.commons.core.LogsCenter;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.avatar.Avatar;
+import igrad.model.course.Cap;
 import igrad.model.course.CourseInfo;
 import igrad.model.module.Module;
+import igrad.model.module.ModuleCode;
+import igrad.model.requirement.Credits;
 import igrad.model.requirement.Requirement;
+import igrad.model.requirement.RequirementCode;
+import igrad.model.requirement.Title;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
@@ -82,14 +89,14 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getBackupCourseBookFilePath() {
-        return userPrefs.getBackupCourseBookFilePath();
-    }
-
-    @Override
     public void setCourseBookFilePath(Path courseBookFilePath) {
         requireNonNull(courseBookFilePath);
         userPrefs.setCourseBookFilePath(courseBookFilePath);
+    }
+
+    @Override
+    public Path getBackupCourseBookFilePath() {
+        return userPrefs.getBackupCourseBookFilePath();
     }
 
     @Override
@@ -128,12 +135,14 @@ public class ModelManager implements Model {
     @Override
     public boolean hasModule(Module module) {
         requireNonNull(module);
+
         return courseBook.hasModule(module);
     }
 
     @Override
     public void deleteModule(Module target) {
         courseBook.removeModule(target);
+        courseBook.removeModuleFromRequirement(target);
     }
 
     @Override
@@ -142,18 +151,23 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void setCourseInfo(CourseInfo editedCourseInfo) {
+        courseBook.setCourseInfo(editedCourseInfo);
+    }
+
+    @Override
     public boolean isCourseNameSet() {
         return courseBook.getCourseInfo().getName().isPresent();
     }
 
     @Override
-    public void addCourseInfo(CourseInfo courseInfo) throws CommandException {
-        courseBook.addCourseInfo(courseInfo);
+    public Cap recomputeCap() {
+        return CourseInfo.computeCap(courseBook.getModuleList());
     }
 
     @Override
-    public void setCourseInfo(CourseInfo editedCourseInfo) {
-        courseBook.setCourseInfo(editedCourseInfo);
+    public void addCourseInfo(CourseInfo courseInfo) throws CommandException {
+        courseBook.addCourseInfo(courseInfo);
     }
 
     @Override
@@ -173,6 +187,29 @@ public class ModelManager implements Model {
     public boolean hasRequirement(Requirement requirement) {
         requireNonNull(requirement);
         return courseBook.hasRequirement(requirement);
+    }
+
+    @Override
+    public Optional<Requirement> getRequirementByRequirementCode(RequirementCode requirementCode) {
+        return requirements.stream()
+            .filter(requirement -> requirement.getRequirementCode().equals(requirementCode))
+            .findFirst();
+    }
+
+
+    @Override
+    public Optional<Module> getModuleByModuleCode(ModuleCode moduleCode) {
+        return filteredModules.stream()
+            .filter(module -> module.getModuleCode().equals(moduleCode))
+            .findFirst();
+    }
+
+    @Override
+    public List<Module> getModulesByModuleCode(List<ModuleCode> moduleCodes) {
+        return filteredModules.stream()
+            .filter(requirement -> moduleCodes.stream()
+                .anyMatch(moduleCode -> moduleCode.equals(requirement.getModuleCode())))
+            .collect(Collectors.toList());
     }
 
     @Override
@@ -230,6 +267,42 @@ public class ModelManager implements Model {
     public void updateRequirementList(Predicate<Requirement> predicate) {
         requireNonNull(predicate);
         requirements.setPredicate(predicate);
+    }
+
+    @Override
+    public void recalculateRequirementList() {
+
+        int[] requirementCredits = new int[requirements.size()];
+
+        for (Module module : filteredModules) {
+            int requirementIndex = 0;
+            for (Requirement requirement : requirements) {
+                ObservableList<Module> requirementModules = requirement.getModuleList();
+                if (requirementModules.contains(module)) {
+                    requirementCredits[requirementIndex] += module.getCredits().toInteger();
+                }
+                requirementIndex++;
+            }
+        }
+
+        for (int i = 0; i < requirementCredits.length; i++) {
+            // Compute credits fulfilled based on modules in the module list
+            Requirement requirement = requirements.get(i);
+
+            // TODO: Improve design of this part, can move  logic to CourseBook itself maybe hmm
+
+            // Copy all other requirement fields over
+            Title title = requirement.getTitle();
+            List<Module> modules = requirement.getModuleList();
+            RequirementCode requirementCode = requirement.getRequirementCode();
+            Credits credits = new Credits(requirement.getCreditsRequired(), Integer.toString(requirementCredits[i]));
+
+            Requirement updatedRequirement = new Requirement(title, credits, modules, requirementCode);
+            setRequirement(requirement, updatedRequirement);
+        }
+
+        this.updateRequirementList(PREDICATE_SHOW_ALL_REQUIREMENTS);
+
     }
 
     @Override

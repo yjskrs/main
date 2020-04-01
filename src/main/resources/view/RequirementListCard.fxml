@@ -7,18 +7,32 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
-<HBox xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-      minWidth="-Infinity"
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.Region?>
+<HBox xmlns:fx="http://javafx.com/fxml/1"
       styleClass="requirement-card"
       xmlns="http://javafx.com/javafx/11.0.1">
-    <GridPane>
-            <Label
-                    GridPane.rowIndex="0"
-                    fx:id="requirementTitle" text="Label" textFill="WHITE">
-            </Label>
-            <Label
-                    GridPane.rowIndex="1"
-                    fx:id="mcCount" text="Label" textFill="#f2ecec">
-            </Label>
+    <GridPane hgap="20.0" vgap="2" styleClass="inner">
+        <Label
+                styleClass="code"
+                GridPane.rowIndex="0"
+                fx:id="requirementCode" text="Label">
+        </Label>
+        <Label
+                wrapText="true"
+            styleClass="title" GridPane.columnIndex="0"
+            GridPane.rowIndex="1"
+            fx:id="requirementTitle" text="Label">
+        </Label>
+        <Label
+            styleClass="credits"
+            GridPane.rowIndex="2"
+            fx:id="creditsCount" text="Label">
+        </Label>
+        <FlowPane
+            styleClass="module-codes"
+            GridPane.rowIndex="3"
+            fx:id="moduleCodes">
+        </FlowPane>
     </GridPane>
 </HBox>

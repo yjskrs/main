@@ -16,9 +16,9 @@ public class Credits {
     // TODO
     public static final String VALIDATION_REGEX = "^[0-9]\\d*$"; // allows any numbers more than or equals zero
 
-    public final String creditsRequired;
+    private final String creditsRequired;
 
-    public final String creditsFulfilled;
+    private String creditsFulfilled;
 
     /**
      * Constructs a {@code Credits} with 0 fulfilled credits.
@@ -37,7 +37,7 @@ public class Credits {
      * Constructs a {@code Credits} with {@code creditsRequired} credits required and
      * {@code creditsFulfilled} creditsFulfilled.
      *
-     * @param creditsRequired A valid credits value (integer).
+     * @param creditsRequired  A valid credits value (integer).
      * @param creditsFulfilled A valid credits value (integer).
      */
     public Credits(String creditsRequired, String creditsFulfilled) {
@@ -103,8 +103,8 @@ public class Credits {
     public boolean equals(Object other) {
         return other == this // return true if same object, else check
             || (other instanceof Credits
-                    && creditsRequired.equals(((Credits) other).creditsRequired)
-                    && creditsFulfilled.equals(((Credits) other).creditsFulfilled));
+            && creditsRequired.equals(((Credits) other).creditsRequired)
+            && creditsFulfilled.equals(((Credits) other).creditsFulfilled));
     }
 
     @Override

@@ -3,6 +3,7 @@ package igrad.logic.commands;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import igrad.logic.commands.module.ModuleAddCommand;
 import igrad.model.Model;
 import igrad.model.ModelManager;
 import igrad.model.UserPrefs;

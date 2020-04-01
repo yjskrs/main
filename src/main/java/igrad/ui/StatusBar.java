@@ -35,13 +35,26 @@ public class StatusBar extends UiPart<Region> {
         pane.getChildren().add(course);
     }
 
+    /**
+     * Sets the course name inputted.
+     */
     public void setCourseName(String courseName) {
         this.courseName = courseName;
-        course.setText("Course: " + courseName);
+        course.setText(courseName);
     }
 
+    /**
+     * Checks if courseName is set.
+     */
     public boolean isCourseNameSet() {
         return this.courseName.length() != 0;
+    }
+
+    /**
+     * Returns the text that the label is current holding.
+     */
+    public String getLabelText() {
+        return course.getText();
     }
 
     public StackPane getPane() {
