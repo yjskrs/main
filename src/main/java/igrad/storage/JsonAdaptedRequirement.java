@@ -96,8 +96,8 @@ class JsonAdaptedRequirement {
         final List<Module> modelModules = new ArrayList<>();
 
         modelModules.addAll(moduleList.stream() // for all modules
-                                .filter(module -> moduleCodes.stream() // find a module which has the same moduleCode as one in moduleCodes
-                                                      .anyMatch(moduleCode -> module.hasModuleCodeOf(new ModuleCode(moduleCode))))
+                                .filter(module -> moduleCodes.stream() // find module existing in moduleCodes
+                                    .anyMatch(moduleCode -> module.hasModuleCodeOf(new ModuleCode(moduleCode))))
                                 .collect(Collectors.toList()));
 
         int creditsFulfilled = 0;
