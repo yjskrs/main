@@ -51,12 +51,25 @@ public class RequirementAddCommand extends RequirementCommand {
             throw new CommandException(MESSAGE_REQUIREMENT_DUPLICATE);
         }
 
+        RequirementCode codeWithoutNumber = requirementToAdd.getRequirementCode();
+        RequirementCode codeWithNumber = new RequirementCode(generateRequirementCode(model, codeWithoutNumber));
+
+        Requirement requirement = new Requirement(codeWithNumber,
+            requirementToAdd.getTitle(),
+            requirementToAdd.getCredits());
+
+        model.addRequirement(requirement);
+        return new CommandResult(String.format(MESSAGE_REQUIREMENT_ADD_SUCCESS, requirement));
+    }
+
+    /**
+     * Generates the requirement code based on the number of previous requirements that hold the same
+     * alphabetical part of the code.
+     */
+    private String generateRequirementCode(Model model, RequirementCode codeWithoutNumber) {
         List<Requirement> requirementList = model.getRequirementList();
 
-        RequirementCode codeWithoutNumber = requirementToAdd.getRequirementCode();
-
         int lastUsedNumber = 0;
-
         for (Requirement requirement : requirementList) {
             RequirementCode requirementCode = requirement.getRequirementCode();
 
@@ -68,14 +81,6 @@ public class RequirementAddCommand extends RequirementCommand {
             }
         }
 
-        RequirementCode codeWithNumber =
-            new RequirementCode(codeWithoutNumber.getAlphabets() + String.valueOf(lastUsedNumber + 1));
-
-        Requirement requirement = new Requirement(codeWithNumber,
-            requirementToAdd.getTitle(),
-            requirementToAdd.getCredits());
-
-        model.addRequirement(requirement);
-        return new CommandResult(String.format(MESSAGE_REQUIREMENT_ADD_SUCCESS, requirement));
+        return codeWithoutNumber.getAlphabets() + (lastUsedNumber + 1);
     }
 }

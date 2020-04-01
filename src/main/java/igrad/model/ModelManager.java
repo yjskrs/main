@@ -161,6 +161,8 @@ public class ModelManager implements Model {
     }
 
     @Override
+    // this can just be called computeCap, i feel like from the caller POV they don't need to know whether they're
+    // computing the first time or recomputing it ? ? ?
     public Cap recomputeCap() {
         return CourseInfo.computeCap(courseBook.getModuleList());
     }

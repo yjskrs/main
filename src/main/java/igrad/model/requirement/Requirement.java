@@ -152,24 +152,10 @@ public class Requirement implements ReadOnlyRequirement {
     // util methods
 
     /**
-     * Calculates the credits fulfilled of this requirement
-     * based on its module list
+     * Checks if {@code otherRequirement} has the same requirement code as this requirement.
      */
-    private int calculateCreditsFulfilled() {
-        int creditsFulfilled = 0;
-
-        for (Module module : modules) {
-            if (module.isDone()) {
-                creditsFulfilled += module.getCredits().toInteger();
-            }
-        }
-
-        return creditsFulfilled;
-    }
-
-    @Override
-    public Title getTitle() {
-        return title;
+    public boolean hasSameRequirementCode(Requirement otherRequirement) {
+        return this.requirementCode.equals(otherRequirement.requirementCode);
     }
 
     /**
@@ -184,6 +170,11 @@ public class Requirement implements ReadOnlyRequirement {
      */
     public boolean hasSameCredits(Requirement otherRequirement) {
         return this.credits.equals(otherRequirement.credits);
+    }
+
+    @Override
+    public Title getTitle() {
+        return title;
     }
 
     @Override
