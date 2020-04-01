@@ -289,7 +289,7 @@ public class ModelManager implements Model {
             // Compute credits fulfilled based on modules in the module list
             Requirement requirement = requirements.get(i);
 
-            // TODO: Improve design of this part, can move  logic to CourseBook itself maybe hmm
+            // TODO: Improve design of this part, can move logic to CourseBook itself maybe hmm
 
             // Copy all other requirement fields over
             Title title = requirement.getTitle();
