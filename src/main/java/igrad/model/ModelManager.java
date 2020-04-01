@@ -2,6 +2,7 @@ package igrad.model;
 
 import static igrad.commons.util.CollectionUtil.requireAllNonNull;
 import static java.util.Objects.requireNonNull;
+
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -10,6 +11,7 @@ import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
+
 import igrad.commons.core.GuiSettings;
 import igrad.commons.core.LogsCenter;
 import igrad.logic.commands.exceptions.CommandException;
@@ -226,6 +228,42 @@ public class ModelManager implements Model {
     @Override
     public void deleteRequirement(Requirement requirement) {
         courseBook.removeRequirement(requirement);
+    }
+
+    //========================================================================================================
+
+    @Override
+    public int getTotalCreditsRequired() {
+
+        return requirements
+            .stream()
+            .mapToInt(requirement -> Integer.parseInt(requirement.getCreditsRequired()))
+            .sum();
+
+    }
+
+    @Override
+    public int getTotalCreditsFulfilled() {
+
+        int totalCreditsFulfilled = 0;
+        int totalCreditsRequired = getTotalCreditsRequired();
+
+        for (Requirement requirement : requirements) {
+            int creditsFulfilled = filteredModules
+                .stream()
+                .filter(module -> requirement.getModuleList().contains(module) && module.isDone())
+                .mapToInt(module -> module.getCredits().toInteger())
+                .sum();
+
+            totalCreditsFulfilled += creditsFulfilled;
+        }
+
+        if (totalCreditsFulfilled > totalCreditsRequired) {
+            totalCreditsFulfilled = totalCreditsRequired;
+        }
+
+        return totalCreditsFulfilled;
+
     }
 
     //=========== Filtered Module List Accessors =============================================================

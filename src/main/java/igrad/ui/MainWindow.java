@@ -2,6 +2,7 @@ package igrad.ui;
 
 import java.io.IOException;
 import java.util.logging.Logger;
+
 import igrad.commons.core.GuiSettings;
 import igrad.commons.core.LogsCenter;
 import igrad.logic.Logic;
@@ -10,7 +11,6 @@ import igrad.logic.commands.exceptions.CommandException;
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.Model;
 import igrad.model.avatar.Avatar;
-import igrad.model.course.CourseInfo;
 import igrad.services.exceptions.ServiceException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -41,7 +41,7 @@ public class MainWindow extends UiPart<Stage> {
     private RequirementListPanel requirementListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
-    private StatusBar statusBar;
+    //    private StatusBar statusBar;
     private ProgressSidePanel progressSidePanel;
     private CommandReceivedPanel commandReceivedPanel;
 
@@ -182,8 +182,6 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplay = new ResultDisplay(model.getAvatar());
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        displayStatusBar(model);
-        refreshStatusBar(model);
         displayCommandBox(model);
         displayProgressPanel(model);
     }
@@ -194,27 +192,6 @@ public class MainWindow extends UiPart<Stage> {
     void displayProgressPanel(Model model) {
         progressSidePanel = new ProgressSidePanel(model);
         progressPanelPlaceholder.getChildren().add(progressSidePanel.getRoot());
-    }
-
-    /**
-     * Fills up and displays the placeholder of the status bar.
-     */
-    void displayStatusBar(Model model) {
-        statusBar = new StatusBar();
-        statusBarPlaceholder.getChildren().add(statusBar.getPane());
-    }
-
-    /**
-     * Refreshes the status bar (UI component) with information from the {@code Model}.
-     */
-    void refreshStatusBar(Model model) {
-        // Extract the updated CourseInfo from our model.
-        CourseInfo courseInfo = model.getCourseInfo();
-
-        logger.fine("courseInfo.getName = " + courseInfo.getName().toString());
-        // Refresh the status bar now, with the updated course name.
-        courseInfo.getName().ifPresentOrElse(
-            x -> statusBar.setCourseName(x.toString()), () -> statusBar.setCourseName(""));
     }
 
     /**
@@ -242,7 +219,7 @@ public class MainWindow extends UiPart<Stage> {
      * Sets the progress panel on startup.
      */
     void refreshProgressPanel(Model model) {
-
+        progressSidePanel.updateProgress(model);
     }
 
     /**
@@ -357,11 +334,8 @@ public class MainWindow extends UiPart<Stage> {
                 handleHelp();
             } else if (commandResult.isExit()) {
                 handleExit();
-            } else if (commandResult.isCourseEdit()) {
-                refreshStatusBar(model);
             }
 
-            refreshStatusBar(model);
             handleStopLoading(model.getAvatar());
 
             return commandResult;

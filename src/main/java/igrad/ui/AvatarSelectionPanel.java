@@ -3,6 +3,7 @@ package igrad.ui;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
+
 import igrad.commons.core.LogsCenter;
 import igrad.model.avatar.Avatar;
 import javafx.fxml.FXML;

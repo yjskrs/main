@@ -21,8 +21,6 @@
             </stylesheets>
 
             <VBox minHeight="560.0" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #2a2a2a;">
-
-                <StackPane fx:id="statusBarPlaceholder" styleClass="status-bar"/>
                 <HBox
                         fx:id="mainContainer"
                         maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="400.0"

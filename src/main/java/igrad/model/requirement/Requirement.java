@@ -2,6 +2,7 @@ package igrad.model.requirement;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import igrad.model.module.Module;
@@ -270,12 +271,21 @@ public class Requirement implements ReadOnlyRequirement {
     @Override
     public String generateRequirementCode(String requirementTitle) {
 
+        final String and = "and";
+        final String or = "or";
+
+        ArrayList<String> conjunctives = new ArrayList<>();
+        conjunctives.add(and);
+        conjunctives.add(or);
+
         StringBuilder code = new StringBuilder();
         String[] words = requirementTitle.split(" ");
 
         for (String word : words) {
 
-            code.append(word.split("")[0]);
+            if (!conjunctives.contains(word)) {
+                code.append(word.toUpperCase().split("")[0]);
+            }
 
         }
 

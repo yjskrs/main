@@ -8,23 +8,41 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.Separator?>
 <VBox xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
       styleClass="progress-side-panel" stylesheets="@DarkTheme.css"
       xmlns="http://javafx.com/javafx/11.0.1">
     <children>
-        <HBox>
-            <Label
-                    styleClass="progress-title" text="My Progress"/>
-            <Label
-                    wrapText="false"
-                styleClass="progress-rank"
-                text="Novice Student"/>
-        </HBox>
-        <ProgressBar
-                styleClass="progress-bar"
-            fx:id="progressBar"
-        >
-
-        </ProgressBar>
+            <HBox spacing="4.0" alignment="CENTER_LEFT">
+                <ImageView
+                        styleClass="grad-cap"
+                        fx:id="gradCapImageView"/>
+                <Label
+                        styleClass="course-name"
+                        text="Your Course"
+                        fx:id="courseNameLabel"/>
+            </HBox>
+            <HBox
+                    style="-fx-border-color: #4d4d4d; -fx-border-width: 0 0 2 0;"
+                    alignment="CENTER">
+                <Label
+                        styleClass="inspirational-quote"
+                    fx:id="inspirationalQuote"
+                    text="&quot;Strive for progress, not perfection.&quot;"
+                />
+            </HBox>
+            <VBox styleClass="progress-content">
+                <Label
+                        styleClass="credits-count"
+                fx:id="creditsCount"
+                text="0 of 0 MCs completed"
+                />
+                <ProgressBar
+                        styleClass="progress-bar"
+                    fx:id="progressBar"
+                >
+                </ProgressBar>
+            </VBox>
     </children>
 </VBox>
