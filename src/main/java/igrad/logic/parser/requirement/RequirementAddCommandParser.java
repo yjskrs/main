@@ -1,12 +1,10 @@
 package igrad.logic.parser.requirement;
 
 import static igrad.logic.commands.requirement.RequirementAddCommand.MESSAGE_HELP;
-import static igrad.logic.commands.requirement.RequirementAddCommand.MESSAGE_NOT_ADDED;
+import static igrad.logic.commands.requirement.RequirementAddCommand.MESSAGE_REQUIREMENT_NOT_ADDED;
 import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
 import static igrad.logic.parser.CliSyntax.PREFIX_TITLE;
 import static java.util.Objects.requireNonNull;
-
-import java.util.ArrayList;
 
 import igrad.commons.core.Messages;
 import igrad.logic.commands.requirement.RequirementAddCommand;
@@ -16,6 +14,7 @@ import igrad.logic.parser.ParserUtil;
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.requirement.Credits;
 import igrad.model.requirement.Requirement;
+import igrad.model.requirement.RequirementCode;
 import igrad.model.requirement.Title;
 
 /**
@@ -35,31 +34,24 @@ public class RequirementAddCommandParser extends RequirementCommandParser {
 
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_CREDITS);
 
-        /*
-         * If all arguments in the command are empty; i.e, 'requirement add', and nothing else (except preambles), show
-         * the help message for this command
-         */
+        // Show help message if arguments are not provided by user
         if (argMultimap.isEmpty(false)) {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
                 MESSAGE_HELP));
         }
 
-        /*
-         * requirement add t/TITLE u/MCs
-         *
-         * We have that; TITLE, and MCs, are the compulsory fields, so we're just validating for its
-         * presence in the below.
-         */
+        // Check if title and MCs are provided by user
         if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_TITLE, PREFIX_CREDITS)) {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
-                MESSAGE_NOT_ADDED));
+                MESSAGE_REQUIREMENT_NOT_ADDED));
         }
 
+        // Use the title to parse into a requirement code
+        RequirementCode requirementCode = parseRequirementCode(argMultimap.getValue(PREFIX_TITLE).get());
         Title title = parseTitle(argMultimap.getValue(PREFIX_TITLE).get());
         Credits credits = parseCredits(argMultimap.getValue(PREFIX_CREDITS).get());
 
-        // Intialise a new requirement with an empty module list.
-        Requirement requirement = new Requirement(title, credits, new ArrayList<>());
+        Requirement requirement = new Requirement(requirementCode, title, credits);
 
         return new RequirementAddCommand(requirement);
     }

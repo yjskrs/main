@@ -26,6 +26,7 @@ public class ParserUtil {
 
     public static final Function<String, Boolean> REQUIREMENT_CODE_SPECIFIER_RULE =
         RequirementCode::isValidRequirementCode;
+
     public static final Function<String, Boolean> MODULE_MODULE_CODE_SPECIFIER_RULE = ModuleCode::isValidModuleCode;
 
     /**
