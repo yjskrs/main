@@ -194,14 +194,14 @@ public class CourseBook implements ReadOnlyCourseBook {
                     - module.getCredits().toInteger());
                 Credits updatedCredits = new Credits(creditsRequired, creditsFulfilled);
 
-                // TODO: Improve design of this part, can move  logic to CourseBook itself maybe hmm
+                // TODO: Improve design of this part, can move logic to CourseBook itself maybe hmm
 
                 // Copy all other requirement fields over
                 Title title = requirement.getTitle();
                 List<Module> modules = requirement.getModuleList();
                 RequirementCode requirementCode = requirement.getRequirementCode();
 
-                Requirement updatedRequirement = new Requirement(title, updatedCredits, modules, requirementCode);
+                Requirement updatedRequirement = new Requirement(requirementCode, title, updatedCredits, modules);
                 setRequirement(requirement, updatedRequirement);
             }
         }

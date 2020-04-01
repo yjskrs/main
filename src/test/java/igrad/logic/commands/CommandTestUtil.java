@@ -8,10 +8,8 @@ import static igrad.logic.parser.CliSyntax.PREFIX_TAG;
 import static igrad.logic.parser.CliSyntax.PREFIX_TITLE;
 import static igrad.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import igrad.logic.commands.exceptions.CommandException;
@@ -19,7 +17,6 @@ import igrad.logic.commands.module.ModuleEditCommand;
 import igrad.model.CourseBook;
 import igrad.model.Model;
 import igrad.model.module.Module;
-import igrad.model.module.TitleContainsKeywordsPredicate;
 import igrad.testutil.EditModuleDescriptorBuilder;
 
 /**
@@ -155,20 +152,6 @@ public class CommandTestUtil {
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
         assertEquals(expectedCourseBook, actualModel.getCourseBook());
         assertEquals(expectedFilteredList, actualModel.getFilteredModuleList());
-    }
-
-    /**
-     * Updates {@code model}'s filtered list to show only the module at the given {@code targetIndex} in the
-     * {@code model}'s course book.
-     */
-    public static void showModuleAtIndex(Model model, Index targetIndex) {
-        assertTrue(targetIndex.getZeroBased() < model.getFilteredModuleList().size());
-
-        Module module = model.getFilteredModuleList().get(targetIndex.getZeroBased());
-        final String[] splitName = module.getTitle().value.split("\\s+");
-        model.updateFilteredModuleList(new TitleContainsKeywordsPredicate(Arrays.asList(splitName[0])));
-
-        assertEquals(1, model.getFilteredModuleList().size());
     }
 
 }
