@@ -310,7 +310,7 @@ public class Requirement implements ReadOnlyRequirement {
         String[] words = title.split(" ");
 
         for (String word : words) {
-            code.append(word.split("")[0].toUpperCase());
+            code.append(word.split("")[0]);
         }
 
         return code.toString();
