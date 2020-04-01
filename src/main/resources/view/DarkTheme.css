@@ -22,8 +22,8 @@ AvatarSelection
 ModuleListCard
 */
 .module-panel-container {
-    -fx-max-width: 380px;
-    -fx-min-width: 380px;
+    -fx-max-width: 300px;
+    -fx-min-width: 300px;
 }
 
 .module-panel {
@@ -550,8 +550,8 @@ AB3 Default
 }
 
 .requirement-panel-container {
-    -fx-max-width: 430px;
-    -fx-min-width: 430px;
+    -fx-max-width: 510px;
+    -fx-min-width: 510px;
 }
 
 .requirement-panel {
@@ -570,7 +570,7 @@ AB3 Default
    -fx-border-radius: 20;
    -fx-border-color: #4d4d4d;
    -fx-padding: 8px;
-   -fx-max-width: 355px;
+   -fx-max-width: 470px;
 }
 
 .requirement-card .inner {
