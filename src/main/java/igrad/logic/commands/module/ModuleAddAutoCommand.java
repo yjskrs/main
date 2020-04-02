@@ -46,7 +46,7 @@ public class ModuleAddAutoCommand extends ModuleCommand {
     private final String[] prerequisiteModules;
 
     /**
-     * Creates an ModuleAddCommand to add the specified {@code Person}
+     * Creates an ModuleAddCommand to add the specified {@code Module}
      */
     public ModuleAddAutoCommand(Module module, String[] preclusionModules, String[] prerequisiteModules) {
         requireNonNull(module);
