@@ -54,7 +54,7 @@ public class RequirementEditCommand extends RequirementCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        Requirement requirementToEdit = model.getRequirementByRequirementCode(requirementCode)
+        Requirement requirementToEdit = model.getRequirement(requirementCode)
             .orElseThrow(() -> new CommandException(MESSAGE_REQUIREMENT_NON_EXISTENT));
 
         Requirement editedRequirement = createEditedRequirement(requirementToEdit, requirementDescriptor);
