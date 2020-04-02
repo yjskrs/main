@@ -2,6 +2,7 @@ package igrad.model;
 
 import static igrad.commons.util.CollectionUtil.requireAllNonNull;
 import static java.util.Objects.requireNonNull;
+
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -10,6 +11,7 @@ import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
+
 import igrad.commons.core.GuiSettings;
 import igrad.commons.core.LogsCenter;
 import igrad.logic.commands.exceptions.CommandException;

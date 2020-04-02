@@ -2,6 +2,7 @@ package igrad.ui;
 
 import java.io.IOException;
 import java.util.logging.Logger;
+
 import igrad.commons.core.GuiSettings;
 import igrad.commons.core.LogsCenter;
 import igrad.logic.Logic;
@@ -331,6 +332,7 @@ public class MainWindow extends UiPart<Stage> {
 
         refreshCommandReceived(commandText);
 
+        System.out.println("isC");
         try {
             CommandResult commandResult;
 
