@@ -8,9 +8,11 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 import java.util.Optional;
 
+import igrad.commons.util.CollectionUtil;
 import igrad.logic.commands.CommandResult;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
+import igrad.model.module.Module;
 import igrad.model.requirement.Credits;
 import igrad.model.requirement.Requirement;
 import igrad.model.requirement.RequirementCode;
@@ -76,7 +78,6 @@ public class RequirementEditCommand extends RequirementCommand {
         Requirement editedRequirement = new Requirement(requirementCode,
             editedTitle, editedCredits, requirementToEdit.getModuleList());
 
-
         /*
          * TODO: Somehow I feel you could be abit more lenient on this; if i go to FB to change my phone number and
          *  its still the same, I don't think it'll flag an error. Moreover, to be consistent with the rest of the
@@ -100,5 +101,66 @@ public class RequirementEditCommand extends RequirementCommand {
         model.updateRequirementList(Model.PREDICATE_SHOW_ALL_REQUIREMENTS);
 
         return new CommandResult(String.format(MESSAGE_REQUIREMENT_EDIT_SUCCESS, editedRequirement));
+    }
+
+    /**
+     * Creates and returns a {@code Requirement} with the details of {@code requirementToEdit}
+     * edited with {@code editRequirementDescriptor}.
+     */
+    private static Requirement createEditedRequirement(Requirement requirementToEdit,
+                                                       EditRequirementDescriptor editRequirementDescriptor) {
+        assert requirementToEdit != null;
+        assert editRequirementDescriptor != null;
+
+
+        Title updatedTitle = editRequirementDescriptor.getTitle().orElse(requirementToEdit.getTitle());
+        Credits updatedCredits = editRequirementDescriptor.getCredits().orElse(requirementToEdit.getCredits());
+        RequirementCode requirementCode = requirementToEdit.getRequirementCode();
+        List<Module> moduleList = requirementToEdit.getModuleList();
+
+        return new Requirement(requirementCode, updatedTitle, updatedCredits, moduleList);
+    }
+
+    /**
+     * Stores the details to edit the requirement with. Each non-empty field value will replace the
+     * corresponding field value of the person.
+     */
+    public static class EditRequirementDescriptor {
+        private Title title;
+        private Credits credits;
+
+        public EditRequirementDescriptor() {
+        }
+
+        /**
+         * Makes a copy of a EditRequirementDescriptor.
+         */
+        public EditRequirementDescriptor(EditRequirementDescriptor toCopy) {
+            setTitle(toCopy.title);
+            setCredits(toCopy.credits);
+        }
+
+        /**
+         * Returns true if at least one field is edited.
+         */
+        public boolean isAnyFieldEdited() {
+            return CollectionUtil.isAnyNonNull(title, credits);
+        }
+
+        public void setTitle(Title title) {
+            this.title = title;
+        }
+
+        public Optional<Title> getTitle() {
+            return Optional.ofNullable(title);
+        }
+
+        public void setCredits(Credits credits) {
+            this.credits = credits;
+        }
+
+        public Optional<Credits> getCredits() {
+            return Optional.ofNullable(credits);
+        }
     }
 }

@@ -195,8 +195,8 @@ public class Requirement implements ReadOnlyRequirement {
             return false;
         }
 
-        return (this == otherRequirement
-                || this.requirementCode.equals(otherRequirement.requirementCode));
+        return this == otherRequirement
+                   || this.requirementCode.equals(otherRequirement.requirementCode);
     }
 
     @Override
@@ -250,7 +250,7 @@ public class Requirement implements ReadOnlyRequirement {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof Requirement // check properties
+            || (other instanceof Requirement // check properties, takes care of null other
             && requirementCode.equals(((Requirement) other).requirementCode)
             && title.equals(((Requirement) other).title)
             && credits.equals(((Requirement) other).credits)
