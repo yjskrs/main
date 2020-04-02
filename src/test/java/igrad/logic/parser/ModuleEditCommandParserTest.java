@@ -13,7 +13,7 @@ public class ModuleEditCommandParserTest {
     private static final String TAG_EMPTY = " " + PREFIX_TAG;
 
     private static final String MESSAGE_INVALID_FORMAT =
-        String.format(MESSAGE_INVALID_COMMAND_FORMAT, ModuleEditCommand.MESSAGE_USAGE);
+        String.format(MESSAGE_INVALID_COMMAND_FORMAT, ModuleEditCommand.MESSAGE_MODULE_EDIT_USAGE);
 
     private ModuleEditCommandParser parser = new ModuleEditCommandParser();
 

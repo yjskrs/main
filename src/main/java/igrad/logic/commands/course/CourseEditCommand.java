@@ -17,13 +17,13 @@ import igrad.model.course.Name;
  */
 public class CourseEditCommand extends CourseCommand {
 
-    public static final String COMMAND_WORD = COURSE_COMMAND_WORD + SPACE + "edit";
-    public static final String MESSAGE_SUCCESS = "Edited Course: %1$s";
+    public static final String COURSE_EDIT_COMMAND_WORD = COURSE_COMMAND_WORD + SPACE + "edit";
+    public static final String MESSAGE_COURSE_EDIT_SUCCESS = "Edited Course: %1$s";
     public static final String MESSAGE_EDIT_COURSE_SAME_PARAMETERS = "Please change the name of the course";
-    public static final String MESSAGE_NOT_EDITED = "Course name must be provided.";
-    public static final String MESSAGE_DETAILS = COMMAND_WORD + ": Edits the name of Course\n";
-    public static final String MESSAGE_USAGE = "Parameter(s): " + PREFIX_NAME + "COURSE NAME";
-    public static final String MESSAGE_HELP = MESSAGE_DETAILS + MESSAGE_USAGE;
+    public static final String MESSAGE_COURSE_NOT_EDITED = "Course name must be provided.";
+    public static final String MESSAGE_COURSE_EDIT_DETAILS = COURSE_EDIT_COMMAND_WORD + ": Edits the name of Course\n";
+    public static final String MESSAGE_COURSE_EDIT_USAGE = "Parameter(s): " + PREFIX_NAME + "COURSE NAME";
+    public static final String MESSAGE_COURSE_EDIT_HELP = MESSAGE_COURSE_EDIT_DETAILS + MESSAGE_COURSE_EDIT_USAGE;
 
     private EditCourseDescriptor editCourseDescriptor;
 
@@ -62,7 +62,7 @@ public class CourseEditCommand extends CourseCommand {
         courseToEdit.getName().orElseThrow(() -> new CommandException(MESSAGE_COURSE_NON_EXISTENT));
 
         if (editCourseDescriptor.getName().isEmpty()) {
-            throw new CommandException(MESSAGE_NOT_EDITED);
+            throw new CommandException(MESSAGE_COURSE_NOT_EDITED);
         }
 
         if (courseToEdit.getName().equals(editCourseDescriptor.getName())) {
@@ -72,7 +72,7 @@ public class CourseEditCommand extends CourseCommand {
         CourseInfo editedCourse = createEditedCourseInfo(courseToEdit, editCourseDescriptor);
 
         model.setCourseInfo(editedCourse);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, editedCourse));
+        return new CommandResult(String.format(MESSAGE_COURSE_EDIT_SUCCESS, editedCourse));
     }
 
     @Override

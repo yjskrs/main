@@ -1,7 +1,7 @@
 package igrad.logic.parser.course;
 
-import static igrad.logic.commands.course.CourseAchieveCommand.MESSAGE_HELP;
-import static igrad.logic.commands.course.CourseAchieveCommand.MESSAGE_NOT_CALCULATED;
+import static igrad.logic.commands.course.CourseAchieveCommand.MESSAGE_ACHIEVED_CAP_NOT_CALCULATED;
+import static igrad.logic.commands.course.CourseAchieveCommand.MESSAGE_COURSE_ACHIEVE_HELP;
 import static igrad.logic.commands.course.CourseAchieveCommand.MESSAGE_SEMS_LEFT_NEEDED;
 import static igrad.logic.parser.CliSyntax.PREFIX_CAP;
 import static igrad.logic.parser.CliSyntax.PREFIX_SEMESTER;
@@ -32,11 +32,11 @@ public class CourseAchieveCommandParser implements Parser<CourseAchieveCommand> 
 
         if (argMultimap.isEmpty(true)) {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
-                    MESSAGE_HELP));
+                    MESSAGE_COURSE_ACHIEVE_HELP));
         }
 
         if (argMultimap.getValue(PREFIX_CAP).isEmpty()) {
-            throw new ParseException(MESSAGE_NOT_CALCULATED);
+            throw new ParseException(MESSAGE_ACHIEVED_CAP_NOT_CALCULATED);
         }
 
         if (argMultimap.getValue(PREFIX_SEMESTER).isEmpty()) {

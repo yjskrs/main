@@ -28,22 +28,23 @@ import igrad.model.tag.Tag;
  * Marks the module as done, with a specified grade.
  */
 public class ModuleDoneCommand extends ModuleCommand {
-    public static final String COMMAND_WORD = MODULE_COMMAND_WORD + SPACE + "done";
+    public static final String MODULE_DONE_COMMAND_WORD = MODULE_COMMAND_WORD + SPACE + "done";
 
-    public static final String MESSAGE_DETAILS = COMMAND_WORD + ": Marks a module as done (with a grade) of the "
-        + "module identified by its module code. Existing module (grade) will be overwritten by the input values.\n";
+    public static final String MESSAGE_MODULE_DONE_DETAILS = MODULE_DONE_COMMAND_WORD + ": Marks a module as done "
+        + "(with a grade) of the module identified by its module code. Existing module (grade) will be overwritten "
+        + "by the input values.\n";
 
-    public static final String MESSAGE_USAGE = "Parameter(s): MODULE CODE "
+    public static final String MESSAGE_MODULE_DONE_USAGE = "Parameter(s): MODULE CODE "
         + PREFIX_GRADE + "GRADE\n"
-        + "Example: " + COMMAND_WORD + " "
+        + "Example: " + MODULE_DONE_COMMAND_WORD + " "
         + PREFIX_MODULE_CODE + "CS2103T "
         + PREFIX_GRADE + "A+";
 
-    public static final String MESSAGE_HELP = MESSAGE_DETAILS + MESSAGE_USAGE;
+    public static final String MESSAGE_MODULE_DONE_HELP = MESSAGE_MODULE_DONE_DETAILS + MESSAGE_MODULE_DONE_USAGE;
 
-    public static final String MESSAGE_NOT_EDITED = "Grade must be provided.";
+    public static final String MESSAGE_MODULE_NOT_EDITED = "Grade must be provided.";
 
-    public static final String MESSAGE_SUCCESS = "Marked Module as done: %1$s";
+    public static final String MESSAGE_MODULE_DONE_SUCCESS = "Marked Module as done: %1$s";
 
     private ModuleCode moduleCode;
     private EditModuleGradeDescriptor editModuleGradeDescriptor;
@@ -113,7 +114,7 @@ public class ModuleDoneCommand extends ModuleCommand {
 
         model.recalculateRequirementList();
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, editedModule));
+        return new CommandResult(String.format(MESSAGE_MODULE_DONE_SUCCESS, editedModule));
     }
 
     @Override

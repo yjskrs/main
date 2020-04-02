@@ -13,9 +13,9 @@ import igrad.model.course.CourseInfo;
  */
 public class CourseDeleteCommand extends CourseCommand {
 
-    public static final String COMMAND_WORD = COURSE_COMMAND_WORD + SPACE + "delete";
+    public static final String COURSE_DELETE_COMMAND_WORD = COURSE_COMMAND_WORD + SPACE + "delete";
 
-    public static final String MESSAGE_SUCCESS = "Deleted Course: %1$s. All data cleared!";
+    public static final String MESSAGE_COURSE_DELETE_SUCCESS = "Deleted Course: %1$s. All data cleared!";
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
@@ -26,7 +26,7 @@ public class CourseDeleteCommand extends CourseCommand {
         CourseInfo oldCourseInfo = model.getCourseInfo();
 
         model.resetCourseBook(courseBookToDelete);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, oldCourseInfo));
+        return new CommandResult(String.format(MESSAGE_COURSE_DELETE_SUCCESS, oldCourseInfo));
     }
 
     @Override

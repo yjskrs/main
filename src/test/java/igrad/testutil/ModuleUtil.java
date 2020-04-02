@@ -23,7 +23,7 @@ public class ModuleUtil {
      * Returns an add command string for adding the {@code module}.
      */
     public static String getAddCommand(Module module) {
-        return ModuleAddCommand.COMMAND_WORD + " " + getModuleDetails(module);
+        return ModuleAddCommand.MODULE_ADD_COMMAND_WORD + " " + getModuleDetails(module);
     }
 
     /**

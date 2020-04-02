@@ -1,6 +1,6 @@
 package igrad.logic.parser.course;
 
-import static igrad.logic.commands.course.CourseAddCommand.MESSAGE_HELP;
+import static igrad.logic.commands.course.CourseAddCommand.MESSAGE_COURSE_ADD_HELP;
 import static igrad.logic.parser.CliSyntax.PREFIX_NAME;
 
 import java.util.Optional;
@@ -36,7 +36,7 @@ public class CourseAddCommandParser extends CourseCommandParser implements Parse
          */
         if (argMultimap.isEmpty(false)) {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
-                MESSAGE_HELP));
+                MESSAGE_COURSE_ADD_HELP));
         }
 
         /*
