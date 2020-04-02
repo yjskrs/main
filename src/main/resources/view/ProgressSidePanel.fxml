@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.control.Separator?>
-<VBox xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+<VBox xmlns:fx="http://javafx.com/fxml/1"
       styleClass="progress-side-panel" stylesheets="@DarkTheme.css"
-      xmlns="http://javafx.com/javafx/11.0.1">
+      xmlns="http://javafx.com/javafx/11.0.0">
     <children>
             <HBox spacing="4.0" alignment="CENTER_LEFT">
                 <ImageView
@@ -44,22 +44,22 @@
                 >
                 </ProgressBar>
             </VBox>
-            <GridPane style="-fx-padding: 24 0 0 0;" hgap="50.0" vgap="8.0">
+            <GridPane hgap="50.0" vgap="4.0">
                 <Label
-                        style="-fx-font-size: 13px !important;"
+                        style="-fx-font-size: 14px !important;"
                         text="Semesters Left"
                         GridPane.rowIndex="0" GridPane.columnIndex="0"/>
                 <Label
-                        style="-fx-font-size: 13px !important;-fx-font-weight: bold"
+                        style="-fx-font-size: 14px !important;-fx-font-weight: bold"
                         text="2"
                         GridPane.rowIndex="0" GridPane.columnIndex="1"/>
                 <Label
-                        style="-fx-font-size: 13px !important;"
+                        style="-fx-font-size: 14px !important;"
                         text="Current CAP"
                         GridPane.rowIndex="1" GridPane.columnIndex="0"/>
                 <Label
-                        style="-fx-font-size: 13px !important;-fx-font-weight: bold"
-                        text="4.2/5.0"
+                        style="-fx-font-size: 14px !important;-fx-font-weight: bold"
+                        text="4.2"
                         GridPane.rowIndex="1" GridPane.columnIndex="1"/>
             </GridPane>
     </children>
