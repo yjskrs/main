@@ -308,13 +308,10 @@ public class MainWindow extends UiPart<Stage> {
 
         refreshCommandReceived(commandText);
 
-        System.out.println("isC");
         try {
             CommandResult commandResult;
 
             boolean isSelectingAvatar = model.isSampleAvatar();
-
-            logger.info("courseName = " + model.isCourseNameSet());
 
             if (isSelectingAvatar) {
                 // If user has not selected avatar, get her to do so.
