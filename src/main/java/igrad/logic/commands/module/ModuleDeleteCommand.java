@@ -16,9 +16,9 @@ import igrad.model.module.ModuleCode;
  */
 public class ModuleDeleteCommand extends ModuleCommand {
 
-    public static final String COMMAND_WORD = MODULE_COMMAND_WORD + SPACE + "delete";
+    public static final String MODULE_DELETE_COMMAND_WORD = MODULE_COMMAND_WORD + SPACE + "delete";
 
-    public static final String MESSAGE_SUCCESS = "Deleted Module: %1$s";
+    public static final String MESSAGE_MODULE_DELETE_SUCCESS = "Deleted Module: %1$s";
 
     private final ModuleCode moduleCode;
 
@@ -48,7 +48,7 @@ public class ModuleDeleteCommand extends ModuleCommand {
         model.deleteModule(moduleToDelete);
         model.updateRequirementList(Model.PREDICATE_SHOW_ALL_REQUIREMENTS);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, moduleToDelete));
+        return new CommandResult(String.format(MESSAGE_MODULE_DELETE_SUCCESS, moduleToDelete));
     }
 
     @Override

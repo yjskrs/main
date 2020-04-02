@@ -1,7 +1,7 @@
 package igrad.logic.parser.module;
 
-import static igrad.logic.commands.module.ModuleDoneCommand.MESSAGE_HELP;
-import static igrad.logic.commands.module.ModuleDoneCommand.MESSAGE_NOT_EDITED;
+import static igrad.logic.commands.module.ModuleDoneCommand.MESSAGE_MODULE_DONE_HELP;
+import static igrad.logic.commands.module.ModuleDoneCommand.MESSAGE_MODULE_NOT_EDITED;
 import static igrad.logic.parser.CliSyntax.PREFIX_GRADE;
 import static java.util.Objects.requireNonNull;
 
@@ -40,7 +40,7 @@ public class ModuleDoneCommandParser extends ModuleCommandParser implements Pars
          */
         if (argMultimap.isEmpty(true)) {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
-                MESSAGE_HELP));
+                MESSAGE_MODULE_DONE_HELP));
         }
 
         Specifier specifier = ParserUtil.parseSpecifier(argMultimap.getPreamble(),
@@ -52,7 +52,7 @@ public class ModuleDoneCommandParser extends ModuleCommandParser implements Pars
         ModuleCode moduleCode = new ModuleCode(specifier.getValue());
 
         if (argMultimap.getValue(PREFIX_GRADE).isEmpty()) {
-            throw new ParseException(MESSAGE_NOT_EDITED);
+            throw new ParseException(MESSAGE_MODULE_NOT_EDITED);
         }
 
         editModuleGradeDescriptor.setGrade(parseGrade(argMultimap.getValue(PREFIX_GRADE).get()));

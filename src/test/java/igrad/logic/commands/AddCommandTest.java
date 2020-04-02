@@ -45,7 +45,8 @@ public class AddCommandTest {
 
         CommandResult commandResult = new ModuleAddCommand(validModule).execute(modelStub);
 
-        assertEquals(String.format(ModuleAddCommand.MESSAGE_SUCCESS, validModule), commandResult.getFeedbackToUser());
+        assertEquals(String.format(ModuleAddCommand.MESSAGE_MODULE_ADD_SUCCESS, validModule),
+                commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validModule), modelStub.personsAdded);
     }
 
@@ -174,7 +175,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public Cap recomputeCap() {
+        public Cap computeCap() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -204,7 +205,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public Optional<Requirement> getRequirementByRequirementCode(RequirementCode requirementCode) {
+        public Optional<Requirement> getRequirement(RequirementCode requirementCode) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -275,6 +276,14 @@ public class AddCommandTest {
 
         @Override
         public Cap computeEstimatedCap(Cap capToAchieve, int semsLeft) {
+            throw new AssertionError("This method should not be called.");
+        }
+        @Override
+        public void setRequirementModule(Requirement requirementTarget, Module moduleTarget, Module editedModule) {
+            throw new AssertionError("This method should not be called.");
+        }
+        @Override
+        public List<Requirement> getRequirementsWithModule(Module module) {
             throw new AssertionError("This method should not be called.");
         }
     }

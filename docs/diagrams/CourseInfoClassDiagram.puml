@@ -1,6 +1,7 @@
 @startuml
 class CourseInfo {
     +getName()
+    +getCap()
     +equals()
     +hashCode()
     +toString()

@@ -14,19 +14,18 @@ import igrad.model.course.CourseInfo;
  * Adds a course to the application (there can only be one such course).
  */
 public class CourseAddCommand extends CourseCommand {
-    public static final String COMMAND_WORD = COURSE_COMMAND_WORD + SPACE + "add";
-    public static final String MESSAGE_DETAILS = COMMAND_WORD + ": Adds a course with relevant details specified.\n";
+    public static final String COURSE_ADD_COMMAND_WORD = COURSE_COMMAND_WORD + SPACE + "add";
+    public static final String MESSAGE_COURSE_ADD_DETAILS = COURSE_ADD_COMMAND_WORD
+        + ": Adds a course with relevant details specified.\n";
 
-    public static final String MESSAGE_USAGE = "Parameter(s): "
+    public static final String MESSAGE_COURSE_ADD_USAGE = "Parameter(s): "
         + PREFIX_NAME + "COURSE_NAME\n"
-        + "Example: " + COMMAND_WORD + " "
+        + "Example: " + COURSE_ADD_COMMAND_WORD + " "
         + PREFIX_NAME + "Bachelor of Computing (Honours) in Computer Science ";
 
-    public static final String MESSAGE_HELP = MESSAGE_DETAILS + MESSAGE_USAGE;
+    public static final String MESSAGE_COURSE_ADD_HELP = MESSAGE_COURSE_ADD_DETAILS + MESSAGE_COURSE_ADD_USAGE;
 
-    public static final String MESSAGE_SUCCESS = "New course added: %1$s";
-    public static final String MESSAGE_NOT_ADDED = "Added course must be provided with at least these argument(s) "
-        + PREFIX_NAME + "NAME ";
+    public static final String MESSAGE_COURSE_ADD_SUCCESS = "New course added: %1$s";
     private final CourseInfo toAdd;
 
     /**
@@ -52,7 +51,7 @@ public class CourseAddCommand extends CourseCommand {
             throw new CommandException(MESSAGE_COURSE_ALREADY_SET);
         }
         model.addCourseInfo(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), false, false, true);
+        return new CommandResult(String.format(MESSAGE_COURSE_ADD_SUCCESS, toAdd), false, false, true);
     }
 
     @Override
