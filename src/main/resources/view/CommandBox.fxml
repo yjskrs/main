@@ -2,7 +2,7 @@
 
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.StackPane?>
-<StackPane xmlns:fx="http://javafx.com/fxml/1" styleClass="stack-pane" xmlns="http://javafx.com/javafx/11.0.1">
+<StackPane xmlns:fx="http://javafx.com/fxml/1" styleClass="stack-pane" xmlns="http://javafx.com/javafx/11.0.0">
     <TextField
             fx:id="commandTextField" onAction="#handleCommandEntered" promptText="Enter command here..."
                styleClass="command-box" stylesheets="@DarkTheme.css">

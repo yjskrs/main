@@ -8,8 +8,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.Scene?>
 <?import javafx.stage.Stage?>
-<fx:root xmlns:fx="http://javafx.com/fxml/1" minHeight="800.0" minWidth="1200.0"  maxWidth="1200.0" onCloseRequest="#handleExit" title="iGrad"
-         type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1">
+<fx:root xmlns:fx="http://javafx.com/fxml/1" minHeight="633.0" minWidth="1100.0"  maxWidth="1100.0" onCloseRequest="#handleExit" title="iGrad"
+         type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.0">
     <icons>
         <Image url="@/images/iGrad_Shibu.png"/>
     </icons>
@@ -20,29 +20,25 @@
                 <URL value="@Extensions.css"/>
             </stylesheets>
 
-            <VBox minHeight="560.0" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #2a2a2a;">
+            <VBox style="-fx-background-color: #2a2a2a;">
                 <HBox
                         fx:id="mainContainer"
-                        maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="400.0"
-                      minWidth="800.0" prefWidth="800.0" styleClass="stack-pane-with-border" VBox.vgrow="ALWAYS">
+                        styleClass="stack-pane-with-border"
+                        VBox.vgrow="ALWAYS">
                     <children>
-                        <VBox maxWidth="1.7976931348623157E308" minHeight="550.0" prefWidth="300.0">
+                        <VBox>
                             <children>
                                 <VBox
-
-                                        fx:id="progressPanelPlaceholder" maxHeight="-Infinity"
-                                      maxWidth="1.7976931348623157E308" prefWidth="300.0"/>
-                                <VBox fx:id="commandReceivedPanelPlaceholder" prefWidth="100.0" VBox.vgrow="ALWAYS">
+                                        styleClass="progress-panel-container"
+                                    fx:id="progressPanelPlaceholder" />
+                                <VBox fx:id="commandReceivedPanelPlaceholder" VBox.vgrow="ALWAYS">
                                     <VBox.margin>
-                                        <Insets/>
+                                        <Insets top="16.0"/>
                                     </VBox.margin>
-                                    <padding>
-                                        <Insets top="20.0"/>
-                                    </padding>
                                 </VBox>
                             </children>
                             <HBox.margin>
-                                <Insets left="20.0" top="20.0"/>
+                                <Insets left="16.0" top="16.0"/>
                             </HBox.margin>
                         </VBox>
 
@@ -51,7 +47,7 @@
                                 fx:id="requirementList" alignment="CENTER_LEFT"
                               HBox.hgrow="ALWAYS">
                             <HBox.margin>
-                                <Insets left="20.0" right="20.0" top="20.0"/>
+                                <Insets left="16.0" right="16.0" top="16.0"/>
                             </HBox.margin>
                         </VBox>
                         <VBox
@@ -59,23 +55,24 @@
                                 fx:id="moduleList" alignment="CENTER_LEFT"
                               HBox.hgrow="ALWAYS">
                             <HBox.margin>
-                                <Insets right="20.0" top="20.0"/>
+                                <Insets right="16.0" top="16.0"/>
                             </HBox.margin>
                         </VBox>
                     </children>
                 </HBox>
 
-                <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="150.0"
-                           style="-fx-background-color: #2a2a2a;" VBox.vgrow="NEVER">
+                <StackPane
+                        styleClass="result-display-container"
+                        fx:id="resultDisplayPlaceholder" VBox.vgrow="NEVER">
                     <VBox.margin>
-                        <Insets bottom="20.0" top="20.0"/>
+                        <Insets bottom="16.0" top="16.0"/>
                     </VBox.margin>
                     <padding>
                         <Insets left="20.0" right="20.0"/>
                     </padding>
                 </StackPane>
 
-                <StackPane fx:id="commandBoxPlaceholder" minHeight="60.0" styleClass="stack-pane-with-border"
+                <StackPane fx:id="commandBoxPlaceholder" styleClass="command-box-container"
                            VBox.vgrow="NEVER">
                     <padding>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="5.0"/>
