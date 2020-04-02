@@ -143,9 +143,10 @@ public class CourseInfo {
 
         final StringBuilder builder = new StringBuilder();
 
-        name.ifPresent(x -> builder.append(" Name ").append(x));
+        /*name.ifPresent(x -> builder.append(" Name ").append(x));
+         cap.ifPresent(x -> builder.append(" Cap ").append(x));*/
+        name.ifPresent(x -> builder.append(x));
 
-        cap.ifPresent(x -> builder.append(" Cap ").append(x));
         return builder.toString();
     }
 
