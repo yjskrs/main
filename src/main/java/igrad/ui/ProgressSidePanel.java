@@ -1,7 +1,12 @@
 package igrad.ui;
 
+import java.util.Optional;
+
 import igrad.model.Model;
+import igrad.model.course.CourseInfo;
+import igrad.model.course.Name;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.Region;
 
@@ -12,14 +17,48 @@ public class ProgressSidePanel extends UiPart<Region> {
 
     public static final String FXML = "ProgressSidePanel.fxml";
 
+    private double totalCreditsRequired;
+    private double totalCreditsFulfilled;
+    private double progressBarPercentage;
+
+    @FXML
+    private Label courseNameLabel;
+
     @FXML
     private ProgressBar progressBar;
+
+    @FXML
+    private Label creditsCount;
 
     public ProgressSidePanel(Model model) {
         super(FXML);
 
-        double num = 0.5;
-        progressBar.setProgress(num);
+        updateProgress(model);
+
+    }
+
+    /**
+     * Updates the progress panel
+     */
+    public void updateProgress(Model model) {
+
+        CourseInfo courseInfo = model.getCourseInfo();
+
+        totalCreditsFulfilled = model.getTotalCreditsFulfilled();
+        totalCreditsRequired = model.getTotalCreditsRequired();
+
+        progressBarPercentage = totalCreditsFulfilled / totalCreditsRequired;
+
+        progressBar.setProgress(progressBarPercentage);
+
+        Optional<Name> courseName = courseInfo.getName();
+
+        courseName.ifPresent(name -> courseNameLabel.setText(name.value));
+
+        String creditsCountString = (int) totalCreditsFulfilled
+            + " out of "
+            + (int) totalCreditsRequired + " MCs completed";
+        creditsCount.setText(creditsCountString);
 
     }
 

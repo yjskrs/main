@@ -149,6 +149,17 @@ public interface Model {
     void setModule(Module target, Module editedModule);
 
     /**
+     * Returns the total credits required for all requirements
+     */
+    int getTotalCreditsRequired();
+
+    /**
+     * Returns the aggregated total of credits fulfilled per requirement
+     * If overflow, return totalCreditsRequired
+     */
+    int getTotalCreditsFulfilled();
+
+    /**
      * Checks if the {@code requirement} exists in the course book.
      * Returns true if it exists and false otherwise.
      */

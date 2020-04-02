@@ -79,6 +79,7 @@ ProgressSidePanel
     -fx-pref-height: 343px;
     -fx-pref-width: 300px;
     -fx-padding: 16px;
+    -fx-min-height: 388px;
 }
 
 .progress-title {
@@ -93,17 +94,32 @@ ProgressSidePanel
 }
 
 .progress-bar {
-    -fx-pref-width: 200px;
+    -fx-insets: 4px;
+    -fx-pref-width: 260px;
+    -fx-stroke-width: 10px;
     -fx-accent: #f27c36;
+    -fx-control-inner-background: #2a2a2a;
+    -fx-background: #3a3a3a;
 }
 
-.progress-side-panel .label {
-    -fx-text-fill: #d1d1d1;
-    -fx-font-size: 16;
+.credits-count {
+    -fx-text-fill: #d7d7d7 !important;
+    -fx-font-size: 13px !important;
+    -fx-padding: 0px 0px 4px 0px;
 }
 
-.progress-label {
-    -fx-padding: 0px 0px 0px 0px;
+.progress-content {
+    -fx-padding: 16px 0px;
+}
+
+.course-name {
+    -fx-font-weight: bold;
+    -fx-font-size: 18px !important;
+}
+
+.inspirational-quote {
+    -fx-padding: 24px 0px;
+    -fx-font-style: italic;
 }
 
 /*
