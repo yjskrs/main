@@ -7,7 +7,6 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 import igrad.commons.core.GuiSettings;
-import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.avatar.Avatar;
 import igrad.model.course.Cap;
 import igrad.model.course.CourseInfo;
@@ -110,7 +109,7 @@ public interface Model {
     /**
      * Adds the given {@code courseInfo} to the course book.
      */
-    void addCourseInfo(CourseInfo courseInfo) throws CommandException;
+    void addCourseInfo(CourseInfo courseInfo);
 
     /**
      * Returns the courseInfo.

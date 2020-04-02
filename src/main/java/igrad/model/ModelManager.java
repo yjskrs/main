@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
 
 import igrad.commons.core.GuiSettings;
 import igrad.commons.core.LogsCenter;
-import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.avatar.Avatar;
 import igrad.model.course.Cap;
 import igrad.model.course.CourseInfo;
@@ -168,7 +167,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void addCourseInfo(CourseInfo courseInfo) throws CommandException {
+    public void addCourseInfo(CourseInfo courseInfo) {
         courseBook.addCourseInfo(courseInfo);
     }
 
