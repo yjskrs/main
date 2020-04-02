@@ -37,9 +37,9 @@ public class ModuleAddAutoCommand extends ModuleCommand {
     public static final String MESSAGE_SUCCESS = "New module added through NUSMods API:\n%1$s";
     public static final String MESSAGE_DUPLICATE_MODULE = "This module already exists in the course book";
     public static final String MESSAGE_PREREQUISITE_NOT_PRESENT =
-            "A prerequisite module %s has not been added into the course book.";
+            "WARNING: A prerequisite module %s has not been added into the course book.";
     public static final String MESSAGE_PRECLUSION_PRESENT =
-            "A preclusion for this module %s already exists in the course book.";
+            "WARNING: A preclusion for this module %s already exists in the course book.";
 
     private final Module toAdd;
     private final String[] preclusionModules;
@@ -59,6 +59,8 @@ public class ModuleAddAutoCommand extends ModuleCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
+        String messageSuccess = MESSAGE_SUCCESS;
+
         if (model.hasModule(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_MODULE);
         }
@@ -75,7 +77,7 @@ public class ModuleAddAutoCommand extends ModuleCommand {
 
             if (!isPrereqPresent) {
                 String exceptionMessage = formatPrerequisiteExceptionMessage(prerequisiteModuleCode);
-                throw new CommandException(exceptionMessage);
+                messageSuccess = exceptionMessage + "\n" + messageSuccess;
             }
         }
 
@@ -84,13 +86,13 @@ public class ModuleAddAutoCommand extends ModuleCommand {
                 ModuleCode preclusionModuleCode = new ModuleCode(preclusion);
                 if (module.hasModuleCodeOf(preclusionModuleCode)) {
                     String exceptionMessage = formatPreclusionExceptionMessage(preclusionModuleCode);
-                    throw new CommandException(exceptionMessage);
+                    messageSuccess = exceptionMessage + "\n" + messageSuccess;
                 }
             }
         }
 
         model.addModule(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(String.format(messageSuccess, toAdd));
     }
 
     @Override
