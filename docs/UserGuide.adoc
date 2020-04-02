@@ -103,25 +103,25 @@ TIP: Specifies extra tips you can use when navigating through our app.
 
 == Walkthrough
 
-==== Start up the application
+1. Start up the application
 
-==== Enter your course details
+2. Enter your course details
 
-==== Key in your graduation requirements
+3. Key in your graduation requirements
 
-==== Assign your modules
+4. Assign your modules
 
-==== Mark a module as done
+5. Mark a module as done
 
-==== Key in additional details for your modules
+6. Key in additional details for your modules
 
-==== Track your MCs
+7. Track your MCs
 
-==== Assign a grade to your module
+8. Assign a grade to your module
 
-==== View your CAP
+9. View your CAP
 
-==== Export your data
+10. Export your data
 
 == Command List
 ____
@@ -155,7 +155,8 @@ A popup for the list of all commands as well as the link to the user guide is sh
 
 ==== course
 
-Add, edit or delete your course.
+Add, edit or delete your course. Find out how much CAP you need to maintain
+each semester to achieve your desired CAP.
 
 Command Format
 
@@ -165,6 +166,8 @@ course add n/COURSE_NAME
 course edit [n/COURSE_NAME] [u/MCs]
 
 course delete n/COURSE_NAME
+
+course achieve c/DESIRED_CAP s/SEMESTERS_LEFT
 ----
 
 Command Sample
@@ -183,6 +186,12 @@ course edit n/Information Systems
 Removing your current course
 ----
 course delete
+----
+
+Calculating the average grade needed to achieve a CAP of 4.50 with
+2 semesters left
+----
+course achieve c/4.50 s/2
 ----
 
 Constraints
@@ -262,14 +271,18 @@ You should be able to see the requirement created and/or edited in the main pane
 
 ==== module
 
-Modify or delete a module. You would be able to tag (edit) a module with information such as; semester, grade or memo notes information.
+Add, edit or delete a module. You would be able to tag (edit) a module with information such as; semester, grade or memo notes information.
 
 Command Format
 
 ----
+module add n/MODULE_CODE t/MODULE_TITLE u/MCs [s/SEMESTER] [g/GRADE] [m/MEMO_NOTES]
+
 module edit MODULE_CODE [n/MODULE_CODE] [n/MODULE_TITLE] [u/MCs] [s/SEMESTER] [g/GRADE] [m/MEMO_NOTES]
 
 module delete MODULE_CODE
+
+module done MODULE_CODE g/GRADE
 ----
 Note:
 [WARNING]
@@ -278,19 +291,29 @@ SEMESTER is specified in format Y_S_ ( e.g. Y1S2 - Year 1 Semester 2 )
 
 Command Sample
 
-Tagging the module, CS1101, with "Y1S2" and grade "A+", and also renaming it to CS1101S
+Adding the module, CS2103T, with title "Software Engineering" and MCs "4".
 ----
-module edit n/CS1101: n/CS1101S s/Y1S2 g/A+
-----
-
-Tagging the module, ST2234, with "Y2S1" and giving it a memo "pretty easy module"
-----
-module edit n/ST2334: s/Y2S1 m/pretty easy module
+module add n/CS2103T t/Software Engineering u/4
 ----
 
-Removing a module named "CS1101S"
+Tagging the module, CS1101, with "Y1S2" and grade "A+", and also renaming it to CS1101S.
+----
+module edit n/CS1101 n/CS1101S s/Y1S2 g/A+
+----
+
+Tagging the module, ST2234, with "Y2S1" and giving it a memo "pretty easy module".
+----
+module edit n/ST2334 s/Y2S1 m/pretty easy module
+----
+
+Removing a module named "CS1101S".
 ----
 module delete n/CS1101S
+----
+
+Assigning grade 'A' to the module 'CS2103T'.
+----
+module done CS2103T g/A
 ----
 
 Constraints
@@ -305,50 +328,6 @@ Expected Outcome
 You should be able to see the modified module details reflected in the main panel
 
 '''
-==== grade
-Assigns a grade to a module.
-
-Command Format
-
-----
-grade MODULE_CODE g/GRADE
-----
-
-Command Sample
-
-Assigns grade 'A' to the module 'CS2103T'.
-----
-grade CS2103T g/A
-----
-
-Expected Outcome
-[NOTE]
-You should now see the grade reflected under the module you assigned to.
-
-'''
-==== achieve
-
-Calculates the average grade needed to achieve the CAP you desire
-
-Command Format
-
-----
-achieve c/DESIRED_CAP
-----
-
-Command Sample
-
-Calculates the average grade needed to achieve a CAP of 4.50
-----
-achieve c/4.50
-----
-
-Expected Outcome
-[NOTE]
-You should be able to view the average grade needed to achieve the CAP you desire (in a pop-up)
-
-'''
-
 
 ==== export
 
@@ -404,6 +383,8 @@ ____
 
 `course delete COURSE_NAME`
 
+`course achieve c/DESIRED_CAP`
+
 `requirement add n/REQUIREMENT_TITLE u/MCS_REQUIRED`
 
 `requirement edit REQUIREMENT_CODE [n/REQUIREMENT_TITLE] [u/MCS_REQUIRED]`
@@ -414,15 +395,13 @@ ____
 
 `requirement unassign REQUIREMENT_CODE [n/MODULE_CODE ...]`
 
-`module add n/MODULE_CODE [n/MODULE_TITLE] [n/DESCRIPTION] [u/MCs] [s/SEMESTER] [g/GRADE] [m/MEMO_NOTES]`
+`module add n/MODULE_CODE n/MODULE_TITLE u/MCs [n/DESCRIPTION] [s/SEMESTER] [g/GRADE] [m/MEMO_NOTES]`
 
 `module edit MODULE_CODE [n/MODULE_CODE] [n/MODULE_TITLE] [n/DESCRIPTION] [u/MCs] [s/SEMESTER] [g/GRADE] [m/MEMO_NOTES]`
 
 `module delete MODULE_CODE`
 
 `module done MODULE_CODE g/GRADE`
-
-`achieve c/DESIRED_CAP`
 
 `undo`
 
