@@ -132,13 +132,12 @@ public class CourseBookParser {
 
         case CourseAddCommand.COMMAND_WORD:
             return new CourseAddCommandParser().parse(arguments);
-        
+
         case CourseEditCommand.COMMAND_WORD:
             return new CourseEditCommandParser().parse(arguments);
 
         case CourseDeleteCommand.COMMAND_WORD:
             return new CourseDeleteCommand();
-
 
         case CourseAchieveCommand.COMMAND_WORD:
             return new CourseAchieveCommandParser().parse(arguments);
