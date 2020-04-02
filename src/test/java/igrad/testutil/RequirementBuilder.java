@@ -44,6 +44,14 @@ public class RequirementBuilder {
     }
 
     /**
+     * Sets the {@code RequirementCode} of the {@code Requirement} that we are building.
+     */
+    public RequirementBuilder withRequirementCode(String requirementCode) {
+        this.requirementCode = new RequirementCode(requirementCode);
+        return this;
+    }
+
+    /**
      * Sets the {@code Title} of the {@code Requirement} that we are building.
      */
     public RequirementBuilder withTitle(String title) {
