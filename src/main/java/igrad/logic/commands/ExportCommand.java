@@ -1,10 +1,12 @@
 package igrad.logic.commands;
 
 import java.io.IOException;
+import java.util.List;
 
 import igrad.csvwriter.CsvWriter;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
+import igrad.model.module.Module;
 import igrad.model.module.sorters.SortBySemester;
 
 /**
@@ -27,9 +29,10 @@ public class ExportCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
 
         try {
-            CsvWriter csvWriter = new CsvWriter(model.getSortedModuleList(new SortBySemester()));
+            List<Module> sortedModuleList = model.getSortedModuleList(new SortBySemester());
+            CsvWriter csvWriter = new CsvWriter(sortedModuleList);
             csvWriter.write();
-        } catch (IOException e) {
+        } catch (IOException | NumberFormatException e) {
             throw new CommandException(EXPORT_ERROR_MESSAGE);
         }
 

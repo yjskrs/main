@@ -243,6 +243,7 @@ public class ModelManager implements Model {
 
     @Override
     public List<Module> getSortedModuleList(Comparator<Module> comparator) {
+
         ObservableList<Module> tempList = getFilteredModuleList();
         List<Module> sortedList = new ArrayList<>(tempList);
         sortedList.sort(comparator);

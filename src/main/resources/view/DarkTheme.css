@@ -1,4 +1,24 @@
 /*
+AvatarSelection
+*/
+
+.avatar-selection {
+    -fx-padding: 60px 0px;
+    -fx-min-width: 600;
+    -fx-alignment: center;
+}
+
+.avatar-selection .title {
+    -fx-min-width: 600;
+    -fx-font-size: 48px;
+    -fx-alignment: center;
+}
+
+.avatar-grid-pane {
+    -fx-min-width: 600;
+}
+
+/*
 ModuleListCard
 */
 .module-panel-container {
@@ -74,7 +94,7 @@ ProgressSidePanel
 
 .progress-bar {
     -fx-pref-width: 200px;
-    -fx-padding: 0px 0px 4px 0px;
+    -fx-accent: #f27c36;
 }
 
 .progress-side-panel .label {
