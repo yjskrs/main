@@ -77,7 +77,7 @@ public class CourseBook implements ReadOnlyCourseBook {
         setCourseInfo(newData.getCourseInfo());
     }
 
-    // Course-level operations
+    // Course (info)-level operations
 
     /**
      * Adds the given courseInfo (only one courseInfo can exist/ever be created in the system).
@@ -87,16 +87,15 @@ public class CourseBook implements ReadOnlyCourseBook {
     }
 
     /**
-     * Replaces the courseInfo with {@code editedCourseInfo}.
+     * Retrieves the current course info, in the course book.
      */
-    public void editCourseInfo(CourseInfo editedCourseInfo) {
-        this.courseInfo = editedCourseInfo;
-    }
-
     public CourseInfo getCourseInfo() {
         return courseInfo;
     }
 
+    /**
+     * Replaces the courseInfo with {@code editedCourseInfo}.
+     */
     public void setCourseInfo(CourseInfo c) {
         this.courseInfo = c;
     }
@@ -167,6 +166,42 @@ public class CourseBook implements ReadOnlyCourseBook {
         requireNonNull(editedRequirement);
 
         requirements.setRequirement(target, editedRequirement);
+    }
+
+    /**
+     * Replaces the module {@code moduleTarget} with {@code editedModule} in the given {@code Requirement}.
+     * {@code moduleTarget} must exist in the requirement and the module identity of {@code editedModule} must not
+     * must not be the same as another existing module in that requirement {@code requirementTarget}.
+     *
+     * Additionally, the creditsFulfilled for the requirement gets updated as well.
+     *
+     * Essentially, the difference between this method and,
+     * {@code setRequirement (Requirement target, editedRequirement)}, is that this method only
+     * sets (edits) a specific {@code Module} in the target requirement (modules list), (and of
+     * course the creditsFulfilled of that requirement as well), instead of
+     * updating the entire requirement in the course book requirement list.
+     */
+    public void setRequirementModule(Requirement requirementTarget, Module moduleTarget, Module editedModule) {
+        // Copy over all the old values of requirementTarget
+        RequirementCode requirementCode = requirementTarget.getRequirementCode();
+        Title title = requirementTarget.getTitle();
+
+        int creditsRequired = requirementTarget.getCredits().getCreditsRequired();
+        int creditsFulfilled = requirementTarget.getCredits().getCreditsFulfilled()
+            + editedModule.getCredits().toInteger();
+        Credits updatedCredits = new Credits(creditsRequired, creditsFulfilled);
+
+        // Updates the existing requirement; requirementTarget with the new module
+        requirementTarget.setModule(moduleTarget, editedModule);
+
+        // Get the most update module list
+        List<Module> modules = requirementTarget.getModuleList();
+
+        // Create a new Requirement with all the updated information (details).
+        Requirement editedRequirement = new Requirement(requirementCode, title, updatedCredits, modules);
+
+        // Create a new module based on that
+        requirements.setRequirement(requirementTarget, editedRequirement);
     }
 
     /**

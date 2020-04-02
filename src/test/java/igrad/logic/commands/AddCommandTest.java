@@ -175,7 +175,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public Cap recomputeCap() {
+        public Cap computeCap() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -276,6 +276,14 @@ public class AddCommandTest {
 
         @Override
         public Cap computeEstimatedCap(Cap capToAchieve, int semsLeft) {
+            throw new AssertionError("This method should not be called.");
+        }
+        @Override
+        public void setRequirementModule(Requirement requirementTarget, Module moduleTarget, Module editedModule) {
+            throw new AssertionError("This method should not be called.");
+        }
+        @Override
+        public List<Requirement> getRequirementsWithModule(Module module) {
             throw new AssertionError("This method should not be called.");
         }
     }

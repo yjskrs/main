@@ -5,6 +5,7 @@ import static igrad.logic.parser.CliSyntax.PREFIX_GRADE;
 import static igrad.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
 import static java.util.Objects.requireNonNull;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -22,6 +23,7 @@ import igrad.model.module.Module;
 import igrad.model.module.ModuleCode;
 import igrad.model.module.Semester;
 import igrad.model.module.Title;
+import igrad.model.requirement.Requirement;
 import igrad.model.tag.Tag;
 
 /**
@@ -100,19 +102,36 @@ public class ModuleDoneCommand extends ModuleCommand {
 
         // Update the module in our model
         model.setModule(moduleToEdit, editedModule);
-        model.updateFilteredModuleList(Model.PREDICATE_SHOW_ALL_MODULES);
 
         Optional<Name> currentName = model.getCourseInfo().getName();
 
-        // Now we actually go to our model and recompute cap based on updated module list in model
-        Optional<Cap> updatedCap = Optional.of(model.recomputeCap());
+        // Now we actually go to our model and recompute cap based on updated module list in model (coursebook)
+        Optional<Cap> updatedCap = Optional.of(model.computeCap());
 
         CourseInfo courseInfo = new CourseInfo(currentName, updatedCap);
 
         // Updating the model with the latest course info (cap)
         model.setCourseInfo(courseInfo);
 
-        model.recalculateRequirementList();
+        /*
+         * Given that this module has been updated in the modules list, there are two things we need
+         * to do, first is to update the copies of this  modules existing in the modules list of all
+         * requirements containing that module. And the second is that we need to update the
+         * creditsFulfilled of all requirements (which consists of that module).
+         */
+        List<Requirement> requirementsToUpdate = model.getRequirementsWithModule(editedModule);
+
+        /*
+         * Given that this module has been updated in the modules list, there are two things we need
+         * to do, first is to update the copies of this  modules existing in the modules list of all
+         * requirements containing that module. And the second is that we need to update the
+         * creditsFulfilled of all requirements (which consists of that module).
+         *
+         * The setRequirementModule(...) method does both of these, for each related Requirement.
+         */
+        requirementsToUpdate.stream()
+            .forEach(requirementToEdit ->
+                    model.setRequirementModule(requirementToEdit, moduleToEdit, editedModule));
 
         return new CommandResult(String.format(MESSAGE_MODULE_DONE_SUCCESS, editedModule));
     }

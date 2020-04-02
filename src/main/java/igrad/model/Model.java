@@ -129,10 +129,10 @@ public interface Model {
     boolean isCourseNameSet();
 
     /**
-     * Recomputes (and returns) a {@Code Cap} based on the the current {@code Module} in the module list
+     * Computes (and returns) a {@Code Cap} based on the the current latest {@code Module} in the module list
      * (which is maintained by the {@code CourseBook}).
      */
-    Cap recomputeCap();
+    Cap computeCap();
 
     /**
      * Adds the given module.
@@ -172,6 +172,12 @@ public interface Model {
     Optional<Requirement> getRequirement(RequirementCode requirementCode);
 
     /**
+     * Retrieves the {@code Requirement} whose {@code Module} list has the specified module
+     * {@code module}
+     */
+    List<Requirement> getRequirementsWithModule(Module module);
+
+    /**
      * Retrieves the {@code Module} exists in the course book, by checking only its given {@code ModuleCode}.
      * Returns the @{code Module} if it exists else {@code Optional.empty} otherwise.
      */
@@ -194,6 +200,19 @@ public interface Model {
      * have the same title as another requirement in the course book.
      */
     void setRequirement(Requirement target, Requirement editedRequirement);
+
+    /**
+     * Replaces the module {@code moduleTarget} with {@code editedModule} in the given {@code Requirement}.
+     * {@code moduleTarget} must exist in the requirement and {@code editedModule} must not
+     * have the same title as another module in that requirement {@code requirementTarget}.
+     *
+     * Additionally, the creditsFulfilled for the requirement gets updated as well.
+     *
+     * Essentially, the difference between this method and,
+     * {@code setRequirement (Requirement target, editedRequirement)}, is that this method only
+     * sets (edits) a specific {@code Module} in the target requirement (modules list).
+     */
+    void setRequirementModule(Requirement requirementTarget, Module moduleTarget, Module editedModule);
 
     /**
      * Deletes the given {@code requirement}.

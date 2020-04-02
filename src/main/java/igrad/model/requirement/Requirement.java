@@ -132,9 +132,9 @@ public class Requirement implements ReadOnlyRequirement {
 
     /**
      * Replaces the given module {@code target} in the list with {@code editedModule}.
-     * The {@code target} module must exist in the list.
-     * The module identity of {@code editedModule} must not be the same as another
-     * existing module in the list.
+     * {@code target} must exist in the list.
+     * The module identity of {@code editedModule} must not be the same as another existing module
+     * in the list.
      */
     public void setModule(Module target, Module editedModule) {
         requireNonNull(editedModule);
