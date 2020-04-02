@@ -53,7 +53,7 @@ public class Requirement implements ReadOnlyRequirement {
 
         this.requirementCode = requirementCode;
         this.title = title;
-        this.credits = credits;
+        this.credits = new Credits(credits.getCreditsRequired(), computeCreditsFulfilled(modules));
         setModules(modules);
     }
 
@@ -153,20 +153,6 @@ public class Requirement implements ReadOnlyRequirement {
     // util methods
 
     /**
-     * Checks if {@code otherRequirement} has the same requirement code as this requirement.
-     */
-    public boolean hasSameRequirementCode(Requirement otherRequirement) {
-        return this.requirementCode.equals(otherRequirement.requirementCode);
-    }
-
-    /**
-     * Checks if {@code otherRequirement} has the same title as this requirement.
-     */
-    public boolean hasSameTitle(Requirement otherRequirement) {
-        return this.title.equals(otherRequirement.title);
-    }
-
-    /**
      * Checks if {@code otherRequirement} has the same credits as this requirement.
      */
     public boolean hasSameCredits(Requirement otherRequirement) {
@@ -204,12 +190,24 @@ public class Requirement implements ReadOnlyRequirement {
     }
 
     @Override
+    public boolean isSameRequirement(Requirement otherRequirement) {
+        if (otherRequirement == null) {
+            return false;
+        }
+
+        return (this == otherRequirement
+                || this.requirementCode.equals(otherRequirement.requirementCode));
+    }
+
+    @Override
     public boolean isFulfilled() {
         return credits.isFulfilled();
     }
 
-    @Override
-    public String generateRequirementCode(String requirementTitle) {
+    /**
+     * Generates a requirement code from {@code requirement title}.
+     */
+    public String generateRequirementCode(String title) {
         final String and = "and";
         final String or = "or";
 
@@ -218,16 +216,27 @@ public class Requirement implements ReadOnlyRequirement {
         conjunctives.add(or);
 
         StringBuilder code = new StringBuilder();
-        String[] words = requirementTitle.split(" ");
+        String[] words = title.split(" ");
 
         for (String word : words) {
-
             if (!conjunctives.contains(word)) {
                 code.append(word.toUpperCase().split("")[0]);
             }
         }
 
         return code.toString();
+    }
+
+    public int computeCreditsFulfilled(List<Module> moduleList) {
+        int creditsFulfilled = 0;
+
+        for (Module module : moduleList) {
+            if (module.isDone()) {
+                creditsFulfilled += module.getCredits().toInteger();
+            }
+        }
+
+        return creditsFulfilled;
     }
 
     @Override

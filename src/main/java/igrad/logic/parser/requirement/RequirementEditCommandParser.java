@@ -1,7 +1,7 @@
 package igrad.logic.parser.requirement;
 
-import static igrad.logic.commands.requirement.RequirementEditCommand.MESSAGE_HELP;
-import static igrad.logic.commands.requirement.RequirementEditCommand.MESSAGE_NOT_EDITED;
+import static igrad.logic.commands.requirement.RequirementEditCommand.MESSAGE_REQUIREMENT_EDIT_HELP;
+import static igrad.logic.commands.requirement.RequirementEditCommand.MESSAGE_REQUIREMENT_NOT_EDITED;
 import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
 import static igrad.logic.parser.CliSyntax.PREFIX_TITLE;
 import static java.util.Objects.requireNonNull;
@@ -41,7 +41,7 @@ public class RequirementEditCommandParser extends RequirementCommandParser {
          */
         if (argMultimap.isEmpty(true)) {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
-                MESSAGE_HELP));
+                MESSAGE_REQUIREMENT_EDIT_HELP));
         }
 
         Specifier specifier = ParserUtil.parseSpecifier(argMultimap.getPreamble(),
@@ -49,7 +49,7 @@ public class RequirementEditCommandParser extends RequirementCommandParser {
 
         // If both (neither) the requirement title and credits have not been specified, flag an error
         if (argMultimap.getValue(PREFIX_TITLE).isEmpty() && argMultimap.getValue(PREFIX_CREDITS).isEmpty()) {
-            throw new ParseException(MESSAGE_NOT_EDITED);
+            throw new ParseException(MESSAGE_REQUIREMENT_NOT_EDITED);
         }
 
         Title title = null;

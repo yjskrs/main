@@ -25,16 +25,16 @@ public class RequirementEditCommand extends RequirementCommand {
     public static final String MESSAGE_DETAILS = COMMAND_WORD + ": Edits the requirement identified "
         + "by its requirement code. Existing requirement will be overwritten by the input values.\n";
 
-    public static final String MESSAGE_USAGE = "Parameters: REQUIREMENT_CODE "
+    public static final String MESSAGE_USAGE = "Parameter(s): REQUIREMENT_CODE "
         + "[" + PREFIX_TITLE + "TITLE] "
         + "[" + PREFIX_CREDITS + "CREDITS]\n"
         + "Example: " + COMMAND_WORD + " UE0 "
         + PREFIX_TITLE + "Unrestricted Electives";
 
-    public static final String MESSAGE_HELP = MESSAGE_DETAILS + MESSAGE_USAGE;
+    public static final String MESSAGE_REQUIREMENT_EDIT_HELP = MESSAGE_DETAILS + MESSAGE_USAGE;
 
-    public static final String MESSAGE_SUCCESS = "Edited Requirement: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
+    public static final String MESSAGE_REQUIREMENT_EDIT_SUCCESS = "Edited Requirement: %1$s";
+    public static final String MESSAGE_REQUIREMENT_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_REQUIREMENT_SAME_PARAMETERS = "Please change the title and/or the credits.";
 
 
@@ -69,13 +69,14 @@ public class RequirementEditCommand extends RequirementCommand {
             .findFirst()
             .orElseThrow(() -> new CommandException(MESSAGE_REQUIREMENT_NON_EXISTENT));
 
-        // Note: requirementCode should never be edited, its the unique ID
+        RequirementCode requirementCode = requirementToEdit.getRequirementCode(); // requirement code is not modified
+                                                                                  // because it is a unique id
         Title editedTitle = newTitle.orElse(requirementToEdit.getTitle());
         Credits editedCredits = newCredits.orElse(requirementToEdit.getCredits());
-        Requirement editedRequirement = new Requirement(requirementToEdit.getRequirementCode(),
+        Requirement editedRequirement = new Requirement(requirementCode,
             editedTitle, editedCredits, requirementToEdit.getModuleList());
 
-        // If the provided title is same as before and/or if the provided credits is same as before
+
         /*
          * TODO: Somehow I feel you could be abit more lenient on this; if i go to FB to change my phone number and
          *  its still the same, I don't think it'll flag an error. Moreover, to be consistent with the rest of the
@@ -89,6 +90,7 @@ public class RequirementEditCommand extends RequirementCommand {
          *  'touched' over in parser class
          *  ~ nathanael
          */
+        // If the provided title is same as before and/or if the provided credits is same as before
         if (newTitle.isPresent() && requirementToEdit.hasSameTitle(editedRequirement)
             || newCredits.isPresent() && requirementToEdit.hasSameCredits(editedRequirement)) {
             throw new CommandException(MESSAGE_REQUIREMENT_SAME_PARAMETERS);
@@ -97,7 +99,6 @@ public class RequirementEditCommand extends RequirementCommand {
         model.setRequirement(requirementToEdit, editedRequirement);
         model.updateRequirementList(Model.PREDICATE_SHOW_ALL_REQUIREMENTS);
 
-        return new CommandResult(
-            String.format(MESSAGE_SUCCESS, editedRequirement));
+        return new CommandResult(String.format(MESSAGE_REQUIREMENT_EDIT_SUCCESS, editedRequirement));
     }
 }

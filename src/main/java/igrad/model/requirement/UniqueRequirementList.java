@@ -13,14 +13,15 @@ import javafx.collections.ObservableList;
 
 /**
  * A list of requirements that enforces uniqueness between its elements and does not allow nulls.
- * A requirement is considered unique by comparing using {@code Requirement#hasSameName(Requirement)}.
- * As such, adding and updating of requirements uses Requirement#hasSameName(Requirement) for equality
+ * A requirement is considered unique by comparing using {@code Requirement#hasSameTitle(Requirement)}
+ * and {@code Requirement#hasSameRequirementCode}. As such, adding and updating of requirements uses
+ * Requirement#hasSameTitle(Requirement) and Requirement#hasSameRequirementCode(Requirement) for equality
  * so as to ensure that the requirement being added or updated is unique in terms of name in this class.
  *
  * <p>
  * Supports a minimal set of list operations.
  *
- * @see Requirement#hasSameTitle(Requirement) (Requirement)
+ * @see Requirement#hasSameTitle(Requirement)
  */
 public class UniqueRequirementList implements Iterable<Requirement> {
 
