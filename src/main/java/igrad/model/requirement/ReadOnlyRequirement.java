@@ -7,6 +7,10 @@ import javafx.collections.ObservableList;
  * Unmodifiable view of a requirement.
  */
 public interface ReadOnlyRequirement {
+    /**
+     * Returns the requirement code of the requirement
+     */
+    RequirementCode getRequirementCode();
 
     /**
      * Returns the name of the requirement.
@@ -19,19 +23,14 @@ public interface ReadOnlyRequirement {
     Credits getCredits();
 
     /**
-     * Returns the requirement code of the requirement
-     */
-    RequirementCode getRequirementCode();
-
-    /**
      * Returns the credits required for the requirement.
      */
-    String getCreditsRequired();
+    int getCreditsRequired();
 
     /**
      * Returns the credits fulfilled for the requirement.
      */
-    String getCreditsFulfilled();
+    int getCreditsFulfilled();
 
     /**
      * Returns an unmodifiable view of the modules in this requirement.
@@ -40,14 +39,15 @@ public interface ReadOnlyRequirement {
     ObservableList<Module> getModuleList();
 
     /**
+     * Checks if {@code otherRequirement} is the same requirement as this.
+     * The check is done by checking the requirement code, which basically represents the identity
+     * of the requirement.
+     */
+    boolean isSameRequirement(Requirement otherRequirement);
+
+    /**
      * Returns a boolean value to indicate whether the requirement is already fulfilled.
      * Returns true if requirement is fulfilled (credits are fulfilled), else return false.
      */
     boolean isFulfilled();
-
-    /**
-     * Generates (automatically) a requirement code generated from requirement title,
-     * used in the constructor
-     */
-    String generateRequirementCode(String requirementTitle);
 }

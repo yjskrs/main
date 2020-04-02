@@ -24,4 +24,17 @@ public interface ReadOnlyCourseBook {
      * Returns the course info.
      */
     CourseInfo getCourseInfo();
+
+    /**
+     * Returns the number of requirements fulfilled. A fulfilled requirement is reflected by the condition
+     * {@code Requirement#isFulfilled()}.
+     *
+     * @see Requirement#isFulfilled()
+     */
+    String requirementsFulfilled();
+
+    /**
+     * Checks if the course is complete. A course is complete when all its requirements are fulfilled.
+     */
+    boolean isComplete();
 }

@@ -11,14 +11,12 @@ public class CreditsTest {
     @Test
     public void constructor_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new Credits(null));
-        assertThrows(NullPointerException.class, () -> new Credits(null, null));
     }
 
     @Test
     public void constructor_invalidCredits_throwsIllegalArgumentException() {
         String invalidCredits = "";
         assertThrows(IllegalArgumentException.class, () -> new Credits(invalidCredits));
-        assertThrows(IllegalArgumentException.class, () -> new Credits(invalidCredits, invalidCredits));
     }
 
     @Test
@@ -35,13 +33,33 @@ public class CreditsTest {
         assertFalse(Credits.isValidCredits("12 12")); // space-separated integer string
         assertFalse(Credits.isValidCredits("12.3")); // non-integer number
         assertFalse(Credits.isValidCredits("12+4")); // special character
+        assertFalse(Credits.isValidCredits("0")); // value 0
 
         // valid credits
         assertTrue(Credits.isValidCredits("1"));
         assertTrue(Credits.isValidCredits("10"));
-        assertTrue(Credits.isValidCredits("0"));
         assertTrue(Credits.isValidCredits("01")); // starts with 0
         assertTrue(Credits.isValidCredits("010")); // starts with 0
+    }
+
+    @Test
+    public void isValidCreditsRequired() {
+        // invalid credits required
+        assertFalse(Credits.isValidCreditsRequired(-1)); // negative number
+        assertFalse(Credits.isValidCreditsRequired(0)); // value 0
+
+        // valid credits required
+        assertTrue(Credits.isValidCreditsRequired(1)); // positive number
+    }
+
+    @Test
+    public void isValidCreditsFulfilled() {
+        // invalid credits fulfilled
+        assertFalse(Credits.isValidCreditsFulfilled(-1)); // negative number
+
+        // valid credits fulfilled
+        assertTrue(Credits.isValidCreditsFulfilled(0)); // value 0
+        assertTrue(Credits.isValidCreditsFulfilled(1)); // positive number
     }
 
     @Test
@@ -49,19 +67,16 @@ public class CreditsTest {
         Credits creditsWithOneParameterConstructor = new Credits("40");
         assertFalse(creditsWithOneParameterConstructor.isFulfilled());
 
-        Credits creditsWithTwoParameterConstructor = new Credits("20", "4");
+        Credits creditsWithTwoParameterConstructor = new Credits(20, 4);
         assertFalse(creditsWithTwoParameterConstructor.isFulfilled());
     }
 
     @Test
     public void isFulfilled_creditsFulfilledMoreThanOrEqualsCreditsRequired_returnsTrue() {
-        Credits creditsWithOneParameterConstructor = new Credits("0");
-        assertTrue(creditsWithOneParameterConstructor.isFulfilled());
-
-        Credits creditsWithTwoParameterSameArguments = new Credits("20", "20");
+        Credits creditsWithTwoParameterSameArguments = new Credits(20, 20);
         assertTrue(creditsWithTwoParameterSameArguments.isFulfilled());
 
-        Credits creditsWithTwoParameterDifferentArguments = new Credits("20", "32");
+        Credits creditsWithTwoParameterDifferentArguments = new Credits(20, 32);
         assertTrue(creditsWithTwoParameterDifferentArguments.isFulfilled());
     }
 }

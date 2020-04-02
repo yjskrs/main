@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
 
 import igrad.commons.core.GuiSettings;
 import igrad.commons.core.LogsCenter;
-import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.avatar.Avatar;
 import igrad.model.course.Cap;
 import igrad.model.course.CourseInfo;
@@ -161,12 +160,12 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Cap recomputeCap() {
+    public Cap computeCap() {
         return CourseInfo.computeCap(courseBook.getModuleList());
     }
 
     @Override
-    public void addCourseInfo(CourseInfo courseInfo) throws CommandException {
+    public void addCourseInfo(CourseInfo courseInfo) {
         courseBook.addCourseInfo(courseInfo);
     }
 
@@ -190,12 +189,20 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Optional<Requirement> getRequirementByRequirementCode(RequirementCode requirementCode) {
+    public Optional<Requirement> getRequirement(RequirementCode requirementCode) {
+        // TODO: clean-up logic, and make an equivalent method in course book
         return requirements.stream()
             .filter(requirement -> requirement.getRequirementCode().equals(requirementCode))
             .findFirst();
     }
 
+    @Override
+    public List<Requirement> getRequirementsWithModule(Module module) {
+        // TODO: clean-up logic, and make an equivalent method in course book
+        return requirements.stream()
+            .filter(requirement -> requirement.hasModule(module))
+            .collect(Collectors.toList());
+    }
 
     @Override
     public Optional<Module> getModuleByModuleCode(ModuleCode moduleCode) {
@@ -237,14 +244,13 @@ public class ModelManager implements Model {
 
         return requirements
             .stream()
-            .mapToInt(requirement -> Integer.parseInt(requirement.getCreditsRequired()))
+            .mapToInt(requirement -> requirement.getCreditsRequired())
             .sum();
 
     }
 
     @Override
     public int getTotalCreditsFulfilled() {
-
         int totalCreditsFulfilled = 0;
         int totalCreditsRequired = getTotalCreditsRequired();
 
@@ -326,20 +332,42 @@ public class ModelManager implements Model {
             // Compute credits fulfilled based on modules in the module list
             Requirement requirement = requirements.get(i);
 
-            // TODO: Improve design of this part, can move  logic to CourseBook itself maybe hmm
+            // TODO: Improve design of this part, can move logic to CourseBook itself maybe hmm
 
             // Copy all other requirement fields over
             Title title = requirement.getTitle();
             List<Module> modules = requirement.getModuleList();
             RequirementCode requirementCode = requirement.getRequirementCode();
-            Credits credits = new Credits(requirement.getCreditsRequired(), Integer.toString(requirementCredits[i]));
+            Credits credits = new Credits(requirement.getCreditsRequired(), requirementCredits[i]);
 
-            Requirement updatedRequirement = new Requirement(title, credits, modules, requirementCode);
+            Requirement updatedRequirement = new Requirement(requirementCode, title, credits, modules);
             setRequirement(requirement, updatedRequirement);
         }
 
         this.updateRequirementList(PREDICATE_SHOW_ALL_REQUIREMENTS);
 
+    }
+
+    @Override
+    public Cap computeEstimatedCap(Cap capToAchieve, int semsLeft) {
+        int totalSems;
+
+        Optional<Cap> current = courseBook.getCourseInfo().getCap();
+
+        if (current.isEmpty()) {
+            totalSems = semsLeft;
+        } else {
+            totalSems = semsLeft + 1;
+        }
+
+        Cap currentCap = courseBook.getCourseInfo().getCap().orElse(new Cap("0"));
+        double capWanted = capToAchieve.getValue();
+        double capNow = currentCap.getValue();
+
+        double estimatedCapEachSem = ((capWanted * totalSems) - capNow) / semsLeft;
+        Cap capToAchieveEachSem = new Cap(estimatedCapEachSem + "");
+
+        return capToAchieveEachSem;
     }
 
     @Override

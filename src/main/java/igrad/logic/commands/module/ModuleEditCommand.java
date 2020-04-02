@@ -34,26 +34,26 @@ import igrad.model.tag.Tag;
  */
 public class ModuleEditCommand extends ModuleCommand {
 
-    public static final String COMMAND_WORD = MODULE_COMMAND_WORD + SPACE + "edit";
+    public static final String MODULE_EDIT_COMMAND_WORD = MODULE_COMMAND_WORD + SPACE + "edit";
 
-    public static final String MESSAGE_DETAILS = COMMAND_WORD + ": Edits the details of the module identified "
-        + "by its module code. Existing module will be overwritten by the input values.\n";
+    public static final String MESSAGE_MODULE_EDIT_DETAILS = MODULE_EDIT_COMMAND_WORD + ": Edits the details of the "
+        + "module identified by its module code. Existing module will be overwritten by the input values.\n";
 
-    public static final String MESSAGE_USAGE = "Parameter(s): MODULE CODE "
+    public static final String MESSAGE_MODULE_EDIT_USAGE = "Parameter(s): MODULE CODE "
         + "[" + PREFIX_MODULE_CODE + "MODULE_CODE] "
         + "[" + PREFIX_TITLE + "TITLE] "
         + "[" + PREFIX_CREDITS + "CREDITS] "
         + "[" + PREFIX_MEMO + "MEMO] "
         + "[" + PREFIX_SEMESTER + "SEMESTER] "
         + "[" + PREFIX_TAG + "TAGS]...\n"
-        + "Example: " + COMMAND_WORD + " CS2040 "
+        + "Example: " + MODULE_EDIT_COMMAND_WORD + " CS2040 "
         + PREFIX_MODULE_CODE + "CS2040S "
         + PREFIX_CREDITS + "4";
 
-    public static final String MESSAGE_HELP = MESSAGE_DETAILS + MESSAGE_USAGE;
+    public static final String MESSAGE_MODULE_EDIT_HELP = MESSAGE_MODULE_EDIT_DETAILS + MESSAGE_MODULE_EDIT_USAGE;
 
-    public static final String MESSAGE_SUCCESS = "Edited Module: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
+    public static final String MESSAGE_MODULE_EDIT_SUCCESS = "Edited Module: %1$s";
+    public static final String MESSAGE_MODULE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_MODULE = "This module already exists in the course book.";
 
     protected final ModuleCode moduleCode;
@@ -132,7 +132,7 @@ public class ModuleEditCommand extends ModuleCommand {
 
         model.setModule(moduleToEdit, editedModule);
         model.updateFilteredModuleList(Model.PREDICATE_SHOW_ALL_MODULES);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, editedModule));
+        return new CommandResult(String.format(MESSAGE_MODULE_EDIT_SUCCESS, editedModule));
     }
 
     @Override

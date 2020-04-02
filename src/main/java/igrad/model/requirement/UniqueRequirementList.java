@@ -13,14 +13,14 @@ import javafx.collections.ObservableList;
 
 /**
  * A list of requirements that enforces uniqueness between its elements and does not allow nulls.
- * A requirement is considered unique by comparing using {@code Requirement#hasSameName(Requirement)}.
- * As such, adding and updating of requirements uses Requirement#hasSameName(Requirement) for equality
- * so as to ensure that the requirement being added or updated is unique in terms of name in this class.
+ * A requirement is considered unique by comparing using {@code Requirement#isSameRequirement}.
+ * As such, adding and updating of requirements uses Requirement#isSameRequirement(Requirement) for equality
+ * so as to ensure that the requirement being added or updated is unique in terms of requirement code.
  *
  * <p>
  * Supports a minimal set of list operations.
  *
- * @see Requirement#hasSameTitle(Requirement) (Requirement)
+ * @see Requirement#isSameRequirement(Requirement)
  */
 public class UniqueRequirementList implements Iterable<Requirement> {
 
@@ -34,7 +34,7 @@ public class UniqueRequirementList implements Iterable<Requirement> {
     public boolean contains(Requirement toCheck) {
         requireNonNull(toCheck);
 
-        return internalList.stream().anyMatch(toCheck::hasSameTitle);
+        return internalList.stream().anyMatch(toCheck::isSameRequirement);
     }
 
     /**
@@ -86,8 +86,7 @@ public class UniqueRequirementList implements Iterable<Requirement> {
             throw new RequirementNotFoundException();
         }
 
-        // TODO: change to requirementCode, for equality checking?
-        if (!target.hasSameTitle(editedRequirement) && contains(editedRequirement)) {
+        if (!target.isSameRequirement(editedRequirement) && contains(editedRequirement)) {
             throw new DuplicateRequirementException();
         }
 
@@ -124,12 +123,27 @@ public class UniqueRequirementList implements Iterable<Requirement> {
     private boolean requirementsAreUnique(List<Requirement> requirements) {
         for (int i = 0; i < requirements.size() - 1; i++) {
             for (int j = i + 1; j < requirements.size(); j++) {
-                if (requirements.get(i).hasSameTitle(requirements.get(j))) {
+                if (requirements.get(i).isSameRequirement(requirements.get(j))) {
                     return false;
                 }
             }
         }
         return true;
+    }
+
+    /**
+     * Returns the number of requirements that are fulfilled.
+     */
+    public String countFulfilled() {
+        long count = internalList.stream().filter(Requirement::isFulfilled).count();
+        return String.valueOf(count);
+    }
+
+    /**
+     * Checks if all requirements have been fulfilled.
+     */
+    public boolean areAllFulfilled() {
+        return Long.parseLong(countFulfilled()) == internalList.size();
     }
 
     @Override

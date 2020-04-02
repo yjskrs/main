@@ -18,6 +18,7 @@ import igrad.logic.commands.ExportCommand;
 import igrad.logic.commands.HelpCommand;
 import igrad.logic.commands.SelectAvatarCommand;
 import igrad.logic.commands.UndoCommand;
+import igrad.logic.commands.course.CourseAchieveCommand;
 import igrad.logic.commands.course.CourseAddCommand;
 import igrad.logic.commands.course.CourseCommand;
 import igrad.logic.commands.course.CourseDeleteCommand;
@@ -32,6 +33,7 @@ import igrad.logic.commands.requirement.RequirementAssignCommand;
 import igrad.logic.commands.requirement.RequirementCommand;
 import igrad.logic.commands.requirement.RequirementDeleteCommand;
 import igrad.logic.commands.requirement.RequirementEditCommand;
+import igrad.logic.parser.course.CourseAchieveCommandParser;
 import igrad.logic.parser.course.CourseAddCommandParser;
 import igrad.logic.parser.course.CourseEditCommandParser;
 import igrad.logic.parser.exceptions.ParseException;
@@ -88,7 +90,7 @@ public class CourseBookParser {
         final String argumentsWithFlags = matcher.group("arguments");
         final String arguments = ArgumentTokenizer.removeFlags(argumentsWithFlags);
 
-        if (commandWord.equals(CourseAddCommand.COMMAND_WORD)) {
+        if (commandWord.equals(CourseAddCommand.COURSE_ADD_COMMAND_WORD)) {
             return new CourseAddCommandParser().parse(arguments);
         } else {
             throw new ParseException(MESSAGE_COURSE_NOT_SET);
@@ -114,19 +116,45 @@ public class CourseBookParser {
 
         switch (commandWord) {
 
-        case RequirementAddCommand.COMMAND_WORD:
+        /*
+         * If there is only one command word provided instead of the supposed two-word commands, flag an error
+         * to feedback to the user.
+         */
+
+        case CourseCommand.COURSE_COMMAND_WORD:
+            throw new ParseException(MESSAGE_UNKNOWN_COURSE_COMMAND);
+
+        case RequirementCommand.REQUIREMENT_COMMAND_WORD:
+            throw new ParseException(MESSAGE_UNKNOWN_REQUIREMENT_COMMAND);
+
+        case ModuleCommand.MODULE_COMMAND_WORD:
+            throw new ParseException(MESSAGE_UNKNOWN_MODULE_COMMAND);
+
+        case CourseAddCommand.COURSE_ADD_COMMAND_WORD:
+            return new CourseAddCommandParser().parse(arguments);
+
+        case CourseEditCommand.COURSE_EDIT_COMMAND_WORD:
+            return new CourseEditCommandParser().parse(arguments);
+
+        case CourseDeleteCommand.COURSE_DELETE_COMMAND_WORD:
+            return new CourseDeleteCommand();
+
+        case CourseAchieveCommand.COURSE_ACHIEVE_COMMAND_WORD:
+            return new CourseAchieveCommandParser().parse(arguments);
+
+        case RequirementAddCommand.REQUIREMENT_ADD_COMMAND_WORD:
             return new RequirementAddCommandParser().parse(arguments);
 
-        case RequirementEditCommand.COMMAND_WORD:
+        case RequirementEditCommand.REQUIREMENT_EDIT_COMMAND_WORD:
             return new RequirementEditCommandParser().parse(arguments);
 
-        case RequirementDeleteCommand.COMMAND_WORD:
+        case RequirementDeleteCommand.REQUIREMENT_DELETE_COMMAND_WORD:
             return new RequirementDeleteCommandParser().parse(arguments);
 
         case RequirementAssignCommand.COMMAND_WORD:
             return new RequirementAssignCommandParser().parse(arguments);
 
-        case ModuleAddCommand.COMMAND_WORD:
+        case ModuleAddCommand.MODULE_ADD_COMMAND_WORD:
 
             if (ArgumentTokenizer.isFlagPresent(argumentsWithFlags, FLAG_AUTO.getFlag())) {
                 return new AddAutoCommandParser().parse(arguments);
@@ -134,13 +162,13 @@ public class CourseBookParser {
                 return new ModuleAddCommandParser().parse(arguments);
             }
 
-        case ModuleEditCommand.COMMAND_WORD:
+        case ModuleEditCommand.MODULE_EDIT_COMMAND_WORD:
             return new ModuleEditCommandParser().parse(arguments);
 
-        case ModuleDeleteCommand.COMMAND_WORD:
+        case ModuleDeleteCommand.MODULE_DELETE_COMMAND_WORD:
             return new ModuleDeleteCommandParser().parse(arguments);
 
-        case ModuleDoneCommand.COMMAND_WORD:
+        case ModuleDoneCommand.MODULE_DONE_COMMAND_WORD:
             return new ModuleDoneCommandParser().parse(arguments);
 
         case ExitCommand.COMMAND_WORD:
@@ -155,32 +183,7 @@ public class CourseBookParser {
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
 
-        case CourseAddCommand.COMMAND_WORD:
-            return new CourseAddCommandParser().parse(arguments);
-
-        case CourseDeleteCommand.COMMAND_WORD:
-            // course delete has no arguments, hence no parse(argument) method needed
-            return new CourseDeleteCommand();
-        case CourseEditCommand.COMMAND_WORD:
-
-            return new CourseEditCommandParser().parse(arguments);
-
-        // TODO (Teri): add the relevant case here for the parser to work
-
-
         default:
-            /*
-             * If the first command word (of a 2-word command) is valid, (at least) provide a
-             * feedback to user  instead of throwing an error, e.g, 'course', 'requirement', 'module'.
-             */
-            if (commandWord.equals(CourseCommand.COURSE_COMMAND_WORD)) {
-                throw new ParseException(MESSAGE_UNKNOWN_COURSE_COMMAND);
-            } else if (commandWord.equals(RequirementCommand.REQUIREMENT_COMMAND_WORD)) {
-                throw new ParseException(MESSAGE_UNKNOWN_REQUIREMENT_COMMAND);
-            } else if (commandWord.equals(ModuleCommand.MODULE_COMMAND_WORD)) {
-                throw new ParseException(MESSAGE_UNKNOWN_MODULE_COMMAND);
-            }
-
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }

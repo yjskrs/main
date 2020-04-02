@@ -18,29 +18,30 @@ import igrad.model.module.Module;
  */
 public class ModuleAddCommand extends ModuleCommand {
 
-    public static final String COMMAND_WORD = MODULE_COMMAND_WORD + SPACE + "add";
+    public static final String MODULE_ADD_COMMAND_WORD = MODULE_COMMAND_WORD + SPACE + "add";
 
-    public static final String MESSAGE_DETAILS = COMMAND_WORD + ": Adds a module with relevant details specified.\n";
+    public static final String MESSAGE_MODULE_ADD_DETAILS = MODULE_ADD_COMMAND_WORD
+        + ": Adds a module with relevant details specified.\n";
 
-    public static final String MESSAGE_USAGE = "Parameter(s): "
+    public static final String MESSAGE_MODULE_ADD_USAGE = "Parameter(s): "
         + PREFIX_MODULE_CODE + "MODULE_CODE "
         + PREFIX_TITLE + " TITLE "
         + PREFIX_CREDITS + "CREDITS "
         + "[" + PREFIX_MEMO + "MEMO] "
         + "[" + PREFIX_SEMESTER + "SEMESTER] "
         + "[" + PREFIX_TAG + "TAGS]...\n"
-        + "Example: " + COMMAND_WORD + " "
+        + "Example: " + MODULE_ADD_COMMAND_WORD + " "
         + PREFIX_MODULE_CODE + "CS2103T "
         + PREFIX_TITLE + "Software Engineering "
         + PREFIX_CREDITS + "4 "
         + PREFIX_SEMESTER + "Y2S2";
 
-    public static final String MESSAGE_HELP = MESSAGE_DETAILS + MESSAGE_USAGE;
+    public static final String MESSAGE_MODULE_ADD_HELP = MESSAGE_MODULE_ADD_DETAILS + MESSAGE_MODULE_ADD_USAGE;
 
-    public static final String MESSAGE_SUCCESS = "New module added: %1$s";
+    public static final String MESSAGE_MODULE_ADD_SUCCESS = "New module added: %1$s";
     public static final String MESSAGE_DUPLICATE_MODULE = "This module already exists in the course book";
-    public static final String MESSAGE_NOT_ADDED = "Added module must be provided with at least these argument(s) "
-        + PREFIX_MODULE_CODE + "MODULE_CODE " + PREFIX_TITLE + "TITLE " + PREFIX_CREDITS + "CREDITS ";
+    public static final String MESSAGE_MODULE_NOT_ADDED = "Added module must be provided with at least these "
+        + "argument(s) " + PREFIX_MODULE_CODE + "MODULE_CODE " + PREFIX_TITLE + "TITLE " + PREFIX_CREDITS + "CREDITS ";
 
     private final Module toAdd;
 
@@ -61,7 +62,7 @@ public class ModuleAddCommand extends ModuleCommand {
         }
 
         model.addModule(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(String.format(MESSAGE_MODULE_ADD_SUCCESS, toAdd));
     }
 
     @Override

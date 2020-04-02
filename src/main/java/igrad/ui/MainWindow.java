@@ -313,8 +313,6 @@ public class MainWindow extends UiPart<Stage> {
 
             boolean isSelectingAvatar = model.isSampleAvatar();
 
-            logger.info("courseName = " + model.isCourseNameSet());
-
             if (isSelectingAvatar) {
                 // If user has not selected avatar, get her to do so.
                 commandResult = logic.executeAvatar(commandText);

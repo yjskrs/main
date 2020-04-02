@@ -13,7 +13,7 @@ public class ModuleEditCommandParserTest {
     private static final String TAG_EMPTY = " " + PREFIX_TAG;
 
     private static final String MESSAGE_INVALID_FORMAT =
-        String.format(MESSAGE_INVALID_COMMAND_FORMAT, ModuleEditCommand.MESSAGE_USAGE);
+        String.format(MESSAGE_INVALID_COMMAND_FORMAT, ModuleEditCommand.MESSAGE_MODULE_EDIT_USAGE);
 
     private ModuleEditCommandParser parser = new ModuleEditCommandParser();
 
@@ -31,11 +31,6 @@ public class ModuleEditCommandParserTest {
 
     @Test
     public void parse_invalidPreamble_failure() {
-        // negative index
-        //assertParseFailure(parser, "-5" + CommandTestUtil.NAME_DESC_AMY, MESSAGE_INVALID_FORMAT);
-
-        // zero index
-        //assertParseFailure(parser, "0" + CommandTestUtil.NAME_DESC_AMY, MESSAGE_INVALID_FORMAT);
 
         // invalid arguments being parsed as preamble
         //assertParseFailure(parser, "1 some random string", MESSAGE_INVALID_FORMAT);
@@ -94,7 +89,6 @@ public class ModuleEditCommandParserTest {
         //EditModuleDescriptor descriptor = new EditModuleDescriptorBuilder().withName(CommandTestUtil.VALID_NAME_AMY)
         //        .withPhone(CommandTestUtil.VALID_PHONE_BOB).withEmail(CommandTestUtil.VALID_EMAIL_AMY)
         //        .withTags(CommandTestUtil.VALID_TAG_HUSBAND, CommandTestUtil.VALID_TAG_FRIEND).build();
-        //ModuleEditCommand expectedCommand = new ModuleEditCommand(targetIndex, descriptor);
 
         //assertParseSuccess(parser, userInput, expectedCommand);
     }
