@@ -36,65 +36,32 @@ public class RequirementEditCommand extends RequirementCommand {
     public static final String MESSAGE_REQUIREMENT_EDIT_HELP = MESSAGE_DETAILS + MESSAGE_USAGE;
 
     public static final String MESSAGE_REQUIREMENT_EDIT_SUCCESS = "Edited Requirement: %1$s";
-    public static final String MESSAGE_REQUIREMENT_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_REQUIREMENT_SAME_PARAMETERS = "Please change the title and/or the credits.";
-
+    public static final String MESSAGE_REQUIREMENT_NOT_EDITED = "At least one field must be modified.";
 
     private final RequirementCode requirementCode;
 
-    private final Optional<Title> newTitle;
-
-    private final Optional<Credits> newCredits;
+    private final EditRequirementDescriptor requirementDescriptor;
 
     public RequirementEditCommand(RequirementCode requirementCode,
-                                  Optional<Title> newTitle, Optional<Credits> newCredits) {
-        requireAllNonNull(requirementCode, newTitle, newCredits);
+                                  EditRequirementDescriptor requirementDescriptor) {
+        requireAllNonNull(requirementCode, requirementDescriptor);
 
         this.requirementCode = requirementCode;
-        this.newTitle = newTitle;
-        this.newCredits = newCredits;
+        this.requirementDescriptor = new EditRequirementDescriptor(requirementDescriptor);
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        List<Requirement> requirements = model.getRequirementList();
-
-        /*
-         * TODO (yijie): change to model.getRequirementByRequirementCode(RequirementCode requirementCode),
-         *  which I've created and used in Requirement Assign
-         *  ~ nathanael
-         */
-        Requirement requirementToEdit = requirements.stream()
-            .filter(requirement -> requirement.getRequirementCode().equals(requirementCode))
-            .findFirst()
+        Requirement requirementToEdit = model.getRequirementByRequirementCode(requirementCode)
             .orElseThrow(() -> new CommandException(MESSAGE_REQUIREMENT_NON_EXISTENT));
 
-        RequirementCode requirementCode = requirementToEdit.getRequirementCode(); // requirement code is not modified
-                                                                                  // because it is a unique id
-        Title editedTitle = newTitle.orElse(requirementToEdit.getTitle());
-        Credits editedCredits = newCredits.orElse(requirementToEdit.getCredits());
-        Requirement editedRequirement = new Requirement(requirementCode,
-            editedTitle, editedCredits, requirementToEdit.getModuleList());
+        Requirement editedRequirement = createEditedRequirement(requirementToEdit, requirementDescriptor);
 
-        /*
-         * TODO: Somehow I feel you could be abit more lenient on this; if i go to FB to change my phone number and
-         *  its still the same, I don't think it'll flag an error. Moreover, to be consistent with the rest of the
-         *  app, Module does not have this constraint where you have to neccessarily update a field.
-         *  However, one thing you could actually do is to check in RequirementEditCommandParser whether any fields
-         *  have been 'touched' (please take a look at how ModuleEdit works), and if no fields are 'touched' then
-         *  you throw exception. Tbh, i feel that even such constraints doesn't make sense, but oh well just follow
-         *  what's existing and given to us.
-         *  And if you were to follow the EditModuleDescriptor thing in the RequirementEditCommandParser, which I've
-         *  proposed (you could read the comments there too), you could actually check whether any field has been
-         *  'touched' over in parser class
-         *  ~ nathanael
-         */
-        // If the provided title is same as before and/or if the provided credits is same as before
-        if (newTitle.isPresent() && requirementToEdit.hasSameTitle(editedRequirement)
-            || newCredits.isPresent() && requirementToEdit.hasSameCredits(editedRequirement)) {
-            throw new CommandException(MESSAGE_REQUIREMENT_SAME_PARAMETERS);
+        // If none of the parameters have been modified
+        if (editedRequirement.equals(requirementToEdit)) {
+            throw new CommandException(MESSAGE_REQUIREMENT_NOT_EDITED);
         }
 
         model.setRequirement(requirementToEdit, editedRequirement);
@@ -111,7 +78,6 @@ public class RequirementEditCommand extends RequirementCommand {
                                                        EditRequirementDescriptor editRequirementDescriptor) {
         assert requirementToEdit != null;
         assert editRequirementDescriptor != null;
-
 
         Title updatedTitle = editRequirementDescriptor.getTitle().orElse(requirementToEdit.getTitle());
         Credits updatedCredits = editRequirementDescriptor.getCredits().orElse(requirementToEdit.getCredits());
