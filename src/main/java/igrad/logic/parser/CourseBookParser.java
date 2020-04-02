@@ -90,7 +90,7 @@ public class CourseBookParser {
         final String argumentsWithFlags = matcher.group("arguments");
         final String arguments = ArgumentTokenizer.removeFlags(argumentsWithFlags);
 
-        if (commandWord.equals(CourseAddCommand.COMMAND_WORD)) {
+        if (commandWord.equals(CourseAddCommand.COURSE_ADD_COMMAND_WORD)) {
             return new CourseAddCommandParser().parse(arguments);
         } else {
             throw new ParseException(MESSAGE_COURSE_NOT_SET);
@@ -130,31 +130,31 @@ public class CourseBookParser {
         case ModuleCommand.MODULE_COMMAND_WORD:
             throw new ParseException(MESSAGE_UNKNOWN_MODULE_COMMAND);
 
-        case CourseAddCommand.COMMAND_WORD:
+        case CourseAddCommand.COURSE_ADD_COMMAND_WORD:
             return new CourseAddCommandParser().parse(arguments);
 
-        case CourseEditCommand.COMMAND_WORD:
+        case CourseEditCommand.COURSE_EDIT_COMMAND_WORD:
             return new CourseEditCommandParser().parse(arguments);
 
-        case CourseDeleteCommand.COMMAND_WORD:
+        case CourseDeleteCommand.COURSE_DELETE_COMMAND_WORD:
             return new CourseDeleteCommand();
 
-        case CourseAchieveCommand.COMMAND_WORD:
+        case CourseAchieveCommand.COURSE_ACHIEVE_COMMAND_WORD:
             return new CourseAchieveCommandParser().parse(arguments);
 
-        case RequirementAddCommand.COMMAND_WORD:
+        case RequirementAddCommand.REQUIREMENT_ADD_COMMAND_WORD:
             return new RequirementAddCommandParser().parse(arguments);
 
-        case RequirementEditCommand.COMMAND_WORD:
+        case RequirementEditCommand.REQUIREMENT_EDIT_COMMAND_WORD:
             return new RequirementEditCommandParser().parse(arguments);
 
-        case RequirementDeleteCommand.COMMAND_WORD:
+        case RequirementDeleteCommand.REQUIREMENT_DELETE_COMMAND_WORD:
             return new RequirementDeleteCommandParser().parse(arguments);
 
         case RequirementAssignCommand.COMMAND_WORD:
             return new RequirementAssignCommandParser().parse(arguments);
 
-        case ModuleAddCommand.COMMAND_WORD:
+        case ModuleAddCommand.MODULE_ADD_COMMAND_WORD:
 
             if (ArgumentTokenizer.isFlagPresent(argumentsWithFlags, FLAG_AUTO.getFlag())) {
                 return new AddAutoCommandParser().parse(arguments);
@@ -162,13 +162,13 @@ public class CourseBookParser {
                 return new ModuleAddCommandParser().parse(arguments);
             }
 
-        case ModuleEditCommand.COMMAND_WORD:
+        case ModuleEditCommand.MODULE_EDIT_COMMAND_WORD:
             return new ModuleEditCommandParser().parse(arguments);
 
-        case ModuleDeleteCommand.COMMAND_WORD:
+        case ModuleDeleteCommand.MODULE_DELETE_COMMAND_WORD:
             return new ModuleDeleteCommandParser().parse(arguments);
 
-        case ModuleDoneCommand.COMMAND_WORD:
+        case ModuleDoneCommand.MODULE_DONE_COMMAND_WORD:
             return new ModuleDoneCommandParser().parse(arguments);
 
         case ExitCommand.COMMAND_WORD:

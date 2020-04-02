@@ -9,11 +9,13 @@ import static java.util.Objects.requireNonNull;
  */
 public class Title {
 
-    public static final String MESSAGE_CONSTRAINTS = "Title should not start with a space or slash and should not "
-        + "be blank.";
+    public static final String MESSAGE_CONSTRAINTS = "Title should not start with a space or slash,"
+                                                         + " should not contain only numbers,"
+                                                         + " and should not be blank.";
 
-    // The first character of the requirement title must not be a whitespace; " ", slash; /, or blank.
-    public static final String VALIDATION_REGEX = "^[^\\s/].*";
+    // The first character of the requirement title must not be a whitespace (" ").
+    // The title must not contain only numbers or be blank.
+    public static final String VALIDATION_REGEX = "^[^\\s].*";
 
     public final String value;
 

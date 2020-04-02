@@ -42,13 +42,14 @@ public class Credits {
      */
     public Credits(int creditsRequired, int creditsFulfilled) {
         checkArgument(isValidCreditsRequired(creditsRequired), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidCreditsFulfilled(creditsFulfilled), MESSAGE_CONSTRAINTS);
 
         this.creditsRequired = creditsRequired;
         this.creditsFulfilled = creditsFulfilled;
     }
 
     /**
-     * Returns true if given String {@code test} is a valid credits (i.e. integer more than or equals 0).
+     * Returns true if given String {@code test} is a valid credits (i.e. integer more than 0).
      */
     public static boolean isValidCredits(String test) {
         requireNonNull(test);
@@ -61,6 +62,13 @@ public class Credits {
      */
     public static boolean isValidCreditsRequired(int test) {
         return test > 0;
+    }
+
+    /**
+     * Returns true if given integer {@code test} is a valid credits fulfilled (i.e. more than or equals 0).
+     */
+    public static boolean isValidCreditsFulfilled(int test) {
+        return test >= 0;
     }
 
     /**

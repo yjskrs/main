@@ -54,7 +54,7 @@ public class RequirementAssignCommand extends RequirementCommand {
         // Retrieve the requirement in question that we want to assign modules under..
 
         // First check if the requirement exists in the course book
-        Requirement requirementToAssign = model.getRequirementByRequirementCode(requirementCode)
+        Requirement requirementToAssign = model.getRequirement(requirementCode)
             .orElseThrow(() -> new CommandException(MESSAGE_REQUIREMENT_NON_EXISTENT));
 
         Requirement editedRequirement = new Requirement(requirementToAssign);

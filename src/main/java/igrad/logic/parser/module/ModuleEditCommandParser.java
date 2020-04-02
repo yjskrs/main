@@ -1,7 +1,8 @@
 package igrad.logic.parser.module;
 
-import static igrad.logic.commands.module.ModuleEditCommand.MESSAGE_HELP;
-import static igrad.logic.commands.module.ModuleEditCommand.MESSAGE_NOT_EDITED;
+import static igrad.logic.commands.module.ModuleEditCommand.EditModuleDescriptor;
+import static igrad.logic.commands.module.ModuleEditCommand.MESSAGE_MODULE_EDIT_HELP;
+import static igrad.logic.commands.module.ModuleEditCommand.MESSAGE_MODULE_NOT_EDITED;
 import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
 import static igrad.logic.parser.CliSyntax.PREFIX_MEMO;
 import static igrad.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
@@ -49,10 +50,10 @@ public class ModuleEditCommandParser extends ModuleCommandParser implements Pars
          */
         if (argMultimap.isEmpty(true)) {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
-                MESSAGE_HELP));
+                MESSAGE_MODULE_EDIT_HELP));
         }
 
-        ModuleEditCommand.EditModuleDescriptor editModuleDescriptor = new ModuleEditCommand.EditModuleDescriptor();
+        EditModuleDescriptor editModuleDescriptor = new ModuleEditCommand.EditModuleDescriptor();
 
         Specifier specifier = ParserUtil.parseSpecifier(argMultimap.getPreamble(),
             ParserUtil.MODULE_MODULE_CODE_SPECIFIER_RULE, ModuleCode.MESSAGE_CONSTRAINTS);
@@ -82,7 +83,7 @@ public class ModuleEditCommandParser extends ModuleCommandParser implements Pars
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editModuleDescriptor::setTags);
 
         if (!editModuleDescriptor.isAnyFieldEdited()) {
-            throw new ParseException(MESSAGE_NOT_EDITED);
+            throw new ParseException(MESSAGE_MODULE_NOT_EDITED);
         }
 
         return new ModuleEditCommand(moduleCode, editModuleDescriptor);

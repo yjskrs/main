@@ -107,6 +107,16 @@ public class CourseBookTest {
         }
 
         @Override
+        public String requirementsFulfilled() {
+            return "";
+        }
+
+        @Override
+        public boolean isComplete() {
+            return true;
+        }
+
+        @Override
         public CourseInfo getCourseInfo() {
             return null;
         }

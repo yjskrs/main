@@ -1,7 +1,7 @@
 package igrad.logic.parser.module;
 
-import static igrad.logic.commands.module.ModuleAddCommand.MESSAGE_HELP;
-import static igrad.logic.commands.module.ModuleAddCommand.MESSAGE_NOT_ADDED;
+import static igrad.logic.commands.module.ModuleAddCommand.MESSAGE_MODULE_ADD_HELP;
+import static igrad.logic.commands.module.ModuleAddCommand.MESSAGE_MODULE_NOT_ADDED;
 import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
 import static igrad.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static igrad.logic.parser.CliSyntax.PREFIX_MEMO;
@@ -52,7 +52,7 @@ public class ModuleAddCommandParser extends ModuleCommandParser implements Parse
          */
         if (argMultimap.isEmpty(false)) {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
-                MESSAGE_HELP));
+                MESSAGE_MODULE_ADD_HELP));
         }
 
         /*
@@ -63,7 +63,7 @@ public class ModuleAddCommandParser extends ModuleCommandParser implements Parse
          */
         if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_MODULE_CODE, PREFIX_TITLE, PREFIX_CREDITS)) {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
-                MESSAGE_NOT_ADDED));
+                MESSAGE_MODULE_NOT_ADDED));
         }
 
         Title title = parseTitle(argMultimap.getValue(PREFIX_TITLE).get());

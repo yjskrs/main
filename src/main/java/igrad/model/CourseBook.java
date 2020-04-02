@@ -77,7 +77,7 @@ public class CourseBook implements ReadOnlyCourseBook {
         setCourseInfo(newData.getCourseInfo());
     }
 
-    // Course-level operations
+    // Course (info)-level operations
 
     /**
      * Adds the given courseInfo (only one courseInfo can exist/ever be created in the system).
@@ -87,16 +87,15 @@ public class CourseBook implements ReadOnlyCourseBook {
     }
 
     /**
-     * Replaces the courseInfo with {@code editedCourseInfo}.
+     * Retrieves the current course info, in the course book.
      */
-    public void editCourseInfo(CourseInfo editedCourseInfo) {
-        this.courseInfo = editedCourseInfo;
-    }
-
     public CourseInfo getCourseInfo() {
         return courseInfo;
     }
 
+    /**
+     * Replaces the courseInfo with {@code editedCourseInfo}.
+     */
     public void setCourseInfo(CourseInfo c) {
         this.courseInfo = c;
     }
@@ -223,6 +222,19 @@ public class CourseBook implements ReadOnlyCourseBook {
     @Override
     public ObservableList<Requirement> getRequirementList() {
         return requirements.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public String requirementsFulfilled() {
+        return requirements.countFulfilled();
+    }
+
+    /**
+     * Checks if the course is complete. A course is complete when all its requirements are fulfilled.
+     */
+    @Override
+    public boolean isComplete() {
+        return requirements.areAllFulfilled();
     }
 
     @Override

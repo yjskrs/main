@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
 
 import igrad.commons.core.GuiSettings;
 import igrad.commons.core.LogsCenter;
-import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.avatar.Avatar;
 import igrad.model.course.Cap;
 import igrad.model.course.CourseInfo;
@@ -161,14 +160,12 @@ public class ModelManager implements Model {
     }
 
     @Override
-    // this can just be called computeCap, i feel like from the caller POV they don't need to know whether they're
-    // computing the first time or recomputing it ? ? ?
-    public Cap recomputeCap() {
+    public Cap computeCap() {
         return CourseInfo.computeCap(courseBook.getModuleList());
     }
 
     @Override
-    public void addCourseInfo(CourseInfo courseInfo) throws CommandException {
+    public void addCourseInfo(CourseInfo courseInfo) {
         courseBook.addCourseInfo(courseInfo);
     }
 
@@ -192,12 +189,20 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Optional<Requirement> getRequirementByRequirementCode(RequirementCode requirementCode) {
+    public Optional<Requirement> getRequirement(RequirementCode requirementCode) {
+        // TODO: clean-up logic, and make an equivalent method in course book
         return requirements.stream()
             .filter(requirement -> requirement.getRequirementCode().equals(requirementCode))
             .findFirst();
     }
 
+    @Override
+    public List<Requirement> getRequirementsWithModule(Module module) {
+        // TODO: clean-up logic, and make an equivalent method in course book
+        return requirements.stream()
+            .filter(requirement -> requirement.hasModule(module))
+            .collect(Collectors.toList());
+    }
 
     @Override
     public Optional<Module> getModuleByModuleCode(ModuleCode moduleCode) {
@@ -246,7 +251,6 @@ public class ModelManager implements Model {
 
     @Override
     public int getTotalCreditsFulfilled() {
-
         int totalCreditsFulfilled = 0;
         int totalCreditsRequired = getTotalCreditsRequired();
 
