@@ -13,7 +13,7 @@ import igrad.model.requirement.Title;
  * A utility class to help with building {@code Requirement} objects.
  */
 public class RequirementBuilder {
-    public static final String DEFAULT_REQUIREMENT_CODE = "CSF";
+    public static final String DEFAULT_REQUIREMENT_CODE = "CSF0";
     public static final String DEFAULT_TITLE = "Computer Science Foundation";
     public static final String DEFAULT_CREDITS = "48";
 

@@ -2,6 +2,8 @@ package igrad.logic.parser.requirement;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
+
 import igrad.logic.commands.requirement.RequirementCommand;
 import igrad.logic.parser.Parser;
 import igrad.logic.parser.exceptions.ParseException;
@@ -29,11 +31,20 @@ public abstract class RequirementCommandParser implements Parser<RequirementComm
         }
 
         // parses the title into a requirement code, but without the identifying number
-        StringBuilder code = new StringBuilder();
-        String[] requirementWords = trimmedTitle.split(" ");
+        final String and = "and";
+        final String or = "or";
 
-        for (String word : requirementWords) {
-            code.append(word.split("")[0].toUpperCase());
+        ArrayList<String> conjunctives = new ArrayList<>();
+        conjunctives.add(and);
+        conjunctives.add(or);
+
+        StringBuilder code = new StringBuilder();
+        String[] words = title.split(" ");
+
+        for (String word : words) {
+            if (!conjunctives.contains(word)) {
+                code.append(word.split("")[0].toUpperCase());
+            }
         }
 
         return new RequirementCode(code.toString());
