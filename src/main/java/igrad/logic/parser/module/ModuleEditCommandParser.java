@@ -1,5 +1,6 @@
 package igrad.logic.parser.module;
 
+import static igrad.logic.commands.module.ModuleEditCommand.EditModuleDescriptor;
 import static igrad.logic.commands.module.ModuleEditCommand.MESSAGE_MODULE_EDIT_HELP;
 import static igrad.logic.commands.module.ModuleEditCommand.MESSAGE_MODULE_NOT_EDITED;
 import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
@@ -52,7 +53,7 @@ public class ModuleEditCommandParser extends ModuleCommandParser implements Pars
                 MESSAGE_MODULE_EDIT_HELP));
         }
 
-        ModuleEditCommand.EditModuleDescriptor editModuleDescriptor = new ModuleEditCommand.EditModuleDescriptor();
+        EditModuleDescriptor editModuleDescriptor = new ModuleEditCommand.EditModuleDescriptor();
 
         Specifier specifier = ParserUtil.parseSpecifier(argMultimap.getPreamble(),
             ParserUtil.MODULE_MODULE_CODE_SPECIFIER_RULE, ModuleCode.MESSAGE_CONSTRAINTS);
