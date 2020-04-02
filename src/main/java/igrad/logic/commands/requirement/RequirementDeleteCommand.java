@@ -16,13 +16,13 @@ import igrad.model.requirement.RequirementCode;
  */
 public class RequirementDeleteCommand extends RequirementCommand {
 
-    public static final String COMMAND_WORD = REQUIREMENT_COMMAND_WORD + SPACE + "delete";
+    public static final String REQUIREMENT_DELETE_COMMAND_WORD = REQUIREMENT_COMMAND_WORD + SPACE + "delete";
 
-    public static final String MESSAGE_DETAILS = COMMAND_WORD + ": Deletes the requirement identified "
+    public static final String MESSAGE_DETAILS = REQUIREMENT_DELETE_COMMAND_WORD + ": Deletes the requirement identified "
         + "by its requirement code.\n";
 
     public static final String MESSAGE_USAGE = "Parameter(s): REQUIREMENT_CODE\n"
-                                                   + "Example: " + COMMAND_WORD + " UE0";
+                                                   + "Example: " + REQUIREMENT_DELETE_COMMAND_WORD + " UE0";
 
     public static final String MESSAGE_REQUIREMENT_DELETE_HELP = MESSAGE_DETAILS + MESSAGE_USAGE;
 

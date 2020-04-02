@@ -3,7 +3,6 @@ package igrad.model.requirement;
 import static igrad.commons.util.CollectionUtil.requireAllNonNull;
 import static java.util.Objects.requireNonNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import igrad.model.module.Module;
@@ -152,13 +151,6 @@ public class Requirement implements ReadOnlyRequirement {
 
     // util methods
 
-    /**
-     * Checks if {@code otherRequirement} has the same credits as this requirement.
-     */
-    public boolean hasSameCredits(Requirement otherRequirement) {
-        return this.credits.equals(otherRequirement.credits);
-    }
-
     @Override
     public Title getTitle() {
         return title;
@@ -202,29 +194,6 @@ public class Requirement implements ReadOnlyRequirement {
     @Override
     public boolean isFulfilled() {
         return credits.isFulfilled();
-    }
-
-    /**
-     * Generates a requirement code from {@code requirement title}.
-     */
-    public String generateRequirementCode(String title) {
-        final String and = "and";
-        final String or = "or";
-
-        ArrayList<String> conjunctives = new ArrayList<>();
-        conjunctives.add(and);
-        conjunctives.add(or);
-
-        StringBuilder code = new StringBuilder();
-        String[] words = title.split(" ");
-
-        for (String word : words) {
-            if (!conjunctives.contains(word)) {
-                code.append(word.toUpperCase().split("")[0]);
-            }
-        }
-
-        return code.toString();
     }
 
     /**

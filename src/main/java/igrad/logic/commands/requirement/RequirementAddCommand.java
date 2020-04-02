@@ -16,14 +16,14 @@ import igrad.model.requirement.RequirementCode;
  * Adds a requirement to the course.
  */
 public class RequirementAddCommand extends RequirementCommand {
-    public static final String COMMAND_WORD = REQUIREMENT_COMMAND_WORD + SPACE + "add";
+    public static final String REQUIREMENT_ADD_COMMAND_WORD = REQUIREMENT_COMMAND_WORD + SPACE + "add";
 
-    public static final String MESSAGE_DETAILS = COMMAND_WORD + ": Adds a requirement.\n";
+    public static final String MESSAGE_DETAILS = REQUIREMENT_ADD_COMMAND_WORD + ": Adds a requirement.\n";
 
     public static final String MESSAGE_USAGE = "Parameter(s): "
         + PREFIX_TITLE + "TITLE "
         + PREFIX_CREDITS + "CREDITS_TO_FULFIL\n"
-        + "Example: " + COMMAND_WORD + " "
+        + "Example: " + REQUIREMENT_ADD_COMMAND_WORD + " "
         + PREFIX_TITLE + "Unrestricted Electives "
         + PREFIX_CREDITS + "24\n";
 
