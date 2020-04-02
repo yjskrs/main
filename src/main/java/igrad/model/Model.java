@@ -169,7 +169,7 @@ public interface Model {
      * {@code RequirementCode}.
      * Returns the @{code Requirement} if it exists else {@code Optional.empty} otherwise.
      */
-    Optional<Requirement> getRequirementByRequirementCode(RequirementCode requirementCode);
+    Optional<Requirement> getRequirement(RequirementCode requirementCode);
 
     /**
      * Retrieves the {@code Module} exists in the course book, by checking only its given {@code ModuleCode}.
