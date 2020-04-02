@@ -11,6 +11,7 @@ public class Messages {
         + "you might want to try:\n"
         + "course add ...\n"
         + "course edit ...\n"
+        + "course achieve ...\n"
         + "course delete\n";
     public static final String MESSAGE_UNKNOWN_REQUIREMENT_COMMAND = "I don't know this requirement command, "
         + "you might want to try:\n"
