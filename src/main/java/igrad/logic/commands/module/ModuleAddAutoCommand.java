@@ -34,7 +34,7 @@ public class ModuleAddAutoCommand extends ModuleCommand {
         + PREFIX_MEMO + "Hard module. Good teachers. "
         + PREFIX_SEMESTER + "Y2S2 ";
 
-    public static final String MESSAGE_SUCCESS = "New module added based on NUSMods data: %1$s";
+    public static final String MESSAGE_SUCCESS = "New module added through NUSMods API:\n%1$s";
     public static final String MESSAGE_DUPLICATE_MODULE = "This module already exists in the course book";
     public static final String MESSAGE_PREREQUISITE_NOT_PRESENT =
             "A prerequisite module %s has not been added into the course book.";
