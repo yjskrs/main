@@ -227,6 +227,9 @@ public class Requirement implements ReadOnlyRequirement {
         return code.toString();
     }
 
+    /**
+     * Computes the number of credits fulfilled by the list of modules. Returns an integer.
+     */
     public int computeCreditsFulfilled(List<Module> moduleList) {
         int creditsFulfilled = 0;
 
