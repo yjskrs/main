@@ -14,9 +14,9 @@ public class TitleTest {
     }
 
     @Test
-    public void constructor_invalidName_throwsIllegalArgumentException() {
-        String invalidName = "";
-        assertThrows(IllegalArgumentException.class, () -> new Title(invalidName));
+    public void constructor_invalidTitle_throwsIllegalArgumentException() {
+        String invalidTitle = "";
+        assertThrows(IllegalArgumentException.class, () -> new Title(invalidTitle));
     }
 
     @Test
@@ -28,12 +28,14 @@ public class TitleTest {
         assertFalse(Title.isValidTitle("")); // empty string
         assertFalse(Title.isValidTitle(" ")); // spaces only
         assertFalse(Title.isValidTitle(" Foundation")); // starts with a whitespace
+        // assertFalse(Title.isValidTitle("1")); // number only (to be fixed)
+        // assertFalse(Title.isValidTitle("1 ")); // number and space only (to be fixed)
 
         // valid title
         assertTrue(Title.isValidTitle("computersciencefoundation"));
         assertTrue(Title.isValidTitle("computer science foundation")); // contains spaces
         assertTrue(Title.isValidTitle("Computer Science Foundation")); // contains capital letters
-        assertTrue(Title.isValidTitle("1")); // numbers only
+        assertTrue(Title.isValidTitle("/Computer Science Foundation")); // starts with non-alphabet
         assertTrue(Title.isValidTitle("Computer Science Foundation 1")); // contains alphanumeric characters
         assertTrue(Title.isValidTitle("Requirements (for 2nd major)")); // contains non-alphanumeric characters
         assertTrue(Title.isValidTitle("日本研究学科")); // contains only non-alphaneumeric characters
