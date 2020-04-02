@@ -1,5 +1,6 @@
 package igrad.logic.commands.course;
 
+import static igrad.logic.parser.CliSyntax.PREFIX_NAME;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Optional;
@@ -7,6 +8,7 @@ import java.util.Optional;
 import igrad.logic.commands.CommandResult;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
+import igrad.model.course.Cap;
 import igrad.model.course.CourseInfo;
 import igrad.model.course.Name;
 
@@ -19,6 +21,9 @@ public class CourseEditCommand extends CourseCommand {
     public static final String MESSAGE_SUCCESS = "Edited Course: %1$s";
     public static final String MESSAGE_EDIT_COURSE_SAME_PARAMETERS = "Please change the name of the course";
     public static final String MESSAGE_NOT_EDITED = "Course name must be provided.";
+    public static final String MESSAGE_DETAILS = COMMAND_WORD + ": Edits the name of Course\n";
+    public static final String MESSAGE_USAGE = "Parameter(s): " + PREFIX_NAME + "COURSE NAME";
+    public static final String MESSAGE_HELP = MESSAGE_DETAILS + MESSAGE_USAGE;
 
     private EditCourseDescriptor editCourseDescriptor;
 
@@ -29,6 +34,9 @@ public class CourseEditCommand extends CourseCommand {
      * kind of identifier to identify the course we want to edit)
      */
     public CourseEditCommand(EditCourseDescriptor editCourseDescriptor) {
+        requireNonNull(editCourseDescriptor);
+
+        this.editCourseDescriptor = new EditCourseDescriptor(editCourseDescriptor);
     }
 
     /**
@@ -37,14 +45,11 @@ public class CourseEditCommand extends CourseCommand {
      */
     private static CourseInfo createEditedCourseInfo(CourseInfo courseInfoToEdit,
                                              CourseEditCommand.EditCourseDescriptor editCourseDescriptor) {
-        /*
-         * TODO (Teri): I leave the details to you, you may refer to how ModuleDoneCommand is done.
-         * Essentially, the idea here is to create a new CourseInfo with the
-         * edited course Name inside. However, note that alike the ModuleDone command, we want to
-         * leave the Optional<Cap> unedited
-         * Optional<Name> name = ...
-         */
-        return null;
+
+        Optional<Name> updatedName = editCourseDescriptor.getName();
+        Optional<Cap> updatedCap = courseInfoToEdit.getCap();
+
+        return new CourseInfo(updatedName, updatedCap);
     }
 
     @Override
@@ -56,22 +61,36 @@ public class CourseEditCommand extends CourseCommand {
         // The course name has to first be set, else we can't proceed to even edit it.
         courseToEdit.getName().orElseThrow(() -> new CommandException(MESSAGE_COURSE_NON_EXISTENT));
 
-        /*
-         * TODO (Teri): I'll leave the rest to you.
-         * But you can reference the ModuleDonneCommand.java for this.
-         */
+        if (editCourseDescriptor.getName().isEmpty()) {
+            throw new CommandException(MESSAGE_NOT_EDITED);
+        }
 
-        return null;
+        if (courseToEdit.getName().equals(editCourseDescriptor.getName())) {
+            throw new CommandException(MESSAGE_EDIT_COURSE_SAME_PARAMETERS);
+        }
+
+        CourseInfo editedCourse = createEditedCourseInfo(courseToEdit, editCourseDescriptor);
+
+        model.setCourseInfo(editedCourse);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, editedCourse));
     }
 
     @Override
     public boolean equals(Object other) {
-        /*
-         * TODO (Teri): Please take a look at how ModuleEditCommand.java
-         * implements this, and fill it up!
-         */
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
 
-        return false;
+        // instanceof handles nulls
+        if (!(other instanceof EditCourseDescriptor)) {
+            return false;
+        }
+
+        // state check
+        CourseEditCommand e = (CourseEditCommand) other;
+
+        return editCourseDescriptor.equals(e.editCourseDescriptor);
     }
 
     /**
