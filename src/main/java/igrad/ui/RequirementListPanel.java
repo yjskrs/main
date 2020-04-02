@@ -15,7 +15,7 @@ import javafx.scene.layout.Region;
  */
 public class RequirementListPanel extends UiPart<Region> {
 
-    private static final String FXML = "RequirementListpanel.fxml";
+    private static final String FXML = "RequirementListPanel.fxml";
     private Logger logger = LogsCenter.getLogger(RequirementListPanel.class);
 
     @FXML
