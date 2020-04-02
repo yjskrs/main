@@ -1,10 +1,13 @@
 package igrad.logic.parser.course;
 
+import static igrad.logic.commands.course.CourseEditCommand.MESSAGE_HELP;
+import static igrad.logic.commands.course.CourseEditCommand.MESSAGE_NOT_EDITED;
 import static igrad.logic.parser.CliSyntax.PREFIX_NAME;
 import static java.util.Objects.requireNonNull;
 
 import java.io.IOException;
 
+import igrad.commons.core.Messages;
 import igrad.logic.commands.course.CourseEditCommand;
 import igrad.logic.parser.ArgumentMultimap;
 import igrad.logic.parser.ArgumentTokenizer;
@@ -36,12 +39,19 @@ public class CourseEditCommandParser extends CourseCommandParser implements Pars
          * Hence we don't have to parse for a specifier as there's none.
          */
 
-        /*
-         * TODO (Teri): Here's for you to fill up again. You may refer to ModuleDoneCommandParser.java,
-         * there are some things you need and don't need, but to help you here's some hints;
-         * CourseEditCommand.EditCourseDescriptor ...
-         */
+        if (argMultimap.isEmpty(true)) {
+            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_HELP));
+        }
 
-        return null;
+        CourseEditCommand.EditCourseDescriptor editCourseDescriptor =
+                new CourseEditCommand.EditCourseDescriptor();
+
+        if (argMultimap.getValue(PREFIX_NAME).isEmpty()) {
+            throw new ParseException(MESSAGE_NOT_EDITED);
+        }
+
+        editCourseDescriptor.setName(parseName(argMultimap.getValue(PREFIX_NAME).get()));
+
+        return new CourseEditCommand(editCourseDescriptor);
     }
 }
