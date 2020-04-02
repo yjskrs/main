@@ -213,10 +213,21 @@ public class Requirement implements ReadOnlyRequirement {
 
     @Override
     public String toString() {
-        return "Requirement: " + title + ", " + credits + " creditsRequired and "
-            + getCreditsFulfilled() + " creditsFulfilled has "
-            + modules.asUnmodifiableObservableList().size() + " modules";
-        // TODO: refine later
+
+        RequirementCode code = getRequirementCode();
+        Title title = getTitle();
+        Credits credits = getCredits();
+
+        final StringBuilder builder = new StringBuilder();
+        builder
+            .append("Requirement Code: ")
+            .append(code)
+            .append(", Title: ")
+            .append(title)
+            .append(", Credits: ")
+            .append(credits);
+
+        return builder.toString();
     }
 
     @Override
