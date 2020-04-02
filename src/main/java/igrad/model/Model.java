@@ -202,19 +202,6 @@ public interface Model {
     void setRequirement(Requirement target, Requirement editedRequirement);
 
     /**
-     * Replaces the module {@code moduleTarget} with {@code editedModule} in the given {@code Requirement}.
-     * {@code moduleTarget} must exist in the requirement and {@code editedModule} must not
-     * have the same title as another module in that requirement {@code requirementTarget}.
-     *
-     * Additionally, the creditsFulfilled for the requirement gets updated as well.
-     *
-     * Essentially, the difference between this method and,
-     * {@code setRequirement (Requirement target, editedRequirement)}, is that this method only
-     * sets (edits) a specific {@code Module} in the target requirement (modules list).
-     */
-    void setRequirementModule(Requirement requirementTarget, Module moduleTarget, Module editedModule);
-
-    /**
      * Deletes the given {@code requirement}.
      */
     void deleteRequirement(Requirement requirement);
