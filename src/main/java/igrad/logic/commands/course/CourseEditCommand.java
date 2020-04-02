@@ -54,7 +54,7 @@ public class CourseEditCommand extends CourseCommand {
         CourseInfo courseToEdit = model.getCourseInfo();
 
         // The course name has to first be set, else we can't proceed to even edit it.
-        courseToEdit.getName().orElseThrow(() -> new CommandException(MESSAGE_COURSE_INFO_NON_EXISTENT));
+        courseToEdit.getName().orElseThrow(() -> new CommandException(MESSAGE_COURSE_NON_EXISTENT));
 
         /*
          * TODO (Teri): I'll leave the rest to you.

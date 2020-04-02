@@ -161,6 +161,8 @@ public class ModelManager implements Model {
     }
 
     @Override
+    // this can just be called computeCap, i feel like from the caller POV they don't need to know whether they're
+    // computing the first time or recomputing it ? ? ?
     public Cap recomputeCap() {
         return CourseInfo.computeCap(courseBook.getModuleList());
     }
@@ -290,15 +292,15 @@ public class ModelManager implements Model {
             // Compute credits fulfilled based on modules in the module list
             Requirement requirement = requirements.get(i);
 
-            // TODO: Improve design of this part, can move  logic to CourseBook itself maybe hmm
+            // TODO: Improve design of this part, can move logic to CourseBook itself maybe hmm
 
             // Copy all other requirement fields over
             Title title = requirement.getTitle();
             List<Module> modules = requirement.getModuleList();
             RequirementCode requirementCode = requirement.getRequirementCode();
-            Credits credits = new Credits(requirement.getCreditsRequired(), Integer.toString(requirementCredits[i]));
+            Credits credits = new Credits(requirement.getCreditsRequired(), requirementCredits[i]);
 
-            Requirement updatedRequirement = new Requirement(title, credits, modules, requirementCode);
+            Requirement updatedRequirement = new Requirement(requirementCode, title, credits, modules);
             setRequirement(requirement, updatedRequirement);
         }
 

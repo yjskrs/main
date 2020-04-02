@@ -12,6 +12,7 @@ import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.Model;
 import igrad.model.avatar.Avatar;
 import igrad.model.course.CourseInfo;
+import igrad.model.requirement.Requirement;
 import igrad.services.exceptions.ServiceException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -243,6 +244,13 @@ public class MainWindow extends UiPart<Stage> {
      * Sets the progress panel on startup.
      */
     void refreshProgressPanel(Model model) {
+        int totalMcs = 0;
+        int totalModules = 0;
+        for (Requirement req : model.getRequirementList()) {
+            totalMcs += req.getCreditsRequired();
+            totalModules += req.getModuleList().size();
+        }
+        int totalRequirements = model.getRequirementList().size();
 
     }
 
