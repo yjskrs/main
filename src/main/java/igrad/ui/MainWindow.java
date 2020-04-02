@@ -11,11 +11,10 @@ import igrad.logic.commands.exceptions.CommandException;
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.Model;
 import igrad.model.avatar.Avatar;
-import igrad.model.course.CourseInfo;
-import igrad.model.requirement.Requirement;
 import igrad.services.exceptions.ServiceException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -42,7 +41,7 @@ public class MainWindow extends UiPart<Stage> {
     private RequirementListPanel requirementListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
-    private StatusBar statusBar;
+    //    private StatusBar statusBar;
     private ProgressSidePanel progressSidePanel;
     private CommandReceivedPanel commandReceivedPanel;
 
@@ -70,6 +69,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane modularCreditsPanelPlaceholder;
+
+    @FXML
+    private HBox mainContainer;
 
     @FXML
     private Label creditsCount;
@@ -129,7 +131,8 @@ public class MainWindow extends UiPart<Stage> {
     void displayAvatarSelectionPanel(Model model) {
         avatarSelectionPanelPlaceholder = new StackPane();
 
-        moduleList.getChildren().add(avatarSelectionPanelPlaceholder);
+        mainContainer.getChildren().removeAll(moduleList, requirementList);
+        mainContainer.getChildren().add(avatarSelectionPanelPlaceholder);
 
         logger.info("Avatar not found. Displaying avatar selection screen instead.");
         avatarSelectionPanel = new AvatarSelectionPanel();
@@ -149,13 +152,21 @@ public class MainWindow extends UiPart<Stage> {
      */
     void displayModulePanel(Model model) {
 
-        moduleList.getChildren().remove(avatarSelectionPanelPlaceholder);
+        mainContainer.getChildren().remove(avatarSelectionPanelPlaceholder);
 
         moduleListPanelPlaceholder = new StackPane();
         requirementListPanelPlaceholder = new StackPane();
 
         moduleList.getChildren().add(moduleListPanelPlaceholder);
         requirementList.getChildren().add(requirementListPanelPlaceholder);
+
+        if (!mainContainer.getChildren().contains(requirementList)) {
+            mainContainer.getChildren().add(requirementList);
+        }
+
+        if (!mainContainer.getChildren().contains(moduleList)) {
+            mainContainer.getChildren().add(moduleList);
+        }
 
         moduleListPanel = new ModuleListPanel(logic.getFilteredModuleList());
         moduleListPanelPlaceholder.getChildren().add(moduleListPanel.getRoot());
@@ -171,40 +182,16 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplay = new ResultDisplay(model.getAvatar());
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        displayStatusBar(model);
-        refreshStatusBar(model);
         displayCommandBox(model);
-        displaySidePanels(model);
+        displayProgressPanel(model);
     }
 
     /**
      * Fills up and displays/refreshes the the placeholders of the side panels (Modular credits info, CAP info).
      */
-    void displaySidePanels(Model model) {
-        progressSidePanel = new ProgressSidePanel();
-        refreshProgressPanel(model);
+    void displayProgressPanel(Model model) {
+        progressSidePanel = new ProgressSidePanel(model);
         progressPanelPlaceholder.getChildren().add(progressSidePanel.getRoot());
-    }
-
-    /**
-     * Fills up and displays the placeholder of the status bar.
-     */
-    void displayStatusBar(Model model) {
-        statusBar = new StatusBar();
-        statusBarPlaceholder.getChildren().add(statusBar.getPane());
-    }
-
-    /**
-     * Refreshes the status bar (UI component) with information from the {@code Model}.
-     */
-    void refreshStatusBar(Model model) {
-        // Extract the updated CourseInfo from our model.
-        CourseInfo courseInfo = model.getCourseInfo();
-
-        logger.fine("courseInfo.getName = " + courseInfo.getName().toString());
-        // Refresh the status bar now, with the updated course name.
-        courseInfo.getName().ifPresentOrElse(
-            x -> statusBar.setCourseName(x.toString()), () -> statusBar.setCourseName(""));
     }
 
     /**
@@ -232,19 +219,7 @@ public class MainWindow extends UiPart<Stage> {
      * Sets the progress panel on startup.
      */
     void refreshProgressPanel(Model model) {
-        int totalMcs = 0;
-        int totalModules = 0;
-        for (Requirement req : model.getRequirementList()) {
-            totalMcs += Integer.parseInt(req.getCreditsRequired());
-            totalModules += req.getModuleList().size();
-        }
-        int totalRequirements = model.getRequirementList().size();
-
-        progressSidePanel.setTotalMcs(totalMcs);
-        progressSidePanel.setTotalModules(totalModules);
-        progressSidePanel.setTotalRequirements(totalRequirements);
-        progressSidePanel.setTotalSemesters(totalMcs);
-        progressSidePanel.updateProgress();
+        progressSidePanel.updateProgress(model);
     }
 
     /**
@@ -338,8 +313,6 @@ public class MainWindow extends UiPart<Stage> {
 
             boolean isSelectingAvatar = model.isSampleAvatar();
 
-            logger.info("courseName = " + model.isCourseNameSet());
-
             if (isSelectingAvatar) {
                 // If user has not selected avatar, get her to do so.
                 commandResult = logic.executeAvatar(commandText);
@@ -359,11 +332,8 @@ public class MainWindow extends UiPart<Stage> {
                 handleHelp();
             } else if (commandResult.isExit()) {
                 handleExit();
-            } else if (commandResult.isCourseEdit()) {
-                refreshStatusBar(model);
             }
 
-            refreshStatusBar(model);
             handleStopLoading(model.getAvatar());
 
             return commandResult;

@@ -22,22 +22,23 @@ class JsonAdaptedRequirement {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Requirement's %s field is missing!";
 
+    private final String requirementCode;
     private final String title;
     private final String credits;
-    private final String requirementCode;
     private final List<String> moduleCodes = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonAdaptedRequirement} with the given module details.
+     * Constructs a {@code JsonAdaptedRequirement} with the given requirement details.
      */
     @JsonCreator
-    public JsonAdaptedRequirement(@JsonProperty("title") String title,
+    public JsonAdaptedRequirement(@JsonProperty("requirementCode") String requirementCode,
+                                  @JsonProperty("title") String title,
                                   @JsonProperty("credits") String credits,
-                                  @JsonProperty("requirementCode") String requirementCode,
                                   @JsonProperty("modules") List<String> moduleCodes) {
+
+        this.requirementCode = requirementCode;
         this.title = title;
         this.credits = credits;
-        this.requirementCode = requirementCode;
 
         if (moduleCodes != null) {
             this.moduleCodes.addAll(moduleCodes);
@@ -48,9 +49,9 @@ class JsonAdaptedRequirement {
      * Converts a given {@code Requirement} into this class for Jackson use.
      */
     public JsonAdaptedRequirement(Requirement source) {
-        title = source.getTitle().toString();
-        credits = source.getCreditsRequired();
         requirementCode = source.getRequirementCode().toString();
+        title = source.getTitle().toString();
+        credits = String.valueOf(source.getCreditsRequired());
         moduleCodes.addAll(source.getModuleList().stream()
             .map(module -> module.getModuleCode().toString())
             .collect(Collectors.toList()));
@@ -62,40 +63,52 @@ class JsonAdaptedRequirement {
      * @throws IllegalValueException if there were any data constraints violated in the adapted requirement.
      */
     public Requirement toModelType(List<Module> moduleList) throws IllegalValueException {
-        final List<Module> modelModules = new ArrayList<>();
-
-        modelModules.addAll(moduleList.stream() // for all modules
-            .filter(module -> moduleCodes.stream() // find a module which has the same moduleCode as one in moduleCodes
-                .anyMatch(moduleCode -> module.hasModuleCodeOf(new ModuleCode(moduleCode))))
-            .collect(Collectors.toList()));
-
-        if (title == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Title.class.getSimpleName()));
+        // check for valid requirement code
+        if (requirementCode == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                RequirementCode.class.getSimpleName()));
+        }
+        if (!RequirementCode.isValidRequirementCode(requirementCode)) {
+            throw new IllegalValueException(RequirementCode.MESSAGE_CONSTRAINTS);
         }
 
+        // check for valid title
+        if (title == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                Title.class.getSimpleName()));
+        }
         if (!Title.isValidTitle(title)) {
             throw new IllegalValueException(Title.MESSAGE_CONSTRAINTS);
         }
 
+        // check for valid credits
         if (credits == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Credits.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                Credits.class.getSimpleName()));
         }
-
         if (!Credits.isValidCredits(credits)) {
             throw new IllegalValueException(Credits.MESSAGE_CONSTRAINTS);
         }
 
+        final RequirementCode modelRequirementCode = new RequirementCode(requirementCode);
         final Title modelName = new Title(title);
+        final Credits modelCredits;
+        final List<Module> modelModules = new ArrayList<>();
 
-        final Credits modelCredits = new Credits(credits);
+        modelModules.addAll(moduleList.stream() // for all modules
+                                .filter(module -> moduleCodes.stream() // find module existing in moduleCodes
+                                    .anyMatch(moduleCode -> module.hasModuleCodeOf(new ModuleCode(moduleCode))))
+                                .collect(Collectors.toList()));
 
-        if (requirementCode == null) {
-            return new Requirement(modelName, modelCredits, modelModules);
-        } else {
-            final RequirementCode modelRequirementCode = new RequirementCode(requirementCode);
-            return new Requirement(modelName, modelCredits, modelModules, modelRequirementCode);
+        int creditsFulfilled = 0;
+        for (Module module : modelModules) {
+            if (module.isDone()) {
+                creditsFulfilled += module.getCredits().toInteger();
+            }
         }
+        modelCredits = new Credits(Integer.parseInt(credits), creditsFulfilled);
 
+        return new Requirement(modelRequirementCode, modelName, modelCredits, modelModules);
     }
 
 }

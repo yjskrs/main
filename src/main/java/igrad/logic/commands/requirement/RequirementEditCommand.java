@@ -25,7 +25,7 @@ public class RequirementEditCommand extends RequirementCommand {
     public static final String MESSAGE_DETAILS = COMMAND_WORD + ": Edits the requirement identified "
         + "by its requirement code. Existing requirement will be overwritten by the input values.\n";
 
-    public static final String MESSAGE_USAGE = "Parameter(s): REQUIREMENT_CODE "
+    public static final String MESSAGE_USAGE = "Parameters: REQUIREMENT_CODE "
         + "[" + PREFIX_TITLE + "TITLE] "
         + "[" + PREFIX_CREDITS + "CREDITS]\n"
         + "Example: " + COMMAND_WORD + " UE0 "
@@ -35,7 +35,7 @@ public class RequirementEditCommand extends RequirementCommand {
 
     public static final String MESSAGE_SUCCESS = "Edited Requirement: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_REQUIREMENT_SAME_PARAMETERS = "Please change the name and/or the credits.";
+    public static final String MESSAGE_REQUIREMENT_SAME_PARAMETERS = "Please change the title and/or the credits.";
 
 
     private final RequirementCode requirementCode;
@@ -72,10 +72,10 @@ public class RequirementEditCommand extends RequirementCommand {
         // Note: requirementCode should never be edited, its the unique ID
         Title editedTitle = newTitle.orElse(requirementToEdit.getTitle());
         Credits editedCredits = newCredits.orElse(requirementToEdit.getCredits());
-        Requirement editedRequirement = new Requirement(editedTitle, editedCredits, requirementToEdit.getModuleList(),
-            requirementToEdit.getRequirementCode());
+        Requirement editedRequirement = new Requirement(requirementToEdit.getRequirementCode(),
+            editedTitle, editedCredits, requirementToEdit.getModuleList());
 
-        // If the provided name is same as before and/or if the provided credits is same as before
+        // If the provided title is same as before and/or if the provided credits is same as before
         /*
          * TODO: Somehow I feel you could be abit more lenient on this; if i go to FB to change my phone number and
          *  its still the same, I don't think it'll flag an error. Moreover, to be consistent with the rest of the

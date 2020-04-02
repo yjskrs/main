@@ -1,9 +1,29 @@
 /*
+AvatarSelection
+*/
+
+.avatar-selection {
+    -fx-padding: 60px 0px;
+    -fx-min-width: 600;
+    -fx-alignment: center;
+}
+
+.avatar-selection .title {
+    -fx-min-width: 600;
+    -fx-font-size: 48px;
+    -fx-alignment: center;
+}
+
+.avatar-grid-pane {
+    -fx-min-width: 600;
+}
+
+/*
 ModuleListCard
 */
 .module-panel-container {
-    -fx-max-width: 380px;
-    -fx-min-width: 380px;
+    -fx-max-width: 300px;
+    -fx-min-width: 300px;
 }
 
 .module-panel {
@@ -59,6 +79,7 @@ ProgressSidePanel
     -fx-pref-height: 343px;
     -fx-pref-width: 300px;
     -fx-padding: 16px;
+    -fx-min-height: 388px;
 }
 
 .progress-title {
@@ -73,17 +94,32 @@ ProgressSidePanel
 }
 
 .progress-bar {
-    -fx-pref-width: 200px;
+    -fx-insets: 4px;
+    -fx-pref-width: 260px;
+    -fx-stroke-width: 10px;
+    -fx-accent: #f27c36;
+    -fx-control-inner-background: #2a2a2a;
+    -fx-background: #3a3a3a;
+}
+
+.credits-count {
+    -fx-text-fill: #d7d7d7 !important;
+    -fx-font-size: 13px !important;
     -fx-padding: 0px 0px 4px 0px;
 }
 
-.progress-side-panel .label {
-    -fx-text-fill: #d1d1d1;
-    -fx-font-size: 16;
+.progress-content {
+    -fx-padding: 16px 0px;
 }
 
-.progress-label {
-    -fx-padding: 0px 0px 0px 0px;
+.course-name {
+    -fx-font-weight: bold;
+    -fx-font-size: 18px !important;
+}
+
+.inspirational-quote {
+    -fx-padding: 24px 0px;
+    -fx-font-style: italic;
 }
 
 /*
@@ -514,8 +550,8 @@ AB3 Default
 }
 
 .requirement-panel-container {
-    -fx-max-width: 430px;
-    -fx-min-width: 430px;
+    -fx-max-width: 510px;
+    -fx-min-width: 510px;
 }
 
 .requirement-panel {
@@ -534,7 +570,7 @@ AB3 Default
    -fx-border-radius: 20;
    -fx-border-color: #4d4d4d;
    -fx-padding: 8px;
-   -fx-max-width: 355px;
+   -fx-max-width: 470px;
 }
 
 .requirement-card .inner {
