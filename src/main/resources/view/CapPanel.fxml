@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="capPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
             minWidth="-Infinity" prefHeight="200.0" prefWidth="300.0" styleClass="mcSidePanel"
-            stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/11.0.1">
+            stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/11.0.0">
     <children>
         <Label alignment="CENTER" layoutX="143.0" prefHeight="50.0" style="-fx-font-size: 20;" text="C.A.P"/>
         <ImageView fitHeight="35.0" fitWidth="37.0" layoutX="102.0" layoutY="8.0" pickOnBounds="true"

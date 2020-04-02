@@ -71,12 +71,12 @@ public class AvatarSelectionPanel extends UiPart<Region> {
             ImageView avatarDisplay = new ImageView();
 
             // TODO: (Wayne/Daryl) try to find a way to set these preferences in the FXML files instead of here
-            avatarDisplay.setFitHeight(80);
-            avatarDisplay.setFitWidth(80);
+            avatarDisplay.setFitHeight(60);
+            avatarDisplay.setFitWidth(60);
             avatarDisplay.setImage(avatarImg);
 
-            avatarName.setStyle("-fx-font-family: 'Calibri Light'; -fx-font-size: 30; -fx-text-fill: white");
-            avatarName.setPadding(new Insets(140, 0, 0, 0));
+            avatarName.setStyle("-fx-font-family: 'Calibri Light'; -fx-font-size: 24; -fx-text-fill: white");
+            avatarName.setPadding(new Insets(100, 0, 0, 0));
 
             StackPane.setAlignment(avatarName, Pos.BOTTOM_CENTER);
             pane.getChildren().addAll(avatarDisplay, avatarName);
