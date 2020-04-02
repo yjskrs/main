@@ -114,6 +114,29 @@ public class CourseBookParser {
 
         switch (commandWord) {
 
+        /*
+         * If there is only one command word provided instead of the supposed two-word commands, flag an error
+         * to feedback to the user.
+         */
+
+        case CourseCommand.COURSE_COMMAND_WORD:
+            throw new ParseException(MESSAGE_UNKNOWN_COURSE_COMMAND);
+
+        case RequirementCommand.REQUIREMENT_COMMAND_WORD:
+            throw new ParseException(MESSAGE_UNKNOWN_REQUIREMENT_COMMAND);
+
+        case ModuleCommand.MODULE_COMMAND_WORD:
+            throw new ParseException(MESSAGE_UNKNOWN_MODULE_COMMAND);
+
+        case CourseAddCommand.COMMAND_WORD:
+            return new CourseAddCommandParser().parse(arguments);
+
+        case CourseDeleteCommand.COMMAND_WORD:
+            return new CourseDeleteCommand();
+
+        case CourseEditCommand.COMMAND_WORD:
+            return new CourseEditCommandParser().parse(arguments);
+
         case RequirementAddCommand.COMMAND_WORD:
             return new RequirementAddCommandParser().parse(arguments);
 
@@ -155,32 +178,9 @@ public class CourseBookParser {
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
 
-        case CourseAddCommand.COMMAND_WORD:
-            return new CourseAddCommandParser().parse(arguments);
-
-        case CourseDeleteCommand.COMMAND_WORD:
-            // course delete has no arguments, hence no parse(argument) method needed
-            return new CourseDeleteCommand();
-        case CourseEditCommand.COMMAND_WORD:
-
-            return new CourseEditCommandParser().parse(arguments);
-
         // TODO (Teri): add the relevant case here for the parser to work
 
-
         default:
-            /*
-             * If the first command word (of a 2-word command) is valid, (at least) provide a
-             * feedback to user  instead of throwing an error, e.g, 'course', 'requirement', 'module'.
-             */
-            if (commandWord.equals(CourseCommand.COURSE_COMMAND_WORD)) {
-                throw new ParseException(MESSAGE_UNKNOWN_COURSE_COMMAND);
-            } else if (commandWord.equals(RequirementCommand.REQUIREMENT_COMMAND_WORD)) {
-                throw new ParseException(MESSAGE_UNKNOWN_REQUIREMENT_COMMAND);
-            } else if (commandWord.equals(ModuleCommand.MODULE_COMMAND_WORD)) {
-                throw new ParseException(MESSAGE_UNKNOWN_MODULE_COMMAND);
-            }
-
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }

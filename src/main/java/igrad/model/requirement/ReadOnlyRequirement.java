@@ -26,12 +26,12 @@ public interface ReadOnlyRequirement {
     /**
      * Returns the credits required for the requirement.
      */
-    String getCreditsRequired();
+    int getCreditsRequired();
 
     /**
      * Returns the credits fulfilled for the requirement.
      */
-    String getCreditsFulfilled();
+    int getCreditsFulfilled();
 
     /**
      * Returns an unmodifiable view of the modules in this requirement.
