@@ -127,11 +127,32 @@ public class ModuleDoneCommand extends ModuleCommand {
          * requirements containing that module. And the second is that we need to update the
          * creditsFulfilled of all requirements (which consists of that module).
          *
-         * The setRequirementModule(...) method does both of these, for each related Requirement.
+         * The code below does both of these, for each related Requirement.
          */
         requirementsToUpdate.stream()
-            .forEach(requirementToEdit ->
-                    model.setRequirementModule(requirementToEdit, moduleToEdit, editedModule));
+            .forEach(requirementToEdit -> {
+                // Copy over all the old values of requirementToEdit
+                igrad.model.requirement.RequirementCode requirementCode = requirementToEdit.getRequirementCode();
+                igrad.model.requirement.Title title = requirementToEdit.getTitle();
+
+                int creditsRequired = requirementToEdit.getCredits().getCreditsRequired();
+                int creditsFulfilled = requirementToEdit.getCredits().getCreditsFulfilled()
+                    + editedModule.getCredits().toInteger();
+                igrad.model.requirement.Credits updatedCredits =
+                    new igrad.model.requirement.Credits(creditsRequired, creditsFulfilled);
+
+                // Updates the existing requirement; requirementToEdit with the new module
+                requirementToEdit.setModule(moduleToEdit, editedModule);
+
+                // Get the most update module list
+                List<Module> modules = requirementToEdit.getModuleList();
+
+                // Create a new Requirement with all the updated information (details).
+                Requirement editedRequirement = new Requirement(requirementCode, title, updatedCredits, modules);
+
+                // Create a new module based on that
+                model.setRequirement(requirementToEdit, editedRequirement);
+            });
 
         return new CommandResult(String.format(MESSAGE_MODULE_DONE_SUCCESS, editedModule));
     }

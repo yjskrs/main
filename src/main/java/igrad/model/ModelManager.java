@@ -233,13 +233,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setRequirementModule(Requirement requirementTarget, Module moduleTarget, Module editedModule) {
-        requireAllNonNull(requirementTarget, moduleTarget, editedModule);
-
-        courseBook.setRequirementModule(requirementTarget, moduleTarget, editedModule);
-    }
-
-    @Override
     public void deleteRequirement(Requirement requirement) {
         courseBook.removeRequirement(requirement);
     }
