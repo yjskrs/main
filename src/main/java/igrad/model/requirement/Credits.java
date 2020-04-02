@@ -1,7 +1,6 @@
 package igrad.model.requirement;
 
 import static igrad.commons.util.AppUtil.checkArgument;
-import static igrad.commons.util.CollectionUtil.requireAllNonNull;
 import static java.util.Objects.requireNonNull;
 
 /**
@@ -14,11 +13,12 @@ public class Credits {
         "Modular credits needed to satisfy requirement should be a number more than 0.";
 
     // TODO
-    public static final String VALIDATION_REGEX = "^[0-9]\\d*$"; // allows any numbers more than or equals zero
+    // allow any numbers more than or equals zero for credits required value
+    public static final String VALIDATION_REGEX = "^[0-9]\\d*$";
 
-    private final String creditsRequired;
+    private final int creditsRequired;
 
-    private String creditsFulfilled;
+    private final int creditsFulfilled;
 
     /**
      * Constructs a {@code Credits} with 0 fulfilled credits.
@@ -29,8 +29,8 @@ public class Credits {
         requireNonNull(creditsRequired);
         checkArgument(isValidCredits(creditsRequired), MESSAGE_CONSTRAINTS);
 
-        this.creditsRequired = creditsRequired;
-        this.creditsFulfilled = "0";
+        this.creditsRequired = Integer.parseInt(creditsRequired);
+        this.creditsFulfilled = 0;
     }
 
     /**
@@ -40,48 +40,41 @@ public class Credits {
      * @param creditsRequired  A valid credits value (integer).
      * @param creditsFulfilled A valid credits value (integer).
      */
-    public Credits(String creditsRequired, String creditsFulfilled) {
-        requireAllNonNull(creditsRequired, creditsFulfilled);
-        checkArgument(isValidCredits(creditsRequired), MESSAGE_CONSTRAINTS);
-        checkArgument(isValidCredits(creditsFulfilled), MESSAGE_CONSTRAINTS);
+    public Credits(int creditsRequired, int creditsFulfilled) {
+        checkArgument(isValidCreditsRequired(creditsRequired), MESSAGE_CONSTRAINTS);
 
         this.creditsRequired = creditsRequired;
         this.creditsFulfilled = creditsFulfilled;
     }
 
     /**
-     * Returns true if given string {@code test} is a valid credits (i.e. more than or equals 0).
+     * Returns true if given String {@code test} is a valid credits (i.e. integer more than or equals 0).
      */
     public static boolean isValidCredits(String test) {
-        return test.matches(VALIDATION_REGEX);
+        requireNonNull(test);
+
+        return test.matches(VALIDATION_REGEX) && Integer.parseInt(test) > 0;
     }
 
     /**
-     * Returns the credits required to mark requirement as done.
+     * Returns true if given integer {@code test} is a valid credits required (i.e. more than 0).
      */
-    public String getCreditsRequired() {
+    public static boolean isValidCreditsRequired(int test) {
+        return test > 0;
+    }
+
+    /**
+     * Returns the credits (int) required to mark requirement as done.
+     */
+    public int getCreditsRequired() {
         return creditsRequired;
     }
 
     /**
-     * Returns the {@code String creditsRequired} as integer.
+     * Returns the credits (int) fulfilled.
      */
-    public int getCreditsRequiredInteger() {
-        return Integer.parseInt(creditsRequired);
-    }
-
-    /**
-     * Returns the credits fulfilled.
-     */
-    public String getCreditsFulfilled() {
+    public int getCreditsFulfilled() {
         return creditsFulfilled;
-    }
-
-    /**
-     * Returns the {@code String creditsFulfilled} as integer.
-     */
-    public int getCreditsFulfilledInteger() {
-        return Integer.parseInt(creditsFulfilled);
     }
 
     /**
@@ -89,27 +82,25 @@ public class Credits {
      * Otherwise return false.
      */
     public boolean isFulfilled() {
-        int required = Integer.parseInt(creditsRequired);
-        int fulfilled = Integer.parseInt(creditsFulfilled);
-        return fulfilled >= required;
+        return creditsFulfilled >= creditsRequired;
     }
 
     @Override
     public String toString() {
-        return creditsRequired;
+        return String.valueOf(creditsRequired);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // return true if same object, else check
             || (other instanceof Credits
-            && creditsRequired.equals(((Credits) other).creditsRequired)
-            && creditsFulfilled.equals(((Credits) other).creditsFulfilled));
+            && creditsRequired == ((Credits) other).creditsRequired
+            && creditsFulfilled == ((Credits) other).creditsFulfilled);
     }
 
     @Override
     public int hashCode() {
-        return creditsRequired.hashCode();
+        return creditsRequired + creditsFulfilled;
     }
 
 }

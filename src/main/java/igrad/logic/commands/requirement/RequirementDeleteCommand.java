@@ -3,6 +3,7 @@ package igrad.logic.commands.requirement;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Optional;
 
 import igrad.logic.commands.CommandResult;
 import igrad.logic.commands.exceptions.CommandException;
@@ -33,18 +34,15 @@ public class RequirementDeleteCommand extends RequirementCommand {
 
         List<Requirement> requirements = model.getRequirementList();
 
-        Requirement requirementToDelete;
-
         // check if requirement exists in course book
-        if (!requirements.stream().anyMatch(requirement -> requirement.getRequirementCode().equals(requirementCode))) {
+        Optional<Requirement> requirementToDelete = requirements.stream()
+            .filter(requirement -> requirement.getRequirementCode().equals(requirementCode)).findFirst();
+
+        if (requirementToDelete.isEmpty()) {
             throw new CommandException(MESSAGE_REQUIREMENT_NON_EXISTENT);
-        } else {
-            requirementToDelete = requirements.stream()
-                .filter(requirement -> requirement.getRequirementCode().equals(requirementCode))
-                .findFirst().get();
         }
 
-        model.deleteRequirement(requirementToDelete);
+        model.deleteRequirement(requirementToDelete.get());
 
         return new CommandResult(
             String.format(MESSAGE_SUCCESS, requirementToDelete));

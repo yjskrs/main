@@ -30,7 +30,7 @@ public class Title {
     }
 
     /**
-     * Returns true if a given string is a valid title.
+     * Returns true if the given string {@code test} is a valid title.
      */
     public static boolean isValidTitle(String test) {
         return test.matches(VALIDATION_REGEX);

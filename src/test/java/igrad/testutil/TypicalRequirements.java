@@ -12,7 +12,7 @@ import igrad.model.requirement.Requirement;
 /**
  * A utility class containing a list of {@code Requirement} objects to be used in tests.
  */
-public class TypicalRequirement {
+public class TypicalRequirements {
 
     public static final Requirement CS_FOUNDATION = new RequirementBuilder()
         .withTitle("Computer Science Foundation")

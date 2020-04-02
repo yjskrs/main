@@ -5,10 +5,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import igrad.commons.core.index.Index;
-import igrad.model.Model;
-import igrad.model.module.Module;
-
 /**
  * A utility class for test cases.
  */
@@ -31,25 +27,25 @@ public class TestUtil {
         }
         return SANDBOX_FOLDER.resolve(fileName);
     }
-
-    /**
-     * Returns the middle index of the module in the {@code model}'s module list.
-     */
-    public static Index getMidIndex(Model model) {
-        return Index.fromOneBased(model.getFilteredModuleList().size() / 2);
-    }
-
-    /**
-     * Returns the last index of the module in the {@code model}'s module list.
-     */
-    public static Index getLastIndex(Model model) {
-        return Index.fromOneBased(model.getFilteredModuleList().size());
-    }
-
-    /**
-     * Returns the module in the {@code model}'s module list at {@code index}.
-     */
-    public static Module getModule(Model model, Index index) {
-        return model.getFilteredModuleList().get(index.getZeroBased());
-    }
+    //
+    // /**
+    //  * Returns the middle index of the module in the {@code model}'s module list.
+    //  */
+    // public static Index getMidIndex(Model model) {
+    //     return Index.fromOneBased(model.getFilteredModuleList().size() / 2);
+    // }
+    //
+    // /**
+    //  * Returns the last index of the module in the {@code model}'s module list.
+    //  */
+    // public static Index getLastIndex(Model model) {
+    //     return Index.fromOneBased(model.getFilteredModuleList().size());
+    // }
+    //
+    // /**
+    //  * Returns the module in the {@code model}'s module list at {@code index}.
+    //  */
+    // public static Module getModule(Model model, Index index) {
+    //     return model.getFilteredModuleList().get(index.getZeroBased());
+    // }
 }

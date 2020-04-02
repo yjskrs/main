@@ -19,6 +19,7 @@ import java.util.List;
 
 import igrad.model.CourseBook;
 import igrad.model.module.Module;
+import igrad.model.requirement.Requirement;
 
 /**
  * A utility class containing a list of {@code Module} objects to be used in tests.
@@ -69,6 +70,17 @@ public class TypicalModules {
             courseBook.addModule(module);
         }
         return courseBook;
+    }
+
+    /**
+     * Returns an {@code Requirement} with all the typical modules.
+     */
+    public static Requirement getTypicalRequirement() {
+        Requirement requirement = new RequirementBuilder().build();
+        for (Module module : getTypicalModules()) {
+            requirement.addModule(module);
+        }
+        return requirement;
     }
 
     public static List<Module> getTypicalModules() {
