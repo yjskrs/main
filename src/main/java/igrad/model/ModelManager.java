@@ -232,6 +232,42 @@ public class ModelManager implements Model {
         courseBook.removeRequirement(requirement);
     }
 
+    //========================================================================================================
+
+    @Override
+    public int getTotalCreditsRequired() {
+
+        return requirements
+            .stream()
+            .mapToInt(requirement -> requirement.getCreditsRequired())
+            .sum();
+
+    }
+
+    @Override
+    public int getTotalCreditsFulfilled() {
+
+        int totalCreditsFulfilled = 0;
+        int totalCreditsRequired = getTotalCreditsRequired();
+
+        for (Requirement requirement : requirements) {
+            int creditsFulfilled = filteredModules
+                .stream()
+                .filter(module -> requirement.getModuleList().contains(module) && module.isDone())
+                .mapToInt(module -> module.getCredits().toInteger())
+                .sum();
+
+            totalCreditsFulfilled += creditsFulfilled;
+        }
+
+        if (totalCreditsFulfilled > totalCreditsRequired) {
+            totalCreditsFulfilled = totalCreditsRequired;
+        }
+
+        return totalCreditsFulfilled;
+
+    }
+
     //=========== Filtered Module List Accessors =============================================================
 
     /**
@@ -245,6 +281,7 @@ public class ModelManager implements Model {
 
     @Override
     public List<Module> getSortedModuleList(Comparator<Module> comparator) {
+
         ObservableList<Module> tempList = getFilteredModuleList();
         List<Module> sortedList = new ArrayList<>(tempList);
         sortedList.sort(comparator);
@@ -305,6 +342,28 @@ public class ModelManager implements Model {
 
         this.updateRequirementList(PREDICATE_SHOW_ALL_REQUIREMENTS);
 
+    }
+
+    @Override
+    public Cap computeEstimatedCap(Cap capToAchieve, int semsLeft) {
+        int totalSems;
+
+        Optional<Cap> current = courseBook.getCourseInfo().getCap();
+
+        if (current.isEmpty()) {
+            totalSems = semsLeft;
+        } else {
+            totalSems = semsLeft + 1;
+        }
+
+        Cap currentCap = courseBook.getCourseInfo().getCap().orElse(new Cap("0"));
+        double capWanted = capToAchieve.getValue();
+        double capNow = currentCap.getValue();
+
+        double estimatedCapEachSem = ((capWanted * totalSems) - capNow) / semsLeft;
+        Cap capToAchieveEachSem = new Cap(estimatedCapEachSem + "");
+
+        return capToAchieveEachSem;
     }
 
     @Override

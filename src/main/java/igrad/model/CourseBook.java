@@ -226,6 +226,19 @@ public class CourseBook implements ReadOnlyCourseBook {
     }
 
     @Override
+    public String requirementsFulfilled() {
+        return requirements.countFulfilled();
+    }
+
+    /**
+     * Checks if the course is complete. A course is complete when all its requirements are fulfilled.
+     */
+    @Override
+    public boolean isComplete() {
+        return requirements.areAllFulfilled();
+    }
+
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
             || (other instanceof CourseBook // instanceof handles nulls

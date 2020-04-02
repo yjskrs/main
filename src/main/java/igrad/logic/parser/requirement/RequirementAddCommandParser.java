@@ -1,6 +1,6 @@
 package igrad.logic.parser.requirement;
 
-import static igrad.logic.commands.requirement.RequirementAddCommand.MESSAGE_HELP;
+import static igrad.logic.commands.requirement.RequirementAddCommand.MESSAGE_REQUIREMENT_ADD_HELP;
 import static igrad.logic.commands.requirement.RequirementAddCommand.MESSAGE_REQUIREMENT_NOT_ADDED;
 import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
 import static igrad.logic.parser.CliSyntax.PREFIX_TITLE;
@@ -37,7 +37,7 @@ public class RequirementAddCommandParser extends RequirementCommandParser {
         // Show help message if arguments are not provided by user
         if (argMultimap.isEmpty(false)) {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
-                MESSAGE_HELP));
+                MESSAGE_REQUIREMENT_ADD_HELP));
         }
 
         // Check if title and MCs are provided by user

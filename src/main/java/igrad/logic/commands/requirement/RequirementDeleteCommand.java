@@ -18,7 +18,15 @@ public class RequirementDeleteCommand extends RequirementCommand {
 
     public static final String COMMAND_WORD = REQUIREMENT_COMMAND_WORD + SPACE + "delete";
 
-    public static final String MESSAGE_SUCCESS = "Deleted Requirement: %1$s";
+    public static final String MESSAGE_DETAILS = COMMAND_WORD + ": Deletes the requirement identified "
+        + "by its requirement code.\n";
+
+    public static final String MESSAGE_USAGE = "Parameter(s): REQUIREMENT_CODE\n"
+                                                   + "Example: " + COMMAND_WORD + " UE0";
+
+    public static final String MESSAGE_REQUIREMENT_DELETE_HELP = MESSAGE_DETAILS + MESSAGE_USAGE;
+
+    public static final String MESSAGE_REQUIREMENT_DELETE_SUCCESS = "Deleted Requirement: %1$s";
 
     private final RequirementCode requirementCode;
 
@@ -45,7 +53,7 @@ public class RequirementDeleteCommand extends RequirementCommand {
         model.deleteRequirement(requirementToDelete.get());
 
         return new CommandResult(
-            String.format(MESSAGE_SUCCESS, requirementToDelete));
+            String.format(MESSAGE_REQUIREMENT_DELETE_SUCCESS, requirementToDelete));
     }
 
 }

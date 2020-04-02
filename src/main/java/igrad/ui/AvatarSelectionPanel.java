@@ -15,7 +15,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
-import javafx.scene.text.Font;
 import javafx.stage.Screen;
 
 /**
@@ -39,18 +38,7 @@ public class AvatarSelectionPanel extends UiPart<Region> {
         super(FXML);
 
         initAvatarImgList();
-        showMainLabel();
         showAvatarImgList();
-    }
-
-    /**
-     * Displays the welcome message, on top of the panel.
-     */
-    private void showMainLabel() {
-        avatarLabel.setText(WELCOME_MESSAGE);
-
-        // TODO: delete the line (below) when no need
-        Font.getFamilies().forEach(System.out::println);
     }
 
     /**
@@ -83,12 +71,12 @@ public class AvatarSelectionPanel extends UiPart<Region> {
             ImageView avatarDisplay = new ImageView();
 
             // TODO: (Wayne/Daryl) try to find a way to set these preferences in the FXML files instead of here
-            avatarDisplay.setFitHeight(0.12 * primaryScreenBounds.getHeight());
-            avatarDisplay.setFitWidth(0.12 * primaryScreenBounds.getHeight());
+            avatarDisplay.setFitHeight(80);
+            avatarDisplay.setFitWidth(80);
             avatarDisplay.setImage(avatarImg);
 
             avatarName.setStyle("-fx-font-family: 'Calibri Light'; -fx-font-size: 30; -fx-text-fill: white");
-            avatarName.setPadding(new Insets(200, 0, 0, 0));
+            avatarName.setPadding(new Insets(140, 0, 0, 0));
 
             StackPane.setAlignment(avatarName, Pos.BOTTOM_CENTER);
             pane.getChildren().addAll(avatarDisplay, avatarName);

@@ -8,17 +8,59 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.Separator?>
 <VBox xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
       styleClass="progress-side-panel" stylesheets="@DarkTheme.css"
       xmlns="http://javafx.com/javafx/11.0.1">
     <children>
-        <HBox>
-            <Label
-                    styleClass="progress-title" text="My Progress"/>
-            <Label
-                    wrapText="false"
-                styleClass="progress-rank"
-                text="Novice Student"/>
-        </HBox>
+            <HBox spacing="4.0" alignment="CENTER_LEFT">
+                <ImageView
+                        styleClass="grad-cap"
+                        fx:id="gradCapImageView"/>
+                <Label
+                        styleClass="course-name"
+                        text="Your Course"
+                        fx:id="courseNameLabel"/>
+            </HBox>
+            <HBox
+                    style="-fx-border-color: #4d4d4d; -fx-border-width: 0 0 2 0;"
+                    alignment="CENTER">
+                <Label
+                        styleClass="inspirational-quote"
+                    fx:id="inspirationalQuote"
+                    text="&quot;Strive for progress, not perfection.&quot;"
+                />
+            </HBox>
+            <VBox styleClass="progress-content">
+                <Label
+                        styleClass="credits-count"
+                fx:id="creditsCount"
+                text="0 of 0 MCs completed"
+                />
+                <ProgressBar
+                        styleClass="progress-bar"
+                    fx:id="progressBar"
+                >
+                </ProgressBar>
+            </VBox>
+            <GridPane style="-fx-padding: 24 0 0 0;" hgap="50.0" vgap="8.0">
+                <Label
+                        style="-fx-font-size: 13px !important;"
+                        text="Semesters Left"
+                        GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <Label
+                        style="-fx-font-size: 13px !important;-fx-font-weight: bold"
+                        text="2"
+                        GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                <Label
+                        style="-fx-font-size: 13px !important;"
+                        text="Current CAP"
+                        GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <Label
+                        style="-fx-font-size: 13px !important;-fx-font-weight: bold"
+                        text="4.2/5.0"
+                        GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+            </GridPane>
     </children>
 </VBox>
