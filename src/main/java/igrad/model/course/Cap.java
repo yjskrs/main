@@ -38,6 +38,10 @@ public class Cap {
         return test.matches(VALIDATION_REGEX);
     }
 
+    public double getValue() {
+        return Double.parseDouble(value);
+    }
+
     @Override
     public String toString() {
         return value;

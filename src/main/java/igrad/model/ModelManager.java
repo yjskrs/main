@@ -345,6 +345,28 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public Cap computeEstimatedCap(Cap capToAchieve, int semsLeft) {
+        int totalSems;
+
+        Optional<Cap> current = courseBook.getCourseInfo().getCap();
+
+        if (current.isEmpty()) {
+            totalSems = semsLeft;
+        } else {
+            totalSems = semsLeft + 1;
+        }
+
+        Cap currentCap = courseBook.getCourseInfo().getCap().orElse(new Cap("0"));
+        double capWanted = capToAchieve.getValue();
+        double capNow = currentCap.getValue();
+
+        double estimatedCapEachSem = ((capWanted * totalSems) - capNow) / semsLeft;
+        Cap capToAchieveEachSem = new Cap(estimatedCapEachSem + "");
+
+        return capToAchieveEachSem;
+    }
+
+    @Override
     public boolean equals(Object obj) {
         // short circuit if same object
         if (obj == this) {
