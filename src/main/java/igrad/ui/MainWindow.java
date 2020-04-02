@@ -308,6 +308,7 @@ public class MainWindow extends UiPart<Stage> {
 
         refreshCommandReceived(commandText);
 
+        System.out.println("isC");
         try {
             CommandResult commandResult;
 

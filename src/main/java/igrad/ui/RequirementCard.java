@@ -39,8 +39,8 @@ public class RequirementCard extends UiPart<Region> {
         requirementCode.setText(requirement.getRequirementCode().toString());
         requirementTitle.setText(requirement.getTitle().toString());
 
-        String creditsCountText = requirement.getCreditsFulfilled()
-            + " out of " + requirement.getCreditsRequired()
+        String creditsCountText = String.valueOf(requirement.getCreditsFulfilled())
+            + " out of " + String.valueOf(requirement.getCreditsRequired())
             + " MCs fulfilled";
 
         creditsCount.setText(creditsCountText);
