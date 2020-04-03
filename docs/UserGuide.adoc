@@ -99,6 +99,28 @@ A module is the building block of all other components. Mark your modules as don
 a grade. You can also add optional memos to help you remember why
 you took the module.
 
+== Walkthrough
+
+1. Start up the application
+
+2. Enter your course details
+
+3. Key in your graduation requirements
+
+4. Add modules to the tracker
+
+5. Assign your modules
+
+6. Key in additional details for your modules
+
+7. Mark a module as done and assign a grade to it
+
+8. Track your MCs
+
+9. View your CAP
+
+10. Export your data
+
 == Command List
 ____
 This segment contains a list of commands with examples that you can use to make full use of iGrad.
