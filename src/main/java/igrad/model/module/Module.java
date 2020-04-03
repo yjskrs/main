@@ -178,7 +178,9 @@ public class Module {
 
         return otherModule.getTitle().equals(getTitle())
             && otherModule.getModuleCode().equals(getModuleCode())
-            && otherModule.getCredits().equals(getCredits());
+            && otherModule.getCredits().equals(getCredits())
+            && otherModule.getGrade().equals(getGrade())
+            && otherModule.getSemester().equals(getSemester());
     }
 
     @Override

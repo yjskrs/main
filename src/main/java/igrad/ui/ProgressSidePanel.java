@@ -3,6 +3,7 @@ package igrad.ui;
 import java.util.Optional;
 
 import igrad.model.Model;
+import igrad.model.course.Cap;
 import igrad.model.course.CourseInfo;
 import igrad.model.course.Name;
 import javafx.fxml.FXML;
@@ -33,6 +34,9 @@ public class ProgressSidePanel extends UiPart<Region> {
     @FXML
     private Label inspirationalQuote;
 
+    @FXML
+    private Label currentCap;
+
     public ProgressSidePanel(Model model) {
         super(FXML);
 
@@ -44,6 +48,10 @@ public class ProgressSidePanel extends UiPart<Region> {
      * Updates the progress panel
      */
     public void updateProgress(Model model) {
+
+        String cap = model.computeCap().value;
+
+        currentCap.setText(cap);
 
         String quote = model.getRandomQuoteString();
 
