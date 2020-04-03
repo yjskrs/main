@@ -92,21 +92,13 @@ class JsonAdaptedRequirement {
 
         final RequirementCode modelRequirementCode = new RequirementCode(requirementCode);
         final Title modelName = new Title(title);
-        final Credits modelCredits;
+        final Credits modelCredits = new Credits(credits);
         final List<Module> modelModules = new ArrayList<>();
 
         modelModules.addAll(moduleList.stream() // for all modules
                                 .filter(module -> moduleCodes.stream() // find module existing in moduleCodes
                                     .anyMatch(moduleCode -> module.hasModuleCodeOf(new ModuleCode(moduleCode))))
                                 .collect(Collectors.toList()));
-
-        int creditsFulfilled = 0;
-        for (Module module : modelModules) {
-            if (module.isDone()) {
-                creditsFulfilled += module.getCredits().toInteger();
-            }
-        }
-        modelCredits = new Credits(Integer.parseInt(credits), creditsFulfilled);
 
         return new Requirement(modelRequirementCode, modelName, modelCredits, modelModules);
     }
