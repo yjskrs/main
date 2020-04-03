@@ -35,7 +35,7 @@ public class ModuleAddAutoCommand extends ModuleCommand {
         + PREFIX_MEMO + "Hard module. Good teachers. "
         + PREFIX_SEMESTER + "Y2S2 ";
 
-    public static final String MESSAGE_COMPLETE = "%d module(s) added through NUSMods API.";
+    public static final String MESSAGE_COMPLETE = "%d module(s) added through NUSMods API.\n";
     public static final String MESSAGE_SUCCESS = "Added module: %s\n";
     public static final String MESSAGE_DUPLICATE_MODULE = "ERROR: Duplicate detected: %s\n";
     public static final String MESSAGE_PREREQUISITE_NOT_PRESENT =
@@ -44,14 +44,16 @@ public class ModuleAddAutoCommand extends ModuleCommand {
         "WARNING: Preclusion found!\n";
 
     private final ArrayList<Module> toAddList;
+    private final String messageAdditional;
 
     /**
      * Creates an ModuleAddCommand to add the specified {@code Module}
      */
-    public ModuleAddAutoCommand(ArrayList<Module> modules) {
+    public ModuleAddAutoCommand(ArrayList<Module> modules, String messageAdditional) {
         requireNonNull(modules);
 
         toAddList = modules;
+        this.messageAdditional = messageAdditional;
     }
 
     @Override
@@ -83,6 +85,7 @@ public class ModuleAddAutoCommand extends ModuleCommand {
         }
 
         message.append(String.format(MESSAGE_COMPLETE, modulesAdded));
+        message.append(messageAdditional);
 
         return new CommandResult(message.toString());
     }

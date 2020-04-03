@@ -1,6 +1,7 @@
 package igrad.logic.parser.module;
 
 import static igrad.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static igrad.commons.core.Messages.MESSAGE_REQUEST_FAILED;
 import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
 import static igrad.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static igrad.logic.parser.CliSyntax.PREFIX_MEMO;
@@ -79,8 +80,18 @@ public class ModuleAddAutoCommandParser extends ModuleCommandParser implements P
 
         ArrayList<Module> modules = new ArrayList<>();
 
+        String messageAdditional = "";
+
         for (String moduleCodeStr : moduleCodes) {
-            JsonParsedModule jsonParsedModule = NusModsRequester.getModule(moduleCodeStr);
+
+            JsonParsedModule jsonParsedModule;
+
+            try {
+                jsonParsedModule = NusModsRequester.getModule(moduleCodeStr);
+            } catch (IOException | ServiceException e) {
+                messageAdditional += String.format(MESSAGE_REQUEST_FAILED, moduleCodeStr);
+                continue;
+            }
 
             Title title = parseTitle(jsonParsedModule.getTitle());
             Credits credits = parseCredits(jsonParsedModule.getCredits());
@@ -129,7 +140,7 @@ public class ModuleAddAutoCommandParser extends ModuleCommandParser implements P
             System.out.println(module);
         }
 
-        return new ModuleAddAutoCommand(modules);
+        return new ModuleAddAutoCommand(modules, messageAdditional);
     }
 
 }
