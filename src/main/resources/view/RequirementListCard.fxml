@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.Region?>
 <HBox xmlns:fx="http://javafx.com/fxml/1"
       styleClass="requirement-card"
-      xmlns="http://javafx.com/javafx/11.0.1">
+      xmlns="http://javafx.com/javafx/11.0.0">
     <GridPane hgap="20.0" vgap="2" styleClass="inner">
         <Label
                 styleClass="code"

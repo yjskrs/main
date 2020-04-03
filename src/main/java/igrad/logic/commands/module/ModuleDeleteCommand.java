@@ -18,7 +18,7 @@ public class ModuleDeleteCommand extends ModuleCommand {
 
     public static final String MODULE_DELETE_COMMAND_WORD = MODULE_COMMAND_WORD + SPACE + "delete";
 
-    public static final String MESSAGE_MODULE_DELETE_SUCCESS = "Deleted Module: %1$s";
+    public static final String MESSAGE_MODULE_DELETE_SUCCESS = "Deleted Module:\n%1$s";
 
     private final ModuleCode moduleCode;
 

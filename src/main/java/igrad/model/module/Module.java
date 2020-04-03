@@ -150,24 +150,25 @@ public class Module {
         ModuleCode moduleCode = getModuleCode();
         Credits credits = getCredits();
 
-        Optional<Memo> memo = getMemo();
+        /*Optional<Memo> memo = getMemo();
         Optional<Description> description = getDescription();
         Optional<Semester> semester = getSemester();
-        Optional<Grade> grade = getGrade();
+        Optional<Grade> grade = getGrade();*/
 
         final StringBuilder builder = new StringBuilder();
+
         builder
-            .append("Title: ")
-            .append(title)
-            .append(" Code: ")
+            .append("Module Code: ")
             .append(moduleCode)
-            .append(" Credits: ")
+            .append(", Title: ")
+            .append(title)
+            .append(", Credits: ")
             .append(credits);
 
-        memo.ifPresent(x -> builder.append(" Memo: ").append(x));
+        /*memo.ifPresent(x -> builder.append(" Memo: ").append(x));
         description.ifPresent(x -> builder.append(" Description: ").append(x));
         semester.ifPresent(x -> builder.append(" Semester: ").append(x));
-        grade.ifPresent(x -> builder.append(" Grade: ").append(x));
+        grade.ifPresent(x -> builder.append(" Grade: ").append(x));*/
 
         return builder.toString();
     }

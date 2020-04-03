@@ -3,14 +3,14 @@ AvatarSelection
 */
 
 .avatar-selection {
-    -fx-padding: 60px 0px;
+    -fx-padding: 40px 0px;
     -fx-min-width: 600;
     -fx-alignment: center;
 }
 
 .avatar-selection .title {
     -fx-min-width: 600;
-    -fx-font-size: 48px;
+    -fx-font-size: 36px;
     -fx-alignment: center;
 }
 
@@ -22,8 +22,8 @@ AvatarSelection
 ModuleListCard
 */
 .module-panel-container {
-    -fx-max-width: 300px;
-    -fx-min-width: 300px;
+    -fx-max-width: 260px;
+    -fx-min-width: 260px;
 }
 
 .module-panel {
@@ -39,19 +39,19 @@ ModuleListCard
 }
 
 .module-card .title {
-    -fx-font-weight: bold;
-    -fx-font-size: 14px !important;
+    -fx-font-weight: normal;
+    -fx-font-size: 12px !important;
     -fx-text-fill: #fff;
 }
 
 .module-card .module-code {
     -fx-font-weight: bold;
-    -fx-font-size: 14px !important;
+    -fx-font-size: 12px !important;
     -fx-text-fill: #f27c36 !important;
 }
 
 .module-card-default {
-     -fx-font-size: 12px !important;
+     -fx-font-size: 10px !important;
      -fx-text-fill: #010504;
 }
 
@@ -70,16 +70,21 @@ ModuleListCard
 /*
 ProgressSidePanel
 */
+.
+.progress-panel-container {
+    -fx-min-width: 300px !important;
+    -fx-min-height: 400px !important;
+}
+
 .progress-side-panel {
     -fx-background-color: #3a3a3a;
     -fx-border-style: solid;
     -fx-border-color: transparent;
     -fx-background-radius: 20;
     -fx-effect: dropshadow(gaussian, #1d1d1d, 20, 0.2, 0, 10);
-    -fx-pref-height: 343px;
-    -fx-pref-width: 300px;
     -fx-padding: 16px;
-    -fx-min-height: 388px;
+    -fx-min-width:300px;
+    -fx-min-height: 280px !important;
 }
 
 .progress-title {
@@ -132,6 +137,7 @@ StackPane default
 .stack-pane-with-border {
      -fx-background-color: #2a2a2a;
      -fx-border-color: transparent;
+     -fx-alignment: center;
 }
 
 .stack-pane-with-border .text-area {
@@ -159,6 +165,12 @@ StatusBar
 /*
 ResultDisplay
 */
+.result-display-container {
+    -fx-max-height: 80px;
+    -fx-pref-height: 80px;
+    -fx-min-height: 80px;
+}
+
 .result-display {
     -fx-padding: 0px 12px;
     -fx-background-color: #3a3a3a;
@@ -170,7 +182,7 @@ ResultDisplay
 .result-display .text-area {
     -fx-background-color: transparent;
     -fx-border-color: transparent;
-    -fx-font-size: 16;
+    -fx-font-size: 14px;
     -fx-text-fill: white;
 }
 
@@ -231,7 +243,7 @@ CommandReceivedPanel
 }
 
 .command-received-box {
-    -fx-font-size: 16;
+    -fx-font-size: 14;
     -fx-text-fill: white;
     -fx-background-color: #2d2d2d;
     -fx-background-radius: 5;
@@ -239,7 +251,8 @@ CommandReceivedPanel
     -fx-border-style: solid solid solid solid;
     -fx-border-color: #4d4d4d;
     -fx-text-fill: white;
-    -fx-pref-height: 54px;
+    -fx-min-height: 72px;
+    -fx-padding: 12px 8px !important;
 }
 
 #commandReceived .content {
@@ -247,21 +260,28 @@ CommandReceivedPanel
     -fx-border-radius: 20;
     -fx-border-style: solid;
     -fx-border-color: transparent;
-    -fx-text-fill: white;
+     -fx-text-fill: #d7d7d7 !important;
 }
 
 .command-received .title {
-    -fx-font-size: 16px;
+    -fx-font-size: 14px;
     -fx-font-weight: bold;
 }
 
 /*
 CommandBox
 */
+
+.command-box-container {
+    -fx-pref-height: 60px;
+    -fx-min-height: 60px;
+    -fx-max-height: 60px;
+}
+
 .command-box {
     -fx-background-color: #fff;
     -fx-background-radius: 10;
-    -fx-font-size: 20;
+    -fx-font-size: 16px !important;
     -fx-text-fill: #2a2a2a;
     -fx-border-color: transparent;
 }
@@ -360,7 +380,7 @@ AB3 Default
     -fx-background-color: #3a3a3a;
     -fx-label-padding: 0 0 0 0;
     -fx-graphic-text-gap : 0;
-    -fx-padding: 10 20 10 20;
+    -fx-padding: 5 10 5 10;
 }
 
 .list-cell:filled:even {
@@ -509,10 +529,10 @@ AB3 Default
 
 #cardPane {
     -fx-background-color: #303030;
-    -fx-background-radius: 20;
+    -fx-background-radius: 12;
     -fx-border-width: 1;
     -fx-border-style: solid solid solid solid;
-    -fx-border-radius: 20;
+    -fx-border-radius: 12;
     -fx-border-color: #4d4d4d;
 }
 
@@ -550,8 +570,8 @@ AB3 Default
 }
 
 .requirement-panel-container {
-    -fx-max-width: 510px;
-    -fx-min-width: 510px;
+    -fx-max-width: 440px;
+    -fx-min-width: 440px;
 }
 
 .requirement-panel {
@@ -564,28 +584,32 @@ AB3 Default
 
 .requirement-card {
    -fx-background-color: #303030;
-   -fx-background-radius: 20;
+   -fx-background-radius: 12;
    -fx-border-width: 1;
    -fx-border-style: solid;
-   -fx-border-radius: 20;
+   -fx-border-radius: 12;
    -fx-border-color: #4d4d4d;
-   -fx-padding: 8px;
-   -fx-max-width: 470px;
+   -fx-padding: 4px;
+   -fx-max-width: 390px;
 }
 
 .requirement-card .inner {
-    -fx-padding: 12px;
+    -fx-padding: 8px;
+}
+
+.requirement-card .inner .credits {
+    -fx-font-size: 14px !important;
 }
 
 .requirement-card .inner .title {
-    -fx-font-size: 18px !important;
+    -fx-font-size: 16px !important;
     -fx-font-weight: bold;
     -fx-max-width: 260px;
 }
 
 .requirement-card .inner .code {
     -fx-text-fill: #f27c36;
-    -fx-font-size: 18px !important;
+    -fx-font-size: 16px !important;
     -fx-font-weight: bold;
     -fx-max-width: 260px;
 }
@@ -598,6 +622,6 @@ AB3 Default
     -fx-padding: 7px;
     -fx-border-insets: 7px 3px;
     -fx-background-insets: 7px 3px;
-    -fx-font-size: 14px;
+    -fx-font-size: 12px;
 }
 

@@ -53,7 +53,9 @@ public class ProgressSidePanel extends UiPart<Region> {
 
         Optional<Name> courseName = courseInfo.getName();
 
-        courseName.ifPresent(name -> courseNameLabel.setText(name.value));
+        courseName.ifPresentOrElse(
+            name -> courseNameLabel.setText(name.value), () -> courseNameLabel
+                .setText("Your Course."));
 
         String creditsCountString = (int) totalCreditsFulfilled
             + " out of "
