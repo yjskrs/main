@@ -31,7 +31,6 @@
                     <Label styleClass="module-card-default" fx:id="grade" text="-"/>
                 </children>
             </HBox>
-            <Label styleClass="module-card-default" fx:id="memo" text="Notes here"/>
         </VBox>
     </GridPane>
     <padding>

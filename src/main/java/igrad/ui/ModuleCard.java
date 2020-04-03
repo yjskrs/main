@@ -31,8 +31,6 @@ public class ModuleCard extends UiPart<Region> {
     @FXML
     private Label moduleCode;
     @FXML
-    private Label memo;
-    @FXML
     private Label semester;
     @FXML
     private Label credits;
@@ -47,10 +45,6 @@ public class ModuleCard extends UiPart<Region> {
         title.setText(module.getTitle().value);
         moduleCode.setText(module.getModuleCode().value);
         credits.setText(module.getCredits().value + " MCs");
-
-        if (module.getMemo().isPresent()) {
-            memo.setText("Memo: " + module.getMemo().get().value);
-        }
 
         if (module.getSemester().isPresent()) {
             semester.setText(module.getSemester().get().value);

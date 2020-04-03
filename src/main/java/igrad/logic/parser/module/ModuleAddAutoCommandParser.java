@@ -135,11 +135,6 @@ public class ModuleAddAutoCommandParser extends ModuleCommandParser implements P
 
         }
 
-        System.out.println("Printing all modules retrieved");
-        for (Module module : modules) {
-            System.out.println(module);
-        }
-
         return new ModuleAddAutoCommand(modules, messageAdditional);
     }
 
