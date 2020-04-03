@@ -150,6 +150,8 @@ public interface Model {
      */
     Cap computeCap();
 
+    String getRandomQuoteString();
+
     /**
      * Adds the given module.
      * {@code module} must not already exist in the course book.

@@ -27,6 +27,8 @@
                     style="-fx-border-color: #4d4d4d; -fx-border-width: 0 0 2 0;"
                     alignment="CENTER">
                 <Label
+                        alignment="CENTER"
+                        wrapText="true"
                         styleClass="inspirational-quote"
                     fx:id="inspirationalQuote"
                     text="&quot;Strive for progress, not perfection.&quot;"
