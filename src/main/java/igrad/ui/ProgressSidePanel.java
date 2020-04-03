@@ -63,6 +63,7 @@ public class ProgressSidePanel extends UiPart<Region> {
                 + " out of "
                 + credits.get().getCreditsRequired() + " MCs completed";
         } else {
+            progressBar.setProgress(0);
             creditsCountString = "- MCs";
         }
 
