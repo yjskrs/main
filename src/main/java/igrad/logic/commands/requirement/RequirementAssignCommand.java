@@ -11,8 +11,10 @@ import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
 import igrad.model.module.Module;
 import igrad.model.module.ModuleCode;
+import igrad.model.requirement.Credits;
 import igrad.model.requirement.Requirement;
 import igrad.model.requirement.RequirementCode;
+import igrad.model.requirement.Title;
 
 /**
  * Assigns modules under a particular requirement.
@@ -57,7 +59,6 @@ public class RequirementAssignCommand extends RequirementCommand {
         Requirement requirementToAssign = model.getRequirement(requirementCode)
             .orElseThrow(() -> new CommandException(MESSAGE_REQUIREMENT_NON_EXISTENT));
 
-        Requirement editedRequirement = new Requirement(requirementToAssign);
 
         final List<Module> modulesToAssign = model.getModulesByModuleCode(moduleCodes);
 
@@ -67,16 +68,41 @@ public class RequirementAssignCommand extends RequirementCommand {
         }
 
         // Now check, if any modules specified are existent in the requirement (they should not)
-        if (editedRequirement.hasModule(modulesToAssign)) {
+        if (requirementToAssign.hasModule(modulesToAssign)) {
             throw new CommandException(MESSAGE_MODULES_ALREADY_EXIST_IN_REQUIREMENT);
         }
 
-        // Finally if everything alright, we can actually then assign the specified modules under this requirement
-        editedRequirement.addModules(modulesToAssign);
+        // Finally if everything alright, we can actually then assign/add the specified modules under this requirement
+        requirementToAssign.addModules(modulesToAssign);
+
+        // First, we copy over all the old values of requirementToAssign
+        RequirementCode requirementCode = requirementToAssign.getRequirementCode();
+        Title title = requirementToAssign.getTitle();
+
+        /*
+         * Now given that we've added this list of new modules to requirement, we've to update (recompute)
+         * creditsFulfilled
+         */
+        int creditsRequired = requirementToAssign.getCredits().getCreditsRequired();
+        int creditsFulfilled = requirementToAssign.getCredits().getCreditsFulfilled();
+
+        // Looping through all the new modules added to update creditsFulfilled
+        for (Module module : modulesToAssign) {
+            if (module.isDone()) {
+                creditsFulfilled += module.getCredits().toInteger();
+            }
+        }
+
+        // Construct a new Credits object to reflect this new Credits changes
+        Credits updatedCredits = new Credits(creditsRequired, creditsFulfilled);
+
+        // Get the most update module list (now with the new modules assigned/added)
+        List<Module> modules = requirementToAssign.getModuleList();
+
+        // Finally, create a new Requirement with all the updated information (details).
+        Requirement editedRequirement = new Requirement(requirementCode, title, updatedCredits, modules);
 
         model.setRequirement(requirementToAssign, editedRequirement);
-
-        model.recalculateRequirementList();
 
         return new CommandResult(
             String.format(MESSAGE_SUCCESS, editedRequirement));

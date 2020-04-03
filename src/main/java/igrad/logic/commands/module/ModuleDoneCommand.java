@@ -135,22 +135,25 @@ public class ModuleDoneCommand extends ModuleCommand {
                 igrad.model.requirement.RequirementCode requirementCode = requirementToEdit.getRequirementCode();
                 igrad.model.requirement.Title title = requirementToEdit.getTitle();
 
+                // Now given that we've added a new module to requirement, we've to update (recompute) creditsFulfilled
                 int creditsRequired = requirementToEdit.getCredits().getCreditsRequired();
                 int creditsFulfilled = requirementToEdit.getCredits().getCreditsFulfilled()
                     + editedModule.getCredits().toInteger();
+
+                // Construct a new Credits object to reflect this new Credits changes
                 igrad.model.requirement.Credits updatedCredits =
                     new igrad.model.requirement.Credits(creditsRequired, creditsFulfilled);
 
                 // Updates the existing requirement; requirementToEdit with the new module
                 requirementToEdit.setModule(moduleToEdit, editedModule);
 
-                // Get the most update module list
+                // Get the most update module list (now with the new module replaced)
                 List<Module> modules = requirementToEdit.getModuleList();
 
-                // Create a new Requirement with all the updated information (details).
+                // Finally, create a new Requirement with all the updated information (details).
                 Requirement editedRequirement = new Requirement(requirementCode, title, updatedCredits, modules);
 
-                // Create a new module based on that
+                // Update the current Requirement in the model (coursebook) with this latest version.
                 model.setRequirement(requirementToEdit, editedRequirement);
             });
 
