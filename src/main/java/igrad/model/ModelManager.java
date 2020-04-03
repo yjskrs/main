@@ -141,7 +141,7 @@ public class ModelManager implements Model {
     @Override
     public void deleteModule(Module target) {
         courseBook.removeModule(target);
-        courseBook.removeModuleFromRequirement(target);
+        // courseBook.removeModuleFromRequirement(target);
     }
 
     @Override

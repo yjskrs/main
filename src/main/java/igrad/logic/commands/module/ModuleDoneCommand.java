@@ -113,12 +113,7 @@ public class ModuleDoneCommand extends ModuleCommand {
         // Updating the model with the latest course info (cap)
         model.setCourseInfo(courseInfo);
 
-        /*
-         * Given that this module has been updated in the modules list, there are two things we need
-         * to do, first is to update the copies of this  modules existing in the modules list of all
-         * requirements containing that module. And the second is that we need to update the
-         * creditsFulfilled of all requirements (which consists of that module).
-         */
+
         List<Requirement> requirementsToUpdate = model.getRequirementsWithModule(editedModule);
 
         /*
@@ -144,7 +139,7 @@ public class ModuleDoneCommand extends ModuleCommand {
                 igrad.model.requirement.Credits updatedCredits =
                     new igrad.model.requirement.Credits(creditsRequired, creditsFulfilled);
 
-                // Updates the existing requirement; requirementToEdit with the new module
+                // Updates the existing requirement; requirementToEdit with the editedModule
                 requirementToEdit.setModule(moduleToEdit, editedModule);
 
                 // Get the most update module list (now with the new module replaced)
