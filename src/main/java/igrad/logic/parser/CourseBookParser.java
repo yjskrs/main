@@ -37,7 +37,7 @@ import igrad.logic.parser.course.CourseAchieveCommandParser;
 import igrad.logic.parser.course.CourseAddCommandParser;
 import igrad.logic.parser.course.CourseEditCommandParser;
 import igrad.logic.parser.exceptions.ParseException;
-import igrad.logic.parser.module.AddAutoCommandParser;
+import igrad.logic.parser.module.ModuleAddAutoCommandParser;
 import igrad.logic.parser.module.ModuleAddCommandParser;
 import igrad.logic.parser.module.ModuleDeleteCommandParser;
 import igrad.logic.parser.module.ModuleDoneCommandParser;
@@ -157,7 +157,7 @@ public class CourseBookParser {
         case ModuleAddCommand.MODULE_ADD_COMMAND_WORD:
 
             if (ArgumentTokenizer.isFlagPresent(argumentsWithFlags, FLAG_AUTO.getFlag())) {
-                return new AddAutoCommandParser().parse(arguments);
+                return new ModuleAddAutoCommandParser().parse(arguments);
             } else {
                 return new ModuleAddCommandParser().parse(arguments);
             }

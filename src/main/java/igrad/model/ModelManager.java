@@ -139,6 +139,57 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasModulePreclusions(Module module) {
+        requireNonNull(module);
+
+        boolean hasModulePreclusions = false;
+
+        if (module.getPreclusions().isPresent()) {
+
+            ModuleCode[] preclusions = module.getPreclusions().get();
+
+            for (ModuleCode preclusion : preclusions) {
+                Optional<Module> mOpt = getModuleByModuleCode(preclusion);
+                if (mOpt.isPresent()) {
+                    hasModulePreclusions = true;
+                }
+            }
+
+        }
+
+        return hasModulePreclusions;
+
+    }
+
+    @Override
+    public boolean hasModulePrerequisites(Module module) {
+        requireNonNull(module);
+
+        boolean hasModulePrerequisites = true;
+
+        if (module.getPrequisites().isPresent()) {
+
+            ModuleCode[] preqrequisites = module.getPrequisites().get();
+
+            for (ModuleCode prerequisite : preqrequisites) {
+                Optional<Module> mOpt = getModuleByModuleCode(prerequisite);
+                if (mOpt.isEmpty()) {
+                    hasModulePrerequisites = false;
+                } else {
+                    Module m = mOpt.get();
+                    if (!m.isDone()) {
+                        hasModulePrerequisites = false;
+                    }
+                }
+            }
+
+        }
+
+        return hasModulePrerequisites;
+
+    }
+
+    @Override
     public void deleteModule(Module target) {
         courseBook.removeModule(target);
         courseBook.removeModuleFromRequirement(target);

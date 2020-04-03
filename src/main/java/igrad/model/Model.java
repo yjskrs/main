@@ -101,6 +101,22 @@ public interface Model {
     boolean hasModule(Module module);
 
     /**
+     *  Checks if the prerequisites for a module exists
+     *  and is done in the filteredModuleList.
+     *
+     *  As long as one prerequisite is not fulfilled or not included,
+     *  this will return false.
+     */
+    boolean hasModulePrerequisites(Module module);
+
+    /**
+     *  Checks if the preclusions for a module exists in the filteredModuleList.
+     *
+     *  As long as one preclusion is included, this will return true
+     */
+    boolean hasModulePreclusions(Module module);
+
+    /**
      * Deletes the given module.
      * The module must exist in the course book.
      */
