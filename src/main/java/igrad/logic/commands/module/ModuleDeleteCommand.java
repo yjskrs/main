@@ -8,6 +8,9 @@ import java.util.Optional;
 import igrad.logic.commands.CommandResult;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
+import igrad.model.course.Cap;
+import igrad.model.course.CourseInfo;
+import igrad.model.course.Name;
 import igrad.model.module.Module;
 import igrad.model.module.ModuleCode;
 import igrad.model.requirement.Requirement;
@@ -66,18 +69,13 @@ public class ModuleDeleteCommand extends ModuleCommand {
                 igrad.model.requirement.RequirementCode requirementCode = requirementToEdit.getRequirementCode();
                 igrad.model.requirement.Title title = requirementToEdit.getTitle();
 
-                // Now given that we've added a new module to requirement, we've to update (recompute) creditsFulfilled
-                int creditsRequired = requirementToEdit.getCredits().getCreditsRequired();
-                int creditsFulfilled = requirementToEdit.getCredits().getCreditsFulfilled();
-
-                // Here we need to be extremely cautious, if the module is not marked done, don't need to do anything
-                if (moduleToDelete.isDone()) {
-                    creditsFulfilled -= moduleToDelete.getCredits().toInteger();
-                }
-
-                // Construct a new Credits object to reflect this new Credits changes
-                igrad.model.requirement.Credits updatedCredits =
-                    new igrad.model.requirement.Credits(creditsRequired, creditsFulfilled);
+                /*
+                 * Now given that we've delete a module from a requirement as done, we've to update (recompute)
+                 * creditsFulfilled in the relevant Requirements, but since Requirement constructor already does
+                 * it for us, based on the module list passed in, we don't have to do anything here, just propage
+                 * the old credits value.
+                 */
+                igrad.model.requirement.Credits credits = requirementToEdit.getCredits();
 
                 // Deletes from the existing requirement; requirementToEdit, the moduleToDelete
                 requirementToEdit.removeModule(moduleToDelete);
@@ -86,11 +84,36 @@ public class ModuleDeleteCommand extends ModuleCommand {
                 List<Module> modules = requirementToEdit.getModuleList();
 
                 // Finally, create a new Requirement with all the updated information (details).
-                Requirement editedRequirement = new Requirement(requirementCode, title, updatedCredits, modules);
+                Requirement editedRequirement = new Requirement(requirementCode, title, credits, modules);
 
                 // Update the current Requirement in the model (coursebook) with this latest version.
                 model.setRequirement(requirementToEdit, editedRequirement);
             });
+
+        /*
+         * Now that we've deleted a module in the system, we need to update CourseInfo, specifically its cap,
+         * creditsRequired (because we are removing a module from all relevant requirements), and
+         * the creditsFulfilled (if the module in the relevant requirements is marked as done) property.
+         */
+        CourseInfo courseToEdit = model.getCourseInfo();
+
+        // Copy over all the old values of requirementToEdit
+        Optional<Name> currentName = courseToEdit.getName();
+
+        // Now we actually go to our model and recompute cap based on updated module list in model (coursebook)
+        Optional<Cap> updatedCap = CourseInfo.computeCap(model.getFilteredModuleList());
+
+        /*
+         * Now given that we've updated a new module to requirement (as done), we've to update (recompute)
+         * creditsFulfilled and creditsRequired
+         */
+        Optional<igrad.model.course.Credits> updatedCredits = CourseInfo.computeCredits(
+                model.getRequirementList());
+
+        CourseInfo editedCourseInfo = new CourseInfo(currentName, updatedCap, updatedCredits);
+
+        // Updating the model with the latest course info (cap)
+        model.setCourseInfo(editedCourseInfo);
 
         return new CommandResult(String.format(MESSAGE_MODULE_DELETE_SUCCESS, moduleToDelete));
     }

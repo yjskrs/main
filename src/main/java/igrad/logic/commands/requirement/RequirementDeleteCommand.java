@@ -8,6 +8,9 @@ import java.util.Optional;
 import igrad.logic.commands.CommandResult;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
+import igrad.model.course.Cap;
+import igrad.model.course.CourseInfo;
+import igrad.model.course.Name;
 import igrad.model.requirement.Requirement;
 import igrad.model.requirement.RequirementCode;
 
@@ -51,6 +54,30 @@ public class RequirementDeleteCommand extends RequirementCommand {
         }
 
         model.deleteRequirement(requirementToDelete.get());
+
+        /*
+         * Now that we've added a new Requirement to the system, we need to update CourseInfo, specifically its
+         * creditsRequired property.
+         */
+        CourseInfo courseToEdit = model.getCourseInfo();
+
+        // Copy over all the old values of requirementToEdit
+        Optional<Name> currentName = courseToEdit.getName();
+
+        // Now we actually go to our model and recompute cap based on updated module list in model (coursebook)
+        Optional<Cap> updatedCap = CourseInfo.computeCap(model.getFilteredModuleList());
+
+        /*
+         * Now given that we've updated a new module to requirement (as done), we've to update (recompute)
+         * creditsFulfilled and creditsRequired
+         */
+        Optional<igrad.model.course.Credits> updatedCredits = CourseInfo.computeCredits(
+                model.getRequirementList());
+
+        CourseInfo editedCourseInfo = new CourseInfo(currentName, updatedCap, updatedCredits);
+
+        // Updating the model with the latest course info (cap)
+        model.setCourseInfo(editedCourseInfo);
 
         return new CommandResult(
             String.format(MESSAGE_REQUIREMENT_DELETE_SUCCESS, requirementToDelete));

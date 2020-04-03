@@ -5,13 +5,16 @@ import static igrad.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Optional;
 
 import igrad.logic.commands.CommandResult;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
+import igrad.model.course.Cap;
+import igrad.model.course.CourseInfo;
+import igrad.model.course.Name;
 import igrad.model.module.Module;
 import igrad.model.module.ModuleCode;
-import igrad.model.requirement.Credits;
 import igrad.model.requirement.Requirement;
 import igrad.model.requirement.RequirementCode;
 import igrad.model.requirement.Title;
@@ -81,29 +84,43 @@ public class RequirementAssignCommand extends RequirementCommand {
 
         /*
          * Now given that we've added this list of new modules to requirement, we've to update (recompute)
-         * creditsFulfilled
+         * creditsFulfilled, but since Requirement constructor already does it for us, based
+         * on the module list passed in, we don't have to do anything here, just propage
+         * the old credits value.
          */
-        int creditsRequired = requirementToAssign.getCredits().getCreditsRequired();
-        int creditsFulfilled = requirementToAssign.getCredits().getCreditsFulfilled();
-
-        // Looping through all the new modules added to update creditsFulfilled
-        for (Module module : modulesToAssign) {
-            if (module.isDone()) {
-                creditsFulfilled += module.getCredits().toInteger();
-            }
-        }
-
-        // Construct a new Credits object to reflect this new Credits changes
-        Credits updatedCredits = new Credits(creditsRequired, creditsFulfilled);
+        igrad.model.requirement.Credits credits = requirementToAssign.getCredits();
 
         // Get the most update module list (now with the new modules assigned/added)
         List<Module> modules = requirementToAssign.getModuleList();
 
         // Finally, create a new Requirement with all the updated information (details).
-        Requirement editedRequirement = new Requirement(requirementCode, title, updatedCredits, modules);
+        Requirement editedRequirement = new Requirement(requirementCode, title, credits, modules);
 
         model.setRequirement(requirementToAssign, editedRequirement);
 
+        /*
+         * Now that we've edited this Requirement to the system, we need to update CourseInfo, specifically its
+         * creditsRequired property.
+         */
+        CourseInfo courseToEdit = model.getCourseInfo();
+
+        // Copy over all the old values of requirementToEdit
+        Optional<Name> currentName = courseToEdit.getName();
+
+        // Now we actually go to our model and recompute cap based on updated module list in model (coursebook)
+        Optional<Cap> updatedCap = CourseInfo.computeCap(model.getFilteredModuleList());
+
+        /*
+         * Now given that we've updated a new module to requirement (as done), we've to update (recompute)
+         * creditsFulfilled and creditsRequired
+         */
+        Optional<igrad.model.course.Credits> updatedCredits = CourseInfo.computeCredits(
+                model.getRequirementList());
+
+        CourseInfo editedCourseInfo = new CourseInfo(currentName, updatedCap, updatedCredits);
+
+        // Updating the model with the latest course info (cap)
+        model.setCourseInfo(editedCourseInfo);
         return new CommandResult(
             String.format(MESSAGE_SUCCESS, editedRequirement));
     }
