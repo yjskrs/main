@@ -75,12 +75,12 @@ public class RequirementAddCommand extends RequirementCommand {
 
             if (requirementCode.hasSameAlphabets(codeWithoutNumber)) {
                 int requirementNumber = requirementCode.getNumber();
-                if (lastUsedNumber < requirementNumber) {
-                    lastUsedNumber = requirementNumber;
+                if (lastUsedNumber <= requirementNumber) {
+                    lastUsedNumber = requirementNumber + 1;
                 }
             }
         }
 
-        return codeWithoutNumber.getAlphabets() + (lastUsedNumber + 1);
+        return codeWithoutNumber.getAlphabets() + lastUsedNumber;
     }
 }
