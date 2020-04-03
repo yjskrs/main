@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+import igrad.model.module.Grade;
 import igrad.model.module.Module;
 import igrad.model.requirement.Requirement;
 
@@ -102,12 +103,15 @@ public class CourseInfo {
     }
 
     /**
-     * Given a requirement list, compute the cap based on all modules in the requirements of the
-     * requirement list.
+     * Computes and returns a {@code Cap} object based on a list of {@code Requirement}s;
+     * {@code requirementList} and {@code Module}s {@code moduleList} passed in.
      */
-    public static Optional<Cap> computeCap(List<Module> moduleList) {
-        // If the moduleList is empty, there's no talk about this, Cap would be Optional.empty
-        if (moduleList.isEmpty()) {
+    public static Optional<Cap> computeCap(List<Module> moduleList, List<Requirement> requirementList) {
+        /*
+         * If the moduleList or requirementList is empty, there's no talk about this, Cap would be
+         * Optional.empty
+         */
+        if (moduleList.isEmpty() || requirementList.isEmpty()) {
             return Optional.empty();
         }
 
@@ -115,10 +119,37 @@ public class CourseInfo {
 
         int totalNumOfModules = moduleList.size();
 
-        for (int i = 0; i < totalNumOfModules; i++) {
-            String grade = moduleList.get(i).getGrade().toString();
+        int finalTotalNumOfModules = 0;
 
-            switch (grade) {
+        for (int i = 0; i < totalNumOfModules; i++) {
+            Module module = moduleList.get(i);
+
+            /*
+             * Firstly, we've to check if that module belongs to any requirement. If it doesn't
+             * then we can't add that into the final Cap.
+             */
+            boolean modPresentInAnyReq = requirementList.stream()
+                .filter(requirement -> requirement.hasModule(module))
+                .findFirst()
+                .isPresent();
+
+            if (!modPresentInAnyReq) {
+                continue;
+            }
+
+            // Now if the module belongs to at least one requirement, we try to compute cap.
+            Optional<Grade> grade = module.getGrade();
+
+            // However, if the module does not have any grade, don't bother computing, just skip.
+            if (grade.isEmpty()) {
+                continue;
+            }
+
+            ++finalTotalNumOfModules;
+
+            String gradeStr = grade.get().toString();
+
+            switch (gradeStr) {
             case "A+":
                 cap += 5.0;
                 break;
@@ -169,7 +200,13 @@ public class CourseInfo {
             }
         }
 
-        Cap capResult = new Cap(Double.toString(cap));
+        Cap capResult;
+
+        if (finalTotalNumOfModules == 0) {
+            capResult = new Cap("0");
+        } else {
+            capResult = new Cap(Double.toString(cap / finalTotalNumOfModules));
+        }
 
         return Optional.of(capResult);
     }

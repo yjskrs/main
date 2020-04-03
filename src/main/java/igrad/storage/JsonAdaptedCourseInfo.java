@@ -69,7 +69,7 @@ public class JsonAdaptedCourseInfo {
          * compute cap (if applicable; course name exists)
          */
         final Optional<Cap> cap = modelName.isPresent()
-            ? CourseInfo.computeCap(moduleList)
+            ? CourseInfo.computeCap(moduleList, requirementList)
             : Optional.empty();
         /*
          * Also, we proceed to compute credits (required and fulfilled) (if applicable; course name exists)

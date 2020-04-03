@@ -66,6 +66,8 @@ public class ProgressSidePanel extends UiPart<Region> {
             creditsCountString = "- MCs";
         }
 
+        System.out.println("CAPP!!");
+        System.out.println(courseInfo.getCap());
         creditsCount.setText(creditsCountString);
     }
 

@@ -158,7 +158,8 @@ public class ModelManager implements Model {
 
     @Override
     public Cap computeCap() {
-        return CourseInfo.computeCap(courseBook.getModuleList()).get();
+        return CourseInfo.computeCap(courseBook.getModuleList(),
+                courseBook.getRequirementList()).get();
     }
 
     @Override

@@ -152,7 +152,8 @@ public class ModuleDoneCommand extends ModuleCommand {
         Optional<Name> currentName = courseToEdit.getName();
 
         // Now we actually go to our model and recompute cap based on updated module list in model (coursebook)
-        Optional<Cap> updatedCap = CourseInfo.computeCap(model.getFilteredModuleList());
+        Optional<Cap> updatedCap = CourseInfo.computeCap(model.getFilteredModuleList(),
+                model.getRequirementList());
 
         /*
          * Now given that we've updated a new module to requirement (as done), we've to update (recompute)

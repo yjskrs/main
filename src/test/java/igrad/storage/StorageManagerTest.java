@@ -62,7 +62,7 @@ public class StorageManagerTest {
 
         // Creating a course info for this test, because a course book with modules must have course info
         Optional<Name> name = Optional.of(new Name("abc"));
-        Optional<Cap> cap = CourseInfo.computeCap(original.getModuleList());
+        Optional<Cap> cap = CourseInfo.computeCap(original.getModuleList(), original.getRequirementList());
         Optional<Credits> credits = CourseInfo.computeCredits(original.getRequirementList());
         CourseInfo courseInfo = new CourseInfo(name, cap, credits);
         original.setCourseInfo(courseInfo);
