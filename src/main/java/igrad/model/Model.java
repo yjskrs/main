@@ -236,11 +236,6 @@ public interface Model {
     void updateRequirementList(Predicate<Requirement> predicate);
 
     /**
-     * Recalculates the credits fulfilled of all requirements
-     */
-    void recalculateRequirementList();
-
-    /**
      * Calculates and returns Cap needed to maintain each sem to achieve desired Cap.
      */
     Cap computeEstimatedCap(Cap capToAchieve, int semsLeft);
