@@ -6,11 +6,10 @@ import java.util.List;
 import java.util.Optional;
 
 import igrad.logic.commands.CommandResult;
+import igrad.logic.commands.CommandUtil;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
-import igrad.model.course.Cap;
 import igrad.model.course.CourseInfo;
-import igrad.model.course.Name;
 import igrad.model.module.Module;
 import igrad.model.module.ModuleCode;
 import igrad.model.requirement.Requirement;
@@ -58,8 +57,7 @@ public class ModuleDeleteCommand extends ModuleCommand {
          * Given that this module has been deleted in the modules list, there are two things we need
          * to do, first is to delete the copies of this modules existing in the modules list of all
          * requirements containing that module. And the second is that we need to update the
-         * creditsFulfilled of all requirements (which consists of that module, and that module has
-         * been marked done).
+         * creditsFulfilled of all requirements (which consists of that module).
          *
          * The code below does both of these, for each related Requirement.
          */
@@ -70,10 +68,10 @@ public class ModuleDeleteCommand extends ModuleCommand {
                 igrad.model.requirement.Title title = requirementToEdit.getTitle();
 
                 /*
-                 * Now given that we've delete a module from a requirement as done, we've to update (recompute)
+                 * Now given that we've delete a module from a requirement, we've to update (recompute)
                  * creditsFulfilled in the relevant Requirements, but since Requirement constructor already does
-                 * it for us, based on the module list passed in, we don't have to do anything here, just propage
-                 * the old credits value.
+                 * it for us, based on the module list passed in, we don't have to do anything here, just
+                 * propagate the old credits value.
                  */
                 igrad.model.requirement.Credits credits = requirementToEdit.getCredits();
 
@@ -92,28 +90,14 @@ public class ModuleDeleteCommand extends ModuleCommand {
 
         /*
          * Now that we've deleted a module in the system, we need to update CourseInfo, specifically its cap,
-         * creditsRequired (because we are removing a module from all relevant requirements), and
-         * the creditsFulfilled (if the module in the relevant requirements is marked as done) property.
+         * and the Credits (creditsFulfilled) property.
+         *
+         * However, in the method below, we just recompute everything (field in course info).
          */
         CourseInfo courseToEdit = model.getCourseInfo();
+        CourseInfo editedCourseInfo = CommandUtil.retrieveLatestCourseInfo(courseToEdit, model);
 
-        // Copy over all the old values of requirementToEdit
-        Optional<Name> currentName = courseToEdit.getName();
-
-        // Now we actually go to our model and recompute cap based on updated module list in model (coursebook)
-        Optional<Cap> updatedCap = CourseInfo.computeCap(model.getFilteredModuleList(),
-                model.getRequirementList());
-
-        /*
-         * Now given that we've updated a new module to requirement (as done), we've to update (recompute)
-         * creditsFulfilled and creditsRequired
-         */
-        Optional<igrad.model.course.Credits> updatedCredits = CourseInfo.computeCredits(
-                model.getRequirementList());
-
-        CourseInfo editedCourseInfo = new CourseInfo(currentName, updatedCap, updatedCredits);
-
-        // Updating the model with the latest course info (cap)
+        // Updating the model with the latest course info
         model.setCourseInfo(editedCourseInfo);
 
         return new CommandResult(String.format(MESSAGE_MODULE_DELETE_SUCCESS, moduleToDelete));

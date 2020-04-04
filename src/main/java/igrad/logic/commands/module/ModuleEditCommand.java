@@ -140,11 +140,10 @@ public class ModuleEditCommand extends ModuleCommand {
         List<Requirement> requirementsToUpdate = model.getRequirementsWithModule(editedModule);
 
         /*
-         * Given that this module has been deleted in the modules list, there are two things we need
+         * Given that this module has been updated in the modules list, there are two things we need
          * to do, first is to delete the copies of this modules existing in the modules list of all
          * requirements containing that module. And the second is that we need to update the
-         * creditsFulfilled of all requirements (which consists of that module, and that module has
-         * been marked done).
+         * creditsFulfilled of all requirements (which consists of that module).
          *
          * The code below does both of these, for each related Requirement.
          */
@@ -155,10 +154,10 @@ public class ModuleEditCommand extends ModuleCommand {
                 igrad.model.requirement.Title title = requirementToEdit.getTitle();
 
                 /*
-                 * Now given that we've delete a module from a requirement as done, we've to update (recompute)
+                 * Now given that we've edited a module from a requirement, we've to update (recompute)
                  * creditsFulfilled in the relevant Requirements, but since Requirement constructor already does
-                 * it for us, based on the module list passed in, we don't have to do anything here, just propage
-                 * the old credits value.
+                 * it for us, based on the module list passed in, we don't have to do anything here, just
+                 * propagate the old credits value.
                  */
                 igrad.model.requirement.Credits credits = requirementToEdit.getCredits();
 
