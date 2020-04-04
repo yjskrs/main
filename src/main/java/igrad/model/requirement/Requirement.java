@@ -111,8 +111,8 @@ public class Requirement implements ReadOnlyRequirement {
     }
 
     /**
-     * Adds a {@code module} to the list.
-     * The module must not already exist in the list.
+     * Adds a list of {@code Module}s; {@code modules} to the list.
+     * The modules must not already exist in the list.
      */
     public void addModules(List<Module> modules) {
         requireNonNull(modules);
@@ -137,7 +137,17 @@ public class Requirement implements ReadOnlyRequirement {
      * The {@code module} must exist in the list.
      */
     public void removeModule(Module module) {
-        modules.remove(module);
+        this.modules.remove(module);
+    }
+
+    /**
+     * Removes a list of {@code Module}s; {@code modules} from the list.
+     * The modules must already exist in the list.
+     */
+    public void removeModules(List<Module> modules) {
+        requireNonNull(modules);
+
+        this.modules.remove(modules);
     }
 
     // util methods

@@ -27,6 +27,8 @@
                     style="-fx-border-color: #4d4d4d; -fx-border-width: 0 0 2 0;"
                     alignment="CENTER">
                 <Label
+                        alignment="CENTER"
+                        wrapText="true"
                         styleClass="inspirational-quote"
                     fx:id="inspirationalQuote"
                     text="&quot;Strive for progress, not perfection.&quot;"
@@ -58,6 +60,7 @@
                         text="Current CAP"
                         GridPane.rowIndex="1" GridPane.columnIndex="0"/>
                 <Label
+                        fx:id="currentCap"
                         style="-fx-font-size: 13px !important;-fx-font-weight: bold"
                         text="4.2/5.0"
                         GridPane.rowIndex="1" GridPane.columnIndex="1"/>

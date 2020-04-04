@@ -24,6 +24,8 @@ public class Module {
     // Data fields
 
     // A module object can be created without all these fields (which are optional)
+    private final Optional<ModuleCode[]> prequisites;
+    private final Optional<ModuleCode[]> preclusions;
     private final Optional<Memo> memo;
     private final Optional<Description> description;
     private final Optional<Semester> semester;
@@ -34,9 +36,16 @@ public class Module {
     /**
      * Every field must be present and not null.
      */
-    public Module(Title title, ModuleCode moduleCode, Credits credits,
-                  Optional<Memo> memo, Optional<Semester> semester,
-                  Optional<Description> description, Optional<Grade> grade, Set<Tag> tags) {
+    public Module(
+        Title title,
+        ModuleCode moduleCode,
+        Credits credits,
+        Optional<Memo> memo,
+        Optional<Semester> semester,
+        Optional<Description> description,
+        Optional<Grade> grade,
+        Set<Tag> tags
+    ) {
         requireAllNonNull(title, moduleCode, credits);
         this.title = title;
         this.moduleCode = moduleCode;
@@ -46,6 +55,33 @@ public class Module {
         this.semester = semester;
         this.grade = grade;
         this.tags.addAll(tags);
+        this.preclusions = Optional.empty();
+        this.prequisites = Optional.empty();
+    }
+
+    public Module(
+        Title title,
+        ModuleCode moduleCode,
+        Credits credits,
+        Optional<Memo> memo,
+        Optional<Semester> semester,
+        Optional<Description> description,
+        Optional<Grade> grade,
+        Optional<ModuleCode[]> preclusions,
+        Optional<ModuleCode[]> prequisites,
+        Set<Tag> tags
+    ) {
+        requireAllNonNull(title, moduleCode, credits);
+        this.title = title;
+        this.moduleCode = moduleCode;
+        this.credits = credits;
+        this.memo = memo;
+        this.description = description;
+        this.semester = semester;
+        this.grade = grade;
+        this.tags.addAll(tags);
+        this.preclusions = preclusions;
+        this.prequisites = prequisites;
     }
 
     public Title getTitle() {
@@ -74,6 +110,14 @@ public class Module {
 
     public Optional<Grade> getGrade() {
         return grade;
+    }
+
+    public Optional<ModuleCode[]> getPrequisites() {
+        return prequisites;
+    }
+
+    public Optional<ModuleCode[]> getPreclusions() {
+        return preclusions;
     }
 
     /**
@@ -134,7 +178,9 @@ public class Module {
 
         return otherModule.getTitle().equals(getTitle())
             && otherModule.getModuleCode().equals(getModuleCode())
-            && otherModule.getCredits().equals(getCredits());
+            && otherModule.getCredits().equals(getCredits())
+            && otherModule.getGrade().equals(getGrade())
+            && otherModule.getSemester().equals(getSemester());
     }
 
     @Override
