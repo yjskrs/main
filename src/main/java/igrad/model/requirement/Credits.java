@@ -12,7 +12,6 @@ public class Credits {
     public static final String MESSAGE_CONSTRAINTS =
         "Modular credits needed to satisfy requirement should be a number more than 0.";
 
-    // TODO
     // allow any numbers more than or equals zero for credits required value
     public static final String VALIDATION_REGEX = "^[0-9]\\d*$";
 

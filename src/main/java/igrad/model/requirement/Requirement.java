@@ -53,7 +53,7 @@ public class Requirement implements ReadOnlyRequirement {
         this.requirementCode = requirementCode;
         this.title = title;
         this.credits = new Credits(credits.getCreditsRequired(), computeCreditsFulfilled(modules));
-        setModules(modules);
+        resetModules(modules);
     }
 
     /**
@@ -67,25 +67,16 @@ public class Requirement implements ReadOnlyRequirement {
         this.requirementCode = toBeCopied.getRequirementCode();
         this.title = toBeCopied.getTitle();
         this.credits = toBeCopied.getCredits();
-        resetModules(toBeCopied);
+        resetModules(toBeCopied.getModuleList());
     }
 
     // requirement-level operations
 
     /**
-     * Resets the existing modules of this {@code Requirement} with {@code newData}.
-     */
-    public void resetModules(ReadOnlyRequirement newData) {
-        requireNonNull(newData);
-
-        setModules(newData.getModuleList());
-    }
-
-    /**
      * Replaces the contents of the module list with {@code modules}.
      * The list must not contain duplicate modules.
      */
-    public void setModules(List<Module> modules) {
+    public void resetModules(List<Module> modules) {
         this.modules.setModules(modules);
     }
 
@@ -136,7 +127,7 @@ public class Requirement implements ReadOnlyRequirement {
      * in the list.
      */
     public void setModule(Module target, Module editedModule) {
-        requireNonNull(editedModule);
+        requireAllNonNull(target, editedModule);
 
         modules.setModule(target, editedModule);
     }
@@ -199,7 +190,7 @@ public class Requirement implements ReadOnlyRequirement {
     /**
      * Computes the number of credits fulfilled by the list of modules. Returns an integer.
      */
-    public int computeCreditsFulfilled(List<Module> moduleList) {
+    private int computeCreditsFulfilled(List<Module> moduleList) {
         int creditsFulfilled = 0;
 
         for (Module module : moduleList) {
@@ -213,7 +204,6 @@ public class Requirement implements ReadOnlyRequirement {
 
     @Override
     public String toString() {
-
         RequirementCode code = getRequirementCode();
         Title title = getTitle();
         Credits credits = getCredits();
