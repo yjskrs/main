@@ -9,4 +9,7 @@ class CourseInfo {
 class Name {}
 
 CourseInfo *-- "1" Name
+CourseInfo *-- "1" CAP
+CourseInfo *-- "1" SemsLeft
+
 @enduml
