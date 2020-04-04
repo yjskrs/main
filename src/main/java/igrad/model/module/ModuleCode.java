@@ -23,7 +23,6 @@ public class ModuleCode {
      */
     public ModuleCode(String moduleCode) {
         requireNonNull(moduleCode);
-        System.out.println(moduleCode);
         checkArgument(isValidModuleCode(moduleCode), MESSAGE_CONSTRAINTS);
         value = moduleCode;
     }

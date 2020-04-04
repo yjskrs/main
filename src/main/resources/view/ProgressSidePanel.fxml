@@ -62,7 +62,8 @@
                 <Label
                         style="-fx-font-size: 13px !important;-fx-font-weight: bold"
                         text="4.2/5.0"
-                        GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                        GridPane.rowIndex="1" GridPane.columnIndex="1"
+                        fx:id="capLabel"/>
             </GridPane>
     </children>
 </VBox>
