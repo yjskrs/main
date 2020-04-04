@@ -1,5 +1,14 @@
 package igrad.testutil;
 
+import static igrad.logic.commands.CommandTestUtil.VALID_REQ_CODE_CSF;
+import static igrad.logic.commands.CommandTestUtil.VALID_REQ_CODE_GE;
+import static igrad.logic.commands.CommandTestUtil.VALID_REQ_CODE_UE;
+import static igrad.logic.commands.CommandTestUtil.VALID_REQ_CREDITS_CSF;
+import static igrad.logic.commands.CommandTestUtil.VALID_REQ_CREDITS_GE;
+import static igrad.logic.commands.CommandTestUtil.VALID_REQ_CREDITS_UE;
+import static igrad.logic.commands.CommandTestUtil.VALID_REQ_TITLE_CSF;
+import static igrad.logic.commands.CommandTestUtil.VALID_REQ_TITLE_GE;
+import static igrad.logic.commands.CommandTestUtil.VALID_REQ_TITLE_UE;
 import static igrad.testutil.TypicalModules.getTypicalModules;
 
 import java.util.ArrayList;
@@ -15,22 +24,22 @@ import igrad.model.requirement.Requirement;
 public class TypicalRequirements {
 
     public static final Requirement CS_FOUNDATION = new RequirementBuilder()
-        .withRequirementCode("CSF0")
-        .withTitle("Computer Science Foundation")
-        .withCreditsOneParameter("48")
+        .withRequirementCode(VALID_REQ_CODE_CSF)
+        .withTitle(VALID_REQ_TITLE_CSF)
+        .withCreditsOneParameter(VALID_REQ_CREDITS_CSF)
         .withModules(getTypicalModules())
         .build();
 
     public static final Requirement UNRESTRICTED_ELECTIVES = new RequirementBuilder()
-        .withRequirementCode("UE0")
-        .withTitle("Unrestricted Electives")
-        .withCreditsOneParameter("32")
+        .withRequirementCode(VALID_REQ_CODE_UE)
+        .withTitle(VALID_REQ_TITLE_UE)
+        .withCreditsOneParameter(VALID_REQ_CREDITS_UE)
         .build();
 
     public static final Requirement GENERAL_ELECTIVES = new RequirementBuilder()
-        .withRequirementCode("GE0")
-        .withTitle("General Electives")
-        .withCreditsOneParameter("20")
+        .withRequirementCode(VALID_REQ_CODE_GE)
+        .withTitle(VALID_REQ_TITLE_GE)
+        .withCreditsOneParameter(VALID_REQ_CREDITS_GE)
         .build();
 
     /**

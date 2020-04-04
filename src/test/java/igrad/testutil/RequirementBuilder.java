@@ -1,5 +1,9 @@
 package igrad.testutil;
 
+import static igrad.logic.commands.CommandTestUtil.VALID_REQ_CODE_CSF;
+import static igrad.logic.commands.CommandTestUtil.VALID_REQ_CREDITS_CSF;
+import static igrad.logic.commands.CommandTestUtil.VALID_REQ_TITLE_CSF;
+
 import java.util.List;
 
 import igrad.model.module.Module;
@@ -13,9 +17,9 @@ import igrad.model.requirement.Title;
  * A utility class to help with building {@code Requirement} objects.
  */
 public class RequirementBuilder {
-    public static final String DEFAULT_REQUIREMENT_CODE = "CSF0";
-    public static final String DEFAULT_TITLE = "Computer Science Foundation";
-    public static final String DEFAULT_CREDITS = "48";
+    public static final String DEFAULT_REQUIREMENT_CODE = VALID_REQ_CODE_CSF;
+    public static final String DEFAULT_TITLE = VALID_REQ_TITLE_CSF;
+    public static final String DEFAULT_CREDITS = VALID_REQ_CREDITS_CSF;
 
     private RequirementCode requirementCode;
     private Title title;

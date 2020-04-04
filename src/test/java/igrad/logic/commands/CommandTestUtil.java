@@ -26,6 +26,24 @@ public class CommandTestUtil {
 
     public static final String VALID_NAME_B_COMP_SCI = "Bachelor of Computing (Honours) in Computer Science";
     public static final String VALID_NAME_B_ARTS_PHILO = "Bachelor of Arts (Honours) in Philosophy";
+    public static final String VALID_REQ_TITLE_CSF = "Computer Science Foundation";
+    public static final String VALID_REQ_TITLE_CSBD = "Computer Science Breadth and Depth";
+    public static final String VALID_REQ_TITLE_MS = "Mathematics and Sciences";
+    public static final String VALID_REQ_TITLE_IP = "IT Professionalism";
+    public static final String VALID_REQ_TITLE_UE = "Unrestricted Electives";
+    public static final String VALID_REQ_TITLE_GE = "General Electives";
+    public static final String VALID_REQ_CODE_CSF = "CSF0";
+    public static final String VALID_REQ_CODE_CSBD = "CSBD0";
+    public static final String VALID_REQ_CODE_MS = "MS0";
+    public static final String VALID_REQ_CODE_IP = "IP0";
+    public static final String VALID_REQ_CODE_UE = "UE0";
+    public static final String VALID_REQ_CODE_GE = "GE0";
+    public static final String VALID_REQ_CREDITS_CSF = "32";
+    public static final String VALID_REQ_CREDITS_CSBD = "48";
+    public static final String VALID_REQ_CREDITS_MS = "16";
+    public static final String VALID_REQ_CREDITS_IP = "12";
+    public static final String VALID_REQ_CREDITS_UE = "32";
+    public static final String VALID_REQ_CREDITS_GE = "20";
     public static final String VALID_TITLE_PROGRAMMING_METHODOLOGY = "Programming Methodology";
     public static final String VALID_TITLE_COMPUTER_ORGANISATION = "Computer Organisation";
     public static final String VALID_MODULE_CODE_PROGRAMMING_METHODOLOGY = "CS1101S";

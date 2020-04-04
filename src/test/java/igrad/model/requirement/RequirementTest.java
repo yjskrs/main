@@ -1,10 +1,15 @@
 package igrad.model.requirement;
 
+import static igrad.logic.commands.CommandTestUtil.VALID_REQ_CODE_MS;
+import static igrad.logic.commands.CommandTestUtil.VALID_REQ_CREDITS_GE;
+import static igrad.logic.commands.CommandTestUtil.VALID_REQ_CREDITS_MS;
+import static igrad.logic.commands.CommandTestUtil.VALID_REQ_TITLE_MS;
 import static igrad.testutil.Assert.assertThrows;
 import static igrad.testutil.TypicalModules.COMPUTER_ORGANISATION;
 import static igrad.testutil.TypicalModules.PROGRAMMING_METHODOLOGY;
 import static igrad.testutil.TypicalModules.getTypicalModules;
 import static igrad.testutil.TypicalModules.getTypicalRequirement;
+import static igrad.testutil.TypicalRequirements.GENERAL_ELECTIVES;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -18,6 +23,7 @@ import org.junit.jupiter.api.Test;
 
 import igrad.model.module.Module;
 import igrad.model.module.exceptions.DuplicateModuleException;
+import igrad.model.module.exceptions.ModuleNotFoundException;
 import igrad.testutil.ModuleBuilder;
 import igrad.testutil.RequirementBuilder;
 
@@ -117,7 +123,7 @@ public class RequirementTest {
     }
 
     @Test
-    public void setModule_moduleInRequirement_success() {
+    public void setModule_withSameIdentityInRequirement_success() {
         requirement.addModule(module);
         assertEquals(Collections.singletonList(module), requirement.getModuleList());
         Module modifiedModule = new ModuleBuilder(module)
@@ -128,48 +134,70 @@ public class RequirementTest {
     }
 
     @Test
-    public void setModule_withSameIdentityInRequirement_success() {
-
-    }
-
-    @Test
     public void setModule_withDifferentIdentityInRequirement_success() {
-
+        requirement.addModule(module);
+        assertEquals(Collections.singletonList(module), requirement.getModuleList());
+        Module modifiedModule = new ModuleBuilder(module)
+                                    .withModuleCode("RN1111G")
+                                    .withTitle("New Title")
+                                    .build();
+        requirement.setModule(module, modifiedModule);
+        assertEquals(Collections.singletonList(modifiedModule), requirement.getModuleList());
     }
 
     @Test
     public void setModule_targetDoesNotExistInRequirement_throwsModuleNotFoundException() {
-
+        assertThrows(ModuleNotFoundException.class, () -> requirement.setModule(module, module));
     }
 
     @Test
     public void setModule_duplicateModule_throwsDuplicateModuleException() {
-
+        Module otherModule = new ModuleBuilder(module)
+                                 .withModuleCode("RNG1111")
+                                 .withTitle("New Title")
+                                 .build();
+        requirement.addModule(module);
+        requirement.addModule(otherModule);
+        Module modifiedOtherModule = new ModuleBuilder(otherModule).build();
+        assertThrows(DuplicateModuleException.class, () -> requirement.setModule(module, modifiedOtherModule));
     }
 
-    //
-    // /**
-    //  * Removes {@code module} from this {@code Requirement}.
-    //  * The {@code module} must exist in the list.
-    //  */
-    // public void removeModule(Module module) {
-    //     modules.remove(module);
-    // }
+    @Test
+    public void removeModule_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> requirement.removeModule(null));
+    }
+
+    @Test
+    public void removeModule_moduleInRequirement_success() {
+        requirement.addModule(module);
+        requirement.removeModule(module);
+        assertEquals(Collections.emptyList(), requirement.getModuleList());
+    }
+
+    @Test
+    public void removeModule_moduleNotInRequirement_throwsModuleNotFoundException() {
+        assertThrows(ModuleNotFoundException.class, () -> requirement.removeModule(module));
+        requirement.addModule(module);
+        Module modifiedModule = new ModuleBuilder(module)
+                                    .withTitle("This is a title")
+                                    .build();
+        assertThrows(ModuleNotFoundException.class, () -> requirement.removeModule(modifiedModule));
+    }
 
     @Test
     public void getTitle_withEmptyRequirement_success() {
-        Title newTitle = new Title("Maths and Sciences");
+        Title newTitle = new Title(VALID_REQ_TITLE_MS);
         Requirement newReq = new RequirementBuilder(requirement)
-                                 .withTitle("Maths and Sciences")
+                                 .withTitle(VALID_REQ_TITLE_MS)
                                  .build();
         assertEquals(newTitle, newReq.getTitle());
     }
 
     @Test
     public void getCredits_withEmptyRequirement_success() {
-        Credits newCreds = new Credits("60");
+        Credits newCreds = new Credits(VALID_REQ_CREDITS_GE);
         Requirement newReq = new RequirementBuilder(requirement)
-                                 .withCreditsOneParameter("60")
+                                 .withCreditsOneParameter(VALID_REQ_CREDITS_GE)
                                  .build();
         assertEquals(newCreds, newReq.getCredits());
     }
@@ -189,21 +217,54 @@ public class RequirementTest {
         assertThrows(UnsupportedOperationException.class, () -> requirement.getModuleList().remove(0));
     }
 
-    //
-    // @Override
-    // public String toString() {
-    //     return "Requirement: " + name + ", " + credits + " creditsRequired and "
-    //                + getCreditsFulfilled() + " creditsFulfilled has "
-    //                + modules.asUnmodifiableObservableList().size() + " modules";
-    // }
-    //
-    // @Override
-    // public boolean equals(Object other) {
-    //     return other == this // short circuit if same object
-    //                || (other instanceof Requirement // check properties
-    //                        && name.equals(((Requirement) other).name)
-    //                        && credits.equals(((Requirement) other).credits)
-    //                        && modules.equals(((Requirement) other).modules));
-    //
-    // }
+    @Test
+    public void isSameRequirement() {
+        // null
+        assertFalse(GENERAL_ELECTIVES.isSameRequirement(null));
+
+        // same requirement
+        assertTrue(GENERAL_ELECTIVES.isSameRequirement(GENERAL_ELECTIVES));
+
+        // different title
+        Requirement editedRequirement = new RequirementBuilder(GENERAL_ELECTIVES)
+                                            .withTitle(VALID_REQ_TITLE_MS)
+                                            .build();
+        assertTrue(GENERAL_ELECTIVES.isSameRequirement(editedRequirement));
+
+        // different credits
+        editedRequirement = new RequirementBuilder(GENERAL_ELECTIVES)
+                                .withCreditsOneParameter(VALID_REQ_CREDITS_MS)
+                                .build();
+        assertTrue(GENERAL_ELECTIVES.isSameRequirement(editedRequirement));
+
+        // different requirement code
+        editedRequirement = new RequirementBuilder(GENERAL_ELECTIVES)
+                                .withRequirementCode(VALID_REQ_CODE_MS)
+                                .build();
+        assertFalse(GENERAL_ELECTIVES.isSameRequirement(editedRequirement));
+    }
+
+    @Test
+    public void equals() {
+        // null
+        assertFalse(GENERAL_ELECTIVES.equals(null));
+
+        // same requirement
+        assertTrue(GENERAL_ELECTIVES.equals(GENERAL_ELECTIVES));
+
+        // copied requirement
+        Requirement requirementCopy = new RequirementBuilder(GENERAL_ELECTIVES).build();
+        assertTrue(GENERAL_ELECTIVES.equals(requirementCopy));
+
+        // different type
+        assertFalse(GENERAL_ELECTIVES.equals(module));
+
+        // different requirement title and credits
+        Requirement other = new RequirementBuilder(GENERAL_ELECTIVES)
+                                .withTitle(VALID_REQ_TITLE_MS)
+                                .withCreditsOneParameter(VALID_REQ_CREDITS_MS)
+                                .build();
+        assertFalse(GENERAL_ELECTIVES.equals(other));
+    }
+
 }

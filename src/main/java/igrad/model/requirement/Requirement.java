@@ -86,8 +86,6 @@ public class Requirement implements ReadOnlyRequirement {
      * Returns true if a module with the same identity as {@code module} exists in the list.
      */
     public boolean hasModule(Module module) {
-        requireNonNull(module);
-
         return modules.contains(module);
     }
 
@@ -95,8 +93,6 @@ public class Requirement implements ReadOnlyRequirement {
      * Returns true if any modules in {@code modules} with the same identity as {@code module} exists in the list.
      */
     public boolean hasModule(List<Module> modules) {
-        requireNonNull(modules);
-
         return this.modules.contains(modules);
     }
 
@@ -105,8 +101,6 @@ public class Requirement implements ReadOnlyRequirement {
      * The module must not already exist in the list.
      */
     public void addModule(Module module) {
-        requireNonNull(module);
-
         this.modules.add(module);
     }
 
@@ -115,8 +109,6 @@ public class Requirement implements ReadOnlyRequirement {
      * The modules must not already exist in the list.
      */
     public void addModules(List<Module> modules) {
-        requireNonNull(modules);
-
         this.modules.add(modules);
     }
 
@@ -127,8 +119,6 @@ public class Requirement implements ReadOnlyRequirement {
      * in the list.
      */
     public void setModule(Module target, Module editedModule) {
-        requireAllNonNull(target, editedModule);
-
         modules.setModule(target, editedModule);
     }
 
@@ -145,8 +135,6 @@ public class Requirement implements ReadOnlyRequirement {
      * The modules must already exist in the list.
      */
     public void removeModules(List<Module> modules) {
-        requireNonNull(modules);
-
         this.modules.remove(modules);
     }
 
@@ -201,6 +189,8 @@ public class Requirement implements ReadOnlyRequirement {
      * Computes the number of credits fulfilled by the list of modules. Returns an integer.
      */
     private int computeCreditsFulfilled(List<Module> moduleList) {
+        requireNonNull(moduleList);
+
         int creditsFulfilled = 0;
 
         for (Module module : moduleList) {
