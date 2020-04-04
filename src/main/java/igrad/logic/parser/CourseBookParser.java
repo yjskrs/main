@@ -153,10 +153,10 @@ public class CourseBookParser {
         case RequirementDeleteCommand.REQUIREMENT_DELETE_COMMAND_WORD:
             return new RequirementDeleteCommandParser().parse(arguments);
 
-        case RequirementAssignCommand.COMMAND_WORD:
+        case RequirementAssignCommand.REQUIREMENT_ASSIGN_COMMAND_WORD:
             return new RequirementAssignCommandParser().parse(arguments);
 
-        case RequirementUnassignCommand.COMMAND_WORD:
+        case RequirementUnassignCommand.REQUIREMENT_UNASSIGN_COMMAND_WORD:
             return new RequirementUnassignCommandParser().parse(arguments);
 
         case ModuleAddCommand.MODULE_ADD_COMMAND_WORD:

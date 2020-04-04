@@ -1,7 +1,7 @@
 package igrad.logic.parser.requirement;
 
-import static igrad.logic.commands.requirement.RequirementAssignCommand.MESSAGE_HELP;
 import static igrad.logic.commands.requirement.RequirementAssignCommand.MESSAGE_REQUIREMENT_NO_MODULES;
+import static igrad.logic.commands.requirement.RequirementAssignCommand.REQUIREMENT_ASSIGN_MESSAGE_HELP;
 import static igrad.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
 import static igrad.logic.parser.ParserUtil.parseModuleCodes;
 
@@ -36,7 +36,7 @@ public class RequirementAssignCommandParser implements Parser<RequirementAssignC
          */
         if (argMultimap.isEmpty(true)) {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
-                MESSAGE_HELP));
+                REQUIREMENT_ASSIGN_MESSAGE_HELP));
         }
 
         Specifier specifier = ParserUtil.parseSpecifier(argMultimap.getPreamble(),

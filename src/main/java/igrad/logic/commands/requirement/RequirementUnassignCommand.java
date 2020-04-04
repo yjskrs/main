@@ -21,15 +21,18 @@ import igrad.model.requirement.Title;
  * Unassigns modules under a particular requirement.
  */
 public class RequirementUnassignCommand extends RequirementCommand {
-    public static final String COMMAND_WORD = REQUIREMENT_COMMAND_WORD + SPACE + "unassign";
+    public static final String REQUIREMENT_UNASSIGN_COMMAND_WORD = REQUIREMENT_COMMAND_WORD + SPACE
+        + "unassign";
 
-    public static final String MESSAGE_DETAILS = COMMAND_WORD + ": Unassigns the requirement identified with modules "
+    public static final String REQUIREMENT_UNASSIGN_MESSAGE_DETAILS = REQUIREMENT_UNASSIGN_COMMAND_WORD
+        + ": Unassigns the requirement identified with modules "
         + "by its requirement code. Existing requirement will be overwritten by the input values\n";
 
-    public static final String MESSAGE_USAGE = "Parameter(s): REQUIREMENT_CODE "
+    public static final String REQUIREMENT_UNASSIGN_MESSAGE_USAGE = "Parameter(s): REQUIREMENT_CODE "
         + PREFIX_MODULE_CODE + "MODULE_CODE]...\n";
 
-    public static final String MESSAGE_HELP = MESSAGE_DETAILS + MESSAGE_USAGE;
+    public static final String REQUIREMENT_UNASSIGN_MESSAGE_HELP = REQUIREMENT_UNASSIGN_MESSAGE_DETAILS
+        + REQUIREMENT_UNASSIGN_MESSAGE_USAGE;
 
     public static final String MESSAGE_REQUIREMENT_NO_MODULES = "There must be at least one modules unassigned.";
 

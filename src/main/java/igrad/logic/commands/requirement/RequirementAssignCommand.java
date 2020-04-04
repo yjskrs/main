@@ -21,15 +21,17 @@ import igrad.model.requirement.Title;
  * Assigns modules under a particular requirement.
  */
 public class RequirementAssignCommand extends RequirementCommand {
-    public static final String COMMAND_WORD = REQUIREMENT_COMMAND_WORD + SPACE + "assign";
+    public static final String REQUIREMENT_ASSIGN_COMMAND_WORD = REQUIREMENT_COMMAND_WORD + SPACE + "assign";
 
-    public static final String MESSAGE_DETAILS = COMMAND_WORD + ": Assigns the requirement identified with modules "
+    public static final String REQUIREMENT_ASSIGN_MESSAGE_DETAILS = REQUIREMENT_ASSIGN_COMMAND_WORD
+        + ": Assigns the requirement identified with modules "
         + "by its requirement code. Existing requirement will be overwritten by the input values\n";
 
-    public static final String MESSAGE_USAGE = "Parameter(s): REQUIREMENT_CODE "
+    public static final String REQUIREMENT_ASSIGN_MESSAGE_USAGE = "Parameter(s): REQUIREMENT_CODE "
         + PREFIX_MODULE_CODE + "MODULE_CODE]...\n";
 
-    public static final String MESSAGE_HELP = MESSAGE_DETAILS + MESSAGE_USAGE;
+    public static final String REQUIREMENT_ASSIGN_MESSAGE_HELP = REQUIREMENT_ASSIGN_MESSAGE_DETAILS
+        + REQUIREMENT_ASSIGN_MESSAGE_USAGE;
 
     public static final String MESSAGE_REQUIREMENT_NO_MODULES = "There must be at least one modules assigned.";
 
