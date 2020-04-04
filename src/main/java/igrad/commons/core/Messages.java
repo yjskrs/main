@@ -32,4 +32,5 @@ public class Messages {
     public static final String MESSAGE_SPECIFIER_NOT_SPECIFIED = "Please provide a non-empty specifier.\n%1$s";
     public static final String MESSAGE_SPECIFIER_INVALID = "Please enter a valid specifier.\n%1$s";
 
+    public static final String MESSAGE_REQUEST_FAILED = "ERROR: Request failed for %s\n";
 }

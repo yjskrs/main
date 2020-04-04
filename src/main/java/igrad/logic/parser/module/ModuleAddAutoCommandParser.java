@@ -1,6 +1,7 @@
 package igrad.logic.parser.module;
 
 import static igrad.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static igrad.commons.core.Messages.MESSAGE_REQUEST_FAILED;
 import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
 import static igrad.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static igrad.logic.parser.CliSyntax.PREFIX_MEMO;
@@ -10,6 +11,8 @@ import static igrad.logic.parser.CliSyntax.PREFIX_TAG;
 import static igrad.logic.parser.CliSyntax.PREFIX_TITLE;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
@@ -37,7 +40,7 @@ import igrad.services.exceptions.ServiceException;
 /**
  * Parses input arguments and creates a new ModuleAddCommand object
  */
-public class AddAutoCommandParser extends ModuleCommandParser implements Parser<ModuleAddAutoCommand> {
+public class ModuleAddAutoCommandParser extends ModuleCommandParser implements Parser<ModuleAddAutoCommand> {
 
     /**
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given
@@ -71,38 +74,73 @@ public class AddAutoCommandParser extends ModuleCommandParser implements Parser<
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ModuleAddAutoCommand.MESSAGE_USAGE));
         }
 
-        String moduleCodeStr = argMultimap.getValue((PREFIX_MODULE_CODE)).get();
+        List<String> moduleCodes = argMultimap.getAllValues((PREFIX_MODULE_CODE));
+
         Set<Tag> tagsList = ParserUtil.parseTag(argMultimap.getAllValues(PREFIX_TAG));
-        JsonParsedModule jsonParsedModule = NusModsRequester.getModule(moduleCodeStr);
 
-        Title title = parseTitle(jsonParsedModule.getTitle());
-        Credits credits = parseCredits(jsonParsedModule.getCredits());
-        ModuleCode moduleCode = parseModuleCode(jsonParsedModule.getModuleCode());
+        ArrayList<Module> modules = new ArrayList<>();
 
-        String prerequisiteModulesString = jsonParsedModule.getPrerequisite();
-        String preclusionModulesString = jsonParsedModule.getPreclusion();
+        String messageAdditional = "";
 
-        ModulePrerequisiteParser prerequisiteParser = new ModulePrerequisiteParser(prerequisiteModulesString);
-        String[] prerequisiteModules = prerequisiteParser.getPrerequisiteModules();
+        for (String moduleCodeStr : moduleCodes) {
 
-        ModulePreclusionParser preclusionParser = new ModulePreclusionParser(preclusionModulesString);
-        String[] preclusionModules = preclusionParser.getPreclusionModules();
+            JsonParsedModule jsonParsedModule;
 
-        Optional<Description> description = parseDescription(jsonParsedModule.getDescription());
+            try {
+                jsonParsedModule = NusModsRequester.getModule(moduleCodeStr);
+            } catch (IOException | ServiceException e) {
+                messageAdditional += String.format(MESSAGE_REQUEST_FAILED, moduleCodeStr);
+                continue;
+            }
 
-        Optional<Memo> memo = argMultimap.getValue(PREFIX_MEMO).isPresent()
-            ? parseMemo(argMultimap.getValue(PREFIX_MEMO).get())
-            : Optional.empty();
-        Optional<Semester> semester = argMultimap.getValue(PREFIX_SEMESTER).isPresent()
-            ? parseSemester(argMultimap.getValue(PREFIX_SEMESTER).get())
-            : Optional.empty();
+            Title title = parseTitle(jsonParsedModule.getTitle());
+            Credits credits = parseCredits(jsonParsedModule.getCredits());
+            ModuleCode moduleCode = parseModuleCode(jsonParsedModule.getModuleCode());
 
-        // TODO: support grade parsing too! i'll just leave it like that for now
-        Optional<Grade> grade = Optional.empty();
+            String prerequisiteModulesString = jsonParsedModule.getPrerequisite();
+            String preclusionModulesString = jsonParsedModule.getPreclusion();
 
-        Module module = new Module(title, moduleCode, credits, memo, semester, description, grade, tagsList);
+            ModuleStringParser prerequisiteParser = new ModuleStringParser(prerequisiteModulesString);
+            Optional<ModuleCode[]> prerequisites = Optional.of(prerequisiteParser.getModuleCodes());
 
-        return new ModuleAddAutoCommand(module, preclusionModules, prerequisiteModules);
+            ModuleStringParser preclusionParser = new ModuleStringParser(preclusionModulesString);
+            Optional<ModuleCode[]> preclusions = Optional.of(preclusionParser.getModuleCodes());
+
+            Optional<Description> description = parseDescription(jsonParsedModule.getDescription());
+
+            Optional<Memo> memo = argMultimap.getValue(PREFIX_MEMO).isPresent()
+                ? parseMemo(argMultimap.getValue(PREFIX_MEMO).get())
+                : Optional.empty();
+            Optional<Semester> semester = argMultimap.getValue(PREFIX_SEMESTER).isPresent()
+                ? parseSemester(argMultimap.getValue(PREFIX_SEMESTER).get())
+                : Optional.empty();
+
+            // TODO: support grade parsing too! i'll just leave it like that for now
+            Optional<Grade> grade = Optional.empty();
+
+            Module module = new Module(
+                title,
+                moduleCode,
+                credits,
+                memo,
+                semester,
+                description,
+                grade,
+                preclusions,
+                prerequisites,
+                tagsList
+            );
+
+            modules.add(module);
+
+        }
+
+        System.out.println("Printing all modules retrieved");
+        for (Module module : modules) {
+            System.out.println(module);
+        }
+
+        return new ModuleAddAutoCommand(modules, messageAdditional);
     }
 
 }
