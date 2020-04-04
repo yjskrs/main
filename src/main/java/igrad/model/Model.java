@@ -148,17 +148,6 @@ public interface Model {
     void setModule(Module target, Module editedModule);
 
     /**
-     * Returns the total credits required for all requirements
-     */
-    int getTotalCreditsRequired();
-
-    /**
-     * Returns the aggregated total of credits fulfilled per requirement
-     * If overflow, return totalCreditsRequired
-     */
-    int getTotalCreditsFulfilled();
-
-    /**
      * Checks if the {@code requirement} exists in the course book.
      * Returns true if it exists and false otherwise.
      */
@@ -234,11 +223,6 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateRequirementList(Predicate<Requirement> predicate);
-
-    /**
-     * Recalculates the credits fulfilled of all requirements
-     */
-    void recalculateRequirementList();
 
     /**
      * Calculates and returns Cap needed to maintain each sem to achieve desired Cap.
