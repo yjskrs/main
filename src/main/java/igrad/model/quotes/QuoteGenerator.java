@@ -5,10 +5,14 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.logging.Logger;
+
 import igrad.commons.core.LogsCenter;
 import igrad.commons.exceptions.DataConversionException;
 import igrad.commons.util.JsonUtil;
 
+/**
+ * Randomly selects a {@code Quote} each time the user starts the application.
+ */
 public class QuoteGenerator {
 
     private static final Logger logger = LogsCenter.getLogger(QuoteGenerator.class);

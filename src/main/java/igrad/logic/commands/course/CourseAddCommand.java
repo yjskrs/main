@@ -50,6 +50,7 @@ public class CourseAddCommand extends CourseCommand {
         if (model.isCourseNameSet()) {
             throw new CommandException(MESSAGE_COURSE_ALREADY_SET);
         }
+
         model.addCourseInfo(toAdd);
         return new CommandResult(String.format(MESSAGE_COURSE_ADD_SUCCESS, toAdd), false, false, true);
     }

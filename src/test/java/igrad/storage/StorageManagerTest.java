@@ -14,6 +14,7 @@ import igrad.model.CourseBook;
 import igrad.model.ReadOnlyCourseBook;
 import igrad.model.course.Cap;
 import igrad.model.course.CourseInfo;
+import igrad.model.course.Credits;
 import igrad.model.course.Name;
 import igrad.testutil.TypicalModules;
 
@@ -60,9 +61,10 @@ public class StorageManagerTest {
         CourseBook original = TypicalModules.getTypicalCourseBook();
 
         // Creating a course info for this test, because a course book with modules must have course info
-        Name name = new Name("abc");
-        Cap cap = CourseInfo.computeCap(original.getModuleList());
-        CourseInfo courseInfo = new CourseInfo(Optional.of(name), Optional.of(cap));
+        Optional<Name> name = Optional.of(new Name("abc"));
+        Optional<Cap> cap = CourseInfo.computeCap(original.getModuleList(), original.getRequirementList());
+        Optional<Credits> credits = CourseInfo.computeCredits(original.getRequirementList());
+        CourseInfo courseInfo = new CourseInfo(name, cap, credits);
         original.setCourseInfo(courseInfo);
 
         storageManager.saveCourseBook(original);

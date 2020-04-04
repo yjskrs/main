@@ -144,12 +144,6 @@ public interface Model {
      */
     boolean isCourseNameSet();
 
-    /**
-     * Computes (and returns) a {@Code Cap} based on the the current latest {@code Module} in the module list
-     * (which is maintained by the {@code CourseBook}).
-     */
-    Cap computeCap();
-
     String getRandomQuoteString();
 
     /**
@@ -164,17 +158,6 @@ public interface Model {
      * The module identity of {@code editedModule} must not be the same as another existing module in the course book.
      */
     void setModule(Module target, Module editedModule);
-
-    /**
-     * Returns the total credits required for all requirements
-     */
-    int getTotalCreditsRequired();
-
-    /**
-     * Returns the aggregated total of credits fulfilled per requirement
-     * If overflow, return totalCreditsRequired
-     */
-    int getTotalCreditsFulfilled();
 
     /**
      * Checks if the {@code requirement} exists in the course book.
@@ -252,11 +235,6 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateRequirementList(Predicate<Requirement> predicate);
-
-    /**
-     * Recalculates the credits fulfilled of all requirements
-     */
-    void recalculateRequirementList();
 
     /**
      * Calculates and returns Cap needed to maintain each sem to achieve desired Cap.

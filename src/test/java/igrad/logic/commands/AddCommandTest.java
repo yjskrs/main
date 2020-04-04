@@ -175,11 +175,6 @@ public class AddCommandTest {
         }
 
         @Override
-        public Cap computeCap() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void setCourseInfo(CourseInfo editedCourseInfo) {
             throw new AssertionError("This method should not be called.");
         }
@@ -260,27 +255,27 @@ public class AddCommandTest {
         }
 
         @Override
-        public void recalculateRequirementList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public int getTotalCreditsFulfilled() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public int getTotalCreditsRequired() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public Cap computeEstimatedCap(Cap capToAchieve, int semsLeft) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public List<Requirement> getRequirementsWithModule(Module module) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasModulePreclusions(Module module) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasModulePrerequisites(Module module) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public String getRandomQuoteString() {
             throw new AssertionError("This method should not be called.");
         }
     }
