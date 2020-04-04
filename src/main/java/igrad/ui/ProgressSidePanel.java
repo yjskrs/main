@@ -36,7 +36,7 @@ public class ProgressSidePanel extends UiPart<Region> {
     private Label inspirationalQuote;
 
     @FXML
-    private Label capLabel;
+    private Label currentCap;
 
     public ProgressSidePanel(Model model) {
         super(FXML);
@@ -49,7 +49,6 @@ public class ProgressSidePanel extends UiPart<Region> {
      * Updates the progress panel
      */
     public void updateProgress(Model model) {
-
         String quote = model.getRandomQuoteString();
 
         inspirationalQuote.setText("\"" + quote + "\"");
@@ -80,7 +79,7 @@ public class ProgressSidePanel extends UiPart<Region> {
         }
 
         cap.ifPresentOrElse(
-            x -> capLabel.setText(x.value + "/5.0"), () -> capLabel
+            x -> currentCap.setText(x.value + "/5.0"), () -> currentCap
                 .setText("-"));
 
         creditsCount.setText(creditsCountString);
