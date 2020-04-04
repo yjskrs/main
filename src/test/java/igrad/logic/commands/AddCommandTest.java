@@ -175,11 +175,6 @@ public class AddCommandTest {
         }
 
         @Override
-        public Cap computeCap() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void setCourseInfo(CourseInfo editedCourseInfo) {
             throw new AssertionError("This method should not be called.");
         }
@@ -276,6 +271,11 @@ public class AddCommandTest {
 
         @Override
         public boolean hasModulePrerequisites(Module module) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public String getRandomQuoteString() {
             throw new AssertionError("This method should not be called.");
         }
     }

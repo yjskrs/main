@@ -31,6 +31,9 @@ public class ProgressSidePanel extends UiPart<Region> {
     @FXML
     private Label creditsCount;
 
+    @FXML
+    private Label inspirationalQuote;
+
     public ProgressSidePanel(Model model) {
         super(FXML);
 
@@ -42,6 +45,10 @@ public class ProgressSidePanel extends UiPart<Region> {
      * Updates the progress panel
      */
     public void updateProgress(Model model) {
+
+        String quote = model.getRandomQuoteString();
+
+        inspirationalQuote.setText("\"" + quote + "\"");
 
         CourseInfo courseInfo = model.getCourseInfo();
 

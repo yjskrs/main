@@ -41,10 +41,8 @@ public class MainWindow extends UiPart<Stage> {
     private RequirementListPanel requirementListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
-    //    private StatusBar statusBar;
     private ProgressSidePanel progressSidePanel;
     private CommandReceivedPanel commandReceivedPanel;
-
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -262,20 +260,15 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Displays the sad (loading) version of the avatar when loading
      */
-    private void handleLoading(Avatar avatar) {
-
+    private void handleStartLoading(Avatar avatar) {
+        System.out.println("STARTT LOADING");
         Avatar sadAvatar = new Avatar(avatar.getName() + "-sad");
-
         resultDisplay.setAvatar(sadAvatar);
     }
 
     private void handleStopLoading(Avatar avatar) {
+        System.out.println("STOP LOADING");
         resultDisplay.setAvatar(avatar);
-    }
-
-    @FXML
-    private void handleStopLoading() {
-
     }
 
     /**
@@ -304,8 +297,6 @@ public class MainWindow extends UiPart<Stage> {
         IOException,
         ServiceException {
 
-        handleLoading(model.getAvatar());
-
         refreshCommandReceived(commandText);
 
         try {
@@ -325,6 +316,7 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             logger.info("Result: " + commandResult.getFeedbackToUser());
+
             refreshResultDisplay(commandResult);
             refreshProgressPanel(model);
 
@@ -334,7 +326,6 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
-            handleStopLoading(model.getAvatar());
 
             return commandResult;
         } catch (CommandException | ParseException | IOException | ServiceException e) {

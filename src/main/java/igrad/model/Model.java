@@ -144,11 +144,7 @@ public interface Model {
      */
     boolean isCourseNameSet();
 
-    /**
-     * Computes (and returns) a {@Code Cap} based on the the current latest {@code Module} in the module list
-     * (which is maintained by the {@code CourseBook}).
-     */
-    Cap computeCap();
+    String getRandomQuoteString();
 
     /**
      * Adds the given module.

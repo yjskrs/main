@@ -19,6 +19,7 @@ import igrad.model.course.Cap;
 import igrad.model.course.CourseInfo;
 import igrad.model.module.Module;
 import igrad.model.module.ModuleCode;
+import igrad.model.quotes.QuoteGenerator;
 import igrad.model.requirement.Requirement;
 import igrad.model.requirement.RequirementCode;
 import javafx.collections.ObservableList;
@@ -33,6 +34,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Module> filteredModules;
     private final FilteredList<Requirement> requirements;
+    private final QuoteGenerator quoteGenerator = new QuoteGenerator();
 
     /**
      * Initializes a ModelManager with the given courseBook and userPrefs.
@@ -67,6 +69,11 @@ public class ModelManager implements Model {
     public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
         requireNonNull(userPrefs);
         this.userPrefs.resetData(userPrefs);
+    }
+
+    @Override
+    public String getRandomQuoteString() {
+        return quoteGenerator.getRandomQuote().toString();
     }
 
     @Override
@@ -205,12 +212,6 @@ public class ModelManager implements Model {
     @Override
     public boolean isCourseNameSet() {
         return courseBook.getCourseInfo().getName().isPresent();
-    }
-
-    @Override
-    public Cap computeCap() {
-        return CourseInfo.computeCap(courseBook.getModuleList(),
-                courseBook.getRequirementList()).get();
     }
 
     @Override
