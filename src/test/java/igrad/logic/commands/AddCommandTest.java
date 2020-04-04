@@ -260,16 +260,6 @@ public class AddCommandTest {
         }
 
         @Override
-        public int getTotalCreditsFulfilled() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public int getTotalCreditsRequired() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public Cap computeEstimatedCap(Cap capToAchieve, int semsLeft) {
             throw new AssertionError("This method should not be called.");
         }

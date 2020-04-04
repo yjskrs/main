@@ -235,41 +235,6 @@ public class ModelManager implements Model {
         courseBook.removeRequirement(requirement);
     }
 
-    //========================================================================================================
-
-    @Override
-    public int getTotalCreditsRequired() {
-
-        return requirements
-            .stream()
-            .mapToInt(requirement -> requirement.getCreditsRequired())
-            .sum();
-
-    }
-
-    @Override
-    public int getTotalCreditsFulfilled() {
-        int totalCreditsFulfilled = 0;
-        int totalCreditsRequired = getTotalCreditsRequired();
-
-        for (Requirement requirement : requirements) {
-            int creditsFulfilled = filteredModules
-                .stream()
-                .filter(module -> requirement.getModuleList().contains(module) && module.isDone())
-                .mapToInt(module -> module.getCredits().toInteger())
-                .sum();
-
-            totalCreditsFulfilled += creditsFulfilled;
-        }
-
-        if (totalCreditsFulfilled > totalCreditsRequired) {
-            totalCreditsFulfilled = totalCreditsRequired;
-        }
-
-        return totalCreditsFulfilled;
-
-    }
-
     //=========== Filtered Module List Accessors =============================================================
 
     /**
