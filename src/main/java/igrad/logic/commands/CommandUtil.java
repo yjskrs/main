@@ -31,9 +31,10 @@ public class CommandUtil {
         Optional<igrad.model.course.Credits> updatedCredits = CourseInfo.computeCredits(
                 model.getRequirementList());
 
-        Optional<Semesters> currentSemesters = course.getSemesters();
+        Optional<Semesters> updatedSemesters = CourseInfo.computeSemesters(
+                course.getSemesters(), model.getFilteredModuleList());
 
-        CourseInfo latestCourseInfo = new CourseInfo(currentName, updatedCap, updatedCredits, currentSemesters);
+        CourseInfo latestCourseInfo = new CourseInfo(currentName, updatedCap, updatedCredits, updatedSemesters);
 
         return latestCourseInfo;
     }
