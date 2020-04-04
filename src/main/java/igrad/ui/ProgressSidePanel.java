@@ -3,6 +3,7 @@ package igrad.ui;
 import java.util.Optional;
 
 import igrad.model.Model;
+import igrad.model.course.Cap;
 import igrad.model.course.CourseInfo;
 import igrad.model.course.Credits;
 import igrad.model.course.Name;
@@ -34,6 +35,9 @@ public class ProgressSidePanel extends UiPart<Region> {
     @FXML
     private Label inspirationalQuote;
 
+    @FXML
+    private Label capLabel;
+
     public ProgressSidePanel(Model model) {
         super(FXML);
 
@@ -54,6 +58,7 @@ public class ProgressSidePanel extends UiPart<Region> {
 
         Optional<Name> courseName = courseInfo.getName();
         Optional<Credits> credits = courseInfo.getCredits();
+        Optional<Cap> cap = courseInfo.getCap();
 
         courseName.ifPresentOrElse(
             name -> courseNameLabel.setText(name.value), () -> courseNameLabel
@@ -73,6 +78,10 @@ public class ProgressSidePanel extends UiPart<Region> {
             progressBar.setProgress(0);
             creditsCountString = "- MCs";
         }
+
+        cap.ifPresentOrElse(
+            x -> capLabel.setText(x.value + "/5.0"), () -> capLabel
+                .setText("-"));
 
         creditsCount.setText(creditsCountString);
     }
