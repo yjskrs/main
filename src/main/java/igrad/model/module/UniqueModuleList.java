@@ -99,6 +99,16 @@ public class UniqueModuleList implements Iterable<Module> {
         }
     }
 
+    /**
+     * Removes all modules from the current list.
+     * The module must already exist in the list.
+     */
+    public void remove(List<Module> modulesToRemove) {
+        requireNonNull(modulesToRemove);
+
+        modulesToRemove.forEach(this::remove);
+    }
+
     public void setModules(UniqueModuleList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);

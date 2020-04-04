@@ -1,7 +1,7 @@
 package igrad.logic.parser.requirement;
 
-import static igrad.logic.commands.requirement.RequirementAssignCommand.MESSAGE_REQUIREMENT_NO_MODULES;
-import static igrad.logic.commands.requirement.RequirementAssignCommand.REQUIREMENT_ASSIGN_MESSAGE_HELP;
+import static igrad.logic.commands.requirement.RequirementUnassignCommand.MESSAGE_REQUIREMENT_NO_MODULES;
+import static igrad.logic.commands.requirement.RequirementUnassignCommand.REQUIREMENT_UNASSIGN_MESSAGE_HELP;
 import static igrad.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
 import static igrad.logic.parser.ParserUtil.parseModuleCodes;
 
@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.List;
 
 import igrad.commons.core.Messages;
-import igrad.logic.commands.requirement.RequirementAssignCommand;
+import igrad.logic.commands.requirement.RequirementUnassignCommand;
 import igrad.logic.parser.ArgumentMultimap;
 import igrad.logic.parser.ArgumentTokenizer;
 import igrad.logic.parser.Parser;
@@ -20,31 +20,31 @@ import igrad.model.module.ModuleCode;
 import igrad.model.requirement.RequirementCode;
 
 /**
- * Parses {@code Module}s to assign (to {@code Requirement}) input argument and creates a new
- * {@code RequirementAssignCommand} object.
+ * Parses {@code Module}s to unassign (from {@code Requirement}) input argument and creates a new
+ * {@code RequirementUnassignCommand} object.
  */
-public class RequirementAssignCommandParser implements Parser<RequirementAssignCommand> {
+public class RequirementUnassignCommandParser implements Parser<RequirementUnassignCommand> {
 
     @Override
-    public RequirementAssignCommand parse(String args) throws ParseException {
+    public RequirementUnassignCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
             ArgumentTokenizer.tokenize(args, PREFIX_MODULE_CODE);
 
         /*
-         * If all arguments in the command are empty; i.e, 'requirement assign', and nothing else, show
+         * If all arguments in the command are empty; i.e, 'requirement unassign', and nothing else, show
          * the help message for this command
          */
         if (argMultimap.isEmpty(true)) {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
-                REQUIREMENT_ASSIGN_MESSAGE_HELP));
+                REQUIREMENT_UNASSIGN_MESSAGE_HELP));
         }
 
         Specifier specifier = ParserUtil.parseSpecifier(argMultimap.getPreamble(),
             ParserUtil.REQUIREMENT_CODE_SPECIFIER_RULE, RequirementCode.MESSAGE_CONSTRAINTS);
 
-        List<ModuleCode> moduleCodes = parseModulesToAssign(argMultimap.getAllValues(PREFIX_MODULE_CODE));
+        List<ModuleCode> moduleCodes = parseModulesToUnassign(argMultimap.getAllValues(PREFIX_MODULE_CODE));
 
-        return new RequirementAssignCommand(new RequirementCode(specifier.getValue()), moduleCodes);
+        return new RequirementUnassignCommand(new RequirementCode(specifier.getValue()), moduleCodes);
     }
 
     /**
@@ -53,7 +53,7 @@ public class RequirementAssignCommandParser implements Parser<RequirementAssignC
      * If {@code moduleCodes} contain only one element which is an empty string, it will be parsed into a
      * {@code List<ModuleCode>} containing zero tags.
      */
-    private List<ModuleCode> parseModulesToAssign(Collection<String> moduleCodes) throws ParseException {
+    private List<ModuleCode> parseModulesToUnassign(Collection<String> moduleCodes) throws ParseException {
         assert moduleCodes != null;
 
         if (moduleCodes.isEmpty()) {

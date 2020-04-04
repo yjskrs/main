@@ -19,10 +19,9 @@ import igrad.model.course.Cap;
 import igrad.model.course.CourseInfo;
 import igrad.model.module.Module;
 import igrad.model.module.ModuleCode;
-import igrad.model.requirement.Credits;
+import igrad.model.quotes.QuoteGenerator;
 import igrad.model.requirement.Requirement;
 import igrad.model.requirement.RequirementCode;
-import igrad.model.requirement.Title;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
@@ -35,6 +34,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Module> filteredModules;
     private final FilteredList<Requirement> requirements;
+    private final QuoteGenerator quoteGenerator = new QuoteGenerator();
 
     /**
      * Initializes a ModelManager with the given courseBook and userPrefs.
@@ -69,6 +69,11 @@ public class ModelManager implements Model {
     public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
         requireNonNull(userPrefs);
         this.userPrefs.resetData(userPrefs);
+    }
+
+    @Override
+    public String getRandomQuoteString() {
+        return quoteGenerator.getRandomQuote().toString();
     }
 
     @Override
@@ -139,9 +144,59 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasModulePreclusions(Module module) {
+        requireNonNull(module);
+
+        boolean hasModulePreclusions = false;
+
+        if (module.getPreclusions().isPresent()) {
+
+            ModuleCode[] preclusions = module.getPreclusions().get();
+
+            for (ModuleCode preclusion : preclusions) {
+                Optional<Module> mOpt = getModuleByModuleCode(preclusion);
+                if (mOpt.isPresent()) {
+                    hasModulePreclusions = true;
+                }
+            }
+
+        }
+
+        return hasModulePreclusions;
+
+    }
+
+    @Override
+    public boolean hasModulePrerequisites(Module module) {
+        requireNonNull(module);
+
+        boolean hasModulePrerequisites = true;
+
+        if (module.getPrequisites().isPresent()) {
+
+            ModuleCode[] preqrequisites = module.getPrequisites().get();
+
+            for (ModuleCode prerequisite : preqrequisites) {
+                Optional<Module> mOpt = getModuleByModuleCode(prerequisite);
+                if (mOpt.isEmpty()) {
+                    hasModulePrerequisites = false;
+                } else {
+                    Module m = mOpt.get();
+                    if (!m.isDone()) {
+                        hasModulePrerequisites = false;
+                    }
+                }
+            }
+
+        }
+
+        return hasModulePrerequisites;
+
+    }
+
+    @Override
     public void deleteModule(Module target) {
         courseBook.removeModule(target);
-        courseBook.removeModuleFromRequirement(target);
     }
 
     @Override
@@ -157,11 +212,6 @@ public class ModelManager implements Model {
     @Override
     public boolean isCourseNameSet() {
         return courseBook.getCourseInfo().getName().isPresent();
-    }
-
-    @Override
-    public Cap computeCap() {
-        return CourseInfo.computeCap(courseBook.getModuleList());
     }
 
     @Override
@@ -237,41 +287,6 @@ public class ModelManager implements Model {
         courseBook.removeRequirement(requirement);
     }
 
-    //========================================================================================================
-
-    @Override
-    public int getTotalCreditsRequired() {
-
-        return requirements
-            .stream()
-            .mapToInt(requirement -> requirement.getCreditsRequired())
-            .sum();
-
-    }
-
-    @Override
-    public int getTotalCreditsFulfilled() {
-        int totalCreditsFulfilled = 0;
-        int totalCreditsRequired = getTotalCreditsRequired();
-
-        for (Requirement requirement : requirements) {
-            int creditsFulfilled = filteredModules
-                .stream()
-                .filter(module -> requirement.getModuleList().contains(module) && module.isDone())
-                .mapToInt(module -> module.getCredits().toInteger())
-                .sum();
-
-            totalCreditsFulfilled += creditsFulfilled;
-        }
-
-        if (totalCreditsFulfilled > totalCreditsRequired) {
-            totalCreditsFulfilled = totalCreditsRequired;
-        }
-
-        return totalCreditsFulfilled;
-
-    }
-
     //=========== Filtered Module List Accessors =============================================================
 
     /**
@@ -310,42 +325,6 @@ public class ModelManager implements Model {
     public void updateRequirementList(Predicate<Requirement> predicate) {
         requireNonNull(predicate);
         requirements.setPredicate(predicate);
-    }
-
-    @Override
-    public void recalculateRequirementList() {
-
-        int[] requirementCredits = new int[requirements.size()];
-
-        for (Module module : filteredModules) {
-            int requirementIndex = 0;
-            for (Requirement requirement : requirements) {
-                ObservableList<Module> requirementModules = requirement.getModuleList();
-                if (requirementModules.contains(module)) {
-                    requirementCredits[requirementIndex] += module.getCredits().toInteger();
-                }
-                requirementIndex++;
-            }
-        }
-
-        for (int i = 0; i < requirementCredits.length; i++) {
-            // Compute credits fulfilled based on modules in the module list
-            Requirement requirement = requirements.get(i);
-
-            // TODO: Improve design of this part, can move logic to CourseBook itself maybe hmm
-
-            // Copy all other requirement fields over
-            Title title = requirement.getTitle();
-            List<Module> modules = requirement.getModuleList();
-            RequirementCode requirementCode = requirement.getRequirementCode();
-            Credits credits = new Credits(requirement.getCreditsRequired(), requirementCredits[i]);
-
-            Requirement updatedRequirement = new Requirement(requirementCode, title, credits, modules);
-            setRequirement(requirement, updatedRequirement);
-        }
-
-        this.updateRequirementList(PREDICATE_SHOW_ALL_REQUIREMENTS);
-
     }
 
     @Override

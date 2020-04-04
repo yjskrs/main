@@ -162,7 +162,7 @@ Classes used by multiple components are in the `iGrad.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
-=== CourseInfo Feature
+=== Course Feature
 
 A `CourseBook` contains only one course information.
 
@@ -170,13 +170,27 @@ A `CourseBook` contains only one course information.
 
 .Structure of CourseInfo Class
 image::CourseInfoClassDiagram.png[]
-A course consists of one information: Name. One course should only have one name.
+A course consists of three information: Name, CAP, and SemsLeft. One course should only have one name,
+and one CAP.
 
 The course related commands that can be called are:
 
-* `course add` - adds a new course with name to the course book
 * `course edit` - edits name of existing course in the course book
 * `course delete` - deletes existing course and all information in the course book
+* `course achieve` - calculates CAP needed to maintain each semester to achieve overall CAP targer
+
+Here is how the courseInfo class updates when name of course is edited:
+
+.Sequence Diagram when editing course name.
+image::CourseEditSequenceDiagram.png[]
+When a user edits name of a course, the user has to specify the prefix `/n` for name.
+Then the application proceeds to do the following steps:
+
+Step 1: The CourseEditCommandParser is called to parse the CourseEditCommand with the n/ prefix.
+
+Step 2: The CourseEditCommand is executed to set the new course name to the model.
+
+Step 3: The new course name is set in the course book.
 
 === Adding Modules from NUS Mods
 
