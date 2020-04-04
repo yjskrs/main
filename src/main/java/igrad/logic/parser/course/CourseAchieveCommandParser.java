@@ -2,9 +2,7 @@ package igrad.logic.parser.course;
 
 import static igrad.logic.commands.course.CourseAchieveCommand.MESSAGE_ACHIEVED_CAP_NOT_CALCULATED;
 import static igrad.logic.commands.course.CourseAchieveCommand.MESSAGE_COURSE_ACHIEVE_HELP;
-import static igrad.logic.commands.course.CourseAchieveCommand.MESSAGE_SEMS_LEFT_NEEDED;
 import static igrad.logic.parser.CliSyntax.PREFIX_CAP;
-import static igrad.logic.parser.CliSyntax.PREFIX_SEMESTER;
 import static java.util.Objects.requireNonNull;
 
 import igrad.commons.core.Messages;
@@ -28,7 +26,7 @@ public class CourseAchieveCommandParser implements Parser<CourseAchieveCommand> 
      */
     public CourseAchieveCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_CAP, PREFIX_SEMESTER);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_CAP);
 
         if (argMultimap.isEmpty(true)) {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
@@ -39,14 +37,13 @@ public class CourseAchieveCommandParser implements Parser<CourseAchieveCommand> 
             throw new ParseException(MESSAGE_ACHIEVED_CAP_NOT_CALCULATED);
         }
 
-        if (argMultimap.getValue(PREFIX_SEMESTER).isEmpty()) {
-            throw new ParseException(MESSAGE_SEMS_LEFT_NEEDED);
+        if (argMultimap.getValue(PREFIX_CAP).get() < 0 || argMultimap.getValue(PREFIX_CAP) > 5) {
+
         }
 
         Cap cap = new Cap(argMultimap.getValue(PREFIX_CAP).get());
-        int semsLeft = Integer.parseInt(argMultimap.getValue(PREFIX_SEMESTER).get());
 
-        return new CourseAchieveCommand(cap, semsLeft);
+        return new CourseAchieveCommand(cap);
     }
 
 }

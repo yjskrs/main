@@ -239,5 +239,5 @@ public interface Model {
     /**
      * Calculates and returns Cap needed to maintain each sem to achieve desired Cap.
      */
-    Cap computeEstimatedCap(Cap capToAchieve, int semsLeft);
+    double computeEstimatedCap(Cap capToAchieve);
 }

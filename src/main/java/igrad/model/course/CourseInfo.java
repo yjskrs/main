@@ -242,9 +242,15 @@ public class CourseInfo {
         int latestFinishedSem = 0;
 
         for (int i = 0; i < totalNumOfModules; i++) {
+            Optional<Grade> grade = moduleList.get(i).getGrade();
+
+            if (grade.isEmpty()) {
+                continue;
+            }
+
             Optional<Semester> semester = moduleList.get(i).getSemester();
 
-            if(semester.isEmpty()) {
+            if (semester.isEmpty()) {
                 continue;
             }
 

@@ -17,6 +17,7 @@ import igrad.commons.core.LogsCenter;
 import igrad.model.avatar.Avatar;
 import igrad.model.course.Cap;
 import igrad.model.course.CourseInfo;
+import igrad.model.course.Semesters;
 import igrad.model.module.Module;
 import igrad.model.module.ModuleCode;
 import igrad.model.quotes.QuoteGenerator;
@@ -328,25 +329,27 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Cap computeEstimatedCap(Cap capToAchieve, int semsLeft) {
-        int totalSems;
+    public double computeEstimatedCap(Cap capToAchieve) {
+        Optional<Semesters> semesters = getCourseInfo().getSemesters();
+        int totalSemesters = semesters.get().getTotalSemesters();
+        int remainingSemesters = semesters.get().getRemainingSemesters();
 
         Optional<Cap> current = courseBook.getCourseInfo().getCap();
 
         if (current.isEmpty()) {
-            totalSems = semsLeft;
+            totalSemesters = remainingSemesters;
         } else {
-            totalSems = semsLeft + 1;
+            totalSemesters = remainingSemesters + 1;
         }
 
         Cap currentCap = courseBook.getCourseInfo().getCap().orElse(new Cap("0"));
         double capWanted = capToAchieve.getValue();
         double capNow = currentCap.getValue();
 
-        double estimatedCapEachSem = ((capWanted * totalSems) - capNow) / semsLeft;
-        Cap capToAchieveEachSem = new Cap(estimatedCapEachSem + "");
+        double estimatedCapEachSem = ((capWanted * totalSemesters) - capNow) / remainingSemesters;
+        //Cap capToAchieveEachSem = new Cap(estimatedCapEachSem + "");
 
-        return capToAchieveEachSem;
+        return estimatedCapEachSem;
     }
 
     @Override

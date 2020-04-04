@@ -31,6 +31,9 @@ public class CommandUtil {
         Optional<igrad.model.course.Credits> updatedCredits = CourseInfo.computeCredits(
                 model.getRequirementList());
 
+        /*
+         * Recompute semesters (total and updated)
+         */
         Optional<Semesters> updatedSemesters = CourseInfo.computeSemesters(
                 course.getSemesters(), model.getFilteredModuleList());
 
