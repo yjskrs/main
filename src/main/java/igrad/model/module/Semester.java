@@ -12,7 +12,7 @@ public class Semester {
 
     public static final String MESSAGE_CONSTRAINTS =
         "Semester should be in the format Y_S_ e.g. Y1S2";
-    public static final String VALIDATION_REGEX = "(?i)Y[1-4]S[1-2]";
+    public static final String VALIDATION_REGEX = "(?i)Y[1-9]S[1-2]";
     public final String value;
 
     /**
@@ -32,6 +32,12 @@ public class Semester {
      */
     public static boolean isValidSemester(String test) {
         return test.matches(VALIDATION_REGEX);
+    }
+
+    public int getValue(){
+        String intValue = value.replaceAll("[^A-Z]", "");
+
+        return Integer.parseInt(intValue);
     }
 
     @Override

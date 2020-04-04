@@ -6,6 +6,7 @@ import igrad.model.Model;
 import igrad.model.course.Cap;
 import igrad.model.course.CourseInfo;
 import igrad.model.course.Name;
+import igrad.model.course.Semesters;
 
 /**
  * Contains general purpose utility methods used by some of the commands.
@@ -30,7 +31,9 @@ public class CommandUtil {
         Optional<igrad.model.course.Credits> updatedCredits = CourseInfo.computeCredits(
                 model.getRequirementList());
 
-        CourseInfo latestCourseInfo = new CourseInfo(currentName, updatedCap, updatedCredits);
+        Optional<Semesters> currentSemesters = course.getSemesters();
+
+        CourseInfo latestCourseInfo = new CourseInfo(currentName, updatedCap, updatedCredits, currentSemesters);
 
         return latestCourseInfo;
     }

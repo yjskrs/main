@@ -12,10 +12,7 @@ import igrad.logic.parser.ArgumentTokenizer;
 import igrad.logic.parser.CourseCommandParser;
 import igrad.logic.parser.Parser;
 import igrad.logic.parser.exceptions.ParseException;
-import igrad.model.course.Cap;
-import igrad.model.course.CourseInfo;
-import igrad.model.course.Credits;
-import igrad.model.course.Name;
+import igrad.model.course.*;
 
 /**
  * Parses input arguments and creates a new CourseAddCommand object.
@@ -73,7 +70,13 @@ public class CourseAddCommandParser extends CourseCommandParser implements Parse
          */
         Optional<Credits> credits = Optional.empty();
 
-        CourseInfo courseInfo = new CourseInfo(name, cap, credits);
+        /*
+         * A newly created course has no semesters added to it yet as different students have different length of study.
+         * Hence, it does not make sense to set any semester, so it is set to Optional.
+         */
+        Optional<Semesters> semesters = Optional.empty();
+
+        CourseInfo courseInfo = new CourseInfo(name, cap, credits, semesters);
 
         return new CourseAddCommand(courseInfo);
     }

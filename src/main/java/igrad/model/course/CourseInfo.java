@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import igrad.model.module.Grade;
 import igrad.model.module.Module;
+import igrad.model.module.Semester;
 import igrad.model.requirement.Requirement;
 
 /**
@@ -24,6 +25,7 @@ public class CourseInfo {
     private final Optional<Name> name;
     private final Optional<Cap> cap;
     private final Optional<Credits> credits;
+    private final Optional<Semesters> semesters;
 
     // Data fields
 
@@ -32,15 +34,18 @@ public class CourseInfo {
         name = Optional.empty();
         cap = Optional.empty();
         credits = Optional.empty();
+        semesters = Optional.empty();
     }
 
     /**
      * Every field must be present and not null.
      */
-    public CourseInfo(Optional<Name> name, Optional<Cap> cap, Optional<Credits> credits) {
+    public CourseInfo(Optional<Name> name, Optional<Cap> cap, Optional<Credits> credits,
+                      Optional<Semesters> semesters) {
         this.name = name;
         this.cap = cap;
         this.credits = credits;
+        this.semesters = semesters;
     }
 
     public Optional<Name> getName() {
@@ -53,6 +58,10 @@ public class CourseInfo {
 
     public Optional<Credits> getCredits() {
         return credits;
+    }
+
+    public Optional<Semesters> getSemesters() {
+        return semesters;
     }
 
     /**
@@ -209,6 +218,47 @@ public class CourseInfo {
         }
 
         return Optional.of(capResult);
+    }
+
+    public static Optional<Semesters> computeSemesters(Optional<Semesters> totalSemesters, List<Module> moduleList) {
+
+        if (moduleList.isEmpty()) {
+            return Optional.empty();
+        }
+
+        String totalSemester = totalSemesters.toString();
+        String remainingSemesters = computeRemainingSemesters(moduleList) + "";
+
+        return Optional.of(new Semesters(totalSemester, remainingSemesters));
+    }
+
+    private static int computeRemainingSemesters(List<Module> moduleList) {
+        //If module list is empty, no semesters have been done yet
+        if (moduleList.isEmpty()) {
+            return 0;
+        }
+
+        int totalNumOfModules = moduleList.size();
+        int latestFinishedSem = 0;
+
+        for (int i = 0; i < totalNumOfModules; i++) {
+            Optional<Semester> semester = moduleList.get(i).getSemester();
+
+            if(semester.isEmpty()) {
+                continue;
+            }
+
+            int semesterValue = semester.get().getValue();
+            if (semesterValue > latestFinishedSem) {
+                latestFinishedSem = semesterValue;
+            }
+        }
+
+        int year = (latestFinishedSem / 10) - 1;
+        int sem = latestFinishedSem % 10;
+        int totalSems = year * 2 + sem;
+
+        return totalSems;
     }
 
     /**
