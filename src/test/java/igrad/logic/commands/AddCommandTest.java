@@ -268,6 +268,16 @@ public class AddCommandTest {
         public List<Requirement> getRequirementsWithModule(Module module) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public boolean hasModulePreclusions(Module module) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasModulePrerequisites(Module module) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
