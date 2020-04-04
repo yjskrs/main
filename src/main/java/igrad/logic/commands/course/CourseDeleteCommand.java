@@ -26,6 +26,7 @@ public class CourseDeleteCommand extends CourseCommand {
         CourseInfo oldCourseInfo = model.getCourseInfo();
 
         model.resetCourseBook(courseBookToDelete);
+
         return new CommandResult(String.format(MESSAGE_COURSE_DELETE_SUCCESS, oldCourseInfo));
     }
 

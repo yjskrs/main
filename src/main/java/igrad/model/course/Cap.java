@@ -8,10 +8,10 @@ import static java.util.Objects.requireNonNull;
  * Guarantees: immutable; is valid as declared in {@link #isValidCap(String)}
  */
 public class Cap {
-    public static final String MESSAGE_CONSTRAINTS = "Names should not start with a space or slash and should not "
+    public static final String MESSAGE_CONSTRAINTS = "Cap should not start with a space or slash and should not "
         + "be blank.";
 
-    // The first character of the course name must not be a whitespace, " ", slash; /, or blank.
+    // The first character of the cap must not be a whitespace, " ", slash; /, or blank.
     public static final String VALIDATION_REGEX = "[0-9](\\.[0-9]+)?";
 
     public final String value;

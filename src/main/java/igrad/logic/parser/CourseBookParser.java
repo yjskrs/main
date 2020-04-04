@@ -33,11 +33,12 @@ import igrad.logic.commands.requirement.RequirementAssignCommand;
 import igrad.logic.commands.requirement.RequirementCommand;
 import igrad.logic.commands.requirement.RequirementDeleteCommand;
 import igrad.logic.commands.requirement.RequirementEditCommand;
+import igrad.logic.commands.requirement.RequirementUnassignCommand;
 import igrad.logic.parser.course.CourseAchieveCommandParser;
 import igrad.logic.parser.course.CourseAddCommandParser;
 import igrad.logic.parser.course.CourseEditCommandParser;
 import igrad.logic.parser.exceptions.ParseException;
-import igrad.logic.parser.module.AddAutoCommandParser;
+import igrad.logic.parser.module.ModuleAddAutoCommandParser;
 import igrad.logic.parser.module.ModuleAddCommandParser;
 import igrad.logic.parser.module.ModuleDeleteCommandParser;
 import igrad.logic.parser.module.ModuleDoneCommandParser;
@@ -46,6 +47,7 @@ import igrad.logic.parser.requirement.RequirementAddCommandParser;
 import igrad.logic.parser.requirement.RequirementAssignCommandParser;
 import igrad.logic.parser.requirement.RequirementDeleteCommandParser;
 import igrad.logic.parser.requirement.RequirementEditCommandParser;
+import igrad.logic.parser.requirement.RequirementUnassignCommandParser;
 import igrad.services.exceptions.ServiceException;
 
 /**
@@ -151,13 +153,16 @@ public class CourseBookParser {
         case RequirementDeleteCommand.REQUIREMENT_DELETE_COMMAND_WORD:
             return new RequirementDeleteCommandParser().parse(arguments);
 
-        case RequirementAssignCommand.COMMAND_WORD:
+        case RequirementAssignCommand.REQUIREMENT_ASSIGN_COMMAND_WORD:
             return new RequirementAssignCommandParser().parse(arguments);
+
+        case RequirementUnassignCommand.REQUIREMENT_UNASSIGN_COMMAND_WORD:
+            return new RequirementUnassignCommandParser().parse(arguments);
 
         case ModuleAddCommand.MODULE_ADD_COMMAND_WORD:
 
             if (ArgumentTokenizer.isFlagPresent(argumentsWithFlags, FLAG_AUTO.getFlag())) {
-                return new AddAutoCommandParser().parse(arguments);
+                return new ModuleAddAutoCommandParser().parse(arguments);
             } else {
                 return new ModuleAddCommandParser().parse(arguments);
             }

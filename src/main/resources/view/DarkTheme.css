@@ -123,8 +123,12 @@ ProgressSidePanel
 }
 
 .inspirational-quote {
-    -fx-padding: 24px 0px;
+    -fx-padding: 12px 0px;
     -fx-font-style: italic;
+    -fx-min-width: 250px;
+    -fx-max-width: 250px;
+    -fx-pref-width: 250px;
+    -fx-font-size: 14px !important;
 }
 
 /*

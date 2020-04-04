@@ -42,6 +42,19 @@ _iGrad_ calculates your CAP at every step, ensuring you never have to use a CAP 
 Finally, the _iGrad_ team is always open to feedback and suggestions from the public which
 will always be followed up on.
 
+== How to use this guide
+
+You may proceed to <<Command List>> if you would like to learn how to use each of the commands, and <<Cheat Sheet>>
+if you would just like a list of all the commands for easy reference.
+
+The figure below explains the symbols used throughout the user guide.
+
+WARNING: Specifies the constraints of the command or situation.
+
+NOTE: Specifies expected command outcomes.
+
+TIP: Specifies extra tips you can use when navigating through our app.
+
 == Features
 ____
 This segment highlights the key features of iGrad.
@@ -86,21 +99,6 @@ A module is the building block of all other components. Mark your modules as don
 a grade. You can also add optional memos to help you remember why
 you took the module.
 
-== How to use this guide
-
-You may proceed to <<Walkthrough>> if you want a step-by-step break down of how to navigate the app,
-<<Command List>> if you would like to learn how to use each of the commands, and <<Cheat Sheet>>
-if you would just like a list of all the commands for easy reference.
-
-The figure below explains the symbols used throughout the user guide.
-
-WARNING: Specifies the constraints of the command or situation.
-
-NOTE: Specifies expected command outcomes.
-
-TIP: Specifies extra tips you can use when navigating through our app.
-
-
 == Walkthrough
 
 1. Start up the application
@@ -109,15 +107,15 @@ TIP: Specifies extra tips you can use when navigating through our app.
 
 3. Key in your graduation requirements
 
-4. Assign your modules
+4. Add modules to the tracker
 
-5. Mark a module as done
+5. Assign your modules
 
 6. Key in additional details for your modules
 
-7. Track your MCs
+7. Mark a module as done and assign a grade to it
 
-8. Assign a grade to your module
+8. Track your MCs
 
 9. View your CAP
 
@@ -260,7 +258,7 @@ requirement assign UE0 n/CS1101S n/CS1231S n/CS2030S n/CS2040S
 Constraints
 [WARNING]
 ====
-1. `(all)`: Requirement names have to be unique.
+1. None.
 ====
 
 Expected Outcome
@@ -392,8 +390,6 @@ ____
 `requirement delete REQUIREMENT_CODE`
 
 `requirement assign REQUIREMENT_CODE [n/MODULE_CODE ...]`
-
-`requirement unassign REQUIREMENT_CODE [n/MODULE_CODE ...]`
 
 `module add n/MODULE_CODE n/MODULE_TITLE u/MCs [n/DESCRIPTION] [s/SEMESTER] [g/GRADE] [m/MEMO_NOTES]`
 
