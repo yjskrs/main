@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 
 import igrad.commons.core.GuiSettings;
 import igrad.commons.core.LogsCenter;
+import igrad.commons.core.Messages;
 import igrad.logic.Logic;
 import igrad.logic.commands.CommandResult;
 import igrad.logic.commands.exceptions.CommandException;
@@ -13,10 +14,12 @@ import igrad.model.Model;
 import igrad.model.avatar.Avatar;
 import igrad.services.exceptions.ServiceException;
 import javafx.fxml.FXML;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 /**
@@ -180,6 +183,12 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplay = new ResultDisplay(model.getAvatar());
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
+        if (model.getCourseInfo().getName().isEmpty()){
+            resultDisplay.setFeedbackToUser(Messages.MESSAGE_ADD_COURSE);
+        } else {
+            resultDisplay.setFeedbackToUser(Messages.MESSAGE_WELCOME_BACK);
+        }
+
         displayCommandBox(model);
         displayProgressPanel(model);
     }
@@ -254,6 +263,8 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     void show() {
+        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+        primaryStage.setMaxHeight(primaryScreenBounds.getHeight());
         primaryStage.show();
     }
 
