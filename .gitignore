@@ -15,7 +15,7 @@ src/main/main.iml
 /config.json
 /preferences.json
 /*.log.*
-study_plan.csv
+*.csv
 
 # Test sandbox files
 src/test/data/sandbox/
