@@ -8,6 +8,6 @@ import igrad.logic.commands.Command;
 public abstract class RequirementCommand extends Command {
     public static final String REQUIREMENT_COMMAND_WORD = "requirement";
 
-    public static final String MESSAGE_REQUIREMENT_NON_EXISTENT = "The requirement name provided is invalid.";
+    public static final String MESSAGE_REQUIREMENT_NON_EXISTENT = "The requirement code provided is invalid.";
 
 }

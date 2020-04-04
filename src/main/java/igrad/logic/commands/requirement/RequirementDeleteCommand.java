@@ -52,7 +52,9 @@ public class RequirementDeleteCommand extends RequirementCommand {
             throw new CommandException(MESSAGE_REQUIREMENT_NON_EXISTENT);
         }
 
-        model.deleteRequirement(requirementToDelete.get());
+        Requirement toDelete = requirementToDelete.get();
+
+        model.deleteRequirement(toDelete);
 
         /*
          * Now that we've deleted a new Requirement in the system, we need to update CourseInfo, specifically its
@@ -65,7 +67,7 @@ public class RequirementDeleteCommand extends RequirementCommand {
         CourseInfo editedCourseInfo = CommandUtil.retrieveLatestCourseInfo(courseToEdit, model);
 
         return new CommandResult(
-            String.format(MESSAGE_REQUIREMENT_DELETE_SUCCESS, requirementToDelete));
+            String.format(MESSAGE_REQUIREMENT_DELETE_SUCCESS, toDelete));
     }
 
 }
