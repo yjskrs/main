@@ -10,6 +10,7 @@ import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
 import igrad.model.course.Cap;
 import igrad.model.course.CourseInfo;
+import igrad.model.course.Credits;
 import igrad.model.course.Name;
 
 /**
@@ -45,11 +46,15 @@ public class CourseEditCommand extends CourseCommand {
      */
     private static CourseInfo createEditedCourseInfo(CourseInfo courseInfoToEdit,
                                              CourseEditCommand.EditCourseDescriptor editCourseDescriptor) {
-
+        /*
+         * Just copy everything from the original {@code courseInfoToEdit} to our new {@code CourseInfo}.
+         * But for course name, we retrieve the updated value from the editCourseDescriptor here.
+         */
         Optional<Name> updatedName = editCourseDescriptor.getName();
-        Optional<Cap> updatedCap = courseInfoToEdit.getCap();
+        Optional<Cap> cap = courseInfoToEdit.getCap();
+        Optional<Credits> credits = courseInfoToEdit.getCredits();
 
-        return new CourseInfo(updatedName, updatedCap);
+        return new CourseInfo(updatedName, cap, credits);
     }
 
     @Override

@@ -18,34 +18,35 @@ import igrad.model.requirement.RequirementCode;
 import igrad.model.requirement.Title;
 
 /**
- * Assigns modules under a particular requirement.
+ * Unassigns modules under a particular requirement.
  */
-public class RequirementAssignCommand extends RequirementCommand {
-    public static final String REQUIREMENT_ASSIGN_COMMAND_WORD = REQUIREMENT_COMMAND_WORD + SPACE + "assign";
+public class RequirementUnassignCommand extends RequirementCommand {
+    public static final String REQUIREMENT_UNASSIGN_COMMAND_WORD = REQUIREMENT_COMMAND_WORD + SPACE
+        + "unassign";
 
-    public static final String REQUIREMENT_ASSIGN_MESSAGE_DETAILS = REQUIREMENT_ASSIGN_COMMAND_WORD
-        + ": Assigns the requirement identified with modules "
+    public static final String REQUIREMENT_UNASSIGN_MESSAGE_DETAILS = REQUIREMENT_UNASSIGN_COMMAND_WORD
+        + ": Unassigns the requirement identified with modules "
         + "by its requirement code. Existing requirement will be overwritten by the input values\n";
 
-    public static final String REQUIREMENT_ASSIGN_MESSAGE_USAGE = "Parameter(s): REQUIREMENT_CODE "
+    public static final String REQUIREMENT_UNASSIGN_MESSAGE_USAGE = "Parameter(s): REQUIREMENT_CODE "
         + PREFIX_MODULE_CODE + "MODULE_CODE]...\n";
 
-    public static final String REQUIREMENT_ASSIGN_MESSAGE_HELP = REQUIREMENT_ASSIGN_MESSAGE_DETAILS
-        + REQUIREMENT_ASSIGN_MESSAGE_USAGE;
+    public static final String REQUIREMENT_UNASSIGN_MESSAGE_HELP = REQUIREMENT_UNASSIGN_MESSAGE_DETAILS
+        + REQUIREMENT_UNASSIGN_MESSAGE_USAGE;
 
-    public static final String MESSAGE_REQUIREMENT_NO_MODULES = "There must be at least one modules assigned.";
+    public static final String MESSAGE_REQUIREMENT_NO_MODULES = "There must be at least one modules unassigned.";
 
     public static final String MESSAGE_MODULES_NON_EXISTENT =
         "Not all Modules exist in the system. Please try other modules.";
 
     public static final String MESSAGE_MODULES_ALREADY_EXIST_IN_REQUIREMENT =
         "Some Modules already exists in this requirement. Please try other modules.";
-    public static final String MESSAGE_SUCCESS = "Modules assigned under Requirement:\n%1$s";
+    public static final String MESSAGE_SUCCESS = "Modules unassigned under Requirement:\n%1$s";
 
     private RequirementCode requirementCode;
     private List<ModuleCode> moduleCodes;
 
-    public RequirementAssignCommand(RequirementCode requirementCode, List<ModuleCode> moduleCodes) {
+    public RequirementUnassignCommand(RequirementCode requirementCode, List<ModuleCode> moduleCodes) {
         requireAllNonNull(requirementCode, moduleCodes);
 
         this.requirementCode = requirementCode;
@@ -56,31 +57,34 @@ public class RequirementAssignCommand extends RequirementCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        // Retrieve the requirement in question that we want to assign modules under..
+        // Retrieve the requirement in question that we want to unassign modules under..
 
         // First check if the requirement exists in the course book
-        Requirement requirementToAssign = model.getRequirement(requirementCode)
+        Requirement requirementToUnassign = model.getRequirement(requirementCode)
             .orElseThrow(() -> new CommandException(MESSAGE_REQUIREMENT_NON_EXISTENT));
 
 
-        final List<Module> modulesToAssign = model.getModulesByModuleCode(moduleCodes);
+        final List<Module> modulesToUnassign = model.getModulesByModuleCode(moduleCodes);
 
         // First check, if all modules (codes) are existent modules in the course book (they should all be)
-        if (modulesToAssign.size() < moduleCodes.size()) {
+        if (modulesToUnassign.size() < moduleCodes.size()) {
             throw new CommandException(MESSAGE_MODULES_NON_EXISTENT);
         }
 
-        // Now check, if any modules specified are existent in the requirement (they should not)
-        if (requirementToAssign.hasModule(modulesToAssign)) {
+        // Now check, if all modules specified are existent in the requirement (they should be)
+        if (!requirementToUnassign.hasModule(modulesToUnassign)) {
             throw new CommandException(MESSAGE_MODULES_ALREADY_EXIST_IN_REQUIREMENT);
         }
 
-        // Finally if everything alright, we can actually then assign/add the specified modules under this requirement
-        requirementToAssign.addModules(modulesToAssign);
+        /*
+         * Finally if everything alright, we can actually then unassign/'delete' the specified modules under
+         * this requirement
+         */
+        requirementToUnassign.removeModules(modulesToUnassign);
 
-        // First, we copy over all the old values of requirementToAssign
-        RequirementCode requirementCode = requirementToAssign.getRequirementCode();
-        Title title = requirementToAssign.getTitle();
+        // First, we copy over all the old values of requirementToUnassign
+        RequirementCode requirementCode = requirementToUnassign.getRequirementCode();
+        Title title = requirementToUnassign.getTitle();
 
         /*
          * Now given that we've added this list of new modules to requirement, we've to update (recompute)
@@ -88,15 +92,15 @@ public class RequirementAssignCommand extends RequirementCommand {
          * on the module list passed in, we don't have to do anything here, just propage
          * the old credits value.
          */
-        igrad.model.requirement.Credits credits = requirementToAssign.getCredits();
+        igrad.model.requirement.Credits credits = requirementToUnassign.getCredits();
 
-        // Get the most update module list (now with the new modules assigned/added)
-        List<Module> modules = requirementToAssign.getModuleList();
+        // Get the most update module list (now with the new modules unassigned/'deleted')
+        List<Module> modules = requirementToUnassign.getModuleList();
 
         // Finally, create a new Requirement with all the updated information (details).
         Requirement editedRequirement = new Requirement(requirementCode, title, credits, modules);
 
-        model.setRequirement(requirementToAssign, editedRequirement);
+        model.setRequirement(requirementToUnassign, editedRequirement);
 
         /*
          * Now that we've assigned some modules under a particular Requirement to the system, we need to update
