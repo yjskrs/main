@@ -8,55 +8,68 @@ import static java.util.Objects.requireNonNull;
  * Guarantees: immutable; is valid as declared in {@link #isValidCap(String)}
  */
 public class Cap {
-    public static final String MESSAGE_CONSTRAINTS = "Cap should not start with a space or slash and should not "
-        + "be blank.";
+    public static final String MESSAGE_CONSTRAINTS =
+        "Cap of a course should be a number (double) more than 0.";
 
     // The first character of the cap must not be a whitespace, " ", slash; /, or blank.
     public static final String VALIDATION_REGEX = "[0-9](\\.[0-9]+)?";
 
-    public final String value;
-
-    public Cap() {
-        value = null;
-    }
+    public final double value;
 
     /**
-     * Constructs a {@code Name}.
+     * Constructs a {@code Cap}.
      *
-     * @param name A valid name.
+     * @param cap A valid cap (double).
      */
-    public Cap(String name) {
-        requireNonNull(name);
-        checkArgument(isValidCap(name), MESSAGE_CONSTRAINTS);
-        value = name;
+    public Cap(String cap) {
+        requireNonNull(cap);
+        checkArgument(isValidCap(cap), MESSAGE_CONSTRAINTS);
+        value = Double.parseDouble(cap);
     }
 
     /**
-     * Returns true if a given string is a valid name.
+     * Constructs a {@code Cap}.
+     *
+     * @param cap A valid cap (double).
+     */
+    public Cap(double cap) {
+        checkArgument(isValidCap(cap), MESSAGE_CONSTRAINTS);
+        value = cap;
+    }
+
+    /**
+     * Returns true if a given double is a valid cap.
+     */
+    public static boolean isValidCap(double test) {
+        return test >= 0;
+    }
+
+    /**
+     * Returns true if a given double is a valid cap.
      */
     public static boolean isValidCap(String test) {
-        return test.matches(VALIDATION_REGEX);
-    }
+        requireNonNull(test);
 
-    public double getValue() {
-        return Double.parseDouble(value);
+        return test.matches(VALIDATION_REGEX) && Double.parseDouble(test) >= 0;
     }
 
     @Override
     public String toString() {
-        return value;
+        String twoDpTruncate = String.format("%.2f", value);
+
+        return twoDpTruncate;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
             || (other instanceof Cap // instanceof handles nulls
-            && value.equals(((Cap) other).value)); // state check
+            && value == (((Cap) other).value)); // state check
     }
 
     @Override
     public int hashCode() {
-        return value.hashCode();
+        return ((Double) value).hashCode();
     }
 
 }
