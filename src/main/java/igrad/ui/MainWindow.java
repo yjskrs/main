@@ -261,7 +261,7 @@ public class MainWindow extends UiPart<Stage> {
      * Displays the sad (loading) version of the avatar when loading
      */
     private void handleStartLoading(Avatar avatar) {
-        System.out.println("STARTT LOADING");
+        System.out.println("START LOADING");
         Avatar sadAvatar = new Avatar(avatar.getName() + "-sad");
         resultDisplay.setAvatar(sadAvatar);
     }
