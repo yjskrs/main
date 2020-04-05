@@ -55,9 +55,9 @@ public class Cap {
 
     @Override
     public String toString() {
-        String twoDpTruncate = String.format("%.2f", value);
+        String twoDpTrunc = String.format("%.2f", value);
 
-        return twoDpTruncate;
+        return twoDpTrunc;
     }
 
     @Override
