@@ -70,9 +70,26 @@ public class LogicManager implements Logic {
 
         /*
          * If user has not selected her course name, and she is trying to execute any other
-         * command except course add n/course_name, prevent her from doing so.
+         * command except the 'course add', prevent her from doing so.
+         *
+         * With the addition of the 'undo' command, there is a slight catch to this.
+         *
+         * Suppose the situation where the user has done a 'course delete' command
+         * and thus the course name is not set (as all the data in the system has been reverted to
+         * a blank state), we must still allow the undo command.
+         *
+         * However, if indeed, the user hasn't initially set a course, and undo is still entered,
+         * we are unable to distinguish the first case from this case.
+         *
+         * Hence, in addition to allowing only the 'course add' command, when a course name is
+         * not set, we allow the undo command too.
+         *
+         * In the second case, where there is indeed nothing to undo, and we still 'undo',
+         * the 'undo' command would be able to handle this error and gracefully flag
+         * and error message to the user.
          */
-        if (!model.isCourseNameSet() && !(command instanceof CourseAddCommand)) {
+        if (!model.isCourseNameSet() && !(command instanceof CourseAddCommand
+                    || command instanceof UndoCommand)) {
             throw new CommandException(MESSAGE_COURSE_NOT_SET);
         }
 
