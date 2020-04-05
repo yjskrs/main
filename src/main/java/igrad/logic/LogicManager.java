@@ -88,8 +88,8 @@ public class LogicManager implements Logic {
          * the 'undo' command would be able to handle this error and gracefully flag
          * and error message to the user.
          */
-        if (!model.isCourseNameSet() && !(command instanceof CourseAddCommand
-                    || command instanceof UndoCommand)) {
+        if (!model.isCourseNameSet()
+                && !(command instanceof CourseAddCommand || command instanceof UndoCommand)) {
             throw new CommandException(MESSAGE_COURSE_NOT_SET);
         }
 
