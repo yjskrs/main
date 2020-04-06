@@ -1,7 +1,6 @@
 package igrad.logic.commands.module;
 
 import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
-import static igrad.logic.parser.CliSyntax.PREFIX_MEMO;
 import static igrad.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
 import static igrad.logic.parser.CliSyntax.PREFIX_SEMESTER;
 import static igrad.logic.parser.CliSyntax.PREFIX_TITLE;
@@ -26,13 +25,11 @@ public class ModuleAddAutoCommand extends ModuleCommand {
         + PREFIX_TITLE + "MODULE TITLE "
         + PREFIX_MODULE_CODE + "MODULE CODE "
         + PREFIX_CREDITS + "CREDITS "
-        + PREFIX_MEMO + "MEMO "
         + "[" + PREFIX_SEMESTER + "SEMESTER]...\n"
         + "Example: " + COMMAND_WORD + " "
         + PREFIX_TITLE + "Software Engineering "
         + PREFIX_MODULE_CODE + "CS2103T "
         + PREFIX_CREDITS + "4 "
-        + PREFIX_MEMO + "Hard module. Good teachers. "
         + PREFIX_SEMESTER + "Y2S2 ";
 
     public static final String MESSAGE_COMPLETE = "%d module(s) added through NUSMods API.\n";

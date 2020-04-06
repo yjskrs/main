@@ -88,14 +88,24 @@ ProgressSidePanel
 }
 
 .progress-title {
-    -fx-min-width: 100px;
-    -fx-alignment: center-left;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-padding: 0px 0px 12px 0px;
 }
 
 .progress-rank {
     -fx-font-weight: bold;
     -fx-min-width: 160px;
     -fx-alignment: center-right;
+}
+
+.progress-label {
+    -fx-font-size: 13px !important;
+}
+
+.progress-value {
+    -fx-font-size: 13px !important;
+    -fx-font-weight: bold;
 }
 
 .progress-bar {
