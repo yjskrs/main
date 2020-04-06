@@ -30,14 +30,12 @@ public class Credits {
      * Returns true if a given string is a valid credits.
      */
     public static boolean isValidCredits(String test) {
-
         try {
             Integer.parseInt(test);
             return test.matches(VALIDATION_REGEX);
         } catch (NumberFormatException e) {
             return false;
         }
-
     }
 
     /**

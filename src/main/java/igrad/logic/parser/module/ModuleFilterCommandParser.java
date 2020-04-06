@@ -3,7 +3,9 @@ package igrad.logic.parser.module;
 import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
 import static igrad.logic.parser.CliSyntax.PREFIX_GRADE;
 import static igrad.logic.parser.CliSyntax.PREFIX_SEMESTER;
+
 import java.util.Optional;
+
 import igrad.logic.commands.module.ModuleFilterCommand;
 import igrad.logic.parser.ArgumentMultimap;
 import igrad.logic.parser.ArgumentTokenizer;
@@ -40,7 +42,7 @@ public class ModuleFilterCommandParser extends ModuleCommandParser implements Pa
         System.out.println(operator);
 
         /*
-         * If all arguments in the command are empty; i.e, 'module add', and nothing else (except preambles), show
+         * If all arguments in the command are empty; i.e, 'module filter', and nothing else (except preambles), show
          * the help message for this command
          */
         if (argMultimap.isEmpty(false)) {
