@@ -196,7 +196,7 @@ public class CourseInfo {
                 break;
 
             default:
-                --totalModuleCredits;
+                totalModuleCredits -= moduleCredits;
                 break;
             }
         }
@@ -204,7 +204,7 @@ public class CourseInfo {
         Cap capResult;
 
         if (totalModuleCredits == 0) {
-            capResult = new Cap("0");
+            capResult = new Cap(0);
         } else {
             capResult = new Cap(Double.toString(totalCredits / totalModuleCredits));
         }
