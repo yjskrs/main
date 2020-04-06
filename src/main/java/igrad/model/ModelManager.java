@@ -339,12 +339,12 @@ public class ModelManager implements Model {
             totalSems = semsLeft + 1;
         }
 
-        Cap currentCap = courseBook.getCourseInfo().getCap().orElse(new Cap("0"));
-        double capWanted = capToAchieve.getValue();
-        double capNow = currentCap.getValue();
+        Cap currentCap = courseBook.getCourseInfo().getCap().orElse(new Cap(0));
+        double capWanted = capToAchieve.value;
+        double capNow = currentCap.value;
 
         double estimatedCapEachSem = ((capWanted * totalSems) - capNow) / semsLeft;
-        Cap capToAchieveEachSem = new Cap(estimatedCapEachSem + "");
+        Cap capToAchieveEachSem = new Cap(estimatedCapEachSem);
 
         return capToAchieveEachSem;
     }

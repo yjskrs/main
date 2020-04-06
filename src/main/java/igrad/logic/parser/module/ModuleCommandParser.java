@@ -41,10 +41,11 @@ public class ModuleCommandParser {
     public static ModuleCode parseModuleCode(String moduleCode) throws ParseException {
         requireNonNull(moduleCode);
         String trimmedModuleCode = moduleCode.trim();
+        String upperCaseModuleCode = trimmedModuleCode.toUpperCase();
         if (!ModuleCode.isValidModuleCode(trimmedModuleCode)) {
             throw new ParseException(ModuleCode.MESSAGE_CONSTRAINTS);
         }
-        return new ModuleCode(trimmedModuleCode);
+        return new ModuleCode(upperCaseModuleCode);
     }
 
     /**

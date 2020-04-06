@@ -115,11 +115,11 @@ public class CourseInfo {
             return Optional.empty();
         }
 
-        double cap = 0;
+        double totalCredits = 0;
+
+        double totalModuleCredits = 0;
 
         int totalNumOfModules = moduleList.size();
-
-        int finalTotalNumOfModules = 0;
 
         for (int i = 0; i < totalNumOfModules; i++) {
             Module module = moduleList.get(i);
@@ -145,67 +145,68 @@ public class CourseInfo {
                 continue;
             }
 
-            ++finalTotalNumOfModules;
-
             String gradeStr = grade.get().toString();
+            int moduleCredits = Integer.parseInt(module.getCredits().toString());
+
+            totalModuleCredits += moduleCredits;
 
             switch (gradeStr) {
             case "A+":
-                cap += 5.0;
+                totalCredits += 5.0 * moduleCredits;
                 break;
 
             case "A":
-                cap += 5.0;
+                totalCredits += 5.0 * moduleCredits;
                 break;
 
             case "A-":
-                cap += 4.5;
+                totalCredits += 4.5 * moduleCredits;
                 break;
 
             case "B+":
-                cap += 4.0;
+                totalCredits += 4.0 * moduleCredits;
                 break;
 
             case "B":
-                cap += 3.5;
+                totalCredits += 3.5 * moduleCredits;
                 break;
 
             case "B-":
-                cap += 3.0;
+                totalCredits += 3.0 * moduleCredits;
                 break;
 
             case "C+":
-                cap += 2.5;
+                totalCredits += 2.5 * moduleCredits;
                 break;
 
             case "C":
-                cap += 2.0;
+                totalCredits += 2.0 * moduleCredits;
                 break;
 
             case "D+":
-                cap += 1.5;
+                totalCredits += 1.5 * moduleCredits;
                 break;
 
             case "D":
-                cap += 1.0;
+                totalCredits += 1.0 * moduleCredits;
                 break;
 
             case "F":
-                cap += 0;
+                totalCredits += 0;
                 break;
 
             default:
-                cap = cap;
+                totalModuleCredits -= moduleCredits;
                 break;
             }
         }
 
         Cap capResult;
 
-        if (finalTotalNumOfModules == 0) {
-            capResult = new Cap("0");
+        if (totalModuleCredits == 0) {
+            capResult = new Cap(0);
         } else {
-            capResult = new Cap(Double.toString(cap / finalTotalNumOfModules));
+            capResult = new Cap(Double.toString(totalCredits / totalModuleCredits));
         }
 
         return Optional.of(capResult);

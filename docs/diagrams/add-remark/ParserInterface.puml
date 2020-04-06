@@ -8,7 +8,7 @@ Class RemarkCommandParser LOGIC_COLOR_T1{
 
 Class ParserException LOGIC_COLOR_T1
 
-RemarkCommandParser -up-|> Parser
+RemarkCommandParser .up.|> Parser
 Parser .right.> ParserException : throws
 
 show members
