@@ -89,6 +89,7 @@ ProgressSidePanel
     -fx-effect: dropshadow(gaussian, #1d1d1d, 20, 0.2, 0, 10);
     -fx-padding: 16px;
     -fx-min-width:300px;
+    -fx-max-width: 300px !important;
     -fx-min-height: 280px !important;
 }
 
