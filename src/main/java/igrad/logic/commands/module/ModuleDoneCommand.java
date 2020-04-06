@@ -43,42 +43,45 @@ public class ModuleDoneCommand extends ModuleCommand {
     public static final String MESSAGE_MODULE_DONE_SUCCESS = "Marked Module as done:\n%1$s";
 
     private ModuleCode moduleCode;
-    private EditModuleGradeDescriptor editModuleGradeDescriptor;
+    private EditModuleDescriptor editModuleGradeDescriptor;
 
     /**
      * @param moduleCode                of the module in the filtered module list to edit
      * @param editModuleGradeDescriptor details (grade) to edit the module with
      */
-    public ModuleDoneCommand(ModuleCode moduleCode, EditModuleGradeDescriptor editModuleGradeDescriptor) {
+    public ModuleDoneCommand(ModuleCode moduleCode, EditModuleDescriptor editModuleGradeDescriptor) {
         requireAllNonNull(moduleCode, editModuleGradeDescriptor);
 
         this.moduleCode = moduleCode;
-        this.editModuleGradeDescriptor = new EditModuleGradeDescriptor(editModuleGradeDescriptor);
+        this.editModuleGradeDescriptor = new EditModuleDescriptor(editModuleGradeDescriptor);
     }
 
     /**
      * Creates and returns a {@code Module} with the details of {@code moduleToEdit}
      * edited with {@code editModuleGradeDescriptor}.
      */
-    private static Module createEditedModule(Module moduleToEdit,
-                                             ModuleDoneCommand.EditModuleGradeDescriptor editModuleGradeDescriptor) {
+    private static Module createEditedModule(Module moduleToEdit, EditModuleDescriptor editModuleDescriptor) {
         assert moduleToEdit != null;
 
         // Just copy everything from the original {@code moduleToEdit} to our new {@code Module}
         ModuleCode moduleCode = moduleToEdit.getModuleCode();
-        Title updatedTitle = moduleToEdit.getTitle();
-        Credits updatedCredits = moduleToEdit.getCredits();
-        Optional<Semester> updatedSemester = moduleToEdit.getSemester();
-        Optional<Description> updatedDescription = moduleToEdit.getDescription();
+        Title title = moduleToEdit.getTitle();
+        Credits credits = moduleToEdit.getCredits();
+        Optional<Description> description = moduleToEdit.getDescription();
+
+        /*
+         * But for Semester, since it is an optional field, we copy its value over from the
+         * EditModuleDescriptor if any
+         */
+        Optional<Semester> updatedSemester = editModuleDescriptor.getSemester().orElse(moduleToEdit.getSemester());
 
         /*
          * But for Grade, It's compulsory for Grade to be optionally edited/updated. This should have already been
          * guaranteed through the validations in the ModuleDoneCommandParser
          */
-        Optional<Grade> updatedGrade = editModuleGradeDescriptor.getGrade();
+        Optional<Grade> updatedGrade = editModuleDescriptor.getGrade();
 
-        return new Module(updatedTitle, moduleCode, updatedCredits, updatedSemester,
-            updatedDescription, updatedGrade);
+        return new Module(title, moduleCode, credits, updatedSemester, description, updatedGrade);
     }
 
     @Override
@@ -161,20 +164,22 @@ public class ModuleDoneCommand extends ModuleCommand {
 
     /**
      * Stores the grade to edit the module with, and its used in the module done command to mark (edit)
-     * a module with a grade. Each non-empty field value will replace the
+     * a module with a grade, and semester. Each non-empty field value will replace the
      * corresponding field value of the module.
      */
-    public static class EditModuleGradeDescriptor {
+    public static class EditModuleDescriptor {
         private Optional<Grade> grade;
+        private Optional<Semester> semester;
 
-        public EditModuleGradeDescriptor() {
+        public EditModuleDescriptor() {
         }
 
         /**
          * Copy constructor.
          */
-        public EditModuleGradeDescriptor(ModuleDoneCommand.EditModuleGradeDescriptor toCopy) {
+        public EditModuleDescriptor(EditModuleDescriptor toCopy) {
             setGrade(toCopy.grade);
+            setSemester(toCopy.semester);
         }
 
         public Optional<Grade> getGrade() {
@@ -185,6 +190,14 @@ public class ModuleDoneCommand extends ModuleCommand {
             this.grade = grade;
         }
 
+        public Optional<Optional<Semester>> getSemester() {
+            return Optional.ofNullable(semester);
+        }
+
+        public void setSemester(Optional<Semester> semester) {
+            this.semester = semester;
+        }
+
         @Override
         public boolean equals(Object other) {
             // short circuit if same object
@@ -193,14 +206,15 @@ public class ModuleDoneCommand extends ModuleCommand {
             }
 
             // instanceof handles nulls
-            if (!(other instanceof ModuleDoneCommand.EditModuleGradeDescriptor)) {
+            if (!(other instanceof EditModuleDescriptor)) {
                 return false;
             }
 
             // state check
-            ModuleDoneCommand.EditModuleGradeDescriptor e = (ModuleDoneCommand.EditModuleGradeDescriptor) other;
+            ModuleDoneCommand.EditModuleDescriptor e = (EditModuleDescriptor) other;
 
-            return getGrade().equals(e.getGrade());
+            return getGrade().equals(e.getGrade())
+                && getSemester().equals(e.getSemester());
         }
     }
 
