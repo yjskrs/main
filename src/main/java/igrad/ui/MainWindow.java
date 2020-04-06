@@ -183,7 +183,7 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplay = new ResultDisplay(model.getAvatar());
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        if (model.getCourseInfo().getName().isEmpty()){
+        if (!model.isCourseNameSet()) {
             resultDisplay.setFeedbackToUser(Messages.MESSAGE_ADD_COURSE);
         } else {
             resultDisplay.setFeedbackToUser(Messages.MESSAGE_WELCOME_BACK);
