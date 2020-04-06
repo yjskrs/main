@@ -26,6 +26,8 @@ import igrad.model.requirement.RequirementCode;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
+import javax.swing.text.html.Option;
+
 /**
  * Represents the in-memory model of the course book data.
  */
@@ -329,7 +331,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public double computeEstimatedCap(Cap capToAchieve) {
+    public Optional<Cap> computeEstimatedCap(Cap capToAchieve) {
         Optional<Semesters> semesters = getCourseInfo().getSemesters();
         int totalSemesters = semesters.get().getTotalSemesters();
         int remainingSemesters = semesters.get().getRemainingSemesters();
@@ -337,7 +339,7 @@ public class ModelManager implements Model {
         Optional<Cap> current = courseBook.getCourseInfo().getCap();
 
         if (current.isEmpty()) {
-            return capToAchieve.getValue();
+            return Optional.of(capToAchieve);
         } else {
             totalSemesters = remainingSemesters + 1;
         }
@@ -348,7 +350,7 @@ public class ModelManager implements Model {
 
         double estimatedCapEachSem = ((capWanted * totalSemesters) - capNow) / remainingSemesters;
 
-        return estimatedCapEachSem;
+        return Optional.of(new Cap(Double.toString(estimatedCapEachSem)));
     }
 
     @Override

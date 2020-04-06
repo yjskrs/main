@@ -8,6 +8,8 @@ import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
 import igrad.model.course.Cap;
 
+import java.util.Optional;
+
 /**
  * Adds a course to the application (there can only be one such course).
  */
@@ -43,12 +45,12 @@ public class CourseAchieveCommand extends CourseCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        double estimatedCap = model.computeEstimatedCap(capToAchieve);
+        Optional<Cap> estimatedCap = model.computeEstimatedCap(capToAchieve);
 
-        if (estimatedCap < 0 || estimatedCap > 5.0) {
-            throw new CommandException(String.format(MESSAGE_UNABLE_TO_ACHIEVE_CAP, estimatedCap));
+        if (estimatedCap.get().getValue() < 0 || estimatedCap.get().getValue() > 5.0) {
+            throw new CommandException(String.format(MESSAGE_UNABLE_TO_ACHIEVE_CAP, estimatedCap.get()));
         }
 
-        return new CommandResult(String.format(MESSAGE_COURSE_ACHIEVE_SUCCESS, estimatedCap));
+        return new CommandResult(String.format(MESSAGE_COURSE_ACHIEVE_SUCCESS, estimatedCap.get()));
     }
 }
