@@ -2,7 +2,6 @@ package igrad.logic.commands.module;
 
 import static igrad.commons.util.CollectionUtil.requireAllNonNull;
 import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
-import static igrad.logic.parser.CliSyntax.PREFIX_MEMO;
 import static igrad.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
 import static igrad.logic.parser.CliSyntax.PREFIX_SEMESTER;
 import static igrad.logic.parser.CliSyntax.PREFIX_TAG;
@@ -24,13 +23,11 @@ import igrad.model.course.CourseInfo;
 import igrad.model.module.Credits;
 import igrad.model.module.Description;
 import igrad.model.module.Grade;
-import igrad.model.module.Memo;
 import igrad.model.module.Module;
 import igrad.model.module.ModuleCode;
 import igrad.model.module.Semester;
 import igrad.model.module.Title;
 import igrad.model.requirement.Requirement;
-import igrad.model.tag.Tag;
 
 /**
  * Edits the details (course name) of the existing module.
@@ -46,7 +43,6 @@ public class ModuleEditCommand extends ModuleCommand {
         + "[" + PREFIX_MODULE_CODE + "MODULE_CODE] "
         + "[" + PREFIX_TITLE + "TITLE] "
         + "[" + PREFIX_CREDITS + "CREDITS] "
-        + "[" + PREFIX_MEMO + "MEMO] "
         + "[" + PREFIX_SEMESTER + "SEMESTER] "
         + "[" + PREFIX_TAG + "TAGS]...\n"
         + "Example: " + MODULE_EDIT_COMMAND_WORD + " CS2040 "
@@ -86,11 +82,9 @@ public class ModuleEditCommand extends ModuleCommand {
         Title updatedTitle = editModuleDescriptor.getTitle().orElse(moduleToEdit.getTitle());
         ModuleCode updatedModuleCode = editModuleDescriptor.getModuleCode().orElse(moduleToEdit.getModuleCode());
         Credits updatedCredits = editModuleDescriptor.getCredits().orElse(moduleToEdit.getCredits());
-        Optional<Memo> updatedMemo = editModuleDescriptor.getMemo().orElse(moduleToEdit.getMemo());
         Optional<Semester> updatedSemester = editModuleDescriptor.getSemester().orElse(moduleToEdit.getSemester());
         Optional<Description> updatedDescription = editModuleDescriptor.getDescription()
             .orElse(moduleToEdit.getDescription());
-        Set<Tag> updatedTags = editModuleDescriptor.getTags().orElse(moduleToEdit.getTags());
 
         /*
          * (Note): Grade cannot be edited here (using the edit command), have to do so using the module done
@@ -98,8 +92,8 @@ public class ModuleEditCommand extends ModuleCommand {
          */
         Optional<Grade> updatedGrade = moduleToEdit.getGrade();
 
-        return new Module(updatedTitle, updatedModuleCode, updatedCredits, updatedMemo, updatedSemester,
-            updatedDescription, updatedGrade, updatedTags);
+        return new Module(updatedTitle, updatedModuleCode, updatedCredits, updatedSemester,
+            updatedDescription, updatedGrade);
     }
 
     @Override
@@ -214,10 +208,8 @@ public class ModuleEditCommand extends ModuleCommand {
         private Title title;
         private ModuleCode moduleCode;
         private Credits credits;
-        private Optional<Memo> memo;
         private Optional<Description> description;
         private Optional<Semester> semester;
-        private Set<Tag> tags;
 
         public EditModuleDescriptor() {
         }
@@ -230,17 +222,15 @@ public class ModuleEditCommand extends ModuleCommand {
             setTitle(toCopy.title);
             setModuleCode(toCopy.moduleCode);
             setCredits(toCopy.credits);
-            setMemo(toCopy.memo);
             setSemester(toCopy.semester);
             setDescription(toCopy.description);
-            setTags(toCopy.tags);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(title, moduleCode, credits, memo, description, semester, tags);
+            return CollectionUtil.isAnyNonNull(title, moduleCode, credits, description, semester);
         }
 
         public Optional<Title> getTitle() {
@@ -267,14 +257,6 @@ public class ModuleEditCommand extends ModuleCommand {
             this.credits = credits;
         }
 
-        public Optional<Optional<Memo>> getMemo() {
-            return Optional.ofNullable(memo);
-        }
-
-        public void setMemo(Optional<Memo> memo) {
-            this.memo = memo;
-        }
-
         public Optional<Optional<Semester>> getSemester() {
             return Optional.ofNullable(semester);
         }
@@ -289,23 +271,6 @@ public class ModuleEditCommand extends ModuleCommand {
 
         public void setDescription(Optional<Description> description) {
             this.description = description;
-        }
-
-        /**
-         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
-         * if modification is attempted.
-         * Returns {@code Optional#empty()} if {@code tags} is null.
-         */
-        public Optional<Set<Tag>> getTags() {
-            return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
-        }
-
-        /**
-         * Sets {@code tags} to this object's {@code tags}.
-         * A defensive copy of {@code tags} is used internally.
-         */
-        public void setTags(Set<Tag> tags) {
-            this.tags = (tags != null) ? new HashSet<>(tags) : null;
         }
 
         @Override
@@ -326,10 +291,8 @@ public class ModuleEditCommand extends ModuleCommand {
             return getTitle().equals(e.getTitle())
                 && getModuleCode().equals(e.getModuleCode())
                 && getCredits().equals(e.getCredits())
-                && getMemo().equals(e.getMemo())
                 && getDescription().equals(e.getDescription())
-                && getSemester().equals(e.getSemester())
-                && getTags().equals(e.getTags());
+                && getSemester().equals(e.getSemester());
         }
     }
 }

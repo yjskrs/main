@@ -4,7 +4,6 @@ import static igrad.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static igrad.commons.core.Messages.MESSAGE_REQUEST_FAILED;
 import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
 import static igrad.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static igrad.logic.parser.CliSyntax.PREFIX_MEMO;
 import static igrad.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
 import static igrad.logic.parser.CliSyntax.PREFIX_SEMESTER;
 import static igrad.logic.parser.CliSyntax.PREFIX_TAG;
@@ -27,12 +26,10 @@ import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.module.Credits;
 import igrad.model.module.Description;
 import igrad.model.module.Grade;
-import igrad.model.module.Memo;
 import igrad.model.module.Module;
 import igrad.model.module.ModuleCode;
 import igrad.model.module.Semester;
 import igrad.model.module.Title;
-import igrad.model.tag.Tag;
 import igrad.services.JsonParsedModule;
 import igrad.services.NusModsRequester;
 import igrad.services.exceptions.ServiceException;
@@ -64,7 +61,6 @@ public class ModuleAddAutoCommandParser extends ModuleCommandParser implements P
                 PREFIX_MODULE_CODE,
                 PREFIX_CREDITS,
                 PREFIX_TAG,
-                PREFIX_MEMO,
                 PREFIX_DESCRIPTION,
                 PREFIX_SEMESTER
             );
@@ -75,8 +71,6 @@ public class ModuleAddAutoCommandParser extends ModuleCommandParser implements P
         }
 
         List<String> moduleCodes = argMultimap.getAllValues((PREFIX_MODULE_CODE));
-
-        Set<Tag> tagsList = ParserUtil.parseTag(argMultimap.getAllValues(PREFIX_TAG));
 
         ArrayList<Module> modules = new ArrayList<>();
 
@@ -108,9 +102,6 @@ public class ModuleAddAutoCommandParser extends ModuleCommandParser implements P
 
             Optional<Description> description = parseDescription(jsonParsedModule.getDescription());
 
-            Optional<Memo> memo = argMultimap.getValue(PREFIX_MEMO).isPresent()
-                ? parseMemo(argMultimap.getValue(PREFIX_MEMO).get())
-                : Optional.empty();
             Optional<Semester> semester = argMultimap.getValue(PREFIX_SEMESTER).isPresent()
                 ? parseSemester(argMultimap.getValue(PREFIX_SEMESTER).get())
                 : Optional.empty();
@@ -122,13 +113,11 @@ public class ModuleAddAutoCommandParser extends ModuleCommandParser implements P
                 title,
                 moduleCode,
                 credits,
-                memo,
                 semester,
                 description,
                 grade,
                 preclusions,
-                prerequisites,
-                tagsList
+                prerequisites
             );
 
             modules.add(module);
