@@ -2,12 +2,10 @@ package igrad.logic.commands.module;
 
 import static igrad.commons.util.CollectionUtil.requireAllNonNull;
 import static igrad.logic.parser.CliSyntax.PREFIX_GRADE;
-import static igrad.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import igrad.logic.commands.CommandResult;
 import igrad.logic.commands.CommandUtil;
@@ -17,13 +15,11 @@ import igrad.model.course.CourseInfo;
 import igrad.model.module.Credits;
 import igrad.model.module.Description;
 import igrad.model.module.Grade;
-import igrad.model.module.Memo;
 import igrad.model.module.Module;
 import igrad.model.module.ModuleCode;
 import igrad.model.module.Semester;
 import igrad.model.module.Title;
 import igrad.model.requirement.Requirement;
-import igrad.model.tag.Tag;
 
 /**
  * Marks the module as done, with a specified grade.
@@ -37,8 +33,7 @@ public class ModuleDoneCommand extends ModuleCommand {
 
     public static final String MESSAGE_MODULE_DONE_USAGE = "Parameter(s): MODULE CODE "
         + PREFIX_GRADE + "GRADE\n"
-        + "Example: " + MODULE_DONE_COMMAND_WORD + " "
-        + PREFIX_MODULE_CODE + "CS2103T "
+        + "Example: " + MODULE_DONE_COMMAND_WORD + " CS2103T "
         + PREFIX_GRADE + "A+";
 
     public static final String MESSAGE_MODULE_DONE_HELP = MESSAGE_MODULE_DONE_DETAILS + MESSAGE_MODULE_DONE_USAGE;
@@ -73,10 +68,8 @@ public class ModuleDoneCommand extends ModuleCommand {
         ModuleCode moduleCode = moduleToEdit.getModuleCode();
         Title updatedTitle = moduleToEdit.getTitle();
         Credits updatedCredits = moduleToEdit.getCredits();
-        Optional<Memo> updatedMemo = moduleToEdit.getMemo();
         Optional<Semester> updatedSemester = moduleToEdit.getSemester();
         Optional<Description> updatedDescription = moduleToEdit.getDescription();
-        Set<Tag> updatedTags = moduleToEdit.getTags();
 
         /*
          * But for Grade, It's compulsory for Grade to be optionally edited/updated. This should have already been
@@ -84,8 +77,8 @@ public class ModuleDoneCommand extends ModuleCommand {
          */
         Optional<Grade> updatedGrade = editModuleGradeDescriptor.getGrade();
 
-        return new Module(updatedTitle, moduleCode, updatedCredits, updatedMemo, updatedSemester,
-            updatedDescription, updatedGrade, updatedTags);
+        return new Module(updatedTitle, moduleCode, updatedCredits, updatedSemester,
+            updatedDescription, updatedGrade);
     }
 
     @Override

@@ -3,7 +3,6 @@ package igrad.logic.commands;
 import static igrad.logic.commands.CommandTestUtil.DESC_COMPUTER_ORGANISATION;
 import static igrad.logic.commands.CommandTestUtil.DESC_PROGRAMMING_METHODOLOGY;
 import static igrad.logic.commands.CommandTestUtil.VALID_MODULE_CODE_COMPUTER_ORGANISATION;
-import static igrad.logic.commands.CommandTestUtil.VALID_TAG_HARD;
 import static igrad.logic.commands.CommandTestUtil.VALID_TITLE_COMPUTER_ORGANISATION;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -43,12 +42,6 @@ public class EditModuleDescriptorTest {
         // different module code -> returns false
         editedProgrammingMethodology = new EditModuleDescriptorBuilder(DESC_PROGRAMMING_METHODOLOGY)
             .withModuleCode(VALID_MODULE_CODE_COMPUTER_ORGANISATION)
-            .build();
-        assertFalse(DESC_PROGRAMMING_METHODOLOGY.equals(editedProgrammingMethodology));
-
-        // different tags -> returns false
-        editedProgrammingMethodology = new EditModuleDescriptorBuilder(DESC_PROGRAMMING_METHODOLOGY)
-            .withTags(VALID_TAG_HARD)
             .build();
         assertFalse(DESC_PROGRAMMING_METHODOLOGY.equals(editedProgrammingMethodology));
     }

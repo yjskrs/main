@@ -4,9 +4,6 @@ import static igrad.logic.parser.CliSyntax.PREFIX_TAG;
 import static igrad.testutil.TypicalModules.PROGRAMMING_METHODOLOGY;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.junit.jupiter.api.Test;
 
 public class JsonAdaptedModuleTest {
@@ -19,11 +16,7 @@ public class JsonAdaptedModuleTest {
     public static final String VALID_TITLE = PROGRAMMING_METHODOLOGY.getTitle().toString();
     public static final String VALID_MODULE_CODE = PROGRAMMING_METHODOLOGY.getModuleCode().toString();
     public static final String VALID_CREDITS = PROGRAMMING_METHODOLOGY.getCredits().toString();
-    public static final String VALID_MEMO = PROGRAMMING_METHODOLOGY.getMemo().toString();
     //public static final String VALID_SEMESTER = PROGRAMMING_METHODOLOGY.getSemester().toString();
-    private static final List<JsonAdaptedTag> VALID_TAGS = PROGRAMMING_METHODOLOGY.getTags().stream()
-        .map(JsonAdaptedTag::new)
-        .collect(Collectors.toList());
 
     // TODO: add more tests later
     @Test

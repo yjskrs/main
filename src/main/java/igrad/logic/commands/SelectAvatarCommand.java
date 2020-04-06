@@ -2,6 +2,7 @@ package igrad.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import igrad.commons.core.Messages;
 import igrad.model.Model;
 import igrad.model.avatar.Avatar;
 
@@ -10,9 +11,7 @@ import igrad.model.avatar.Avatar;
  */
 public class SelectAvatarCommand extends Command {
 
-    public static final String MESSAGE_ADD_COURSE = "Enter your course in the format: 'course add n/<NAME OF COURSE>'";
-    public static final String MESSAGE_SUCCESS = "Hi, I'm %s, let's get started!\n" + MESSAGE_ADD_COURSE;
-
+    public static final String MESSAGE_SUCCESS = "You've chosen a guide!";
     private final Avatar toAdd;
 
     /**
@@ -33,7 +32,7 @@ public class SelectAvatarCommand extends Command {
         String avatarName = toAdd.getName();
         String capitaliseAvatarName = avatarName.substring(0, 1).toUpperCase() + avatarName.substring(1);
 
-        return String.format(MESSAGE_SUCCESS, capitaliseAvatarName);
+        return String.format(MESSAGE_SUCCESS + Messages.MESSAGE_ADD_COURSE, capitaliseAvatarName);
     }
 
     @Override

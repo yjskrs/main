@@ -1,22 +1,14 @@
 package igrad.logic.parser;
 
-import static igrad.logic.commands.CommandTestUtil.VALID_TAG_HARD;
-import static igrad.testutil.TypicalModules.COMPUTER_ORGANISATION;
-
 import org.junit.jupiter.api.Test;
 
 import igrad.logic.parser.module.ModuleAddCommandParser;
-import igrad.model.module.Module;
-import igrad.testutil.ModuleBuilder;
 
 public class ModuleAddCommandParserTest {
     private ModuleAddCommandParser parser = new ModuleAddCommandParser();
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Module expectedModule = new ModuleBuilder(COMPUTER_ORGANISATION).withTags(VALID_TAG_HARD)
-            .build();
-
         // whitespace only preamble
         /*assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
          *       + TAG_DESC_FRIEND, new ModuleAddCommand(expectedModule));

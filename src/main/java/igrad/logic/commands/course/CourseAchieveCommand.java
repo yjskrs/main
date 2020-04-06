@@ -3,12 +3,14 @@ package igrad.logic.commands.course;
 import static igrad.logic.parser.CliSyntax.PREFIX_CAP;
 import static java.util.Objects.requireNonNull;
 
+import java.util.Optional;
+
 import igrad.logic.commands.CommandResult;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
 import igrad.model.course.Cap;
 
-import java.util.Optional;
+
 
 /**
  * Adds a course to the application (there can only be one such course).
@@ -47,7 +49,7 @@ public class CourseAchieveCommand extends CourseCommand {
 
         Optional<Cap> estimatedCap = model.computeEstimatedCap(capToAchieve);
 
-        if (estimatedCap.get().getValue() < 0 || estimatedCap.get().getValue() > 5.0) {
+        if (estimatedCap.get().value < 0 || estimatedCap.get().value > 5.0) {
             throw new CommandException(String.format(MESSAGE_UNABLE_TO_ACHIEVE_CAP, estimatedCap.get()));
         }
 

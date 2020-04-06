@@ -12,7 +12,6 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import igrad.logic.commands.CommandTestUtil;
 import igrad.model.course.CourseInfo;
 import igrad.model.module.Module;
 import igrad.model.module.exceptions.DuplicateModuleException;
@@ -47,7 +46,7 @@ public class CourseBookTest {
     public void resetData_withDuplicateModules_throwsDuplicatePersonException() {
         // Two modules with the same identity fields
         Module editedProgrammingMethodology = new ModuleBuilder(TypicalModules.PROGRAMMING_METHODOLOGY)
-            .withTags(CommandTestUtil.VALID_TAG_HARD)
+            // .withTags(CommandTestUtil.VALID_TAG_HARD)
             .build();
         List<Module> newModules = Arrays.asList(TypicalModules.PROGRAMMING_METHODOLOGY, editedProgrammingMethodology);
         CourseBookStub newData = new CourseBookStub(newModules);
@@ -75,7 +74,7 @@ public class CourseBookTest {
     public void hasModule_moduleWithSameIdentityFieldsInCourseBook_returnsTrue() {
         courseBook.addModule(TypicalModules.PROGRAMMING_METHODOLOGY);
         Module editedAlice = new ModuleBuilder(TypicalModules.PROGRAMMING_METHODOLOGY)
-            .withTags(CommandTestUtil.VALID_TAG_HARD)
+            // .withTags(CommandTestUtil.VALID_TAG_HARD)
             .build();
         assertTrue(courseBook.hasModule(editedAlice));
     }
