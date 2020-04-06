@@ -1,0 +1,58 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":CourseBookParser" as CourseBookParser LOGIC_COLOR
+participant ":CourseEditCommandParser" as CourseEditCommandParser LOGIC_COLOR
+participant "r:CourseEditCommand" as CourseEditCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":CourseBook" as CourseBook MODEL_COLOR
+end box
+
+[-> LogicManager : execute(edit course)
+activate LogicManager
+
+LogicManager -> CourseBookParser : parseCommand(edit course)
+activate CourseBookParser
+
+create CourseEditCommandParser
+CourseBookParser -> CourseEditCommandParser : new CourseEditCommandParser(\nname)
+activate CourseEditCommandParser
+
+create CourseEditCommand
+CourseEditCommandParser -> CourseEditCommand : new CourseEditCommand(\nname)
+activate CourseEditCommand
+
+CourseEditCommand --> CourseEditCommandParser
+CourseEditCommandParser --> CourseBookParser : r
+
+CourseBookParser --> LogicManager : r
+deactivate CourseBookParser
+
+LogicManager -> CourseEditCommand : execute()
+activate CourseEditCommand
+
+CourseEditCommand -> Model : setCourseInfo()
+activate Model
+
+Model -> CourseBook : setCourseInfo()
+activate CourseBook
+
+CourseBook --> Model
+deactivate CourseBook
+
+Model --> CourseEditCommand
+deactivate Model
+
+CourseEditCommand --> LogicManager : result
+deactivate CourseEditCommand
+CourseEditCommand -[hidden]-> LogicManager : result
+destroy CourseEditCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

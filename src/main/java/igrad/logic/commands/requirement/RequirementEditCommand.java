@@ -10,8 +10,10 @@ import java.util.Optional;
 
 import igrad.commons.util.CollectionUtil;
 import igrad.logic.commands.CommandResult;
+import igrad.logic.commands.CommandUtil;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
+import igrad.model.course.CourseInfo;
 import igrad.model.module.Module;
 import igrad.model.requirement.Credits;
 import igrad.model.requirement.Requirement;
@@ -65,7 +67,20 @@ public class RequirementEditCommand extends RequirementCommand {
         }
 
         model.setRequirement(requirementToEdit, editedRequirement);
-        model.updateRequirementList(Model.PREDICATE_SHOW_ALL_REQUIREMENTS);
+        //model.updateRequirementList(Model.PREDICATE_SHOW_ALL_REQUIREMENTS);
+
+        /*
+         * Now that we've edited a new Requirement in the system, we need to update CourseInfo, specifically its
+         * creditsRequired property.
+         *
+         * However, in the method below, we just recompute everything (field in course info).
+         */
+        CourseInfo courseToEdit = model.getCourseInfo();
+
+        CourseInfo editedCourseInfo = CommandUtil.retrieveLatestCourseInfo(courseToEdit, model);
+
+        // Updating the model with the latest course info
+        model.setCourseInfo(editedCourseInfo);
 
         return new CommandResult(String.format(MESSAGE_REQUIREMENT_EDIT_SUCCESS, editedRequirement));
     }

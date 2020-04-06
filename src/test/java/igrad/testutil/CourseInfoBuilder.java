@@ -7,7 +7,7 @@ import igrad.model.course.CourseInfo;
 import igrad.model.course.Name;
 
 /**
- * A utility class to help with building CourseInfo objects.
+ * A utility class to help with building {@code CourseInfo} objects.
  */
 public class CourseInfoBuilder {
 
@@ -50,6 +50,7 @@ public class CourseInfoBuilder {
      * Constructs a {@code CourseInfo} object based on the details supplied (if any)
      */
     public CourseInfo build() {
-        return new CourseInfo(name, cap);
+        // TODO: just put optional for now, construct test cases involving cap as well
+        return new CourseInfo(name, cap, Optional.empty());
     }
 }

@@ -39,7 +39,7 @@ public abstract class RequirementCommandParser implements Parser<RequirementComm
         conjunctives.add(or);
 
         StringBuilder code = new StringBuilder();
-        String[] words = title.split(" ");
+        String[] words = trimmedTitle.split(" ");
 
         for (String word : words) {
             if (!conjunctives.contains(word)) {

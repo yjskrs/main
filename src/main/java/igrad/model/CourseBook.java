@@ -3,15 +3,11 @@ package igrad.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
-import java.util.Optional;
 
 import igrad.model.course.CourseInfo;
 import igrad.model.module.Module;
 import igrad.model.module.UniqueModuleList;
-import igrad.model.requirement.Credits;
 import igrad.model.requirement.Requirement;
-import igrad.model.requirement.RequirementCode;
-import igrad.model.requirement.Title;
 import igrad.model.requirement.UniqueRequirementList;
 import javafx.collections.ObservableList;
 
@@ -34,7 +30,7 @@ public class CourseBook implements ReadOnlyCourseBook {
     {
         modules = new UniqueModuleList();
         requirements = new UniqueRequirementList();
-        courseInfo = new CourseInfo(Optional.empty(), Optional.empty());
+        courseInfo = new CourseInfo();
     }
 
     public CourseBook() {
@@ -176,41 +172,11 @@ public class CourseBook implements ReadOnlyCourseBook {
         requirements.remove(requirement);
     }
 
-    /**
-     * Removes a {@code Module} from all {@code Requirement} which contains it
-     */
-    public void removeModuleFromRequirement(Module module) {
-
-        for (Requirement requirement : requirements) {
-            ObservableList<Module> moduleList = requirement.getModuleList();
-            Credits credits = requirement.getCredits();
-
-            if (moduleList.contains(module)) {
-                requirement.removeModule(module);
-
-                int creditsRequired = requirement.getCreditsRequired();
-                int creditsFulfilled = credits.getCreditsFulfilled() - module.getCredits().toInteger();
-                Credits updatedCredits = new Credits(creditsRequired, creditsFulfilled);
-
-                // TODO: Improve design of this part, can move logic to CourseBook itself maybe hmm
-
-                // Copy all other requirement fields over
-                Title title = requirement.getTitle();
-                List<Module> modules = requirement.getModuleList();
-                RequirementCode requirementCode = requirement.getRequirementCode();
-
-                Requirement updatedRequirement = new Requirement(requirementCode, title, updatedCredits, modules);
-                setRequirement(requirement, updatedRequirement);
-            }
-        }
-
-    }
-
     // util methods
 
     @Override
     public String toString() {
-        return modules.asUnmodifiableObservableList().size() + " persons";
+        return modules.asUnmodifiableObservableList().size() + " modules";
         // TODO: refine later
     }
 

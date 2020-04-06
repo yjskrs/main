@@ -6,8 +6,10 @@ import java.util.List;
 import java.util.Optional;
 
 import igrad.logic.commands.CommandResult;
+import igrad.logic.commands.CommandUtil;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
+import igrad.model.course.CourseInfo;
 import igrad.model.requirement.Requirement;
 import igrad.model.requirement.RequirementCode;
 
@@ -50,10 +52,25 @@ public class RequirementDeleteCommand extends RequirementCommand {
             throw new CommandException(MESSAGE_REQUIREMENT_NON_EXISTENT);
         }
 
-        model.deleteRequirement(requirementToDelete.get());
+        Requirement toDelete = requirementToDelete.get();
+
+        model.deleteRequirement(toDelete);
+
+        /*
+         * Now that we've deleted a new Requirement in the system, we need to update CourseInfo, specifically its
+         * creditsRequired and creditsFulfilled property.
+         *
+         * However, in the method below, we just recompute everything (field in course info).
+         */
+        CourseInfo courseToEdit = model.getCourseInfo();
+
+        CourseInfo editedCourseInfo = CommandUtil.retrieveLatestCourseInfo(courseToEdit, model);
+
+        // Updating the model with the latest course info
+        model.setCourseInfo(editedCourseInfo);
 
         return new CommandResult(
-            String.format(MESSAGE_REQUIREMENT_DELETE_SUCCESS, requirementToDelete));
+            String.format(MESSAGE_REQUIREMENT_DELETE_SUCCESS, toDelete));
     }
 
 }
