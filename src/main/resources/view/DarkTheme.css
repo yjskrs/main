@@ -22,7 +22,7 @@ AvatarSelection
 ModuleListCard
 */
 .module-panel-container {
-    -fx-max-width: 260px;
+    -fx-max-width: 400px;
     -fx-min-width: 260px;
 }
 
@@ -35,7 +35,7 @@ ModuleListCard
 }
 
 .module-card {
-    -fx-max-width: 220px;
+    -fx-max-width: 360px;
 }
 
 .module-card .title {
@@ -574,8 +574,7 @@ AB3 Default
 }
 
 .requirement-panel-container {
-    -fx-max-width: 440px;
-    -fx-min-width: 440px;
+    -fx-min-width: 460px;
 }
 
 .requirement-panel {
@@ -587,35 +586,22 @@ AB3 Default
 }
 
 .requirement-card {
-   -fx-background-color: #303030;
-   -fx-background-radius: 12;
-   -fx-border-width: 1;
-   -fx-border-style: solid;
-   -fx-border-radius: 12;
-   -fx-border-color: #4d4d4d;
-   -fx-padding: 4px;
-   -fx-max-width: 390px;
-}
-
-.requirement-card .inner {
     -fx-padding: 8px;
 }
 
-.requirement-card .inner .credits {
+.requirement-card .credits {
     -fx-font-size: 14px !important;
 }
 
-.requirement-card .inner .title {
+.requirement-card .title {
     -fx-font-size: 16px !important;
     -fx-font-weight: bold;
-    -fx-max-width: 260px;
 }
 
-.requirement-card .inner .code {
+.requirement-card .code {
     -fx-text-fill: #f27c36;
     -fx-font-size: 16px !important;
     -fx-font-weight: bold;
-    -fx-max-width: 260px;
 }
 
 .requirement-card-module-code {
