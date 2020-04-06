@@ -37,5 +37,4 @@ public class ResultDisplay extends UiPart<Region> {
         AvatarImage avatarImage = new AvatarImage(imgPath);
         avatarDisplay.setImage(avatarImage);
     }
-
 }

@@ -30,9 +30,14 @@ public class CourseInfoTest {
         assertFalse(TypicalCourseInfos.B_COMP_SCI.equals(TypicalCourseInfos.B_SCI_MATH));
 
         // different name -> returns false
-        CourseInfo editedCourseInfo = new CourseInfoBuilder(TypicalCourseInfos.B_COMP_SCI)
+        CourseInfo editedCourseName = new CourseInfoBuilder(TypicalCourseInfos.B_COMP_SCI)
             .withName(VALID_NAME_B_ARTS_PHILO).build();
-        assertFalse(TypicalCourseInfos.B_COMP_SCI.equals(editedCourseInfo));
+        assertFalse(TypicalCourseInfos.B_COMP_SCI.equals(editedCourseName));
+
+        //different cap -> returns false
+        CourseInfo editedCourseCap = new CourseInfoBuilder(TypicalCourseInfos.B_INFO_SYS)
+                .withCap("1.0").build();
+        assertFalse(TypicalCourseInfos.B_INFO_SYS.equals(editedCourseCap));
     }
 }
 
