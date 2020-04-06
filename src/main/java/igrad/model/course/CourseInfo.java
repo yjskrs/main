@@ -260,9 +260,9 @@ public class CourseInfo {
             }
         }
 
-        int year = (latestFinishedSem / 10) - 1;
+        int year = latestFinishedSem / 10;
         int sem = latestFinishedSem % 10;
-        int totalSems = year * 2 + sem;
+        int totalSems = ((year - 1) * 2) + sem;
 
         return totalSems;
     }

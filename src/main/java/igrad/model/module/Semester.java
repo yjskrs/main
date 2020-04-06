@@ -35,7 +35,7 @@ public class Semester {
     }
 
     public int getValue(){
-        String intValue = value.replaceAll("[^A-Z]", "");
+        String intValue = value.replaceAll("[^0-9]", "");
 
         return Integer.parseInt(intValue);
     }

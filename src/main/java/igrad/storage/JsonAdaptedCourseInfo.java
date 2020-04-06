@@ -31,8 +31,9 @@ public class JsonAdaptedCourseInfo {
      * Constructs a {@code JsonAdaptedCourseInfo} with the given module details.
      */
     @JsonCreator
-    public JsonAdaptedCourseInfo(@JsonProperty("name") String name) {
+    public JsonAdaptedCourseInfo(@JsonProperty("name") String name, @JsonProperty("semesters") String semesters) {
         this.name = name;
+        this.semesters = semesters;
     }
 
     /**
@@ -40,6 +41,7 @@ public class JsonAdaptedCourseInfo {
      */
     public JsonAdaptedCourseInfo(CourseInfo source) {
         this.name = source.getName().isPresent() ? source.getName().get().value : null;
+        this.semesters = source.getSemesters().isPresent() ? source.getSemesters().get().toString() : null;
     }
 
     /**

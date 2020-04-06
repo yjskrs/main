@@ -48,7 +48,7 @@ public class Semesters {
     public static boolean isValidSemesters(String test) {
         requireNonNull(test);
 
-        return test.matches(VALIDATION_REGEX) && Integer.parseInt(test) > 0;
+        return test.matches(VALIDATION_REGEX);
     }
 
     public int getTotalSemesters() {
