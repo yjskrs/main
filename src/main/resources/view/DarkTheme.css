@@ -53,6 +53,11 @@ ModuleListCard
 .module-card-default {
      -fx-font-size: 10px !important;
      -fx-text-fill: #010504;
+     -fx-opacity: 0.3 !important;
+}
+
+.module-card-default-present {
+    -fx-opacity: 1.0 !important;
 }
 
 .vertical-divider {
@@ -84,6 +89,7 @@ ProgressSidePanel
     -fx-effect: dropshadow(gaussian, #1d1d1d, 20, 0.2, 0, 10);
     -fx-padding: 16px;
     -fx-min-width:300px;
+    -fx-max-width: 300px !important;
     -fx-min-height: 280px !important;
 }
 
