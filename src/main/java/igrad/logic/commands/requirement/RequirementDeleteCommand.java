@@ -66,6 +66,9 @@ public class RequirementDeleteCommand extends RequirementCommand {
 
         CourseInfo editedCourseInfo = CommandUtil.retrieveLatestCourseInfo(courseToEdit, model);
 
+        // Updating the model with the latest course info
+        model.setCourseInfo(editedCourseInfo);
+
         return new CommandResult(
             String.format(MESSAGE_REQUIREMENT_DELETE_SUCCESS, toDelete));
     }

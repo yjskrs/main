@@ -183,7 +183,7 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplay = new ResultDisplay(model.getAvatar());
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        if (model.getCourseInfo().getName().isEmpty()){
+        if (!model.isCourseNameSet()) {
             resultDisplay.setFeedbackToUser(Messages.MESSAGE_ADD_COURSE);
         } else {
             resultDisplay.setFeedbackToUser(Messages.MESSAGE_WELCOME_BACK);
@@ -272,7 +272,7 @@ public class MainWindow extends UiPart<Stage> {
      * Displays the sad (loading) version of the avatar when loading
      */
     private void handleStartLoading(Avatar avatar) {
-        System.out.println("STARTT LOADING");
+        System.out.println("START LOADING");
         Avatar sadAvatar = new Avatar(avatar.getName() + "-sad");
         resultDisplay.setAvatar(sadAvatar);
     }

@@ -59,6 +59,8 @@ public class ProgressSidePanel extends UiPart<Region> {
         Optional<Credits> credits = courseInfo.getCredits();
         Optional<Cap> cap = courseInfo.getCap();
 
+        System.out.println("cap = " + cap);
+
         courseName.ifPresentOrElse(
             name -> courseNameLabel.setText(name.value), () -> courseNameLabel
                 .setText("Your Course."));
@@ -79,7 +81,7 @@ public class ProgressSidePanel extends UiPart<Region> {
         }
 
         cap.ifPresentOrElse(
-            x -> currentCap.setText(x.value + "/5.0"), () -> currentCap
+            x -> currentCap.setText(x + "/5.0"), () -> currentCap
                 .setText("-"));
 
         creditsCount.setText(creditsCountString);
