@@ -27,6 +27,12 @@ public class CourseCommandParser {
         return Optional.of(new Name(trimmedName));
     }
 
+    /**
+     * Parses a (@code String semesters} into a (@code Semesters).
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code semesters} is invalid.
+     */
     public static Optional<Semesters> parseSemesters(String semesters) throws ParseException {
         requireNonNull(semesters);
         String trimmedSemesters = semesters.trim();

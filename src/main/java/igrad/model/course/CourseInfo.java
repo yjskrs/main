@@ -220,6 +220,10 @@ public class CourseInfo {
         return Optional.of(capResult);
     }
 
+    /**
+     * Computes and returns a {@code Semesters} object based on (@code Semesters) object and a list of {@Module}s
+     * passed in.
+     */
     public static Optional<Semesters> computeSemesters(Optional<Semesters> semesters, List<Module> moduleList) {
 
         if (moduleList.isEmpty()) {
@@ -232,6 +236,10 @@ public class CourseInfo {
         return Optional.of(new Semesters(totalSemester, remainingSemesters));
     }
 
+    /**
+     * Computes and returns an Integer representing remaining semesters based on a list of {@Module}s
+     * passed in.
+     */
     private static int computeRemainingSemesters(List<Module> moduleList) {
         //If module list is empty, no semesters have been done yet
         if (moduleList.isEmpty()) {

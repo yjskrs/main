@@ -34,7 +34,7 @@ public class Semester {
         return test.matches(VALIDATION_REGEX);
     }
 
-    public int getValue(){
+    public int getValue() {
         String intValue = value.replaceAll("[^0-9]", "");
 
         return Integer.parseInt(intValue);

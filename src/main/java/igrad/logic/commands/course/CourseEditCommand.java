@@ -8,7 +8,11 @@ import java.util.Optional;
 import igrad.logic.commands.CommandResult;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
-import igrad.model.course.*;
+import igrad.model.course.Cap;
+import igrad.model.course.CourseInfo;
+import igrad.model.course.Credits;
+import igrad.model.course.Name;
+import igrad.model.course.Semesters;
 
 /**
  * Edits the details of an existing module in the course book.
