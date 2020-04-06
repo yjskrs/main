@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import igrad.model.module.Grade;
 import igrad.model.module.Module;
+import igrad.model.module.Semester;
 import igrad.model.requirement.Requirement;
 
 /**
@@ -24,6 +25,7 @@ public class CourseInfo {
     private final Optional<Name> name;
     private final Optional<Cap> cap;
     private final Optional<Credits> credits;
+    private final Optional<Semesters> semesters;
 
     // Data fields
 
@@ -32,15 +34,18 @@ public class CourseInfo {
         name = Optional.empty();
         cap = Optional.empty();
         credits = Optional.empty();
+        semesters = Optional.empty();
     }
 
     /**
      * Every field must be present and not null.
      */
-    public CourseInfo(Optional<Name> name, Optional<Cap> cap, Optional<Credits> credits) {
+    public CourseInfo(Optional<Name> name, Optional<Cap> cap, Optional<Credits> credits,
+                      Optional<Semesters> semesters) {
         this.name = name;
         this.cap = cap;
         this.credits = credits;
+        this.semesters = semesters;
     }
 
     public Optional<Name> getName() {
@@ -53,6 +58,10 @@ public class CourseInfo {
 
     public Optional<Credits> getCredits() {
         return credits;
+    }
+
+    public Optional<Semesters> getSemesters() {
+        return semesters;
     }
 
     /**
@@ -210,6 +219,67 @@ public class CourseInfo {
         }
 
         return Optional.of(capResult);
+    }
+
+    /**
+     * Computes and returns a {@code Semesters} object based on (@code Semesters) object and a list of {@Module}s
+     * passed in.
+     */
+    public static Optional<Semesters> computeSemesters(Optional<Semesters> semesters, List<Module> moduleList) {
+
+        if (moduleList.isEmpty()) {
+            return Optional.of(new Semesters(semesters.get().toString()));
+        }
+
+        int totalSemester = semesters.get().getTotalSemesters();
+        int remainingSemesters = computeRemainingSemesters(moduleList);
+
+        return Optional.of(new Semesters(totalSemester, remainingSemesters));
+    }
+
+    /**
+     * Computes and returns an Integer representing remaining semesters based on a list of {@Module}s
+     * passed in.
+     */
+    private static int computeRemainingSemesters(List<Module> moduleList) {
+        //If module list is empty, no semesters have been done yet
+        if (moduleList.isEmpty()) {
+            return 0;
+        }
+
+        int totalNumOfModules = moduleList.size();
+        int latestFinishedSem = 0;
+
+        for (int i = 0; i < totalNumOfModules; i++) {
+            Optional<Grade> grade = moduleList.get(i).getGrade();
+
+            if (grade.isEmpty()) {
+                continue;
+            }
+
+            Optional<Semester> semester = moduleList.get(i).getSemester();
+
+            if (semester.isEmpty()) {
+                continue;
+            }
+
+            int semesterValue = semester.get().getValue();
+            if (semesterValue > latestFinishedSem) {
+                latestFinishedSem = semesterValue;
+            }
+        }
+
+        int year = latestFinishedSem / 10;
+        int sem = latestFinishedSem % 10;
+        int totalSems = 0;
+
+        if (year > 0) {
+            totalSems = ((year - 1) * 2);
+        }
+
+        totalSems += sem;
+
+        return totalSems;
     }
 
     /**

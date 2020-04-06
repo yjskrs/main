@@ -255,7 +255,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public Cap computeEstimatedCap(Cap capToAchieve, int semsLeft) {
+        public Optional<Cap> computeEstimatedCap(Cap capToAchieve) {
             throw new AssertionError("This method should not be called.");
         }
 

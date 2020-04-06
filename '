@@ -3,14 +3,11 @@ package igrad.logic.commands.course;
 import static igrad.logic.parser.CliSyntax.PREFIX_CAP;
 import static java.util.Objects.requireNonNull;
 
-import java.util.Optional;
-
-import igrad.logic.commands.CommandResult;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
 import igrad.model.course.Cap;
 
-
+import java.util.Optional;
 
 /**
  * Adds a course to the application (there can only be one such course).

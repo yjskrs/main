@@ -52,7 +52,8 @@ public class CourseAddCommand extends CourseCommand {
         }
 
         model.addCourseInfo(toAdd);
-        return new CommandResult(String.format(MESSAGE_COURSE_ADD_SUCCESS, toAdd), false, false, true);
+        return new CommandResult(String.format(MESSAGE_COURSE_ADD_SUCCESS, toAdd),
+                false, false, true);
     }
 
     @Override
