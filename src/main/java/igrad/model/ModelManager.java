@@ -337,7 +337,7 @@ public class ModelManager implements Model {
         Optional<Cap> current = courseBook.getCourseInfo().getCap();
 
         if (current.isEmpty()) {
-            totalSemesters = remainingSemesters;
+            return capToAchieve.getValue();
         } else {
             totalSemesters = remainingSemesters + 1;
         }
@@ -347,7 +347,6 @@ public class ModelManager implements Model {
         double capNow = currentCap.getValue();
 
         double estimatedCapEachSem = ((capWanted * totalSemesters) - capNow) / remainingSemesters;
-        //Cap capToAchieveEachSem = new Cap(estimatedCapEachSem + "");
 
         return estimatedCapEachSem;
     }

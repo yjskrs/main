@@ -46,7 +46,7 @@ public class CourseAchieveCommand extends CourseCommand {
         double estimatedCap = model.computeEstimatedCap(capToAchieve);
 
         if (estimatedCap < 0 || estimatedCap > 5.0) {
-            throw new CommandException(MESSAGE_UNABLE_TO_ACHIEVE_CAP);
+            throw new CommandException(String.format(MESSAGE_UNABLE_TO_ACHIEVE_CAP, estimatedCap));
         }
 
         return new CommandResult(String.format(MESSAGE_COURSE_ACHIEVE_SUCCESS, estimatedCap));
