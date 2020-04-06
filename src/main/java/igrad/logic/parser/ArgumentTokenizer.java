@@ -96,11 +96,11 @@ public class ArgumentTokenizer {
      * Removes all flags from the argument string.
      * Take note that flags are only specified at the end of a command
      *
-     * @param argsString e.g. "add n/CS2103T -a"
+     * @param argsString e.g. "module add n/CS2103T -a"
      * @return argsString without flags
      */
     public static String removeFlags(String argsString) {
-        int firstFlagIndex = argsString.indexOf("-");
+        int firstFlagIndex = startIndexOfPattern("-[a-z]+", argsString);
 
         if (firstFlagIndex < 0) {
             return argsString;
@@ -108,6 +108,21 @@ public class ArgumentTokenizer {
             return argsString.substring(0, firstFlagIndex);
         }
 
+    }
+
+    /**
+     * Returns the start index of a given pattern; {@code regex} found in the string; {@code text}.
+     * Returns -1 if the pattern is not found in the string
+     */
+    private static int startIndexOfPattern(String regex, String text) {
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(text);
+
+        if (!matcher.find()) {
+            return -1;
+        }
+
+        return matcher.start();
     }
 
     /**
