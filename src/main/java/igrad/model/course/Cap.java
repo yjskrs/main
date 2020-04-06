@@ -14,6 +14,8 @@ public class Cap {
     // The first character of the cap must not be a whitespace, " ", slash; /, or blank.
     public static final String VALIDATION_REGEX = "[0-9](\\.[0-9]+)?";
 
+    public static final Cap CAP_ZERO = new Cap(0);
+
     public final double value;
 
     /**

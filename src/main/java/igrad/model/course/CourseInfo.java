@@ -1,5 +1,7 @@
 package igrad.model.course;
 
+import static igrad.model.course.Cap.CAP_ZERO;
+
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -103,8 +105,8 @@ public class CourseInfo {
     }
 
     /**
-     * Computes and returns a {@code Cap} object based on a list of {@code Requirement}s;
-     * {@code requirementList} and {@code Module}s {@code moduleList} passed in.
+     * Computes and returns a {@code Optional<Cap>} object based on a list of {@code Requirement}s;
+     * in {@code requirementList} and list of {@code Module}s in {@code moduleList} passed in.
      */
     public static Optional<Cap> computeCap(List<Module> moduleList, List<Requirement> requirementList) {
         /*
@@ -145,66 +147,21 @@ public class CourseInfo {
                 continue;
             }
 
-            String gradeStr = grade.get().toString();
-            int moduleCredits = Integer.parseInt(module.getCredits().toString());
+            int moduleCredits = module.getCredits().toInteger();
 
             totalModuleCredits += moduleCredits;
 
-            switch (gradeStr) {
-            case "A+":
-                totalCredits += 5.0 * moduleCredits;
-                break;
+            totalCredits += (grade.get().getGradeValue() * moduleCredits);
 
-            case "A":
-                totalCredits += 5.0 * moduleCredits;
-                break;
-
-            case "A-":
-                totalCredits += 4.5 * moduleCredits;
-                break;
-
-            case "B+":
-                totalCredits += 4.0 * moduleCredits;
-                break;
-
-            case "B":
-                totalCredits += 3.5 * moduleCredits;
-                break;
-
-            case "B-":
-                totalCredits += 3.0 * moduleCredits;
-                break;
-
-            case "C+":
-                totalCredits += 2.5 * moduleCredits;
-                break;
-
-            case "C":
-                totalCredits += 2.0 * moduleCredits;
-                break;
-
-            case "D+":
-                totalCredits += 1.5 * moduleCredits;
-                break;
-
-            case "D":
-                totalCredits += 1.0 * moduleCredits;
-                break;
-
-            case "F":
-                totalCredits += 0;
-                break;
-
-            default:
+            if (grade.get().isSuGrade()) {
                 totalModuleCredits -= moduleCredits;
-                break;
             }
         }
 
         Cap capResult;
 
         if (totalModuleCredits == 0) {
-            capResult = new Cap(0);
+            capResult = CAP_ZERO;
         } else {
             capResult = new Cap(Double.toString(totalCredits / totalModuleCredits));
         }
