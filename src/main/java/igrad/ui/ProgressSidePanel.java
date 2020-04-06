@@ -79,7 +79,7 @@ public class ProgressSidePanel extends UiPart<Region> {
         }
 
         cap.ifPresentOrElse(
-            x -> currentCap.setText(x.value + "/5.0"), () -> currentCap
+            x -> currentCap.setText(x + "/5.0"), () -> currentCap
                 .setText("-"));
 
         creditsCount.setText(creditsCountString);
