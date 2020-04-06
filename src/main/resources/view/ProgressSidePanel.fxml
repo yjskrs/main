@@ -19,6 +19,7 @@
                         styleClass="grad-cap"
                         fx:id="gradCapImageView"/>
                 <Label
+                        wrapText="true"
                         styleClass="course-name"
                         text="Your Course"
                         fx:id="courseNameLabel"/>

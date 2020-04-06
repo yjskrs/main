@@ -53,6 +53,11 @@ ModuleListCard
 .module-card-default {
      -fx-font-size: 10px !important;
      -fx-text-fill: #010504;
+     -fx-opacity: 0.3 !important;
+}
+
+.module-card-default-present {
+    -fx-opacity: 1.0 !important;
 }
 
 .vertical-divider {
