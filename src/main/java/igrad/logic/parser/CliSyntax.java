@@ -18,4 +18,5 @@ public class CliSyntax {
     public static final Prefix PREFIX_CAP = new Prefix("c/");
 
     public static final Flag FLAG_AUTO = new Flag("-a");
+    public static final Flag FLAG_OPERATOR_OR = new Flag("-o");
 }
