@@ -211,10 +211,10 @@ public class Module {
             .append(", Credits: ")
             .append(credits);
 
-        /*memo.ifPresent(x -> builder.append(" Memo: ").append(x));
+        memo.ifPresent(x -> builder.append(" Memo: ").append(x));
         description.ifPresent(x -> builder.append(" Description: ").append(x));
         semester.ifPresent(x -> builder.append(" Semester: ").append(x));
-        grade.ifPresent(x -> builder.append(" Grade: ").append(x));*/
+        grade.ifPresent(x -> builder.append(" Grade: ").append(x));
 
         return builder.toString();
     }

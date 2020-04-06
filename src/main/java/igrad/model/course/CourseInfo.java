@@ -203,9 +203,9 @@ public class CourseInfo {
         Cap capResult;
 
         if (finalTotalNumOfModules == 0) {
-            capResult = new Cap("0");
+            capResult = new Cap(0);
         } else {
-            capResult = new Cap(Double.toString(cap / finalTotalNumOfModules));
+            capResult = new Cap(cap / finalTotalNumOfModules);
         }
 
         return Optional.of(capResult);

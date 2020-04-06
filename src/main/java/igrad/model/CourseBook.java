@@ -176,7 +176,7 @@ public class CourseBook implements ReadOnlyCourseBook {
 
     @Override
     public String toString() {
-        return modules.asUnmodifiableObservableList().size() + " persons";
+        return modules.asUnmodifiableObservableList().size() + " modules";
         // TODO: refine later
     }
 
