@@ -6,7 +6,6 @@ import static igrad.logic.commands.module.ModuleEditCommand.MESSAGE_MODULE_NOT_E
 import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
 import static igrad.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
 import static igrad.logic.parser.CliSyntax.PREFIX_SEMESTER;
-import static igrad.logic.parser.CliSyntax.PREFIX_TAG;
 import static igrad.logic.parser.CliSyntax.PREFIX_TITLE;
 import static java.util.Objects.requireNonNull;
 
@@ -34,7 +33,7 @@ public class ModuleEditCommandParser extends ModuleCommandParser implements Pars
     public ModuleEditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-            ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_MODULE_CODE, PREFIX_CREDITS, PREFIX_SEMESTER, PREFIX_TAG);
+            ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_MODULE_CODE, PREFIX_CREDITS, PREFIX_SEMESTER);
 
         /*
          * If all arguments in the command are empty; i.e, 'module edit', and nothing else, show

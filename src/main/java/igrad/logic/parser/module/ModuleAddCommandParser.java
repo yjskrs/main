@@ -6,11 +6,9 @@ import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
 import static igrad.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static igrad.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
 import static igrad.logic.parser.CliSyntax.PREFIX_SEMESTER;
-import static igrad.logic.parser.CliSyntax.PREFIX_TAG;
 import static igrad.logic.parser.CliSyntax.PREFIX_TITLE;
 
 import java.util.Optional;
-import java.util.Set;
 
 import igrad.commons.core.Messages;
 import igrad.logic.commands.module.ModuleAddCommand;
@@ -40,7 +38,7 @@ public class ModuleAddCommandParser extends ModuleCommandParser implements Parse
      */
     public ModuleAddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-            ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_MODULE_CODE, PREFIX_CREDITS, PREFIX_SEMESTER, PREFIX_TAG);
+            ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_MODULE_CODE, PREFIX_CREDITS, PREFIX_SEMESTER);
 
         /*
          * If all arguments in the command are empty; i.e, 'module add', and nothing else (except preambles), show

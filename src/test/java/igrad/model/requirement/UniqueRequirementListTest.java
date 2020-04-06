@@ -41,8 +41,8 @@ public class UniqueRequirementListTest {
     public void contains_requirementWithSameIdentity_returnsTrue() {
         uniqueRequirementList.add(CS_FOUNDATION);
         Requirement editedRequirement = new RequirementBuilder(CS_FOUNDATION)
-                                            .withCreditsOneParameter("40")
-                                            .build();
+            .withCreditsOneParameter("40")
+            .build();
         assertTrue(uniqueRequirementList.contains(editedRequirement));
     }
 
@@ -61,8 +61,8 @@ public class UniqueRequirementListTest {
     public void add_requirementWithSameIdentity_throwsDuplicateRequirementException() {
         uniqueRequirementList.add(CS_FOUNDATION);
         Requirement editedRequirement = new RequirementBuilder(CS_FOUNDATION)
-                                            .withCreditsOneParameter("40")
-                                            .build();
+            .withCreditsOneParameter("40")
+            .build();
         assertThrows(DuplicateRequirementException.class, () -> uniqueRequirementList.add(editedRequirement));
     }
 
@@ -99,9 +99,9 @@ public class UniqueRequirementListTest {
     public void setRequirement_editedRequirementWithSameIdentity_success() {
         uniqueRequirementList.add(CS_FOUNDATION);
         Requirement editedRequirement = new RequirementBuilder(CS_FOUNDATION)
-                                            .withTitle("New Title")
-                                            .withCreditsOneParameter("36")
-                                            .build();
+            .withTitle("New Title")
+            .withCreditsOneParameter("36")
+            .build();
         uniqueRequirementList.setRequirement(CS_FOUNDATION, editedRequirement);
 
         UniqueRequirementList differentListWithSameRequirement = new UniqueRequirementList();

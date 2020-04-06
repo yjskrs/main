@@ -4,8 +4,10 @@ import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
 import static igrad.logic.parser.CliSyntax.PREFIX_GRADE;
 import static igrad.logic.parser.CliSyntax.PREFIX_SEMESTER;
 import static java.util.Objects.requireNonNull;
+
 import java.util.ArrayList;
 import java.util.Optional;
+
 import igrad.logic.commands.CommandResult;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
@@ -136,7 +138,7 @@ public class ModuleFilterCommand extends ModuleCommand {
                     if (grade.isPresent()) {
                         //if both are present, then we can do the comparison
                         if (m.getGrade().isPresent()) {
-                            if (!grade.get().equals(m.getGrade().get())) {
+                            if (grade.get().equals(m.getGrade().get())) {
                                 match = true;
                             }
                         }

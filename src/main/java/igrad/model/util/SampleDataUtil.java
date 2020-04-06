@@ -2,10 +2,7 @@ package igrad.model.util;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import igrad.commons.core.GuiSettings;
 import igrad.model.CourseBook;

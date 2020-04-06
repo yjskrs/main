@@ -1,9 +1,6 @@
 package igrad.testutil;
 
 import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import igrad.logic.commands.module.ModuleEditCommand;
 import igrad.logic.commands.module.ModuleEditCommand.EditModuleDescriptor;
@@ -12,7 +9,6 @@ import igrad.model.module.Module;
 import igrad.model.module.ModuleCode;
 import igrad.model.module.Semester;
 import igrad.model.module.Title;
-import igrad.model.tag.Tag;
 
 /**
  * A utility class to help with building EditModuleDescriptor objects.
@@ -37,9 +33,7 @@ public class EditModuleDescriptorBuilder {
         descriptor.setTitle(module.getTitle());
         descriptor.setModuleCode(module.getModuleCode());
         descriptor.setCredits(module.getCredits());
-        descriptor.setMemo(module.getMemo());
         descriptor.setSemester(module.getSemester());
-        descriptor.setTags(module.getTags());
     }
 
     /**
@@ -67,28 +61,10 @@ public class EditModuleDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Memo} of the {@code EditModuleDescriptor} that we are building.
-     */
-    public EditModuleDescriptorBuilder withMemo(String memo) {
-        descriptor.setMemo(Optional.of(new Memo(memo)));
-        return this;
-    }
-
-    /**
      * Sets the {@code Semester} of the {@code EditModuleDescriptor} that we are building.
      */
     public EditModuleDescriptorBuilder withSemester(String semester) {
         descriptor.setSemester(Optional.of(new Semester(semester)));
-        return this;
-    }
-
-    /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditPersonDescriptor}
-     * that we are building.
-     */
-    public EditModuleDescriptorBuilder withTags(String... tags) {
-        Set<Tag> tagsSet = Stream.of(tags).map(Tag::new).collect(Collectors.toSet());
-        descriptor.setTags(tagsSet);
         return this;
     }
 

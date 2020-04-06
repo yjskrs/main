@@ -2,12 +2,10 @@ package igrad.logic.commands.module;
 
 import static igrad.commons.util.CollectionUtil.requireAllNonNull;
 import static igrad.logic.parser.CliSyntax.PREFIX_GRADE;
-import static igrad.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import igrad.logic.commands.CommandResult;
 import igrad.logic.commands.CommandUtil;
@@ -35,8 +33,7 @@ public class ModuleDoneCommand extends ModuleCommand {
 
     public static final String MESSAGE_MODULE_DONE_USAGE = "Parameter(s): MODULE CODE "
         + PREFIX_GRADE + "GRADE\n"
-        + "Example: " + MODULE_DONE_COMMAND_WORD + " "
-        + PREFIX_MODULE_CODE + "CS2103T "
+        + "Example: " + MODULE_DONE_COMMAND_WORD + " CS2103T "
         + PREFIX_GRADE + "A+";
 
     public static final String MESSAGE_MODULE_DONE_HELP = MESSAGE_MODULE_DONE_DETAILS + MESSAGE_MODULE_DONE_USAGE;

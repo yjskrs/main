@@ -13,14 +13,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Stream;
 
 import igrad.logic.commands.module.ModuleAddAutoCommand;
 import igrad.logic.parser.ArgumentMultimap;
 import igrad.logic.parser.ArgumentTokenizer;
 import igrad.logic.parser.Parser;
-import igrad.logic.parser.ParserUtil;
 import igrad.logic.parser.Prefix;
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.module.Credits;

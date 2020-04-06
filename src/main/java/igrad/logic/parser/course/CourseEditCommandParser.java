@@ -11,7 +11,6 @@ import igrad.commons.core.Messages;
 import igrad.logic.commands.course.CourseEditCommand;
 import igrad.logic.parser.ArgumentMultimap;
 import igrad.logic.parser.ArgumentTokenizer;
-import igrad.logic.parser.CourseCommandParser;
 import igrad.logic.parser.Parser;
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.services.exceptions.ServiceException;
