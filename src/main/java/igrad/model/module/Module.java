@@ -2,8 +2,6 @@ package igrad.model.module;
 
 import static igrad.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -185,7 +183,6 @@ public class Module {
             .append(", Credits: ")
             .append(credits);
 
-        memo.ifPresent(x -> builder.append(" Memo: ").append(x));
         description.ifPresent(x -> builder.append(" Description: ").append(x));
         semester.ifPresent(x -> builder.append(" Semester: ").append(x));
         grade.ifPresent(x -> builder.append(" Grade: ").append(x));

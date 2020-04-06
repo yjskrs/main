@@ -138,7 +138,7 @@ public class ModuleFilterCommand extends ModuleCommand {
                     if (grade.isPresent()) {
                         //if both are present, then we can do the comparison
                         if (m.getGrade().isPresent()) {
-                            if (!grade.get().equals(m.getGrade().get())) {
+                            if (grade.get().equals(m.getGrade().get())) {
                                 match = true;
                             }
                         }
