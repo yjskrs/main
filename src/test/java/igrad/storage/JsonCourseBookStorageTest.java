@@ -19,6 +19,7 @@ import igrad.model.course.Cap;
 import igrad.model.course.CourseInfo;
 import igrad.model.course.Credits;
 import igrad.model.course.Name;
+import igrad.model.course.Semesters;
 import igrad.testutil.TypicalModules;
 
 public class JsonCourseBookStorageTest {
@@ -75,7 +76,9 @@ public class JsonCourseBookStorageTest {
         Optional<Name> name = Optional.of(new Name("abc"));
         Optional<Cap> cap = CourseInfo.computeCap(original.getModuleList(), original.getRequirementList());
         Optional<Credits> credits = CourseInfo.computeCredits(original.getRequirementList());
-        CourseInfo courseInfo = new CourseInfo(name, cap, credits);
+        Optional<Semesters> semesters = CourseInfo.computeSemesters(Optional.of(new Semesters("5")),
+                original.getModuleList());
+        CourseInfo courseInfo = new CourseInfo(name, cap, credits, semesters);
         original.setCourseInfo(courseInfo);
 
         JsonCourseBookStorage jsonCourseBookStorage = new JsonCourseBookStorage(filePath);

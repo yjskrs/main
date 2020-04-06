@@ -8,11 +8,12 @@ import static java.util.Objects.requireNonNull;
  * Guarantees: immutable; is valid as declared in {@link #isValidCap(String)}
  */
 public class Cap {
-    public static final String MESSAGE_CONSTRAINTS =
-        "Cap of a course should be a number (double) more than 0.";
+    public static final String MESSAGE_CONSTRAINTS = "C.A.P. should not start with a space or slash and should not "
+        + "be blank.\n"
+        + "C.A.P. should not be negative and should be within value of 5.0";
 
     // The first character of the cap must not be a whitespace, " ", slash; /, or blank.
-    public static final String VALIDATION_REGEX = "[0-9](\\.[0-9]+)?";
+    public static final String VALIDATION_REGEX = "[0-5](\\.[0-9]+)?";
 
     public static final Cap CAP_ZERO = new Cap(0);
 

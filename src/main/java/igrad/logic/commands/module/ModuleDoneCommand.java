@@ -6,7 +6,6 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import igrad.logic.commands.CommandResult;
 import igrad.logic.commands.CommandUtil;
@@ -16,13 +15,11 @@ import igrad.model.course.CourseInfo;
 import igrad.model.module.Credits;
 import igrad.model.module.Description;
 import igrad.model.module.Grade;
-import igrad.model.module.Memo;
 import igrad.model.module.Module;
 import igrad.model.module.ModuleCode;
 import igrad.model.module.Semester;
 import igrad.model.module.Title;
 import igrad.model.requirement.Requirement;
-import igrad.model.tag.Tag;
 
 /**
  * Marks the module as done, with a specified grade.
@@ -70,9 +67,7 @@ public class ModuleDoneCommand extends ModuleCommand {
         ModuleCode moduleCode = moduleToEdit.getModuleCode();
         Title title = moduleToEdit.getTitle();
         Credits credits = moduleToEdit.getCredits();
-        Optional<Memo> memo = moduleToEdit.getMemo();
         Optional<Description> description = moduleToEdit.getDescription();
-        Set<Tag> tags = moduleToEdit.getTags();
 
         /*
          * But for Semester, since it is an optional field, we copy its value over from the
@@ -86,8 +81,7 @@ public class ModuleDoneCommand extends ModuleCommand {
          */
         Optional<Grade> updatedGrade = editModuleDescriptor.getGrade();
 
-        return new Module(title, moduleCode, credits, memo, updatedSemester,
-            description, updatedGrade, tags);
+        return new Module(title, moduleCode, credits, updatedSemester, description, updatedGrade);
     }
 
     @Override

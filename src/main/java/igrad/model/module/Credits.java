@@ -9,7 +9,7 @@ import static java.util.Objects.requireNonNull;
  */
 public class Credits {
 
-    public static final String MESSAGE_CONSTRAINTS = "Modular credits should contain one or more digits!";
+    public static final String MESSAGE_CONSTRAINTS = "Modular credits should be valid!";
 
     public static final String VALIDATION_REGEX = "\\d+";
 
@@ -30,7 +30,12 @@ public class Credits {
      * Returns true if a given string is a valid credits.
      */
     public static boolean isValidCredits(String test) {
-        return test.matches(VALIDATION_REGEX);
+        try {
+            Integer.parseInt(test);
+            return test.matches(VALIDATION_REGEX);
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
     /**

@@ -36,7 +36,7 @@ public class CourseInfoTest {
 
         //different cap -> returns false
         CourseInfo editedCourseCap = new CourseInfoBuilder(TypicalCourseInfos.B_INFO_SYS)
-                .withCap("1.0").build();
+            .withCap("1.0").build();
         assertFalse(TypicalCourseInfos.B_INFO_SYS.equals(editedCourseCap));
     }
 }
