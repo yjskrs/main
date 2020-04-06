@@ -38,7 +38,7 @@ public class ModuleDoneCommand extends ModuleCommand {
     public static final String MESSAGE_MODULE_DONE_USAGE = "Parameter(s): MODULE CODE "
         + PREFIX_GRADE + "GRADE\n"
         + "Example: " + MODULE_DONE_COMMAND_WORD + " "
-        + PREFIX_MODULE_CODE + "CS2103T "
+        + "CS2103T "
         + PREFIX_GRADE + "A+";
 
     public static final String MESSAGE_MODULE_DONE_HELP = MESSAGE_MODULE_DONE_DETAILS + MESSAGE_MODULE_DONE_USAGE;
