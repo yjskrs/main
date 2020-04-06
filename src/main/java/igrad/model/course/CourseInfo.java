@@ -220,14 +220,14 @@ public class CourseInfo {
         return Optional.of(capResult);
     }
 
-    public static Optional<Semesters> computeSemesters(Optional<Semesters> totalSemesters, List<Module> moduleList) {
+    public static Optional<Semesters> computeSemesters(Optional<Semesters> semesters, List<Module> moduleList) {
 
         if (moduleList.isEmpty()) {
-            return Optional.empty();
+            return Optional.of(new Semesters(semesters.get().toString()));
         }
 
-        String totalSemester = totalSemesters.toString();
-        String remainingSemesters = computeRemainingSemesters(moduleList) + "";
+        int totalSemester = semesters.get().getTotalSemesters();
+        int remainingSemesters = computeRemainingSemesters(moduleList);
 
         return Optional.of(new Semesters(totalSemester, remainingSemesters));
     }
@@ -262,7 +262,13 @@ public class CourseInfo {
 
         int year = latestFinishedSem / 10;
         int sem = latestFinishedSem % 10;
-        int totalSems = ((year - 1) * 2) + sem;
+        int totalSems = 0;
+
+        if (year > 0) {
+            totalSems = ((year - 1) * 2);
+        }
+
+        totalSems += sem;
 
         return totalSems;
     }

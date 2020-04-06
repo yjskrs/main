@@ -11,6 +11,8 @@ public class Semesters {
 
     public static final String MESSAGE_CONSTRAINTS = "Total semesters of a course should be more than 0";
 
+    public static final String MESSAGE_INVALID_SEMS = "Remaining semester count invalid";
+
     public static final String VALIDATION_REGEX = "^[0-9]\\d*$";
 
     public final int totalSemesters;
@@ -37,18 +39,27 @@ public class Semesters {
      * @param totalSemesters  A valid semester count (integer).
      * @param remainingSemesters A valid semester count (integer).
      */
-    public Semesters(String totalSemesters, String remainingSemesters) {
+    public Semesters(int totalSemesters, int remainingSemesters) {
         requireNonNull(totalSemesters);
-        checkArgument(isValidSemesters(totalSemesters), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidTotalSemesters(totalSemesters), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidRemainingSemesters(remainingSemesters), MESSAGE_INVALID_SEMS);
 
-        this.totalSemesters = Integer.parseInt(totalSemesters);
-        this.remainingSemesters = Integer.parseInt(remainingSemesters);
+        this.totalSemesters = totalSemesters;
+        this.remainingSemesters = remainingSemesters;
     }
 
     public static boolean isValidSemesters(String test) {
         requireNonNull(test);
 
-        return test.matches(VALIDATION_REGEX);
+        return test.matches(VALIDATION_REGEX) && Integer.parseInt(test) > 0;
+    }
+
+    public static boolean isValidTotalSemesters(int test) {
+         return test > 0;
+    }
+
+    public static boolean isValidRemainingSemesters(int test) {
+        return test >= 0;
     }
 
     public int getTotalSemesters() {
