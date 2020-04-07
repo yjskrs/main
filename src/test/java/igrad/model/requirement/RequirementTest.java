@@ -61,7 +61,7 @@ public class RequirementTest {
     @Test
     public void hasModule_nullModule_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> requirement.hasModule((Module) null));
-        assertThrows(NullPointerException.class, () -> requirement.hasModule((List<Module>) null));
+        assertThrows(NullPointerException.class, () -> requirement.hasModules((List<Module>) null));
     }
 
     @Test
