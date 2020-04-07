@@ -77,6 +77,10 @@ public class RequirementEditCommand extends RequirementCommand {
          */
         CourseInfo courseToEdit = model.getCourseInfo();
 
+        /*
+         * A call to the retrieveLatestCourseInfo(..) helps to recompute latest course info,
+         * based on information provided through Model (coursebook).
+         */
         CourseInfo editedCourseInfo = CommandUtil.retrieveLatestCourseInfo(courseToEdit, model);
 
         // Updating the model with the latest course info

@@ -8,7 +8,6 @@ import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.module.Credits;
 import igrad.model.module.Description;
 import igrad.model.module.Grade;
-import igrad.model.module.Memo;
 import igrad.model.module.ModuleCode;
 import igrad.model.module.Semester;
 import igrad.model.module.Title;
@@ -41,10 +40,11 @@ public class ModuleCommandParser {
     public static ModuleCode parseModuleCode(String moduleCode) throws ParseException {
         requireNonNull(moduleCode);
         String trimmedModuleCode = moduleCode.trim();
+        String upperCaseModuleCode = trimmedModuleCode.toUpperCase();
         if (!ModuleCode.isValidModuleCode(trimmedModuleCode)) {
             throw new ParseException(ModuleCode.MESSAGE_CONSTRAINTS);
         }
-        return new ModuleCode(trimmedModuleCode);
+        return new ModuleCode(upperCaseModuleCode);
     }
 
     /**
@@ -73,21 +73,6 @@ public class ModuleCommandParser {
         String trimmedDescription = description.trim();
 
         return Optional.of(new Description(trimmedDescription));
-    }
-
-    /**
-     * Parses a {@code String memo} into an {@code Memo}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code memo} is invalid.
-     */
-    public static Optional<Memo> parseMemo(String memo) throws ParseException {
-        requireNonNull(memo);
-        String trimmedMemo = memo.trim();
-        // if (!Address.isValidAddress(trimmedAddress)) {
-        //     throw new ParseException(Address.MESSAGE_CONSTRAINTS);
-        // }
-        return Optional.of(new Memo(trimmedMemo));
     }
 
     /**

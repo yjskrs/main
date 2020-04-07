@@ -8,7 +8,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.Scene?>
 <?import javafx.stage.Stage?>
-<fx:root xmlns:fx="http://javafx.com/fxml/1" minHeight="633.0" minWidth="1100.0"  maxWidth="1100.0" onCloseRequest="#handleExit" title="iGrad"
+<?import javafx.scene.control.Label?>
+<fx:root xmlns:fx="http://javafx.com/fxml/1" minHeight="650.0" minWidth="1100.0" maxWidth="Infinity" onCloseRequest="#handleExit" title="iGrad"
          type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.0">
     <icons>
         <Image url="@/images/iGrad_Shibu.png"/>
@@ -23,7 +24,7 @@
             <VBox style="-fx-background-color: #2a2a2a;">
                 <HBox
                         fx:id="mainContainer"
-                        styleClass="stack-pane-with-border"
+                        styleClass="main-window"
                         VBox.vgrow="ALWAYS">
                     <children>
                         <VBox>

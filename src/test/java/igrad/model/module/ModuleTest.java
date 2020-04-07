@@ -1,18 +1,8 @@
 package igrad.model.module;
 
-import static igrad.testutil.Assert.assertThrows;
-
 import org.junit.jupiter.api.Test;
 
-import igrad.testutil.ModuleBuilder;
-
 public class ModuleTest {
-
-    @Test
-    public void asObservableList_modifyList_throwsUnsupportedOperationException() {
-        Module module = new ModuleBuilder().build();
-        assertThrows(UnsupportedOperationException.class, () -> module.getTags().remove(0));
-    }
 
     @Test
     public void isSameModule() {

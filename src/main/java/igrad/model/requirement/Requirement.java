@@ -97,13 +97,13 @@ public class Requirement implements ReadOnlyRequirement {
     public boolean hasModule(Module module) {
         requireNonNull(module);
 
-        return modules.contains(module);
+        return this.modules.contains(module);
     }
 
     /**
-     * Returns true if any modules in {@code modules} with the same identity as {@code module} exists in the list.
+     * Returns true if all modules in {@code modules} with the same identity as {@code module} exists in the list.
      */
-    public boolean hasModule(List<Module> modules) {
+    public boolean hasModules(List<Module> modules) {
         requireNonNull(modules);
 
         return this.modules.contains(modules);

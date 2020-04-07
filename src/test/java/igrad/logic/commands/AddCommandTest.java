@@ -46,7 +46,7 @@ public class AddCommandTest {
         CommandResult commandResult = new ModuleAddCommand(validModule).execute(modelStub);
 
         assertEquals(String.format(ModuleAddCommand.MESSAGE_MODULE_ADD_SUCCESS, validModule),
-                commandResult.getFeedbackToUser());
+            commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validModule), modelStub.personsAdded);
     }
 
@@ -205,12 +205,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public Optional<Module> getModuleByModuleCode(ModuleCode moduleCode) {
+        public Optional<Module> getModule(ModuleCode moduleCode) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public List<Module> getModulesByModuleCode(List<ModuleCode> moduleCodes) {
+        public List<Module> getModules(List<ModuleCode> moduleCodes) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -255,7 +255,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public Cap computeEstimatedCap(Cap capToAchieve, int semsLeft) {
+        public Optional<Cap> computeEstimatedCap(Cap capToAchieve) {
             throw new AssertionError("This method should not be called.");
         }
 

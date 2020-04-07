@@ -12,6 +12,7 @@ import igrad.model.course.Cap;
 import igrad.model.course.CourseInfo;
 import igrad.model.course.Credits;
 import igrad.model.course.Name;
+import igrad.model.course.Semesters;
 
 /**
  * Edits the details of an existing module in the course book.
@@ -53,8 +54,9 @@ public class CourseEditCommand extends CourseCommand {
         Optional<Name> updatedName = editCourseDescriptor.getName();
         Optional<Cap> cap = courseInfoToEdit.getCap();
         Optional<Credits> credits = courseInfoToEdit.getCredits();
+        Optional<Semesters> semesters = courseInfoToEdit.getSemesters();
 
-        return new CourseInfo(updatedName, cap, credits);
+        return new CourseInfo(updatedName, cap, credits, semesters);
     }
 
     @Override
