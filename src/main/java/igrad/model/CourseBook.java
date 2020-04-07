@@ -110,12 +110,25 @@ public class CourseBook implements ReadOnlyCourseBook {
     }
 
     /**
-     * Returns a module which has requirement code; {@code moduleCode}
+     * Returns a module which has module code; {@code moduleCode}
      * {@code Optional.empty} otherwise.
      */
     public Optional<Module> getModule(ModuleCode moduleCode) {
         requireNonNull(moduleCode);
         return modules.getByModuleCode(moduleCode);
+    }
+
+    /**
+     * Returns all modules which has module code; {@code moduleCode}
+     * {@code Optional.empty} otherwise.
+     */
+    /**
+     * Returns all modules (in a module list), whose module code matches the module codes
+     * in; {@code moduleCodes}.
+     */
+    public List<Module> getModules(List<ModuleCode> moduleCodes) {
+        requireNonNull(moduleCodes);
+        return modules.getByModuleCodes(moduleCodes);
     }
 
     /**
@@ -166,7 +179,7 @@ public class CourseBook implements ReadOnlyCourseBook {
     }
 
     /**
-     * Returns all requirements (in a requirement list), which has have the module; {@code module}.
+     * Returns all requirements (in a requirement list), which has the module; {@code module}.
      */
     public List<Requirement> getRequirementsWithModule(Module module) {
         requireNonNull(module);

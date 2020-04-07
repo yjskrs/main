@@ -6,6 +6,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import igrad.model.module.exceptions.DuplicateModuleException;
 import igrad.model.module.exceptions.ModuleNotFoundException;
@@ -56,6 +57,17 @@ public class UniqueModuleList implements Iterable<Module> {
         return internalList.stream()
             .filter(module -> module.getModuleCode().equals(moduleCode))
             .findFirst();
+    }
+
+    /**
+     * Returns a list of modules; {@code List<Module>} of all modules in the internal list
+     * whose module code matches the module codes in; {@code moduleCodes}.
+     */
+    public List<Module> getByModuleCodes(List<ModuleCode> moduleCodes) {
+        return internalList.stream()
+            .filter(modules -> moduleCodes.stream()
+                .anyMatch(moduleCode -> moduleCode.equals(modules.getModuleCode())))
+            .collect(Collectors.toList());
     }
 
     /**

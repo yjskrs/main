@@ -54,7 +54,7 @@ public class UniqueRequirementList implements Iterable<Requirement> {
     }
 
     /**
-     * Returns list of requirement; {@code List<Requirement} of all requirements in the internal list
+     * Returns a list of requirement; {@code List<Requirement>} of all requirements in the internal list
      * which contains the specified module; {@code module}.
      */
     public List<Requirement> getByModule(Module module) {

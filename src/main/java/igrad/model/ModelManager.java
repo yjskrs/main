@@ -1,6 +1,7 @@
 package igrad.model;
 
 import static igrad.commons.util.CollectionUtil.requireAllNonNull;
+import static igrad.model.course.Cap.CAP_ZERO;
 import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
@@ -10,7 +11,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 import igrad.commons.core.GuiSettings;
 import igrad.commons.core.LogsCenter;
@@ -259,10 +259,8 @@ public class ModelManager implements Model {
 
     @Override
     public List<Module> getModules(List<ModuleCode> moduleCodes) {
-        return filteredModules.stream()
-            .filter(requirement -> moduleCodes.stream()
-                .anyMatch(moduleCode -> moduleCode.equals(requirement.getModuleCode())))
-            .collect(Collectors.toList());
+        requireNonNull(moduleCodes);
+        return courseBook.getModules(moduleCodes);
     }
 
     @Override
@@ -337,7 +335,7 @@ public class ModelManager implements Model {
             totalSemesters = remainingSemesters + 1;
         }
 
-        Cap currentCap = courseBook.getCourseInfo().getCap().orElse(new Cap(0));
+        Cap currentCap = courseBook.getCourseInfo().getCap().orElse(CAP_ZERO);
         double capWanted = capToAchieve.value;
         double capNow = currentCap.value;
 
