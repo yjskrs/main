@@ -31,7 +31,11 @@ public class CourseInfo {
 
     // Data fields
 
-    // This constructor is only used for JSON Serialising classes
+    /*
+     * Usually, Model entity classes such as model.Module.java, do not have empty no-arg constructor
+     * like this. However, since this class is instantiated in ModelMananger.java, using the usual
+     * 4-arg cosntructor would seem messy.
+     */
     public CourseInfo() {
         name = Optional.empty();
         cap = Optional.empty();
