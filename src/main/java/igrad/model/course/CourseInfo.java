@@ -1,11 +1,14 @@
 package igrad.model.course;
 
+import static igrad.model.course.Cap.CAP_ZERO;
+
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
 import igrad.model.module.Grade;
 import igrad.model.module.Module;
+import igrad.model.module.Semester;
 import igrad.model.requirement.Requirement;
 
 /**
@@ -24,6 +27,7 @@ public class CourseInfo {
     private final Optional<Name> name;
     private final Optional<Cap> cap;
     private final Optional<Credits> credits;
+    private final Optional<Semesters> semesters;
 
     // Data fields
 
@@ -32,15 +36,18 @@ public class CourseInfo {
         name = Optional.empty();
         cap = Optional.empty();
         credits = Optional.empty();
+        semesters = Optional.empty();
     }
 
     /**
      * Every field must be present and not null.
      */
-    public CourseInfo(Optional<Name> name, Optional<Cap> cap, Optional<Credits> credits) {
+    public CourseInfo(Optional<Name> name, Optional<Cap> cap, Optional<Credits> credits,
+                      Optional<Semesters> semesters) {
         this.name = name;
         this.cap = cap;
         this.credits = credits;
+        this.semesters = semesters;
     }
 
     public Optional<Name> getName() {
@@ -53,6 +60,10 @@ public class CourseInfo {
 
     public Optional<Credits> getCredits() {
         return credits;
+    }
+
+    public Optional<Semesters> getSemesters() {
+        return semesters;
     }
 
     /**
@@ -103,8 +114,8 @@ public class CourseInfo {
     }
 
     /**
-     * Computes and returns a {@code Cap} object based on a list of {@code Requirement}s;
-     * {@code requirementList} and {@code Module}s {@code moduleList} passed in.
+     * Computes and returns a {@code Optional<Cap>} object based on a list of {@code Requirement}s;
+     * in {@code requirementList} and list of {@code Module}s in {@code moduleList} passed in.
      */
     public static Optional<Cap> computeCap(List<Module> moduleList, List<Requirement> requirementList) {
         /*
@@ -145,71 +156,87 @@ public class CourseInfo {
                 continue;
             }
 
-            String gradeStr = grade.get().toString();
-            int moduleCredits = Integer.parseInt(module.getCredits().toString());
+            int moduleCredits = module.getCredits().toInteger();
 
             totalModuleCredits += moduleCredits;
 
-            switch (gradeStr) {
-            case "A+":
-                totalCredits += 5.0 * moduleCredits;
-                break;
+            totalCredits += (grade.get().getGradeValue() * moduleCredits);
 
-            case "A":
-                totalCredits += 5.0 * moduleCredits;
-                break;
-
-            case "A-":
-                totalCredits += 4.5 * moduleCredits;
-                break;
-
-            case "B+":
-                totalCredits += 4.0 * moduleCredits;
-                break;
-
-            case "B":
-                totalCredits += 3.5 * moduleCredits;
-                break;
-
-            case "B-":
-                totalCredits += 3.0 * moduleCredits;
-                break;
-
-            case "C+":
-                totalCredits += 2.5 * moduleCredits;
-                break;
-
-            case "C":
-                totalCredits += 2.0 * moduleCredits;
-                break;
-
-            case "D+":
-                totalCredits += 1.5 * moduleCredits;
-                break;
-
-            case "D":
-                totalCredits += 1.0 * moduleCredits;
-                break;
-
-            case "F":
-                totalCredits += 0;
-                break;
-
-            default:
+            if (grade.get().isSuGrade()) {
                 totalModuleCredits -= moduleCredits;
-                break;
             }
         }
 
         Cap capResult;
 
         if (totalModuleCredits == 0) {
-            capResult = new Cap(0);
+            capResult = CAP_ZERO;
         } else {
             capResult = new Cap(Double.toString(totalCredits / totalModuleCredits));
         }
 
         return Optional.of(capResult);
+    }
+
+    /**
+     * Computes and returns a {@code Semesters} object based on (@code Semesters) object and a list of {@Module}s
+     * passed in.
+     */
+    public static Optional<Semesters> computeSemesters(Optional<Semesters> semesters, List<Module> moduleList) {
+
+        if (moduleList.isEmpty()) {
+            return Optional.of(new Semesters(semesters.get().toString()));
+        }
+
+        int totalSemester = semesters.get().getTotalSemesters();
+        int remainingSemesters = computeRemainingSemesters(moduleList);
+
+        return Optional.of(new Semesters(totalSemester, remainingSemesters));
+    }
+
+    /**
+     * Computes and returns an Integer representing remaining semesters based on a list of {@Module}s
+     * passed in.
+     */
+    private static int computeRemainingSemesters(List<Module> moduleList) {
+        //If module list is empty, no semesters have been done yet
+        if (moduleList.isEmpty()) {
+            return 0;
+        }
+
+        int totalNumOfModules = moduleList.size();
+        int latestFinishedSem = 0;
+
+        for (int i = 0; i < totalNumOfModules; i++) {
+            Optional<Grade> grade = moduleList.get(i).getGrade();
+
+            if (grade.isEmpty()) {
+                continue;
+            }
+
+            Optional<Semester> semester = moduleList.get(i).getSemester();
+
+            if (semester.isEmpty()) {
+                continue;
+            }
+
+            int semesterValue = semester.get().getValue();
+            if (semesterValue > latestFinishedSem) {
+                latestFinishedSem = semesterValue;
+            }
+        }
+
+        int year = latestFinishedSem / 10;
+        int sem = latestFinishedSem % 10;
+        int totalSems = 0;
+
+        if (year > 0) {
+            totalSems = ((year - 1) * 2);
+        }
+
+        totalSems += sem;
+
+        return totalSems;
     }
 
     /**

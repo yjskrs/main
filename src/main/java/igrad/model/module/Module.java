@@ -2,13 +2,8 @@ package igrad.model.module;
 
 import static igrad.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.Set;
-
-import igrad.model.tag.Tag;
 
 /**
  * Represents a Module in the course book.
@@ -26,12 +21,9 @@ public class Module {
     // A module object can be created without all these fields (which are optional)
     private final Optional<ModuleCode[]> prequisites;
     private final Optional<ModuleCode[]> preclusions;
-    private final Optional<Memo> memo;
     private final Optional<Description> description;
     private final Optional<Semester> semester;
     private final Optional<Grade> grade;
-
-    private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
@@ -40,21 +32,17 @@ public class Module {
         Title title,
         ModuleCode moduleCode,
         Credits credits,
-        Optional<Memo> memo,
         Optional<Semester> semester,
         Optional<Description> description,
-        Optional<Grade> grade,
-        Set<Tag> tags
+        Optional<Grade> grade
     ) {
         requireAllNonNull(title, moduleCode, credits);
         this.title = title;
         this.moduleCode = moduleCode;
         this.credits = credits;
-        this.memo = memo;
         this.description = description;
         this.semester = semester;
         this.grade = grade;
-        this.tags.addAll(tags);
         this.preclusions = Optional.empty();
         this.prequisites = Optional.empty();
     }
@@ -63,23 +51,19 @@ public class Module {
         Title title,
         ModuleCode moduleCode,
         Credits credits,
-        Optional<Memo> memo,
         Optional<Semester> semester,
         Optional<Description> description,
         Optional<Grade> grade,
         Optional<ModuleCode[]> preclusions,
-        Optional<ModuleCode[]> prequisites,
-        Set<Tag> tags
+        Optional<ModuleCode[]> prequisites
     ) {
         requireAllNonNull(title, moduleCode, credits);
         this.title = title;
         this.moduleCode = moduleCode;
         this.credits = credits;
-        this.memo = memo;
         this.description = description;
         this.semester = semester;
         this.grade = grade;
-        this.tags.addAll(tags);
         this.preclusions = preclusions;
         this.prequisites = prequisites;
     }
@@ -94,10 +78,6 @@ public class Module {
 
     public Credits getCredits() {
         return credits;
-    }
-
-    public Optional<Memo> getMemo() {
-        return memo;
     }
 
     public Optional<Description> getDescription() {
@@ -118,14 +98,6 @@ public class Module {
 
     public Optional<ModuleCode[]> getPreclusions() {
         return preclusions;
-    }
-
-    /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
-     */
-    public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tags);
     }
 
     /**
@@ -186,7 +158,7 @@ public class Module {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(title, moduleCode, credits, memo, description, semester, tags);
+        return Objects.hash(title, moduleCode, credits, description, semester);
     }
 
     @Override
@@ -211,7 +183,6 @@ public class Module {
             .append(", Credits: ")
             .append(credits);
 
-        memo.ifPresent(x -> builder.append(" Memo: ").append(x));
         description.ifPresent(x -> builder.append(" Description: ").append(x));
         semester.ifPresent(x -> builder.append(" Semester: ").append(x));
         grade.ifPresent(x -> builder.append(" Grade: ").append(x));

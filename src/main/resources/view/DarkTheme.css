@@ -53,6 +53,11 @@ ModuleListCard
 .module-card-default {
      -fx-font-size: 10px !important;
      -fx-text-fill: #010504;
+     -fx-opacity: 0.3 !important;
+}
+
+.module-card-default-present {
+    -fx-opacity: 1.0 !important;
 }
 
 .vertical-divider {
@@ -84,18 +89,29 @@ ProgressSidePanel
     -fx-effect: dropshadow(gaussian, #1d1d1d, 20, 0.2, 0, 10);
     -fx-padding: 16px;
     -fx-min-width:300px;
+    -fx-max-width: 300px !important;
     -fx-min-height: 280px !important;
 }
 
 .progress-title {
-    -fx-min-width: 100px;
-    -fx-alignment: center-left;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-padding: 0px 0px 12px 0px;
 }
 
 .progress-rank {
     -fx-font-weight: bold;
     -fx-min-width: 160px;
     -fx-alignment: center-right;
+}
+
+.progress-label {
+    -fx-font-size: 13px !important;
+}
+
+.progress-value {
+    -fx-font-size: 13px !important;
+    -fx-font-weight: bold;
 }
 
 .progress-bar {

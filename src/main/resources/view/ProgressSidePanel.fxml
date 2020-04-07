@@ -19,6 +19,7 @@
                         styleClass="grad-cap"
                         fx:id="gradCapImageView"/>
                 <Label
+                        wrapText="true"
                         styleClass="course-name"
                         text="Your Course"
                         fx:id="courseNameLabel"/>
@@ -46,24 +47,30 @@
                 >
                 </ProgressBar>
             </VBox>
-            <GridPane hgap="50.0" vgap="4.0">
+            <VBox>
                 <Label
-                        style="-fx-font-size: 13px !important;"
-                        text="Semesters Left"
-                        GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-                <Label
-                        style="-fx-font-size: 13px !important;-fx-font-weight: bold"
-                        text="2"
-                        GridPane.rowIndex="0" GridPane.columnIndex="1"/>
-                <Label
-                        style="-fx-font-size: 13px !important;"
-                        text="Current CAP"
-                        GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                <Label
-                        fx:id="currentCap"
-                        style="-fx-font-size: 13px !important;-fx-font-weight: bold"
-                        text="4.2/5.0"
-                        GridPane.rowIndex="1" GridPane.columnIndex="1"/>
-            </GridPane>
+                        styleClass="progress-title"
+                    text="My Progress"
+                />
+                <GridPane hgap="80.0" vgap="4.0">
+                    <Label
+                            styleClass="progress-label"
+                            text="Semesters Left"
+                            GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                    <Label
+                            styleClass="progress-value"
+                            text="-"
+                            GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                    <Label
+                            styleClass="progress-label"
+                            text="Current CAP"
+                            GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                    <Label
+                            fx:id="currentCap"
+                            styleClass="progress-value"
+                            text="-/5.0"
+                            GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                </GridPane>
+            </VBox>
     </children>
 </VBox>

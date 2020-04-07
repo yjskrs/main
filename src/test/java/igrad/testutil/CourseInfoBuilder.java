@@ -51,6 +51,6 @@ public class CourseInfoBuilder {
      */
     public CourseInfo build() {
         // TODO: just put optional for now, construct test cases involving cap as well
-        return new CourseInfo(name, cap, Optional.empty());
+        return new CourseInfo(name, cap, Optional.empty(), Optional.empty());
     }
 }

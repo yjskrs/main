@@ -24,11 +24,11 @@
             <Label wrapText="true" fx:id="title" styleClass="title" text="\$first"/>
             <HBox spacing="10.0">
                 <children>
-                    <Label styleClass="module-card-default" fx:id="semester" text="Y?S?"/>
+                    <Label styleClass="module-card-default" fx:id="semester" text="SEMESTER"/>
                     <Region styleClass="vertical-divider"/>
-                    <Label styleClass="module-card-default" fx:id="credits" text="\$credits"/>
+                    <Label styleClass="module-card-default" fx:id="credits" text="CREDITS"/>
                     <Region styleClass="vertical-divider"/>
-                    <Label styleClass="module-card-default" fx:id="grade" text="-"/>
+                    <Label styleClass="module-card-default" fx:id="grade" text="GRADE"/>
                 </children>
             </HBox>
         </VBox>
