@@ -20,7 +20,6 @@ import javafx.stage.Stage;
 public class HelpWindow extends UiPart<Stage> {
 
     public static final String USERGUIDE_URL = "https://ay1920s2-cs2103t-f09-3.github.io/main/";
-    public static final String USER_GUIDE_TITLE = "User Guide Link:";
 
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String FXML = "HelpWindow.fxml";
