@@ -10,6 +10,7 @@ import igrad.commons.core.GuiSettings;
 import igrad.commons.core.LogsCenter;
 import igrad.logic.commands.Command;
 import igrad.logic.commands.CommandResult;
+import igrad.logic.commands.HelpCommand;
 import igrad.logic.commands.SelectAvatarCommand;
 import igrad.logic.commands.UndoCommand;
 import igrad.logic.commands.course.CourseAddCommand;
@@ -89,7 +90,8 @@ public class LogicManager implements Logic {
          * and error message to the user.
          */
         if (!model.isCourseNameSet()
-                && !(command instanceof CourseAddCommand || command instanceof UndoCommand)) {
+                && !(command instanceof CourseAddCommand || command instanceof UndoCommand
+                     || command instanceof HelpCommand)) {
             throw new CommandException(MESSAGE_COURSE_NOT_SET);
         }
 
