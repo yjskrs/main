@@ -31,7 +31,7 @@ public class ModuleDoneCommand extends ModuleCommand {
         + "(with a grade) of the module identified by its module code. Existing module (grade) will be overwritten "
         + "by the input values.\n";
 
-    public static final String MESSAGE_MODULE_DONE_USAGE = "Parameter(s): MODULE CODE "
+    public static final String MESSAGE_MODULE_DONE_USAGE = "Parameter(s): MODULE_CODE "
         + PREFIX_GRADE + "GRADE\n"
         + "Example: " + MODULE_DONE_COMMAND_WORD + " CS2103T "
         + PREFIX_GRADE + "A+";
