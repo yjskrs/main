@@ -17,10 +17,6 @@ public class Name {
 
     public final String value;
 
-    public Name() {
-        value = null;
-    }
-
     /**
      * Constructs a {@code Name}.
      *
