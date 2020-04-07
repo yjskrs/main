@@ -1,7 +1,6 @@
 package igrad.logic.commands.module;
 
 import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
-import static igrad.logic.parser.CliSyntax.PREFIX_MEMO;
 import static igrad.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
 import static igrad.logic.parser.CliSyntax.PREFIX_SEMESTER;
 import static igrad.logic.parser.CliSyntax.PREFIX_TAG;
@@ -27,7 +26,6 @@ public class ModuleAddCommand extends ModuleCommand {
         + PREFIX_MODULE_CODE + "MODULE_CODE "
         + PREFIX_TITLE + " TITLE "
         + PREFIX_CREDITS + "CREDITS "
-        + "[" + PREFIX_MEMO + "MEMO] "
         + "[" + PREFIX_SEMESTER + "SEMESTER] "
         + "[" + PREFIX_TAG + "TAGS]...\n"
         + "Example: " + MODULE_ADD_COMMAND_WORD + " "

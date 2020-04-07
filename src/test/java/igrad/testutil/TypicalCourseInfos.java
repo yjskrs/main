@@ -14,17 +14,17 @@ import igrad.model.course.CourseInfo;
  */
 public class TypicalCourseInfos {
     public static final CourseInfo B_SCI_MATH = new CourseInfoBuilder()
-        .withName("Bachelor of Science in Mathematics").build();
+        .withName("Bachelor of Science in Mathematics").withCap("5.0").build();
 
     public static final CourseInfo B_INFO_SYS = new CourseInfoBuilder()
-        .withName("Bachelor of Information Systems").build();
+        .withName("Bachelor of Information Systems").withCap("5.0").build();
 
     // Manually added - CourseInfo's details found in {@code CommandTestUtil}
     public static final CourseInfo B_ARTS_PHILO = new CourseInfoBuilder()
-        .withName(VALID_NAME_B_ARTS_PHILO).build();
+        .withName(VALID_NAME_B_ARTS_PHILO).withCap("5.0").build();
 
     public static final CourseInfo B_COMP_SCI = new CourseInfoBuilder()
-        .withName(VALID_NAME_B_COMP_SCI).build();
+        .withName(VALID_NAME_B_COMP_SCI).withCap("5.0").build();
 
     private TypicalCourseInfos() {
     } // prevents instantiation

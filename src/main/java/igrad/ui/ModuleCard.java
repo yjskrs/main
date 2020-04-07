@@ -25,7 +25,7 @@ public class ModuleCard extends UiPart<Region> {
     private int displayedIndex;
 
     @FXML
-    private HBox cardPane;
+    private HBox moduleCardPane;
     @FXML
     private Label title;
     @FXML
@@ -45,13 +45,16 @@ public class ModuleCard extends UiPart<Region> {
         title.setText(module.getTitle().value);
         moduleCode.setText(module.getModuleCode().value);
         credits.setText(module.getCredits().value + " MCs");
+        credits.getStyleClass().add("module-card-default-present");
 
         if (module.getSemester().isPresent()) {
             semester.setText(module.getSemester().get().value);
+            semester.getStyleClass().add("module-card-default-present");
         }
 
         if (module.getGrade().isPresent()) {
             grade.setText(module.getGrade().get().value);
+            grade.getStyleClass().add("module-card-default-present");
         }
     }
 

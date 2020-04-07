@@ -182,12 +182,12 @@ public interface Model {
      * Retrieves the {@code Module} exists in the course book, by checking only its given {@code ModuleCode}.
      * Returns the @{code Module} if it exists else {@code Optional.empty} otherwise.
      */
-    Optional<Module> getModuleByModuleCode(ModuleCode moduleCode);
+    Optional<Module> getModule(ModuleCode moduleCode);
 
     /**
      * Retrieves a list of {@code Module} which exists in the course book, by checking only its {@code ModuleCode}.
      */
-    List<Module> getModulesByModuleCode(List<ModuleCode> moduleCodes);
+    List<Module> getModules(List<ModuleCode> moduleCodes);
 
     /**
      * Adds the given requirement.
@@ -239,5 +239,5 @@ public interface Model {
     /**
      * Calculates and returns Cap needed to maintain each sem to achieve desired Cap.
      */
-    Cap computeEstimatedCap(Cap capToAchieve, int semsLeft);
+    Optional<Cap> computeEstimatedCap(Cap capToAchieve);
 }

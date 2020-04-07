@@ -1,6 +1,7 @@
 package igrad.model;
 
 import static igrad.commons.util.CollectionUtil.requireAllNonNull;
+import static igrad.model.course.Cap.CAP_ZERO;
 import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
@@ -10,13 +11,13 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 import igrad.commons.core.GuiSettings;
 import igrad.commons.core.LogsCenter;
 import igrad.model.avatar.Avatar;
 import igrad.model.course.Cap;
 import igrad.model.course.CourseInfo;
+import igrad.model.course.Semesters;
 import igrad.model.module.Module;
 import igrad.model.module.ModuleCode;
 import igrad.model.quotes.QuoteGenerator;
@@ -154,7 +155,7 @@ public class ModelManager implements Model {
             ModuleCode[] preclusions = module.getPreclusions().get();
 
             for (ModuleCode preclusion : preclusions) {
-                Optional<Module> mOpt = getModuleByModuleCode(preclusion);
+                Optional<Module> mOpt = getModule(preclusion);
                 if (mOpt.isPresent()) {
                     hasModulePreclusions = true;
                 }
@@ -177,7 +178,7 @@ public class ModelManager implements Model {
             ModuleCode[] preqrequisites = module.getPrequisites().get();
 
             for (ModuleCode prerequisite : preqrequisites) {
-                Optional<Module> mOpt = getModuleByModuleCode(prerequisite);
+                Optional<Module> mOpt = getModule(prerequisite);
                 if (mOpt.isEmpty()) {
                     hasModulePrerequisites = false;
                 } else {
@@ -240,33 +241,26 @@ public class ModelManager implements Model {
 
     @Override
     public Optional<Requirement> getRequirement(RequirementCode requirementCode) {
-        // TODO: clean-up logic, and make an equivalent method in course book
-        return requirements.stream()
-            .filter(requirement -> requirement.getRequirementCode().equals(requirementCode))
-            .findFirst();
+        requireNonNull(requirementCode);
+        return courseBook.getRequirement(requirementCode);
     }
 
     @Override
     public List<Requirement> getRequirementsWithModule(Module module) {
-        // TODO: clean-up logic, and make an equivalent method in course book
-        return requirements.stream()
-            .filter(requirement -> requirement.hasModule(module))
-            .collect(Collectors.toList());
+        requireNonNull(module);
+        return courseBook.getRequirementsWithModule(module);
     }
 
     @Override
-    public Optional<Module> getModuleByModuleCode(ModuleCode moduleCode) {
-        return filteredModules.stream()
-            .filter(module -> module.getModuleCode().equals(moduleCode))
-            .findFirst();
+    public Optional<Module> getModule(ModuleCode moduleCode) {
+        requireNonNull(moduleCode);
+        return courseBook.getModule(moduleCode);
     }
 
     @Override
-    public List<Module> getModulesByModuleCode(List<ModuleCode> moduleCodes) {
-        return filteredModules.stream()
-            .filter(requirement -> moduleCodes.stream()
-                .anyMatch(moduleCode -> moduleCode.equals(requirement.getModuleCode())))
-            .collect(Collectors.toList());
+    public List<Module> getModules(List<ModuleCode> moduleCodes) {
+        requireNonNull(moduleCodes);
+        return courseBook.getModules(moduleCodes);
     }
 
     @Override
@@ -328,25 +322,26 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Cap computeEstimatedCap(Cap capToAchieve, int semsLeft) {
-        int totalSems;
+    public Optional<Cap> computeEstimatedCap(Cap capToAchieve) {
+        Optional<Semesters> semesters = getCourseInfo().getSemesters();
+        int totalSemesters = semesters.get().getTotalSemesters();
+        int remainingSemesters = semesters.get().getRemainingSemesters();
 
         Optional<Cap> current = courseBook.getCourseInfo().getCap();
 
         if (current.isEmpty()) {
-            totalSems = semsLeft;
+            return Optional.of(capToAchieve);
         } else {
-            totalSems = semsLeft + 1;
+            totalSemesters = remainingSemesters + 1;
         }
 
-        Cap currentCap = courseBook.getCourseInfo().getCap().orElse(new Cap("0"));
-        double capWanted = capToAchieve.getValue();
-        double capNow = currentCap.getValue();
+        Cap currentCap = courseBook.getCourseInfo().getCap().orElse(CAP_ZERO);
+        double capWanted = capToAchieve.value;
+        double capNow = currentCap.value;
 
-        double estimatedCapEachSem = ((capWanted * totalSems) - capNow) / semsLeft;
-        Cap capToAchieveEachSem = new Cap(estimatedCapEachSem + "");
+        double estimatedCapEachSem = ((capWanted * totalSemesters) - capNow) / remainingSemesters;
 
-        return capToAchieveEachSem;
+        return Optional.of(new Cap(Double.toString(estimatedCapEachSem)));
     }
 
     @Override

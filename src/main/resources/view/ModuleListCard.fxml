@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <HBox
         stylesheets="@DarkTheme.css"
-        xmlns:fx="http://javafx.com/fxml/1" id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/11.0.0">
+        xmlns:fx="http://javafx.com/fxml/1" styleClass="module-card-pane" fx:id="moduleCardPane" xmlns="http://javafx.com/javafx/11.0.0">
     <GridPane HBox.hgrow="ALWAYS">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="100"/>
@@ -24,11 +24,11 @@
             <Label wrapText="true" fx:id="title" styleClass="title" text="\$first"/>
             <HBox spacing="10.0">
                 <children>
-                    <Label styleClass="module-card-default" fx:id="semester" text="Y?S?"/>
+                    <Label styleClass="module-card-default" fx:id="semester" text="SEMESTER"/>
                     <Region styleClass="vertical-divider"/>
-                    <Label styleClass="module-card-default" fx:id="credits" text="\$credits"/>
+                    <Label styleClass="module-card-default" fx:id="credits" text="CREDITS"/>
                     <Region styleClass="vertical-divider"/>
-                    <Label styleClass="module-card-default" fx:id="grade" text="-"/>
+                    <Label styleClass="module-card-default" fx:id="grade" text="GRADE"/>
                 </children>
             </HBox>
         </VBox>

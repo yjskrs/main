@@ -1,7 +1,6 @@
 package igrad.logic.commands;
 
 import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
-import static igrad.logic.parser.CliSyntax.PREFIX_MEMO;
 import static igrad.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
 import static igrad.logic.parser.CliSyntax.PREFIX_SEMESTER;
 import static igrad.logic.parser.CliSyntax.PREFIX_TAG;
@@ -57,12 +56,6 @@ public class CommandTestUtil {
     public static final String CREDITS_DESC_COMPUTER_ORGANISATION = " " + PREFIX_CREDITS
         + VALID_CREDITS_COMPUTER_ORGANISATION;
 
-    public static final String MEMO_DESC_PROGRAMMING_METHODOLOGY = " " + PREFIX_MEMO
-        + VALID_MEMO_PROGRAMMING_METHODOLOGY;
-
-    public static final String MEMO_DESC_COMPUTER_ORGANISATION = " " + PREFIX_MEMO
-        + VALID_MEMO_COMPUTER_ORGANISATION;
-
     public static final String SEMESTER_DESC_PROGRAMMING_METHODOLOGY = " " + PREFIX_SEMESTER
         + VALID_SEMESTER_PROGRAMMING_METHODOLOGY;
 
@@ -98,17 +91,13 @@ public class CommandTestUtil {
             .withTitle(VALID_TITLE_PROGRAMMING_METHODOLOGY)
             .withModuleCode(VALID_MODULE_CODE_PROGRAMMING_METHODOLOGY)
             .withCredits(VALID_CREDITS_PROGRAMMING_METHODOLOGY)
-            .withMemo(VALID_MEMO_PROGRAMMING_METHODOLOGY)
-            .withSemester(VALID_SEMESTER_PROGRAMMING_METHODOLOGY)
-            .withTags(VALID_TAG_EASY).build();
+            .withSemester(VALID_SEMESTER_PROGRAMMING_METHODOLOGY).build();
 
         DESC_COMPUTER_ORGANISATION = new EditModuleDescriptorBuilder()
             .withTitle(VALID_TITLE_COMPUTER_ORGANISATION)
             .withModuleCode(VALID_MODULE_CODE_COMPUTER_ORGANISATION)
             .withCredits(VALID_CREDITS_COMPUTER_ORGANISATION)
-            .withMemo(VALID_MEMO_COMPUTER_ORGANISATION)
-            .withSemester(VALID_SEMESTER_COMPUTER_ORGANISATION)
-            .withTags(VALID_TAG_HARD).build();
+            .withSemester(VALID_SEMESTER_COMPUTER_ORGANISATION).build();
     }
 
     /**

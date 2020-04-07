@@ -3,11 +3,14 @@ package igrad.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Optional;
 
 import igrad.model.course.CourseInfo;
 import igrad.model.module.Module;
+import igrad.model.module.ModuleCode;
 import igrad.model.module.UniqueModuleList;
 import igrad.model.requirement.Requirement;
+import igrad.model.requirement.RequirementCode;
 import igrad.model.requirement.UniqueRequirementList;
 import javafx.collections.ObservableList;
 
@@ -107,6 +110,28 @@ public class CourseBook implements ReadOnlyCourseBook {
     }
 
     /**
+     * Returns a module which has module code; {@code moduleCode}
+     * {@code Optional.empty} otherwise.
+     */
+    public Optional<Module> getModule(ModuleCode moduleCode) {
+        requireNonNull(moduleCode);
+        return modules.getByModuleCode(moduleCode);
+    }
+
+    /**
+     * Returns all modules which has module code; {@code moduleCode}
+     * {@code Optional.empty} otherwise.
+     */
+    /**
+     * Returns all modules (in a module list), whose module code matches the module codes
+     * in; {@code moduleCodes}.
+     */
+    public List<Module> getModules(List<ModuleCode> moduleCodes) {
+        requireNonNull(moduleCodes);
+        return modules.getByModuleCodes(moduleCodes);
+    }
+
+    /**
      * Adds a module to the course book.
      * The module must not already exist in the course book.
      */
@@ -145,6 +170,24 @@ public class CourseBook implements ReadOnlyCourseBook {
     }
 
     /**
+     * Returns a requirement which has requirement code; {@code requirementCode}, and
+     * {@code Optional.empty} otherwise.
+     */
+    public Optional<Requirement> getRequirement(RequirementCode requirementCode) {
+        requireNonNull(requirementCode);
+        return requirements.getByRequirementCode(requirementCode);
+    }
+
+    /**
+     * Returns all requirements (in a requirement list), which has the module; {@code module}.
+     */
+    public List<Requirement> getRequirementsWithModule(Module module) {
+        requireNonNull(module);
+
+        return requirements.getByModule(module);
+    }
+
+    /**
      * Adds a requirement to the course book.
      * The requirement must not already exist in the course book.
      */
@@ -176,7 +219,7 @@ public class CourseBook implements ReadOnlyCourseBook {
 
     @Override
     public String toString() {
-        return modules.asUnmodifiableObservableList().size() + " persons";
+        return modules.asUnmodifiableObservableList().size() + " modules";
         // TODO: refine later
     }
 
