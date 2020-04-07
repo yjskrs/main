@@ -149,9 +149,9 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Fills up and displays/refreshes the window of all module placeholders, when in the module management state.
+     * Fills up and displays/refreshes all the panels in the module management state.
      */
-    void displayModulePanel(Model model) {
+    void displayMainPanel(Model model) {
 
         mainContainer.getChildren().remove(avatarSelectionPanelPlaceholder);
 
@@ -177,8 +177,8 @@ public class MainWindow extends UiPart<Stage> {
         commandReceivedPanel = new CommandReceivedPanel();
         commandReceivedPanelPlaceholder.getChildren().add(commandReceivedPanel.getRoot());
 
-        moduleListPanelPlaceholder.setPrefHeight(2000.0);
-        requirementListPanelPlaceholder.setPrefHeight(2000.0);
+        moduleListPanelPlaceholder.setPrefHeight(Integer.MAX_VALUE);
+        requirementListPanelPlaceholder.setPrefHeight(Integer.MAX_VALUE);
 
         resultDisplay = new ResultDisplay(model.getAvatar());
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -320,7 +320,7 @@ public class MainWindow extends UiPart<Stage> {
                 commandResult = logic.executeAvatar(commandText);
 
                 // Now we've already selected Avatar, remove Avatar selection panel to display the Main module panel
-                displayModulePanel(model);
+                displayMainPanel(model);
             } else {
                 // Else, let user execute commands normally.
                 commandResult = logic.execute(commandText);

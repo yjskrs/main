@@ -38,6 +38,15 @@ ModuleListCard
     -fx-max-width: 360px;
 }
 
+.module-card-pane {
+    -fx-background-color: #303030;
+    -fx-background-radius: 12;
+    -fx-border-width: 1;
+    -fx-border-style: solid solid solid solid;
+    -fx-border-radius: 12;
+    -fx-border-color: #4d4d4d;
+}
+
 .module-card .title {
     -fx-font-weight: normal;
     -fx-font-size: 12px !important;
@@ -154,13 +163,13 @@ StackPane default
      -fx-background-color: #2d2d2d;
 }
 
-.stack-pane-with-border {
+.main-window {
      -fx-background-color: #2a2a2a;
      -fx-border-color: transparent;
      -fx-alignment: center;
 }
 
-.stack-pane-with-border .text-area {
+.main-window .text-area {
     color: #fff;
 }
 
@@ -186,9 +195,9 @@ StatusBar
 ResultDisplay
 */
 .result-display-container {
-    -fx-max-height: 80px;
-    -fx-pref-height: 80px;
-    -fx-min-height: 80px;
+    -fx-max-height: 100px;
+    -fx-pref-height: 100px;
+    -fx-min-height: 100px;
 }
 
 .result-display {
@@ -589,6 +598,27 @@ AB3 Default
     -fx-font-size: 11;
 }
 
+.requirement-card-pane {
+    -fx-background-color: #303030;
+    -fx-background-radius: 12;
+    -fx-border-width: 1;
+    -fx-border-style: solid solid solid solid;
+    -fx-border-radius: 12;
+    -fx-border-color: #4d4d4d;
+}
+
+.requirement-card-pane.done {
+    -fx-opacity: 0.45;
+}
+
+.requirement-card-pane.done .code {
+    -fx-text-fill: #fff;
+}
+
+.requirement-card-pane.done .module-codes .module-tag {
+    -fx-background-color: #254a25;
+}
+
 .requirement-panel-container {
     -fx-min-width: 460px;
 }
@@ -620,7 +650,7 @@ AB3 Default
     -fx-font-weight: bold;
 }
 
-.requirement-card-module-code {
+.module-codes .module-tag {
     -fx-text-fill: #fff !important;
     -fx-font-weight: bold;
     -fx-background-color: #f27c36;

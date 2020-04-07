@@ -55,12 +55,7 @@ public class ModuleAddAutoCommandParser extends ModuleCommandParser implements P
         ArgumentMultimap argMultimap =
             ArgumentTokenizer.tokenize(
                 args,
-                PREFIX_TITLE,
-                PREFIX_MODULE_CODE,
-                PREFIX_CREDITS,
-                PREFIX_TAG,
-                PREFIX_DESCRIPTION,
-                PREFIX_SEMESTER
+                PREFIX_MODULE_CODE
             );
 
         if (!arePrefixesPresent(argMultimap, PREFIX_MODULE_CODE)
@@ -72,7 +67,7 @@ public class ModuleAddAutoCommandParser extends ModuleCommandParser implements P
 
         ArrayList<Module> modules = new ArrayList<>();
 
-        String messageAdditional = "";
+        StringBuilder messageAdditional = new StringBuilder();
 
         for (String moduleCodeStr : moduleCodes) {
 
@@ -81,7 +76,7 @@ public class ModuleAddAutoCommandParser extends ModuleCommandParser implements P
             try {
                 jsonParsedModule = NusModsRequester.getModule(moduleCodeStr);
             } catch (IOException | ServiceException e) {
-                messageAdditional += String.format(MESSAGE_REQUEST_FAILED, moduleCodeStr);
+                messageAdditional.append(String.format(MESSAGE_REQUEST_FAILED, moduleCodeStr));
                 continue;
             }
 
@@ -98,22 +93,11 @@ public class ModuleAddAutoCommandParser extends ModuleCommandParser implements P
             ModuleStringParser preclusionParser = new ModuleStringParser(preclusionModulesString);
             Optional<ModuleCode[]> preclusions = Optional.of(preclusionParser.getModuleCodes());
 
-            Optional<Description> description = parseDescription(jsonParsedModule.getDescription());
-
-            Optional<Semester> semester = argMultimap.getValue(PREFIX_SEMESTER).isPresent()
-                ? parseSemester(argMultimap.getValue(PREFIX_SEMESTER).get())
-                : Optional.empty();
-
-            // TODO: support grade parsing too! i'll just leave it like that for now
-            Optional<Grade> grade = Optional.empty();
 
             Module module = new Module(
                 title,
                 moduleCode,
                 credits,
-                semester,
-                description,
-                grade,
                 preclusions,
                 prerequisites
             );
@@ -122,7 +106,7 @@ public class ModuleAddAutoCommandParser extends ModuleCommandParser implements P
 
         }
 
-        return new ModuleAddAutoCommand(modules, messageAdditional);
+        return new ModuleAddAutoCommand(modules, messageAdditional.toString());
     }
 
 }
