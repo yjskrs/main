@@ -122,7 +122,6 @@ public class CourseBookParser {
          * If there is only one command word provided instead of the supposed two-word commands, flag an error
          * to feedback to the user.
          */
-
         case CourseCommand.COURSE_COMMAND_WORD:
             throw new ParseException(MESSAGE_UNKNOWN_COURSE_COMMAND);
 
@@ -132,6 +131,9 @@ public class CourseBookParser {
         case ModuleCommand.MODULE_COMMAND_WORD:
             throw new ParseException(MESSAGE_UNKNOWN_MODULE_COMMAND);
 
+        /*
+         * Process the command if it matches its command word.
+         */
         case CourseAddCommand.COURSE_ADD_COMMAND_WORD:
             return new CourseAddCommandParser().parse(arguments);
 

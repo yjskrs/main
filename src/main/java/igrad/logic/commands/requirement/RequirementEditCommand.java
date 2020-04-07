@@ -102,9 +102,17 @@ public class RequirementEditCommand extends RequirementCommand {
         return new Requirement(requirementCode, updatedTitle, updatedCredits, moduleList);
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this
+                   || (other instanceof RequirementEditCommand
+                           && ((RequirementEditCommand) other).requirementDescriptor.equals(requirementDescriptor)
+                           && ((RequirementEditCommand) other).requirementCode.equals(requirementCode));
+    }
+
     /**
      * Stores the details to edit the requirement with. Each non-empty field value will replace the
-     * corresponding field value of the person.
+     * corresponding field value of the requirement.
      */
     public static class EditRequirementDescriptor {
         private Title title;

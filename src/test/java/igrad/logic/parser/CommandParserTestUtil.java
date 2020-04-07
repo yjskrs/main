@@ -14,8 +14,12 @@ import igrad.services.exceptions.ServiceException;
 public class CommandParserTestUtil {
 
     /**
-     * Asserts that the parsing of {@code userInput} by {@code parser} is successful and the command created
-     * equals to {@code expectedCommand}.
+     * Asserts that the parsing of {@code userInput} by {@code parser} is successful
+     * and the command created is equals to {@code expectedCommand}.
+     *
+     * @param parser          Parser object.
+     * @param userInput       User input string.
+     * @param expectedCommand Expected command.
      */
     public static void assertParseSuccess(Parser parser, String userInput, Command expectedCommand) {
         try {
@@ -30,7 +34,14 @@ public class CommandParserTestUtil {
 
     /**
      * Asserts that the parsing of {@code userInput} by {@code parser} is unsuccessful and the error message
-     * equals to {@code expectedMessage}.
+     * is equals to {@code expectedMessage}.
+     */
+    /**
+     * Asserts that the parsing of {@code userInput} by {@code parser} is unsuccessful
+     * and the error message thrown is equals to {@code expectedMessage}.
+     * @param parser          Parser object.
+     * @param userInput       User input string.
+     * @param expectedMessage Expected command.
      */
     public static void assertParseFailure(Parser parser, String userInput, String expectedMessage) {
         try {

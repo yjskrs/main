@@ -1,14 +1,14 @@
 package igrad.testutil;
 
-import static igrad.logic.commands.CommandTestUtil.VALID_REQ_CODE_CSF;
-import static igrad.logic.commands.CommandTestUtil.VALID_REQ_CODE_GE;
-import static igrad.logic.commands.CommandTestUtil.VALID_REQ_CODE_UE;
-import static igrad.logic.commands.CommandTestUtil.VALID_REQ_CREDITS_CSF;
-import static igrad.logic.commands.CommandTestUtil.VALID_REQ_CREDITS_GE;
-import static igrad.logic.commands.CommandTestUtil.VALID_REQ_CREDITS_UE;
-import static igrad.logic.commands.CommandTestUtil.VALID_REQ_TITLE_CSF;
-import static igrad.logic.commands.CommandTestUtil.VALID_REQ_TITLE_GE;
-import static igrad.logic.commands.CommandTestUtil.VALID_REQ_TITLE_UE;
+import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_CODE_CSF;
+import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_CODE_GE;
+import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_CODE_UE;
+import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_CREDITS_CSF;
+import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_CREDITS_GE;
+import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_CREDITS_UE;
+import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_TITLE_CSF;
+import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_TITLE_GE;
+import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_TITLE_UE;
 import static igrad.testutil.TypicalModules.getTypicalModules;
 
 import java.util.ArrayList;

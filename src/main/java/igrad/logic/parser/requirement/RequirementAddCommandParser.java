@@ -34,7 +34,7 @@ public class RequirementAddCommandParser extends RequirementCommandParser {
 
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_CREDITS);
 
-        // Show help message if arguments are not provided by user
+        // Show help message if prefixes are not entered
         if (argMultimap.isEmpty(false)) {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
                 MESSAGE_REQUIREMENT_ADD_HELP));

@@ -98,4 +98,11 @@ public class RequirementAddCommand extends RequirementCommand {
 
         return codeWithoutNumber.getAlphabets() + lastUsedNumber;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this
+            || (other instanceof RequirementAddCommand
+                    && ((RequirementAddCommand) other).requirementToAdd.equals(requirementToAdd));
+    }
 }

@@ -1,8 +1,8 @@
 package igrad.testutil;
 
-import static igrad.logic.commands.CommandTestUtil.VALID_REQ_CODE_CSF;
-import static igrad.logic.commands.CommandTestUtil.VALID_REQ_CREDITS_CSF;
-import static igrad.logic.commands.CommandTestUtil.VALID_REQ_TITLE_CSF;
+import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_CODE_CSF;
+import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_CREDITS_CSF;
+import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_TITLE_CSF;
 
 import java.util.List;
 

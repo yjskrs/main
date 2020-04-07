@@ -1,9 +1,9 @@
 package igrad.model.requirement;
 
-import static igrad.logic.commands.CommandTestUtil.VALID_REQ_CODE_MS;
-import static igrad.logic.commands.CommandTestUtil.VALID_REQ_CREDITS_GE;
-import static igrad.logic.commands.CommandTestUtil.VALID_REQ_CREDITS_MS;
-import static igrad.logic.commands.CommandTestUtil.VALID_REQ_TITLE_MS;
+import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_CODE_MS;
+import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_CREDITS_GE;
+import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_CREDITS_MS;
+import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_TITLE_MS;
 import static igrad.testutil.Assert.assertThrows;
 import static igrad.testutil.TypicalModules.COMPUTER_ORGANISATION;
 import static igrad.testutil.TypicalModules.PROGRAMMING_METHODOLOGY;

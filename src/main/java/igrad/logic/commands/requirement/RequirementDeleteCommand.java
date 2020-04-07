@@ -73,4 +73,10 @@ public class RequirementDeleteCommand extends RequirementCommand {
             String.format(MESSAGE_REQUIREMENT_DELETE_SUCCESS, toDelete));
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this
+                   || (other instanceof RequirementDeleteCommand
+                           && ((RequirementDeleteCommand) other).requirementCode.equals(requirementCode));
+    }
 }
