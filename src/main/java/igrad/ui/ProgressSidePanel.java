@@ -69,8 +69,6 @@ public class ProgressSidePanel extends UiPart<Region> {
             semesterLabel.setText(String.valueOf(remainingSemesters));
         }
 
-        System.out.println("cap = " + cap);
-
         courseName.ifPresentOrElse(
             name -> courseNameLabel.setText(name.value), () -> courseNameLabel
                 .setText("Your Course."));
