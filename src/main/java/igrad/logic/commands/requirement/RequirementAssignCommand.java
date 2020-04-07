@@ -59,7 +59,7 @@ public class RequirementAssignCommand extends RequirementCommand {
         // Retrieve the requirement in question that we want to assign modules under..
 
         // First check if the requirement exists in the course book
-        Requirement requirementToAssign = model.getRequirement(requirementCode)
+        Requirement requirementToEdit = model.getRequirement(requirementCode)
             .orElseThrow(() -> new CommandException(MESSAGE_REQUIREMENT_NON_EXISTENT));
 
 
@@ -71,14 +71,14 @@ public class RequirementAssignCommand extends RequirementCommand {
         }
 
         // Now filter out, modules which are already in the requirement, they should not be re-added again
-        modulesToAssign.removeIf(module -> requirementToAssign.hasModule(module));
+        modulesToAssign.removeIf(module -> requirementToEdit.hasModule(module));
 
         // Finally if everything alright, we can actually then assign/add the specified modules under this requirement
-        requirementToAssign.addModules(modulesToAssign);
+        requirementToEdit.addModules(modulesToAssign);
 
-        // First, we copy over all the old values of requirementToAssign
-        RequirementCode requirementCode = requirementToAssign.getRequirementCode();
-        Title title = requirementToAssign.getTitle();
+        // First, we copy over all the old values of requirementToEdit
+        RequirementCode requirementCode = requirementToEdit.getRequirementCode();
+        Title title = requirementToEdit.getTitle();
 
         /*
          * Now given that we've added this list of new modules to requirement, we've to update (recompute)
@@ -86,15 +86,15 @@ public class RequirementAssignCommand extends RequirementCommand {
          * on the module list passed in, we don't have to do anything here, just propage
          * the old credits value.
          */
-        igrad.model.requirement.Credits credits = requirementToAssign.getCredits();
+        igrad.model.requirement.Credits credits = requirementToEdit.getCredits();
 
         // Get the most update module list (now with the new modules assigned/added)
-        List<Module> modules = requirementToAssign.getModuleList();
+        List<Module> modules = requirementToEdit.getModuleList();
 
         // Finally, create a new Requirement with all the updated information (details).
         Requirement editedRequirement = new Requirement(requirementCode, title, credits, modules);
 
-        model.setRequirement(requirementToAssign, editedRequirement);
+        model.setRequirement(requirementToEdit, editedRequirement);
 
         /*
          * Now that we've assigned some modules under a particular Requirement to the system, we need to update
@@ -104,6 +104,10 @@ public class RequirementAssignCommand extends RequirementCommand {
          */
         CourseInfo courseToEdit = model.getCourseInfo();
 
+        /*
+         * A call to the retrieveLatestCourseInfo(..) helps to recompute latest course info,
+         * based on information provided through Model (coursebook).
+         */
         CourseInfo editedCourseInfo = CommandUtil.retrieveLatestCourseInfo(courseToEdit, model);
 
         // Updating the model with the latest course info

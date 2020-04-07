@@ -60,7 +60,7 @@ public class RequirementUnassignCommand extends RequirementCommand {
         // Retrieve the requirement in question that we want to unassign modules under..
 
         // First check if the requirement exists in the course book
-        Requirement requirementToUnassign = model.getRequirement(requirementCode)
+        Requirement requirementToEdit = model.getRequirement(requirementCode)
             .orElseThrow(() -> new CommandException(MESSAGE_REQUIREMENT_NON_EXISTENT));
 
 
@@ -72,7 +72,7 @@ public class RequirementUnassignCommand extends RequirementCommand {
         }
 
         // Now check, if all modules specified are existent in the requirement (they should be)
-        if (!requirementToUnassign.hasModules(modulesToUnassign)) {
+        if (!requirementToEdit.hasModules(modulesToUnassign)) {
             throw new CommandException(MESSAGE_MODULES_NON_EXISTENT_IN_REQUIREMENT);
         }
 
@@ -80,11 +80,11 @@ public class RequirementUnassignCommand extends RequirementCommand {
          * Finally if everything alright, we can actually then unassign/'delete' the specified modules under
          * this requirement
          */
-        requirementToUnassign.removeModules(modulesToUnassign);
+        requirementToEdit.removeModules(modulesToUnassign);
 
-        // First, we copy over all the old values of requirementToUnassign
-        RequirementCode requirementCode = requirementToUnassign.getRequirementCode();
-        Title title = requirementToUnassign.getTitle();
+        // First, we copy over all the old values of requirementToEdit
+        RequirementCode requirementCode = requirementToEdit.getRequirementCode();
+        Title title = requirementToEdit.getTitle();
 
         /*
          * Now given that we've added this list of new modules to requirement, we've to update (recompute)
@@ -92,15 +92,15 @@ public class RequirementUnassignCommand extends RequirementCommand {
          * on the module list passed in, we don't have to do anything here, just propage
          * the old credits value.
          */
-        igrad.model.requirement.Credits credits = requirementToUnassign.getCredits();
+        igrad.model.requirement.Credits credits = requirementToEdit.getCredits();
 
         // Get the most update module list (now with the new modules unassigned/'deleted')
-        List<Module> modules = requirementToUnassign.getModuleList();
+        List<Module> modules = requirementToEdit.getModuleList();
 
         // Finally, create a new Requirement with all the updated information (details).
         Requirement editedRequirement = new Requirement(requirementCode, title, credits, modules);
 
-        model.setRequirement(requirementToUnassign, editedRequirement);
+        model.setRequirement(requirementToEdit, editedRequirement);
 
         /*
          * Now that we've assigned some modules under a particular Requirement to the system, we need to update
@@ -110,6 +110,10 @@ public class RequirementUnassignCommand extends RequirementCommand {
          */
         CourseInfo courseToEdit = model.getCourseInfo();
 
+        /*
+         * A call to the retrieveLatestCourseInfo(..) helps to recompute latest course info,
+         * based on information provided through Model (coursebook).
+         */
         CourseInfo editedCourseInfo = CommandUtil.retrieveLatestCourseInfo(courseToEdit, model);
 
         // Updating the model with the latest course info
