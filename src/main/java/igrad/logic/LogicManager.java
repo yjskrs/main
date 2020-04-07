@@ -77,17 +77,20 @@ public class LogicManager implements Logic {
          *
          * Suppose the situation where the user has done a 'course delete' command
          * and thus the course name is not set (as all the data in the system has been reverted to
-         * a blank state), we must still allow the undo command.
+         * a blank state), we must still allow the 'undo' command.
          *
          * However, if indeed, the user hasn't initially set a course, and undo is still entered,
-         * we are unable to distinguish the first case from this case.
+         * we are unable to distinguish the first case from this second case.
          *
          * Hence, in addition to allowing only the 'course add' command, when a course name is
-         * not set, we allow the undo command too.
+         * not set, we allow the 'undo' command too.
          *
          * In the second case, where there is indeed nothing to undo, and we still 'undo',
          * the 'undo' command would be able to handle this error and gracefully flag
          * and error message to the user.
+         *
+         * Finally, we also allow the 'help' command to be always executed anytime, even
+         * before a course has been set/added.
          */
         if (!model.isCourseNameSet()
                 && !(command instanceof CourseAddCommand || command instanceof UndoCommand
