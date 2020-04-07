@@ -29,7 +29,8 @@ public class UniqueModuleList implements Iterable<Module> {
         FXCollections.unmodifiableObservableList(internalList);
 
     /**
-     * Returns true if the list contains an equivalent module as the given argument.
+     * Returns true if the list contains an equivalent {@code Module} as the given argument;
+     * {@code toCheck}.
      */
     public boolean contains(Module toCheck) {
         requireNonNull(toCheck);
@@ -37,13 +38,14 @@ public class UniqueModuleList implements Iterable<Module> {
     }
 
     /**
-     * Returns true if the list contains an equivalent module as the given argument.
+     * Returns true if the list contains all equivalent {@code Module}s in the list of
+     * {@code Module}s as the given argument; {@code modulesToCheck}
      */
     public boolean contains(List<Module> modulesToCheck) {
         requireNonNull(modulesToCheck);
 
         return modulesToCheck.stream()
-            .anyMatch(this::contains);
+            .allMatch(this::contains);
     }
 
     /**

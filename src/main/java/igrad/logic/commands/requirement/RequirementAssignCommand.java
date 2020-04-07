@@ -70,11 +70,6 @@ public class RequirementAssignCommand extends RequirementCommand {
             throw new CommandException(MESSAGE_MODULES_NON_EXISTENT);
         }
 
-        // Now check, if any modules specified are existent in the requirement (they should not)
-        /*if (requirementToAssign.hasModule(modulesToAssign)) {
-            throw new CommandException(MESSAGE_MODULES_ALREADY_EXIST_IN_REQUIREMENT);
-        }*/
-
         // Now filter out, modules which are already in the requirement, they should not be re-added again
         modulesToAssign.removeIf(module -> requirementToAssign.hasModule(module));
 

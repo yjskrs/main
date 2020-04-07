@@ -37,10 +37,10 @@ public class RequirementUnassignCommand extends RequirementCommand {
     public static final String MESSAGE_REQUIREMENT_NO_MODULES = "There must be at least one modules unassigned.";
 
     public static final String MESSAGE_MODULES_NON_EXISTENT =
-        "Not all Modules exist in the system. Please try other modules.";
+        "Not all modules exist in the system. Please try other modules.";
 
-    public static final String MESSAGE_MODULES_ALREADY_EXIST_IN_REQUIREMENT =
-        "Some Modules already exists in this requirement. Please try other modules.";
+    public static final String MESSAGE_MODULES_NON_EXISTENT_IN_REQUIREMENT =
+        "Not all modules exist in the requirement. Please try other modules.";
     public static final String MESSAGE_SUCCESS = "Modules unassigned under Requirement:\n%1$s";
 
     private RequirementCode requirementCode;
@@ -72,8 +72,8 @@ public class RequirementUnassignCommand extends RequirementCommand {
         }
 
         // Now check, if all modules specified are existent in the requirement (they should be)
-        if (!requirementToUnassign.hasModule(modulesToUnassign)) {
-            throw new CommandException(MESSAGE_MODULES_ALREADY_EXIST_IN_REQUIREMENT);
+        if (!requirementToUnassign.hasModules(modulesToUnassign)) {
+            throw new CommandException(MESSAGE_MODULES_NON_EXISTENT_IN_REQUIREMENT);
         }
 
         /*
