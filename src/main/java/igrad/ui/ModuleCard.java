@@ -25,7 +25,7 @@ public class ModuleCard extends UiPart<Region> {
     private int displayedIndex;
 
     @FXML
-    private HBox cardPane;
+    private HBox moduleCardPane;
     @FXML
     private Label title;
     @FXML

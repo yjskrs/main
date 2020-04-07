@@ -37,6 +37,6 @@ public class Messages {
     public static final String MESSAGE_REQUEST_FAILED = "ERROR: Request failed for %s\n";
 
     public static final String MESSAGE_ADD_COURSE = "You don't have a course! Enter your course in the format: "
-        + "'course add n/<NAME OF COURSE>'";
+        + "'course add n/<NAME OF COURSE> s/<SEMESTERS LEFT>'";
     public static final String MESSAGE_WELCOME_BACK = "Welcome back! Hope your studies are going well!";
 }

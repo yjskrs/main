@@ -21,7 +21,7 @@
                 <Label
                         wrapText="true"
                         styleClass="course-name"
-                        text="Your Course"
+                        text="My Course"
                         fx:id="courseNameLabel"/>
             </HBox>
             <HBox
@@ -58,6 +58,7 @@
                             text="Semesters Left"
                             GridPane.rowIndex="0" GridPane.columnIndex="0"/>
                     <Label
+                            fx:id="semesterLabel"
                             styleClass="progress-value"
                             text="-"
                             GridPane.rowIndex="0" GridPane.columnIndex="1"/>
@@ -66,7 +67,7 @@
                             text="Current CAP"
                             GridPane.rowIndex="1" GridPane.columnIndex="0"/>
                     <Label
-                            fx:id="currentCap"
+                            fx:id="currentCapLabel"
                             styleClass="progress-value"
                             text="-/5.0"
                             GridPane.rowIndex="1" GridPane.columnIndex="1"/>
