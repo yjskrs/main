@@ -20,12 +20,7 @@ public class CourseAddCommand extends CourseCommand {
         + ": Adds a course with relevant details specified.\n";
 
     public static final String MESSAGE_COURSE_ADD_USAGE = "Parameter(s): "
-<<<<<<< HEAD
-        + PREFIX_NAME + "COURSE_NAME "
-        + PREFIX_SEMESTER + "SEMESTERS_LEFT\n"
-=======
         + PREFIX_NAME + "COURSE_NAME " + PREFIX_SEMESTER + "TOTAL_SEMESTERS\n"
->>>>>>> d5f61cae43938760cceaeac0e5959f6d3a49431e
         + "Example: " + COURSE_ADD_COMMAND_WORD + " "
         + PREFIX_NAME + "Computer Science "
         + PREFIX_SEMESTER + "Y1S1";
