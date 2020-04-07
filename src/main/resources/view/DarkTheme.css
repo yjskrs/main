@@ -208,11 +208,31 @@ HelpWindow
     -fx-background-color: #2a2a2a;
 }
 
+.help-window-gridpane-divider {
+    -fx-border-color: #4d4d4d;
+}
+
+.help-window-panel-container {
+    -fx-background-color: #393939;
+    -fx-border-style: solid;
+    -fx-border-color: transparent;
+    -fx-background-radius: 20;
+    -fx-effect: dropshadow(gaussian, #1d1d1d, 20, 0.2, 0, 10);
+    -fx-grid-lines-visible: false;
+}
+
+.help-window-commands {
+    -fx-font-family: Calibri !important;
+    -fx-font-weight: 800 !important;
+    -fx-font-size: 16 !important;
+    -fx-text-fill: white !important;
+}
+
 .help-window .label {
     -fx-font-family: Calibri;
     -fx-font-weight: 100;
     -fx-font-size: 14;
-    -fx-text-fill: white;
+    -fx-text-fill: #cacaca;
 }
 
 .help-window .button {
@@ -230,7 +250,7 @@ HelpWindow
 .help-window .hyperlink {
     -fx-font-family: Calibri;
     -fx-font-weight: 100;
-    -fx-font-size: 14;
+    -fx-font-size: 18;
     -fx-border-color: transparent;
 }
 
