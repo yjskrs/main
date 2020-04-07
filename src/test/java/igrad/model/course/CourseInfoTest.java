@@ -11,6 +11,12 @@ import igrad.testutil.TypicalCourseInfos;
 import igrad.testutil.TypicalModules;
 
 public class CourseInfoTest {
+    // @Test
+    /*public void constructor() {
+        Requirement requirement = new RequirementBuilder().build();
+        assertEquals(Collections.emptyList(), requirement.getModuleList());
+    }*/
+
     @Test
     public void equals() {
         // same values -> returns true

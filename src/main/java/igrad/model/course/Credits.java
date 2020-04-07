@@ -1,7 +1,6 @@
 package igrad.model.course;
 
 import static igrad.commons.util.AppUtil.checkArgument;
-import static java.util.Objects.requireNonNull;
 
 /**
  * Represents a {@code CourseInfo}'s credits information in the course book.
@@ -21,19 +20,6 @@ public class Credits {
     private final int creditsFulfilled;
 
     /**
-     * Constructs a {@code Credits} with 0 fulfilled credits.
-     *
-     * @param creditsRequired A valid credits value (integer).
-     */
-    public Credits(String creditsRequired) {
-        requireNonNull(creditsRequired);
-        checkArgument(isValidCredits(creditsRequired), MESSAGE_CONSTRAINTS);
-
-        this.creditsRequired = Integer.parseInt(creditsRequired);
-        this.creditsFulfilled = 0;
-    }
-
-    /**
      * Constructs a {@code Credits} with {@code creditsRequired} credits required and
      * {@code creditsFulfilled} creditsFulfilled.
      *
@@ -46,15 +32,6 @@ public class Credits {
 
         this.creditsRequired = creditsRequired;
         this.creditsFulfilled = creditsFulfilled;
-    }
-
-    /**
-     * Returns true if given String {@code test} is a valid credits (i.e. integer more than 0).
-     */
-    public static boolean isValidCredits(String test) {
-        requireNonNull(test);
-
-        return test.matches(VALIDATION_REGEX) && Integer.parseInt(test) > 0;
     }
 
     /**
