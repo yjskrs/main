@@ -26,8 +26,18 @@ public class NameTest {
 
         // invalid name
         assertFalse(Name.isValidName("")); // empty string
+        assertFalse(Name.isValidName(" ")); // string with blank spaces
+        assertFalse(Name.isValidName(" Bachelor of Computer Science")); // starts with a whitespace
 
         // valid name
-        assertTrue(Name.isValidName("Bachelor of Computer Science"));
+        assertTrue(Name.isValidName("bachelorofcomputerscience")); // name without spaces
+        assertTrue(Name.isValidName("bachelor of computer science")); // contains spaces
+        assertTrue(Name.isValidName("Bachelor Of Computer Science")); // capitalise first letter of each word
+        assertTrue(Name.isValidName("/Bachelor of Computer Science")); // starts with non-alphabet
+        assertTrue(Name.isValidName("Bachelor of Computer Science 1")); // contains alphanumeric characters
+
+        // contains non-alphanumeric characters
+        assertTrue(Name.isValidName("Bachelor of Computer Science (with maths minor)"));
+        assertTrue(Name.isValidName("计算机科学")); // contains only non-alphaneumeric characters
     }
 }
