@@ -1,5 +1,16 @@
 package igrad.testutil;
 
+import static igrad.logic.commands.CommandTestUtil.VALID_CREDITS_COMPUTER_ORGANISATION;
+import static igrad.logic.commands.CommandTestUtil.VALID_CREDITS_PROGRAMMING_METHODOLOGY;
+import static igrad.logic.commands.CommandTestUtil.VALID_GRADE_COMPUTER_ORGANISATION;
+import static igrad.logic.commands.CommandTestUtil.VALID_GRADE_PROGRAMMING_METHODOLOGY;
+import static igrad.logic.commands.CommandTestUtil.VALID_MODULE_CODE_COMPUTER_ORGANISATION;
+import static igrad.logic.commands.CommandTestUtil.VALID_MODULE_CODE_PROGRAMMING_METHODOLOGY;
+import static igrad.logic.commands.CommandTestUtil.VALID_SEMESTER_COMPUTER_ORGANISATION;
+import static igrad.logic.commands.CommandTestUtil.VALID_SEMESTER_PROGRAMMING_METHODOLOGY;
+import static igrad.logic.commands.CommandTestUtil.VALID_TITLE_COMPUTER_ORGANISATION;
+import static igrad.logic.commands.CommandTestUtil.VALID_TITLE_PROGRAMMING_METHODOLOGY;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -7,8 +18,6 @@ import java.util.List;
 import igrad.model.CourseBook;
 import igrad.model.module.Module;
 import igrad.model.requirement.Requirement;
-
-import static igrad.logic.commands.CommandTestUtil.*;
 
 /**
  * A utility class containing a list of {@code Module} objects to be used in tests.
