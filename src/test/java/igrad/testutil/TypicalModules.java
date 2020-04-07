@@ -33,14 +33,15 @@ public class TypicalModules {
         .withTitle(VALID_TITLE_PROGRAMMING_METHODOLOGY)
         .withModuleCode(VALID_MODULE_CODE_PROGRAMMING_METHODOLOGY)
         .withCredits(VALID_CREDITS_PROGRAMMING_METHODOLOGY)
-        .withSemester(VALID_SEMESTER_PROGRAMMING_METHODOLOGY).build();
+        .withSemester(VALID_SEMESTER_PROGRAMMING_METHODOLOGY)
+        .withGrade(VALID_GRADE_PROGRAMMING_METHODOLOGY).build();
 
     public static final Module COMPUTER_ORGANISATION = new ModuleBuilder()
         .withTitle(VALID_TITLE_COMPUTER_ORGANISATION)
         .withModuleCode(VALID_MODULE_CODE_COMPUTER_ORGANISATION)
         .withCredits(VALID_CREDITS_COMPUTER_ORGANISATION)
         .withSemester(VALID_SEMESTER_COMPUTER_ORGANISATION)
-        .withGrade(VALID_GRADE_PROGRAMMING_METHODOLOGY).build();
+        .withGrade(VALID_GRADE_COMPUTER_ORGANISATION).build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 

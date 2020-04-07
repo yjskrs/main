@@ -1,80 +1,185 @@
 package igrad.model.module;
 
+import java.util.Optional;
+
+import igrad.model.requirement.Requirement;
+import igrad.testutil.ModuleBuilder;
+import igrad.testutil.RequirementBuilder;
 import igrad.testutil.TypicalModules;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static igrad.logic.commands.CommandTestUtil.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ModuleTest {
 
+    private final Module PROGRAMMING_METHODOLOGY = TypicalModules.PROGRAMMING_METHODOLOGY;
+    private final Module COMPUTER_ORGANISATION = TypicalModules.COMPUTER_ORGANISATION;
+
+    @Test
+    public void hasModuleCodeOf_sameModuleCode_returnsTrue() {
+        ModuleCode moduleCode = PROGRAMMING_METHODOLOGY.getModuleCode();
+        assertTrue(PROGRAMMING_METHODOLOGY.hasModuleCodeOf(moduleCode));
+    }
+
+    @Test
+    public void hasModuleCodeOf_differentModuleCode_returnsTrue() {
+        ModuleCode moduleCode = COMPUTER_ORGANISATION.getModuleCode();
+        assertFalse(PROGRAMMING_METHODOLOGY.hasModuleCodeOf(moduleCode));
+    }
+
+    @Test
+    public void getTitle_success() {
+        Title newTitle = new Title(VALID_TITLE_PROGRAMMING_METHODOLOGY);
+        Module newModule = new ModuleBuilder()
+                .withTitle(VALID_TITLE_PROGRAMMING_METHODOLOGY)
+                .build();
+        assertEquals(newTitle, newModule.getTitle());
+    }
+
+    @Test
+    public void getModuleCode_success() {
+        ModuleCode newModuleCode = new ModuleCode(VALID_MODULE_CODE_PROGRAMMING_METHODOLOGY);
+        Module newModule = new ModuleBuilder()
+                .withModuleCode(VALID_MODULE_CODE_PROGRAMMING_METHODOLOGY)
+                .build();
+        assertEquals(newModuleCode, newModule.getModuleCode());
+    }
+
+    @Test
+    public void getCredits_success() {
+        Credits newCredits = new Credits(VALID_CREDITS_PROGRAMMING_METHODOLOGY);
+        Module newModule = new ModuleBuilder()
+                .withCredits(VALID_CREDITS_PROGRAMMING_METHODOLOGY)
+                .build();
+        assertEquals(newCredits, newModule.getCredits());
+    }
+
+    @Test
+    public void getSemester_success() {
+        Semester newSemester = new Semester(VALID_SEMESTER_PROGRAMMING_METHODOLOGY);
+        Module newModule = new ModuleBuilder()
+                .withSemester(VALID_SEMESTER_PROGRAMMING_METHODOLOGY)
+                .build();
+        assertEquals(Optional.of(newSemester), newModule.getSemester());
+    }
+
+    @Test
+    public void getGrade_success() {
+        Grade newGrade = new Grade(VALID_GRADE_PROGRAMMING_METHODOLOGY);
+        Module newModule = new ModuleBuilder()
+                .withGrade(VALID_GRADE_PROGRAMMING_METHODOLOGY)
+                .build();
+        assertEquals(Optional.of(newGrade), newModule.getGrade());
+    }
+
+    @Test
+    public void isDone_gradePresent_returnsTrue() {
+        Module newModule = new ModuleBuilder()
+                .withGrade(VALID_GRADE_PROGRAMMING_METHODOLOGY)
+                .build();
+        assertTrue(newModule.isDone());
+    }
+
+    @Test
+    public void isDone_gradeNotPresent_returnsFalse() {
+        Optional<Grade> grade = Optional.empty();
+        Module newModule = new Module(new Title(VALID_TITLE_PROGRAMMING_METHODOLOGY),
+            new ModuleCode(VALID_MODULE_CODE_PROGRAMMING_METHODOLOGY),
+            new Credits(VALID_CREDITS_PROGRAMMING_METHODOLOGY),
+            Optional.of(new Semester(VALID_SEMESTER_PROGRAMMING_METHODOLOGY)),
+            Optional.of(new Description("blah")),
+            grade);
+        assertFalse(newModule.isDone());
+    }
+
     @Test
     public void isSameModule() {
-        // same object -> returns true
-        assertTrue(TypicalModules.PROGRAMMING_METHODOLOGY.isSameModule(TypicalModules.PROGRAMMING_METHODOLOGY));
+        // null
+        assertFalse(PROGRAMMING_METHODOLOGY.isSameModule(null));
 
-        // null -> returns false
-        //assertFalse(TypicalPersons.ALICE.isSameModule(null));
-        assertFalse(TypicalModules.PROGRAMMING_METHODOLOGY.isSameModule(null));
+        // same module
+        assertTrue(PROGRAMMING_METHODOLOGY.isSameModule(PROGRAMMING_METHODOLOGY));
 
-        assertFalse(TypicalModules.PROGRAMMING_METHODOLOGY.isSameModule(TypicalModules.COMPUTER_ORGANISATION ));
+        // different module
+        assertFalse(PROGRAMMING_METHODOLOGY.isSameModule(COMPUTER_ORGANISATION));
 
-        // different phone and email -> returns false
-        //Module editedAlice = new ModuleBuilder(TypicalPersons.ALICE).withPhone(VALID_PHONE_BOB)
-        //        .withEmail(VALID_EMAIL_BOB).build();
-        //assertFalse(TypicalPersons.ALICE.isSameModule(editedAlice));
+        // different title
+        Module editedModule = new ModuleBuilder(PROGRAMMING_METHODOLOGY)
+                .withTitle(VALID_TITLE_COMPUTER_ORGANISATION)
+                .build();
+        assertTrue(PROGRAMMING_METHODOLOGY.isSameModule(editedModule));
 
-        // different name -> returns false
-        //editedAlice = new ModuleBuilder(TypicalPersons.ALICE).withName(VALID_NAME_BOB).build();
-        //assertFalse(TypicalPersons.ALICE.isSameModule(editedAlice));
+        // different module code
+        editedModule = new ModuleBuilder(PROGRAMMING_METHODOLOGY)
+                .withModuleCode(VALID_MODULE_CODE_COMPUTER_ORGANISATION)
+                .build();
+        assertFalse(PROGRAMMING_METHODOLOGY.isSameModule(editedModule));
 
-        // same name, same phone, different attributes -> returns true
-        //editedAlice = new ModuleBuilder(TypicalPersons.ALICE).withEmail(VALID_EMAIL_BOB)
-        //        .withTags(VALID_TAG_HUSBAND).build();
-        //assertTrue(TypicalPersons.ALICE.isSameModule(editedAlice));
+        // different credits
+        editedModule = new ModuleBuilder(PROGRAMMING_METHODOLOGY)
+                .withCredits(VALID_CREDITS_OVER_FOUR)
+                .build();
+        assertTrue(PROGRAMMING_METHODOLOGY.isSameModule(editedModule));
 
-        // same name, same email, different attributes -> returns true
-        //editedAlice = new ModuleBuilder(TypicalPersons.ALICE).withPhone(VALID_PHONE_BOB)
-        //        .withTags(VALID_TAG_HUSBAND).build();
-        //assertTrue(TypicalPersons.ALICE.isSameModule(editedAlice));
+        // different semester
+        editedModule = new ModuleBuilder(PROGRAMMING_METHODOLOGY)
+                .withSemester(VALID_SEMESTER_COMPUTER_ORGANISATION)
+                .build();
+        assertTrue(PROGRAMMING_METHODOLOGY.isSameModule(editedModule));
 
-        // same name, same phone, same email, different attributes -> returns true
-        //editedAlice = new ModuleBuilder(TypicalPersons.ALICE).withTags(VALID_TAG_HUSBAND).build();
-        //assertTrue(TypicalPersons.ALICE.isSameModule(editedAlice));
+        // different grade
+        editedModule = new ModuleBuilder(PROGRAMMING_METHODOLOGY)
+                .withGrade(VALID_GRADE_COMPUTER_ORGANISATION)
+                .build();
+        assertTrue(PROGRAMMING_METHODOLOGY.isSameModule(editedModule));
     }
 
     @Test
     public void equals() {
-        // same values -> returns true
-        //Module aliceCopy = new ModuleBuilder(TypicalPersons.ALICE).build();
-        //assertTrue(TypicalPersons.ALICE.equals(aliceCopy));
 
-        // same object -> returns true
-        //assertTrue(TypicalPersons.ALICE.equals(TypicalPersons.ALICE));
+        // null
+        assertFalse(PROGRAMMING_METHODOLOGY.equals(null));
 
-        // null -> returns false
-        //assertFalse(TypicalPersons.ALICE.equals(null));
+        // same module
+        assertTrue(PROGRAMMING_METHODOLOGY.equals(PROGRAMMING_METHODOLOGY));
 
-        // different type -> returns false
-        //assertFalse(TypicalPersons.ALICE.equals(5));
+        // copied module
+        Module moduleCopy = new ModuleBuilder().build();
+        assertTrue(PROGRAMMING_METHODOLOGY.equals(moduleCopy));
 
-        // different module -> returns false
-        //assertFalse(TypicalPersons.ALICE.equals(TypicalPersons.BOB));
+        // different type
+        Requirement requirement = new RequirementBuilder().build();
+        assertFalse(PROGRAMMING_METHODOLOGY.equals(requirement));
 
-        // different name -> returns false
-        //Module editedAlice = new ModuleBuilder(TypicalPersons.ALICE).withName(VALID_NAME_BOB).build();
-        //assertFalse(TypicalPersons.ALICE.equals(editedAlice));
+        // different module code
+        Module editedModule = new ModuleBuilder()
+                .withModuleCode(VALID_MODULE_CODE_COMPUTER_ORGANISATION)
+                .build();
+        assertFalse(PROGRAMMING_METHODOLOGY.equals(editedModule));
 
-        // different phone -> returns false
-        //editedAlice = new ModuleBuilder(TypicalPersons.ALICE).withPhone(VALID_PHONE_BOB).build();
-        //assertFalse(TypicalPersons.ALICE.equals(editedAlice));
+        // different title
+        editedModule = new ModuleBuilder()
+                .withTitle(VALID_TITLE_COMPUTER_ORGANISATION)
+                .build();
+        assertFalse(PROGRAMMING_METHODOLOGY.equals(editedModule));
 
-        // different email -> returns false
-        //editedAlice = new ModuleBuilder(TypicalPersons.ALICE).withEmail(VALID_EMAIL_BOB).build();
-        //assertFalse(TypicalPersons.ALICE.equals(editedAlice));
+        // different credits
+        editedModule = new ModuleBuilder()
+                .withCredits(VALID_CREDITS_OVER_FOUR)
+                .build();
+        assertFalse(PROGRAMMING_METHODOLOGY.equals(editedModule));
 
-        // different tags -> returns false
-        //editedAlice = new ModuleBuilder(TypicalPersons.ALICE).withTags(VALID_TAG_HUSBAND).build();
-        //assertFalse(TypicalPersons.ALICE.equals(editedAlice));
+        // different semester
+        editedModule = new ModuleBuilder()
+                .withSemester(VALID_SEMESTER_COMPUTER_ORGANISATION)
+                .build();
+        assertFalse(PROGRAMMING_METHODOLOGY.equals(editedModule));
+
+        // different grade
+        editedModule = new ModuleBuilder()
+                .withGrade(VALID_GRADE_COMPUTER_ORGANISATION)
+                .build();
+        assertFalse(PROGRAMMING_METHODOLOGY.equals(editedModule));
     }
 }
