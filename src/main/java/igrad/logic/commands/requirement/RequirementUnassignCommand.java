@@ -29,7 +29,7 @@ public class RequirementUnassignCommand extends RequirementCommand {
         + "by its requirement code. Existing requirement will be overwritten by the input values\n";
 
     public static final String REQUIREMENT_UNASSIGN_MESSAGE_USAGE = "Parameter(s): REQUIREMENT_CODE "
-        + PREFIX_MODULE_CODE + "MODULE_CODE]...\n";
+        + PREFIX_MODULE_CODE + "MODULE_CODE...\n";
 
     public static final String REQUIREMENT_UNASSIGN_MESSAGE_HELP = REQUIREMENT_UNASSIGN_MESSAGE_DETAILS
         + REQUIREMENT_UNASSIGN_MESSAGE_USAGE;
