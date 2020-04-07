@@ -24,7 +24,7 @@ public class ModuleAddCommand extends ModuleCommand {
 
     public static final String MESSAGE_MODULE_ADD_USAGE = "Parameter(s): "
         + PREFIX_MODULE_CODE + "MODULE_CODE "
-        + PREFIX_TITLE + " TITLE "
+        + PREFIX_TITLE + " MODULE_TITLE "
         + PREFIX_CREDITS + "CREDITS "
         + "[" + PREFIX_SEMESTER + "SEMESTER] "
         + "[" + PREFIX_TAG + "TAGS]...\n"

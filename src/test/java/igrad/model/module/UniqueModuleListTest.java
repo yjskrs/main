@@ -112,7 +112,7 @@ public class UniqueModuleListTest {
 
     @Test
     public void setPersons_nullUniquePersonList_throwsNullPointerException() {
-        //Assert.assertThrows(NullPointerException.class, () -> uniqueModuleList.setModules((UniqueModuleList) null));
+        //Assert.assertThrows(NullPointerException.class, () -> uniqueModuleList.resetModules((UniqueModuleList) null));
     }
 
     @Test
@@ -120,20 +120,20 @@ public class UniqueModuleListTest {
         //uniqueModuleList.add(ALICE);
         //UniqueModuleList expectedUniqueModuleList = new UniqueModuleList();
         //expectedUniqueModuleList.add(BOB);
-        //uniqueModuleList.setModules(expectedUniqueModuleList);
+        //uniqueModuleList.resetModules(expectedUniqueModuleList);
         //assertEquals(expectedUniqueModuleList, uniqueModuleList);
     }
 
     @Test
     public void setPersons_nullList_throwsNullPointerException() {
-        //Assert.assertThrows(NullPointerException.class, () -> uniqueModuleList.setModules((List<Module>) null));
+        //Assert.assertThrows(NullPointerException.class, () -> uniqueModuleList.resetModules((List<Module>) null));
     }
 
     @Test
     public void setPersons_list_replacesOwnListWithProvidedList() {
         //uniqueModuleList.add(ALICE);
         //List<Module> moduleList = Collections.singletonList(BOB);
-        //uniqueModuleList.setModules(moduleList);
+        //uniqueModuleList.resetModules(moduleList);
         //UniqueModuleList expectedUniqueModuleList = new UniqueModuleList();
         //expectedUniqueModuleList.add(BOB);
         //assertEquals(expectedUniqueModuleList, uniqueModuleList);
@@ -143,7 +143,7 @@ public class UniqueModuleListTest {
     public void setPersons_listWithDuplicatePersons_throwsDuplicatePersonException() {
         //List<Module> listWithDuplicateModules = Arrays.asList(ALICE, ALICE);
         //Assert.assertThrows(DuplicateModuleException.class, ()
-        //    -> uniqueModuleList.setModules(listWithDuplicateModules));
+        //    -> uniqueModuleList.resetModules(listWithDuplicateModules));
     }
 
     @Test

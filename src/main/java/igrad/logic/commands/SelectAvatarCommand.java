@@ -32,7 +32,7 @@ public class SelectAvatarCommand extends Command {
         String avatarName = toAdd.getName();
         String capitaliseAvatarName = avatarName.substring(0, 1).toUpperCase() + avatarName.substring(1);
 
-        return String.format(MESSAGE_SUCCESS + Messages.MESSAGE_ADD_COURSE, capitaliseAvatarName);
+        return String.format(MESSAGE_SUCCESS + " " + Messages.MESSAGE_ADD_COURSE, capitaliseAvatarName);
     }
 
     @Override
