@@ -183,8 +183,8 @@ public class CourseInfo {
     }
 
     /**
-     * Computes and returns a {@code Semesters} object based on (@code Semesters) object and a list of {@Module}s
-     * passed in.
+     * Computes and returns a {@code Optional<Semesters>} object based on (Optional<Semesters>) object and a list of
+     * {@Module}s passed in.
      */
     public static Optional<Semesters> computeSemesters(Optional<Semesters> semesters, List<Module> moduleList) {
 
@@ -199,8 +199,7 @@ public class CourseInfo {
     }
 
     /**
-     * Computes and returns an Integer representing remaining semesters based on a list of {@Module}s
-     * passed in.
+     * Computes and returns an Integer representing remaining semesters based on a list of {@Module}s passed in.
      */
     private static int computeRemainingSemesters(List<Module> moduleList) {
         //If module list is empty, no semesters have been done yet

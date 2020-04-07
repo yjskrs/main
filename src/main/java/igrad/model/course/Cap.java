@@ -56,6 +56,9 @@ public class Cap {
         return  (Double.parseDouble(test) >= 0) && (Double.parseDouble(test) <= 5.0);
     }
 
+    /**
+     * Returns an estimated Cap (Double) based on {@code Model} and {@code Cap} object passed in.
+     */
     public static double computeEstimatedCap(Model model, Cap capToAchieve) {
         Optional<Semesters> semesters = model.getCourseInfo().getSemesters();
         int totalSemesters = semesters.get().getTotalSemesters();
