@@ -1,9 +1,9 @@
 package igrad.logic.parser.course;
 
 import static igrad.logic.commands.course.CourseAchieveCommand.MESSAGE_ACHIEVED_CAP_NOT_CALCULATED;
-import static igrad.logic.commands.course.CourseAchieveCommand.MESSAGE_CAP_CONSTRAINTS;
 import static igrad.logic.commands.course.CourseAchieveCommand.MESSAGE_COURSE_ACHIEVE_HELP;
 import static igrad.logic.parser.CliSyntax.PREFIX_CAP;
+import static igrad.model.course.Cap.MESSAGE_CONSTRAINTS;
 import static java.util.Objects.requireNonNull;
 
 import igrad.commons.core.Messages;
@@ -39,8 +39,8 @@ public class CourseAchieveCommandParser implements Parser<CourseAchieveCommand> 
         }
 
         double capToAchieve = Double.parseDouble(argMultimap.getValue(PREFIX_CAP).get());
-        if (capToAchieve < 0 || capToAchieve > 5) {
-            throw new ParseException(MESSAGE_CAP_CONSTRAINTS);
+        if (!Cap.isValidCap(capToAchieve)) {
+            throw new ParseException(MESSAGE_CONSTRAINTS);
         }
 
         Cap cap = new Cap(argMultimap.getValue(PREFIX_CAP).get());

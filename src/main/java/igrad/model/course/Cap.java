@@ -1,5 +1,9 @@
 package igrad.model.course;
 
+import igrad.model.Model;
+
+import java.util.Optional;
+
 import static igrad.commons.util.AppUtil.checkArgument;
 import static java.util.Objects.requireNonNull;
 
@@ -40,7 +44,7 @@ public class Cap {
      * Returns true if a given double is a valid cap.
      */
     public static boolean isValidCap(double test) {
-        return test >= 0;
+        return (test >= 0) && (test <= 5.0);
     }
 
     /**
@@ -50,6 +54,28 @@ public class Cap {
         requireNonNull(test);
 
         return  (Double.parseDouble(test) >= 0) && (Double.parseDouble(test) <= 5.0);
+    }
+
+    public static double computeEstimatedCap(Model model, Cap capToAchieve) {
+        Optional<Semesters> semesters = model.getCourseInfo().getSemesters();
+        int totalSemesters = semesters.get().getTotalSemesters();
+        int remainingSemesters = semesters.get().getRemainingSemesters();
+
+        Optional<Cap> current = model.getCourseInfo().getCap();
+
+        if (current.isEmpty()) {
+            return Double.parseDouble(capToAchieve.toString());
+        } else {
+            totalSemesters = remainingSemesters + 1;
+        }
+
+        Cap currentCap = model.getCourseInfo().getCap().orElse(CAP_ZERO);
+        double capWanted = capToAchieve.value;
+        double capNow = currentCap.value;
+
+        double estimatedCapEachSem = ((capWanted * totalSemesters) - capNow) / remainingSemesters;
+
+        return estimatedCapEachSem;
     }
 
     @Override

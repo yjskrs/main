@@ -322,29 +322,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Optional<Cap> computeEstimatedCap(Cap capToAchieve) {
-        Optional<Semesters> semesters = getCourseInfo().getSemesters();
-        int totalSemesters = semesters.get().getTotalSemesters();
-        int remainingSemesters = semesters.get().getRemainingSemesters();
-
-        Optional<Cap> current = courseBook.getCourseInfo().getCap();
-
-        if (current.isEmpty()) {
-            return Optional.of(capToAchieve);
-        } else {
-            totalSemesters = remainingSemesters + 1;
-        }
-
-        Cap currentCap = courseBook.getCourseInfo().getCap().orElse(CAP_ZERO);
-        double capWanted = capToAchieve.value;
-        double capNow = currentCap.value;
-
-        double estimatedCapEachSem = ((capWanted * totalSemesters) - capNow) / remainingSemesters;
-
-        return Optional.of(new Cap(Double.toString(estimatedCapEachSem)));
-    }
-
-    @Override
     public boolean equals(Object obj) {
         // short circuit if same object
         if (obj == this) {

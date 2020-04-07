@@ -235,9 +235,4 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateRequirementList(Predicate<Requirement> predicate);
-
-    /**
-     * Calculates and returns Cap needed to maintain each sem to achieve desired Cap.
-     */
-    Optional<Cap> computeEstimatedCap(Cap capToAchieve);
 }
