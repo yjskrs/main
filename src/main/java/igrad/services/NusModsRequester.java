@@ -59,6 +59,11 @@ public class NusModsRequester {
 
     }
 
+    /**
+     * Formulates the URL to retrieve from
+     * @param academicYear formatted as YYYY-YYYY
+     * @param moduleCode {@code moduleCode}
+     */
     private static String getUrlPath(String academicYear, String moduleCode) {
         return Routes.NUS_MODS_ROOT + "/" + academicYear
             + "/" + Routes.NUS_MODS_MODULES_DIR + "/"
@@ -66,6 +71,12 @@ public class NusModsRequester {
             + Routes.NUS_MODS_INDEX_JSON;
     }
 
+    /**
+     * Gets the current academic year based on:
+     * startOfSem: 9th August
+     * If the current date is before the startOfSem, get previous to current year,
+     * else, get current to next year.
+     */
     private static String getAcademicYear(Boolean getPrevYear) {
         int year = Calendar.getInstance().get(Calendar.YEAR);
 

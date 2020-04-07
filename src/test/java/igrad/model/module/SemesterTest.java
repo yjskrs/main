@@ -22,6 +22,8 @@ public class SemesterTest {
         // invalid semester (Sem 3 is not a valid sem)
         assertFalse(Semester.isValidSemester("Y1S3"));
 
+        assertFalse(Semester.isValidSemester("Y4S2"));
+
         // valid semester
         assertTrue(Semester.isValidSemester("Y1S1"));
     }

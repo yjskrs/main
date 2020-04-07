@@ -18,9 +18,8 @@ public class ModuleBuilder {
     public static final String DEFAULT_TITLE = "Programming Methodology";
     public static final String DEFAULT_MODULE_CODE = "CS1101S";
     public static final String DEFAULT_CREDITS = "4";
-    public static final String DEFAULT_MEMO = "this is about recursion";
     public static final String DEFAULT_SEMESTER = "Y1S1";
-    public static final String DEFAULT_DESCRIPTION = "blah";
+    public static final String DEFAULT_DESCRIPTION = "Good Module";
 
     private Title title;
     private ModuleCode moduleCode;
@@ -78,11 +77,21 @@ public class ModuleBuilder {
         return this;
     }
 
+    public ModuleBuilder withoutSemester() {
+        this.semester = Optional.empty();
+        return this;
+    }
+
     /**
      * Sets the {@code Semester} of the {@code Module} that we are building.
      */
     public ModuleBuilder withDescription(String description) {
         this.description = Optional.of(new Description(description));
+        return this;
+    }
+
+    public ModuleBuilder withoutDescription() {
+        this.description = Optional.empty();
         return this;
     }
 

@@ -1,4 +1,4 @@
-package igrad.logic.parser;
+package igrad.logic.parser.module;
 
 import igrad.logic.parser.module.ModuleDeleteCommandParser;
 

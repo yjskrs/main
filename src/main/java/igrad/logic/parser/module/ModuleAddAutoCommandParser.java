@@ -65,48 +65,7 @@ public class ModuleAddAutoCommandParser extends ModuleCommandParser implements P
 
         List<String> moduleCodes = argMultimap.getAllValues((PREFIX_MODULE_CODE));
 
-        ArrayList<Module> modules = new ArrayList<>();
-
-        StringBuilder messageAdditional = new StringBuilder();
-
-        for (String moduleCodeStr : moduleCodes) {
-
-            JsonParsedModule jsonParsedModule;
-
-            try {
-                jsonParsedModule = NusModsRequester.getModule(moduleCodeStr);
-            } catch (IOException | ServiceException e) {
-                messageAdditional.append(String.format(MESSAGE_REQUEST_FAILED, moduleCodeStr));
-                continue;
-            }
-
-            Title title = parseTitle(jsonParsedModule.getTitle());
-            Credits credits = parseCredits(jsonParsedModule.getCredits());
-            ModuleCode moduleCode = parseModuleCode(jsonParsedModule.getModuleCode());
-
-            String prerequisiteModulesString = jsonParsedModule.getPrerequisite();
-            String preclusionModulesString = jsonParsedModule.getPreclusion();
-
-            ModuleStringParser prerequisiteParser = new ModuleStringParser(prerequisiteModulesString);
-            Optional<ModuleCode[]> prerequisites = Optional.of(prerequisiteParser.getModuleCodes());
-
-            ModuleStringParser preclusionParser = new ModuleStringParser(preclusionModulesString);
-            Optional<ModuleCode[]> preclusions = Optional.of(preclusionParser.getModuleCodes());
-
-
-            Module module = new Module(
-                title,
-                moduleCode,
-                credits,
-                preclusions,
-                prerequisites
-            );
-
-            modules.add(module);
-
-        }
-
-        return new ModuleAddAutoCommand(modules, messageAdditional.toString());
+        return new ModuleAddAutoCommand(moduleCodes);
     }
 
 }

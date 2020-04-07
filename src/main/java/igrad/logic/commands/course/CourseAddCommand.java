@@ -2,6 +2,7 @@ package igrad.logic.commands.course;
 
 import static igrad.commons.core.Messages.MESSAGE_COURSE_ALREADY_SET;
 import static igrad.logic.parser.CliSyntax.PREFIX_NAME;
+import static igrad.logic.parser.CliSyntax.PREFIX_SEMESTER;
 import static java.util.Objects.requireNonNull;
 
 import igrad.logic.commands.CommandResult;
@@ -19,9 +20,11 @@ public class CourseAddCommand extends CourseCommand {
         + ": Adds a course with relevant details specified.\n";
 
     public static final String MESSAGE_COURSE_ADD_USAGE = "Parameter(s): "
-        + PREFIX_NAME + "COURSE_NAME\n"
+        + PREFIX_NAME + "COURSE_NAME "
+        + PREFIX_SEMESTER + "SEMESTERS_LEFT\n"
         + "Example: " + COURSE_ADD_COMMAND_WORD + " "
-        + PREFIX_NAME + "Bachelor of Computing (Honours) in Computer Science ";
+        + PREFIX_NAME + "Computer Science "
+        + PREFIX_SEMESTER + "Y1S1";
 
     public static final String MESSAGE_COURSE_ADD_HELP = MESSAGE_COURSE_ADD_DETAILS + MESSAGE_COURSE_ADD_USAGE;
 

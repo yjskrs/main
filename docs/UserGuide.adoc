@@ -338,9 +338,65 @@ You should be able to see the requirement created and/or edited in the main pane
 
 '''
 
-==== module
+=== Module
 
-Add, edit or delete a module. You would be able to tag (edit) a module with information such as; semester, grade or memo notes information.
+This section details each command used to manipulate modules.
+
+==== Parameters
+
+|===
+|Parameters| Description | Example | Restrictions
+
+|`MODULE_CODE` | A module's unique identifier | CS2103T | Must have two letters in the front, four numbers in the middle with an optional letter at the back
+|`MODULE_TITLE`| A module's title | Software Engineering |
+|`MODULE_CREDITS`| The number of http://www.nus.edu.sg/registrar/academic-information-policies/graduate/modular-system[modular credits] a module is worth | 4 | Must be a number
+|`SEMESTER`| An academic semester. There are two semesters in a year | Y1S1 | Must be in the format Y?S* where ? represents a digit from 0 - 4 and * represents a digit from 1 -2
+|`GRADE` | A module's grade | A+ | Must be one of the following:  A+, A, A-, B+, B-, C+, C, D, D+, F, S, U |
+|===
+
+==== Add
+
+
+|===
+|Purpose | Adds a module
+|Syntax| `module add n/MODULE_CODE t/MODULE_TITLE u/MODULE_CREDITS`
+|Example | `module add n/CS2103T t/Software Engineering u/4`
+|===
+
+==== Auto Add
+|===
+|Purpose | Adds a module from NUSMods
+|Syntax| `module add n/MODULE_CODE_A n/MODULE_CODE_B`
+|Example | `module add n/CS2103T n/CS2101`
+|===
+
+==== Done
+|===
+|Purpose | Marks a module as done
+|Syntax| `module done MODULE_CODE g/GRADE [s/SEMESTER]`
+|Example | `module done CS2103T g/A s/Y1S1`
+|===
+
+==== Edit
+|===
+|Purpose | Edits a module
+|Syntax| `module edit MODULE_CODE [t/MODULE_TITLE] [u/MODULE_CREDITS] [s/SEMESTER]`
+|Example | `module edit CS2103T t/Hardware Engineering u/8 s/Y1S2`
+|===
+
+==== Delete
+|===
+|Purpose | Adds a module
+|Syntax| `module add n/MODULE_CODE t/MODULE_TITLE u/MODULE_CREDITS`
+|Example | `module add n/CS2103T t/Software Engineering u/4`
+|===
+
+==== Filter
+|===
+|Purpose | Displays a filtered module list
+|Syntax| `module filter [s/SEMESTER] [u/MODULE_CREDITS] [g/GRADE] [-o]`
+|Example | `module filter s/Y1S1 u/4 g/A -o`
+|===
 
 Command Format
 

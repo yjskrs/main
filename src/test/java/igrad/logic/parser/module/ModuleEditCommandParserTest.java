@@ -1,4 +1,4 @@
-package igrad.logic.parser;
+package igrad.logic.parser.module;
 
 import static igrad.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static igrad.logic.parser.CliSyntax.PREFIX_TAG;

@@ -1,4 +1,4 @@
-package igrad.logic.parser;
+package igrad.logic.parser.module;
 
 import org.junit.jupiter.api.Test;
 
