@@ -4,7 +4,6 @@ import static igrad.logic.commands.requirement.RequirementAddCommand.MESSAGE_REQ
 import static igrad.logic.commands.requirement.RequirementAddCommand.MESSAGE_REQUIREMENT_NOT_ADDED;
 import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
 import static igrad.logic.parser.CliSyntax.PREFIX_TITLE;
-import static java.util.Objects.requireNonNull;
 
 import igrad.commons.core.Messages;
 import igrad.logic.commands.requirement.RequirementAddCommand;
@@ -26,12 +25,10 @@ public class RequirementAddCommandParser extends RequirementCommandParser {
      * Parses the given string of arguments {@code args} in the context of the RequirementAddCommand
      * and returns a RequirementAddCommand object for execution.
      *
-     * @throws ParseException If the user input does not conform the expected format.
+     * @throws ParseException If the user input does not conform to the expected format.
      */
     @Override
     public RequirementAddCommand parse(String args) throws ParseException {
-        requireNonNull(args);
-
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_CREDITS);
 
         // Show help message if prefixes are not entered

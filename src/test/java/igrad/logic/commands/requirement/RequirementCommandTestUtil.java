@@ -11,6 +11,7 @@ import igrad.logic.commands.CommandTestUtil;
  */
 public class RequirementCommandTestUtil extends CommandTestUtil {
 
+    // valid requirement arguments
     public static final String VALID_REQ_TITLE_CSF = "Computer Science Foundation";
     public static final String VALID_REQ_TITLE_CSBD = "Computer Science Breadth and Depth";
     public static final String VALID_REQ_TITLE_MS = "Mathematics and Sciences";
@@ -29,9 +30,14 @@ public class RequirementCommandTestUtil extends CommandTestUtil {
     public static final String VALID_REQ_CREDITS_IP = "12";
     public static final String VALID_REQ_CREDITS_UE = "32";
     public static final String VALID_REQ_CREDITS_GE = "20";
+
+    // invalid requirement arguments
+    public static final String INVALID_REQ_CODE_DECIMAL = "RE1.0";
+    public static final String INVALID_REQ_CODE_SYMBOL = "RE<";
+
     public static final String INVALID_REQ_CREDITS_ALPHABET = "a";
-    public static final String INVALID_REQ_CREDITS_SYMBOL = "&";
     public static final String INVALID_REQ_CREDITS_DECIMAL = "40.0";
+    public static final String INVALID_REQ_CREDITS_SYMBOL = "&";
 
     // requirement title descriptor for command entered
     public static final String REQ_TITLE_DESC_CSF = " " + PREFIX_TITLE + VALID_REQ_TITLE_CSF;

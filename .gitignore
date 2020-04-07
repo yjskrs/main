@@ -15,7 +15,6 @@ src/main/main.iml
 /config.json
 /preferences.json
 /*.log.*
-*.csv
 
 # Test sandbox files
 src/test/data/sandbox/
@@ -23,5 +22,7 @@ src/test/data/sandbox/
 # MacOS custom attributes files created by Finder
 .DS_Store
 
-# study_plan.csv for testing export function
+# files for testing
 study_plan.csv
+backup.json
+
