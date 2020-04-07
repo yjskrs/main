@@ -34,7 +34,7 @@ public class CommandTestUtil {
     public static final String VALID_MEMO_PROGRAMMING_METHODOLOGY = "v easy module leh";
     public static final String VALID_MEMO_COMPUTER_ORGANISATION = "a lot of calculation ah";
     public static final String VALID_SEMESTER_PROGRAMMING_METHODOLOGY = "Y1S1";
-    public static final String VALID_SEMESTER_COMPUTER_ORGANISATION = "Y1S1";
+    public static final String VALID_SEMESTER_COMPUTER_ORGANISATION = "Y1S2";
     public static final String VALID_TAG_EASY = "easy";
     public static final String VALID_TAG_HARD = "hard";
 

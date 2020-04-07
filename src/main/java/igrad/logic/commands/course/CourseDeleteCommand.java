@@ -3,7 +3,6 @@ package igrad.logic.commands.course;
 import static java.util.Objects.requireNonNull;
 
 import igrad.logic.commands.CommandResult;
-import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
 import igrad.model.ReadOnlyCourseBook;
 import igrad.model.course.CourseInfo;
@@ -18,7 +17,7 @@ public class CourseDeleteCommand extends CourseCommand {
     public static final String MESSAGE_COURSE_DELETE_SUCCESS = "Deleted Course: %1$s\nAll data cleared!";
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model) {
         requireNonNull(model);
 
         ReadOnlyCourseBook courseBookToDelete = model.getCourseBook();

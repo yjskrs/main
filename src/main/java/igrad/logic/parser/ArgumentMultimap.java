@@ -7,26 +7,27 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * Stores mapping of prefixes to their respective arguments.
- * Each key may be associated with multiple argument values.
- * Values for a given key are stored in a list, and the insertion ordering is maintained.
- * Keys are unique, but the list of argument values may contain duplicate argument values, i.e. the same argument value
- * can be inserted multiple times for the same prefix.
+ * Represents a multimap for storing prefixes mapped with their respective arguments.
+ * Each key may be associated with multiple argument values. Values for a given key are stored in a list,
+ * where the insertion ordering is maintained.
+ * Keys are unique, but the list of argument values may contain duplicate arguments values, i.e. the same
+ * argument value can be inserted multiple times for the same prefix.
  */
 public class ArgumentMultimap {
     private static final Prefix PREFIX_PREAMBLE = new Prefix("");
 
     /**
-     * Prefixes mapped to their respective arguments
-     **/
+     * Prefixes mapped to their respective arguments.
+     */
     private final Map<Prefix, List<String>> argMultimap = new HashMap<>();
 
     /**
-     * Associates the specified argument value with {@code prefix} key in this map.
-     * If the map previously contained a mapping for the key, the new value is appended to the list of existing values.
+     * Puts the prefix-argument key-value pair into the map.
+     * If the map already contains a mapping for the prefix, the new argument is appended to the list
+     * of existing ones.
      *
-     * @param prefix   Prefix key with which the specified argument value is to be associated
-     * @param argValue Argument value to be associated with the specified prefix key
+     * @param prefix   Prefix key.
+     * @param argValue Argument value associated with the prefix.
      */
     public void put(Prefix prefix, String argValue) {
         List<String> argValues = getAllValues(prefix);
@@ -35,7 +36,10 @@ public class ArgumentMultimap {
     }
 
     /**
-     * Returns the last value of {@code prefix}.
+     * Returns the last instance of {@code prefix} key, if any. Else returns an {@code Optional.empty()}.
+     *
+     * @param prefix Prefix key.
+     * @return Argument value associated with the prefix, if any.
      */
     public Optional<String> getValue(Prefix prefix) {
         List<String> values = getAllValues(prefix);
@@ -43,24 +47,28 @@ public class ArgumentMultimap {
     }
 
     /**
-     * Returns all values of {@code prefix}.
+     * Returns all instances of {@code prefix} key.
      * If the prefix does not exist or has no values, this will return an empty list.
-     * Modifying the returned list will not affect the underlying data structure of the ArgumentMultimap.
+     * Modifying the returned list will not affect the storage of the key-value pairs in the map.
+     *
+     * @param prefix Prefix key.
+     * @return List of argument values associated with the prefix.
      */
     public List<String> getAllValues(Prefix prefix) {
         if (!argMultimap.containsKey(prefix)) {
             return new ArrayList<>();
         }
+
         return new ArrayList<>(argMultimap.get(prefix));
     }
 
     /**
-     * Returns the preamble (text before the first valid prefix). Trims any leading/trailing spaces.
+     * Returns the preamble (text before the first valid prefix).
+     * Leading or trailing whitespaces are trimmed.
      */
     public String getPreamble() {
         return getValue(new Prefix("")).orElse("");
     }
-
 
     /**
      * Returns true if values of all key-value pairs in the {@code argMultimap} field (of this class),
