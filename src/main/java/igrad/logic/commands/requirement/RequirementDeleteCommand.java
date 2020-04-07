@@ -64,6 +64,10 @@ public class RequirementDeleteCommand extends RequirementCommand {
          */
         CourseInfo courseToEdit = model.getCourseInfo();
 
+        /*
+         * A call to the retrieveLatestCourseInfo(..) helps to recompute latest course info,
+         * based on information provided through Model (coursebook).
+         */
         CourseInfo editedCourseInfo = CommandUtil.retrieveLatestCourseInfo(courseToEdit, model);
 
         // Updating the model with the latest course info
@@ -73,4 +77,10 @@ public class RequirementDeleteCommand extends RequirementCommand {
             String.format(MESSAGE_REQUIREMENT_DELETE_SUCCESS, toDelete));
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this
+                   || (other instanceof RequirementDeleteCommand
+                           && ((RequirementDeleteCommand) other).requirementCode.equals(requirementCode));
+    }
 }

@@ -31,7 +31,7 @@ public class ModuleDoneCommand extends ModuleCommand {
         + "(with a grade) of the module identified by its module code. Existing module (grade) will be overwritten "
         + "by the input values.\n";
 
-    public static final String MESSAGE_MODULE_DONE_USAGE = "Parameter(s): MODULE CODE "
+    public static final String MESSAGE_MODULE_DONE_USAGE = "Parameter(s): MODULE_CODE "
         + PREFIX_GRADE + "GRADE\n"
         + "Example: " + MODULE_DONE_COMMAND_WORD + " CS2103T "
         + PREFIX_GRADE + "A+";
@@ -89,7 +89,7 @@ public class ModuleDoneCommand extends ModuleCommand {
         requireNonNull(model);
 
         // Retrieve the module we want to mark a grade done with
-        Module moduleToEdit = model.getModuleByModuleCode(moduleCode)
+        Module moduleToEdit = model.getModule(moduleCode)
             .orElseThrow(() -> new CommandException(MESSAGE_MODULE_NON_EXISTENT));
 
         // Create a new module based on the edited grade.
@@ -144,6 +144,11 @@ public class ModuleDoneCommand extends ModuleCommand {
          * However, in the method below, we just recompute everything (field in course info).
          */
         CourseInfo courseToEdit = model.getCourseInfo();
+
+        /*
+         * A call to the retrieveLatestCourseInfo(..) helps to recompute latest course info,
+         * based on information provided through Model (coursebook).
+         */
         CourseInfo editedCourseInfo = CommandUtil.retrieveLatestCourseInfo(courseToEdit, model);
 
         // Updating the model with the latest course info

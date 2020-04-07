@@ -8,6 +8,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
@@ -91,6 +92,9 @@ public class ParserUtil {
      * {@code ArgumentMultimap}.
      */
     public static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+        return Stream.of(prefixes).allMatch(prefix -> {
+            Optional<String> value = argumentMultimap.getValue(prefix);
+            return value.isPresent() && !value.get().isEmpty();
+        });
     }
 }

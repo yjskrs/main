@@ -23,7 +23,7 @@ public class RequirementAddCommand extends RequirementCommand {
     public static final String MESSAGE_DETAILS = REQUIREMENT_ADD_COMMAND_WORD + ": Adds a requirement.\n";
 
     public static final String MESSAGE_USAGE = "Parameter(s): "
-        + PREFIX_TITLE + "TITLE "
+        + PREFIX_TITLE + "REQUIREMENT_TITLE "
         + PREFIX_CREDITS + "CREDITS_TO_FULFIL\n"
         + "Example: " + REQUIREMENT_ADD_COMMAND_WORD + " "
         + PREFIX_TITLE + "Unrestricted Electives "
@@ -69,6 +69,11 @@ public class RequirementAddCommand extends RequirementCommand {
          * However, in the method below, we just recompute everything (field in course info).
          */
         CourseInfo courseToEdit = model.getCourseInfo();
+
+        /*
+         * A call to the retrieveLatestCourseInfo(..) helps to recompute latest course info,
+         * based on information provided through Model (coursebook).
+         */
         CourseInfo editedCourseInfo = CommandUtil.retrieveLatestCourseInfo(courseToEdit, model);
 
         // Updating the model with the latest course info
@@ -97,5 +102,12 @@ public class RequirementAddCommand extends RequirementCommand {
         }
 
         return codeWithoutNumber.getAlphabets() + lastUsedNumber;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this
+            || (other instanceof RequirementAddCommand
+                    && ((RequirementAddCommand) other).requirementToAdd.equals(requirementToAdd));
     }
 }

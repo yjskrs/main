@@ -370,6 +370,16 @@ public class CommandTestUtil {
         }
 
         @Override
+        public Optional<Module> getModule(ModuleCode moduleCode) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public List<Module> getModules(List<ModuleCode> moduleCodes) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasModulePreclusions(Module module) {
             throw new AssertionError("This method should not be called.");
         }

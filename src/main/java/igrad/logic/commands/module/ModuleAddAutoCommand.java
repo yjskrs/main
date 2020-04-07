@@ -33,8 +33,8 @@ public class ModuleAddAutoCommand extends ModuleCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a module. "
         + "Parameter(s): "
-        + PREFIX_TITLE + "MODULE TITLE "
-        + PREFIX_MODULE_CODE + "MODULE CODE "
+        + PREFIX_TITLE + "MODULE_TITLE "
+        + PREFIX_MODULE_CODE + "MODULE_CODE "
         + PREFIX_CREDITS + "CREDITS "
         + "[" + PREFIX_SEMESTER + "SEMESTER]...\n"
         + "Example: " + COMMAND_WORD + " "

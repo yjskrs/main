@@ -275,12 +275,12 @@ public class ModuleCommandTestUtil {
         }
 
         @Override
-        public Optional<Module> getModuleByModuleCode(ModuleCode moduleCode) {
+        public Optional<Module> getModule(ModuleCode moduleCode) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public List<Module> getModulesByModuleCode(List<ModuleCode> moduleCodes) {
+        public List<Module> getModules(List<ModuleCode> moduleCodes) {
             throw new AssertionError("This method should not be called.");
         }
 

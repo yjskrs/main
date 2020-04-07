@@ -83,7 +83,7 @@ public class TypicalModules {
     }
 
     /**
-     * Returns an {@code Requirement} with all the typical modules.
+     * Returns a {@code Requirement} with all the typical modules.
      */
     public static Requirement getTypicalRequirement() {
         Requirement requirement = new RequirementBuilder().build();

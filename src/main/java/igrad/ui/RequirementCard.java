@@ -50,10 +50,9 @@ public class RequirementCard extends UiPart<Region> {
             + " out of " + creditsRequired
             + " MCs fulfilled";
 
-        if (creditsFulfilled == creditsRequired) {
+        if (requirement.isFulfilled()) {
             requirementCardPane.getStyleClass().add("done");
         }
-
 
         creditsCount.setText(creditsCountText);
 

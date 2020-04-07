@@ -1,6 +1,7 @@
 package igrad.model;
 
 import static igrad.commons.util.CollectionUtil.requireAllNonNull;
+import static igrad.model.course.Cap.CAP_ZERO;
 import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
@@ -10,7 +11,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 import igrad.commons.core.GuiSettings;
 import igrad.commons.core.LogsCenter;
@@ -155,7 +155,7 @@ public class ModelManager implements Model {
             ModuleCode[] preclusions = module.getPreclusions().get();
 
             for (ModuleCode preclusion : preclusions) {
-                Optional<Module> mOpt = getModuleByModuleCode(preclusion);
+                Optional<Module> mOpt = getModule(preclusion);
                 if (mOpt.isPresent()) {
                     hasModulePreclusions = true;
                 }
@@ -178,7 +178,7 @@ public class ModelManager implements Model {
             ModuleCode[] preqrequisites = module.getPrequisites().get();
 
             for (ModuleCode prerequisite : preqrequisites) {
-                Optional<Module> mOpt = getModuleByModuleCode(prerequisite);
+                Optional<Module> mOpt = getModule(prerequisite);
                 if (mOpt.isEmpty()) {
                     hasModulePrerequisites = false;
                 } else {
@@ -241,33 +241,26 @@ public class ModelManager implements Model {
 
     @Override
     public Optional<Requirement> getRequirement(RequirementCode requirementCode) {
-        // TODO: clean-up logic, and make an equivalent method in course book
-        return requirements.stream()
-            .filter(requirement -> requirement.getRequirementCode().equals(requirementCode))
-            .findFirst();
+        requireNonNull(requirementCode);
+        return courseBook.getRequirement(requirementCode);
     }
 
     @Override
     public List<Requirement> getRequirementsWithModule(Module module) {
-        // TODO: clean-up logic, and make an equivalent method in course book
-        return requirements.stream()
-            .filter(requirement -> requirement.hasModule(module))
-            .collect(Collectors.toList());
+        requireNonNull(module);
+        return courseBook.getRequirementsWithModule(module);
     }
 
     @Override
-    public Optional<Module> getModuleByModuleCode(ModuleCode moduleCode) {
-        return filteredModules.stream()
-            .filter(module -> module.getModuleCode().equals(moduleCode))
-            .findFirst();
+    public Optional<Module> getModule(ModuleCode moduleCode) {
+        requireNonNull(moduleCode);
+        return courseBook.getModule(moduleCode);
     }
 
     @Override
-    public List<Module> getModulesByModuleCode(List<ModuleCode> moduleCodes) {
-        return filteredModules.stream()
-            .filter(requirement -> moduleCodes.stream()
-                .anyMatch(moduleCode -> moduleCode.equals(requirement.getModuleCode())))
-            .collect(Collectors.toList());
+    public List<Module> getModules(List<ModuleCode> moduleCodes) {
+        requireNonNull(moduleCodes);
+        return courseBook.getModules(moduleCodes);
     }
 
     @Override
@@ -342,7 +335,7 @@ public class ModelManager implements Model {
             totalSemesters = remainingSemesters + 1;
         }
 
-        Cap currentCap = courseBook.getCourseInfo().getCap().orElse(new Cap(0));
+        Cap currentCap = courseBook.getCourseInfo().getCap().orElse(CAP_ZERO);
         double capWanted = capToAchieve.value;
         double capNow = currentCap.value;
 
