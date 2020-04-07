@@ -1,6 +1,7 @@
 package igrad.ui;
 
 import java.util.Optional;
+
 import igrad.model.Model;
 import igrad.model.course.Cap;
 import igrad.model.course.CourseInfo;

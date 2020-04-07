@@ -1,4 +1,4 @@
-package igrad.logic.commands;
+package igrad.logic.commands.module;
 
 import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
 import static igrad.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
@@ -8,7 +8,6 @@ import static igrad.logic.parser.CliSyntax.PREFIX_TITLE;
 import static igrad.testutil.Assert.assertThrows;
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -16,12 +15,11 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
-
 import igrad.commons.core.GuiSettings;
 import igrad.commons.exceptions.DataConversionException;
+import igrad.logic.commands.Command;
+import igrad.logic.commands.CommandResult;
 import igrad.logic.commands.exceptions.CommandException;
-import igrad.logic.commands.module.ModuleCommandTestUtil;
-import igrad.logic.commands.module.ModuleEditCommand;
 import igrad.model.CourseBook;
 import igrad.model.Model;
 import igrad.model.ReadOnlyCourseBook;
@@ -43,10 +41,7 @@ import javafx.collections.transformation.FilteredList;
 /**
  * Contains helper methods for testing commands.
  */
-public class CommandTestUtil {
-
-    public static final String VALID_NAME_B_COMP_SCI = "Bachelor of Computing (Honours) in Computer Science";
-    public static final String VALID_NAME_B_ARTS_PHILO = "Bachelor of Arts (Honours) in Philosophy";
+public class ModuleCommandTestUtil {
 
     public static final String VALID_TITLE_CS1101S = "Programming Methodology";
     public static final String VALID_TITLE_CS2100 = "Computer Organisation";
@@ -64,40 +59,10 @@ public class CommandTestUtil {
     public static final String VALID_CREDITS_6 = "6";
 
     public static final String VALID_SEMESTER_Y1S1 = "Y1S1";
-    public static final String VALID_SEMESTER_Y2S2 = "Y1S1";
-
-    public static final String VALID_TAG_EASY = "easy";
-    public static final String VALID_TAG_HARD = "hard";
+    public static final String VALID_SEMESTER_Y2S2 = "Y2S2";
 
     public static final String VALID_GRADE_A = "A";
     public static final String VALID_GRADE_B = "B";
-
-    public static final String TITLE_DESC_PROGRAMMING_METHODOLOGY = " " + PREFIX_TITLE
-        + VALID_TITLE_CS1101S;
-
-    public static final String TITLE_DESC_COMPUTER_ORGANISATION = " " + PREFIX_TITLE
-        + VALID_TITLE_CS2100;
-
-    public static final String MODULE_CODE_DESC_PROGRAMMING_METHODOLOGY = " " + PREFIX_MODULE_CODE
-        + VALID_MODULE_CODE_CS1101S;
-
-    public static final String MODULE_CODE_DESC_COMPUTER_ORGANISATION = " " + PREFIX_MODULE_CODE
-        + VALID_MODULE_CODE_CS2100;
-
-    public static final String CREDITS_DESC_PROGRAMMING_METHODOLOGY = " " + PREFIX_CREDITS
-        + VALID_CREDITS_4;
-
-    public static final String CREDITS_DESC_COMPUTER_ORGANISATION = " " + PREFIX_CREDITS
-        + VALID_CREDITS_6;
-
-    public static final String SEMESTER_DESC_PROGRAMMING_METHODOLOGY = " " + PREFIX_SEMESTER
-        + VALID_SEMESTER_Y1S1;
-
-    public static final String SEMESTER_DESC_COMPUTER_ORGANISATION = " " + PREFIX_SEMESTER
-        + VALID_SEMESTER_Y2S2;
-
-    public static final String TAG_DESC_EASY = " " + PREFIX_TAG + VALID_TAG_EASY;
-    public static final String TAG_DESC_HARD = " " + PREFIX_TAG + VALID_TAG_HARD;
 
     // '!' not allowed in module codes
     public static final String INVALID_TITLE_DESC = " " + PREFIX_TITLE + "Programming Methodology!";
@@ -403,64 +368,60 @@ public class CommandTestUtil {
         }
     }
 
-    public static class ModelStubUndo extends ModuleCommandTestUtil.ModelStub {
+    public static class ModelStubAcceptingFilteredModules extends ModelStub {
 
-        final CourseBookStorage courseBookStorage = new JsonCourseBookStorage(
-            getCourseBookFilePath(),
-            getBackupCourseBookFilePath()
-        );
-
-        final CourseBook courseBook = new CourseBook();
-
-        final Optional<ReadOnlyCourseBook> readOnlyBackupCourseBook = courseBookStorage.readBackupCourseBook();
-        final Optional<ReadOnlyCourseBook> readOnlyCourseBook = courseBookStorage.readCourseBook();
-
-        public ModelStubUndo() throws IOException, DataConversionException {}
+        final CourseBook courseBook = getCourseBook();
+        final FilteredList<Module> filteredModules = new FilteredList<>(courseBook.getModuleList());
 
         @Override
-        public void addModule(Module module) {
+        public void addModule(Module module){
+            requireNonNull(module);
             courseBook.addModule(module);
         }
 
         @Override
-        public void addRequirement(Requirement requirement) {
-            courseBook.addRequirement(requirement);
+        public void updateFilteredModuleList(Predicate<Module> predicate) {
+            requireNonNull(predicate);
+            filteredModules.setPredicate(predicate);
+        }
+
+        @Override
+        public CourseBook getCourseBook() {
+            return new CourseBook();
         }
 
         @Override
         public ObservableList<Module> getFilteredModuleList() {
-            return courseBook.getModuleList();
+            return filteredModules;
+        }
+    }
+
+    /**
+     * A Model stub that always accept the module being added.
+     */
+    public static class ModelStubAcceptingModuleAdded extends ModelStub {
+        final ArrayList<Module> modulesAdded = new ArrayList<>();
+
+        @Override
+        public boolean hasModule(Module module) {
+            requireNonNull(module);
+            return modulesAdded.stream().anyMatch(module::isSameModule);
         }
 
         @Override
-        public ObservableList<Requirement> getRequirementList(){
-            return courseBook.getRequirementList();
+        public void addModule(Module module) {
+            requireNonNull(module);
+            modulesAdded.add(module);
         }
 
         @Override
         public ReadOnlyCourseBook getCourseBook() {
-            return readOnlyCourseBook.get();
+            return new CourseBook();
         }
 
-        public ReadOnlyCourseBook getBackupCourseBook() {
-            return readOnlyBackupCourseBook.get();
-        }
-
-        @Override
-        public Path getBackupCourseBookFilePath() {
-            return getUserPrefs().getBackupCourseBookFilePath();
-        }
-
-        @Override
-        public Path getCourseBookFilePath() {
-            return getUserPrefs().getCourseBookFilePath();
-        }
-
-        @Override
-        public ReadOnlyUserPrefs getUserPrefs() {
-            return new UserPrefs();
+        public ArrayList<Module> getModulesAdded(){
+            return modulesAdded;
         }
     }
-
 }
 

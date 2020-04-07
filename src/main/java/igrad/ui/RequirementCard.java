@@ -50,7 +50,7 @@ public class RequirementCard extends UiPart<Region> {
             + " out of " + creditsRequired
             + " MCs fulfilled";
 
-        if( creditsFulfilled == creditsRequired ){
+        if (creditsFulfilled == creditsRequired) {
             requirementCardPane.getStyleClass().add("done");
         }
 

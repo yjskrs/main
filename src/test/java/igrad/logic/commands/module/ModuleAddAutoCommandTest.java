@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.Test;
-import igrad.logic.commands.CommandTestUtil;
 import igrad.model.module.Module;
 import igrad.testutil.ModuleBuilder;
 
@@ -20,30 +19,27 @@ public class ModuleAddAutoCommandTest {
     @Test
     public void execute_multipleModulesAcceptedByModel_invalidModuleNotAdded() {
 
-        CommandTestUtil.ModelStubAcceptingModuleAdded modelStub = new CommandTestUtil.ModelStubAcceptingModuleAdded();
+        ModuleCommandTestUtil.ModelStubAcceptingModuleAdded modelStub = new ModuleCommandTestUtil.ModelStubAcceptingModuleAdded();
 
         Module CS2103T = new ModuleBuilder()
-            .withModuleCode("CS2103T")
-            .withCredits("4")
-            .withTitle("Software Engineering")
-            .withoutSemester()
-            .withoutDescription()
+            .withModuleCode(ModuleCommandTestUtil.VALID_MODULE_CODE_CS2103T)
+            .withCredits(ModuleCommandTestUtil.VALID_CREDITS_4)
+            .withTitle(ModuleCommandTestUtil.VALID_TITLE_CS2103T)
+            .withoutOptionals()
             .build();
 
         Module CS2101 = new ModuleBuilder()
-            .withModuleCode("CS2101")
-            .withCredits("4")
-            .withTitle("Effective Communication for Computing Professionals")
-            .withoutSemester()
-            .withoutDescription()
+            .withModuleCode(ModuleCommandTestUtil.VALID_MODULE_CODE_CS2101)
+            .withCredits(ModuleCommandTestUtil.VALID_CREDITS_4)
+            .withTitle(ModuleCommandTestUtil.VALID_TITLE_CS2101)
+            .withoutOptionals()
             .build();
 
-        Module CS9999 = new ModuleBuilder()
+        Module CS9999 = new ModuleBuilder( )
             .withModuleCode("CS9999")
             .withCredits("4")
             .withTitle("This Module Is Not Real")
-            .withoutSemester()
-            .withoutDescription()
+            .withoutOptionals()
             .build();
 
         List<Module> validModules = new ArrayList<>();
@@ -65,30 +61,27 @@ public class ModuleAddAutoCommandTest {
     @Test
     public void execute_multipleModulesAcceptedByModel_addSuccessful() {
 
-        CommandTestUtil.ModelStubAcceptingModuleAdded modelStub = new CommandTestUtil.ModelStubAcceptingModuleAdded();
+        ModuleCommandTestUtil.ModelStubAcceptingModuleAdded modelStub = new ModuleCommandTestUtil.ModelStubAcceptingModuleAdded();
 
         Module CS2103T = new ModuleBuilder()
-            .withModuleCode("CS2103T")
-            .withCredits("4")
-            .withTitle("Software Engineering")
-            .withoutSemester()
-            .withoutDescription()
+            .withModuleCode(ModuleCommandTestUtil.VALID_MODULE_CODE_CS2103T)
+            .withCredits(ModuleCommandTestUtil.VALID_CREDITS_4)
+            .withTitle(ModuleCommandTestUtil.VALID_TITLE_CS2103T)
+            .withoutOptionals()
             .build();
 
         Module CS2101 = new ModuleBuilder()
-            .withModuleCode("CS2101")
-            .withCredits("4")
-            .withTitle("Effective Communication for Computing Professionals")
-            .withoutSemester()
-            .withoutDescription()
+            .withModuleCode(ModuleCommandTestUtil.VALID_MODULE_CODE_CS2101)
+            .withCredits(ModuleCommandTestUtil.VALID_CREDITS_4)
+            .withTitle(ModuleCommandTestUtil.VALID_TITLE_CS2101)
+            .withoutOptionals()
             .build();
 
         Module CS2040 = new ModuleBuilder()
-            .withModuleCode("CS2040")
-            .withCredits("4")
-            .withTitle("Data Structures and Algorithms")
-            .withoutSemester()
-            .withoutDescription()
+            .withModuleCode(ModuleCommandTestUtil.VALID_MODULE_CODE_CS2040)
+            .withCredits(ModuleCommandTestUtil.VALID_CREDITS_4)
+            .withTitle(ModuleCommandTestUtil.VALID_TITLE_CS2100)
+            .withoutOptionals()
             .build();
 
         List<Module> validModules = new ArrayList<>();
@@ -111,14 +104,13 @@ public class ModuleAddAutoCommandTest {
     @Test
     public void execute_moduleAcceptedByModel_addSuccessful() {
 
-        CommandTestUtil.ModelStubAcceptingModuleAdded modelStub = new CommandTestUtil.ModelStubAcceptingModuleAdded();
+        ModuleCommandTestUtil.ModelStubAcceptingModuleAdded modelStub = new ModuleCommandTestUtil.ModelStubAcceptingModuleAdded();
 
         Module validModule = new ModuleBuilder()
-            .withModuleCode("CS2103T")
-            .withCredits("4")
-            .withTitle("Software Engineering")
-            .withoutSemester()
-            .withoutDescription()
+            .withModuleCode(ModuleCommandTestUtil.VALID_MODULE_CODE_CS2103T)
+            .withCredits(ModuleCommandTestUtil.VALID_CREDITS_4)
+            .withTitle(ModuleCommandTestUtil.VALID_TITLE_CS2103T)
+            .withoutOptionals()
             .build();
 
         List<Module> validModules = new ArrayList<>();
@@ -129,20 +121,19 @@ public class ModuleAddAutoCommandTest {
 
         new ModuleAddAutoCommand(validModuleStrings).execute(modelStub);
 
-        assertEquals(validModules, modelStub);
+        assertEquals(validModules, modelStub.getModulesAdded());
     }
 
     @Test
     public void execute_duplicateModuleNotAdded() {
 
-        CommandTestUtil.ModelStubAcceptingModuleAdded modelStub = new CommandTestUtil.ModelStubAcceptingModuleAdded();
+        ModuleCommandTestUtil.ModelStubAcceptingModuleAdded modelStub = new ModuleCommandTestUtil.ModelStubAcceptingModuleAdded();
 
         Module validModule = new ModuleBuilder()
             .withModuleCode("CS2103T")
             .withCredits("4")
             .withTitle("Software Engineering")
-            .withoutSemester()
-            .withoutDescription()
+            .withoutOptionals()
             .build();
 
         List<Module> validModules = new ArrayList<>();
