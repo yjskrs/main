@@ -90,10 +90,10 @@ public class Requirement implements ReadOnlyRequirement {
     }
 
     /**
-     * Returns true if any modules in {@code modules} with the same identity as {@code module} exists in the list.
+     * Returns true if all modules in {@code modules} with the same identity as {@code module} exists in the list.
      */
-    public boolean hasModule(List<Module> modules) {
-        return this.modules.contains(modules);
+    public boolean hasModules(List<Module> moduleList) {
+        return modules.contains(moduleList);
     }
 
     /**
@@ -119,7 +119,7 @@ public class Requirement implements ReadOnlyRequirement {
      * in the list.
      */
     public void setModule(Module target, Module editedModule) {
-        modules.setModule(target, editedModule);
+        this.modules.setModule(target, editedModule);
     }
 
     /**

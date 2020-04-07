@@ -64,7 +64,7 @@ public class UiManager implements Ui {
             if (model.isSampleAvatar()) {
                 mainWindow.displayAvatarSelectionPanel(model);
             } else {
-                mainWindow.displayModulePanel(model);
+                mainWindow.displayMainPanel(model);
             }
 
         } catch (Throwable e) {

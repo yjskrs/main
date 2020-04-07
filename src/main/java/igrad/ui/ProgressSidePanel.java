@@ -7,6 +7,7 @@ import igrad.model.course.Cap;
 import igrad.model.course.CourseInfo;
 import igrad.model.course.Credits;
 import igrad.model.course.Name;
+import igrad.model.course.Semesters;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
@@ -36,7 +37,10 @@ public class ProgressSidePanel extends UiPart<Region> {
     private Label inspirationalQuote;
 
     @FXML
-    private Label currentCap;
+    private Label currentCapLabel;
+
+    @FXML
+    private Label semesterLabel;
 
     public ProgressSidePanel(Model model) {
         super(FXML);
@@ -58,6 +62,12 @@ public class ProgressSidePanel extends UiPart<Region> {
         Optional<Name> courseName = courseInfo.getName();
         Optional<Credits> credits = courseInfo.getCredits();
         Optional<Cap> cap = courseInfo.getCap();
+        Optional<Semesters> semesters = courseInfo.getSemesters();
+
+        if (semesters.isPresent()) {
+            int remainingSemesters = semesters.get().getRemainingSemesters();
+            semesterLabel.setText(String.valueOf(remainingSemesters));
+        }
 
         System.out.println("cap = " + cap);
 
@@ -81,7 +91,7 @@ public class ProgressSidePanel extends UiPart<Region> {
         }
 
         cap.ifPresentOrElse(
-            x -> currentCap.setText(x + "/5.0"), () -> currentCap
+            x -> currentCapLabel.setText(x + "/5.0"), () -> currentCapLabel
                 .setText("-"));
 
         creditsCount.setText(creditsCountString);

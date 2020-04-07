@@ -51,9 +51,6 @@ public class Module {
         Title title,
         ModuleCode moduleCode,
         Credits credits,
-        Optional<Semester> semester,
-        Optional<Description> description,
-        Optional<Grade> grade,
         Optional<ModuleCode[]> preclusions,
         Optional<ModuleCode[]> prequisites
     ) {
@@ -61,9 +58,9 @@ public class Module {
         this.title = title;
         this.moduleCode = moduleCode;
         this.credits = credits;
-        this.description = description;
-        this.semester = semester;
-        this.grade = grade;
+        this.description = Optional.empty();
+        this.semester = Optional.empty();
+        this.grade = Optional.empty();
         this.preclusions = preclusions;
         this.prequisites = prequisites;
     }
@@ -178,14 +175,14 @@ public class Module {
         builder
             .append("Module Code: ")
             .append(moduleCode)
-            .append(", Title: ")
+            .append("\nTitle: ")
             .append(title)
-            .append(", Credits: ")
+            .append("\nCredits: ")
             .append(credits);
 
-        description.ifPresent(x -> builder.append(" Description: ").append(x));
-        semester.ifPresent(x -> builder.append(" Semester: ").append(x));
-        grade.ifPresent(x -> builder.append(" Grade: ").append(x));
+        description.ifPresent(x -> builder.append("\nDescription: ").append(x));
+        semester.ifPresent(x -> builder.append("\nSemester: ").append(x));
+        grade.ifPresent(x -> builder.append("\nGrade: ").append(x));
 
         return builder.toString();
     }
