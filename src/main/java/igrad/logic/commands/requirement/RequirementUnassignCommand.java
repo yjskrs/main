@@ -64,7 +64,7 @@ public class RequirementUnassignCommand extends RequirementCommand {
             .orElseThrow(() -> new CommandException(MESSAGE_REQUIREMENT_NON_EXISTENT));
 
 
-        final List<Module> modulesToUnassign = model.getModulesByModuleCode(moduleCodes);
+        final List<Module> modulesToUnassign = model.getModules(moduleCodes);
 
         // First check, if all modules (codes) are existent modules in the course book (they should all be)
         if (modulesToUnassign.size() < moduleCodes.size()) {

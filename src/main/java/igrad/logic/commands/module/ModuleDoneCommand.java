@@ -89,7 +89,7 @@ public class ModuleDoneCommand extends ModuleCommand {
         requireNonNull(model);
 
         // Retrieve the module we want to mark a grade done with
-        Module moduleToEdit = model.getModuleByModuleCode(moduleCode)
+        Module moduleToEdit = model.getModule(moduleCode)
             .orElseThrow(() -> new CommandException(MESSAGE_MODULE_NON_EXISTENT));
 
         // Create a new module based on the edited grade.

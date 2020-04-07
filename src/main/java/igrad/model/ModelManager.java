@@ -155,7 +155,7 @@ public class ModelManager implements Model {
             ModuleCode[] preclusions = module.getPreclusions().get();
 
             for (ModuleCode preclusion : preclusions) {
-                Optional<Module> mOpt = getModuleByModuleCode(preclusion);
+                Optional<Module> mOpt = getModule(preclusion);
                 if (mOpt.isPresent()) {
                     hasModulePreclusions = true;
                 }
@@ -178,7 +178,7 @@ public class ModelManager implements Model {
             ModuleCode[] preqrequisites = module.getPrequisites().get();
 
             for (ModuleCode prerequisite : preqrequisites) {
-                Optional<Module> mOpt = getModuleByModuleCode(prerequisite);
+                Optional<Module> mOpt = getModule(prerequisite);
                 if (mOpt.isEmpty()) {
                     hasModulePrerequisites = false;
                 } else {
@@ -256,14 +256,14 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Optional<Module> getModuleByModuleCode(ModuleCode moduleCode) {
+    public Optional<Module> getModule(ModuleCode moduleCode) {
         return filteredModules.stream()
             .filter(module -> module.getModuleCode().equals(moduleCode))
             .findFirst();
     }
 
     @Override
-    public List<Module> getModulesByModuleCode(List<ModuleCode> moduleCodes) {
+    public List<Module> getModules(List<ModuleCode> moduleCodes) {
         return filteredModules.stream()
             .filter(requirement -> moduleCodes.stream()
                 .anyMatch(moduleCode -> moduleCode.equals(requirement.getModuleCode())))
