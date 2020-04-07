@@ -1,16 +1,23 @@
 package igrad.model.module;
 
+import igrad.testutil.TypicalModules;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ModuleTest {
 
     @Test
     public void isSameModule() {
         // same object -> returns true
-        //assertTrue(TypicalPersons.ALICE.isSameModule(TypicalPersons.ALICE));
+        assertTrue(TypicalModules.PROGRAMMING_METHODOLOGY.isSameModule(TypicalModules.PROGRAMMING_METHODOLOGY));
 
         // null -> returns false
         //assertFalse(TypicalPersons.ALICE.isSameModule(null));
+        assertFalse(TypicalModules.PROGRAMMING_METHODOLOGY.isSameModule(null));
+
+        assertFalse(TypicalModules.PROGRAMMING_METHODOLOGY.isSameModule(TypicalModules.COMPUTER_ORGANISATION ));
 
         // different phone and email -> returns false
         //Module editedAlice = new ModuleBuilder(TypicalPersons.ALICE).withPhone(VALID_PHONE_BOB)

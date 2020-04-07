@@ -31,6 +31,7 @@ public class CommandTestUtil {
     public static final String VALID_MODULE_CODE_COMPUTER_ORGANISATION = "CS2100";
     public static final String VALID_CREDITS_PROGRAMMING_METHODOLOGY = "4";
     public static final String VALID_CREDITS_COMPUTER_ORGANISATION = "4";
+    public static final String VALID_GRADE_PROGRAMMING_METHODOLOGY = "A+";
     public static final String VALID_MEMO_PROGRAMMING_METHODOLOGY = "v easy module leh";
     public static final String VALID_MEMO_COMPUTER_ORGANISATION = "a lot of calculation ah";
     public static final String VALID_SEMESTER_PROGRAMMING_METHODOLOGY = "Y1S1";
