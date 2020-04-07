@@ -8,15 +8,15 @@ import static igrad.logic.parser.CliSyntax.PREFIX_TITLE;
 import static igrad.testutil.Assert.assertThrows;
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import java.io.IOException;
+
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
+
 import igrad.commons.core.GuiSettings;
-import igrad.commons.exceptions.DataConversionException;
 import igrad.logic.commands.Command;
 import igrad.logic.commands.CommandResult;
 import igrad.logic.commands.exceptions.CommandException;
@@ -24,7 +24,6 @@ import igrad.model.CourseBook;
 import igrad.model.Model;
 import igrad.model.ReadOnlyCourseBook;
 import igrad.model.ReadOnlyUserPrefs;
-import igrad.model.UserPrefs;
 import igrad.model.avatar.Avatar;
 import igrad.model.course.Cap;
 import igrad.model.course.CourseInfo;
@@ -32,8 +31,6 @@ import igrad.model.module.Module;
 import igrad.model.module.ModuleCode;
 import igrad.model.requirement.Requirement;
 import igrad.model.requirement.RequirementCode;
-import igrad.storage.CourseBookStorage;
-import igrad.storage.JsonCourseBookStorage;
 import igrad.testutil.EditModuleDescriptorBuilder;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -113,17 +110,6 @@ public class ModuleCommandTestUtil {
         } catch (CommandException ce) {
             throw new AssertionError("Execution of command should not fail.", ce);
         }
-    }
-
-    public static void assertCommandSuccessWithoutMessage(Command command, Model actualModel, Model expectedModel ){
-
-        try {
-            command.execute(actualModel);
-            assertEquals(expectedModel, actualModel);
-        } catch (CommandException ce){
-            throw new AssertionError("Execution of command should not fail.", ce);
-        }
-
     }
 
     /**
@@ -368,13 +354,16 @@ public class ModuleCommandTestUtil {
         }
     }
 
+    /**
+     * A Model stub that helps to test filtering
+     */
     public static class ModelStubAcceptingFilteredModules extends ModelStub {
 
         final CourseBook courseBook = getCourseBook();
         final FilteredList<Module> filteredModules = new FilteredList<>(courseBook.getModuleList());
 
         @Override
-        public void addModule(Module module){
+        public void addModule(Module module) {
             requireNonNull(module);
             courseBook.addModule(module);
         }
@@ -419,7 +408,7 @@ public class ModuleCommandTestUtil {
             return new CourseBook();
         }
 
-        public ArrayList<Module> getModulesAdded(){
+        public ArrayList<Module> getModulesAdded() {
             return modulesAdded;
         }
     }

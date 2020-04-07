@@ -2,8 +2,8 @@ package igrad.logic.commands;
 
 import static igrad.logic.commands.CommandTestUtil.DESC_COMPUTER_ORGANISATION;
 import static igrad.logic.commands.CommandTestUtil.DESC_PROGRAMMING_METHODOLOGY;
-import static igrad.logic.commands.CommandTestUtil.VALID_MODULE_CODE_CS2100;
-import static igrad.logic.commands.CommandTestUtil.VALID_TITLE_CS2100;
+import static igrad.logic.commands.CommandTestUtil.VALID_MODULE_CODE_CS_2100;
+import static igrad.logic.commands.CommandTestUtil.VALID_TITLE_CS_2100;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -36,12 +36,12 @@ public class EditModuleDescriptorTest {
         // different title -> returns false
         ModuleEditCommand.EditModuleDescriptor editedProgrammingMethodology = new EditModuleDescriptorBuilder(
             DESC_PROGRAMMING_METHODOLOGY)
-            .withTitle(VALID_TITLE_CS2100).build();
+            .withTitle(VALID_TITLE_CS_2100).build();
         assertFalse(DESC_PROGRAMMING_METHODOLOGY.equals(editedProgrammingMethodology));
 
         // different module code -> returns false
         editedProgrammingMethodology = new EditModuleDescriptorBuilder(DESC_PROGRAMMING_METHODOLOGY)
-            .withModuleCode(VALID_MODULE_CODE_CS2100)
+            .withModuleCode(VALID_MODULE_CODE_CS_2100)
             .build();
         assertFalse(DESC_PROGRAMMING_METHODOLOGY.equals(editedProgrammingMethodology));
     }

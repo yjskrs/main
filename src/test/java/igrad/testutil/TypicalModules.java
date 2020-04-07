@@ -1,20 +1,20 @@
 package igrad.testutil;
 
-import static igrad.logic.commands.CommandTestUtil.VALID_CREDITS_6;
 import static igrad.logic.commands.CommandTestUtil.VALID_CREDITS_4;
+import static igrad.logic.commands.CommandTestUtil.VALID_CREDITS_6;
 import static igrad.logic.commands.CommandTestUtil.VALID_GRADE_A;
-import static igrad.logic.commands.CommandTestUtil.VALID_MODULE_CODE_CS2040;
-import static igrad.logic.commands.CommandTestUtil.VALID_MODULE_CODE_CS2100;
-import static igrad.logic.commands.CommandTestUtil.VALID_MODULE_CODE_CS1101S;
-import static igrad.logic.commands.CommandTestUtil.VALID_MODULE_CODE_CS2103T;
-import static igrad.logic.commands.CommandTestUtil.VALID_MODULE_CODE_CS2101;
-import static igrad.logic.commands.CommandTestUtil.VALID_SEMESTER_Y2S2;
+import static igrad.logic.commands.CommandTestUtil.VALID_MODULE_CODE_CS_1101S;
+import static igrad.logic.commands.CommandTestUtil.VALID_MODULE_CODE_CS_2040;
+import static igrad.logic.commands.CommandTestUtil.VALID_MODULE_CODE_CS_2100;
+import static igrad.logic.commands.CommandTestUtil.VALID_MODULE_CODE_CS_2101;
+import static igrad.logic.commands.CommandTestUtil.VALID_MODULE_CODE_CS_2103T;
 import static igrad.logic.commands.CommandTestUtil.VALID_SEMESTER_Y1S1;
-import static igrad.logic.commands.CommandTestUtil.VALID_TITLE_CS2040;
-import static igrad.logic.commands.CommandTestUtil.VALID_TITLE_CS2100;
-import static igrad.logic.commands.CommandTestUtil.VALID_TITLE_CS1101S;
-import static igrad.logic.commands.CommandTestUtil.VALID_TITLE_CS2101;
-import static igrad.logic.commands.CommandTestUtil.VALID_TITLE_CS2103T;
+import static igrad.logic.commands.CommandTestUtil.VALID_SEMESTER_Y2S2;
+import static igrad.logic.commands.CommandTestUtil.VALID_TITLE_CS_1101S;
+import static igrad.logic.commands.CommandTestUtil.VALID_TITLE_CS_2040;
+import static igrad.logic.commands.CommandTestUtil.VALID_TITLE_CS_2100;
+import static igrad.logic.commands.CommandTestUtil.VALID_TITLE_CS_2101;
+import static igrad.logic.commands.CommandTestUtil.VALID_TITLE_CS_2103T;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,24 +30,24 @@ import igrad.model.requirement.Requirement;
 public class TypicalModules {
 
     public static final Module CS2040 = new ModuleBuilder()
-        .withTitle(VALID_TITLE_CS2040)
-        .withModuleCode(VALID_MODULE_CODE_CS2040)
+        .withTitle(VALID_TITLE_CS_2040)
+        .withModuleCode(VALID_MODULE_CODE_CS_2040)
         .withCredits(VALID_CREDITS_4)
         .withSemester(VALID_SEMESTER_Y1S1)
         .withGrade(VALID_GRADE_A)
         .build();
 
     public static final Module CS2101 = new ModuleBuilder()
-        .withTitle(VALID_TITLE_CS2101)
-        .withModuleCode(VALID_MODULE_CODE_CS2101)
+        .withTitle(VALID_TITLE_CS_2101)
+        .withModuleCode(VALID_MODULE_CODE_CS_2101)
         .withCredits(VALID_CREDITS_4)
         .withSemester(VALID_SEMESTER_Y1S1)
         .withGrade(VALID_GRADE_A)
         .build();
 
     public static final Module CS2103T = new ModuleBuilder()
-        .withTitle(VALID_TITLE_CS2103T)
-        .withModuleCode(VALID_MODULE_CODE_CS2103T)
+        .withTitle(VALID_TITLE_CS_2103T)
+        .withModuleCode(VALID_MODULE_CODE_CS_2103T)
         .withCredits(VALID_CREDITS_4)
         .withSemester(VALID_SEMESTER_Y1S1)
         .withGrade(VALID_GRADE_A)
@@ -55,14 +55,14 @@ public class TypicalModules {
 
     // Manually added - Module's details found in {@code CommandTestUtil}
     public static final Module CS1101S = new ModuleBuilder()
-        .withTitle(VALID_TITLE_CS1101S)
-        .withModuleCode(VALID_MODULE_CODE_CS1101S)
+        .withTitle(VALID_TITLE_CS_1101S)
+        .withModuleCode(VALID_MODULE_CODE_CS_1101S)
         .withCredits(VALID_CREDITS_4)
         .withSemester(VALID_SEMESTER_Y1S1).build();
 
     public static final Module CS2100 = new ModuleBuilder()
-        .withTitle(VALID_TITLE_CS2100)
-        .withModuleCode(VALID_MODULE_CODE_CS2100)
+        .withTitle(VALID_TITLE_CS_2100)
+        .withModuleCode(VALID_MODULE_CODE_CS_2100)
         .withCredits(VALID_CREDITS_6)
         .withSemester(VALID_SEMESTER_Y2S2).build();
 
@@ -97,6 +97,4 @@ public class TypicalModules {
         return new ArrayList<>(Arrays.asList(CS1101S, CS2100));
     }
 
-    private static class VALID_MODULE_CODE_CS2101 {
-    }
 }

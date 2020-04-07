@@ -1,6 +1,5 @@
 package igrad.testutil;
 
-import javax.swing.text.html.Option;
 import java.util.Optional;
 
 import igrad.model.module.Credits;
@@ -99,7 +98,10 @@ public class ModuleBuilder {
         return this;
     }
 
-    public ModuleBuilder withoutOptionals(){
+    /**
+     * Sets all the optional fields to empty
+     */
+    public ModuleBuilder withoutOptionals() {
         this.grade = Optional.empty();
         this.semester = Optional.empty();
         this.description = Optional.empty();

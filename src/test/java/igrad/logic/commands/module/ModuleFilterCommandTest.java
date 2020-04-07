@@ -1,10 +1,13 @@
 package igrad.logic.commands.module;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
 import org.junit.jupiter.api.Test;
+
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.module.Credits;
 import igrad.model.module.Grade;
@@ -18,21 +21,22 @@ public class ModuleFilterCommandTest {
     @Test
     public void execute_filterModule_noParameters() throws CommandException {
 
-        ModuleCommandTestUtil.ModelStubAcceptingFilteredModules modelStub = new ModuleCommandTestUtil.ModelStubAcceptingFilteredModules();
+        ModuleCommandTestUtil.ModelStubAcceptingFilteredModules modelStub =
+            new ModuleCommandTestUtil.ModelStubAcceptingFilteredModules();
 
-        Module CS1101S = TypicalModules.CS1101S;
-        Module CS2103T = TypicalModules.CS2103T;
-        Module CS2101 = TypicalModules.CS2101;
+        Module cs1101s = TypicalModules.CS1101S;
+        Module cs2103t = TypicalModules.CS2103T;
+        Module cs2101 = TypicalModules.CS2101;
 
         List<Module> validModules = new ArrayList<>();
 
-        validModules.add(CS1101S);
-        validModules.add(CS2103T);
-        validModules.add(CS2101);
+        validModules.add(cs1101s);
+        validModules.add(cs2103t);
+        validModules.add(cs2101);
 
-        modelStub.addModule(CS1101S);
-        modelStub.addModule(CS2103T);
-        modelStub.addModule(CS2101);
+        modelStub.addModule(cs1101s);
+        modelStub.addModule(cs2103t);
+        modelStub.addModule(cs2101);
 
         ModuleFilterCommand moduleFilterCommand = new ModuleFilterCommand(
             Optional.empty(),
@@ -49,7 +53,8 @@ public class ModuleFilterCommandTest {
     @Test
     public void execute_filterModule_orOperator() throws CommandException {
 
-        ModuleCommandTestUtil.ModelStubAcceptingFilteredModules modelStub = new ModuleCommandTestUtil.ModelStubAcceptingFilteredModules();
+        ModuleCommandTestUtil.ModelStubAcceptingFilteredModules modelStub =
+            new ModuleCommandTestUtil.ModelStubAcceptingFilteredModules();
 
         Module moduleWithGrade = new ModuleBuilder()
             .withModuleCode(ModuleCommandTestUtil.VALID_MODULE_CODE_CS2103T)
@@ -106,7 +111,8 @@ public class ModuleFilterCommandTest {
     @Test
     public void execute_filterModule_andOperator() throws CommandException {
 
-        ModuleCommandTestUtil.ModelStubAcceptingFilteredModules modelStub = new ModuleCommandTestUtil.ModelStubAcceptingFilteredModules();
+        ModuleCommandTestUtil.ModelStubAcceptingFilteredModules modelStub =
+            new ModuleCommandTestUtil.ModelStubAcceptingFilteredModules();
 
         Module moduleWithGradeA = new ModuleBuilder()
             .withModuleCode(ModuleCommandTestUtil.VALID_MODULE_CODE_CS2103T)

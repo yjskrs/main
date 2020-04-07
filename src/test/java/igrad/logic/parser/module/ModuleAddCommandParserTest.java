@@ -2,8 +2,6 @@ package igrad.logic.parser.module;
 
 import org.junit.jupiter.api.Test;
 
-import igrad.logic.parser.module.ModuleAddCommandParser;
-
 public class ModuleAddCommandParserTest {
     private ModuleAddCommandParser parser = new ModuleAddCommandParser();
 

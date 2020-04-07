@@ -9,7 +9,6 @@ import static igrad.testutil.Assert.assertThrows;
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -18,15 +17,12 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 import igrad.commons.core.GuiSettings;
-import igrad.commons.exceptions.DataConversionException;
 import igrad.logic.commands.exceptions.CommandException;
-import igrad.logic.commands.module.ModuleCommandTestUtil;
 import igrad.logic.commands.module.ModuleEditCommand;
 import igrad.model.CourseBook;
 import igrad.model.Model;
 import igrad.model.ReadOnlyCourseBook;
 import igrad.model.ReadOnlyUserPrefs;
-import igrad.model.UserPrefs;
 import igrad.model.avatar.Avatar;
 import igrad.model.course.Cap;
 import igrad.model.course.CourseInfo;
@@ -34,11 +30,8 @@ import igrad.model.module.Module;
 import igrad.model.module.ModuleCode;
 import igrad.model.requirement.Requirement;
 import igrad.model.requirement.RequirementCode;
-import igrad.storage.CourseBookStorage;
-import igrad.storage.JsonCourseBookStorage;
 import igrad.testutil.EditModuleDescriptorBuilder;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 
 /**
  * Contains helper methods for testing commands.
@@ -48,17 +41,17 @@ public class CommandTestUtil {
     public static final String VALID_NAME_B_COMP_SCI = "Bachelor of Computing (Honours) in Computer Science";
     public static final String VALID_NAME_B_ARTS_PHILO = "Bachelor of Arts (Honours) in Philosophy";
 
-    public static final String VALID_TITLE_CS1101S = "Programming Methodology";
-    public static final String VALID_TITLE_CS2100 = "Computer Organisation";
-    public static final String VALID_TITLE_CS2103T = "Software Engineering";
-    public static final String VALID_TITLE_CS2101 = "Effective Communication for Computing Professionals";
-    public static final String VALID_TITLE_CS2040 = "Data Structures and Algorithms";
+    public static final String VALID_TITLE_CS_1101S = "Programming Methodology";
+    public static final String VALID_TITLE_CS_2100 = "Computer Organisation";
+    public static final String VALID_TITLE_CS_2103T = "Software Engineering";
+    public static final String VALID_TITLE_CS_2101 = "Effective Communication for Computing Professionals";
+    public static final String VALID_TITLE_CS_2040 = "Data Structures and Algorithms";
 
-    public static final String VALID_MODULE_CODE_CS1101S = "CS1101S";
-    public static final String VALID_MODULE_CODE_CS2100 = "CS2100";
-    public static final String VALID_MODULE_CODE_CS2103T = "CS2103T";
-    public static final String VALID_MODULE_CODE_CS2101 = "CS2101";
-    public static final String VALID_MODULE_CODE_CS2040 = "CS2040";
+    public static final String VALID_MODULE_CODE_CS_1101S = "CS1101S";
+    public static final String VALID_MODULE_CODE_CS_2100 = "CS2100";
+    public static final String VALID_MODULE_CODE_CS_2103T = "CS2103T";
+    public static final String VALID_MODULE_CODE_CS_2101 = "CS2101";
+    public static final String VALID_MODULE_CODE_CS_2040 = "CS2040";
 
     public static final String VALID_CREDITS_4 = "4";
     public static final String VALID_CREDITS_6 = "6";
@@ -73,16 +66,16 @@ public class CommandTestUtil {
     public static final String VALID_GRADE_B = "B";
 
     public static final String TITLE_DESC_PROGRAMMING_METHODOLOGY = " " + PREFIX_TITLE
-        + VALID_TITLE_CS1101S;
+        + VALID_TITLE_CS_1101S;
 
     public static final String TITLE_DESC_COMPUTER_ORGANISATION = " " + PREFIX_TITLE
-        + VALID_TITLE_CS2100;
+        + VALID_TITLE_CS_2100;
 
     public static final String MODULE_CODE_DESC_PROGRAMMING_METHODOLOGY = " " + PREFIX_MODULE_CODE
-        + VALID_MODULE_CODE_CS1101S;
+        + VALID_MODULE_CODE_CS_1101S;
 
     public static final String MODULE_CODE_DESC_COMPUTER_ORGANISATION = " " + PREFIX_MODULE_CODE
-        + VALID_MODULE_CODE_CS2100;
+        + VALID_MODULE_CODE_CS_2100;
 
     public static final String CREDITS_DESC_PROGRAMMING_METHODOLOGY = " " + PREFIX_CREDITS
         + VALID_CREDITS_4;
@@ -122,14 +115,14 @@ public class CommandTestUtil {
 
     static {
         DESC_PROGRAMMING_METHODOLOGY = new EditModuleDescriptorBuilder()
-            .withTitle(VALID_TITLE_CS1101S)
-            .withModuleCode(VALID_MODULE_CODE_CS1101S)
+            .withTitle(VALID_TITLE_CS_1101S)
+            .withModuleCode(VALID_MODULE_CODE_CS_1101S)
             .withCredits(VALID_CREDITS_4)
             .withSemester(VALID_SEMESTER_Y1S1).build();
 
         DESC_COMPUTER_ORGANISATION = new EditModuleDescriptorBuilder()
-            .withTitle(VALID_TITLE_CS2100)
-            .withModuleCode(VALID_MODULE_CODE_CS2100)
+            .withTitle(VALID_TITLE_CS_2100)
+            .withModuleCode(VALID_MODULE_CODE_CS_2100)
             .withCredits(VALID_CREDITS_6)
             .withSemester(VALID_SEMESTER_Y2S2).build();
     }
@@ -150,16 +143,6 @@ public class CommandTestUtil {
         }
     }
 
-    public static void assertCommandSuccessWithoutMessage(Command command, Model actualModel, Model expectedModel ){
-
-        try {
-            command.execute(actualModel);
-            assertEquals(expectedModel, actualModel);
-        } catch (CommandException ce){
-            throw new AssertionError("Execution of command should not fail.", ce);
-        }
-
-    }
 
     /**
      * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandResult, Model)}
@@ -310,16 +293,6 @@ public class CommandTestUtil {
         }
 
         @Override
-        public Optional<Module> getModuleByModuleCode(ModuleCode moduleCode) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public List<Module> getModulesByModuleCode(List<ModuleCode> moduleCodes) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void addRequirement(Requirement requirement) {
             throw new AssertionError("This method should not be called.");
         }
@@ -410,65 +383,6 @@ public class CommandTestUtil {
         public boolean hasModule(Module module) {
             requireNonNull(module);
             return this.module.isSameModule(module);
-        }
-    }
-
-    public static class ModelStubUndo extends ModuleCommandTestUtil.ModelStub {
-
-        final CourseBookStorage courseBookStorage = new JsonCourseBookStorage(
-            getCourseBookFilePath(),
-            getBackupCourseBookFilePath()
-        );
-
-        final CourseBook courseBook = new CourseBook();
-
-        final Optional<ReadOnlyCourseBook> readOnlyBackupCourseBook = courseBookStorage.readBackupCourseBook();
-        final Optional<ReadOnlyCourseBook> readOnlyCourseBook = courseBookStorage.readCourseBook();
-
-        public ModelStubUndo() throws IOException, DataConversionException {}
-
-        @Override
-        public void addModule(Module module) {
-            courseBook.addModule(module);
-        }
-
-        @Override
-        public void addRequirement(Requirement requirement) {
-            courseBook.addRequirement(requirement);
-        }
-
-        @Override
-        public ObservableList<Module> getFilteredModuleList() {
-            return courseBook.getModuleList();
-        }
-
-        @Override
-        public ObservableList<Requirement> getRequirementList(){
-            return courseBook.getRequirementList();
-        }
-
-        @Override
-        public ReadOnlyCourseBook getCourseBook() {
-            return readOnlyCourseBook.get();
-        }
-
-        public ReadOnlyCourseBook getBackupCourseBook() {
-            return readOnlyBackupCourseBook.get();
-        }
-
-        @Override
-        public Path getBackupCourseBookFilePath() {
-            return getUserPrefs().getBackupCourseBookFilePath();
-        }
-
-        @Override
-        public Path getCourseBookFilePath() {
-            return getUserPrefs().getCourseBookFilePath();
-        }
-
-        @Override
-        public ReadOnlyUserPrefs getUserPrefs() {
-            return new UserPrefs();
         }
     }
 

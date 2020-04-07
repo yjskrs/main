@@ -2,9 +2,12 @@ package igrad.logic.commands.module;
 
 import static igrad.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import org.junit.jupiter.api.Test;
+
 import igrad.model.module.Module;
 import igrad.testutil.ModuleBuilder;
 
@@ -19,23 +22,24 @@ public class ModuleAddAutoCommandTest {
     @Test
     public void execute_multipleModulesAcceptedByModel_invalidModuleNotAdded() {
 
-        ModuleCommandTestUtil.ModelStubAcceptingModuleAdded modelStub = new ModuleCommandTestUtil.ModelStubAcceptingModuleAdded();
+        ModuleCommandTestUtil.ModelStubAcceptingModuleAdded modelStub =
+            new ModuleCommandTestUtil.ModelStubAcceptingModuleAdded();
 
-        Module CS2103T = new ModuleBuilder()
+        Module cs2103t = new ModuleBuilder()
             .withModuleCode(ModuleCommandTestUtil.VALID_MODULE_CODE_CS2103T)
             .withCredits(ModuleCommandTestUtil.VALID_CREDITS_4)
             .withTitle(ModuleCommandTestUtil.VALID_TITLE_CS2103T)
             .withoutOptionals()
             .build();
 
-        Module CS2101 = new ModuleBuilder()
+        Module cs2101 = new ModuleBuilder()
             .withModuleCode(ModuleCommandTestUtil.VALID_MODULE_CODE_CS2101)
             .withCredits(ModuleCommandTestUtil.VALID_CREDITS_4)
             .withTitle(ModuleCommandTestUtil.VALID_TITLE_CS2101)
             .withoutOptionals()
             .build();
 
-        Module CS9999 = new ModuleBuilder( )
+        Module cs9999 = new ModuleBuilder()
             .withModuleCode("CS9999")
             .withCredits("4")
             .withTitle("This Module Is Not Real")
@@ -45,12 +49,12 @@ public class ModuleAddAutoCommandTest {
         List<Module> validModules = new ArrayList<>();
         List<String> validModuleStrings = new ArrayList<>();
 
-        validModules.add(CS2103T);
-        validModules.add(CS2101);
+        validModules.add(cs2103t);
+        validModules.add(cs2101);
 
-        validModuleStrings.add(CS2103T.getModuleCode().value);
-        validModuleStrings.add(CS2101.getModuleCode().value);
-        validModuleStrings.add(CS9999.getModuleCode().value);
+        validModuleStrings.add(cs2103t.getModuleCode().value);
+        validModuleStrings.add(cs2101.getModuleCode().value);
+        validModuleStrings.add(cs9999.getModuleCode().value);
 
         new ModuleAddAutoCommand(validModuleStrings).execute(modelStub);
 
@@ -61,23 +65,24 @@ public class ModuleAddAutoCommandTest {
     @Test
     public void execute_multipleModulesAcceptedByModel_addSuccessful() {
 
-        ModuleCommandTestUtil.ModelStubAcceptingModuleAdded modelStub = new ModuleCommandTestUtil.ModelStubAcceptingModuleAdded();
+        ModuleCommandTestUtil.ModelStubAcceptingModuleAdded modelStub =
+            new ModuleCommandTestUtil.ModelStubAcceptingModuleAdded();
 
-        Module CS2103T = new ModuleBuilder()
+        Module cs2103t = new ModuleBuilder()
             .withModuleCode(ModuleCommandTestUtil.VALID_MODULE_CODE_CS2103T)
             .withCredits(ModuleCommandTestUtil.VALID_CREDITS_4)
             .withTitle(ModuleCommandTestUtil.VALID_TITLE_CS2103T)
             .withoutOptionals()
             .build();
 
-        Module CS2101 = new ModuleBuilder()
+        Module cs2101 = new ModuleBuilder()
             .withModuleCode(ModuleCommandTestUtil.VALID_MODULE_CODE_CS2101)
             .withCredits(ModuleCommandTestUtil.VALID_CREDITS_4)
             .withTitle(ModuleCommandTestUtil.VALID_TITLE_CS2101)
             .withoutOptionals()
             .build();
 
-        Module CS2040 = new ModuleBuilder()
+        Module cs2040 = new ModuleBuilder()
             .withModuleCode(ModuleCommandTestUtil.VALID_MODULE_CODE_CS2040)
             .withCredits(ModuleCommandTestUtil.VALID_CREDITS_4)
             .withTitle(ModuleCommandTestUtil.VALID_TITLE_CS2100)
@@ -87,13 +92,13 @@ public class ModuleAddAutoCommandTest {
         List<Module> validModules = new ArrayList<>();
         List<String> validModuleStrings = new ArrayList<>();
 
-        validModules.add(CS2103T);
-        validModules.add(CS2101);
-        validModules.add(CS2040);
+        validModules.add(cs2103t);
+        validModules.add(cs2101);
+        validModules.add(cs2040);
 
-        validModuleStrings.add(CS2103T.getModuleCode().value);
-        validModuleStrings.add(CS2101.getModuleCode().value);
-        validModuleStrings.add(CS2040.getModuleCode().value);
+        validModuleStrings.add(cs2103t.getModuleCode().value);
+        validModuleStrings.add(cs2101.getModuleCode().value);
+        validModuleStrings.add(cs2040.getModuleCode().value);
 
         new ModuleAddAutoCommand(validModuleStrings).execute(modelStub);
 
@@ -104,7 +109,8 @@ public class ModuleAddAutoCommandTest {
     @Test
     public void execute_moduleAcceptedByModel_addSuccessful() {
 
-        ModuleCommandTestUtil.ModelStubAcceptingModuleAdded modelStub = new ModuleCommandTestUtil.ModelStubAcceptingModuleAdded();
+        ModuleCommandTestUtil.ModelStubAcceptingModuleAdded modelStub =
+            new ModuleCommandTestUtil.ModelStubAcceptingModuleAdded();
 
         Module validModule = new ModuleBuilder()
             .withModuleCode(ModuleCommandTestUtil.VALID_MODULE_CODE_CS2103T)
@@ -127,7 +133,8 @@ public class ModuleAddAutoCommandTest {
     @Test
     public void execute_duplicateModuleNotAdded() {
 
-        ModuleCommandTestUtil.ModelStubAcceptingModuleAdded modelStub = new ModuleCommandTestUtil.ModelStubAcceptingModuleAdded();
+        ModuleCommandTestUtil.ModelStubAcceptingModuleAdded modelStub =
+            new ModuleCommandTestUtil.ModelStubAcceptingModuleAdded();
 
         Module validModule = new ModuleBuilder()
             .withModuleCode("CS2103T")

@@ -8,9 +8,7 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import igrad.logic.commands.CommandResult;
-import igrad.logic.commands.module.ModuleCommandTestUtil;
 import igrad.logic.commands.exceptions.CommandException;
-import igrad.logic.commands.module.ModuleAddCommand;
 import igrad.model.module.Module;
 import igrad.testutil.ModuleBuilder;
 
@@ -23,7 +21,8 @@ public class ModuleAddCommandTest {
 
     @Test
     public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModuleCommandTestUtil.ModelStubAcceptingModuleAdded modelStub = new ModuleCommandTestUtil.ModelStubAcceptingModuleAdded();
+        ModuleCommandTestUtil.ModelStubAcceptingModuleAdded modelStub =
+            new ModuleCommandTestUtil.ModelStubAcceptingModuleAdded();
         Module validModule = new ModuleBuilder().build();
 
         CommandResult commandResult = new ModuleAddCommand(validModule).execute(modelStub);
@@ -37,7 +36,8 @@ public class ModuleAddCommandTest {
     public void execute_duplicatePerson_throwsCommandException() {
         Module validModule = new ModuleBuilder().build();
         ModuleAddCommand moduleAddCommand = new ModuleAddCommand(validModule);
-        ModuleCommandTestUtil.ModelStub modelStub = new ModuleCommandTestUtil.ModelStubWithModule(validModule);
+        ModuleCommandTestUtil.ModelStub modelStub =
+            new ModuleCommandTestUtil.ModelStubWithModule(validModule);
 
         assertThrows(CommandException.class, ModuleAddCommand.MESSAGE_DUPLICATE_MODULE, (
         ) -> moduleAddCommand.execute(modelStub));
