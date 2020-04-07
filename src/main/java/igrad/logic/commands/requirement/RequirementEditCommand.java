@@ -30,7 +30,7 @@ public class RequirementEditCommand extends RequirementCommand {
         + "by its requirement code. Existing requirement will be overwritten by the input values.\n";
 
     public static final String MESSAGE_USAGE = "Parameter(s): REQUIREMENT_CODE "
-        + "[" + PREFIX_TITLE + "TITLE] "
+        + "[" + PREFIX_TITLE + "REQUIREMENT_TITLE] "
         + "[" + PREFIX_CREDITS + "CREDITS]\n"
         + "Example: " + REQUIREMENT_EDIT_COMMAND_WORD + " UE0 "
         + PREFIX_TITLE + "Unrestricted Electives";
@@ -106,9 +106,17 @@ public class RequirementEditCommand extends RequirementCommand {
         return new Requirement(requirementCode, updatedTitle, updatedCredits, moduleList);
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this
+                   || (other instanceof RequirementEditCommand
+                           && ((RequirementEditCommand) other).requirementDescriptor.equals(requirementDescriptor)
+                           && ((RequirementEditCommand) other).requirementCode.equals(requirementCode));
+    }
+
     /**
      * Stores the details to edit the requirement with. Each non-empty field value will replace the
-     * corresponding field value of the person.
+     * corresponding field value of the requirement.
      */
     public static class EditRequirementDescriptor {
         private Title title;

@@ -4,7 +4,6 @@ import static igrad.logic.commands.requirement.RequirementEditCommand.MESSAGE_RE
 import static igrad.logic.commands.requirement.RequirementEditCommand.MESSAGE_REQUIREMENT_NOT_EDITED;
 import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
 import static igrad.logic.parser.CliSyntax.PREFIX_TITLE;
-import static java.util.Objects.requireNonNull;
 
 import igrad.commons.core.Messages;
 import igrad.logic.commands.requirement.RequirementEditCommand;
@@ -27,11 +26,10 @@ public class RequirementEditCommandParser extends RequirementCommandParser {
      * Parses the given string of arguments {@code args} in the context of the
      * RequirementEditCommand and returns a RequirementEditCommand object for execution.
      *
-     * @throws ParseException If the user input does not conform the expected format.
+     * @throws ParseException If the user input does not conform to the expected format.
      */
     @Override
     public RequirementEditCommand parse(String args) throws ParseException {
-        requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_CREDITS);
 
         // Show help message for the command if no arguments are provided, i.e. 'requirement edit'
@@ -43,18 +41,20 @@ public class RequirementEditCommandParser extends RequirementCommandParser {
         Specifier specifier = ParserUtil.parseSpecifier(argMultimap.getPreamble(),
             ParserUtil.REQUIREMENT_CODE_SPECIFIER_RULE, RequirementCode.MESSAGE_CONSTRAINTS);
 
-        // If neither the requirement title nor credits are specified, throw exception
+        // If neither the requirement title nor credits prefixes are specified, throw exception
         if (argMultimap.getValue(PREFIX_TITLE).isEmpty() && argMultimap.getValue(PREFIX_CREDITS).isEmpty()) {
             throw new ParseException(MESSAGE_REQUIREMENT_NOT_EDITED);
         }
 
         EditRequirementDescriptor editRequirementDescriptor = new EditRequirementDescriptor();
 
+        // Check if the title is a valid title, if any
         if (argMultimap.getValue(PREFIX_TITLE).isPresent()) {
             Title title = parseTitle(argMultimap.getValue(PREFIX_TITLE).get());
             editRequirementDescriptor.setTitle(title);
         }
 
+        // Check if the credits is a valid credits, if any
         if (argMultimap.getValue(PREFIX_CREDITS).isPresent()) {
             Credits credits = parseCredits(argMultimap.getValue(PREFIX_CREDITS).get());
             editRequirementDescriptor.setCredits(credits);
