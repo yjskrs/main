@@ -5,7 +5,10 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
+import igrad.model.module.Module;
 import igrad.model.requirement.exceptions.DuplicateRequirementException;
 import igrad.model.requirement.exceptions.RequirementNotFoundException;
 import javafx.collections.FXCollections;
@@ -35,6 +38,29 @@ public class UniqueRequirementList implements Iterable<Requirement> {
         requireNonNull(toCheck);
 
         return internalList.stream().anyMatch(toCheck::isSameRequirement);
+    }
+
+    /**
+     * Returns a requirement if the list contains an equivalent {@code Requirement};
+     * which has requirement code; {@code requirementCode}, and returns an
+     * {@code Optional.empty} if otherwise.
+     */
+    public Optional<Requirement> getByRequirementCode(RequirementCode requirementCode) {
+        requireNonNull(requirementCode);
+
+        return internalList.stream()
+            .filter(requirement -> requirement.getRequirementCode().equals(requirementCode))
+            .findFirst();
+    }
+
+    /**
+     * Returns list of requirement; {@code List<Requirement} of all requirements in the internal list
+     * which contains the specified module; {@code module}.
+     */
+    public List<Requirement> getByModule(Module module) {
+        return internalList.stream()
+            .filter(requirement -> requirement.hasModule(module))
+            .collect(Collectors.toList());
     }
 
     /**

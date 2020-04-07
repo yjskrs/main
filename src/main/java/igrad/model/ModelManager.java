@@ -241,25 +241,20 @@ public class ModelManager implements Model {
 
     @Override
     public Optional<Requirement> getRequirement(RequirementCode requirementCode) {
-        // TODO: clean-up logic, and make an equivalent method in course book
-        return requirements.stream()
-            .filter(requirement -> requirement.getRequirementCode().equals(requirementCode))
-            .findFirst();
+        requireNonNull(requirementCode);
+        return courseBook.getRequirement(requirementCode);
     }
 
     @Override
     public List<Requirement> getRequirementsWithModule(Module module) {
-        // TODO: clean-up logic, and make an equivalent method in course book
-        return requirements.stream()
-            .filter(requirement -> requirement.hasModule(module))
-            .collect(Collectors.toList());
+        requireNonNull(module);
+        return courseBook.getRequirementsWithModule(module);
     }
 
     @Override
     public Optional<Module> getModule(ModuleCode moduleCode) {
-        return filteredModules.stream()
-            .filter(module -> module.getModuleCode().equals(moduleCode))
-            .findFirst();
+        requireNonNull(moduleCode);
+        return courseBook.getModule(moduleCode);
     }
 
     @Override

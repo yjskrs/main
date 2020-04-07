@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 import igrad.model.module.exceptions.DuplicateModuleException;
 import igrad.model.module.exceptions.ModuleNotFoundException;
@@ -45,6 +46,16 @@ public class UniqueModuleList implements Iterable<Module> {
         requireNonNull(modulesToCheck);
 
         return modulesToCheck.stream().allMatch(this::contains);
+    }
+
+    /**
+     * Returns a module if the list contains an equivalent {@code Module};
+     * which has module code; {@code moduleCode}, and returns an {@code Optional.empty} if otherwise.
+     */
+    public Optional<Module> getByModuleCode(ModuleCode moduleCode) {
+        return internalList.stream()
+            .filter(module -> module.getModuleCode().equals(moduleCode))
+            .findFirst();
     }
 
     /**
