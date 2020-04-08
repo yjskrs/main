@@ -1,17 +1,28 @@
 package igrad.logic.commands.module;
 
+import static igrad.commons.core.Messages.MESSAGE_REQUEST_FAILED;
 import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
 import static igrad.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
 import static igrad.logic.parser.CliSyntax.PREFIX_SEMESTER;
 import static igrad.logic.parser.CliSyntax.PREFIX_TITLE;
 import static java.util.Objects.requireNonNull;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import igrad.logic.commands.CommandResult;
+import igrad.logic.commands.exceptions.CommandException;
+import igrad.logic.parser.module.ModuleStringParser;
 import igrad.model.Model;
+import igrad.model.module.Credits;
 import igrad.model.module.Module;
 import igrad.model.module.ModuleCode;
+import igrad.model.module.Title;
+import igrad.services.JsonParsedModule;
+import igrad.services.NusModsRequester;
 
 /**
  * Adds a module to the course book.
@@ -22,8 +33,8 @@ public class ModuleAddAutoCommand extends ModuleCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a module. "
         + "Parameter(s): "
-        + PREFIX_TITLE + "MODULE TITLE "
-        + PREFIX_MODULE_CODE + "MODULE CODE "
+        + PREFIX_TITLE + "MODULE_TITLE "
+        + PREFIX_MODULE_CODE + "MODULE_CODE "
         + PREFIX_CREDITS + "CREDITS "
         + "[" + PREFIX_SEMESTER + "SEMESTER]...\n"
         + "Example: " + COMMAND_WORD + " "
@@ -32,6 +43,10 @@ public class ModuleAddAutoCommand extends ModuleCommand {
         + PREFIX_CREDITS + "4 "
         + PREFIX_SEMESTER + "Y2S2 ";
 
+    public static final int MAX_SIZE = 10;
+
+    public static final String MESSAGE_MODULE_OVERLOAD = "Please do not attempt to "
+        + "add more than %d modules.\nYou attempted to add %d modules.\n";
     public static final String MESSAGE_COMPLETE = "%d module(s) added through NUSMods API.\n";
     public static final String MESSAGE_SUCCESS = "Added module: %s\n";
     public static final String MESSAGE_DUPLICATE_MODULE = "ERROR: Duplicate detected: %s\n";
@@ -40,28 +55,94 @@ public class ModuleAddAutoCommand extends ModuleCommand {
     public static final String MESSAGE_PRECLUSION_PRESENT =
         "WARNING: Preclusion found!\n";
 
-    private final ArrayList<Module> toAddList;
-    private final String messageAdditional;
+    private final List<String> toAddList;
 
     /**
      * Creates an ModuleAddCommand to add the specified {@code Module}
      */
-    public ModuleAddAutoCommand(ArrayList<Module> modules, String messageAdditional) {
-        requireNonNull(modules);
+    public ModuleAddAutoCommand(List<String> moduleCodes) {
+        requireNonNull(moduleCodes);
 
-        toAddList = modules;
-        this.messageAdditional = messageAdditional;
+        toAddList = moduleCodes;
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        if (toAddList.size() > MAX_SIZE) {
+            throw new CommandException(String.format(MESSAGE_MODULE_OVERLOAD, MAX_SIZE, toAddList.size()));
+        }
+
+        ArrayList<Module> modules = new ArrayList<>();
+
+        StringBuilder messageAdditional = new StringBuilder();
+
+        for (String moduleCodeStr : toAddList) {
+
+            JsonParsedModule jsonParsedModule;
+
+            try {
+                jsonParsedModule = NusModsRequester.getModule(moduleCodeStr);
+            } catch (IOException e) {
+                messageAdditional.append(String.format(MESSAGE_REQUEST_FAILED, moduleCodeStr));
+                continue;
+            }
+
+            Title title = new Title(jsonParsedModule.getTitle());
+            Credits credits = new Credits(jsonParsedModule.getCredits());
+            ModuleCode moduleCode = new ModuleCode(jsonParsedModule.getModuleCode());
+
+            String prerequisiteModulesString = jsonParsedModule.getPrerequisite();
+            String preclusionModulesString = jsonParsedModule.getPreclusion();
+
+            ModuleStringParser prerequisiteParser = new ModuleStringParser(prerequisiteModulesString);
+            Optional<ModuleCode[]> prerequisites = Optional.of(prerequisiteParser.getModuleCodes());
+
+            ModuleStringParser preclusionParser = new ModuleStringParser(preclusionModulesString);
+            Optional<ModuleCode[]> preclusions = Optional.of(preclusionParser.getModuleCodes());
+
+
+            Module module = new Module(
+                title,
+                moduleCode,
+                credits,
+                preclusions,
+                prerequisites
+            );
+
+            modules.add(module);
+
+        }
+
+        ArrayList<Module> modulesToAdd = modules
+            .stream()
+            .filter(m -> !model.hasModule(m))
+            .collect(Collectors.toCollection(ArrayList::new));
+
+        StringBuilder message = getMessage(modules, model, modulesToAdd);
+
+        for (Module module : modulesToAdd) {
+            model.addModule(module);
+        }
+
+        message.append(messageAdditional);
+
+        return new CommandResult(message.toString());
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+            || (other instanceof ModuleAddAutoCommand // instanceof handles nulls
+            && toAddList.equals(((ModuleAddAutoCommand) other).toAddList));
+    }
+
+    private StringBuilder getMessage(List<Module> modules, Model model, List<Module> modulesToAdd) {
 
         StringBuilder message = new StringBuilder();
 
-        int modulesAdded = 0;
-
-        for (Module module : toAddList) {
+        for (Module module : modules) {
 
             if (model.hasModule(module)) {
                 message.append(String.format(MESSAGE_DUPLICATE_MODULE, module.toString()));
@@ -75,23 +156,12 @@ public class ModuleAddAutoCommand extends ModuleCommand {
                 if (model.hasModulePreclusions(module)) {
                     message.append(MESSAGE_PRECLUSION_PRESENT);
                 }
-
-                model.addModule(module);
-                modulesAdded++;
             }
         }
 
-        message.append(String.format(MESSAGE_COMPLETE, modulesAdded));
-        message.append(messageAdditional);
+        message.append(String.format(MESSAGE_COMPLETE, modulesToAdd.size()));
 
-        return new CommandResult(message.toString());
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-            || (other instanceof ModuleAddAutoCommand // instanceof handles nulls
-            && toAddList.equals(((ModuleAddAutoCommand) other).toAddList));
+        return message;
     }
 
     /**

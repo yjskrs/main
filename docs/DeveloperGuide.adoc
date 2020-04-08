@@ -3,7 +3,7 @@
 :toc:
 :toc-name:
 :toc-placement: preamble
-:sectnums:
+:sectnums: 4
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
@@ -192,9 +192,11 @@ Step 2: The CourseEditCommand is executed to set the new course name to the mode
 
 Step 3: The new course name is set in the course book.
 
-=== Adding Modules from NUS Mods
+=== Module Feature
 
-==== Implementation
+==== Module Auto Add
+
+===== Implementation
 
 The automatic filling in of module details on addition of a new module is facilitated by `NusModsRequester`.
 It creates a new instance of `GetRequestManager` in order to make a request to link:https://nusmods.com/[NUSMods].
@@ -213,13 +215,7 @@ The sequence diagram below provide further insight into its execution:
 
 image::AutoAddSequenceDiagram.png[]
 
-As NUSMods might not always have the latest data for the current academic year, a follow up request is made when an empty response is received.
-
-The following activity diagram illustrates this:
-
-image::AutoAddActivityDiagram.png[]
-
-==== Design Considerations
+===== Design Considerations
 
 As with all network requests, this feature might not work as intended in certain circumstances. Possible cases are:
 

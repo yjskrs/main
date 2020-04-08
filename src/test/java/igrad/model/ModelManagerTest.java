@@ -79,13 +79,13 @@ public class ModelManagerTest {
 
     @Test
     public void hasPerson_personNotInCourseBook_returnsFalse() {
-        assertFalse(modelManager.hasModule(TypicalModules.PROGRAMMING_METHODOLOGY));
+        assertFalse(modelManager.hasModule(TypicalModules.CS1101S));
     }
 
     @Test
     public void hasPerson_personInCourseBook_returnsTrue() {
-        modelManager.addModule(TypicalModules.PROGRAMMING_METHODOLOGY);
-        assertTrue(modelManager.hasModule(TypicalModules.PROGRAMMING_METHODOLOGY));
+        modelManager.addModule(TypicalModules.CS1101S);
+        assertTrue(modelManager.hasModule(TypicalModules.CS1101S));
     }
 
     @Test
@@ -96,8 +96,8 @@ public class ModelManagerTest {
     @Test
     public void equals() {
         CourseBook courseBook = new CourseBookBuilder()
-            .withModule(TypicalModules.PROGRAMMING_METHODOLOGY)
-            .withModule(TypicalModules.COMPUTER_ORGANISATION)
+            .withModule(TypicalModules.CS1101S)
+            .withModule(TypicalModules.CS2100)
             .build();
         CourseBook differentCourseBook = new CourseBook();
         UserPrefs userPrefs = new UserPrefs();
@@ -120,7 +120,7 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(differentCourseBook, userPrefs)));
 
         // different filteredList -> returns false
-        String[] keywords = TypicalModules.PROGRAMMING_METHODOLOGY.getTitle().value.split("\\s+");
+        String[] keywords = TypicalModules.CS1101S.getTitle().value.split("\\s+");
         modelManager.updateFilteredModuleList(new TitleContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(courseBook, userPrefs)));
 

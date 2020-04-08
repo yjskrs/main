@@ -26,7 +26,9 @@ public class CourseAchieveCommand extends CourseCommand {
             + "maintain per semester is invalid";
     public static final String MESSAGE_COURSE_ACHIEVE_DETAILS = COURSE_ACHIEVE_COMMAND_WORD + ": Calculates average "
         + "C.A.P. needed per sem to achieve desired C.A.P.\n";
-    public static final String MESSAGE_COURSE_ACHIEVE_USAGE = "Parameter(s): " + PREFIX_CAP + "DESIRED_C.A.P.";
+
+    public static final String MESSAGE_COURSE_ACHIEVE_USAGE = "Parameter(s): " + PREFIX_CAP + "DESIRED_CAP";
+
     public static final String MESSAGE_COURSE_ACHIEVE_HELP = MESSAGE_COURSE_ACHIEVE_DETAILS
         + MESSAGE_COURSE_ACHIEVE_USAGE;
 

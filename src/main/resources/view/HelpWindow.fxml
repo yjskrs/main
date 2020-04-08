@@ -5,40 +5,161 @@
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.stage.Stage?>
 
-<fx:root resizable="false" title="Help" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.0" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="560.0" maxWidth="920.0" minHeight="560.0" minWidth="920.0" resizable="false" title="Help" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <icons>
         <Image url="@/images/help_icon.png" />
     </icons>
    <scene>
       <Scene stylesheets="@DarkTheme.css">
-          <AnchorPane styleClass="help-window" stylesheets="@DarkTheme.css">
+         <StackPane minWidth="800.0" prefWidth="900.0" styleClass="help-window">
             <children>
-               <GridPane layoutY="6.0" prefHeight="142.0" prefWidth="225.0">
+               <GridPane styleClass="help-window-panel-container">
                  <columnConstraints>
-                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="383.0" minWidth="10.0" prefWidth="125.0" />
-                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="315.0" minWidth="10.0" prefWidth="108.0" />
+                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="130.0" />
+                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="1.0" prefWidth="1.0" />
+                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="814.0" />
                  </columnConstraints>
                  <rowConstraints>
-                   <RowConstraints maxHeight="106.0" minHeight="0.0" prefHeight="86.0" vgrow="SOMETIMES" />
-                     <RowConstraints maxHeight="62.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES" />
+                   <RowConstraints maxHeight="-Infinity" prefHeight="40.0" vgrow="SOMETIMES" />
+                     <RowConstraints maxHeight="-Infinity" minHeight="1.0" prefHeight="1.0" vgrow="SOMETIMES" />
+                     <RowConstraints prefHeight="96.0" vgrow="SOMETIMES" />
+                     <RowConstraints maxHeight="-Infinity" minHeight="1.0" prefHeight="1.0" vgrow="SOMETIMES" />
+                     <RowConstraints prefHeight="96.0" vgrow="SOMETIMES" />
+                     <RowConstraints maxHeight="-Infinity" minHeight="1.0" prefHeight="1.0" vgrow="SOMETIMES" />
+                     <RowConstraints prefHeight="96.0" vgrow="SOMETIMES" />
+                     <RowConstraints maxHeight="-Infinity" minHeight="1.0" prefHeight="1.0" vgrow="SOMETIMES" />
+                     <RowConstraints prefHeight="25.0" vgrow="SOMETIMES" />
+                     <RowConstraints maxHeight="-Infinity" prefHeight="1.0" vgrow="SOMETIMES" />
+                     <RowConstraints prefHeight="25.0" vgrow="SOMETIMES" />
+                     <RowConstraints maxHeight="-Infinity" minHeight="1.0" prefHeight="1.0" vgrow="SOMETIMES" />
+                     <RowConstraints prefHeight="25.0" vgrow="SOMETIMES" />
                  </rowConstraints>
                   <children>
-                     <Label fx:id="userGuide" text="Label" GridPane.rowIndex="1" />
-                     <Label style="-fx-font-size: 25; -fx-font-weight: 800;" text="iGrad Help" />
-                     <Hyperlink fx:id="hyperlink" onAction="#openUserGuide" style="-fx-text-fill: #3b7ee2;" text="Hyperlink" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                     <Label style="-fx-font-size: 20; -fx-font-weight: 800; -fx-text-fill: #f27c36;" text="Commands" wrapText="true" GridPane.halignment="LEFT" GridPane.valignment="TOP">
+                        <padding>
+                           <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
+                        </padding>
+                     </Label>
+                     <Hyperlink fx:id="hyperlink" onAction="#openUserGuide" style="-fx-text-fill: #3b7ee2;" text="Hyperlink" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.valignment="TOP">
+                        <padding>
+                           <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
+                        </padding>
+                     </Hyperlink>
+                     <Label styleClass="help-window-commands" text="Course" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="TOP">
+                        <padding>
+                           <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
+                        </padding>
+                     </Label>
+                     <Label styleClass="help-window-commands" text="Requirement" GridPane.halignment="LEFT" GridPane.rowIndex="4" GridPane.valignment="TOP">
+                        <padding>
+                           <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
+                        </padding>
+                     </Label>
+                     <Label styleClass="help-window-commands" text="Module" GridPane.halignment="LEFT" GridPane.rowIndex="6" GridPane.valignment="TOP">
+                        <padding>
+                           <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
+                        </padding>
+                     </Label>
+                     <Label styleClass="help-window-commands" text="Undo" GridPane.halignment="LEFT" GridPane.rowIndex="8" GridPane.valignment="TOP">
+                        <padding>
+                           <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
+                        </padding>
+                     </Label>
+                     <Label styleClass="help-window-commands" text="Export" GridPane.halignment="LEFT" GridPane.rowIndex="10" GridPane.valignment="TOP">
+                        <padding>
+                           <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
+                        </padding>
+                     </Label>
+                     <Label styleClass="help-window-commands" text="Exit" GridPane.halignment="LEFT" GridPane.rowIndex="12" GridPane.valignment="TOP">
+                        <padding>
+                           <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
+                        </padding>
+                     </Label>
+                     <VBox prefHeight="200.0" prefWidth="100.0" spacing="6.0" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                        <children>
+                           <Label fx:id="courseAdd" text="Label" wrapText="true" />
+                           <Label fx:id="courseEdit" text="Label" wrapText="true" />
+                           <Label fx:id="courseDelete" text="Label" wrapText="true" />
+                           <Label fx:id="courseAchieve" text="Label" wrapText="true" />
+                        </children>
+                        <padding>
+                           <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
+                        </padding>
+                     </VBox>
+                     <VBox prefHeight="200.0" prefWidth="100.0" spacing="6.0" GridPane.columnIndex="2" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                        <children>
+                           <Label fx:id="requirementAdd" text="Label" wrapText="true" />
+                           <Label fx:id="requirementEdit" text="Label" wrapText="true" />
+                           <Label fx:id="requirementDelete" text="Label" wrapText="true" />
+                           <Label fx:id="requirementAssign" text="Label" wrapText="true" />
+                        </children>
+                        <padding>
+                           <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
+                        </padding>
+                     </VBox>
+                     <VBox prefHeight="200.0" prefWidth="100.0" spacing="6.0" GridPane.columnIndex="2" GridPane.rowIndex="6" GridPane.valignment="CENTER">
+                        <children>
+                           <Label fx:id="moduleAdd" text="Label" wrapText="true" />
+                           <Label fx:id="moduleEdit" text="Label" wrapText="true" />
+                           <Label fx:id="moduleDelete" text="Label" wrapText="true" />
+                           <Label fx:id="moduleDone" text="Label" wrapText="true" />
+                        </children>
+                        <padding>
+                           <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
+                        </padding>
+                     </VBox>
+                     <Label fx:id="undo" text="Label" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="8" GridPane.valignment="TOP">
+                        <padding>
+                           <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
+                        </padding>
+                     </Label>
+                     <Label fx:id="export" text="Label" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="10" GridPane.valignment="TOP">
+                        <padding>
+                           <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
+                        </padding>
+                     </Label>
+                     <Label fx:id="exit" text="Label" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="12" GridPane.valignment="TOP">
+                        <padding>
+                           <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
+                        </padding>
+                     </Label>
+                     <Region maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="1.0" styleClass="help-window-gridpane-divider" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" />
+                     <Region maxHeight="-Infinity" minHeight="-Infinity" prefHeight="1.0" prefWidth="200.0" styleClass="help-window-gridpane-divider" GridPane.rowIndex="3" />
+                     <Region maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="1.0" prefWidth="200.0" styleClass="help-window-gridpane-divider" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="5" />
+                     <Region maxHeight="-Infinity" minHeight="-Infinity" prefHeight="1.0" prefWidth="200.0" styleClass="help-window-gridpane-divider" GridPane.rowIndex="5" />
+                     <Region maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="1.0" prefWidth="200.0" styleClass="help-window-gridpane-divider" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="7" />
+                     <Region maxHeight="-Infinity" minHeight="-Infinity" prefHeight="1.0" styleClass="help-window-gridpane-divider" GridPane.rowIndex="7" />
+                     <Region maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="1.0" styleClass="help-window-gridpane-divider" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="9" />
+                     <Region maxHeight="-Infinity" minHeight="-Infinity" prefHeight="1.0" prefWidth="200.0" styleClass="help-window-gridpane-divider" GridPane.rowIndex="9" />
+                     <Region maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="1.0" prefWidth="200.0" styleClass="help-window-gridpane-divider" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="11" />
+                     <Region maxHeight="-Infinity" minHeight="-Infinity" prefHeight="1.0" prefWidth="200.0" styleClass="help-window-gridpane-divider" GridPane.rowIndex="11" />
+                     <Region maxWidth="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="1.0" styleClass="help-window-gridpane-divider" GridPane.columnIndex="1" GridPane.vgrow="ALWAYS" />
+                     <Region maxWidth="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="1.0" styleClass="help-window-gridpane-divider" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS" />
+                     <Region maxWidth="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="1.0" styleClass="help-window-gridpane-divider" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.vgrow="ALWAYS" />
+                     <Region maxWidth="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="1.0" styleClass="help-window-gridpane-divider" GridPane.columnIndex="1" GridPane.rowIndex="6" GridPane.vgrow="ALWAYS" />
+                     <Region maxWidth="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="1.0" styleClass="help-window-gridpane-divider" GridPane.columnIndex="1" GridPane.rowIndex="8" GridPane.vgrow="ALWAYS" />
+                     <Region maxWidth="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="1.0" styleClass="help-window-gridpane-divider" GridPane.columnIndex="1" GridPane.rowIndex="10" GridPane.vgrow="ALWAYS" />
+                     <Region maxWidth="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="1.0" styleClass="help-window-gridpane-divider" GridPane.columnIndex="1" GridPane.rowIndex="12" GridPane.vgrow="ALWAYS" />
+                     <Region maxHeight="-Infinity" minHeight="-Infinity" prefHeight="1.0" styleClass="help-window-gridpane-divider" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
+                     <Region maxHeight="-Infinity" minHeight="-Infinity" prefHeight="1.0" styleClass="help-window-gridpane-divider" GridPane.rowIndex="1" />
                   </children>
                   <padding>
                      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                   </padding>
                </GridPane>
             </children>
-         </AnchorPane>
+            <padding>
+               <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+            </padding>
+         </StackPane>
       </Scene>
    </scene>
 </fx:root>

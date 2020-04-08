@@ -54,7 +54,7 @@ public class CsvWriter {
             Module module = sortedList.get(i);
 
             if (module.getSemester().isPresent()) {
-                append(module.getSemester().toString());
+                append(module.getSemester().get().toString());
             }
             append(module.getModuleCode().toString());
             append(module.getTitle().toString());
@@ -80,7 +80,7 @@ public class CsvWriter {
             "Semester",
             "Module Code",
             "Module Title",
-            "MCs"
+            "Module Credits"
         };
 
         for (String header : headers) {
