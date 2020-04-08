@@ -3,6 +3,7 @@ package igrad.model.requirement;
 import static igrad.commons.util.CollectionUtil.requireAllNonNull;
 import static java.util.Objects.requireNonNull;
 
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
@@ -31,6 +32,9 @@ public class UniqueRequirementList implements Iterable<Requirement> {
     private final ObservableList<Requirement> internalUnmodifiableList =
         FXCollections.unmodifiableObservableList(internalList);
 
+    private final Comparator<Requirement> compareByFulfilledCriteria = (Requirement r1, Requirement r2) ->
+        !r1.isFulfilled() && r2.isFulfilled() ? 0 : 1;
+
     /**
      * Returns true if the list contains an equivalent requirement to {@code toCheck}.
      */
@@ -58,6 +62,8 @@ public class UniqueRequirementList implements Iterable<Requirement> {
      * which contains the specified module; {@code module}.
      */
     public List<Requirement> getByModule(Module module) {
+        requireNonNull(module);
+
         return internalList.stream()
             .filter(requirement -> requirement.hasModule(module))
             .collect(Collectors.toList());
@@ -77,6 +83,7 @@ public class UniqueRequirementList implements Iterable<Requirement> {
         }
 
         internalList.add(toAdd);
+        FXCollections.sort(internalList, compareByFulfilledCriteria);
     }
 
     /**
@@ -86,6 +93,7 @@ public class UniqueRequirementList implements Iterable<Requirement> {
         requireNonNull(replacement);
 
         internalList.setAll(replacement.internalList);
+        FXCollections.sort(internalList, compareByFulfilledCriteria);
     }
 
     /**
@@ -102,6 +110,7 @@ public class UniqueRequirementList implements Iterable<Requirement> {
         }
 
         internalList.setAll(requirements);
+        FXCollections.sort(internalList, compareByFulfilledCriteria);
     }
 
     /**
@@ -123,6 +132,7 @@ public class UniqueRequirementList implements Iterable<Requirement> {
         }
 
         internalList.set(index, editedRequirement);
+        FXCollections.sort(internalList, compareByFulfilledCriteria);
     }
 
     /**

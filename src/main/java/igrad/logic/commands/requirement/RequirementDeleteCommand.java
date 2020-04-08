@@ -54,7 +54,7 @@ public class RequirementDeleteCommand extends RequirementCommand {
 
         Requirement toDelete = requirementToDelete.get();
 
-        model.deleteRequirement(toDelete);
+        model.removeRequirement(toDelete);
 
         /*
          * Now that we've deleted a new Requirement in the system, we need to update CourseInfo, specifically its
