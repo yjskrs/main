@@ -1,104 +1,270 @@
+package igrad.model.requirement;
 
+import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_CODE_MS;
+import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_CREDITS_GE;
+import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_CREDITS_MS;
+import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_TITLE_MS;
+import static igrad.testutil.Assert.assertThrows;
+import static igrad.testutil.TypicalModules.CS1101S;
+import static igrad.testutil.TypicalModules.CS2100;
+import static igrad.testutil.TypicalModules.getTypicalModules;
+import static igrad.testutil.TypicalModules.getTypicalRequirement;
+import static igrad.testutil.TypicalRequirements.GENERAL_ELECTIVES;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-package igrad.logic.parser.requirement;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
-    import static igrad.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-                      import static igrad.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
-                                        import static igrad.logic.commands.requirement.RequirementAddCommand.MESSAGE_REQUIREMENT_NOT_ADDED;
-                                                          import static igrad.logic.commands.requirement.RequirementCommandTestUtil.INVALID_REQ_CREDITS_ALPHABET;
-                                                                            import static igrad.logic.commands.requirement.RequirementCommandTestUtil.INVALID_REQ_CREDITS_DECIMAL;
-                                                                                              import static igrad.logic.commands.requirement.RequirementCommandTestUtil.INVALID_REQ_CREDITS_SYMBOL;
-                                                                                                                import static igrad.logic.commands.requirement.RequirementCommandTestUtil.REQ_CREDITS_DESC_CSF;
-                                                                                                                                  import static igrad.logic.commands.requirement.RequirementCommandTestUtil.REQ_CREDITS_DESC_UE;
-                                                                                                                                                    import static igrad.logic.commands.requirement.RequirementCommandTestUtil.REQ_TITLE_DESC_CSBD;
-                                                                                                                                                                      import static igrad.logic.commands.requirement.RequirementCommandTestUtil.REQ_TITLE_DESC_CSF;
-                                                                                                                                                                                        import static igrad.logic.commands.requirement.RequirementCommandTestUtil.REQ_TITLE_DESC_UE;
-                                                                                                                                                                                                          import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_CREDITS_UE;
-                                                                                                                                                                                                                            import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_TITLE_UE;
-                                                                                                                                                                                                                                              import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
-                                                                                                                                                                                                                                                                import static igrad.logic.parser.CliSyntax.PREFIX_TITLE;
-                                                                                                                                                                                                                                                                                  import static igrad.logic.parser.CommandParserTestUtil.assertParseFailure;
-                                                                                                                                                                                                                                                                                                    import static igrad.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import org.junit.jupiter.api.Test;
 
-                                                                                                                                                                                                                                                                                                                      import org.junit.jupiter.api.Test;
+import igrad.model.module.Module;
+import igrad.model.module.exceptions.DuplicateModuleException;
+import igrad.model.module.exceptions.ModuleNotFoundException;
+import igrad.testutil.ModuleBuilder;
+import igrad.testutil.RequirementBuilder;
 
-                                                                                                                                                                                                                                                                                                                      import igrad.logic.commands.requirement.RequirementAddCommand;
-                                                                                                                                                                                                                                                                                                                      import igrad.model.requirement.Credits;
-                                                                                                                                                                                                                                                                                                                      import igrad.model.requirement.Requirement;
-                                                                                                                                                                                                                                                                                                                      import igrad.testutil.RequirementBuilder;
-
-public class RequirementAddCommandParserTest {
-    private RequirementAddCommandParser parser = new RequirementAddCommandParser();
+public class RequirementTest {
+    private final Requirement requirement = new RequirementBuilder().build();
+    private final Module module = new ModuleBuilder().build();
 
     @Test
-    public void parse_allFieldsPresent_success() {
-        Requirement expectedRequirement = new RequirementBuilder()
-                                              .withRequirementCode("UE")
-                                              .withTitle(VALID_REQ_TITLE_UE)
-                                              .withCreditsOneParameter(VALID_REQ_CREDITS_UE)
-                                              .build();
-
-        // whitespace preamble
-        assertParseSuccess(parser, PREAMBLE_WHITESPACE + REQ_TITLE_DESC_UE + REQ_CREDITS_DESC_UE,
-            new RequirementAddCommand(expectedRequirement));
-
-        // jumbled order
-        assertParseSuccess(parser, REQ_CREDITS_DESC_UE + REQ_TITLE_DESC_UE,
-            new RequirementAddCommand(expectedRequirement));
-
-        // multiple titles, only last title parsed
-        // assertParseFailure(parser, , new RequirementAddCommand(expectedRequirement));
-        // assertParseSuccess(parser, , new RequirementAddCommand(expectedRequirement));
-
-        // multiple credits, only last credits parsed
-        // assertParseFailure(parser, , new RequirementAddCommand(expectedRequirement));
-        // assertParseSuccess(parser, , new RequirementAddCommand(expectedRequirement));
-
+    public void constructor_withEmptyRequirement_createsRequirementWithEmptyModuleList() {
+        assertEquals(Collections.emptyList(), requirement.getModuleList());
     }
 
     @Test
-    public void parse_compulsoryPrefixesMissing_failure() {
-        String prefixMissingMessage = String.format(
-            MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_REQUIREMENT_NOT_ADDED);
-
-        // missing title prefix (" t/")
-        assertParseFailure(parser, REQ_CREDITS_DESC_CSF, prefixMissingMessage);
-
-        // missing credits prefix (" c/")
-        assertParseFailure(parser, REQ_TITLE_DESC_CSF, prefixMissingMessage);
+    public void resetModules_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> requirement.resetModules(null));
     }
 
     @Test
-    public void parse_argumentsMissing_failure() {
-        String argumentMissingMessage = String.format(
-            MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_REQUIREMENT_NOT_ADDED);
-
-        // missing title
-        String input = " " + PREFIX_TITLE.getPrefix() + REQ_CREDITS_DESC_CSF;
-        assertParseFailure(parser, input, argumentMissingMessage);
-        // <Invalid command format!
-        // Added requirement must be provided with arguments t/TITLE u/CREDITS > but was:
-        // <Title should not start with a space or slash, should not contain only numbers, and should not be blank.>
-
-        // missing credits
-        input = REQ_TITLE_DESC_CSF + " " + PREFIX_CREDITS.getPrefix();
-        assertParseFailure(parser, input, argumentMissingMessage);
-        // <Invalid command format!
-        // Added requirement must be provided with arguments t/TITLE u/CREDITS > but was:
-        // <Modular credits needed to satisfy requirement should be a number more than 0.>
-
-        // missing both
-        input = " " + PREFIX_TITLE.getPrefix() + " " + PREFIX_CREDITS.getPrefix();
-        assertParseFailure(parser, input, argumentMissingMessage);
+    public void resetModules_withValidModuleList_success() {
+        List<Module> modules = getTypicalModules();
+        requirement.resetModules(modules);
+        assertEquals(getTypicalRequirement(), requirement);
     }
 
     @Test
-    public void parse_invalidValue_failure() {
-        // invalid credits
-        String validInput = REQ_TITLE_DESC_CSBD + " " + PREFIX_CREDITS;
-        assertParseFailure(parser, validInput + INVALID_REQ_CREDITS_ALPHABET, Credits.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, validInput + INVALID_REQ_CREDITS_DECIMAL, Credits.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, validInput + INVALID_REQ_CREDITS_SYMBOL, Credits.MESSAGE_CONSTRAINTS);
+    public void resetModules_withDuplicateModules_throwsDuplicateModuleException() {
+        Module other = new ModuleBuilder()
+                           .withTitle("Pragramming Methadolajy")
+                           .withCredits("8")
+                           .build();
+        List<Module> modules = Arrays.asList(module, other);
+        assertThrows(DuplicateModuleException.class, () -> requirement.resetModules(modules));
+    }
+
+    @Test
+    public void hasModule_nullModule_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> requirement.hasModule((Module) null));
+        assertThrows(NullPointerException.class, () -> requirement.hasModules((List<Module>) null));
+    }
+
+    @Test
+    public void hasModule_moduleNotInRequirement_returnsFalse() {
+        assertFalse(requirement.hasModule(CS1101S));
+    }
+
+    @Test
+    public void hasModule_moduleInRequirement_returnsTrue() {
+        requirement.addModule(CS1101S);
+        assertTrue(requirement.hasModule(CS1101S));
+    }
+
+    @Test
+    public void hasModule_withSameIdentityInRequirement_returnsTrue() {
+        requirement.addModule(CS1101S);
+        Module editedModule = new ModuleBuilder(CS1101S)
+                                  .withTitle("Some Other Title")
+                                  .build();
+        assertTrue(requirement.hasModule(editedModule));
+    }
+
+    @Test
+    public void addModule_nullModule_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> requirement.addModule((Module) null));
+    }
+
+    @Test
+    public void addModule_moduleNotInRequirement_success() {
+        requirement.addModule(CS1101S);
+        requirement.addModule(CS2100);
+        Requirement other = getTypicalRequirement();
+        assertEquals(requirement, other);
+    }
+
+    @Test
+    public void addModule_moduleInRequirement_throwsDuplicateModuleException() {
+        requirement.addModule(CS1101S);
+        assertThrows(DuplicateModuleException.class, () -> requirement.addModule(CS1101S));
+    }
+
+    @Test
+    public void addModule_withSameIdentityInRequirement_throwsDuplicateModuleException() {
+        requirement.addModule(module);
+        Module sameModule = new ModuleBuilder(module)
+                                .withTitle("Another Title")
+                                .build();
+        assertThrows(DuplicateModuleException.class, () -> requirement.addModule(sameModule));
+    }
+
+    @Test
+    public void setModule_targetNull_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> requirement.setModule(null, module));
+    }
+
+    @Test
+    public void setModule_editedModuleNull_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> requirement.setModule(module, null));
+    }
+
+    @Test
+    public void setModule_withSameIdentityInRequirement_success() {
+        requirement.addModule(module);
+        assertEquals(Collections.singletonList(module), requirement.getModuleList());
+        Module modifiedModule = new ModuleBuilder(module)
+                                    .withTitle("New Title")
+                                    .build();
+        requirement.setModule(module, modifiedModule);
+        assertEquals(Collections.singletonList(modifiedModule), requirement.getModuleList());
+    }
+
+    @Test
+    public void setModule_withDifferentIdentityInRequirement_success() {
+        requirement.addModule(module);
+        assertEquals(Collections.singletonList(module), requirement.getModuleList());
+        Module modifiedModule = new ModuleBuilder(module)
+                                    .withModuleCode("RN1111G")
+                                    .withTitle("New Title")
+                                    .build();
+        requirement.setModule(module, modifiedModule);
+        assertEquals(Collections.singletonList(modifiedModule), requirement.getModuleList());
+    }
+
+    @Test
+    public void setModule_targetDoesNotExistInRequirement_throwsModuleNotFoundException() {
+        assertThrows(ModuleNotFoundException.class, () -> requirement.setModule(module, module));
+    }
+
+    @Test
+    public void setModule_duplicateModule_throwsDuplicateModuleException() {
+        Module otherModule = new ModuleBuilder(module)
+                                 .withModuleCode("RNG1111")
+                                 .withTitle("New Title")
+                                 .build();
+        requirement.addModule(module);
+        requirement.addModule(otherModule);
+        Module modifiedOtherModule = new ModuleBuilder(otherModule).build();
+        assertThrows(DuplicateModuleException.class, () -> requirement.setModule(module, modifiedOtherModule));
+    }
+
+    @Test
+    public void removeModule_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> requirement.removeModule(null));
+    }
+
+    @Test
+    public void removeModule_moduleInRequirement_success() {
+        requirement.addModule(module);
+        requirement.removeModule(module);
+        assertEquals(Collections.emptyList(), requirement.getModuleList());
+    }
+
+    @Test
+    public void removeModule_moduleNotInRequirement_throwsModuleNotFoundException() {
+        assertThrows(ModuleNotFoundException.class, () -> requirement.removeModule(module));
+        requirement.addModule(module);
+        Module modifiedModule = new ModuleBuilder(module)
+                                    .withTitle("This is a title")
+                                    .build();
+        assertThrows(ModuleNotFoundException.class, () -> requirement.removeModule(modifiedModule));
+    }
+
+    @Test
+    public void getTitle_withEmptyRequirement_success() {
+        Title newTitle = new Title(VALID_REQ_TITLE_MS);
+        Requirement newReq = new RequirementBuilder(requirement)
+                                 .withTitle(VALID_REQ_TITLE_MS)
+                                 .build();
+        assertEquals(newTitle, newReq.getTitle());
+    }
+
+    @Test
+    public void getCredits_withEmptyRequirement_success() {
+        Credits newCreds = new Credits(VALID_REQ_CREDITS_GE);
+        Requirement newReq = new RequirementBuilder(requirement)
+                                 .withCreditsOneParameter(VALID_REQ_CREDITS_GE)
+                                 .build();
+        assertEquals(newCreds, newReq.getCredits());
+    }
+
+    @Test
+    public void getCreditsRequired_withCreditsRequiredValue_nonZero() {
+        assertNotEquals(0, requirement.getCreditsRequired());
+    }
+
+    @Test
+    public void getCreditsFulfilled_withEmptyRequirement_returnsZero() {
+        assertEquals(0, requirement.getCreditsFulfilled());
+    }
+
+    @Test
+    public void getModuleList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> requirement.getModuleList().remove(0));
+    }
+
+    @Test
+    public void isSameRequirement() {
+        // null
+        assertFalse(GENERAL_ELECTIVES.isSameRequirement(null));
+
+        // same requirement
+        assertTrue(GENERAL_ELECTIVES.isSameRequirement(GENERAL_ELECTIVES));
+
+        // different title
+        Requirement editedRequirement = new RequirementBuilder(GENERAL_ELECTIVES)
+                                            .withTitle(VALID_REQ_TITLE_MS)
+                                            .build();
+        assertTrue(GENERAL_ELECTIVES.isSameRequirement(editedRequirement));
+
+        // different credits
+        editedRequirement = new RequirementBuilder(GENERAL_ELECTIVES)
+                                .withCreditsOneParameter(VALID_REQ_CREDITS_MS)
+                                .build();
+        assertTrue(GENERAL_ELECTIVES.isSameRequirement(editedRequirement));
+
+        // different requirement code
+        editedRequirement = new RequirementBuilder(GENERAL_ELECTIVES)
+                                .withRequirementCode(VALID_REQ_CODE_MS)
+                                .build();
+        assertFalse(GENERAL_ELECTIVES.isSameRequirement(editedRequirement));
+    }
+
+    @Test
+    public void equals() {
+        // null
+        assertFalse(GENERAL_ELECTIVES.equals(null));
+
+        // same requirement
+        assertTrue(GENERAL_ELECTIVES.equals(GENERAL_ELECTIVES));
+
+        // copied requirement
+        Requirement requirementCopy = new RequirementBuilder(GENERAL_ELECTIVES).build();
+        assertTrue(GENERAL_ELECTIVES.equals(requirementCopy));
+
+        // different type
+        assertFalse(GENERAL_ELECTIVES.equals(module));
+
+        // different requirement title and credits
+        Requirement other = new RequirementBuilder(GENERAL_ELECTIVES)
+                                .withTitle(VALID_REQ_TITLE_MS)
+                                .withCreditsOneParameter(VALID_REQ_CREDITS_MS)
+                                .build();
+        assertFalse(GENERAL_ELECTIVES.equals(other));
     }
 
 }

@@ -10,7 +10,7 @@ import static java.util.Objects.requireNonNull;
 public class Credits {
 
     public static final String MESSAGE_CONSTRAINTS =
-        "Modular credits needed to satisfy requirement should be a number more than 0.";
+        "Modular credits needed to satisfy requirement should be a number more than 0 and less than 1000.";
 
     // allow any numbers more than or equals zero
     public static final String VALIDATION_REGEX = "^[0-9]\\d*$";
@@ -48,26 +48,31 @@ public class Credits {
     }
 
     /**
-     * Returns true if given String {@code test} is a valid credits (i.e. integer more than 0).
+     * Returns true if given String {@code test} is a valid credits
+     * (i.e. integer more than 0 and less than 1000).
      */
     public static boolean isValidCredits(String test) {
         requireNonNull(test);
 
-        return test.matches(VALIDATION_REGEX) && Integer.parseInt(test) > 0;
+        return test.matches(VALIDATION_REGEX)
+                   && Integer.parseInt(test) > 0
+                   && Integer.parseInt(test) < 1000;
     }
 
     /**
-     * Returns true if given integer {@code test} is a valid credits required (i.e. more than 0).
+     * Returns true if given integer {@code test} is a valid credits required
+     * (i.e. more than 0 and less than 1000).
      */
     public static boolean isValidCreditsRequired(int test) {
-        return test > 0;
+        return test > 0 && test < 1000;
     }
 
     /**
-     * Returns true if given integer {@code test} is a valid credits fulfilled (i.e. more than or equals 0).
+     * Returns true if given integer {@code test} is a valid credits fulfilled
+     * (i.e. more than or equals 0 and less than 1000).
      */
     public static boolean isValidCreditsFulfilled(int test) {
-        return test >= 0;
+        return test >= 0 && test < 1000;
     }
 
     /**
