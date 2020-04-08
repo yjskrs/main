@@ -80,7 +80,7 @@ public class CsvWriter {
             "Semester",
             "Module Code",
             "Module Title",
-            "MCs"
+            "Module Credits"
         };
 
         for (String header : headers) {

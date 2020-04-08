@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.module.Module;
 import igrad.testutil.ModuleBuilder;
 
@@ -20,7 +21,7 @@ public class ModuleAddAutoCommandTest {
     }
 
     @Test
-    public void execute_multipleModulesAcceptedByModel_invalidModuleNotAdded() {
+    public void execute_multipleModulesAcceptedByModel_invalidModuleNotAdded() throws CommandException {
 
         ModuleCommandTestUtil.ModelStubAcceptingModuleAdded modelStub =
             new ModuleCommandTestUtil.ModelStubAcceptingModuleAdded();
@@ -63,7 +64,7 @@ public class ModuleAddAutoCommandTest {
     }
 
     @Test
-    public void execute_multipleModulesAcceptedByModel_addSuccessful() {
+    public void execute_multipleModulesAcceptedByModel_addSuccessful() throws CommandException {
 
         ModuleCommandTestUtil.ModelStubAcceptingModuleAdded modelStub =
             new ModuleCommandTestUtil.ModelStubAcceptingModuleAdded();
@@ -107,7 +108,7 @@ public class ModuleAddAutoCommandTest {
     }
 
     @Test
-    public void execute_moduleAcceptedByModel_addSuccessful() {
+    public void execute_moduleAcceptedByModel_addSuccessful() throws CommandException {
 
         ModuleCommandTestUtil.ModelStubAcceptingModuleAdded modelStub =
             new ModuleCommandTestUtil.ModelStubAcceptingModuleAdded();
@@ -131,7 +132,7 @@ public class ModuleAddAutoCommandTest {
     }
 
     @Test
-    public void execute_duplicateModuleNotAdded() {
+    public void execute_duplicateModuleNotAdded() throws CommandException {
 
         ModuleCommandTestUtil.ModelStubAcceptingModuleAdded modelStub =
             new ModuleCommandTestUtil.ModelStubAcceptingModuleAdded();

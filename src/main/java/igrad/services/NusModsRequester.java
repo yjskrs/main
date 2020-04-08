@@ -1,6 +1,5 @@
 package igrad.services;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
@@ -8,7 +7,6 @@ import java.util.logging.Logger;
 
 import igrad.commons.core.LogsCenter;
 import igrad.logic.parser.CliSyntax;
-import igrad.services.exceptions.ServiceException;
 
 /**
  * The client of NUSMods which makes requests from NUSMods API
@@ -26,32 +24,19 @@ public class NusModsRequester {
      * @param moduleCode code of module to be fetched from NUSMods API
      * @return a {@code JsonParsedModule} object
      */
-    public static JsonParsedModule getModule(String moduleCode) throws IOException, ServiceException {
+    public static JsonParsedModule getModule(String moduleCode) throws IOException {
 
-        String academicYear = getAcademicYear(false);
-        GetRequestManager getRequestManager = new GetRequestManager(getUrlPath(academicYear, moduleCode));
+        String academicYear = getAcademicYear(true);
+        String urlPath = getUrlPath(academicYear, moduleCode);
+        GetRequestManager getRequestManager = new GetRequestManager(urlPath);
         String res;
-        JsonParsedModule jsonParsedModule = null;
+        JsonParsedModule jsonParsedModule;
 
         try {
             res = getRequestManager.makeRequest();
             jsonParsedModule = JsonParsedModule.initJsonParsedModule(res);
-        } catch (FileNotFoundException e1) {
-            logger.warning(fileNotFoundMsg);
-
-            academicYear = getAcademicYear(true);
-            GetRequestManager getRequestManager2 = new GetRequestManager(getUrlPath(academicYear, moduleCode));
-
-            try {
-                res = getRequestManager2.makeRequest();
-                jsonParsedModule = JsonParsedModule.initJsonParsedModule(res);
-            } catch (FileNotFoundException e2) {
-                logger.warning(fileNotFoundMsg);
-                throw new ServiceException(fileNotFoundMsg, e2);
-            }
-
         } catch (IOException e) {
-            logger.warning("Error attempting to read from response stream");
+            logger.warning("hello");
             throw e;
         }
 

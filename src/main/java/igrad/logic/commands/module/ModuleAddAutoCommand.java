@@ -14,6 +14,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import igrad.logic.commands.CommandResult;
+import igrad.logic.commands.exceptions.CommandException;
 import igrad.logic.parser.module.ModuleStringParser;
 import igrad.model.Model;
 import igrad.model.module.Credits;
@@ -22,7 +23,6 @@ import igrad.model.module.ModuleCode;
 import igrad.model.module.Title;
 import igrad.services.JsonParsedModule;
 import igrad.services.NusModsRequester;
-import igrad.services.exceptions.ServiceException;
 
 /**
  * Adds a module to the course book.
@@ -43,6 +43,10 @@ public class ModuleAddAutoCommand extends ModuleCommand {
         + PREFIX_CREDITS + "4 "
         + PREFIX_SEMESTER + "Y2S2 ";
 
+    public static final int MAX_SIZE = 10;
+
+    public static final String MESSAGE_MODULE_OVERLOAD = "Please do not attempt to "
+        + "add more than %d modules.\nYou attempted to add %d modules.\n";
     public static final String MESSAGE_COMPLETE = "%d module(s) added through NUSMods API.\n";
     public static final String MESSAGE_SUCCESS = "Added module: %s\n";
     public static final String MESSAGE_DUPLICATE_MODULE = "ERROR: Duplicate detected: %s\n";
@@ -63,8 +67,12 @@ public class ModuleAddAutoCommand extends ModuleCommand {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        if (toAddList.size() > MAX_SIZE) {
+            throw new CommandException(String.format(MESSAGE_MODULE_OVERLOAD, MAX_SIZE, toAddList.size()));
+        }
 
         ArrayList<Module> modules = new ArrayList<>();
 
@@ -76,7 +84,7 @@ public class ModuleAddAutoCommand extends ModuleCommand {
 
             try {
                 jsonParsedModule = NusModsRequester.getModule(moduleCodeStr);
-            } catch (IOException | ServiceException e) {
+            } catch (IOException e) {
                 messageAdditional.append(String.format(MESSAGE_REQUEST_FAILED, moduleCodeStr));
                 continue;
             }
@@ -112,11 +120,12 @@ public class ModuleAddAutoCommand extends ModuleCommand {
             .filter(m -> !model.hasModule(m))
             .collect(Collectors.toCollection(ArrayList::new));
 
+        StringBuilder message = getMessage(modules, model, modulesToAdd);
+
         for (Module module : modulesToAdd) {
             model.addModule(module);
         }
 
-        StringBuilder message = getMessage(modules, model, modulesToAdd);
         message.append(messageAdditional);
 
         return new CommandResult(message.toString());
