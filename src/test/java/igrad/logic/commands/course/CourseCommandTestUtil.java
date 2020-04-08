@@ -19,6 +19,8 @@ public class CourseCommandTestUtil extends CommandTestUtil {
     public static final int VALID_COURSE_CREDITS_REQUIRED_BCOMPSEC = 108;
     public static final int VALID_COURSE_CREDITS_FULFILLED_BCOMPSCI = 64;
     public static final int VALID_COURSE_CREDITS_FULFILLED_BCOMPSEC = 40;
+    public static final String VALID_COURSE_SEMESTERS_BCOMPSCI = "3";
+    public static final String VALID_COURSE_SEMESTERS_BCOMPSEC = "4";
 
     // invalid course arguments
     /*public static final String INVALID_REQ_CODE_DECIMAL = "RE1.0";
