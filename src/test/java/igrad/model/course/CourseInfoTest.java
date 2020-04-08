@@ -10,17 +10,18 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
+import igrad.model.requirement.Requirement;
 import igrad.testutil.CourseInfoBuilder;
 import igrad.testutil.TypicalCourseInfos;
 import igrad.testutil.TypicalModules;
 
 public class CourseInfoTest {
-    private final CourseInfo courseInfo = new CourseInfoBuilder().build();
-
     @Test
     public void constructor_withNoArgs_createsCourseInfoWithAllFieldsOptionalEmpty() {
         CourseInfo emptyCourseInfo = new CourseInfoBuilder().buildEmptyCourseInfo();
@@ -78,6 +79,17 @@ public class CourseInfoTest {
             .build();
 
         assertEquals(newSemesters, newCourseInfo.getSemesters());
+    }
+
+    @Test
+    public void computeCredits_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> CourseInfo.computeCredits(null));
+    }
+
+    @Test
+    public void computeCredits_emptyRequirementList_returnsOptionalEmpty() {
+        List<Requirement> emptyRequirementList = new ArrayList<Requirement>();
+        assertEquals(Optional.empty(), CourseInfo.computeCredits(emptyRequirementList));
     }
 
     @Test

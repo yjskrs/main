@@ -79,6 +79,8 @@ public class CourseInfo {
      * {@code requirementList} passed in.
      */
     public static Optional<Credits> computeCredits(List<Requirement> requirementList) {
+        requireAllNonNull(requirementList);
+
         // If the requirementList is empty, there's no talk about this, Credits would be Optional.empty
         if (requirementList.isEmpty()) {
             return Optional.empty();
@@ -125,6 +127,8 @@ public class CourseInfo {
      * in {@code requirementList} and list of {@code Module}s in {@code moduleList} passed in.
      */
     public static Optional<Cap> computeCap(List<Module> moduleList, List<Requirement> requirementList) {
+        requireAllNonNull(moduleList, requirementList);
+
         /*
          * If the moduleList or requirementList is empty, there's no talk about this, Cap would be
          * Optional.empty, because there is (literally) nothing by which cap could be computed upon
@@ -190,6 +194,7 @@ public class CourseInfo {
      * passed in.
      */
     public static Optional<Semesters> computeSemesters(Optional<Semesters> semesters, List<Module> moduleList) {
+        requireAllNonNull(semesters, moduleList);
 
         if (moduleList.isEmpty()) {
             return Optional.of(new Semesters(semesters.get().toString()));
