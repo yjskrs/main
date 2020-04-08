@@ -1,6 +1,6 @@
 package igrad.model.course;
 
-import igrad.model.Model;
+import igrad.model.course.exceptions.CapOverflowException;
 
 import java.util.Optional;
 
@@ -53,32 +53,40 @@ public class Cap {
     public static boolean isValidCap(String test) {
         requireNonNull(test);
 
+        if (test.isEmpty()) {
+            return false;
+        }
+
         return  (Double.parseDouble(test) >= 0) && (Double.parseDouble(test) <= 5.0);
     }
 
     /**
      * Returns an estimated Cap (Double) based on {@code Model} and {@code Cap} object passed in.
      */
-    public static double computeEstimatedCap(Model model, Cap capToAchieve) {
-        Optional<Semesters> semesters = model.getCourseInfo().getSemesters();
+    public static Optional<Cap> computeEstimatedCap(CourseInfo courseInfo, Cap capToAchieve) {
+        Optional<Semesters> semesters = courseInfo.getSemesters();
         int totalSemesters = semesters.get().getTotalSemesters();
         int remainingSemesters = semesters.get().getRemainingSemesters();
 
-        Optional<Cap> current = model.getCourseInfo().getCap();
+        Optional<Cap> current = courseInfo.getCap();
 
         if (current.isEmpty()) {
-            return Double.parseDouble(capToAchieve.toString());
+            return Optional.of(capToAchieve);
         } else {
             totalSemesters = remainingSemesters + 1;
         }
 
-        Cap currentCap = model.getCourseInfo().getCap().orElse(CAP_ZERO);
+        Cap currentCap = courseInfo.getCap().orElse(CAP_ZERO);
         double capWanted = capToAchieve.value;
         double capNow = currentCap.value;
 
         double estimatedCapEachSem = ((capWanted * totalSemesters) - capNow) / remainingSemesters;
 
-        return estimatedCapEachSem;
+        if (!isValidCap(estimatedCapEachSem)) {
+            throw new CapOverflowException(estimatedCapEachSem);
+        }
+
+        return Optional.of(new Cap(Double.toString(estimatedCapEachSem)));
     }
 
     @Override
