@@ -1,4 +1,4 @@
-package igrad.logic.parser;
+package igrad.logic.parser.module;
 
 import static igrad.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static igrad.logic.parser.CliSyntax.PREFIX_TAG;
@@ -6,7 +6,6 @@ import static igrad.logic.parser.CliSyntax.PREFIX_TAG;
 import org.junit.jupiter.api.Test;
 
 import igrad.logic.commands.module.ModuleEditCommand;
-import igrad.logic.parser.module.ModuleEditCommandParser;
 
 public class ModuleEditCommandParserTest {
 

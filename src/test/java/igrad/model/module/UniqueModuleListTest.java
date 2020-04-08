@@ -1,10 +1,8 @@
 package igrad.model.module;
 
-import static igrad.logic.commands.CommandTestUtil.VALID_MODULE_CODE_PROGRAMMING_METHODOLOGY;
-import static igrad.logic.commands.CommandTestUtil.VALID_TITLE_COMPUTER_ORGANISATION;
+import static igrad.logic.commands.CommandTestUtil.VALID_MODULE_CODE_CS_1101S;
+import static igrad.logic.commands.CommandTestUtil.VALID_TITLE_CS_2100;
 import static igrad.testutil.Assert.assertThrows;
-import static igrad.testutil.TypicalModules.COMPUTER_ORGANISATION;
-import static igrad.testutil.TypicalModules.PROGRAMMING_METHODOLOGY;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -18,12 +16,13 @@ import org.junit.jupiter.api.Test;
 import igrad.model.module.exceptions.DuplicateModuleException;
 import igrad.model.module.exceptions.ModuleNotFoundException;
 import igrad.testutil.ModuleBuilder;
+import igrad.testutil.TypicalModules;
 
 public class UniqueModuleListTest {
 
     private final UniqueModuleList uniqueModuleList = new UniqueModuleList();
-    private final Module CS1101S = PROGRAMMING_METHODOLOGY;
-    private final Module CS2100 = COMPUTER_ORGANISATION;
+    private final Module CS1101S = TypicalModules.CS1101S;
+    private final Module CS2100 = TypicalModules.CS2100;
 
     @Test
     public void contains_nullModule_throwsNullPointerException() {
@@ -50,7 +49,7 @@ public class UniqueModuleListTest {
     public void contains_moduleWithSameIdentityFieldsInList_returnsTrue() {
         uniqueModuleList.add(CS1101S);
         Module editedModule = new ModuleBuilder()
-                .withModuleCode(VALID_MODULE_CODE_PROGRAMMING_METHODOLOGY)
+                .withModuleCode(VALID_MODULE_CODE_CS_1101S)
                 .build();
         assertTrue(uniqueModuleList.contains(editedModule));
     }
@@ -99,7 +98,7 @@ public class UniqueModuleListTest {
     public void setModule_editedModuleHasSameIdentity_success() {
         uniqueModuleList.add(CS1101S);
         Module editedModule = new ModuleBuilder(CS1101S)
-                .withModuleCode(VALID_MODULE_CODE_PROGRAMMING_METHODOLOGY)
+                .withModuleCode(VALID_MODULE_CODE_CS_1101S)
                .build();
         uniqueModuleList.setModule(CS1101S, editedModule);
         UniqueModuleList differentUniqueModuleList = new UniqueModuleList();
@@ -120,8 +119,8 @@ public class UniqueModuleListTest {
     public void setPerson_editedPersonHasNonUniqueIdentity_throwsDuplicatePersonException() {
         uniqueModuleList.add(CS1101S);
         Module newModule = new ModuleBuilder()
-                .withTitle(VALID_TITLE_COMPUTER_ORGANISATION)
-                .withModuleCode(VALID_MODULE_CODE_PROGRAMMING_METHODOLOGY)
+                .withTitle(VALID_TITLE_CS_2100)
+                .withModuleCode(VALID_MODULE_CODE_CS_1101S)
                 .build();
         assertThrows(DuplicateModuleException.class, () -> uniqueModuleList.add(newModule));
     }

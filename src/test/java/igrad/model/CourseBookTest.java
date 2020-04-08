@@ -45,10 +45,10 @@ public class CourseBookTest {
     @Test
     public void resetData_withDuplicateModules_throwsDuplicatePersonException() {
         // Two modules with the same identity fields
-        Module editedProgrammingMethodology = new ModuleBuilder(TypicalModules.PROGRAMMING_METHODOLOGY)
+        Module editedProgrammingMethodology = new ModuleBuilder(TypicalModules.CS1101S)
             // .withTags(CommandTestUtil.VALID_TAG_HARD)
             .build();
-        List<Module> newModules = Arrays.asList(TypicalModules.PROGRAMMING_METHODOLOGY, editedProgrammingMethodology);
+        List<Module> newModules = Arrays.asList(TypicalModules.CS1101S, editedProgrammingMethodology);
         CourseBookStub newData = new CourseBookStub(newModules);
 
         assertThrows(DuplicateModuleException.class, () -> courseBook.resetData(newData));
@@ -61,19 +61,19 @@ public class CourseBookTest {
 
     @Test
     public void hasModule_moduleNotInCourseBook_returnsFalse() {
-        assertFalse(courseBook.hasModule(TypicalModules.PROGRAMMING_METHODOLOGY));
+        assertFalse(courseBook.hasModule(TypicalModules.CS1101S));
     }
 
     @Test
     public void hasModule_moduleInCourseBook_returnsTrue() {
-        courseBook.addModule(TypicalModules.PROGRAMMING_METHODOLOGY);
-        assertTrue(courseBook.hasModule(TypicalModules.PROGRAMMING_METHODOLOGY));
+        courseBook.addModule(TypicalModules.CS1101S);
+        assertTrue(courseBook.hasModule(TypicalModules.CS1101S));
     }
 
     @Test
     public void hasModule_moduleWithSameIdentityFieldsInCourseBook_returnsTrue() {
-        courseBook.addModule(TypicalModules.PROGRAMMING_METHODOLOGY);
-        Module editedAlice = new ModuleBuilder(TypicalModules.PROGRAMMING_METHODOLOGY)
+        courseBook.addModule(TypicalModules.CS1101S);
+        Module editedAlice = new ModuleBuilder(TypicalModules.CS1101S)
             // .withTags(CommandTestUtil.VALID_TAG_HARD)
             .build();
         assertTrue(courseBook.hasModule(editedAlice));

@@ -38,12 +38,9 @@ public class ModuleFilterCommandParser extends ModuleCommandParser implements Pa
         ArgumentMultimap argMultimap =
             ArgumentTokenizer.tokenize(args, PREFIX_SEMESTER, PREFIX_CREDITS, PREFIX_GRADE);
 
-
-        System.out.println(operator);
-
         /*
-         * If all arguments in the command are empty; i.e, 'module filter', and nothing else (except preambles), show
-         * the help message for this command
+         * If all arguments in the command are empty; i.e, 'module filter', and nothing else (except preambles),
+         * refresh the list (show full module list)
          */
         if (argMultimap.isEmpty(false)) {
             return new ModuleFilterCommand();

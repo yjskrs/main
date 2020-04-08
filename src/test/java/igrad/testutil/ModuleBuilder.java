@@ -19,7 +19,7 @@ public class ModuleBuilder {
     public static final String DEFAULT_MODULE_CODE = "CS1101S";
     public static final String DEFAULT_CREDITS = "4";
     public static final String DEFAULT_SEMESTER = "Y1S1";
-    public static final String DEFAULT_DESCRIPTION = "blah";
+    public static final String DEFAULT_DESCRIPTION = "Good Module";
     public static final String DEFAULT_GRADE = "A+";
 
     private Title title;
@@ -81,6 +81,7 @@ public class ModuleBuilder {
         return this;
     }
 
+
     /**
      * Sets the {@code Semester} of the {@code Module} that we are building.
      */
@@ -98,10 +99,20 @@ public class ModuleBuilder {
     }
 
     /**
+     * Sets all the optional fields to empty
+     */
+    public ModuleBuilder withoutOptionals() {
+        this.grade = Optional.empty();
+        this.semester = Optional.empty();
+        this.description = Optional.empty();
+
+        return this;
+    }
+
+    /**
      * Builds a {@code Module} for testing
      */
     public Module build() {
-        // TODO: Add support for grade
         return new Module(title, moduleCode, credits, semester, description, grade);
     }
 

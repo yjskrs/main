@@ -22,7 +22,8 @@ public class CourseAddCommand extends CourseCommand {
     public static final String MESSAGE_COURSE_ADD_USAGE = "Parameter(s): "
         + PREFIX_NAME + "COURSE_NAME " + PREFIX_SEMESTER + "TOTAL_SEMESTERS\n"
         + "Example: " + COURSE_ADD_COMMAND_WORD + " "
-        + PREFIX_NAME + "Bachelor of Computing (Honours) in Computer Science ";
+        + PREFIX_NAME + "Computer Science "
+        + PREFIX_SEMESTER + "Y1S1";
 
     public static final String MESSAGE_COURSE_ADD_HELP = MESSAGE_COURSE_ADD_DETAILS + MESSAGE_COURSE_ADD_USAGE;
 
