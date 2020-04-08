@@ -1,4 +1,4 @@
-package igrad.logic.commands;
+package igrad.logic.commands.module;
 
 import static igrad.testutil.TypicalModules.getTypicalCourseBook;
 
@@ -12,7 +12,7 @@ import igrad.model.UserPrefs;
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests
  * for ModuleEditCommand.
  */
-public class EditCommandTest {
+public class ModuleEditCommandTest {
 
     private Model model = new ModelManager(getTypicalCourseBook(), new UserPrefs());
 

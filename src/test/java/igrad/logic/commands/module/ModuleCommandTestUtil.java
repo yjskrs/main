@@ -1,4 +1,4 @@
-package igrad.logic.commands;
+package igrad.logic.commands.module;
 
 import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
 import static igrad.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
@@ -17,8 +17,9 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 import igrad.commons.core.GuiSettings;
+import igrad.logic.commands.Command;
+import igrad.logic.commands.CommandResult;
 import igrad.logic.commands.exceptions.CommandException;
-import igrad.logic.commands.module.ModuleEditCommand;
 import igrad.model.CourseBook;
 import igrad.model.Model;
 import igrad.model.ReadOnlyCourseBook;
@@ -32,65 +33,33 @@ import igrad.model.requirement.Requirement;
 import igrad.model.requirement.RequirementCode;
 import igrad.testutil.EditModuleDescriptorBuilder;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 
 /**
  * Contains helper methods for testing commands.
  */
-public class CommandTestUtil {
+public class ModuleCommandTestUtil {
 
-    public static final String VALID_NAME_B_COMP_SCI = "Bachelor of Computing (Honours) in Computer Science";
-    public static final String VALID_NAME_B_ARTS_PHILO = "Bachelor of Arts (Honours) in Philosophy";
+    public static final String VALID_TITLE_CS1101S = "Programming Methodology";
+    public static final String VALID_TITLE_CS2100 = "Computer Organisation";
+    public static final String VALID_TITLE_CS2103T = "Software Engineering";
+    public static final String VALID_TITLE_CS2101 = "Effective Communication for Computing Professionals";
+    public static final String VALID_TITLE_CS2040 = "Data Structures and Algorithms";
 
-    public static final String VALID_TITLE_CS_1101S = "Programming Methodology";
-    public static final String VALID_TITLE_CS_2100 = "Computer Organisation";
-    public static final String VALID_TITLE_CS_2103T = "Software Engineering";
-    public static final String VALID_TITLE_CS_2101 = "Effective Communication for Computing Professionals";
-    public static final String VALID_TITLE_CS_2040 = "Data Structures and Algorithms";
-
-    public static final String VALID_MODULE_CODE_CS_1101S = "CS1101S";
-    public static final String VALID_MODULE_CODE_CS_2100 = "CS2100";
-    public static final String VALID_MODULE_CODE_CS_2103T = "CS2103T";
-    public static final String VALID_MODULE_CODE_CS_2101 = "CS2101";
-    public static final String VALID_MODULE_CODE_CS_2040 = "CS2040";
+    public static final String VALID_MODULE_CODE_CS1101S = "CS1101S";
+    public static final String VALID_MODULE_CODE_CS2100 = "CS2100";
+    public static final String VALID_MODULE_CODE_CS2103T = "CS2103T";
+    public static final String VALID_MODULE_CODE_CS2101 = "CS2101";
+    public static final String VALID_MODULE_CODE_CS2040 = "CS2040";
 
     public static final String VALID_CREDITS_4 = "4";
     public static final String VALID_CREDITS_6 = "6";
 
     public static final String VALID_SEMESTER_Y1S1 = "Y1S1";
-    public static final String VALID_SEMESTER_Y2S2 = "Y1S1";
-
-    public static final String VALID_TAG_EASY = "easy";
-    public static final String VALID_TAG_HARD = "hard";
+    public static final String VALID_SEMESTER_Y2S2 = "Y2S2";
 
     public static final String VALID_GRADE_A = "A";
     public static final String VALID_GRADE_B = "B";
-
-    public static final String TITLE_DESC_PROGRAMMING_METHODOLOGY = " " + PREFIX_TITLE
-        + VALID_TITLE_CS_1101S;
-
-    public static final String TITLE_DESC_COMPUTER_ORGANISATION = " " + PREFIX_TITLE
-        + VALID_TITLE_CS_2100;
-
-    public static final String MODULE_CODE_DESC_PROGRAMMING_METHODOLOGY = " " + PREFIX_MODULE_CODE
-        + VALID_MODULE_CODE_CS_1101S;
-
-    public static final String MODULE_CODE_DESC_COMPUTER_ORGANISATION = " " + PREFIX_MODULE_CODE
-        + VALID_MODULE_CODE_CS_2100;
-
-    public static final String CREDITS_DESC_PROGRAMMING_METHODOLOGY = " " + PREFIX_CREDITS
-        + VALID_CREDITS_4;
-
-    public static final String CREDITS_DESC_COMPUTER_ORGANISATION = " " + PREFIX_CREDITS
-        + VALID_CREDITS_6;
-
-    public static final String SEMESTER_DESC_PROGRAMMING_METHODOLOGY = " " + PREFIX_SEMESTER
-        + VALID_SEMESTER_Y1S1;
-
-    public static final String SEMESTER_DESC_COMPUTER_ORGANISATION = " " + PREFIX_SEMESTER
-        + VALID_SEMESTER_Y2S2;
-
-    public static final String TAG_DESC_EASY = " " + PREFIX_TAG + VALID_TAG_EASY;
-    public static final String TAG_DESC_HARD = " " + PREFIX_TAG + VALID_TAG_HARD;
 
     // '!' not allowed in module codes
     public static final String INVALID_TITLE_DESC = " " + PREFIX_TITLE + "Programming Methodology!";
@@ -115,14 +84,14 @@ public class CommandTestUtil {
 
     static {
         DESC_PROGRAMMING_METHODOLOGY = new EditModuleDescriptorBuilder()
-            .withTitle(VALID_TITLE_CS_1101S)
-            .withModuleCode(VALID_MODULE_CODE_CS_1101S)
+            .withTitle(VALID_TITLE_CS1101S)
+            .withModuleCode(VALID_MODULE_CODE_CS1101S)
             .withCredits(VALID_CREDITS_4)
             .withSemester(VALID_SEMESTER_Y1S1).build();
 
         DESC_COMPUTER_ORGANISATION = new EditModuleDescriptorBuilder()
-            .withTitle(VALID_TITLE_CS_2100)
-            .withModuleCode(VALID_MODULE_CODE_CS_2100)
+            .withTitle(VALID_TITLE_CS2100)
+            .withModuleCode(VALID_MODULE_CODE_CS2100)
             .withCredits(VALID_CREDITS_6)
             .withSemester(VALID_SEMESTER_Y2S2).build();
     }
@@ -142,7 +111,6 @@ public class CommandTestUtil {
             throw new AssertionError("Execution of command should not fail.", ce);
         }
     }
-
 
     /**
      * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandResult, Model)}
@@ -293,6 +261,16 @@ public class CommandTestUtil {
         }
 
         @Override
+        public Optional<Module> getModule(ModuleCode moduleCode) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public List<Module> getModules(List<ModuleCode> moduleCodes) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void addRequirement(Requirement requirement) {
             throw new AssertionError("This method should not be called.");
         }
@@ -343,16 +321,6 @@ public class CommandTestUtil {
         }
 
         @Override
-        public Optional<Module> getModule(ModuleCode moduleCode) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public List<Module> getModules(List<ModuleCode> moduleCodes) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public boolean hasModulePreclusions(Module module) {
             throw new AssertionError("This method should not be called.");
         }
@@ -386,5 +354,114 @@ public class CommandTestUtil {
         }
     }
 
+    /**
+     * A Model stub that helps to test filtering
+     */
+    public static class ModelStubAcceptingFilteredModules extends ModelStub {
+
+        final CourseBook courseBook = getCourseBook();
+        final FilteredList<Module> filteredModules = new FilteredList<>(courseBook.getModuleList());
+
+        @Override
+        public void addModule(Module module) {
+            requireNonNull(module);
+            courseBook.addModule(module);
+        }
+
+        @Override
+        public void updateFilteredModuleList(Predicate<Module> predicate) {
+            requireNonNull(predicate);
+            filteredModules.setPredicate(predicate);
+        }
+
+        @Override
+        public CourseBook getCourseBook() {
+            return new CourseBook();
+        }
+
+        @Override
+        public ObservableList<Module> getFilteredModuleList() {
+            return filteredModules;
+        }
+    }
+
+    /**
+     * A Model stub that always accept the module being added.
+     */
+    public static class ModelStubAcceptingModuleAdded extends ModelStub {
+        final ArrayList<Module> modulesAdded = new ArrayList<>();
+
+        @Override
+        public boolean hasModule(Module module) {
+            requireNonNull(module);
+            return modulesAdded.stream().anyMatch(module::isSameModule);
+        }
+
+        @Override
+        public void addModule(Module module) {
+            requireNonNull(module);
+            modulesAdded.add(module);
+        }
+
+        @Override
+        public ReadOnlyCourseBook getCourseBook() {
+            return new CourseBook();
+        }
+
+        public ArrayList<Module> getModulesAdded() {
+            return modulesAdded;
+        }
+
+        @Override
+        public boolean hasModulePreclusions(Module module) {
+            requireNonNull(module);
+
+            boolean hasModulePreclusions = false;
+
+            if (module.getPreclusions().isPresent()) {
+
+                ModuleCode[] preclusions = module.getPreclusions().get();
+
+                for (ModuleCode preclusion : preclusions) {
+                    Optional<Module> mOpt = getModule(preclusion);
+                    if (mOpt.isPresent()) {
+                        hasModulePreclusions = true;
+                    }
+                }
+
+            }
+
+            return hasModulePreclusions;
+
+        }
+
+        @Override
+        public boolean hasModulePrerequisites(Module module) {
+            requireNonNull(module);
+
+            boolean hasModulePrerequisites = true;
+
+            if (module.getPrequisites().isPresent()) {
+
+                ModuleCode[] preqrequisites = module.getPrequisites().get();
+
+                for (ModuleCode prerequisite : preqrequisites) {
+                    Optional<Module> mOpt = getModule(prerequisite);
+                    if (mOpt.isEmpty()) {
+                        hasModulePrerequisites = false;
+                    } else {
+                        Module m = mOpt.get();
+                        if (!m.isDone()) {
+                            hasModulePrerequisites = false;
+                        }
+                    }
+                }
+
+            }
+
+            return hasModulePrerequisites;
+
+        }
+    }
 }
 
