@@ -46,17 +46,19 @@ public class CommandTestUtil {
     public static final String VALID_TITLE_CS_2103T = "Software Engineering";
     public static final String VALID_TITLE_CS_2101 = "Effective Communication for Computing Professionals";
     public static final String VALID_TITLE_CS_2040 = "Data Structures and Algorithms";
-
     public static final String VALID_MODULE_CODE_CS_1101S = "CS1101S";
     public static final String VALID_MODULE_CODE_CS_2100 = "CS2100";
     public static final String VALID_MODULE_CODE_CS_2103T = "CS2103T";
     public static final String VALID_MODULE_CODE_CS_2101 = "CS2101";
     public static final String VALID_MODULE_CODE_CS_2040 = "CS2040";
-
     public static final String VALID_CREDITS_4 = "4";
     public static final String VALID_CREDITS_6 = "6";
-
+    public static final String VALID_GRADE_PROGRAMMING_METHODOLOGY = "A+";
+    public static final String VALID_GRADE_COMPUTER_ORGANISATION = "B-";
+    public static final String VALID_MEMO_PROGRAMMING_METHODOLOGY = "v easy module leh";
+    public static final String VALID_MEMO_COMPUTER_ORGANISATION = "a lot of calculation ah";
     public static final String VALID_SEMESTER_Y1S1 = "Y1S1";
+    public static final String VALID_SEMESTER_Y1S2 = "Y1S2";
     public static final String VALID_SEMESTER_Y2S2 = "Y1S1";
 
     public static final String VALID_TAG_EASY = "easy";
