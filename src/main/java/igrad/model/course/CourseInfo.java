@@ -1,5 +1,6 @@
 package igrad.model.course;
 
+import static igrad.commons.util.CollectionUtil.requireAllNonNull;
 import static igrad.model.course.Cap.CAP_ZERO;
 
 import java.util.List;
@@ -48,6 +49,8 @@ public class CourseInfo {
      */
     public CourseInfo(Optional<Name> name, Optional<Cap> cap, Optional<Credits> credits,
                       Optional<Semesters> semesters) {
+        requireAllNonNull(name, cap, credits, semesters);
+
         this.name = name;
         this.cap = cap;
         this.credits = credits;
@@ -124,7 +127,7 @@ public class CourseInfo {
     public static Optional<Cap> computeCap(List<Module> moduleList, List<Requirement> requirementList) {
         /*
          * If the moduleList or requirementList is empty, there's no talk about this, Cap would be
-         * Optional.empty
+         * Optional.empty, because there is (literally) nothing by which cap could be computed upon
          */
         if (moduleList.isEmpty() || requirementList.isEmpty()) {
             return Optional.empty();

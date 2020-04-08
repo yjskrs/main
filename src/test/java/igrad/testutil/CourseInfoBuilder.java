@@ -6,6 +6,7 @@ import igrad.model.course.Cap;
 import igrad.model.course.CourseInfo;
 import igrad.model.course.Credits;
 import igrad.model.course.Name;
+import igrad.model.course.Semesters;
 
 /**
  * A utility class to help with building {@code CourseInfo} objects.
@@ -16,17 +17,18 @@ public class CourseInfoBuilder {
     public static final String DEFAULT_CAP = "4.5";
     public static final int DEFAULT_CREDITS_REQUIRED = 108;
     public static final int DEFAULT_CREDITS_FULFILLED = 45;
+    public static final String DEFAULT_SEMESTERS = "3";
 
     private Optional<Name> name;
     private Optional<Cap> cap;
     private Optional<Credits> credits;
-    // TODO: (Teri) add semsLeft
+    private Optional<Semesters> semesters;
 
     public CourseInfoBuilder() {
         name = Optional.of(new Name(DEFAULT_NAME));
         cap = Optional.of(new Cap(DEFAULT_CAP));
         credits = Optional.of(new Credits(DEFAULT_CREDITS_REQUIRED, DEFAULT_CREDITS_FULFILLED));
-
+        semesters = Optional.of(new Semesters(DEFAULT_SEMESTERS));
     }
 
     /**
@@ -36,6 +38,7 @@ public class CourseInfoBuilder {
         name = courseInfoToCopy.getName();
         cap = courseInfoToCopy.getCap();
         credits = courseInfoToCopy.getCredits();
+        semesters = courseInfoToCopy.getSemesters();
     }
 
     /**
@@ -63,10 +66,41 @@ public class CourseInfoBuilder {
     }
 
     /**
+     * Sets the {@code Semesters} of the {@code CourseInfo} that we are building.
+     */
+    public CourseInfoBuilder withSemesters(String totalSemesters) {
+        this.semesters = Optional.of(new Semesters(totalSemesters));
+        return this;
+    }
+
+    /**
      * Constructs a {@code CourseInfo} object based on the details supplied (if any)
      */
     public CourseInfo build() {
-        // TODO: just put optional for now, construct test cases involving cap as well
-        return new CourseInfo(name, cap, credits, Optional.empty());
+        return new CourseInfo(name, cap, credits, semesters);
+    }
+
+    /**
+     * Constructs a {@code CourseInfo} object with all fields Optional.empty()
+     */
+    public CourseInfo buildEmptyCourseInfo() {
+        name = Optional.empty();
+        cap = Optional.empty();
+        credits = Optional.empty();
+        semesters = Optional.empty();
+
+        return new CourseInfo(name, cap, credits, semesters);
+    }
+
+    /**
+     * Constructs a {@code CourseInfo} object with all fields null
+     */
+    public CourseInfo buildNullCourseInfo() {
+        name = null;
+        cap = null;
+        credits = null;
+        semesters = null;
+
+        return new CourseInfo(name, cap, credits, semesters);
     }
 }

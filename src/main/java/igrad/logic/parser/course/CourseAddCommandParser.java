@@ -50,24 +50,8 @@ public class CourseAddCommandParser extends CourseCommandParser implements Parse
         }
 
         /*
-         * course add n/NAME
-         *
-         * We have that; NAME is a compulsory field, so we're just validating for its
-         * presence in the below.
-         *
-         * But actually we don't need to validate for course name argument, as we did
-         * in module and requirement;
-         * if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_NAME)) {
-         *       throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
-                    MESSAGE_NOT_ADDED));
-         * }.
-         * This is because course has only one field; name, and fulfilling the above condition;
-         * where {@code argMultimap.isEmpty(false)} would automatically mean that the map has the
-         * argument we need, hence we don't need to re-validate for its presence.
-         * (Please read the Javadoc comments for {@code argMultimap.isEmpty(boolean checkPreamble)} for more
-         * details, if you would like to know more.)
+         * Parsing and setting the name of our new course
          */
-
         Optional<Name> name = parseName(argMultimap.getValue(PREFIX_NAME).get());
 
         /*
