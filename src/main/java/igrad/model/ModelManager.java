@@ -1,7 +1,6 @@
 package igrad.model;
 
 import static igrad.commons.util.CollectionUtil.requireAllNonNull;
-import static igrad.model.course.Cap.CAP_ZERO;
 import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
@@ -15,9 +14,7 @@ import java.util.logging.Logger;
 import igrad.commons.core.GuiSettings;
 import igrad.commons.core.LogsCenter;
 import igrad.model.avatar.Avatar;
-import igrad.model.course.Cap;
 import igrad.model.course.CourseInfo;
-import igrad.model.course.Semesters;
 import igrad.model.module.Module;
 import igrad.model.module.ModuleCode;
 import igrad.model.quotes.QuoteGenerator;

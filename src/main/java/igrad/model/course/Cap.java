@@ -1,11 +1,11 @@
 package igrad.model.course;
 
-import igrad.model.course.exceptions.CapOverflowException;
+import static igrad.commons.util.AppUtil.checkArgument;
+import static java.util.Objects.requireNonNull;
 
 import java.util.Optional;
 
-import static igrad.commons.util.AppUtil.checkArgument;
-import static java.util.Objects.requireNonNull;
+import igrad.model.course.exceptions.CapOverflowException;
 
 /**
  * Represents a Course Info's cap in the course book.
@@ -57,7 +57,7 @@ public class Cap {
             return false;
         }
 
-        return  (Double.parseDouble(test) >= 0) && (Double.parseDouble(test) <= 5.0);
+        return (Double.parseDouble(test) >= 0) && (Double.parseDouble(test) <= 5.0);
     }
 
     /**

@@ -183,8 +183,8 @@ public class CourseInfo {
     }
 
     /**
-     * Computes and returns a {@code Optional<Semesters>} object based on (Optional<Semesters>) object and a list of
-     * {@Module}s passed in.
+     * Computes and returns a {@code Optional<Semesters>} object based on {@code Optional<Semesters>} object and a
+     * list of {@code Module}s passed in.
      */
     public static Optional<Semesters> computeSemesters(Optional<Semesters> semesters, List<Module> moduleList) {
 

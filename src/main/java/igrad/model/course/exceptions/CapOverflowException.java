@@ -1,5 +1,8 @@
 package igrad.model.course.exceptions;
 
+/**
+ * Signals that the operation will result in overflow of Cap.
+ */
 public class CapOverflowException extends RuntimeException {
     public CapOverflowException(double cap) {
         super(String.format(
