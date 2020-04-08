@@ -411,6 +411,57 @@ public class ModuleCommandTestUtil {
         public ArrayList<Module> getModulesAdded() {
             return modulesAdded;
         }
+
+        @Override
+        public boolean hasModulePreclusions(Module module) {
+            requireNonNull(module);
+
+            boolean hasModulePreclusions = false;
+
+            if (module.getPreclusions().isPresent()) {
+
+                ModuleCode[] preclusions = module.getPreclusions().get();
+
+                for (ModuleCode preclusion : preclusions) {
+                    Optional<Module> mOpt = getModule(preclusion);
+                    if (mOpt.isPresent()) {
+                        hasModulePreclusions = true;
+                    }
+                }
+
+            }
+
+            return hasModulePreclusions;
+
+        }
+
+        @Override
+        public boolean hasModulePrerequisites(Module module) {
+            requireNonNull(module);
+
+            boolean hasModulePrerequisites = true;
+
+            if (module.getPrequisites().isPresent()) {
+
+                ModuleCode[] preqrequisites = module.getPrequisites().get();
+
+                for (ModuleCode prerequisite : preqrequisites) {
+                    Optional<Module> mOpt = getModule(prerequisite);
+                    if (mOpt.isEmpty()) {
+                        hasModulePrerequisites = false;
+                    } else {
+                        Module m = mOpt.get();
+                        if (!m.isDone()) {
+                            hasModulePrerequisites = false;
+                        }
+                    }
+                }
+
+            }
+
+            return hasModulePrerequisites;
+
+        }
     }
 }
 

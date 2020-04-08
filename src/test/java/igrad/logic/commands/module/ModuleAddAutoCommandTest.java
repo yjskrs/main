@@ -48,16 +48,16 @@ public class ModuleAddAutoCommandTest {
             .build();
 
         List<Module> validModules = new ArrayList<>();
-        List<String> validModuleStrings = new ArrayList<>();
+        List<String> moduleStrings = new ArrayList<>();
 
         validModules.add(cs2103t);
         validModules.add(cs2101);
 
-        validModuleStrings.add(cs2103t.getModuleCode().value);
-        validModuleStrings.add(cs2101.getModuleCode().value);
-        validModuleStrings.add(cs9999.getModuleCode().value);
+        moduleStrings.add(cs2103t.getModuleCode().value);
+        moduleStrings.add(cs2101.getModuleCode().value);
+        moduleStrings.add(cs9999.getModuleCode().value);
 
-        new ModuleAddAutoCommand(validModuleStrings).execute(modelStub);
+        new ModuleAddAutoCommand(moduleStrings).execute(modelStub);
 
         assertEquals(validModules, modelStub.getModulesAdded());
 
@@ -86,7 +86,7 @@ public class ModuleAddAutoCommandTest {
         Module cs2040 = new ModuleBuilder()
             .withModuleCode(ModuleCommandTestUtil.VALID_MODULE_CODE_CS2040)
             .withCredits(ModuleCommandTestUtil.VALID_CREDITS_4)
-            .withTitle(ModuleCommandTestUtil.VALID_TITLE_CS2100)
+            .withTitle(ModuleCommandTestUtil.VALID_TITLE_CS2040)
             .withoutOptionals()
             .build();
 
