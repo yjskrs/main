@@ -24,7 +24,6 @@ import igrad.model.Model;
 import igrad.model.ReadOnlyCourseBook;
 import igrad.model.ReadOnlyUserPrefs;
 import igrad.model.avatar.Avatar;
-import igrad.model.course.Cap;
 import igrad.model.course.CourseInfo;
 import igrad.model.module.Module;
 import igrad.model.module.ModuleCode;
@@ -331,11 +330,6 @@ public class CommandTestUtil {
 
         @Override
         public void updateRequirementList(Predicate<Requirement> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public Optional<Cap> computeEstimatedCap(Cap capToAchieve) {
             throw new AssertionError("This method should not be called.");
         }
 
