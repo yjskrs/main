@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.Optional;
 
 import igrad.logic.parser.exceptions.ParseException;
+import igrad.model.course.Cap;
 import igrad.model.course.Name;
 import igrad.model.course.Semesters;
 
@@ -22,7 +23,7 @@ public class CourseCommandParser {
         requireNonNull(name);
         String trimmedName = name.trim();
         if (!Name.isValidName(trimmedName)) {
-            throw new ParseException(igrad.model.module.Title.MESSAGE_CONSTRAINTS);
+            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
         return Optional.of(new Name(trimmedName));
     }
@@ -40,5 +41,20 @@ public class CourseCommandParser {
             throw new ParseException(Semesters.MESSAGE_CONSTRAINTS);
         }
         return Optional.of(new Semesters(trimmedSemesters));
+    }
+
+    /**
+     * Parses a (@code String cap} into a (@code Cap).
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code cap} is invalid.
+     */
+    public static Optional<Cap> parseCap(String cap) throws ParseException {
+        requireNonNull(cap);
+        String trimmedCap = cap.trim();
+        if (!Cap.isValidCap(trimmedCap)) {
+            throw new ParseException(Cap.MESSAGE_CONSTRAINTS);
+        }
+        return Optional.of(new Cap(trimmedCap));
     }
 }
