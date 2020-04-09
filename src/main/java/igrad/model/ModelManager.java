@@ -17,6 +17,8 @@ import igrad.model.avatar.Avatar;
 import igrad.model.course.CourseInfo;
 import igrad.model.module.Module;
 import igrad.model.module.ModuleCode;
+import igrad.model.module.ModulePreclusions;
+import igrad.model.module.ModulePrerequisites;
 import igrad.model.quotes.QuoteGenerator;
 import igrad.model.requirement.Requirement;
 import igrad.model.requirement.RequirementCode;
@@ -147,11 +149,13 @@ public class ModelManager implements Model {
 
         boolean hasModulePreclusions = false;
 
-        if (module.getPreclusions().isPresent()) {
+        ModulePreclusions preclusions = module.getPreclusions();
 
-            ModuleCode[] preclusions = module.getPreclusions().get();
+        if (!preclusions.isEmpty()) {
 
-            for (ModuleCode preclusion : preclusions) {
+            List<ModuleCode> moduleCodes = preclusions.getModuleCodes();
+
+            for (ModuleCode preclusion : moduleCodes) {
                 Optional<Module> mOpt = getModule(preclusion);
                 if (mOpt.isPresent()) {
                     hasModulePreclusions = true;
@@ -170,12 +174,14 @@ public class ModelManager implements Model {
 
         boolean hasModulePrerequisites = true;
 
-        if (module.getPrequisites().isPresent()) {
+        ModulePrerequisites prerequisites = module.getPrequisites();
 
-            ModuleCode[] preqrequisites = module.getPrequisites().get();
+        if (!prerequisites.isEmpty()) {
 
-            for (ModuleCode prerequisite : preqrequisites) {
-                Optional<Module> mOpt = getModule(prerequisite);
+            List<ModuleCode> moduleCodes = prerequisites.getModuleCodes();
+
+            for (ModuleCode moduleCode : moduleCodes) {
+                Optional<Module> mOpt = getModule(moduleCode);
                 if (mOpt.isEmpty()) {
                     hasModulePrerequisites = false;
                 } else {
@@ -231,24 +237,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasRequirement(Requirement requirement) {
-        requireNonNull(requirement);
-        return courseBook.hasRequirement(requirement);
-    }
-
-    @Override
-    public Optional<Requirement> getRequirement(RequirementCode requirementCode) {
-        requireNonNull(requirementCode);
-        return courseBook.getRequirement(requirementCode);
-    }
-
-    @Override
-    public List<Requirement> getRequirementsWithModule(Module module) {
-        requireNonNull(module);
-        return courseBook.getRequirementsWithModule(module);
-    }
-
-    @Override
     public Optional<Module> getModule(ModuleCode moduleCode) {
         requireNonNull(moduleCode);
         return courseBook.getModule(moduleCode);
@@ -261,7 +249,30 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasRequirement(Requirement requirement) {
+        requireNonNull(requirement);
+
+        return courseBook.hasRequirement(requirement);
+    }
+
+    @Override
+    public Optional<Requirement> getRequirement(RequirementCode requirementCode) {
+        requireNonNull(requirementCode);
+
+        return courseBook.getRequirement(requirementCode);
+    }
+
+    @Override
+    public List<Requirement> getRequirementsWithModule(Module module) {
+        requireNonNull(module);
+
+        return courseBook.getRequirementsWithModule(module);
+    }
+
+    @Override
     public void addRequirement(Requirement requirement) {
+        requireNonNull(requirement);
+
         courseBook.addRequirement(requirement);
         updateRequirementList(PREDICATE_SHOW_ALL_REQUIREMENTS);
     }
@@ -271,10 +282,13 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedRequirement);
 
         courseBook.setRequirement(target, editedRequirement);
+
     }
 
     @Override
-    public void deleteRequirement(Requirement requirement) {
+    public void removeRequirement(Requirement requirement) {
+        requireNonNull(requirement);
+
         courseBook.removeRequirement(requirement);
     }
 
@@ -315,9 +329,13 @@ public class ModelManager implements Model {
     @Override
     public void updateRequirementList(Predicate<Requirement> predicate) {
         requireNonNull(predicate);
+
         requirements.setPredicate(predicate);
     }
 
+    // util
+
+    //@author teriaiw
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
@@ -334,7 +352,8 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return courseBook.equals(other.courseBook)
             && userPrefs.equals(other.userPrefs)
-            && filteredModules.equals(other.filteredModules);
+            && filteredModules.equals(other.filteredModules)
+            && requirements.equals(other.requirements);
     }
 
 }

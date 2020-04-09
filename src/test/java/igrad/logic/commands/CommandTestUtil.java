@@ -3,7 +3,6 @@ package igrad.logic.commands;
 import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
 import static igrad.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
 import static igrad.logic.parser.CliSyntax.PREFIX_SEMESTER;
-import static igrad.logic.parser.CliSyntax.PREFIX_TAG;
 import static igrad.logic.parser.CliSyntax.PREFIX_TITLE;
 import static igrad.testutil.Assert.assertThrows;
 import static java.util.Objects.requireNonNull;
@@ -90,9 +89,6 @@ public class CommandTestUtil {
     public static final String SEMESTER_DESC_COMPUTER_ORGANISATION = " " + PREFIX_SEMESTER
         + VALID_SEMESTER_Y2S2;
 
-    public static final String TAG_DESC_EASY = " " + PREFIX_TAG + VALID_TAG_EASY;
-    public static final String TAG_DESC_HARD = " " + PREFIX_TAG + VALID_TAG_HARD;
-
     // '!' not allowed in module codes
     public static final String INVALID_TITLE_DESC = " " + PREFIX_TITLE + "Programming Methodology!";
 
@@ -104,9 +100,6 @@ public class CommandTestUtil {
 
     // '&' not allowed in semester
     public static final String INVALID_SEMESTER_DESC = " " + PREFIX_SEMESTER + "4%";
-
-    // '*' not allowed in tags
-    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "easy*";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
@@ -304,7 +297,7 @@ public class CommandTestUtil {
         }
 
         @Override
-        public void deleteRequirement(Requirement requirement) {
+        public void removeRequirement(Requirement requirement) {
             throw new AssertionError("This method should not be called.");
         }
 

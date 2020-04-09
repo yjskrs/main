@@ -27,6 +27,8 @@ import igrad.model.module.exceptions.ModuleNotFoundException;
 import igrad.testutil.ModuleBuilder;
 import igrad.testutil.RequirementBuilder;
 
+//@@author yjskrs
+
 public class RequirementTest {
     private final Requirement requirement = new RequirementBuilder().build();
     private final Module module = new ModuleBuilder().build();
@@ -51,9 +53,9 @@ public class RequirementTest {
     @Test
     public void resetModules_withDuplicateModules_throwsDuplicateModuleException() {
         Module other = new ModuleBuilder()
-            .withTitle("Pragramming Methadolajy")
-            .withCredits("8")
-            .build();
+                           .withTitle("Pragramming Methadolajy")
+                           .withCredits("8")
+                           .build();
         List<Module> modules = Arrays.asList(module, other);
         assertThrows(DuplicateModuleException.class, () -> requirement.resetModules(modules));
     }
@@ -79,8 +81,8 @@ public class RequirementTest {
     public void hasModule_withSameIdentityInRequirement_returnsTrue() {
         requirement.addModule(CS1101S);
         Module editedModule = new ModuleBuilder(CS1101S)
-            .withTitle("Some Other Title")
-            .build();
+                                  .withTitle("Some Other Title")
+                                  .build();
         assertTrue(requirement.hasModule(editedModule));
     }
 
@@ -107,8 +109,8 @@ public class RequirementTest {
     public void addModule_withSameIdentityInRequirement_throwsDuplicateModuleException() {
         requirement.addModule(module);
         Module sameModule = new ModuleBuilder(module)
-            .withTitle("Another Title")
-            .build();
+                                .withTitle("Another Title")
+                                .build();
         assertThrows(DuplicateModuleException.class, () -> requirement.addModule(sameModule));
     }
 
@@ -127,8 +129,8 @@ public class RequirementTest {
         requirement.addModule(module);
         assertEquals(Collections.singletonList(module), requirement.getModuleList());
         Module modifiedModule = new ModuleBuilder(module)
-            .withTitle("New Title")
-            .build();
+                                    .withTitle("New Title")
+                                    .build();
         requirement.setModule(module, modifiedModule);
         assertEquals(Collections.singletonList(modifiedModule), requirement.getModuleList());
     }
@@ -138,9 +140,9 @@ public class RequirementTest {
         requirement.addModule(module);
         assertEquals(Collections.singletonList(module), requirement.getModuleList());
         Module modifiedModule = new ModuleBuilder(module)
-            .withModuleCode("RN1111G")
-            .withTitle("New Title")
-            .build();
+                                    .withModuleCode("RN1111G")
+                                    .withTitle("New Title")
+                                    .build();
         requirement.setModule(module, modifiedModule);
         assertEquals(Collections.singletonList(modifiedModule), requirement.getModuleList());
     }
@@ -153,9 +155,9 @@ public class RequirementTest {
     @Test
     public void setModule_duplicateModule_throwsDuplicateModuleException() {
         Module otherModule = new ModuleBuilder(module)
-            .withModuleCode("RNG1111")
-            .withTitle("New Title")
-            .build();
+                                 .withModuleCode("RNG1111")
+                                 .withTitle("New Title")
+                                 .build();
         requirement.addModule(module);
         requirement.addModule(otherModule);
         Module modifiedOtherModule = new ModuleBuilder(otherModule).build();
@@ -179,8 +181,8 @@ public class RequirementTest {
         assertThrows(ModuleNotFoundException.class, () -> requirement.removeModule(module));
         requirement.addModule(module);
         Module modifiedModule = new ModuleBuilder(module)
-            .withTitle("This is a title")
-            .build();
+                                    .withTitle("This is a title")
+                                    .build();
         assertThrows(ModuleNotFoundException.class, () -> requirement.removeModule(modifiedModule));
     }
 
@@ -188,8 +190,8 @@ public class RequirementTest {
     public void getTitle_withEmptyRequirement_success() {
         Title newTitle = new Title(VALID_REQ_TITLE_MS);
         Requirement newReq = new RequirementBuilder(requirement)
-            .withTitle(VALID_REQ_TITLE_MS)
-            .build();
+                                 .withTitle(VALID_REQ_TITLE_MS)
+                                 .build();
         assertEquals(newTitle, newReq.getTitle());
     }
 
@@ -197,8 +199,8 @@ public class RequirementTest {
     public void getCredits_withEmptyRequirement_success() {
         Credits newCreds = new Credits(VALID_REQ_CREDITS_GE);
         Requirement newReq = new RequirementBuilder(requirement)
-            .withCreditsOneParameter(VALID_REQ_CREDITS_GE)
-            .build();
+                                 .withCreditsOneParameter(VALID_REQ_CREDITS_GE)
+                                 .build();
         assertEquals(newCreds, newReq.getCredits());
     }
 
@@ -227,20 +229,20 @@ public class RequirementTest {
 
         // different title
         Requirement editedRequirement = new RequirementBuilder(GENERAL_ELECTIVES)
-            .withTitle(VALID_REQ_TITLE_MS)
-            .build();
+                                            .withTitle(VALID_REQ_TITLE_MS)
+                                            .build();
         assertTrue(GENERAL_ELECTIVES.isSameRequirement(editedRequirement));
 
         // different credits
         editedRequirement = new RequirementBuilder(GENERAL_ELECTIVES)
-            .withCreditsOneParameter(VALID_REQ_CREDITS_MS)
-            .build();
+                                .withCreditsOneParameter(VALID_REQ_CREDITS_MS)
+                                .build();
         assertTrue(GENERAL_ELECTIVES.isSameRequirement(editedRequirement));
 
         // different requirement code
         editedRequirement = new RequirementBuilder(GENERAL_ELECTIVES)
-            .withRequirementCode(VALID_REQ_CODE_MS)
-            .build();
+                                .withRequirementCode(VALID_REQ_CODE_MS)
+                                .build();
         assertFalse(GENERAL_ELECTIVES.isSameRequirement(editedRequirement));
     }
 
@@ -261,9 +263,9 @@ public class RequirementTest {
 
         // different requirement title and credits
         Requirement other = new RequirementBuilder(GENERAL_ELECTIVES)
-            .withTitle(VALID_REQ_TITLE_MS)
-            .withCreditsOneParameter(VALID_REQ_CREDITS_MS)
-            .build();
+                                .withTitle(VALID_REQ_TITLE_MS)
+                                .withCreditsOneParameter(VALID_REQ_CREDITS_MS)
+                                .build();
         assertFalse(GENERAL_ELECTIVES.equals(other));
     }
 
