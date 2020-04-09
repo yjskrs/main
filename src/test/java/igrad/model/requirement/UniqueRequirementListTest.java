@@ -18,6 +18,8 @@ import igrad.model.requirement.exceptions.DuplicateRequirementException;
 import igrad.model.requirement.exceptions.RequirementNotFoundException;
 import igrad.testutil.RequirementBuilder;
 
+//@@author yjskrs
+
 public class UniqueRequirementListTest {
     private final UniqueRequirementList uniqueRequirementList = new UniqueRequirementList();
 
@@ -130,8 +132,10 @@ public class UniqueRequirementListTest {
     public void setRequirements_uniqueRequirementList_replacesOwnListWithProvidedUniqueRequirementList() {
         uniqueRequirementList.add(CS_FOUNDATION);
         uniqueRequirementList.add(GENERAL_ELECTIVES);
+
         UniqueRequirementList newRequirementList = new UniqueRequirementList();
         newRequirementList.add(UNRESTRICTED_ELECTIVES);
+
         uniqueRequirementList.setRequirements(newRequirementList);
         assertEquals(newRequirementList, uniqueRequirementList);
 

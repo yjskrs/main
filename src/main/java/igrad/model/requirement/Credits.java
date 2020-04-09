@@ -3,6 +3,8 @@ package igrad.model.requirement;
 import static igrad.commons.util.AppUtil.checkArgument;
 import static java.util.Objects.requireNonNull;
 
+//@@author yjskrs
+
 /**
  * Represents a Requirement's credits information in the course book.
  * Guarantees: immutable, fields are non-null and valid as declared by {@link #isValidCredits(String)}
@@ -15,8 +17,14 @@ public class Credits {
     // allow any numbers more than or equals zero
     public static final String VALIDATION_REGEX = "^[0-9]\\d*$";
 
-    private final int creditsRequired;
+    // set max limit to 10000
+    public static final int MAX_CREDITS = 10000;
 
+    // set min limit to 0
+    public static final int MIN_CREDITS = 0;
+
+    private final int creditsRequired;
+    private final int creditsAssigned;
     private final int creditsFulfilled;
 
     /**
@@ -29,21 +37,23 @@ public class Credits {
         checkArgument(isValidCredits(creditsRequired), MESSAGE_CONSTRAINTS);
 
         this.creditsRequired = Integer.parseInt(creditsRequired);
+        this.creditsAssigned = 0;
         this.creditsFulfilled = 0;
     }
 
     /**
-     * Constructs a {@code Credits} with {@code creditsRequired} credits required and
-     * {@code creditsFulfilled} creditsFulfilled.
+     * Constructs a {@code Credits} with {@code creditsRequired} credits required,
+     * {@code creditsAssigned} and {@code creditsFulfilled} creditsFulfilled.
      *
      * @param creditsRequired  A valid credits value (integer).
+     * @param creditsAssigned  A valid credits value (integer).
      * @param creditsFulfilled A valid credits value (integer).
      */
-    public Credits(int creditsRequired, int creditsFulfilled) {
-        checkArgument(isValidCreditsRequired(creditsRequired), MESSAGE_CONSTRAINTS);
-        checkArgument(isValidCreditsFulfilled(creditsFulfilled), MESSAGE_CONSTRAINTS);
+    public Credits(int creditsRequired, int creditsAssigned, int creditsFulfilled) {
+        checkArgument(isValidCredits(creditsRequired, creditsAssigned, creditsFulfilled), MESSAGE_CONSTRAINTS);
 
         this.creditsRequired = creditsRequired;
+        this.creditsAssigned = creditsAssigned;
         this.creditsFulfilled = creditsFulfilled;
     }
 
@@ -55,24 +65,30 @@ public class Credits {
         requireNonNull(test);
 
         return test.matches(VALIDATION_REGEX)
-                   && Integer.parseInt(test) > 0
-                   && Integer.parseInt(test) < 1000;
+                   && Integer.parseInt(test) > MIN_CREDITS
+                   && Integer.parseInt(test) < MAX_CREDITS;
     }
 
     /**
-     * Returns true if given integer {@code test} is a valid credits required
-     * (i.e. more than 0 and less than 1000).
+     * Returns true if given credits are valid.
      */
-    public static boolean isValidCreditsRequired(int test) {
-        return test > 0 && test < 1000;
-    }
+    public static boolean isValidCredits(int required, int assigned, int fulfilled) {
+        // check if any of them are below the min limit
+        if (required < MIN_CREDITS || assigned < MIN_CREDITS || fulfilled < MIN_CREDITS) {
+            return false;
+        }
 
-    /**
-     * Returns true if given integer {@code test} is a valid credits fulfilled
-     * (i.e. more than or equals 0 and less than 1000).
-     */
-    public static boolean isValidCreditsFulfilled(int test) {
-        return test >= 0 && test < 1000;
+        // check if any of them are over the max limit
+        if (required > MAX_CREDITS || assigned > MAX_CREDITS || fulfilled > MAX_CREDITS) {
+            return false;
+        }
+
+        // field specific checks
+        if (required == MIN_CREDITS || fulfilled > assigned) {
+            return false;
+        }
+
+        return true;
     }
 
     /**
@@ -80,6 +96,13 @@ public class Credits {
      */
     public int getCreditsRequired() {
         return creditsRequired;
+    }
+
+    /**
+     * Returns the credits (int) which are assigned to the requirement.
+     */
+    public int getCreditsAssigned() {
+        return creditsAssigned;
     }
 
     /**
@@ -107,12 +130,13 @@ public class Credits {
         return other == this // return true if same object, else check
             || (other instanceof Credits
             && creditsRequired == ((Credits) other).creditsRequired
+            && creditsAssigned == ((Credits) other).creditsAssigned
             && creditsFulfilled == ((Credits) other).creditsFulfilled);
     }
 
     @Override
     public int hashCode() {
-        return creditsRequired + creditsFulfilled;
+        return creditsRequired + creditsAssigned + creditsFulfilled;
     }
 
 }

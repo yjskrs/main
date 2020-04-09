@@ -83,7 +83,7 @@ public class UniqueRequirementList implements Iterable<Requirement> {
         }
 
         internalList.add(toAdd);
-        FXCollections.sort(internalList, compareByFulfilledCriteria);
+        //FXCollections.sort(internalList, compareByFulfilledCriteria);
     }
 
     /**
@@ -93,7 +93,7 @@ public class UniqueRequirementList implements Iterable<Requirement> {
         requireNonNull(replacement);
 
         internalList.setAll(replacement.internalList);
-        FXCollections.sort(internalList, compareByFulfilledCriteria);
+        //FXCollections.sort(internalList, compareByFulfilledCriteria);
     }
 
     /**
@@ -110,7 +110,7 @@ public class UniqueRequirementList implements Iterable<Requirement> {
         }
 
         internalList.setAll(requirements);
-        FXCollections.sort(internalList, compareByFulfilledCriteria);
+        //FXCollections.sort(internalList, compareByFulfilledCriteria);
     }
 
     /**
@@ -132,7 +132,7 @@ public class UniqueRequirementList implements Iterable<Requirement> {
         }
 
         internalList.set(index, editedRequirement);
-        FXCollections.sort(internalList, compareByFulfilledCriteria);
+        //FXCollections.sort(internalList, compareByFulfilledCriteria);
     }
 
     /**

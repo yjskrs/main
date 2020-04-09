@@ -14,6 +14,8 @@ import igrad.model.course.CourseInfo;
 import igrad.model.requirement.Requirement;
 import igrad.model.requirement.RequirementCode;
 
+//@@author yjskrs
+
 /**
  * Adds a requirement to the course.
  */
@@ -62,6 +64,8 @@ public class RequirementAddCommand extends RequirementCommand {
 
         model.addRequirement(requirement);
 
+        //@@author nathanaelseen
+
         /*
          * Now that we've added a new Requirement to the system, we need to update CourseInfo, specifically its
          * creditsRequired property.
@@ -81,6 +85,8 @@ public class RequirementAddCommand extends RequirementCommand {
 
         return new CommandResult(String.format(MESSAGE_REQUIREMENT_ADD_SUCCESS, requirement));
     }
+
+    //@@author yjskrs
 
     /**
      * Generates the requirement code based on the number of previous requirements that hold the same

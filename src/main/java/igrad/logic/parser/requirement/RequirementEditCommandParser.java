@@ -17,6 +17,8 @@ import igrad.model.requirement.Credits;
 import igrad.model.requirement.RequirementCode;
 import igrad.model.requirement.Title;
 
+//@@author yjskrs
+
 /**
  * Parses requirement edit command input arguments and creates a new RequirementEditCommand object.
  */
@@ -41,11 +43,18 @@ public class RequirementEditCommandParser extends RequirementCommandParser {
         Specifier specifier = ParserUtil.parseSpecifier(argMultimap.getPreamble(),
             ParserUtil.REQUIREMENT_CODE_SPECIFIER_RULE, RequirementCode.MESSAGE_CONSTRAINTS);
 
-        // If neither the requirement title nor credits prefixes are specified, throw exception
+        // If neither the requirement title nor credits are specified, throw exception
         if (argMultimap.getValue(PREFIX_TITLE).isEmpty() && argMultimap.getValue(PREFIX_CREDITS).isEmpty()) {
             throw new ParseException(MESSAGE_REQUIREMENT_NOT_EDITED);
         }
 
+        RequirementCode requirementCode = new RequirementCode(specifier.getValue());
+        EditRequirementDescriptor editRequirementDescriptor = parseRequirementEdited(argMultimap);
+
+        return new RequirementEditCommand(requirementCode, editRequirementDescriptor);
+    }
+
+    public EditRequirementDescriptor parseRequirementEdited(ArgumentMultimap argMultimap) throws ParseException {
         EditRequirementDescriptor editRequirementDescriptor = new EditRequirementDescriptor();
 
         // Check if the title is a valid title, if any
@@ -60,12 +69,12 @@ public class RequirementEditCommandParser extends RequirementCommandParser {
             editRequirementDescriptor.setCredits(credits);
         }
 
+        // Check if at least one field has been edited
         if (!editRequirementDescriptor.isAnyFieldEdited()) {
             throw new ParseException(MESSAGE_REQUIREMENT_NOT_EDITED);
         }
 
-        return new RequirementEditCommand(new RequirementCode(specifier.getValue()),
-            editRequirementDescriptor);
+        return editRequirementDescriptor;
     }
 
 }

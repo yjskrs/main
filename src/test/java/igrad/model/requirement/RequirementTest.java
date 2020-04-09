@@ -27,6 +27,8 @@ import igrad.model.module.exceptions.ModuleNotFoundException;
 import igrad.testutil.ModuleBuilder;
 import igrad.testutil.RequirementBuilder;
 
+//@@author yjskrs
+
 public class RequirementTest {
     private final Requirement requirement = new RequirementBuilder().build();
     private final Module module = new ModuleBuilder().build();

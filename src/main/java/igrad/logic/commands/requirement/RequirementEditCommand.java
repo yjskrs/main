@@ -20,6 +20,8 @@ import igrad.model.requirement.Requirement;
 import igrad.model.requirement.RequirementCode;
 import igrad.model.requirement.Title;
 
+//@@author yjskrs
+
 /**
  * Modifies an existing requirement in the course book.
  */
@@ -69,6 +71,8 @@ public class RequirementEditCommand extends RequirementCommand {
         model.setRequirement(requirementToEdit, editedRequirement);
         //model.updateRequirementList(Model.PREDICATE_SHOW_ALL_REQUIREMENTS);
 
+        //@@author nathanaelseen
+
         /*
          * Now that we've edited a new Requirement in the system, we need to update CourseInfo, specifically its
          * creditsRequired property.
@@ -88,6 +92,8 @@ public class RequirementEditCommand extends RequirementCommand {
 
         return new CommandResult(String.format(MESSAGE_REQUIREMENT_EDIT_SUCCESS, editedRequirement));
     }
+
+    //@@author yjskrs
 
     /**
      * Creates and returns a {@code Requirement} with the details of {@code requirementToEdit}

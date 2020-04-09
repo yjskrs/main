@@ -25,6 +25,8 @@ import igrad.model.requirement.Credits;
 import igrad.model.requirement.Requirement;
 import igrad.testutil.RequirementBuilder;
 
+//@@author yjskrs
+
 public class RequirementAddCommandParserTest {
     private RequirementAddCommandParser parser = new RequirementAddCommandParser();
 
@@ -35,6 +37,8 @@ public class RequirementAddCommandParserTest {
                                               .withTitle(VALID_REQ_TITLE_UE)
                                               .withCreditsOneParameter(VALID_REQ_CREDITS_UE)
                                               .build();
+        assertParseSuccess(parser, REQ_TITLE_DESC_UE + REQ_CREDITS_DESC_UE,
+            new RequirementAddCommand(expectedRequirement));
 
         // whitespace preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + REQ_TITLE_DESC_UE + REQ_CREDITS_DESC_UE,
