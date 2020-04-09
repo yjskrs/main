@@ -61,7 +61,7 @@ public class Grade {
         value = grade;
     }
 
-    /* @@author teriaiw */
+    // @@author teriaiw
     /**
      * @return cap which represents a particular grade
      */
@@ -75,7 +75,7 @@ public class Grade {
     public boolean isSuGrade() {
         return GRADE_CAP_MAP.get(value).isEmpty();
     }
-    /* @@author */
+    // @@author
 
     /**
      * Returns true if {@code String grade} is valid grade.

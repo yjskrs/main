@@ -5,7 +5,10 @@ import static igrad.logic.commands.course.CourseCommandTestUtil.VALID_COURSE_CRE
 import static igrad.logic.commands.course.CourseCommandTestUtil.VALID_COURSE_CREDITS_REQUIRED_BCOMPSCI;
 import static igrad.logic.commands.course.CourseCommandTestUtil.VALID_COURSE_NAME_BCOMPSCI;
 import static igrad.logic.commands.course.CourseCommandTestUtil.VALID_COURSE_SEMESTERS_BCOMPSCI;
+import static igrad.model.course.Cap.CAP_ZERO;
 import static igrad.testutil.Assert.assertThrows;
+import static igrad.testutil.TypicalModules.CS2040;
+import static igrad.testutil.TypicalModules.CS2101;
 import static igrad.testutil.TypicalRequirements.CS_FOUNDATION;
 import static igrad.testutil.TypicalRequirements.GENERAL_ELECTIVES;
 import static igrad.testutil.TypicalRequirements.IT_PROFESSIONALISM;
@@ -19,8 +22,11 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
+import igrad.model.module.Module;
 import igrad.model.requirement.Requirement;
 import igrad.testutil.CourseInfoBuilder;
+import igrad.testutil.ModuleBuilder;
+import igrad.testutil.RequirementBuilder;
 import igrad.testutil.TypicalCourseInfos;
 import igrad.testutil.TypicalModules;
 
@@ -101,11 +107,11 @@ public class CourseInfoTest {
 
         Optional<Credits> credits = CourseInfo.computeCredits(requirementList);
 
-        int actualCreditsFulfilled = credits.get().getCreditsRequired();
-        int expectedCreditsFulfilled = CS_FOUNDATION.getCredits().getCreditsRequired()
-            + GENERAL_ELECTIVES.getCredits().getCreditsRequired();
+        int computedCreditsRequired = credits.get().getCreditsRequired();
+        int expectedCreditsRequired = (CS_FOUNDATION.getCredits().getCreditsRequired()
+            + GENERAL_ELECTIVES.getCredits().getCreditsRequired());
 
-        assertEquals(actualCreditsFulfilled, expectedCreditsFulfilled);
+        assertEquals(expectedCreditsRequired, computedCreditsRequired);
     }
 
     @Test
@@ -116,11 +122,269 @@ public class CourseInfoTest {
 
         Optional<Credits> credits = CourseInfo.computeCredits(requirementList);
 
-        int actualCreditsFulfilled = credits.get().getCreditsFulfilled();
-        int expectedCreditsFulfilled = CS_FOUNDATION.getCredits().getCreditsFulfilled()
-            + IT_PROFESSIONALISM.getCredits().getCreditsFulfilled();
+        int computedCreditsFulfilled = credits.get().getCreditsFulfilled();
+        int expectedCreditsFulfilled = (CS_FOUNDATION.getCredits().getCreditsFulfilled()
+            + IT_PROFESSIONALISM.getCredits().getCreditsFulfilled());
 
-        assertEquals(actualCreditsFulfilled, expectedCreditsFulfilled);
+        assertEquals(expectedCreditsFulfilled, computedCreditsFulfilled);
+    }
+
+    @Test
+    public void computeCap_moduleListNull_throwsNullPointerException() {
+        // In this test case, moduleList is null but requirementList not null
+        List<Requirement> requirementList = new ArrayList<Requirement>();
+        requirementList.add(CS_FOUNDATION);
+        List<Module> moduleList = null;
+        assertThrows(NullPointerException.class, () -> CourseInfo.computeCap(moduleList,
+                    requirementList));
+    }
+
+    @Test
+    public void computeCap_requirementListNull_throwsNullPointerException() {
+        // In this test case, requirementList is null but moduleList not null
+        List<Requirement> requirementList = null;
+        List<Module> moduleList = new ArrayList<Module>();
+        moduleList.add(CS2040);
+        assertThrows(NullPointerException.class, () -> CourseInfo.computeCap(moduleList,
+                    requirementList));
+    }
+
+    @Test
+    public void computeCap_moduleListAndRequirementListNull_throwsNullPointerException() {
+        // In this test case, both moduleList and requirementList is null
+        List<Requirement> requirementList = null;
+        List<Module> moduleList = null;
+        assertThrows(NullPointerException.class, () -> CourseInfo.computeCap(moduleList,
+                    requirementList));
+    }
+
+    @Test
+    public void computeCap_moduleListEmpty_returnsOptionalEmpty() {
+        // In this test case, moduleList is empty but requirementList not empty
+        List<Requirement> requirementList = new ArrayList<Requirement>();
+        requirementList.add(CS_FOUNDATION);
+        List<Module> moduleList = new ArrayList<Module>();
+        assertEquals(Optional.empty(), CourseInfo.computeCap(moduleList, requirementList));
+    }
+
+    @Test
+    public void computeCap_requirementListEmpty_returnsOptionalEmpty() {
+        // In this test case, requirementList is empty but moduleList not empty
+        List<Requirement> requirementList = new ArrayList<Requirement>();
+        List<Module> moduleList = new ArrayList<Module>();
+        moduleList.add(CS2040);
+        assertEquals(Optional.empty(), CourseInfo.computeCap(moduleList, requirementList));
+    }
+
+    @Test
+    public void computeCap_moduleListAndRequirementListEmpty_returnsOptionalEmpty() {
+        // In this test case, both moduleList and requirementList is empty
+        List<Requirement> requirementList = new ArrayList<Requirement>();
+        List<Module> moduleList = new ArrayList<Module>();
+        moduleList.add(CS2040);
+        assertEquals(Optional.empty(), CourseInfo.computeCap(moduleList, requirementList));
+    }
+
+    @Test
+    public void computeCap_noModulesInAnyRequirements_returnsCapZero() {
+        List<Requirement> requirementList = new ArrayList<Requirement>();
+        requirementList.add(CS_FOUNDATION);
+        requirementList.add(GENERAL_ELECTIVES);
+
+        List<Module> moduleList = new ArrayList<Module>();
+        moduleList.add(CS2040);
+        moduleList.add(CS2101);
+
+        Optional<Cap> computedCap = CourseInfo.computeCap(moduleList, requirementList);
+        Optional<Cap> expectedCap = Optional.of(CAP_ZERO);
+
+        assertEquals(expectedCap, computedCap);
+    }
+
+    @Test
+    public void computeCap_allModulesNoGrade_returnsCapZero() {
+        List<Requirement> requirementList = new ArrayList<Requirement>();
+
+        Requirement requirement = new RequirementBuilder().build();
+
+        List<Module> moduleList = new ArrayList<Module>();
+
+        // Create 2 modules without any grade
+        Module moduleOne = new ModuleBuilder()
+            .withModuleCode("CS2030")
+            .withoutOptionals().build();
+        Module moduleTwo = new ModuleBuilder()
+            .withModuleCode("CS2100")
+            .withoutOptionals().build();
+
+        moduleList.add(moduleOne);
+        moduleList.add(moduleTwo);
+
+        // Add the modules to the requirement
+        requirement.addModule(moduleOne);
+        requirement.addModule(moduleTwo);
+
+        // Finally, add the requirement to the requirementList
+        requirementList.add(requirement);
+
+        Optional<Cap> computedCap = CourseInfo.computeCap(moduleList, requirementList);
+        Optional<Cap> expectedCap = Optional.of(CAP_ZERO);
+
+        assertEquals(expectedCap, computedCap);
+    }
+
+    @Test
+    public void computeCap_oneModuleGradeA_returnsCapFive() {
+        List<Requirement> requirementList = new ArrayList<Requirement>();
+
+        Requirement requirement = new RequirementBuilder().build();
+
+        List<Module> moduleList = new ArrayList<Module>();
+
+        // Create a modules with grade; A
+        Module module = new ModuleBuilder()
+            .withGrade("A").build();
+
+        moduleList.add(module);
+
+        // Add the modules to the requirement
+        requirement.addModule(module);
+
+        // Finally, add the requirement to the requirementList
+        requirementList.add(requirement);
+
+        Optional<Cap> computedCap = CourseInfo.computeCap(moduleList, requirementList);
+        Optional<Cap> expectedCap = Optional.of(new Cap(5));
+
+        assertEquals(expectedCap, computedCap);
+    }
+
+    @Test
+    public void computeCap_twoModulesGradeA_returnsCapFive() {
+        List<Requirement> requirementList = new ArrayList<Requirement>();
+
+        Requirement requirement = new RequirementBuilder().build();
+
+        List<Module> moduleList = new ArrayList<Module>();
+
+        // Create 2 modules with grade; A
+        Module moduleOne = new ModuleBuilder()
+            .withModuleCode("CS2030")
+            .withGrade("A").build();
+        Module moduleTwo = new ModuleBuilder()
+            .withModuleCode("CS2100")
+            .withGrade("A").build();
+
+        moduleList.add(moduleOne);
+        moduleList.add(moduleTwo);
+
+        // Add the modules to the requirement
+        requirement.addModule(moduleOne);
+        requirement.addModule(moduleTwo);
+
+        // Finally, add the requirement to the requirementList
+        requirementList.add(requirement);
+
+        Optional<Cap> computedCap = CourseInfo.computeCap(moduleList, requirementList);
+        Optional<Cap> expectedCap = Optional.of(new Cap(5));
+
+        assertEquals(expectedCap, computedCap);
+    }
+
+    @Test
+    public void computeCap_oneModuleGradeAOtherModuleGradeBMinus_returnsCapFour() {
+        List<Requirement> requirementList = new ArrayList<Requirement>();
+
+        Requirement requirement = new RequirementBuilder().build();
+
+        List<Module> moduleList = new ArrayList<Module>();
+
+        // Create 2 modules with grade; A
+        Module moduleOne = new ModuleBuilder()
+            .withModuleCode("CS2030")
+            .withGrade("A").build();
+        Module moduleTwo = new ModuleBuilder()
+            .withModuleCode("CS2100")
+            .withGrade("B-").build();
+
+        moduleList.add(moduleOne);
+        moduleList.add(moduleTwo);
+
+        // Add the modules to the requirement
+        requirement.addModule(moduleOne);
+        requirement.addModule(moduleTwo);
+
+        // Finally, add the requirement to the requirementList
+        requirementList.add(requirement);
+
+        Optional<Cap> computedCap = CourseInfo.computeCap(moduleList, requirementList);
+        Optional<Cap> expectedCap = Optional.of(new Cap(4));
+
+        assertEquals(expectedCap, computedCap);
+    }
+
+    @Test
+    public void computeCap_oneModuleGradeAOtherModuleSuGrade_returnsCapFive() {
+        List<Requirement> requirementList = new ArrayList<Requirement>();
+
+        Requirement requirement = new RequirementBuilder().build();
+
+        List<Module> moduleList = new ArrayList<Module>();
+
+        // Create 2 modules with grade; A
+        Module moduleOne = new ModuleBuilder()
+            .withModuleCode("CS2030")
+            .withGrade("A").build();
+        Module moduleTwo = new ModuleBuilder()
+            .withModuleCode("CS2100")
+            .withGrade("S").build();
+
+        moduleList.add(moduleOne);
+        moduleList.add(moduleTwo);
+
+        // Add the modules to the requirement
+        requirement.addModule(moduleOne);
+        requirement.addModule(moduleTwo);
+
+        // Finally, add the requirement to the requirementList
+        requirementList.add(requirement);
+
+        Optional<Cap> computedCap = CourseInfo.computeCap(moduleList, requirementList);
+        Optional<Cap> expectedCap = Optional.of(new Cap(5));
+
+        assertEquals(expectedCap, computedCap);
+    }
+
+    @Test
+    public void computeCap_twoModulesSuGrade_returnsCapZero() {
+        List<Requirement> requirementList = new ArrayList<Requirement>();
+
+        Requirement requirement = new RequirementBuilder().build();
+
+        List<Module> moduleList = new ArrayList<Module>();
+
+        // Create 2 modules with grade; A
+        Module moduleOne = new ModuleBuilder()
+            .withModuleCode("CS2030")
+            .withGrade("A").build();
+        Module moduleTwo = new ModuleBuilder()
+            .withModuleCode("CS2100")
+            .withGrade("S").build();
+
+        moduleList.add(moduleOne);
+        moduleList.add(moduleTwo);
+
+        // Add the modules to the requirement
+        requirement.addModule(moduleOne);
+        requirement.addModule(moduleTwo);
+
+        // Finally, add the requirement to the requirementList
+        requirementList.add(requirement);
+
+        Optional<Cap> computedCap = CourseInfo.computeCap(moduleList, requirementList);
+        Optional<Cap> expectedCap = Optional.of(new Cap(5));
+
+        assertEquals(expectedCap, computedCap);
     }
 
     @Test

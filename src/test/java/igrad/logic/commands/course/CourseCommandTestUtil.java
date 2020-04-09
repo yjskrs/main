@@ -14,7 +14,7 @@ public class CourseCommandTestUtil extends CommandTestUtil {
     public static final String VALID_COURSE_NAME_BCOMPSCI = "Bachelor of Computer Science";
     public static final String VALID_COURSE_NAME_BCOMPSEC = "Bachelor of Computer Security";
     public static final String VALID_COURSE_CAP_BCOMPSCI = "4.5";
-    public static final String VALID_COURSE_CAP_BCOMPSEC = "4.5";
+    public static final String VALID_COURSE_CAP_BCOMPSEC = "4.8";
     public static final int VALID_COURSE_CREDITS_REQUIRED_BCOMPSCI = 108;
     public static final int VALID_COURSE_CREDITS_REQUIRED_BCOMPSEC = 108;
     public static final int VALID_COURSE_CREDITS_FULFILLED_BCOMPSCI = 64;

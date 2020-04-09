@@ -1,10 +1,15 @@
 package igrad.model.course;
 
+import static igrad.logic.commands.course.CourseCommandTestUtil.VALID_COURSE_CAP_BCOMPSCI;
+import static igrad.logic.commands.course.CourseCommandTestUtil.VALID_COURSE_CAP_BCOMPSEC;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
+
+import igrad.model.module.Module;
+import igrad.testutil.ModuleBuilder;
 
 public class CapTest {
     @Test
@@ -73,5 +78,21 @@ public class CapTest {
         assertTrue(Cap.isValidCap(0.0000000000000000)); // double (cap) exactly 0, with many precisions
         assertTrue(Cap.isValidCap(5)); // integer (cap) exactly 5
         assertTrue(Cap.isValidCap(5.0000000000000000)); // double (cap) exactly 5, with many precisions
+    }
+
+    @Test
+    public void equals() {
+        // null
+        assertFalse(VALID_COURSE_CAP_BCOMPSCI.equals(null));
+
+        // same cap
+        assertTrue(VALID_COURSE_CAP_BCOMPSCI.equals(VALID_COURSE_CAP_BCOMPSCI));
+
+        // different type
+        Module module = new ModuleBuilder().build();
+        assertFalse(VALID_COURSE_CAP_BCOMPSCI.equals(module));
+
+        // different cap
+        assertFalse(VALID_COURSE_CAP_BCOMPSCI.equals(VALID_COURSE_CAP_BCOMPSEC));
     }
 }
