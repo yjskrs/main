@@ -3,7 +3,6 @@ package igrad.logic.commands.module;
 import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
 import static igrad.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
 import static igrad.logic.parser.CliSyntax.PREFIX_SEMESTER;
-import static igrad.logic.parser.CliSyntax.PREFIX_TAG;
 import static igrad.logic.parser.CliSyntax.PREFIX_TITLE;
 import static igrad.testutil.Assert.assertThrows;
 import static java.util.Objects.requireNonNull;
@@ -28,6 +27,8 @@ import igrad.model.avatar.Avatar;
 import igrad.model.course.CourseInfo;
 import igrad.model.module.Module;
 import igrad.model.module.ModuleCode;
+import igrad.model.module.ModulePreclusions;
+import igrad.model.module.ModulePrerequisites;
 import igrad.model.requirement.Requirement;
 import igrad.model.requirement.RequirementCode;
 import igrad.testutil.EditModuleDescriptorBuilder;
@@ -89,9 +90,6 @@ public class ModuleCommandTestUtil {
 
     // '&' not allowed in semester
     public static final String INVALID_SEMESTER_DESC = " " + PREFIX_SEMESTER + "4%";
-
-    // '*' not allowed in tags
-    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "easy*";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
@@ -298,7 +296,7 @@ public class ModuleCommandTestUtil {
         }
 
         @Override
-        public void deleteRequirement(Requirement requirement) {
+        public void removeRequirement(Requirement requirement) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -430,11 +428,13 @@ public class ModuleCommandTestUtil {
 
             boolean hasModulePreclusions = false;
 
-            if (module.getPreclusions().isPresent()) {
+            ModulePreclusions preclusions = module.getPreclusions();
 
-                ModuleCode[] preclusions = module.getPreclusions().get();
+            if (!preclusions.isEmpty()) {
 
-                for (ModuleCode preclusion : preclusions) {
+                List<ModuleCode> moduleCodes = preclusions.getModuleCodes();
+
+                for (ModuleCode preclusion : moduleCodes) {
                     Optional<Module> mOpt = getModule(preclusion);
                     if (mOpt.isPresent()) {
                         hasModulePreclusions = true;
@@ -453,12 +453,14 @@ public class ModuleCommandTestUtil {
 
             boolean hasModulePrerequisites = true;
 
-            if (module.getPrequisites().isPresent()) {
+            ModulePrerequisites prerequisites = module.getPrequisites();
 
-                ModuleCode[] preqrequisites = module.getPrequisites().get();
+            if (!prerequisites.isEmpty()) {
 
-                for (ModuleCode prerequisite : preqrequisites) {
-                    Optional<Module> mOpt = getModule(prerequisite);
+                List<ModuleCode> moduleCodes = prerequisites.getModuleCodes();
+
+                for (ModuleCode moduleCode : moduleCodes) {
+                    Optional<Module> mOpt = getModule(moduleCode);
                     if (mOpt.isEmpty()) {
                         hasModulePrerequisites = false;
                     } else {

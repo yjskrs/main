@@ -19,22 +19,9 @@ import javafx.collections.ObservableList;
  */
 public class CourseBook implements ReadOnlyCourseBook {
 
-    private final UniqueRequirementList requirements;
-    private final UniqueModuleList modules;
-    private CourseInfo courseInfo;
-
-    /*
-     * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
-     * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
-     *
-     * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
-     *   among constructors.
-     */
-    {
-        modules = new UniqueModuleList();
-        requirements = new UniqueRequirementList();
-        courseInfo = new CourseInfo();
-    }
+    private CourseInfo courseInfo = new CourseInfo();
+    private final UniqueModuleList modules = new UniqueModuleList();
+    private final UniqueRequirementList requirements = new UniqueRequirementList();
 
     public CourseBook() {
     }
@@ -166,6 +153,7 @@ public class CourseBook implements ReadOnlyCourseBook {
      */
     public boolean hasRequirement(Requirement requirement) {
         requireNonNull(requirement);
+
         return requirements.contains(requirement);
     }
 
@@ -175,6 +163,7 @@ public class CourseBook implements ReadOnlyCourseBook {
      */
     public Optional<Requirement> getRequirement(RequirementCode requirementCode) {
         requireNonNull(requirementCode);
+
         return requirements.getByRequirementCode(requirementCode);
     }
 
@@ -192,6 +181,8 @@ public class CourseBook implements ReadOnlyCourseBook {
      * The requirement must not already exist in the course book.
      */
     public void addRequirement(Requirement requirement) {
+        requireNonNull(requirement);
+
         requirements.add(requirement);
     }
 
@@ -212,6 +203,8 @@ public class CourseBook implements ReadOnlyCourseBook {
      * {@code requirement} must exist in the course book.
      */
     public void removeRequirement(Requirement requirement) {
+        requireNonNull(requirement);
+
         requirements.remove(requirement);
     }
 

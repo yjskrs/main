@@ -3,6 +3,8 @@ package igrad.model.requirement;
 import igrad.model.module.Module;
 import javafx.collections.ObservableList;
 
+//@@author yjskrs
+
 /**
  * Unmodifiable view of a requirement.
  */
@@ -26,6 +28,11 @@ public interface ReadOnlyRequirement {
      * Returns the credits required for the requirement.
      */
     int getCreditsRequired();
+
+    /**
+     * Returns the credits assigned for the requirement.
+     */
+    int getCreditsAssigned();
 
     /**
      * Returns the credits fulfilled for the requirement.

@@ -16,11 +16,10 @@ public class Module {
     private final ModuleCode moduleCode;
     private final Credits credits;
 
-    // Data fields
+    private final ModulePrerequisites prequisites;
+    private final ModulePreclusions preclusions;
 
     // A module object can be created without all these fields (which are optional)
-    private final Optional<ModuleCode[]> prequisites;
-    private final Optional<ModuleCode[]> preclusions;
     private final Optional<Description> description;
     private final Optional<Semester> semester;
     private final Optional<Grade> grade;
@@ -43,16 +42,16 @@ public class Module {
         this.description = description;
         this.semester = semester;
         this.grade = grade;
-        this.preclusions = Optional.empty();
-        this.prequisites = Optional.empty();
+        this.preclusions = new ModulePreclusions();
+        this.prequisites = new ModulePrerequisites();
     }
 
     public Module(
         Title title,
         ModuleCode moduleCode,
         Credits credits,
-        Optional<ModuleCode[]> preclusions,
-        Optional<ModuleCode[]> prequisites
+        ModulePreclusions preclusions,
+        ModulePrerequisites prequisites
     ) {
         requireAllNonNull(title, moduleCode, credits);
         this.title = title;
@@ -89,11 +88,11 @@ public class Module {
         return grade;
     }
 
-    public Optional<ModuleCode[]> getPrequisites() {
+    public ModulePrerequisites getPrequisites() {
         return prequisites;
     }
 
-    public Optional<ModuleCode[]> getPreclusions() {
+    public ModulePreclusions getPreclusions() {
         return preclusions;
     }
 
@@ -164,11 +163,6 @@ public class Module {
         Title title = getTitle();
         ModuleCode moduleCode = getModuleCode();
         Credits credits = getCredits();
-
-        /*Optional<Memo> memo = getMemo();
-        Optional<Description> description = getDescription();
-        Optional<Semester> semester = getSemester();
-        Optional<Grade> grade = getGrade();*/
 
         final StringBuilder builder = new StringBuilder();
 
