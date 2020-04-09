@@ -1,5 +1,6 @@
 package igrad.logic.parser.module;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -13,7 +14,7 @@ import igrad.model.module.ModuleCode;
 public class ModuleStringParser {
 
     private String stringOfModules;
-    private ModuleCode[] moduleCodes;
+    private ArrayList<ModuleCode> moduleCodes;
 
     public ModuleStringParser(String stringOfModules) {
         this.stringOfModules = stringOfModules;
@@ -23,7 +24,7 @@ public class ModuleStringParser {
     /**
      * Returns a String array of preclusion module codes in String form from data.
      */
-    public ModuleCode[] getModulesFromString() {
+    public ArrayList<ModuleCode> getModulesFromString() {
 
         // stringOfModules can be in multiple forms.
         String[] strings = stringOfModules.split(" ");
@@ -32,15 +33,23 @@ public class ModuleStringParser {
         //remove whitespace
         //validate with validation regex
         List<String> stringsArray = Stream.of(strings)
-                                    .map(s -> s.replaceAll("[^a-zA-Z0-9\\s]", ""))
-                                    .map(String::trim)
-                                    .filter(s -> s.matches(ModuleCode.VALIDATION_REGEX))
-                                    .collect(Collectors.toList());
+            .map(s -> s.replaceAll("[^a-zA-Z0-9\\s]", ""))
+            .map(String::trim)
+            .filter(s -> s.matches(ModuleCode.VALIDATION_REGEX))
+            .collect(Collectors.toList());
 
-        return new ModuleCode[0];
+
+        ArrayList<ModuleCode> moduleCodes = new ArrayList<>();
+
+        for (String string : stringsArray) {
+            moduleCodes.add(new ModuleCode(string));
+        }
+
+        return moduleCodes;
+
     }
 
-    public ModuleCode[] getModuleCodes() {
+    public ArrayList<ModuleCode> getModuleCodes() {
         return moduleCodes;
     }
 

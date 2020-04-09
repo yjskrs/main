@@ -10,7 +10,6 @@ import static java.util.Objects.requireNonNull;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import igrad.logic.commands.CommandResult;
@@ -20,6 +19,8 @@ import igrad.model.Model;
 import igrad.model.module.Credits;
 import igrad.model.module.Module;
 import igrad.model.module.ModuleCode;
+import igrad.model.module.ModulePreclusions;
+import igrad.model.module.ModulePrerequisites;
 import igrad.model.module.Title;
 import igrad.services.JsonParsedModule;
 import igrad.services.NusModsRequester;
@@ -49,7 +50,7 @@ public class ModuleAddAutoCommand extends ModuleCommand {
         + "add more than %d modules.\nYou attempted to add %d modules.\n";
     public static final String MESSAGE_COMPLETE = "%d module(s) added through NUSMods API.\n";
     public static final String MESSAGE_SUCCESS = "Added module: %s\n";
-    public static final String MESSAGE_DUPLICATE_MODULE = "ERROR: Duplicate detected: %s\n";
+    public static final String MESSAGE_DUPLICATE_MODULE = "Duplicate detected: %s\n";
     public static final String MESSAGE_PREREQUISITE_NOT_PRESENT =
         "WARNING: Prerequisite not found!\n";
     public static final String MESSAGE_PRECLUSION_PRESENT =
@@ -97,11 +98,11 @@ public class ModuleAddAutoCommand extends ModuleCommand {
             String preclusionModulesString = jsonParsedModule.getPreclusion();
 
             ModuleStringParser prerequisiteParser = new ModuleStringParser(prerequisiteModulesString);
-            Optional<ModuleCode[]> prerequisites = Optional.of(prerequisiteParser.getModuleCodes());
+            ModulePrerequisites prerequisites = new ModulePrerequisites(prerequisiteParser.getModuleCodes());
+
 
             ModuleStringParser preclusionParser = new ModuleStringParser(preclusionModulesString);
-            Optional<ModuleCode[]> preclusions = Optional.of(preclusionParser.getModuleCodes());
-
+            ModulePreclusions preclusions = new ModulePreclusions(preclusionParser.getModuleCodes());
 
             Module module = new Module(
                 title,
