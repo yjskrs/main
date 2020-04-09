@@ -17,6 +17,8 @@ import igrad.model.requirement.Title;
  */
 public abstract class RequirementCommandParser implements Parser<RequirementCommand> {
 
+    //@@author waynewee
+
     /**
      * Parses a {@code String title} into a {@code RequirementCode} (without the identifying number).
      * Leading and trailing whitespaces will be trimmed.
@@ -50,6 +52,8 @@ public abstract class RequirementCommandParser implements Parser<RequirementComm
 
         return new RequirementCode(code.toString());
     }
+
+    //@@author yjskrs
 
     /**
      * Parses a {@code String title} into a {@code Title}.
