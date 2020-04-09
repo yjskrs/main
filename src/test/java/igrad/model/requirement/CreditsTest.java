@@ -51,29 +51,29 @@ public class CreditsTest {
     public void isValidCreditsThreeParameters() {
         int zeroValue = 0;
         int negativeValue = -1;
-        int AValue = 40; // A is bigger than B
-        int BValue = 20; // B is bigger than C
-        int CValue = 10; // C is the smallest of ABC
+        int valueA = 40; // A is bigger than B
+        int valueB = 20; // B is bigger than C
+        int valueC = 10; // C is the smallest of ABC
 
         // test that required credits cant be 0
-        assertFalse(Credits.isValidCredits(zeroValue, BValue, CValue));
+        assertFalse(Credits.isValidCredits(zeroValue, valueB, valueC));
 
         // test that the other two fields can be 0
-        assertTrue(Credits.isValidCredits(AValue, zeroValue, zeroValue));
+        assertTrue(Credits.isValidCredits(valueA, zeroValue, zeroValue));
 
         // test that all fields cant be less than 0
-        assertFalse(Credits.isValidCredits(negativeValue, BValue, CValue));
-        assertFalse(Credits.isValidCredits(AValue, negativeValue, CValue));
-        assertFalse(Credits.isValidCredits(AValue, BValue, negativeValue));
+        assertFalse(Credits.isValidCredits(negativeValue, valueB, valueC));
+        assertFalse(Credits.isValidCredits(valueA, negativeValue, valueC));
+        assertFalse(Credits.isValidCredits(valueA, valueB, negativeValue));
 
         // test that fulfilled must not be more than assigned
-        assertFalse(Credits.isValidCredits(AValue, BValue, AValue));
+        assertFalse(Credits.isValidCredits(valueA, valueB, valueA));
 
         // test that fulfilled and assigned can be equal
-        assertTrue(Credits.isValidCredits(AValue, BValue, BValue));
+        assertTrue(Credits.isValidCredits(valueA, valueB, valueB));
 
         // test that all three can be equal
-        assertTrue(Credits.isValidCredits(BValue, BValue, BValue));
+        assertTrue(Credits.isValidCredits(valueB, valueB, valueB));
     }
 
     @Test

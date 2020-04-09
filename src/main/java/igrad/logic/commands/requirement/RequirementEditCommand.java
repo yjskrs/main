@@ -161,5 +161,16 @@ public class RequirementEditCommand extends RequirementCommand {
         public Optional<Credits> getCredits() {
             return Optional.ofNullable(credits);
         }
+
+        @Override
+        public boolean equals(Object other) {
+            if (!(other instanceof EditRequirementDescriptor)) {
+                return false;
+            }
+
+            return other == this
+                       || (title.equals(((EditRequirementDescriptor) other).title)
+                               && credits.equals(((EditRequirementDescriptor) other).credits));
+        }
     }
 }

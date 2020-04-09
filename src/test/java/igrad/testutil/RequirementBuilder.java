@@ -74,7 +74,9 @@ public class RequirementBuilder {
     /**
      * Sets the {@code Credits} of the {@code Requirement} that we are building.
      */
-    public RequirementBuilder withCreditsThreeParameters(int creditsRequired, int creditsAssigned, int creditsFulfilled) {
+    public RequirementBuilder withCreditsThreeParameters(int creditsRequired,
+                                                         int creditsAssigned,
+                                                         int creditsFulfilled) {
         this.credits = new Credits(creditsRequired, creditsAssigned, creditsFulfilled);
         return this;
     }

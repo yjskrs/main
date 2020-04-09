@@ -3,10 +3,13 @@ package igrad.logic.parser.requirement;
 //@@author yjskrs
 
 import static igrad.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static igrad.logic.commands.requirement.RequirementCommandTestUtil.REQ_CREDITS_DESC_CSF;
+import static igrad.logic.commands.requirement.RequirementCommandTestUtil.REQ_TITLE_DESC_CSF;
 import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_CODE_UE;
 import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_CREDITS_CSF;
 import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_TITLE_CSF;
 import static igrad.logic.commands.requirement.RequirementEditCommand.EditRequirementDescriptor;
+import static igrad.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import org.junit.jupiter.api.Test;
 
@@ -32,8 +35,8 @@ public class RequirementEditCommandParserTest {
                                                    .withCredits(VALID_REQ_CREDITS_CSF)
                                                    .build();
 
-        //assertParseSuccess(parser, VALID_REQ_CODE_UE + REQ_TITLE_DESC_CSF + REQ_CREDITS_DESC_CSF,
-        //        new RequirementEditCommand(requirementCode, descriptor));
+        assertParseSuccess(parser, VALID_REQ_CODE_UE + REQ_TITLE_DESC_CSF + REQ_CREDITS_DESC_CSF,
+               new RequirementEditCommand(requirementCode, descriptor));
     }
 
 }
