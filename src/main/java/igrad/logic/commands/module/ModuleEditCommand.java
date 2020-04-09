@@ -4,7 +4,6 @@ import static igrad.commons.util.CollectionUtil.requireAllNonNull;
 import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
 import static igrad.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
 import static igrad.logic.parser.CliSyntax.PREFIX_SEMESTER;
-import static igrad.logic.parser.CliSyntax.PREFIX_TAG;
 import static igrad.logic.parser.CliSyntax.PREFIX_TITLE;
 import static java.util.Objects.requireNonNull;
 
@@ -40,8 +39,7 @@ public class ModuleEditCommand extends ModuleCommand {
         + "[" + PREFIX_MODULE_CODE + "MODULE_CODE] "
         + "[" + PREFIX_TITLE + "MODULE_TITLE] "
         + "[" + PREFIX_CREDITS + "CREDITS] "
-        + "[" + PREFIX_SEMESTER + "SEMESTER] "
-        + "[" + PREFIX_TAG + "TAGS]...\n"
+        + "[" + PREFIX_SEMESTER + "SEMESTER]\n"
         + "Example: " + MODULE_EDIT_COMMAND_WORD + " CS2040 "
         + PREFIX_MODULE_CODE + "CS2040S "
         + PREFIX_CREDITS + "4";

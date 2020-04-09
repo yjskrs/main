@@ -3,7 +3,6 @@ package igrad.logic.commands.module;
 import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
 import static igrad.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
 import static igrad.logic.parser.CliSyntax.PREFIX_SEMESTER;
-import static igrad.logic.parser.CliSyntax.PREFIX_TAG;
 import static igrad.logic.parser.CliSyntax.PREFIX_TITLE;
 import static igrad.testutil.Assert.assertThrows;
 import static java.util.Objects.requireNonNull;
@@ -27,7 +26,6 @@ import igrad.model.Model;
 import igrad.model.ReadOnlyCourseBook;
 import igrad.model.ReadOnlyUserPrefs;
 import igrad.model.avatar.Avatar;
-import igrad.model.course.Cap;
 import igrad.model.course.CourseInfo;
 import igrad.model.module.Module;
 import igrad.model.module.ModuleCode;
@@ -76,9 +74,6 @@ public class ModuleCommandTestUtil {
 
     // '&' not allowed in semester
     public static final String INVALID_SEMESTER_DESC = " " + PREFIX_SEMESTER + "4%";
-
-    // '*' not allowed in tags
-    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "easy*";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
@@ -295,7 +290,7 @@ public class ModuleCommandTestUtil {
         }
 
         @Override
-        public void deleteRequirement(Requirement requirement) {
+        public void removeRequirement(Requirement requirement) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -321,11 +316,6 @@ public class ModuleCommandTestUtil {
 
         @Override
         public void updateRequirementList(Predicate<Requirement> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public Optional<Cap> computeEstimatedCap(Cap capToAchieve) {
             throw new AssertionError("This method should not be called.");
         }
 

@@ -3,6 +3,8 @@ package igrad.model.requirement;
 import static igrad.commons.util.AppUtil.checkArgument;
 import static java.util.Objects.requireNonNull;
 
+//@@author yjskrs
+
 /**
  * Represents a Requirement's title.
  * Guarantees: immutable, non-null and is valid as declared by {@link #isValidTitle(String)}

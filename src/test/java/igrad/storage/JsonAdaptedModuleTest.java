@@ -1,6 +1,5 @@
 package igrad.storage;
 
-import static igrad.logic.parser.CliSyntax.PREFIX_TAG;
 import static igrad.testutil.TypicalModules.CS1101S;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -11,7 +10,6 @@ public class JsonAdaptedModuleTest {
     public static final String INVALID_MODULE_CODE = "CS2040S&";
     public static final String INVALID_CREDITS = "4%";
     public static final String INVALID_SEMESTER = "4%";
-    public static final String INVALID_TAG = " " + PREFIX_TAG + "easy*";
 
     public static final String VALID_TITLE = CS1101S.getTitle().toString();
     public static final String VALID_MODULE_CODE = CS1101S.getModuleCode().toString();

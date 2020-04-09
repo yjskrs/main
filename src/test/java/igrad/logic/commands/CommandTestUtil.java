@@ -3,7 +3,6 @@ package igrad.logic.commands;
 import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
 import static igrad.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
 import static igrad.logic.parser.CliSyntax.PREFIX_SEMESTER;
-import static igrad.logic.parser.CliSyntax.PREFIX_TAG;
 import static igrad.logic.parser.CliSyntax.PREFIX_TITLE;
 import static igrad.testutil.Assert.assertThrows;
 import static java.util.Objects.requireNonNull;
@@ -26,7 +25,6 @@ import igrad.model.Model;
 import igrad.model.ReadOnlyCourseBook;
 import igrad.model.ReadOnlyUserPrefs;
 import igrad.model.avatar.Avatar;
-import igrad.model.course.Cap;
 import igrad.model.course.CourseInfo;
 import igrad.model.module.Module;
 import igrad.model.module.ModuleCode;
@@ -48,17 +46,19 @@ public class CommandTestUtil {
     public static final String VALID_TITLE_CS_2103T = "Software Engineering";
     public static final String VALID_TITLE_CS_2101 = "Effective Communication for Computing Professionals";
     public static final String VALID_TITLE_CS_2040 = "Data Structures and Algorithms";
-
     public static final String VALID_MODULE_CODE_CS_1101S = "CS1101S";
     public static final String VALID_MODULE_CODE_CS_2100 = "CS2100";
     public static final String VALID_MODULE_CODE_CS_2103T = "CS2103T";
     public static final String VALID_MODULE_CODE_CS_2101 = "CS2101";
     public static final String VALID_MODULE_CODE_CS_2040 = "CS2040";
-
     public static final String VALID_CREDITS_4 = "4";
     public static final String VALID_CREDITS_6 = "6";
-
+    public static final String VALID_GRADE_PROGRAMMING_METHODOLOGY = "A+";
+    public static final String VALID_GRADE_COMPUTER_ORGANISATION = "B-";
+    public static final String VALID_MEMO_PROGRAMMING_METHODOLOGY = "v easy module leh";
+    public static final String VALID_MEMO_COMPUTER_ORGANISATION = "a lot of calculation ah";
     public static final String VALID_SEMESTER_Y1S1 = "Y1S1";
+    public static final String VALID_SEMESTER_Y1S2 = "Y1S2";
     public static final String VALID_SEMESTER_Y2S2 = "Y1S1";
 
     public static final String VALID_TAG_EASY = "easy";
@@ -91,9 +91,6 @@ public class CommandTestUtil {
     public static final String SEMESTER_DESC_COMPUTER_ORGANISATION = " " + PREFIX_SEMESTER
         + VALID_SEMESTER_Y2S2;
 
-    public static final String TAG_DESC_EASY = " " + PREFIX_TAG + VALID_TAG_EASY;
-    public static final String TAG_DESC_HARD = " " + PREFIX_TAG + VALID_TAG_HARD;
-
     // '!' not allowed in module codes
     public static final String INVALID_TITLE_DESC = " " + PREFIX_TITLE + "Programming Methodology!";
 
@@ -105,9 +102,6 @@ public class CommandTestUtil {
 
     // '&' not allowed in semester
     public static final String INVALID_SEMESTER_DESC = " " + PREFIX_SEMESTER + "4%";
-
-    // '*' not allowed in tags
-    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "easy*";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
@@ -315,7 +309,7 @@ public class CommandTestUtil {
         }
 
         @Override
-        public void deleteRequirement(Requirement requirement) {
+        public void removeRequirement(Requirement requirement) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -341,11 +335,6 @@ public class CommandTestUtil {
 
         @Override
         public void updateRequirementList(Predicate<Requirement> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public Optional<Cap> computeEstimatedCap(Cap capToAchieve) {
             throw new AssertionError("This method should not be called.");
         }
 
