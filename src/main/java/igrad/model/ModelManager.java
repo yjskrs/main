@@ -237,24 +237,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasRequirement(Requirement requirement) {
-        requireNonNull(requirement);
-        return courseBook.hasRequirement(requirement);
-    }
-
-    @Override
-    public Optional<Requirement> getRequirement(RequirementCode requirementCode) {
-        requireNonNull(requirementCode);
-        return courseBook.getRequirement(requirementCode);
-    }
-
-    @Override
-    public List<Requirement> getRequirementsWithModule(Module module) {
-        requireNonNull(module);
-        return courseBook.getRequirementsWithModule(module);
-    }
-
-    @Override
     public Optional<Module> getModule(ModuleCode moduleCode) {
         requireNonNull(moduleCode);
         return courseBook.getModule(moduleCode);
@@ -267,7 +249,30 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasRequirement(Requirement requirement) {
+        requireNonNull(requirement);
+
+        return courseBook.hasRequirement(requirement);
+    }
+
+    @Override
+    public Optional<Requirement> getRequirement(RequirementCode requirementCode) {
+        requireNonNull(requirementCode);
+
+        return courseBook.getRequirement(requirementCode);
+    }
+
+    @Override
+    public List<Requirement> getRequirementsWithModule(Module module) {
+        requireNonNull(module);
+
+        return courseBook.getRequirementsWithModule(module);
+    }
+
+    @Override
     public void addRequirement(Requirement requirement) {
+        requireNonNull(requirement);
+
         courseBook.addRequirement(requirement);
         updateRequirementList(PREDICATE_SHOW_ALL_REQUIREMENTS);
     }
@@ -277,10 +282,13 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedRequirement);
 
         courseBook.setRequirement(target, editedRequirement);
+
     }
 
     @Override
-    public void deleteRequirement(Requirement requirement) {
+    public void removeRequirement(Requirement requirement) {
+        requireNonNull(requirement);
+
         courseBook.removeRequirement(requirement);
     }
 
@@ -321,9 +329,13 @@ public class ModelManager implements Model {
     @Override
     public void updateRequirementList(Predicate<Requirement> predicate) {
         requireNonNull(predicate);
+
         requirements.setPredicate(predicate);
     }
 
+    // util
+
+    //@author teriaiw
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
@@ -340,7 +352,8 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return courseBook.equals(other.courseBook)
             && userPrefs.equals(other.userPrefs)
-            && filteredModules.equals(other.filteredModules);
+            && filteredModules.equals(other.filteredModules)
+            && requirements.equals(other.requirements);
     }
 
 }

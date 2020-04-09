@@ -13,6 +13,8 @@ import igrad.model.course.CourseInfo;
 import igrad.model.requirement.Requirement;
 import igrad.model.requirement.RequirementCode;
 
+//@@author yjskrs
+
 /**
  * Deletes an existing requirement from the course book.
  */
@@ -54,7 +56,9 @@ public class RequirementDeleteCommand extends RequirementCommand {
 
         Requirement toDelete = requirementToDelete.get();
 
-        model.deleteRequirement(toDelete);
+        model.removeRequirement(toDelete);
+
+        //@@author nathanaelseen
 
         /*
          * Now that we've deleted a new Requirement in the system, we need to update CourseInfo, specifically its
@@ -76,6 +80,8 @@ public class RequirementDeleteCommand extends RequirementCommand {
         return new CommandResult(
             String.format(MESSAGE_REQUIREMENT_DELETE_SUCCESS, toDelete));
     }
+
+    //@@author yjskrs
 
     @Override
     public boolean equals(Object other) {

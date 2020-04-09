@@ -15,6 +15,8 @@ import igrad.model.requirement.Requirement;
 import igrad.model.requirement.RequirementCode;
 import igrad.model.requirement.Title;
 
+//@@author yjskrs
+
 /**
  * Jackson-friendly version of {@link Requirement}.
  */

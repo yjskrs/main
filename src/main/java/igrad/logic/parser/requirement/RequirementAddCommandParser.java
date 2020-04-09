@@ -16,6 +16,8 @@ import igrad.model.requirement.Requirement;
 import igrad.model.requirement.RequirementCode;
 import igrad.model.requirement.Title;
 
+//@@author yjskrs
+
 /**
  * Parses requirement input arguments and returns a new RequirementAddCommand object.
  */
@@ -33,14 +35,14 @@ public class RequirementAddCommandParser extends RequirementCommandParser {
 
         // Show help message if prefixes are not entered
         if (argMultimap.isEmpty(false)) {
-            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
-                MESSAGE_REQUIREMENT_ADD_HELP));
+            throw new ParseException(
+                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_REQUIREMENT_ADD_HELP));
         }
 
         // Check if title and MCs are provided by user
         if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_TITLE, PREFIX_CREDITS)) {
-            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
-                MESSAGE_REQUIREMENT_NOT_ADDED));
+            throw new ParseException(
+                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_REQUIREMENT_NOT_ADDED));
         }
 
         // Use the title to parse into a requirement code

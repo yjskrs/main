@@ -204,7 +204,7 @@ public interface Model {
     /**
      * Deletes the given {@code requirement}.
      */
-    void deleteRequirement(Requirement requirement);
+    void removeRequirement(Requirement requirement);
 
     /**
      * Returns an unmodifiable view of the filtered module list.
