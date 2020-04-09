@@ -1,5 +1,5 @@
 @startuml
-!include style.puml
+!include ../style.puml
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
@@ -9,8 +9,9 @@ end box
 
 box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
-participant ":VersionedCourseBook" as VersionedCourseBook MODEL_COLOR
+participant "b:BackupCourseBook" as BackupCourseBook MODEL_COLOR
 end box
+
 [-> LogicManager : execute(undo)
 activate LogicManager
 
@@ -22,7 +23,6 @@ CourseBookParser -> UndoCommand
 activate UndoCommand
 
 UndoCommand --> CourseBookParser
-deactivate UndoCommandCourse
 
 CourseBookParser --> LogicManager : u
 deactivate CourseBookParser
@@ -33,12 +33,13 @@ activate UndoCommand
 UndoCommand -> Model : undoCourseBook()
 activate Model
 
-Model -> VersionedCourseBook : undo()
-activate VersionedCourseBook
+Model -> BackupCourseBook
+activate BackupCourseBook
 
-VersionedCourseBook -> VersionedCourseBook :resetData(ReadOnlyCourseBook)
-VersionedCourseBook --> Model :
-deactivate VersionedCourseBook
+BackupCourseBook --> Model :
+deactivate BackupCourseBook
+
+Model -> Model: setCourseBook(b)
 
 Model --> UndoCommand
 deactivate Model
@@ -48,6 +49,6 @@ deactivate UndoCommand
 UndoCommand -[hidden]-> LogicManager : result
 destroy UndoCommand
 
-[<--LogicManager
+<--LogicManager
 deactivate LogicManager
 @enduml

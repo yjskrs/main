@@ -4,6 +4,7 @@ import static igrad.commons.util.CollectionUtil.requireAllNonNull;
 import static igrad.model.course.Cap.CAP_ZERO;
 import static java.util.Objects.requireNonNull;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -11,9 +12,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import igrad.commons.core.GuiSettings;
 import igrad.commons.core.LogsCenter;
+import igrad.commons.exceptions.DataConversionException;
+import igrad.csvwriter.CsvWriter;
 import igrad.model.avatar.Avatar;
 import igrad.model.course.Cap;
 import igrad.model.course.CourseInfo;
@@ -22,9 +26,12 @@ import igrad.model.module.Module;
 import igrad.model.module.ModuleCode;
 import igrad.model.module.ModulePreclusions;
 import igrad.model.module.ModulePrerequisites;
+import igrad.model.module.sorters.SortBySemester;
 import igrad.model.quotes.QuoteGenerator;
 import igrad.model.requirement.Requirement;
 import igrad.model.requirement.RequirementCode;
+import igrad.storage.CourseBookStorage;
+import igrad.storage.JsonCourseBookStorage;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
@@ -137,6 +144,46 @@ public class ModelManager implements Model {
     @Override
     public void setCourseBook(ReadOnlyCourseBook courseBook) {
         this.courseBook.resetData(courseBook);
+    }
+
+    @Override
+    public boolean undoCourseBook() throws IOException, DataConversionException {
+
+        boolean hasChanged = false;
+
+        CourseBookStorage courseBookStorage = new JsonCourseBookStorage (
+            getBackupCourseBookFilePath()
+        );
+
+        Optional<ReadOnlyCourseBook> backupCourseBookOpt = courseBookStorage.readCourseBook();
+
+        if (backupCourseBookOpt.isPresent()) {
+
+            ReadOnlyCourseBook backupCourseBook = backupCourseBookOpt.get();
+
+            if (!courseBook.equals(backupCourseBook)) {
+                hasChanged = true;
+                setCourseBook(backupCourseBook);
+            }
+        }
+
+        return hasChanged;
+    }
+
+    @Override
+    public List<Module> exportModuleList() throws IOException {
+        List<Module> moduleList = getFilteredModuleList()
+            .stream()
+            .filter(m -> m.getSemester().isPresent())
+            .sorted(new SortBySemester())
+            .collect(Collectors.toList());
+
+        if (moduleList.size() > 0) {
+            CsvWriter csvWriter = new CsvWriter(moduleList);
+            csvWriter.write();
+        }
+
+        return moduleList;
     }
 
     @Override

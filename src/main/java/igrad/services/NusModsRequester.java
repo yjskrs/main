@@ -36,7 +36,6 @@ public class NusModsRequester {
             res = getRequestManager.makeRequest();
             jsonParsedModule = JsonParsedModule.initJsonParsedModule(res);
         } catch (IOException e) {
-            logger.warning("hello");
             throw e;
         }
 

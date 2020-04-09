@@ -1,5 +1,6 @@
 package igrad.model;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Comparator;
 import java.util.List;
@@ -7,6 +8,7 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 import igrad.commons.core.GuiSettings;
+import igrad.commons.exceptions.DataConversionException;
 import igrad.model.avatar.Avatar;
 import igrad.model.course.Cap;
 import igrad.model.course.CourseInfo;
@@ -69,6 +71,18 @@ public interface Model {
      * Resets {@code courseBook} data to a blank state with no data (e.g, modules, requirements, etc).
      */
     void resetCourseBook(ReadOnlyCourseBook courseBook);
+
+    /**
+     * Undoes the course book to the previous state.
+     * Returns true if change was detected
+     */
+    boolean undoCourseBook() throws IOException, DataConversionException;
+
+    /**
+     * Exports the course book.
+     * Returns a list of exported modules
+     */
+    List<Module> exportModuleList() throws IOException;
 
     /**
      * Returns the Avatar

@@ -1,20 +1,21 @@
 @startuml
-!include style.puml
+!include ../style.puml
 skinparam ClassFontColor #000000
 skinparam ClassBorderColor #000000
 
-title After command "undo"
+title Initial state
+
 
 package States <<rectangle>> {
-    class State1 as "__cb0:CourseBook__"
-    class State2 as "__cb1:CourseBook__"
-    class State3 as "__cb2:CourseBook__"
+    class State1 as "__courseBook:CourseBook__"
+    class State2 as "__backupCourseBook:CourseBook__"
 }
 
 State1 -[hidden]right-> State2
 State2 -[hidden]right-> State3
+hide State2
+hide State3
 
 class Pointer as "Current State" #FFFFF
-
-Pointer -up-> State2
-@end
+Pointer -up-> State1
+@enduml

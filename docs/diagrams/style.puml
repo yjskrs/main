@@ -34,6 +34,10 @@
 !define SERVICES_COLOR 	#f995c6
 !define SERVICES_COLOR_T1 #ff34b3
 
+!define CSV_WRITER_COLOR #5b8c00
+!define CSV_WRITER_COLOR_T1 #7cb305
+!define CSV_WRITER_COLOR_T2 #eaff8f
+
 !define USER_COLOR #000000
 
 skinparam BackgroundColor #FFFFFFF
