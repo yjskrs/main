@@ -1,7 +1,6 @@
 package igrad.model;
 
 import static igrad.commons.util.CollectionUtil.requireAllNonNull;
-import static igrad.model.course.Cap.CAP_ZERO;
 import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
@@ -15,9 +14,7 @@ import java.util.logging.Logger;
 import igrad.commons.core.GuiSettings;
 import igrad.commons.core.LogsCenter;
 import igrad.model.avatar.Avatar;
-import igrad.model.course.Cap;
 import igrad.model.course.CourseInfo;
-import igrad.model.course.Semesters;
 import igrad.model.module.Module;
 import igrad.model.module.ModuleCode;
 import igrad.model.quotes.QuoteGenerator;
@@ -319,29 +316,6 @@ public class ModelManager implements Model {
     public void updateRequirementList(Predicate<Requirement> predicate) {
         requireNonNull(predicate);
         requirements.setPredicate(predicate);
-    }
-
-    @Override
-    public Optional<Cap> computeEstimatedCap(Cap capToAchieve) {
-        Optional<Semesters> semesters = getCourseInfo().getSemesters();
-        int totalSemesters = semesters.get().getTotalSemesters();
-        int remainingSemesters = semesters.get().getRemainingSemesters();
-
-        Optional<Cap> current = courseBook.getCourseInfo().getCap();
-
-        if (current.isEmpty()) {
-            return Optional.of(capToAchieve);
-        } else {
-            totalSemesters = remainingSemesters + 1;
-        }
-
-        Cap currentCap = courseBook.getCourseInfo().getCap().orElse(CAP_ZERO);
-        double capWanted = capToAchieve.value;
-        double capNow = currentCap.value;
-
-        double estimatedCapEachSem = ((capWanted * totalSemesters) - capNow) / remainingSemesters;
-
-        return Optional.of(new Cap(Double.toString(estimatedCapEachSem)));
     }
 
     @Override

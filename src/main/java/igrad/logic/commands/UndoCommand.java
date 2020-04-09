@@ -1,11 +1,13 @@
 package igrad.logic.commands;
 
+import java.io.IOException;
 import java.util.Optional;
 
 import igrad.commons.exceptions.DataConversionException;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
 import igrad.model.ReadOnlyCourseBook;
+import igrad.storage.CourseBookStorage;
 import igrad.storage.JsonCourseBookStorage;
 
 /**
@@ -25,8 +27,7 @@ public class UndoCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
 
-        // TODO: use the more abstract storage manager interface, as like MainApp.java
-        JsonCourseBookStorage courseBookStorage = new JsonCourseBookStorage(
+        CourseBookStorage courseBookStorage = new JsonCourseBookStorage(
             model.getCourseBookFilePath(),
             model.getBackupCourseBookFilePath()
         );
@@ -46,7 +47,7 @@ public class UndoCommand extends Command {
             }
 
 
-        } catch (DataConversionException e) {
+        } catch (DataConversionException | IOException e) {
             throw new CommandException(MESSAGE_ERROR);
         }
 

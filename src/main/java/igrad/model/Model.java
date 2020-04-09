@@ -8,7 +8,6 @@ import java.util.function.Predicate;
 
 import igrad.commons.core.GuiSettings;
 import igrad.model.avatar.Avatar;
-import igrad.model.course.Cap;
 import igrad.model.course.CourseInfo;
 import igrad.model.module.Module;
 import igrad.model.module.ModuleCode;
@@ -235,9 +234,4 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateRequirementList(Predicate<Requirement> predicate);
-
-    /**
-     * Calculates and returns Cap needed to maintain each sem to achieve desired Cap.
-     */
-    Optional<Cap> computeEstimatedCap(Cap capToAchieve);
 }

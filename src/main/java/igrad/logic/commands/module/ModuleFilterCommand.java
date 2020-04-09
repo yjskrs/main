@@ -13,10 +13,13 @@ import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
 import igrad.model.module.Credits;
 import igrad.model.module.Grade;
+import igrad.model.module.Module;
 import igrad.model.module.Semester;
 
 /**
- * Filters the module list.
+ * Filters the module list based on the following parameters:
+ * {@code semester, credits, grade}
+ * Allows two logical operators: AND & OR
  */
 public class ModuleFilterCommand extends ModuleCommand {
 
@@ -24,7 +27,7 @@ public class ModuleFilterCommand extends ModuleCommand {
 
     public static final String MESSAGE_MODULE_FILTER_USAGE = "Parameter(s): "
         + "[" + PREFIX_SEMESTER + "SEMESTER] "
-        + "[" + PREFIX_CREDITS + "CREDITS]"
+        + "[" + PREFIX_CREDITS + "CREDITS] "
         + "[" + PREFIX_GRADE + "GRADE] "
         + "[-o]\n"
         + "Example: " + MODULE_FILTER_COMMAND_WORD + " "
@@ -32,7 +35,8 @@ public class ModuleFilterCommand extends ModuleCommand {
         + PREFIX_CREDITS + "4 "
         + PREFIX_GRADE + "A+ ";
 
-    public static final String MESSAGE_DISPLAYING_ALL = "No parameters detected. Displaying all modules.\n";
+    public static final String MESSAGE_DISPLAYING_ALL = "No parameters detected. Displaying all modules.\n"
+        + MESSAGE_MODULE_FILTER_USAGE;
     public static final String MESSAGE_MODULE_FILTER_SUCCESS = "Filtered modules based on the following: %s\n";
     public static final String MESSAGE_NOTHING_FOUND = "No modules found!\n" + MESSAGE_MODULE_FILTER_USAGE;
 
@@ -62,6 +66,9 @@ public class ModuleFilterCommand extends ModuleCommand {
         this.operator = operator;
     }
 
+    /**
+     * If isRefresh is true, module list will show all modules
+     */
     public ModuleFilterCommand() {
         this.isRefresh = true;
     }
@@ -77,76 +84,20 @@ public class ModuleFilterCommand extends ModuleCommand {
         } else {
             model.updateFilteredModuleList(m -> {
 
-                boolean match;
-
                 //must match all parameters
                 if (operator.equals(AND)) {
 
-                    match = true;
-
-                    if (semester.isPresent()) {
-                        //if both are present, then we can do the comparison
-                        if (m.getSemester().isPresent()) {
-                            if (!semester.get().equals(m.getSemester().get())) {
-                                match = false;
-                            }
-                        } else {
-                            //if module doesn't have a semester, don't return
-                            match = false;
-                        }
-                    }
-
-                    //credits for module is always present
-                    if (credits.isPresent()) {
-                        if (!credits.get().equals(m.getCredits())) {
-                            match = false;
-                        }
-                    }
-
-                    if (grade.isPresent()) {
-                        //if both are present, then we can do the comparison
-                        if (m.getGrade().isPresent()) {
-                            if (!grade.get().equals(m.getGrade().get())) {
-                                match = false;
-                            }
-                        } else {
-                            match = false;
-                        }
-                    }
+                    return checkCreditsMatch(m)
+                        && checkGradesMatch(m)
+                        && checkSemesterMatch(m);
 
                 } else {
-                    //only match one
 
-                    match = false;
-
-                    if (semester.isPresent()) {
-                        //if both are present, then we can do the comparison
-                        if (m.getSemester().isPresent()) {
-                            if (semester.get().equals(m.getSemester().get())) {
-                                match = true;
-                            }
-                        }
-                    }
-
-                    //credits for module is always present
-                    if (credits.isPresent()) {
-                        if (credits.get().equals(m.getCredits())) {
-                            match = true;
-                        }
-                    }
-
-                    if (grade.isPresent()) {
-                        //if both are present, then we can do the comparison
-                        if (m.getGrade().isPresent()) {
-                            if (grade.get().equals(m.getGrade().get())) {
-                                match = true;
-                            }
-                        }
-                    }
+                    return checkCreditsMatch(m)
+                        || checkGradesMatch(m)
+                        || checkSemesterMatch(m);
 
                 }
-
-                return match;
             });
 
         }
@@ -156,28 +107,88 @@ public class ModuleFilterCommand extends ModuleCommand {
             return new CommandResult(MESSAGE_NOTHING_FOUND);
         } else {
 
-            StringBuilder filterString = new StringBuilder();
+            String successMessage = getSuccessMessage();
 
-            ArrayList<String> filters = new ArrayList<>();
-
-            semester.ifPresent(s -> filters.add(s.value));
-            credits.ifPresent(c -> filters.add(c.value));
-            grade.ifPresent(g -> filters.add(g.value));
-
-            for (String filter : filters) {
-
-                filterString.append(filter);
-
-                int index = filters.indexOf(filter);
-                if (index < filters.size() - 1) {
-                    filterString.append(" ").append(operator).append(" ");
-                }
-
-            }
-
-            return new CommandResult(String.format(MESSAGE_MODULE_FILTER_SUCCESS, filterString));
+            return new CommandResult(String.format(MESSAGE_MODULE_FILTER_SUCCESS, successMessage));
         }
 
+    }
+
+    /**
+     * Creates the success string displaying parameters given
+     */
+    private String getSuccessMessage() {
+
+        StringBuilder successMessage = new StringBuilder();
+
+        ArrayList<String> filters = new ArrayList<>();
+
+        semester.ifPresent(s -> filters.add(s.value));
+        credits.ifPresent(c -> filters.add(c.value));
+        grade.ifPresent(g -> filters.add(g.value));
+
+        for (String filter : filters) {
+
+            successMessage.append(filter);
+
+            int index = filters.indexOf(filter);
+            if (index < filters.size() - 1) {
+                successMessage.append(" ").append(operator).append(" ");
+            }
+
+        }
+
+        return successMessage.toString();
+
+    }
+
+    /**
+     * Checks if semester parameter matches semester in module
+     * If parameter does not exist,
+     * returns true if operator == AND,
+     * returns false otherwise
+     */
+    private boolean checkSemesterMatch(Module m) {
+        if (semester.isPresent()) {
+            //if both are present, then we can do the comparison
+            if (m.getSemester().isPresent()) {
+                return semester.get().equals(m.getSemester().get());
+            }
+        } else {
+
+            return operator.equals(AND);
+        }
+
+        return false;
+    }
+
+    /**
+     * Checks if credits parameter matches credits in module
+     * If parameter does not exist,
+     * returns true if operator == AND,
+     * returns false otherwise
+     */
+    private boolean checkCreditsMatch(Module m) {
+        return credits.map(value -> value.equals(m.getCredits())).orElse(operator.equals(AND));
+    }
+
+    /**
+     * Checks if grades parameter matches grades in module
+     * If parameter does not exist,
+     * returns true if operator == AND,
+     * returns false otherwise
+     */
+    private boolean checkGradesMatch(Module m) {
+        if (grade.isPresent()) {
+            //if both are present, then we can do the comparison
+            if (m.getGrade().isPresent()) {
+                return grade.get().equals(m.getGrade().get());
+            }
+        } else {
+            return operator.equals(AND);
+        }
+
+        return false;
     }
 
 }

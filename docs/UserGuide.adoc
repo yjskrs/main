@@ -3,6 +3,7 @@
 :toc:
 :toc-title:
 :toc-placement: preamble
+:toclevels: 3
 :sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
@@ -54,6 +55,8 @@ WARNING: Specifies the constraints of the command or situation.
 NOTE: Specifies expected command outcomes.
 
 TIP: Specifies extra tips you can use when navigating through our app.
+
+IMPORTANT: Specifies important things to take note of
 
 == Features
 ____
@@ -338,96 +341,431 @@ You should be able to see the requirement created and/or edited in the main pane
 
 '''
 
-==== module
+=== Module
 
-Add, edit or delete a module. You would be able to tag (edit) a module with information such as; semester, grade or memo notes information.
+This section details each command used to manipulate modules. All module commands begin with the identifier
+`module` followed by the action e.g. `add`.
 
-Command Format
+All modules use the same parameters, listed in the table below:
 
-----
-module add n/MODULE_CODE t/MODULE_TITLE u/MCs [s/SEMESTER] [g/GRADE] [m/MEMO_NOTES]
+[#tableModuleParameters]
+.Module Parameters
+|===
+|Name| Description | Example | Restrictions
 
-module edit MODULE_CODE [n/MODULE_CODE] [n/MODULE_TITLE] [u/MCs] [s/SEMESTER] [g/GRADE] [m/MEMO_NOTES]
+|`MODULE_CODE` | A module's unique identifier | CS2103T | Must have two letters in the front, four numbers in the middle with an optional letter at the back
+|`MODULE_TITLE`| A module's title | Software Engineering |-
+|`MODULE_CREDITS`| The number of http://www.nus.edu.sg/registrar/academic-information-policies/graduate/modular-system[modular credits] a module is worth | 4 | Must be a number
+|`SEMESTER`| An academic semester. There are two semesters in a year | Y1S1 | Must be in the format Y?S* where ? represents a digit from 0 - 4 and * represents a digit from 1 -2
+|`GRADE` | A module's grade | A+ | Must be one of the following:  A+, A, A-, B+, B-, C+, C, D, D+, F, S, U |
+|===
 
-module delete MODULE_CODE
+If, when issuing a command, the parameter restrictions are not strictly adhered to,
+you might come across some common errors.
+The following errors are generic and may be encountered when dealing with any module command:
 
-module done MODULE_CODE g/GRADE
-----
-Note:
-[WARNING]
-SEMESTER is specified in format Y_S_ ( e.g. Y1S2 - Year 1 Semester 2 )
+[#tableModuleParametersErrorReference]
+.Module Parameters Error Reference
+|===
+|Parameter|Error Name
+
+|`MODULE_CODE`| Invalid Module Code
+|`MODULE_CREDITS`| Invalid Module Credits
+|`SEMESTER`| Invalid Semester
+|`GRADE`| Invalid Grade
+|===
+
+These errors can all be resolved by adhering to the restrictions detailed in <<tableModuleParameters>>
+
+[#ModuleAddCommand]
+==== Module Add
+
+This command adds a module to the module list.
+
+[#ModuleAddQuickReference]
+.Module Add Quick Reference
+|===
+|Purpose | Adds a module
+|Syntax| `module add n/MODULE_CODE t/MODULE_TITLE u/MODULE_CREDITS [s/SEMESTER]`
+|Example | `module add n/CS2103T t/Software Engineering u/4 s/Y1S1`
+|===
+
+*How it Works*
+
+When you type in this command, we take the given values for the `MODULE_CODE`, `MODULE_TITLE`, `MODULE_CREDITS` and optionally, the `SEMESTER`,
+and fill in those fields. We do not check if the given `MODULE_CODE` or `MODULE_TITLE` refer to actual modules offered by NUS. However, the restrictions stated in the module parameters table still apply.
+
+<<ModuleAddErrorReference>> lists errors you might encounter after issuing this command:
+
+[#ModuleAddErrorReference]
+.Module Add Error Reference
+|===
+|Name | Message| Explanation| Solution
+
+|Duplicate Module Error | Duplicate Detected| The module you are attempting to add already exists in the module list| Delete the existing module in the list and try again|
+|===
 
 
-Command Sample
+*Tutorial*
 
-Adding the module, CS2103T, with title "Software Engineering" and MCs "4".
-----
-module add n/CS2103T t/Software Engineering u/4
-----
-
-Tagging the module, CS1101, with "Y1S2" and grade "A+", and also renaming it to CS1101S.
-----
-module edit n/CS1101 n/CS1101S s/Y1S2 g/A+
-----
-
-Tagging the module, ST2234, with "Y2S1" and giving it a memo "pretty easy module".
-----
-module edit n/ST2334 s/Y2S1 m/pretty easy module
-----
-
-Removing a module named "CS1101S".
-----
-module delete n/CS1101S
-----
-
-Assigning grade 'A' to the module 'CS2103T'.
-----
-module done CS2103T g/A
-----
-
-Constraints
-[WARNING]
-====
-1. `(module edit)` There must be enough MCs left under a graduation requirement (category) for all modules.
-2. `(all)` The module code (e.g, CS1101S, ST2334), have to be unique
-====
-
-Expected Outcome
+Follow these steps to get a clearer idea of how this command works
 [NOTE]
-You should be able to see the modified module details reflected in the main panel
+For this tutorial, actual values will be given instead of placeholders. Undo or Delete objects created from this tutorial by using the appropriate commands
+
+
+1. Check that you do not have the modules with `MODULE_CODE` CS2103T and CS2101 in your list of modules
+
+2. Type the following into the command box
+`module add n/CS2103T u/4 t/Software Engineering` and press enter
+
+3.  Type the following into the command box
+`module add n/CS2101 u/4 t/Effective Communication for Computing Professionals` and press enter
+
+4. The message in the response box should change and you should see the following in the module panel:
+
+.Modules CS2103T and CS2101 successfully added
+image::../images/user-guide\moduleAutoAddCommand\two_modules.png[]
+
+[#ModuleAutoAddCommand]
+==== Module Auto Add
+
+This command adds a module to the module list. The module information is taken
+from the https://api.nusmods.com/[NUSMods API] and includes the `MODULE_CODE`, `MODULE_TITLE`
+and `MODULE_CREDITS`.
+
+[#ModuleAutoAddQuickReference]
+.Module Auto Add Quick Reference
+|===
+|Purpose | Adds a module from NUSMods
+|Syntax| `module add n/MODULE_CODE_A n/MODULE_CODE_B -a`
+|Example | `module add n/CS2103T n/CS2101 -a`
+|===
+
+*How it Works*
+
+IMPORTANT: Do not miss out the `-a` flag
+
+When you type in this command, a request is made to https://api.nusmods.com/[NUSMods API]. More specifically, we visit the
+module page and ask for the information provided there. An example page can be found https://api.nusmods.com/2018-2019/modules/CS2103T/[here].
+
+[NOTE]
+We try to get the module information from the current academic year. However,
+this might not always be possible as NUS might not have released
+the module details. As a contingency, we retrieve the module information from the
+previous academic year.
+
+In general, using this command speeds up the process of module addition greatly. However, as we have to make
+a request to an external webpage, the time taken to process the request might be considerably longer.
+
+[WARNING]
+After issuing the command, the app might seem to freeze. Not to worry! It is merely processing your request. Please be patient when executing this command, especially when attempting to add a large number of modules.
+
+This command also supports _batch processing_ and you can add multiple modules, with the necessary information all
+filled in, by issuing a single command. In the case where adding a single module in a batch of modules raises an error,
+we skip that module and let you know what went wrong.
+
+[TIP]
+You can add up to 10 modules at once! Try this: `module add n/CS1101 n/CS1231 n/CS2030 n/CS2040 n/CS2100 n/CS2103T n/CS2105 n/CS2106 n/CS3230 n/CS3219 -a`
+
+<<ModuleAutoAddErrorReference>> lists the errors you might encounter after issuing this command:
+
+[#ModuleAutoAddErrorReference]
+.Module Auto Add Error Reference
+|===
+|Name| Message| Explanation |Solution
+
+|Duplicate Module Error | Duplicate Detected| The module you are attempting to add already exists in the module list| Delete the existing module in the list and try again
+|Module Not Found Error| Module Not Found| The module you are attempting to add could not be found on the NUSMods API |  Use the command <<ModuleAddCommand>> instead
+|Module Overload Error | Module Overload Error|You attemped to add too many modules. The limit is 10| Divide the list of modules into smaller batches of size less than 10 and try again
+|Connection Error I | Connection Error| You are not connected to the internet| Whilst all other commands work offline. You need an internet connection to issue this command. Go online before trying again
+|Connection Error II | Connection Error| The NUSMods API server is down| Use the command module add instead or wait until the NUSMods API server is restored
+|===
+
+*Tutorial*
+
+Follow these steps to get a clearer idea of how this command works
+
+[NOTE]
+For this tutorial, actual values will be given instead of placeholders. Undo or Delete objects created from this tutorial by using the appropriate commands
+
+1. Check that you do not have the modules with `MODULE_CODE` CS2103T and CS2101 in your list of modules
+
+2. Type the following into the command box
+`module add n/CS2103T n/CS2101 -a` and press enter
+
+3. Wait for up to 5 seconds
+
+4. The message in the response box should change and you should see the following in the module panel
+
+.Modules CS2103T and CS2101 successfully added from NUSMods
+image::../images/user-guide\moduleAutoAddCommand\two_modules.png[]
+
+*Additional Information*
+
+We are also able to retrieve information pertaining to a module's prerequisites and preclusions. However, as our app can function as a module planner
+in addition to tracking your graduation requirements, we do not prevent you from adding modules that have unfulfilled prerequisites but instead, simply show a warning.
+
+==== Module Done
+
+This command marks a module as done by giving it a grade and optionally, a semester.
+
+.Module Done Quick Reference
+|===
+|Purpose | Marks a module as done
+|Syntax| `module done MODULE_CODE g/GRADE [s/SEMESTER]`
+|Example | `module done CS2103T g/A s/Y1S1`
+|===
+
+*How it Works*
+
+When you issue the command, we give your module the grade, and optionally the semester, that you provided. This helps us keep track of both your CAP and the number
+of semesters you have left before graduating.
+
+In order to calculate your CAP, we use a known algorithm which is guaranteed to be accurate. To see what semester you are currently at, we
+take the latest semester given to a module which has been marked as done. From that, we are able to tell you how many semesters you have left.
+
+[NOTE]
+We do not currently allow the input of special terms. As a workaround, for modules taken
+during special term, you could input the most recent semester instead
+
+<<ModuleDoneErrorReference>> lists the errors you might encounter after issuing this command:
+
+[#ModuleDoneErrorReference]
+.Module Done Error Reference
+|===
+|Name| Message| Explanation |Solution
+
+|Module Not Found Error | Module Not Found| The module you are attempting to mark as done does not exist in the module list| Add the module you wish to mark as done and try again
+|===
+
+*Tutorial*
+
+[NOTE]
+For this tutorial, actual values will be given instead of placeholders. Undo or Delete objects created from this tutorial by using the appropriate commands
+
+Ensure that you have the module CS2103T in the module list
+
+1. Type the following into the command box `module done CS2103T g/A s/Y4S1`
+
+2. The message in the response box should change and you should see the following
+
+.Modules CS2103T successfully given a grade and a semester
+image::../images/user-guide\moduleAutoAddCommand\one_module.png[]
+
+==== Module Edit
+
+This command edits the editable fields in a module which include the `MODULE_TITLE`, `MODULE_CREDITS`, `SEMESTER`.
+Although it is possible to edit the fields as listed, it is unadvisable unless you made a mistake while keying
+in the values.
+
+.Module Edit Quick Reference
+|===
+|Purpose | Edits a module
+|Syntax| `module edit MODULE_CODE [t/MODULE_TITLE] [u/MODULE_CREDITS] [s/SEMESTER]`
+|Example | `module edit CS2103T t/Hardware Engineering u/8 s/Y1S2`
+|===
+
+*How it Works*
+
+When you issue the command, we replace the fields provided with the given values. You are able to
+change the values as you wish as long as they follow the restrictions as listed in the parameters table.
+
+<<ModuleEditErrorReference>> lists the errors you might encounter after issuing this command:
+
+[#ModuleEditErrorReference]
+.Module Edit Error Reference
+|===
+|Name| Message| Explanation |Solution
+
+|Module Not Found Error | Module Not Found| The module you are attempting to edit does not exist in the module list| Instead of editing a module that does not exist, try adding a new one!
+|===
+
+*Tutorial*
+
+[NOTE]
+For this tutorial, actual values will be given instead of placeholders. Undo or Delete objects created from this tutorial by using the appropriate commands
+
+Ensure that you have the module CS2103T in the module list
+
+1. Type the following into the command box `module edit CS2103T t/Hardware Engineering s/Y1S1 u/8`
+
+2. The message in the response box should change and you should see the following
+
+.Modules CS2103T successfully given a grade and a semester
+image::../images/user-guide\moduleAutoAddCommand\module_edit.png[]
+
+==== Module Delete
+
+This command deletes a module from the module list.
+
+.Delete Quick Reference
+|===
+|Purpose | Deletes a module
+|Syntax| `module delete MODULE_CODE`
+|Example | `module delete CS2103T`
+|===
+
+*How it Works*
+
+The module that you wish to delete is completely removed from the module list.
+[WARNING]
+Restoring the module is only possible using the `undo` command which would only work if `delete` was the last issued command.
+
+<<ModuleDeleteErrorReference>> lists the errors you might encounter after issuing this command:
+
+[#ModuleDeleteErrorReference]
+.Module Delete Error Reference
+|===
+|Name| Message| Explanation |Solution
+
+|Module Not Found Error | Module Not Found| The module you are attempting to delete does not exist in the module list| Your problem is your solution!
+|===
+
+*Tutorial*
+
+[NOTE]
+For this tutorial, actual values will be given instead of placeholders. Undo or Delete objects created from this tutorial by using the appropriate commands
+
+Ensure that you have the module CS2103T in the module list
+
+1. Type the following into the command box `module delete CS2103T`
+
+2. The message in the response box should change and you should see that the module CS2103T disappears from the module list
+
+==== Module Filter
+
+This command allows you to find your modules by various parameters. You can filter the
+complete module list by `SEMESTER`, `MODULE_CREDITS` and `GRADE`.
+
+.Filter Quick Reference
+|===
+|Purpose | Displays a module list filtered based on the given parameters
+|Syntax| `module filter [s/SEMESTER] [u/MODULE_CREDITS] [g/GRADE] [-o]`
+|Example | `module filter s/Y1S1 u/4 g/A -o`
+|===
+
+*How it Works*
+
+Two options are provided for you:
+
+[Option 1] Displays modules that match all provided parameters
+
+or
+
+[Option 2] Displays modules that match at least one of the provided parameters.
+
+If the flag `-o` is included at the end of the command, Option 2 will be chosen. Otherwise, the default option is Option 1.
+
+IMPORTANT: In order to display all modules once again, simply type `module filter`. This will display an unfiltered module list containing all modules.
+
+There are no notable errors to list. If wrong parameters are given, the app will simply
+display the unfiltered module list. However, you should always take note of what filters are currently in place. If you
+are unable to find some modules after using this command, please reset the display by typing in `module filter`.
+
+WARNING: If you
+are unable to find some modules after using this command, please reset the display by typing in `module filter`.
+
+*Tutorial*
+
+Ensure that the following modules are in the module list:
+|===
+|Module Code| Credits|Semester| Grade
+
+|CS2103T|4|Y1S1|A
+|CS2101|4|Y1S2|B
+|CS2040|6|Y2S1|C
+|===
+
+ .. Retrieving modules which have 4 `CREDITS`
+ . Type `module filter u/4` into the command box
+ . The message in the response box should change and you should see the modules CS2103T and CS2101 in the module panel
+
+ .. Retrieving modules which have either `SEMESTER` Y1S2 or `GRADE` C
+. Type `module filter s/Y1S1 g/B -o`
+. The message in the response box should change and you should see the modules CS2101 and CS2040 in the module panel
+
+
+*Additional Information*
+
+[NOTE]
+This section contains information which requires prior knowledge of discrete mathematics or more specifically, logical operators
+
+The flag `-o`, is present, sets the logical operator used in concatenating the parameters as _"or"_. The default logical operator used is _"and"_.
+
+'''
+=== Export
+
+This command exports your data to a comma-separated values (.csv) file. This file can then be submitted to the relevant
+administration for processing of Leave of Absence (LOA), exchange programmes or internship applications.
+
+.Export Quick Reference
+|===
+|Purpose | Exports your data to a .csv file
+|Syntax| `export`
+|Example | `export`
+|===
+
+*How it Works*
+
+We write your data to a .csv file _study_plan.csv_ using the modules you have added and include the fields `MODULE_CODE`, `MODULE_TITLE`, `SEMESTER` and `CREDITS`.
+
+.Study Plan Example CSV
+image::../images/user-guide\exportCommand\export_csv_example.png[]
+
+NOTE: Modules that have not been tagged with a semester will not be written
+
+After issuing the command, you will be able to find the file in the same folder as the app's executable.
+
+NOTE: For example, if the app is stored in your Desktop folder, the file _study_plan.csv_ will be created in the Desktop folder as well
+
+<<ExportErrorReference>> lists the errors you might encounter after issuing this command:
+
+[#ExportErrorReference]
+.Export Error Reference
+|===
+|Name| Message| Explanation |Solution
+
+|Write Error | Unable to write to file| You have the file open. The system is unable to write to an open file | Close the file and try again
+|Data Not Found Error | Nothing to write| You do not have any modules tagged with a semester | Tag at least one module with a semester and try again
+|===
 
 '''
 
-==== export
+=== Exit
 
-Exports all data in a (prettified) text file. If information is sufficient,
-this file can be submitted to NUS as a study plan.
+This command assists you in exiting the program.
 
-Command Format
+.Exit Quick Reference
+|===
+|Purpose | Exits the program
+|Syntax| `exit`
+|Example | `exit`
+|===
 
-----
-export
-----
+*Additional Information*
 
-Expected Outcome
-[NOTE]
-A text file "study_plan.txt" should be generated in  the same folder as the iGrad application.
+You can also exit the program by clicking the close icon on the top right hand corner of the application's window.
 
-'''
+## Version 2.0
 
-==== exit
+This sections details features that would be packaged with the next release
 
-Exits the program
+=== Module Suggester
 
-Command Format
+Using tried and tested recommendation algorithms such as https://en.wikipedia.org/wiki/Collaborative_filtering[collborative filtering], we would be able to automatically suggest
+to you what modules to take next.
 
-----
-exit
-----
+.Suggest Quick Reference
+|===
+|Purpose | Suggests modules to take
+|Syntax| `suggest NUMBER_OF_MODULES`
+|Example | `suggest 4`
+|===
 
-Expected Outcome
-[NOTE]
-The application should exit
+=== Integration with NUSMods
+
+We plan to integrate with popular timetabling application NUSMods so that you can manage all aspects of your academics
+in one place.
 
 ## FAQs
 

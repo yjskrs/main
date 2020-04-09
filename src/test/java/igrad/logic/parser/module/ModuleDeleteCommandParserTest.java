@@ -1,6 +1,4 @@
-package igrad.logic.parser;
-
-import igrad.logic.parser.module.ModuleDeleteCommandParser;
+package igrad.logic.parser.module;
 
 /**
  * As we are only doing white-box testing, our test cases do not cover path variations

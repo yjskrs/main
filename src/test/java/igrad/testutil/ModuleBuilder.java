@@ -18,15 +18,16 @@ public class ModuleBuilder {
     public static final String DEFAULT_TITLE = "Programming Methodology";
     public static final String DEFAULT_MODULE_CODE = "CS1101S";
     public static final String DEFAULT_CREDITS = "4";
-    public static final String DEFAULT_MEMO = "this is about recursion";
     public static final String DEFAULT_SEMESTER = "Y1S1";
-    public static final String DEFAULT_DESCRIPTION = "blah";
+    public static final String DEFAULT_DESCRIPTION = "Good Module";
+    public static final String DEFAULT_GRADE = "A+";
 
     private Title title;
     private ModuleCode moduleCode;
     private Credits credits;
     private Optional<Semester> semester;
     private Optional<Description> description;
+    private Optional<Grade> grade;
 
     public ModuleBuilder() {
         title = new Title(DEFAULT_TITLE);
@@ -34,6 +35,7 @@ public class ModuleBuilder {
         credits = new Credits(DEFAULT_CREDITS);
         semester = Optional.of(new Semester(DEFAULT_SEMESTER));
         description = Optional.of(new Description(DEFAULT_DESCRIPTION));
+        grade = Optional.of(new Grade(DEFAULT_GRADE));
     }
 
     /**
@@ -44,6 +46,7 @@ public class ModuleBuilder {
         moduleCode = moduleToCopy.getModuleCode();
         credits = moduleToCopy.getCredits();
         semester = moduleToCopy.getSemester();
+        grade = moduleToCopy.getGrade();
     }
 
     /**
@@ -78,6 +81,7 @@ public class ModuleBuilder {
         return this;
     }
 
+
     /**
      * Sets the {@code Semester} of the {@code Module} that we are building.
      */
@@ -87,11 +91,28 @@ public class ModuleBuilder {
     }
 
     /**
+     * Sets the {@code Grade} of the {@code Module} that we are building.
+     */
+    public ModuleBuilder withGrade(String grade) {
+        this.grade = Optional.of(new Grade(grade));
+        return this;
+    }
+
+    /**
+     * Sets all the optional fields to empty
+     */
+    public ModuleBuilder withoutOptionals() {
+        this.grade = Optional.empty();
+        this.semester = Optional.empty();
+        this.description = Optional.empty();
+
+        return this;
+    }
+
+    /**
      * Builds a {@code Module} for testing
      */
     public Module build() {
-        // TODO: Add support for grade
-        Optional<Grade> grade = Optional.empty();
         return new Module(title, moduleCode, credits, semester, description, grade);
     }
 

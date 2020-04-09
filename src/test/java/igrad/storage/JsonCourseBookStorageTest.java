@@ -77,7 +77,7 @@ public class JsonCourseBookStorageTest {
         Optional<Cap> cap = CourseInfo.computeCap(original.getModuleList(), original.getRequirementList());
         Optional<Credits> credits = CourseInfo.computeCredits(original.getRequirementList());
         Optional<Semesters> semesters = CourseInfo.computeSemesters(Optional.of(new Semesters("5")),
-                original.getModuleList());
+            original.getModuleList());
         CourseInfo courseInfo = new CourseInfo(name, cap, credits, semesters);
         original.setCourseInfo(courseInfo);
 

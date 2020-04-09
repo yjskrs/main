@@ -105,7 +105,7 @@ public class CourseInfoTest {
         assertFalse(TypicalCourseInfos.B_SCI_MATH.equals(null));
 
         // different type -> returns false
-        assertFalse(TypicalCourseInfos.B_COMP_SCI.equals(TypicalModules.COMPUTER_ORGANISATION));
+        assertFalse(TypicalCourseInfos.B_COMP_SCI.equals(TypicalModules.CS2100));
 
         // different object -> returns false
         assertFalse(TypicalCourseInfos.B_COMP_SCI.equals(TypicalCourseInfos.B_SCI_MATH));
