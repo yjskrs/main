@@ -69,7 +69,7 @@ public class RequirementEditCommandParserTest {
         // missing specifier
         assertParseFailure(parser, " t/", MISSING_SPECIFIER); // no specifier
         assertParseFailure(parser, VALID_REQ_CODE_UE + " s/", INVALID_SPECIFIER); // wrong prefix
-        assertParseFailure(parser, VALID_REQ_CODE_UE + " s/ t/", INVALID_SPECIFIER); // wrong with correct prefix
+        assertParseFailure(parser, VALID_REQ_CODE_UE + " s/ t/", INVALID_SPECIFIER); // wrong w correct prefix
 
         // fields not given
         assertParseFailure(parser, VALID_REQ_CODE_UE, FIELDS_NOT_SPECIFIED); // no prefix/arguments
@@ -79,10 +79,10 @@ public class RequirementEditCommandParserTest {
         assertParseFailure(parser, VALID_REQ_CODE_UE + " u/", FIELDS_NOT_SPECIFIED); // no credits
 
         // invalid argument
-        assertParseFailure(parser, VALID_REQ_CODE_UE + REQ_CREDITS_DESC_CSF + " t/", INVALID_TITLE_FORMAT); // no title
-        assertParseFailure(parser, VALID_REQ_CODE_UE + " t/" + REQ_CREDITS_DESC_CSF, INVALID_TITLE_FORMAT); // no title
-        assertParseFailure(parser, VALID_REQ_CODE_UE + REQ_TITLE_DESC_CSF + " u/", INVALID_CREDITS_FORMAT); // no credits
-        assertParseFailure(parser, VALID_REQ_CODE_UE + " u/" + REQ_TITLE_DESC_CSF, INVALID_CREDITS_FORMAT); // no credits
+        assertParseFailure(parser, VALID_REQ_CODE_UE + REQ_CREDITS_DESC_CSF + " t/", INVALID_TITLE_FORMAT);
+        assertParseFailure(parser, VALID_REQ_CODE_UE + " t/" + REQ_CREDITS_DESC_CSF, INVALID_TITLE_FORMAT);
+        assertParseFailure(parser, VALID_REQ_CODE_UE + REQ_TITLE_DESC_CSF + " u/", INVALID_CREDITS_FORMAT);
+        assertParseFailure(parser, VALID_REQ_CODE_UE + " u/" + REQ_TITLE_DESC_CSF, INVALID_CREDITS_FORMAT);
     }
 
     @Test
@@ -99,7 +99,6 @@ public class RequirementEditCommandParserTest {
     //                            + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + NAME_DESC_AMY + TAG_DESC_FRIEND;
     //
     //     EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
-    //                                           .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
     //                                           .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
     //     EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
     //
@@ -156,11 +155,9 @@ public class RequirementEditCommandParserTest {
     // public void parse_multipleRepeatedFields_acceptsLast() {
     //     Index targetIndex = INDEX_FIRST_PERSON;
     //     String userInput = targetIndex.getOneBased() + PHONE_DESC_AMY + ADDRESS_DESC_AMY + EMAIL_DESC_AMY
-    //                            + TAG_DESC_FRIEND + PHONE_DESC_AMY + ADDRESS_DESC_AMY + EMAIL_DESC_AMY + TAG_DESC_FRIEND
     //                            + PHONE_DESC_BOB + ADDRESS_DESC_BOB + EMAIL_DESC_BOB + TAG_DESC_HUSBAND;
     //
     //     EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withPhone(VALID_PHONE_BOB)
-    //                                           .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
     //                                           .build();
     //     EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
     //
