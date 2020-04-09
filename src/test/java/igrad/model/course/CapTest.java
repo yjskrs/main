@@ -45,17 +45,33 @@ public class CapTest {
         assertFalse(Cap.isValidCap("4..40")); // special character-separated double (cap) string
         assertFalse(Cap.isValidCap("4.40.40")); // double (cap) string multiple decimal segments
         assertFalse(Cap.isValidCap("4.")); // double (cap) string with only trailing decimal point
-        assertFalse(Cap.isValidCap("5.01")); // cap above 5
+        assertFalse(Cap.isValidCap("5.01")); // double (cap) string  above 5
+        assertFalse(Cap.isValidCap("-0.01")); // double (cap) string below 0
 
         // valid cap
-        assertTrue(Cap.isValidCap("4")); // integer (cap) string only
+        assertTrue(Cap.isValidCap("4")); // integer (cap) string
         assertTrue(Cap.isValidCap("4.40")); // double (cap) string
-        assertTrue(Cap.isValidCap("4.4000000000000001")); // cap with many precisions
+        assertTrue(Cap.isValidCap("4.4000000000000001")); // double (cap) string with many precisions
+        assertTrue(Cap.isValidCap("0")); // integer (cap) string exactly 0
+        assertTrue(Cap.isValidCap("0.0000000000000000")); // double (cap) string exactly 0, with many precisions
+        assertTrue(Cap.isValidCap("5")); // integer (cap) string exactly 5
+        assertTrue(Cap.isValidCap("5.0000000000000000")); // double (cap) string exactly 5, with many precisions
 
-        // null credits
-        assertThrows(NullPointerException.class, () -> Cap.isValidCap(null));
 
-        // invalid credits
+        // Testing overloaded Double method
 
+        // invalid cap
+        assertFalse(Cap.isValidCap(5.01)); // double (cap) above 5
+        assertFalse(Cap.isValidCap(-0.01)); // double (cap) below 0
+
+
+        // valid cap
+        assertTrue(Cap.isValidCap(4)); // integer (cap)
+        assertTrue(Cap.isValidCap(4.40)); // double (cap)
+        assertTrue(Cap.isValidCap(4.4000000000000001)); // double (cap) with many precisions
+        assertTrue(Cap.isValidCap(0)); // integer (cap) exactly 0
+        assertTrue(Cap.isValidCap(0.0000000000000000)); // double (cap) exactly 0, with many precisions
+        assertTrue(Cap.isValidCap(5)); // integer (cap) exactly 5
+        assertTrue(Cap.isValidCap(5.0000000000000000)); // double (cap) exactly 5, with many precisions
     }
 }

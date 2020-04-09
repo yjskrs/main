@@ -56,7 +56,7 @@ public class Cap {
         requireNonNull(test);
 
         return test.matches(VALIDATION_REGEX)
-            && (Double.parseDouble(test) > 0 && Double.parseDouble(test) <= 5.0);
+            && (Double.parseDouble(test) >= 0 && Double.parseDouble(test) <= 5.0);
     }
 
     /**
