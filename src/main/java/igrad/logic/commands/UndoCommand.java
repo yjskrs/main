@@ -5,7 +5,6 @@ import java.io.IOException;
 import igrad.commons.exceptions.DataConversionException;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
-import igrad.model.ReadOnlyCourseBook;
 
 /**
  * Undoes the previous action taken.
