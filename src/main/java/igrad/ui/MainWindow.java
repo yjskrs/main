@@ -216,6 +216,26 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Refreshes the avatar expression on the result display (UI component).
+     */
+    void refreshResultDisplayAvatar(Avatar avatar) {
+        resultDisplay.setAvatar(avatar);
+    }
+
+    /**
+     * Gets the avatar with the appropriate expression to the success of the command.
+     */
+    Avatar getAvatar(Model model, boolean isSuccessful) {
+        if (isSuccessful) {
+            return model.getAvatar();
+        } else {
+            Avatar currentAvatar = model.getAvatar();
+            Avatar sadAvatar = new Avatar(currentAvatar.getName() + "-sad");
+            return sadAvatar;
+        }
+    }
+
+    /**
      * Refreshes the last command received in the last command received panel.
      */
     private void refreshCommandReceived(String command) {
@@ -272,13 +292,11 @@ public class MainWindow extends UiPart<Stage> {
      * Displays the sad (loading) version of the avatar when loading
      */
     private void handleStartLoading(Avatar avatar) {
-        System.out.println("START LOADING");
         Avatar sadAvatar = new Avatar(avatar.getName() + "-sad");
         resultDisplay.setAvatar(sadAvatar);
     }
 
     private void handleStopLoading(Avatar avatar) {
-        System.out.println("STOP LOADING");
         resultDisplay.setAvatar(avatar);
     }
 
@@ -328,6 +346,9 @@ public class MainWindow extends UiPart<Stage> {
 
             logger.info("Result: " + commandResult.getFeedbackToUser());
 
+            Avatar avatar = getAvatar(model, true);
+
+            refreshResultDisplayAvatar(avatar);
             refreshResultDisplay(commandResult);
             refreshProgressPanel(model);
 
@@ -341,6 +362,10 @@ public class MainWindow extends UiPart<Stage> {
             return commandResult;
         } catch (CommandException | ParseException | IOException | ServiceException e) {
             logger.info("Invalid command: " + commandText);
+
+            Avatar avatar = getAvatar(model, false);
+
+            refreshResultDisplayAvatar(avatar);
             refreshResultDisplayError(e.getMessage());
             throw e;
         }

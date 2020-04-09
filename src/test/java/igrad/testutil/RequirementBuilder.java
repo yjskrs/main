@@ -74,8 +74,28 @@ public class RequirementBuilder {
     /**
      * Sets the {@code Credits} of the {@code Requirement} that we are building.
      */
-    public RequirementBuilder withCreditsTwoParameters(int creditsRequired, int creditsFulfilled) {
-        this.credits = new Credits(creditsRequired, creditsFulfilled);
+    public RequirementBuilder withCreditsThreeParameters(int creditsRequired,
+                                                         int creditsAssigned,
+                                                         int creditsFulfilled) {
+        this.credits = new Credits(creditsRequired, creditsAssigned, creditsFulfilled);
+        return this;
+    }
+
+    /**
+     * Update credits value with addition of modules.
+     */
+    public RequirementBuilder updateCredits() {
+        int creditsAssigned = 0;
+        int creditsFulfilled = 0;
+
+        for (Module module : modules) {
+            creditsAssigned += module.getCredits().toInteger();
+            if (module.isDone()) {
+                creditsFulfilled += module.getCredits().toInteger();
+            }
+        }
+
+        this.credits = new Credits(credits.getCreditsRequired(), creditsAssigned, creditsFulfilled);
         return this;
     }
 
@@ -84,7 +104,7 @@ public class RequirementBuilder {
      */
     public RequirementBuilder withModules(List<Module> moduleList) {
         modules.setModules(moduleList);
-        return this;
+        return updateCredits();
     }
 
     /**

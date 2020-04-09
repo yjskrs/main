@@ -25,16 +25,18 @@ import igrad.model.requirement.Credits;
 import igrad.model.requirement.Requirement;
 import igrad.testutil.RequirementBuilder;
 
+//@@author yjskrs
+
 public class RequirementAddCommandParserTest {
     private RequirementAddCommandParser parser = new RequirementAddCommandParser();
 
     @Test
     public void parse_allFieldsPresent_success() {
         Requirement expectedRequirement = new RequirementBuilder()
-            .withRequirementCode("UE")
-            .withTitle(VALID_REQ_TITLE_UE)
-            .withCreditsOneParameter(VALID_REQ_CREDITS_UE)
-            .build();
+                                              .withRequirementCode("UE")
+                                              .withTitle(VALID_REQ_TITLE_UE)
+                                              .withCreditsOneParameter(VALID_REQ_CREDITS_UE)
+                                              .build();
 
         // whitespace preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + REQ_TITLE_DESC_UE + REQ_CREDITS_DESC_UE,
@@ -55,7 +57,7 @@ public class RequirementAddCommandParserTest {
     }
 
     @Test
-    public void parse_compulsoryPrefixesMissing_failure() {
+    public void parse_prefixesMissing_failure() {
         String prefixMissingMessage = String.format(
             MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_REQUIREMENT_NOT_ADDED);
 
@@ -74,19 +76,9 @@ public class RequirementAddCommandParserTest {
         // missing title
         String input = " " + PREFIX_TITLE.getPrefix() + REQ_CREDITS_DESC_CSF;
         assertParseFailure(parser, input, argumentMissingMessage);
-        // <Invalid command format!
-        // Added requirement must be provided with arguments t/TITLE u/CREDITS > but was:
-        // <Title should not start with a space or slash, should not contain only numbers, and should not be blank.>
 
         // missing credits
         input = REQ_TITLE_DESC_CSF + " " + PREFIX_CREDITS.getPrefix();
-        assertParseFailure(parser, input, argumentMissingMessage);
-        // <Invalid command format!
-        // Added requirement must be provided with arguments t/TITLE u/CREDITS > but was:
-        // <Modular credits needed to satisfy requirement should be a number more than 0.>
-
-        // missing both
-        input = " " + PREFIX_TITLE.getPrefix() + " " + PREFIX_CREDITS.getPrefix();
         assertParseFailure(parser, input, argumentMissingMessage);
     }
 

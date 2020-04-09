@@ -45,10 +45,12 @@ public class RequirementCard extends UiPart<Region> {
 
         int creditsFulfilled = requirement.getCreditsFulfilled();
         int creditsRequired = requirement.getCreditsRequired();
+        int creditsAssigned = requirement.getCreditsAssigned();
 
         String creditsCountText = creditsFulfilled
             + " out of " + creditsRequired
-            + " MCs fulfilled";
+            + " MCs fulfilled ("
+            + creditsAssigned + " assigned)";
 
         if (requirement.isFulfilled()) {
             requirementCardPane.getStyleClass().add("done");
