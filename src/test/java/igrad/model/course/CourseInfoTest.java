@@ -1,12 +1,16 @@
 package igrad.model.course;
 
 import static igrad.logic.commands.course.CourseCommandTestUtil.VALID_COURSE_CAP_BCOMPSCI;
+import static igrad.logic.commands.course.CourseCommandTestUtil.VALID_COURSE_CAP_BCOMPSEC;
 import static igrad.logic.commands.course.CourseCommandTestUtil.VALID_COURSE_CREDITS_FULFILLED_BCOMPSCI;
+import static igrad.logic.commands.course.CourseCommandTestUtil.VALID_COURSE_CREDITS_FULFILLED_BCOMPSEC;
 import static igrad.logic.commands.course.CourseCommandTestUtil.VALID_COURSE_CREDITS_REQUIRED_BCOMPSCI;
+import static igrad.logic.commands.course.CourseCommandTestUtil.VALID_COURSE_CREDITS_REQUIRED_BCOMPSEC;
 import static igrad.logic.commands.course.CourseCommandTestUtil.VALID_COURSE_NAME_BCOMPSCI;
 import static igrad.logic.commands.course.CourseCommandTestUtil.VALID_COURSE_SEMESTERS_BCOMPSCI;
 import static igrad.model.course.Cap.CAP_ZERO;
 import static igrad.testutil.Assert.assertThrows;
+import static igrad.testutil.TypicalCourseInfos.BCOMPSCI;
 import static igrad.testutil.TypicalModules.CS2040;
 import static igrad.testutil.TypicalModules.CS2101;
 import static igrad.testutil.TypicalRequirements.CS_FOUNDATION;
@@ -27,8 +31,6 @@ import igrad.model.requirement.Requirement;
 import igrad.testutil.CourseInfoBuilder;
 import igrad.testutil.ModuleBuilder;
 import igrad.testutil.RequirementBuilder;
-import igrad.testutil.TypicalCourseInfos;
-import igrad.testutil.TypicalModules;
 
 public class CourseInfoTest {
     @Test
@@ -389,31 +391,27 @@ public class CourseInfoTest {
 
     @Test
     public void equals() {
-        // same values -> returns true
-        CourseInfo bSciMathCopy = new CourseInfoBuilder(TypicalCourseInfos.B_SCI_MATH).build();
-        assertTrue(TypicalCourseInfos.B_SCI_MATH.equals(bSciMathCopy));
+        // null
+        assertFalse(BCOMPSCI.equals(null));
 
-        // same object -> returns true
-        assertTrue(TypicalCourseInfos.B_SCI_MATH.equals(TypicalCourseInfos.B_SCI_MATH));
+        // same course info
+        assertTrue(BCOMPSCI.equals(BCOMPSCI));
 
-        // null -> returns false
-        assertFalse(TypicalCourseInfos.B_SCI_MATH.equals(null));
+        // copied course info
+        CourseInfo courseInfoCopy = new CourseInfoBuilder(BCOMPSCI).build();
+        assertTrue(BCOMPSCI.equals(courseInfoCopy));
 
-        // different type -> returns false
-        assertFalse(TypicalCourseInfos.B_COMP_SCI.equals(TypicalModules.CS2100));
+        // different type
+        Module module = new ModuleBuilder().build();
+        assertFalse(BCOMPSCI.equals(module));
 
-        // different object -> returns false
-        assertFalse(TypicalCourseInfos.B_COMP_SCI.equals(TypicalCourseInfos.B_SCI_MATH));
-
-        // different name -> returns false
-        /*CourseInfo editedCourseName = new CourseInfoBuilder(TypicalCourseInfos.B_COMP_SCI)
-            .withName(VALID_NAME_B_ARTS_PHILO).build();*/
-        // assertFalse(TypicalCourseInfos.B_COMP_SCI.equals(editedCourseName));
-
-        //different cap -> returns false
-        CourseInfo editedCourseCap = new CourseInfoBuilder(TypicalCourseInfos.B_INFO_SYS)
-            .withCap("1.0").build();
-        assertFalse(TypicalCourseInfos.B_INFO_SYS.equals(editedCourseCap));
+        // different course info cap and credits
+        CourseInfo other = new CourseInfoBuilder(BCOMPSCI)
+            .withCap(VALID_COURSE_CAP_BCOMPSEC)
+            .withCredits(VALID_COURSE_CREDITS_REQUIRED_BCOMPSEC,
+                    VALID_COURSE_CREDITS_FULFILLED_BCOMPSEC)
+            .build();
+        assertFalse(GENERAL_ELECTIVES.equals(other));
     }
 }
 

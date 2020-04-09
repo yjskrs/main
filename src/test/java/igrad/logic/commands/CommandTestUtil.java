@@ -36,10 +36,6 @@ import javafx.collections.ObservableList;
  * Contains helper methods for testing commands.
  */
 public class CommandTestUtil {
-
-    public static final String VALID_NAME_B_COMP_SCI = "Bachelor of Computing (Honours) in Computer Science";
-    public static final String VALID_NAME_B_ARTS_PHILO = "Bachelor of Arts (Honours) in Philosophy";
-
     public static final String VALID_TITLE_CS_1101S = "Programming Methodology";
     public static final String VALID_TITLE_CS_2100 = "Computer Organisation";
     public static final String VALID_TITLE_CS_2103T = "Software Engineering";

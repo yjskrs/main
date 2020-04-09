@@ -1,7 +1,15 @@
 package igrad.testutil;
 
-import static igrad.logic.commands.CommandTestUtil.VALID_NAME_B_ARTS_PHILO;
-import static igrad.logic.commands.CommandTestUtil.VALID_NAME_B_COMP_SCI;
+import static igrad.logic.commands.course.CourseCommandTestUtil.VALID_COURSE_CAP_BCOMPSCI;
+import static igrad.logic.commands.course.CourseCommandTestUtil.VALID_COURSE_CAP_BCOMPSEC;
+import static igrad.logic.commands.course.CourseCommandTestUtil.VALID_COURSE_CREDITS_FULFILLED_BCOMPSCI;
+import static igrad.logic.commands.course.CourseCommandTestUtil.VALID_COURSE_CREDITS_FULFILLED_BCOMPSEC;
+import static igrad.logic.commands.course.CourseCommandTestUtil.VALID_COURSE_CREDITS_REQUIRED_BCOMPSCI;
+import static igrad.logic.commands.course.CourseCommandTestUtil.VALID_COURSE_CREDITS_REQUIRED_BCOMPSEC;
+import static igrad.logic.commands.course.CourseCommandTestUtil.VALID_COURSE_NAME_BCOMPSCI;
+import static igrad.logic.commands.course.CourseCommandTestUtil.VALID_COURSE_NAME_BCOMPSEC;
+import static igrad.logic.commands.course.CourseCommandTestUtil.VALID_COURSE_SEMESTERS_BCOMPSCI;
+import static igrad.logic.commands.course.CourseCommandTestUtil.VALID_COURSE_SEMESTERS_BCOMPSEC;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,23 +21,29 @@ import igrad.model.course.CourseInfo;
  * A utility class containing a list of {@code CourseInfo} objects to be used in tests.
  */
 public class TypicalCourseInfos {
-    public static final CourseInfo B_SCI_MATH = new CourseInfoBuilder()
-        .withName("Bachelor of Science in Mathematics").withCap("5.0").build();
+    public static final CourseInfo BCOMPSCI = new CourseInfoBuilder()
+        .withName(VALID_COURSE_NAME_BCOMPSCI)
+        .withCap(VALID_COURSE_CAP_BCOMPSCI)
+        .withCredits(VALID_COURSE_CREDITS_REQUIRED_BCOMPSCI,
+                VALID_COURSE_CREDITS_FULFILLED_BCOMPSCI)
+        .withSemesters(VALID_COURSE_SEMESTERS_BCOMPSCI)
+        .build();
 
-    public static final CourseInfo B_INFO_SYS = new CourseInfoBuilder()
-        .withName("Bachelor of Information Systems").withCap("5.0").build();
-
-    // Manually added - CourseInfo's details found in {@code CommandTestUtil}
-    public static final CourseInfo B_ARTS_PHILO = new CourseInfoBuilder()
-        .withName(VALID_NAME_B_ARTS_PHILO).withCap("5.0").build();
-
-    public static final CourseInfo B_COMP_SCI = new CourseInfoBuilder()
-        .withName(VALID_NAME_B_COMP_SCI).withCap("5.0").build();
+    public static final CourseInfo BCOMPSEC = new CourseInfoBuilder()
+        .withName(VALID_COURSE_NAME_BCOMPSEC)
+        .withCap(VALID_COURSE_CAP_BCOMPSEC)
+        .withCredits(VALID_COURSE_CREDITS_REQUIRED_BCOMPSEC,
+                VALID_COURSE_CREDITS_FULFILLED_BCOMPSEC)
+        .withSemesters(VALID_COURSE_SEMESTERS_BCOMPSEC)
+        .build();
 
     private TypicalCourseInfos() {
     } // prevents instantiation
 
+    /**
+     * Returns a list of all the typical course infos.
+     */
     public static List<CourseInfo> getTypicalCourseInfos() {
-        return new ArrayList<>(Arrays.asList(B_COMP_SCI, B_INFO_SYS, B_SCI_MATH, B_ARTS_PHILO));
+        return new ArrayList<>(Arrays.asList(BCOMPSCI, BCOMPSEC));
     }
 }

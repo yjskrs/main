@@ -30,7 +30,7 @@ public class CourseCommandTestUtil extends CommandTestUtil {
     public static final String INVALID_REQ_CREDITS_DECIMAL = "40.0";
     public static final String INVALID_REQ_CREDITS_SYMBOL = "&";*/
 
-    // course title descriptor for command entered
+    // course name descriptor for command entered
     public static final String COURSE_NAME_DESC_BCOMPSCI = " " + PREFIX_NAME + VALID_COURSE_NAME_BCOMPSCI;
     public static final String COURSE_NAME_DESC_BCOMPSEC = " " + PREFIX_NAME + VALID_COURSE_NAME_BCOMPSEC;
 }
