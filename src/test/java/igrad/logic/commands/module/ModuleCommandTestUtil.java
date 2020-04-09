@@ -60,8 +60,26 @@ public class ModuleCommandTestUtil {
     public static final String VALID_GRADE_A = "A";
     public static final String VALID_GRADE_B = "B";
 
-    // '!' not allowed in module codes
-    public static final String INVALID_TITLE_DESC = " " + PREFIX_TITLE + "Programming Methodology!";
+    // module title descriptor for command entered
+    public static final String MODULE_TITLE_DESC_CS1101S = " " + PREFIX_TITLE + VALID_TITLE_CS1101S;
+    public static final String MODULE_TITLE_DESC_CS2100 = " " + PREFIX_TITLE + VALID_TITLE_CS2100;
+
+    // module code descriptor for command entered
+    public static final String MODULE_MODULE_CODE_DESC_CS1101S = " " + PREFIX_MODULE_CODE + VALID_MODULE_CODE_CS1101S;
+    public static final String MODULE_MODULE_CODE_DESC_CS2100 = " " + PREFIX_MODULE_CODE + VALID_MODULE_CODE_CS2100;
+
+    // module credits descriptor for command entered
+    public static final String MODULE_CREDITS_DESC_CS1101S = " " + PREFIX_CREDITS + VALID_CREDITS_4;
+    public static final String MODULE_CREDITS_DESC_CS2100 = " " + PREFIX_CREDITS + VALID_CREDITS_6;
+
+    // Starting with ' ' not allowed in titles
+    public static final String INVALID_TITLE_DESC = " " + PREFIX_TITLE + " Programming Methodology";
+
+    // Starting with '/' not allowed in titles
+    public static final String INVALID_TITLE_SLASH_DESC = " " + PREFIX_TITLE + "/Programming Methodology";
+
+    // Empty titles are not allowed
+    public static final String INVALID_TITLE_EMPTY_DESC = " " + PREFIX_TITLE;
 
     // '&' not allowed in module codes
     public static final String INVALID_MODULE_CODE_DESC = " " + PREFIX_MODULE_CODE + "CS2040S&";

@@ -1,86 +1,154 @@
 package igrad.logic.parser.module;
 
+import static igrad.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static igrad.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
+import static igrad.logic.commands.CommandTestUtil.VALID_TITLE_CS_1101S;
+import static igrad.logic.commands.module.ModuleAddCommand.MESSAGE_MODULE_NOT_ADDED;
+import static igrad.logic.commands.module.ModuleCommandTestUtil.INVALID_CREDITS_DESC;
+import static igrad.logic.commands.module.ModuleCommandTestUtil.INVALID_MODULE_CODE_DESC;
+import static igrad.logic.commands.module.ModuleCommandTestUtil.INVALID_TITLE_DESC;
+import static igrad.logic.commands.module.ModuleCommandTestUtil.INVALID_TITLE_EMPTY_DESC;
+import static igrad.logic.commands.module.ModuleCommandTestUtil.INVALID_TITLE_SLASH_DESC;
+import static igrad.logic.commands.module.ModuleCommandTestUtil.MODULE_CREDITS_DESC_CS1101S;
+import static igrad.logic.commands.module.ModuleCommandTestUtil.MODULE_MODULE_CODE_DESC_CS1101S;
+import static igrad.logic.commands.module.ModuleCommandTestUtil.MODULE_TITLE_DESC_CS1101S;
+import static igrad.logic.commands.module.ModuleCommandTestUtil.VALID_CREDITS_4;
+import static igrad.logic.commands.module.ModuleCommandTestUtil.VALID_MODULE_CODE_CS1101S;
+import static igrad.logic.commands.module.ModuleCommandTestUtil.VALID_TITLE_CS1101S;
+import static igrad.logic.parser.CommandParserTestUtil.assertParseFailure;
+import static igrad.logic.parser.CommandParserTestUtil.assertParseSuccess;
+
+import igrad.logic.commands.module.ModuleAddCommand;
+import igrad.model.module.Credits;
+import igrad.model.module.ModuleCode;
+import igrad.model.module.Title;
 import org.junit.jupiter.api.Test;
+
+import igrad.model.module.Module;
+import igrad.testutil.ModuleBuilder;
 
 public class ModuleAddCommandParserTest {
     private ModuleAddCommandParser parser = new ModuleAddCommandParser();
 
     @Test
     public void parse_allFieldsPresent_success() {
-        // whitespace only preamble
-        /*assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-         *       + TAG_DESC_FRIEND, new ModuleAddCommand(expectedModule));
-         */
-        // multiple names - last name accepted
-        /*assertParseSuccess(parser, NAME_DESC_AMY + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-         *       + TAG_DESC_FRIEND, new ModuleAddCommand(expectedModule));
-         */
-        // multiple phones - last phone accepted
-        /*assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_BOB
-         *       + TAG_DESC_FRIEND, new ModuleAddCommand(expectedModule));
-         */
-        // multiple emails - last email accepted
-        /*assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_AMY + EMAIL_DESC_BOB
-         *       + TAG_DESC_FRIEND, new ModuleAddCommand(expectedModule));
-         */
-        // multiple tags - all accepted
-        //Module expectedModuleMultipleTags = new ModuleBuilder(TypicalPersons.BOB)
-        //        .withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
-        //        .build();
-        //assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-        //        + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, new ModuleAddCommand(expectedModuleMultipleTags));
+
+        Module expectedModule = new ModuleBuilder()
+                .withTitle(VALID_TITLE_CS1101S)
+                .withModuleCode(VALID_MODULE_CODE_CS1101S)
+                .withCredits(VALID_CREDITS_4)
+                .withoutOptionals()
+                .build();
+
+        String whiteSpace = PREAMBLE_WHITESPACE
+                + MODULE_MODULE_CODE_DESC_CS1101S
+                + MODULE_TITLE_DESC_CS1101S
+                + MODULE_CREDITS_DESC_CS1101S;
+
+        String jumbledOrder = MODULE_TITLE_DESC_CS1101S
+                + MODULE_CREDITS_DESC_CS1101S
+                + MODULE_MODULE_CODE_DESC_CS1101S;
+
+        assertParseSuccess(parser, whiteSpace, new ModuleAddCommand(expectedModule));
+        assertParseSuccess(parser, jumbledOrder, new ModuleAddCommand(expectedModule));
     }
 
     @Test
     public void parse_optionalFieldsMissing_success() {
-        // zero tags
-        //Module expectedModule = new ModuleBuilder(AMY).withTags().build();
-        //assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY,
-        //        new ModuleAddCommand(expectedModule));
+
+        Module expectedModule = new ModuleBuilder()
+                .withTitle(VALID_TITLE_CS1101S)
+                .withModuleCode(VALID_MODULE_CODE_CS1101S)
+                .withCredits(VALID_CREDITS_4)
+                .withoutOptionals()
+                .build();
+
+        String addModule = PREAMBLE_WHITESPACE
+                + MODULE_MODULE_CODE_DESC_CS1101S
+                + MODULE_TITLE_DESC_CS1101S
+                + MODULE_CREDITS_DESC_CS1101S;
+
+        assertParseSuccess(parser, addModule, new ModuleAddCommand(expectedModule));
     }
 
     @Test
-    public void parse_compulsoryFieldMissing_failure() {
-        //String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ModuleAddCommand.MESSAGE_USAGE);
+    public void parse_compulsoryPrefixesMissing_failure() {
+        String prefixMissingMessage = String.format(
+                MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_MODULE_NOT_ADDED);
 
-        // missing name prefix
-        //assertParseFailure(parser, VALID_NAME_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB, expectedMessage);
+        // missing title prefix (" t/")
+        String missingTitle = MODULE_MODULE_CODE_DESC_CS1101S
+                + VALID_TITLE_CS_1101S
+                + MODULE_CREDITS_DESC_CS1101S;
 
-        // missing phone prefix
-        //assertParseFailure(parser, NAME_DESC_BOB + VALID_PHONE_BOB + EMAIL_DESC_BOB, expectedMessage);
+        // missing module code prefix (" n/")
+        String missingModuleCode = VALID_MODULE_CODE_CS1101S
+                + MODULE_TITLE_DESC_CS1101S
+                + MODULE_CREDITS_DESC_CS1101S;
 
-        // missing email prefix
-        //assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + VALID_EMAIL_BOB, expectedMessage);
+        // missing credits prefix (" u/")
+        String missingCredits = MODULE_MODULE_CODE_DESC_CS1101S
+                + MODULE_TITLE_DESC_CS1101S
+                + VALID_CREDITS_4;
 
-        // all prefixes missing
-        //assertParseFailure(parser, VALID_NAME_BOB + VALID_PHONE_BOB + VALID_EMAIL_BOB, expectedMessage);
+        assertParseFailure(parser, missingTitle, prefixMissingMessage);
+        assertParseFailure(parser, missingModuleCode, prefixMissingMessage);
+        assertParseFailure(parser, missingCredits, prefixMissingMessage);
     }
 
     @Test
-    public void parse_invalidValue_failure() {
-        // invalid name
-        //assertParseFailure(parser, INVALID_NAME_DESC + PHONE_DESC_BOB + EMAIL_DESC_BOB
-        //+ TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Name.MESSAGE_CONSTRAINTS);
+    public void parse_argumentsMissing_failure() {
+        String errorMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_MODULE_NOT_ADDED);
 
-        // invalid phone
-        //assertParseFailure(parser, NAME_DESC_BOB + INVALID_PHONE_DESC + EMAIL_DESC_BOB
-        //+ TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Phone.MESSAGE_CONSTRAINTS);
+        // missing title
+        String missingTitle = MODULE_TITLE_DESC_CS1101S + MODULE_CREDITS_DESC_CS1101S;
 
-        // invalid email
-        //assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + INVALID_EMAIL_DESC
-        //        + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Email.MESSAGE_CONSTRAINTS);
+        // missing module code
+        String missingModuleCode = MODULE_MODULE_CODE_DESC_CS1101S + MODULE_CREDITS_DESC_CS1101S;
 
-        // invalid tag
-        //assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-        //        + INVALID_TAG_DESC + VALID_TAG_FRIEND, Tag.MESSAGE_CONSTRAINTS);
+        // missing credits
+        String missingCredits = MODULE_TITLE_DESC_CS1101S + MODULE_MODULE_CODE_DESC_CS1101S;
 
-        // two invalid values, only first invalid value reported
-        //assertParseFailure(parser, INVALID_NAME_DESC + PHONE_DESC_BOB + EMAIL_DESC_BOB,
-        //        Name.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, missingTitle, errorMessage);
+        assertParseFailure(parser, missingModuleCode, errorMessage);
+        assertParseFailure(parser, missingCredits, errorMessage);
+    }
 
-        // non-empty preamble
-        //assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-        //        + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
-        //        String.format(MESSAGE_INVALID_COMMAND_FORMAT, ModuleAddCommand.MESSAGE_USAGE));
+    @Test
+    public void parse_argumentsInvalid_failure() {
+        String invalidModuleCodeErrorMessage = ModuleCode.MESSAGE_CONSTRAINTS;
+        String invalidTitleErrorMessage = Title.MESSAGE_CONSTRAINTS;
+        String invalidCreditsErrorMessage = Credits.MESSAGE_CONSTRAINTS;
+
+        // invalid module code
+        String invalidModuleCode = INVALID_MODULE_CODE_DESC
+                + MODULE_TITLE_DESC_CS1101S
+                + MODULE_CREDITS_DESC_CS1101S;
+
+        // invalid title : starting with blank
+        String invalidTitle = MODULE_MODULE_CODE_DESC_CS1101S
+                + INVALID_TITLE_DESC
+                + MODULE_CREDITS_DESC_CS1101S;
+
+        // invalid title : starting with slash
+        String invalidTitleSlash = MODULE_MODULE_CODE_DESC_CS1101S
+                + INVALID_TITLE_SLASH_DESC
+                + MODULE_CREDITS_DESC_CS1101S;
+
+        // invalid title : empty
+        String invalidTitleEmpty = MODULE_MODULE_CODE_DESC_CS1101S
+                + INVALID_TITLE_EMPTY_DESC
+                + MODULE_CREDITS_DESC_CS1101S;
+
+        // invalid credits
+        String invalidCredits = MODULE_MODULE_CODE_DESC_CS1101S
+                + MODULE_TITLE_DESC_CS1101S
+                + INVALID_CREDITS_DESC;
+
+        assertParseFailure(parser, invalidModuleCode, invalidModuleCodeErrorMessage);
+/*        assertParseFailure(parser, invalidTitle, invalidTitleErrorMessage);
+        assertParseFailure(parser, invalidTitleSlash, invalidTitleErrorMessage);
+        assertParseFailure(parser, invalidTitleEmpty, invalidTitleErrorMessage);*/
+        assertParseFailure(parser, invalidCredits, invalidCreditsErrorMessage);
     }
 }
