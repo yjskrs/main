@@ -44,8 +44,6 @@ public class CourseInfoTest {
             .withName(VALID_COURSE_NAME_BCOMPSCI)
             .build();
 
-        System.out.println(newName);
-        System.out.println(newCourseInfo.getName());
         assertEquals(newName, newCourseInfo.getName());
     }
 
