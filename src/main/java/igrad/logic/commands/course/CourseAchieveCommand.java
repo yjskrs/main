@@ -1,6 +1,7 @@
 package igrad.logic.commands.course;
 
 import static igrad.logic.parser.CliSyntax.PREFIX_CAP;
+import static igrad.model.course.Cap.MESSAGE_CONSTRAINTS;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Optional;
@@ -9,7 +10,7 @@ import igrad.logic.commands.CommandResult;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
 import igrad.model.course.Cap;
-
+import igrad.model.course.exceptions.CapOverflowException;
 
 
 /**
@@ -17,18 +18,12 @@ import igrad.model.course.Cap;
  */
 public class CourseAchieveCommand extends CourseCommand {
     public static final String COURSE_ACHIEVE_COMMAND_WORD = COURSE_COMMAND_WORD + SPACE + "achieve";
-
     public static final String MESSAGE_COURSE_ACHIEVE_SUCCESS = "You need to maintain an average C.A.P. (per sem) "
         + "of: %1$s";
-
-    public static final String MESSAGE_CAP_CONSTRAINTS = "C.A.P. should be non-negative and within 5.0";
-
     public static final String MESSAGE_ACHIEVED_CAP_NOT_CALCULATED = "Please enter desired C.A.P.\n"
-            + "Note that " + MESSAGE_CAP_CONSTRAINTS;
-
-    public static final String MESSAGE_UNABLE_TO_ACHIEVE_CAP = "Unable to achieve desired C.A.P. as "
-            + "C.A.P. of %1$s to maintain per semester is invalid";
-
+            + MESSAGE_CONSTRAINTS;
+    public static final String MESSAGE_UNABLE_TO_ACHIEVE_CAP = "Unable to achieve desired C.A.P. as C.A.P. of %1$s to "
+            + "maintain per semester is invalid";
     public static final String MESSAGE_COURSE_ACHIEVE_DETAILS = COURSE_ACHIEVE_COMMAND_WORD + ": Calculates average "
         + "C.A.P. needed per sem to achieve desired C.A.P.\n";
 
@@ -37,9 +32,9 @@ public class CourseAchieveCommand extends CourseCommand {
     public static final String MESSAGE_COURSE_ACHIEVE_HELP = MESSAGE_COURSE_ACHIEVE_DETAILS
         + MESSAGE_COURSE_ACHIEVE_USAGE;
 
-    private final Cap capToAchieve;
+    private final Optional<Cap> capToAchieve;
 
-    public CourseAchieveCommand(Cap capToAchieve) {
+    public CourseAchieveCommand(Optional<Cap> capToAchieve) {
         this.capToAchieve = capToAchieve;
     }
 
@@ -47,12 +42,22 @@ public class CourseAchieveCommand extends CourseCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        Optional<Cap> estimatedCap = model.computeEstimatedCap(capToAchieve);
-
-        if (estimatedCap.get().value < 0 || estimatedCap.get().value > 5.0) {
-            throw new CommandException(String.format(MESSAGE_UNABLE_TO_ACHIEVE_CAP, estimatedCap.get()));
+        if (capToAchieve.toString().isEmpty()) {
+            throw new CommandException(MESSAGE_ACHIEVED_CAP_NOT_CALCULATED);
         }
 
-        return new CommandResult(String.format(MESSAGE_COURSE_ACHIEVE_SUCCESS, estimatedCap.get()));
+        try {
+            Optional<Cap> estimatedCap = Cap.computeEstimatedCap(model.getCourseInfo(), capToAchieve.get());
+            return new CommandResult(String.format(MESSAGE_COURSE_ACHIEVE_SUCCESS, estimatedCap.get()));
+
+        } catch (CapOverflowException e) {
+            throw new CommandException(e.getMessage());
+        }
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof CourseAchieveCommand); // instanceof handles nulls
     }
 }

@@ -1,15 +1,18 @@
 package igrad.testutil;
 
 import static igrad.logic.commands.CommandTestUtil.VALID_CREDITS_4;
+
 import static igrad.logic.commands.CommandTestUtil.VALID_CREDITS_6;
 import static igrad.logic.commands.CommandTestUtil.VALID_GRADE_A;
+import static igrad.logic.commands.CommandTestUtil.VALID_GRADE_COMPUTER_ORGANISATION;
+import static igrad.logic.commands.CommandTestUtil.VALID_GRADE_PROGRAMMING_METHODOLOGY;
 import static igrad.logic.commands.CommandTestUtil.VALID_MODULE_CODE_CS_1101S;
 import static igrad.logic.commands.CommandTestUtil.VALID_MODULE_CODE_CS_2040;
 import static igrad.logic.commands.CommandTestUtil.VALID_MODULE_CODE_CS_2100;
 import static igrad.logic.commands.CommandTestUtil.VALID_MODULE_CODE_CS_2101;
 import static igrad.logic.commands.CommandTestUtil.VALID_MODULE_CODE_CS_2103T;
 import static igrad.logic.commands.CommandTestUtil.VALID_SEMESTER_Y1S1;
-import static igrad.logic.commands.CommandTestUtil.VALID_SEMESTER_Y2S2;
+import static igrad.logic.commands.CommandTestUtil.VALID_SEMESTER_Y1S2;
 import static igrad.logic.commands.CommandTestUtil.VALID_TITLE_CS_1101S;
 import static igrad.logic.commands.CommandTestUtil.VALID_TITLE_CS_2040;
 import static igrad.logic.commands.CommandTestUtil.VALID_TITLE_CS_2100;
@@ -58,13 +61,15 @@ public class TypicalModules {
         .withTitle(VALID_TITLE_CS_1101S)
         .withModuleCode(VALID_MODULE_CODE_CS_1101S)
         .withCredits(VALID_CREDITS_4)
-        .withSemester(VALID_SEMESTER_Y1S1).build();
+        .withSemester(VALID_SEMESTER_Y1S1)
+        .withGrade(VALID_GRADE_PROGRAMMING_METHODOLOGY).build();
 
     public static final Module CS2100 = new ModuleBuilder()
         .withTitle(VALID_TITLE_CS_2100)
         .withModuleCode(VALID_MODULE_CODE_CS_2100)
         .withCredits(VALID_CREDITS_6)
-        .withSemester(VALID_SEMESTER_Y2S2).build();
+        .withSemester(VALID_SEMESTER_Y1S2)
+        .withGrade(VALID_GRADE_COMPUTER_ORGANISATION).build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
