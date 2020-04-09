@@ -5,7 +5,7 @@ import static igrad.logic.parser.CliSyntax.PREFIX_NAME;
 import igrad.logic.commands.CommandTestUtil;
 
 /**
- * Utility class that stores static strings used in creating CourseInfo objects
+ * Utility class that stores static strings/ints used in creating CourseInfo objects
  * or CourseCommand objects.
  */
 public class CourseCommandTestUtil extends CommandTestUtil {

@@ -58,6 +58,14 @@ public class CourseInfoBuilder {
     }
 
     /**
+     * Sets the {@code Cap} of the {@code CourseInfo} that we are building.
+     */
+    public CourseInfoBuilder withCap(int cap) {
+        this.cap = Optional.of(new Cap(cap));
+        return this;
+    }
+
+    /**
      * Sets the {@code Credits} of the {@code CourseInfo} that we are building.
      */
     public CourseInfoBuilder withCredits(int creditsRequired, int creditsToFulfill) {

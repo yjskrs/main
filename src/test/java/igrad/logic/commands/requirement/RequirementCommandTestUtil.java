@@ -6,7 +6,7 @@ import static igrad.logic.parser.CliSyntax.PREFIX_TITLE;
 import igrad.logic.commands.CommandTestUtil;
 
 /**
- * Utility class that stores static strings used in creating Requirement objects
+ * Utility class that stores static strings/ints used in creating Requirement objects
  * or RequirementCommand objects.
  */
 public class RequirementCommandTestUtil extends CommandTestUtil {
@@ -27,7 +27,8 @@ public class RequirementCommandTestUtil extends CommandTestUtil {
     public static final String VALID_REQ_CREDITS_CSF = "32";
     public static final String VALID_REQ_CREDITS_CSBD = "48";
     public static final String VALID_REQ_CREDITS_MS = "16";
-    public static final String VALID_REQ_CREDITS_IP = "12";
+    public static final int VALID_REQ_CREDITS_REQUIRED_IP = 12;
+    public static final int VALID_REQ_CREDITS_FULFILLED_IP = 4;
     public static final String VALID_REQ_CREDITS_UE = "32";
     public static final String VALID_REQ_CREDITS_GE = "20";
 
@@ -50,7 +51,7 @@ public class RequirementCommandTestUtil extends CommandTestUtil {
     public static final String REQ_CREDITS_DESC_CSF = " " + PREFIX_CREDITS + VALID_REQ_CREDITS_CSF;
     public static final String REQ_CREDITS_DESC_CSBD = " " + PREFIX_CREDITS + VALID_REQ_CREDITS_CSBD;
     public static final String REQ_CREDITS_DESC_MS = " " + PREFIX_CREDITS + VALID_REQ_CREDITS_MS;
-    public static final String REQ_CREDITS_DESC_IP = " " + PREFIX_CREDITS + VALID_REQ_CREDITS_IP;
+    public static final String REQ_CREDITS_DESC_IP = " " + PREFIX_CREDITS + VALID_REQ_CREDITS_REQUIRED_IP;
     public static final String REQ_CREDITS_DESC_UE = " " + PREFIX_CREDITS + VALID_REQ_CREDITS_UE;
     public static final String REQ_CREDITS_DESC_GE = " " + PREFIX_CREDITS + VALID_REQ_CREDITS_GE;
 }

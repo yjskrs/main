@@ -6,6 +6,9 @@ import static igrad.logic.commands.course.CourseCommandTestUtil.VALID_COURSE_CRE
 import static igrad.logic.commands.course.CourseCommandTestUtil.VALID_COURSE_NAME_BCOMPSCI;
 import static igrad.logic.commands.course.CourseCommandTestUtil.VALID_COURSE_SEMESTERS_BCOMPSCI;
 import static igrad.testutil.Assert.assertThrows;
+import static igrad.testutil.TypicalRequirements.CS_FOUNDATION;
+import static igrad.testutil.TypicalRequirements.GENERAL_ELECTIVES;
+import static igrad.testutil.TypicalRequirements.IT_PROFESSIONALISM;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -88,6 +91,36 @@ public class CourseInfoTest {
     public void computeCredits_emptyRequirementList_returnsOptionalEmpty() {
         List<Requirement> emptyRequirementList = new ArrayList<Requirement>();
         assertEquals(Optional.empty(), CourseInfo.computeCredits(emptyRequirementList));
+    }
+
+    @Test
+    public void computeCredits_totalCreditsRequiredTallyCreditsAllModules_success() {
+        List<Requirement> requirementList = new ArrayList<Requirement>();
+        requirementList.add(CS_FOUNDATION);
+        requirementList.add(GENERAL_ELECTIVES);
+
+        Optional<Credits> credits = CourseInfo.computeCredits(requirementList);
+
+        int actualCreditsFulfilled = credits.get().getCreditsRequired();
+        int expectedCreditsFulfilled = CS_FOUNDATION.getCredits().getCreditsRequired()
+            + GENERAL_ELECTIVES.getCredits().getCreditsRequired();
+
+        assertEquals(actualCreditsFulfilled, expectedCreditsFulfilled);
+    }
+
+    @Test
+    public void computeCredits_totalCreditsFulfilledTallyCreditsAllModules_success() {
+        List<Requirement> requirementList = new ArrayList<Requirement>();
+        requirementList.add(CS_FOUNDATION);
+        requirementList.add(IT_PROFESSIONALISM);
+
+        Optional<Credits> credits = CourseInfo.computeCredits(requirementList);
+
+        int actualCreditsFulfilled = credits.get().getCreditsFulfilled();
+        int expectedCreditsFulfilled = CS_FOUNDATION.getCredits().getCreditsFulfilled()
+            + IT_PROFESSIONALISM.getCredits().getCreditsFulfilled();
+
+        assertEquals(actualCreditsFulfilled, expectedCreditsFulfilled);
     }
 
     @Test

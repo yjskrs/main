@@ -2,12 +2,16 @@ package igrad.testutil;
 
 import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_CODE_CSF;
 import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_CODE_GE;
+import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_CODE_IP;
 import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_CODE_UE;
 import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_CREDITS_CSF;
+import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_CREDITS_FULFILLED_IP;
 import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_CREDITS_GE;
+import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_CREDITS_REQUIRED_IP;
 import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_CREDITS_UE;
 import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_TITLE_CSF;
 import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_TITLE_GE;
+import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_TITLE_IP;
 import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_TITLE_UE;
 import static igrad.testutil.TypicalModules.getTypicalModules;
 
@@ -40,6 +44,12 @@ public class TypicalRequirements {
         .withRequirementCode(VALID_REQ_CODE_GE)
         .withTitle(VALID_REQ_TITLE_GE)
         .withCreditsOneParameter(VALID_REQ_CREDITS_GE)
+        .build();
+
+    public static final Requirement IT_PROFESSIONALISM = new RequirementBuilder()
+        .withRequirementCode(VALID_REQ_CODE_IP)
+        .withTitle(VALID_REQ_TITLE_IP)
+        .withCreditsTwoParameters(VALID_REQ_CREDITS_REQUIRED_IP, VALID_REQ_CREDITS_FULFILLED_IP)
         .build();
 
     /**
