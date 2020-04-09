@@ -48,6 +48,11 @@ public class RequirementEditCommandParser extends RequirementCommandParser {
         return new RequirementEditCommand(requirementCode, editRequirementDescriptor);
     }
 
+    /**
+     * Parses specifier from {@code argMultimap} into {@code RequirementCode}.
+     *
+     * @throws ParseException If user input does not conform to the expected format.
+     */
     public RequirementCode parseRequirementCodeSpecifier(ArgumentMultimap argMultimap) throws ParseException {
         Specifier specifier = ParserUtil.parseSpecifier(argMultimap.getPreamble(),
             ParserUtil.REQUIREMENT_CODE_SPECIFIER_RULE, RequirementCode.MESSAGE_CONSTRAINTS);
@@ -55,6 +60,11 @@ public class RequirementEditCommandParser extends RequirementCommandParser {
         return new RequirementCode(specifier.getValue());
     }
 
+    /**
+     * Parses title and/or credits from {@code argMultimap} into {@code EditRequirementDescriptor}.
+     *
+     * @throws ParseException If user input does not conform to the expected format.
+     */
     public EditRequirementDescriptor parseEditedRequirement(ArgumentMultimap argMultimap) throws ParseException {
         EditRequirementDescriptor editRequirementDescriptor = new EditRequirementDescriptor();
 
