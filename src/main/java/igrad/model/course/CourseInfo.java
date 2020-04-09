@@ -183,7 +183,7 @@ public class CourseInfo {
         if (totalModuleCredits == 0) {
             capResult = CAP_ZERO;
         } else {
-            capResult = new Cap(Double.toString(totalCredits / totalModuleCredits));
+            capResult = new Cap(totalCredits / totalModuleCredits);
         }
 
         return Optional.of(capResult);

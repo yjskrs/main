@@ -15,6 +15,8 @@ public class Cap {
     public static final String MESSAGE_CONSTRAINTS = "C.A.P. should not start with a space or slash and should not "
         + "be blank.\nC.A.P. should not be negative and should be within value of 5.0";
 
+    public static final String VALIDATION_REGEX = "^[0-5](\\.[0-9]+){0,1}$";
+
     public static final Cap CAP_ZERO = new Cap(0);
 
     public final double value;
@@ -48,20 +50,18 @@ public class Cap {
     }
 
     /**
-     * Returns true if a given double is a valid cap.
+     * Returns true if a given String is a valid cap.
      */
     public static boolean isValidCap(String test) {
         requireNonNull(test);
 
-        if (test.isEmpty()) {
-            return false;
-        }
-
-        return (Double.parseDouble(test) >= 0) && (Double.parseDouble(test) <= 5.0);
+        return test.matches(VALIDATION_REGEX)
+            && (Double.parseDouble(test) > 0 && Double.parseDouble(test) <= 5.0);
     }
 
     /**
-     * Returns an estimated Cap (Double) based on {@code Model} and {@code Cap} object passed in.
+     * Returns an estimated Cap ({@code Optional<Cap>}) based on {@code CourseInfo} and {@code Cap}
+     * object passed in.
      */
     public static Optional<Cap> computeEstimatedCap(CourseInfo courseInfo, Cap capToAchieve) {
         Optional<Semesters> semesters = courseInfo.getSemesters();
@@ -86,7 +86,7 @@ public class Cap {
             throw new CapOverflowException(estimatedCapEachSem);
         }
 
-        return Optional.of(new Cap(Double.toString(estimatedCapEachSem)));
+        return Optional.of(new Cap(estimatedCapEachSem));
     }
 
     @Override
