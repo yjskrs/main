@@ -88,7 +88,8 @@ public class RequirementEditCommandParserTest {
     @Test
     public void parse_invalidSpecifier_failure() {
         assertParseFailure(parser, "-1" + VALID_REQ_CODE_UE, INVALID_SPECIFIER);
-        assertParseFailure(parser, "0" + VALID_REQ_CODE_UE, INVALID_SPECIFIER);
+        assertParseFailure(parser, ".", INVALID_SPECIFIER);
+        assertParseFailure(parser, "  and some spaces", INVALID_SPECIFIER);
     }
 
     // @Test

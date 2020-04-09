@@ -79,11 +79,6 @@ public class RequirementEditCommandParser extends RequirementCommandParser {
             editRequirementDescriptor.setCredits(credits);
         }
 
-        // Check if at least one field has been edited
-        if (!editRequirementDescriptor.isAnyFieldEdited()) {
-            throw new ParseException(MESSAGE_REQUIREMENT_NOT_EDITED);
-        }
-
         return editRequirementDescriptor;
     }
 
