@@ -43,7 +43,6 @@ public class CreditsTest {
         // valid credits
         assertTrue(Credits.isValidCredits("1"));
         assertTrue(Credits.isValidCredits("10"));
-        assertTrue(Credits.isValidCredits("01")); // starts with 0
         assertTrue(Credits.isValidCredits("010")); // starts with 0
     }
 

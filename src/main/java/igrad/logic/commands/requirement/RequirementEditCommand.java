@@ -168,9 +168,11 @@ public class RequirementEditCommand extends RequirementCommand {
                 return false;
             }
 
+            EditRequirementDescriptor e = (EditRequirementDescriptor) other;
+
             return other == this
-                       || (title.equals(((EditRequirementDescriptor) other).title)
-                               && credits.equals(((EditRequirementDescriptor) other).credits));
+                       || (getCredits().equals(e.getCredits())
+                               && getTitle().equals(e.getTitle()));
         }
     }
 }

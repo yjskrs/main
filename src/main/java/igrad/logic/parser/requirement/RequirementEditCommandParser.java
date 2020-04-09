@@ -5,6 +5,8 @@ import static igrad.logic.commands.requirement.RequirementEditCommand.MESSAGE_RE
 import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
 import static igrad.logic.parser.CliSyntax.PREFIX_TITLE;
 
+import java.util.Optional;
+
 import igrad.commons.core.Messages;
 import igrad.logic.commands.requirement.RequirementEditCommand;
 import igrad.logic.commands.requirement.RequirementEditCommand.EditRequirementDescriptor;
@@ -40,32 +42,40 @@ public class RequirementEditCommandParser extends RequirementCommandParser {
                 MESSAGE_REQUIREMENT_EDIT_HELP));
         }
 
-        Specifier specifier = ParserUtil.parseSpecifier(argMultimap.getPreamble(),
-            ParserUtil.REQUIREMENT_CODE_SPECIFIER_RULE, RequirementCode.MESSAGE_CONSTRAINTS);
-
-        // If neither the requirement title nor credits are specified, throw exception
-        if (argMultimap.getValue(PREFIX_TITLE).isEmpty() && argMultimap.getValue(PREFIX_CREDITS).isEmpty()) {
-            throw new ParseException(MESSAGE_REQUIREMENT_NOT_EDITED);
-        }
-
-        RequirementCode requirementCode = new RequirementCode(specifier.getValue());
-        EditRequirementDescriptor editRequirementDescriptor = parseRequirementEdited(argMultimap);
+        RequirementCode requirementCode = parseRequirementCodeSpecifier(argMultimap);
+        EditRequirementDescriptor editRequirementDescriptor = parseEditedRequirement(argMultimap);
 
         return new RequirementEditCommand(requirementCode, editRequirementDescriptor);
     }
 
-    public EditRequirementDescriptor parseRequirementEdited(ArgumentMultimap argMultimap) throws ParseException {
+    public RequirementCode parseRequirementCodeSpecifier(ArgumentMultimap argMultimap) throws ParseException {
+        Specifier specifier = ParserUtil.parseSpecifier(argMultimap.getPreamble(),
+            ParserUtil.REQUIREMENT_CODE_SPECIFIER_RULE, RequirementCode.MESSAGE_CONSTRAINTS);
+
+        return new RequirementCode(specifier.getValue());
+    }
+
+    public EditRequirementDescriptor parseEditedRequirement(ArgumentMultimap argMultimap) throws ParseException {
         EditRequirementDescriptor editRequirementDescriptor = new EditRequirementDescriptor();
 
+        Optional<String> titleString = argMultimap.getValue(PREFIX_TITLE);
+        Optional<String> creditsString = argMultimap.getValue(PREFIX_CREDITS);
+
+        // If neither the requirement title nor credits are specified, throw exception
+        if ((titleString.isEmpty() || titleString.get().isEmpty())
+                && (creditsString.isEmpty() || creditsString.get().isEmpty())) {
+            throw new ParseException(MESSAGE_REQUIREMENT_NOT_EDITED);
+        }
+
         // Check if the title is a valid title, if any
-        if (argMultimap.getValue(PREFIX_TITLE).isPresent()) {
-            Title title = parseTitle(argMultimap.getValue(PREFIX_TITLE).get());
+        if (titleString.isPresent()) {
+            Title title = parseTitle(titleString.get());
             editRequirementDescriptor.setTitle(title);
         }
 
         // Check if the credits is a valid credits, if any
-        if (argMultimap.getValue(PREFIX_CREDITS).isPresent()) {
-            Credits credits = parseCredits(argMultimap.getValue(PREFIX_CREDITS).get());
+        if (creditsString.isPresent()) {
+            Credits credits = parseCredits(creditsString.get());
             editRequirementDescriptor.setCredits(credits);
         }
 
