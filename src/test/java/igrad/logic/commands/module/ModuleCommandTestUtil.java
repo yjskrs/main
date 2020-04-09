@@ -29,6 +29,8 @@ import igrad.model.course.Cap;
 import igrad.model.course.CourseInfo;
 import igrad.model.module.Module;
 import igrad.model.module.ModuleCode;
+import igrad.model.module.ModulePreclusions;
+import igrad.model.module.ModulePrerequisites;
 import igrad.model.requirement.Requirement;
 import igrad.model.requirement.RequirementCode;
 import igrad.testutil.EditModuleDescriptorBuilder;
@@ -418,11 +420,13 @@ public class ModuleCommandTestUtil {
 
             boolean hasModulePreclusions = false;
 
-            if (module.getPreclusions().isPresent()) {
+            ModulePreclusions preclusions = module.getPreclusions();
 
-                ModuleCode[] preclusions = module.getPreclusions().get();
+            if (!preclusions.isEmpty()) {
 
-                for (ModuleCode preclusion : preclusions) {
+                List<ModuleCode> moduleCodes = preclusions.getModuleCodes();
+
+                for (ModuleCode preclusion : moduleCodes) {
                     Optional<Module> mOpt = getModule(preclusion);
                     if (mOpt.isPresent()) {
                         hasModulePreclusions = true;
@@ -441,12 +445,14 @@ public class ModuleCommandTestUtil {
 
             boolean hasModulePrerequisites = true;
 
-            if (module.getPrequisites().isPresent()) {
+            ModulePrerequisites prerequisites = module.getPrequisites();
 
-                ModuleCode[] preqrequisites = module.getPrequisites().get();
+            if (!prerequisites.isEmpty()) {
 
-                for (ModuleCode prerequisite : preqrequisites) {
-                    Optional<Module> mOpt = getModule(prerequisite);
+                List<ModuleCode> moduleCodes = prerequisites.getModuleCodes();
+
+                for (ModuleCode moduleCode : moduleCodes) {
+                    Optional<Module> mOpt = getModule(moduleCode);
                     if (mOpt.isEmpty()) {
                         hasModulePrerequisites = false;
                     } else {
