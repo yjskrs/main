@@ -28,6 +28,7 @@ public class RequirementCommandTestUtil extends CommandTestUtil {
     public static final String VALID_REQ_CREDITS_CSBD = "48";
     public static final String VALID_REQ_CREDITS_MS = "16";
     public static final int VALID_REQ_CREDITS_REQUIRED_IP = 12;
+    public static final int VALID_REQ_CREDITS_ASSIGNED_IP = 4;
     public static final int VALID_REQ_CREDITS_FULFILLED_IP = 4;
     public static final String VALID_REQ_CREDITS_UE = "32";
     public static final String VALID_REQ_CREDITS_GE = "20";

@@ -4,6 +4,7 @@ import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_
 import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_CODE_GE;
 import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_CODE_IP;
 import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_CODE_UE;
+import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_CREDITS_ASSIGNED_IP;
 import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_CREDITS_CSF;
 import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_CREDITS_FULFILLED_IP;
 import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_CREDITS_GE;
@@ -49,7 +50,8 @@ public class TypicalRequirements {
     public static final Requirement IT_PROFESSIONALISM = new RequirementBuilder()
         .withRequirementCode(VALID_REQ_CODE_IP)
         .withTitle(VALID_REQ_TITLE_IP)
-        .withCreditsTwoParameters(VALID_REQ_CREDITS_REQUIRED_IP, VALID_REQ_CREDITS_FULFILLED_IP)
+        .withCreditsThreeParameters(VALID_REQ_CREDITS_REQUIRED_IP, VALID_REQ_CREDITS_ASSIGNED_IP,
+                VALID_REQ_CREDITS_FULFILLED_IP)
         .build();
 
     /**
