@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 /**
  * Represents a command specifier.
+ *
  * <p>
  * A command specifier is the preamble string that occurs before any prefix tokens
  * and occurs after the command word(s).

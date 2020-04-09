@@ -1,7 +1,6 @@
 package igrad.storage;
 
 import static igrad.commons.core.Messages.MESSAGE_COURSE_NOT_SET;
-import static igrad.commons.core.Messages.MESSAGE_COURSE_SEMESTER_NOT_SET;
 
 import java.util.List;
 import java.util.Optional;
@@ -70,18 +69,10 @@ public class JsonAdaptedCourseInfo {
             : Optional.empty();
 
         /*
-         * However, if semesters is null (Optional.empty()), but we still have modules/
-         * requirements in the course book, that's an invalid state and we have to throw an IllegalValueException.
-         */
-        if (modelSemesters.isEmpty() && (!moduleList.isEmpty() || !requirementList.isEmpty())) {
-            throw new IllegalValueException(MESSAGE_COURSE_SEMESTER_NOT_SET);
-        }
-
-        /*
          * However, if course name is null (Optional.empty()), but we still have modules/
          * requirements in the course book, that's an invalid state and we have to throw an IllegalValueException.
          */
-        if (modelName.isEmpty() && (!moduleList.isEmpty() || !requirementList.isEmpty())) {
+        if (modelName.isEmpty() && modelSemesters.isEmpty() && (!moduleList.isEmpty() || !requirementList.isEmpty())) {
             throw new IllegalValueException(MESSAGE_COURSE_NOT_SET);
         }
 
@@ -89,14 +80,14 @@ public class JsonAdaptedCourseInfo {
          * Else if everything (the state) of the course info is valid, we can then proceed to
          * compute cap (if applicable; course name and semesters exists)
          */
-        final Optional<Cap> cap = modelName.isPresent() && modelSemesters.isPresent()
+        final Optional<Cap> cap = modelName.isPresent()
             ? CourseInfo.computeCap(moduleList, requirementList)
             : Optional.empty();
         /*
          * Also, we proceed to compute credits (required and fulfilled) (if applicable; course name and
          * semesters exists)
          */
-        final Optional<Credits> credits = modelName.isPresent() && modelSemesters.isPresent()
+        final Optional<Credits> credits = modelName.isPresent()
             ? CourseInfo.computeCredits(requirementList)
             : Optional.empty();
 
@@ -104,7 +95,7 @@ public class JsonAdaptedCourseInfo {
          * Proceed to compute semesters (total and remaining) (if applicable; course name and
          * semesters exists)
          */
-        final Optional<Semesters> semesters = modelName.isPresent() && modelSemesters.isPresent()
+        final Optional<Semesters> semesters = modelName.isPresent()
             ? CourseInfo.computeSemesters(modelSemesters, moduleList)
             : modelSemesters;
 

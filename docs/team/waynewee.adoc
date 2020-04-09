@@ -1,11 +1,10 @@
 = Wayne Wee - Project Portfolio
+
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
 == PROJECT: iGrad
-
-
 ---
 image::../images/Ui.png[]
 
@@ -93,3 +92,4 @@ include::../DeveloperGuide.adoc[tag=module]
 image::../images/eezee-screenshot.png[]
 
 Singapore's Largest B2B Marketplace
+

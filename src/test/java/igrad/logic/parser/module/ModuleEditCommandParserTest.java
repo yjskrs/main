@@ -1,15 +1,12 @@
 package igrad.logic.parser.module;
 
 import static igrad.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static igrad.logic.parser.CliSyntax.PREFIX_TAG;
 
 import org.junit.jupiter.api.Test;
 
 import igrad.logic.commands.module.ModuleEditCommand;
 
 public class ModuleEditCommandParserTest {
-
-    private static final String TAG_EMPTY = " " + PREFIX_TAG;
 
     private static final String MESSAGE_INVALID_FORMAT =
         String.format(MESSAGE_INVALID_COMMAND_FORMAT, ModuleEditCommand.MESSAGE_MODULE_EDIT_USAGE);

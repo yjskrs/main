@@ -9,6 +9,8 @@ import igrad.model.module.Module;
 import igrad.model.module.UniqueModuleList;
 import javafx.collections.ObservableList;
 
+//@@author yjskrs
+
 /**
  * The Requirement class contains the data required at the requirement level.
  * A Requirement has a RequirementCode attribute, a Title attribute, a Credits attribute
@@ -52,7 +54,7 @@ public class Requirement implements ReadOnlyRequirement {
 
         this.requirementCode = requirementCode;
         this.title = title;
-        this.credits = new Credits(credits.getCreditsRequired(), computeCreditsFulfilled(modules));
+        this.credits = computeCredits(credits, modules);
         resetModules(modules);
     }
 
@@ -89,12 +91,16 @@ public class Requirement implements ReadOnlyRequirement {
         return modules.contains(module);
     }
 
+    //@@author nathanaelseen
+
     /**
      * Returns true if all modules in {@code modules} with the same identity as {@code module} exists in the list.
      */
     public boolean hasModules(List<Module> moduleList) {
         return modules.contains(moduleList);
     }
+
+    //@@author yjskrs
 
     /**
      * Adds a {@code module} to the list.
@@ -104,6 +110,8 @@ public class Requirement implements ReadOnlyRequirement {
         this.modules.add(module);
     }
 
+    //@@author nathanaelseen
+
     /**
      * Adds a list of {@code Module}s; {@code modules} to the list.
      * The modules must not already exist in the list.
@@ -111,6 +119,8 @@ public class Requirement implements ReadOnlyRequirement {
     public void addModules(List<Module> modules) {
         this.modules.add(modules);
     }
+
+    //@@author yjskrs
 
     /**
      * Replaces the given module {@code target} in the list with {@code editedModule}.
@@ -161,6 +171,11 @@ public class Requirement implements ReadOnlyRequirement {
     }
 
     @Override
+    public int getCreditsAssigned() {
+        return credits.getCreditsAssigned();
+    }
+
+    @Override
     public int getCreditsFulfilled() {
         return credits.getCreditsFulfilled();
     }
@@ -188,18 +203,20 @@ public class Requirement implements ReadOnlyRequirement {
     /**
      * Computes the number of credits fulfilled by the list of modules. Returns an integer.
      */
-    private int computeCreditsFulfilled(List<Module> moduleList) {
-        requireNonNull(moduleList);
+    private Credits computeCredits(Credits credits, List<Module> moduleList) {
+        requireAllNonNull(credits, moduleList);
 
+        int creditsAssigned = 0;
         int creditsFulfilled = 0;
 
         for (Module module : moduleList) {
+            creditsAssigned += module.getCredits().toInteger();
             if (module.isDone()) {
                 creditsFulfilled += module.getCredits().toInteger();
             }
         }
 
-        return creditsFulfilled;
+        return new Credits(credits.getCreditsRequired(), creditsAssigned, creditsFulfilled);
     }
 
     @Override
