@@ -7,17 +7,23 @@ import static igrad.logic.parser.CliSyntax.PREFIX_SEMESTER;
 import static java.util.Objects.requireNonNull;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import igrad.commons.core.Messages;
 import igrad.logic.commands.module.ModuleDoneCommand;
+import igrad.logic.commands.module.ModuleDoneCommand.EditModuleDescriptor;
 import igrad.logic.parser.ArgumentMultimap;
 import igrad.logic.parser.ArgumentTokenizer;
 import igrad.logic.parser.Parser;
 import igrad.logic.parser.ParserUtil;
 import igrad.logic.parser.Specifier;
 import igrad.logic.parser.exceptions.ParseException;
+import igrad.model.module.Grade;
 import igrad.model.module.ModuleCode;
+import igrad.model.module.Semester;
 import igrad.services.exceptions.ServiceException;
+
+//@@author nathanaelseen
 
 /**
  * Parses input arguments and creates a new ModuleDoneCommand object.
@@ -44,26 +50,50 @@ public class ModuleDoneCommandParser extends ModuleCommandParser implements Pars
                 MESSAGE_MODULE_DONE_HELP));
         }
 
-        Specifier specifier = ParserUtil.parseSpecifier(argMultimap.getPreamble(),
-            ParserUtil.MODULE_MODULE_CODE_SPECIFIER_RULE, ModuleCode.MESSAGE_CONSTRAINTS);
-
-        ModuleDoneCommand.EditModuleDescriptor editModuleDescriptor =
-            new ModuleDoneCommand.EditModuleDescriptor();
-
-        ModuleCode moduleCode = new ModuleCode(specifier.getValue());
-
-        // If semester is specified, add it into our editModuleDescriptor
-        if (argMultimap.getValue(PREFIX_SEMESTER).isPresent()) {
-            editModuleDescriptor.setSemester(parseSemester(argMultimap.getValue(PREFIX_SEMESTER).get()));
-        }
-
-        // Grade is mandatory for marking a module as done
-        if (argMultimap.getValue(PREFIX_GRADE).isEmpty()) {
-            throw new ParseException(MESSAGE_MODULE_NOT_EDITED);
-        }
-
-        editModuleDescriptor.setGrade(parseGrade(argMultimap.getValue(PREFIX_GRADE).get()));
+        ModuleCode moduleCode = parseModuleCodeSpecifier(argMultimap);
+        EditModuleDescriptor editModuleDescriptor = parseEditedModule(argMultimap);
 
         return new ModuleDoneCommand(moduleCode, editModuleDescriptor);
     }
+
+    /**
+     * Parses specifier from {@code argMultimap} into {@code ModuleCode}.
+     *
+     * @throws ParseException If user input does not conform to the expected format.
+     */
+    public ModuleCode parseModuleCodeSpecifier(ArgumentMultimap argMultimap) throws ParseException {
+        Specifier specifier = ParserUtil.parseSpecifier(argMultimap.getPreamble(),
+            ParserUtil.MODULE_MODULE_CODE_SPECIFIER_RULE, ModuleCode.MESSAGE_CONSTRAINTS);
+
+        return new ModuleCode(specifier.getValue());
+    }
+
+    /**
+     * Parses grade and/or semesters from {@code argMultimap} into {@code EditRequirementDescriptor}.
+     *
+     * @throws ParseException If user input does not conform to the expected format.
+     */
+    public EditModuleDescriptor parseEditedModule(ArgumentMultimap argMultimap) throws ParseException {
+        EditModuleDescriptor editModuleDescriptor = new EditModuleDescriptor();
+
+        Optional<String> gradeString = argMultimap.getValue(PREFIX_GRADE);
+        Optional<String> semesterString = argMultimap.getValue(PREFIX_SEMESTER);
+
+        // Grade is mandatory for marking a module as done
+        if (gradeString.isEmpty() || gradeString.get().isEmpty()) {
+            throw new ParseException(MESSAGE_MODULE_NOT_EDITED);
+        }
+
+        Optional<Grade> grade = parseGrade(gradeString.get());
+        editModuleDescriptor.setGrade(grade);
+
+        // If semester is specified, add it into our editModuleDescriptor
+        if (semesterString.isPresent()) {
+            Optional<Semester> semester = parseSemester(semesterString.get());
+            editModuleDescriptor.setSemester(semester);
+        }
+
+        return editModuleDescriptor;
+    }
+
 }
