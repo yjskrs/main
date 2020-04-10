@@ -10,6 +10,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 
+// @@author dargohzy
 /**
  * Panel showing the list of requirements entered.
  */
