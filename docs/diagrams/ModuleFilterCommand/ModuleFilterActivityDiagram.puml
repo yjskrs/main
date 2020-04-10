@@ -1,0 +1,19 @@
+@startuml
+start
+:User executes command;
+
+if(has parameters) then (no)
+        :Refresh the module list;
+else
+    if(operator == AND) then (no)
+        :Filter modules which have at least one\nof the specified values given;
+    else (yes)
+        :Filter modules which have all the specified values given;
+    endif
+endif
+
+:Updates the module list;
+
+:Displays filtered module list;
+stop
+@enduml

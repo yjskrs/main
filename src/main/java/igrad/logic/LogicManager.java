@@ -101,7 +101,8 @@ public class LogicManager implements Logic {
         if (!(command instanceof UndoCommand)) {
             try {
                 // First, load current state into backup
-                storage.saveBackupCourseBook(model.getCourseBook());
+                Path backupCourseBookFilePath = model.getBackupCourseBookFilePath();
+                storage.saveCourseBook(model.getCourseBook(), backupCourseBookFilePath);
             } catch (IOException ioe) {
                 throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
             }
