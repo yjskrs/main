@@ -1,0 +1,14 @@
+@startuml
+
+[*] --> InitialState
+
+InitialState : Unfiltered module list
+
+InitialState -> FilteredByAndState: filter(predicates, AND)
+FilteredByAndState: Module list with modules\nmatching all predicates
+FilteredByOrState: Module list with module\nmatching one or more predictates
+
+InitialState -> FilteredByOrState: filter(predicates, OR)
+FilteredByAndState --> InitialState: filter()
+FilteredByOrState --> InitialState: filter()
+@enduml

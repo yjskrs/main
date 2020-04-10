@@ -340,7 +340,7 @@ Expected Outcome
 You should be able to see the requirement created and/or edited in the main panel.
 
 '''
-
+// tag::module[]
 === Module
 
 This section details each command used to manipulate modules. All module commands begin with the identifier
@@ -423,6 +423,7 @@ For this tutorial, actual values will be given instead of placeholders. Undo or 
 
 4. The message in the response box should change and you should see the following in the module panel:
 
++
 .Modules CS2103T and CS2101 successfully added
 image::../images/user-guide\moduleAutoAddCommand\two_modules.png[]
 
@@ -497,6 +498,7 @@ For this tutorial, actual values will be given instead of placeholders. Undo or 
 
 4. The message in the response box should change and you should see the following in the module panel
 
++
 .Modules CS2103T and CS2101 successfully added from NUSMods
 image::../images/user-guide\moduleAutoAddCommand\two_modules.png[]
 
@@ -504,6 +506,10 @@ image::../images/user-guide\moduleAutoAddCommand\two_modules.png[]
 
 We are also able to retrieve information pertaining to a module's prerequisites and preclusions. However, as our app can function as a module planner
 in addition to tracking your graduation requirements, we do not prevent you from adding modules that have unfulfilled prerequisites but instead, simply show a warning.
+
+WARNING: As the prerequisites and preclusions from NUSMods do not follow any standard formatting, the warning messages shown might not
+always be accurate. This is due to a difficulty of interpreting
+the data given by NUSMods. This remains a BETA feature and we hope to upgrade it in time.
 
 ==== Module Done
 
@@ -549,6 +555,7 @@ Ensure that you have the module CS2103T in the module list
 
 2. The message in the response box should change and you should see the following
 
++
 .Modules CS2103T successfully given a grade and a semester
 image::../images/user-guide\moduleAutoAddCommand\one_module.png[]
 
@@ -591,6 +598,7 @@ Ensure that you have the module CS2103T in the module list
 
 2. The message in the response box should change and you should see the following
 
++
 .Modules CS2103T successfully given a grade and a semester
 image::../images/user-guide\moduleAutoAddCommand\module_edit.png[]
 
@@ -601,7 +609,7 @@ This command deletes a module from the module list.
 .Delete Quick Reference
 |===
 |Purpose | Deletes a module
-|Syntax| `module delete MODULE_CODE`
+|Syntax| `module delete MODULE_CODE`https://xxx[]
 |Example | `module delete CS2103T`
 |===
 
@@ -622,7 +630,6 @@ Restoring the module is only possible using the `undo` command which would only 
 |===
 
 *Tutorial*
-
 [NOTE]
 For this tutorial, actual values will be given instead of placeholders. Undo or Delete objects created from this tutorial by using the appropriate commands
 
@@ -691,8 +698,9 @@ Ensure that the following modules are in the module list:
 This section contains information which requires prior knowledge of discrete mathematics or more specifically, logical operators
 
 The flag `-o`, is present, sets the logical operator used in concatenating the parameters as _"or"_. The default logical operator used is _"and"_.
-
+// end::module[]
 '''
+
 === Export
 
 This command exports your data to a comma-separated values (.csv) file. This file can then be submitted to the relevant
