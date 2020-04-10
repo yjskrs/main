@@ -47,6 +47,7 @@ public class ModuleBuilder {
         credits = moduleToCopy.getCredits();
         semester = moduleToCopy.getSemester();
         grade = moduleToCopy.getGrade();
+        description = moduleToCopy.getDescription();
     }
 
     /**
