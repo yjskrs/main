@@ -75,6 +75,7 @@ image::developer-guide/ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
 
+//tag::ui[]
 [[Design-Ui]]
 === UI component
 
@@ -181,7 +182,7 @@ relevant to the interface:
 * `RequirementCard` - Individual card containing the relevant information of the requirement. List of `RequirementCards`  contained in the `RequirementListPanel`.
 * `HelpWindow` - Pop-up window containing the link the User Guide, as well as a list of all the commands in the applicatoin.
 
-
+//end::ui[]
 
 [[Design-Logic]]
 === Logic component

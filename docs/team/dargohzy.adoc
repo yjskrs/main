@@ -1,4 +1,5 @@
 = Daryl Goh - Project Portfolio
+
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -34,27 +35,21 @@ created with JavaFX, FXML and CSS.
 
 * *Code contributed*: [https://github.com/AY1920S2-CS2103T-F09-3/main/commits?author=dargohzy[All commits]] [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=dargohzy[Project Code Dashboard]]
 
-* *Documentation*:
-
-* *Contribution to Team Based Tasks*:
+* *Other contributions*:
+** Project Presentation
+*** Was part of the team that did the product pitch
 
 == Contributions to the User Guide
-
-
 |===
-|_Sections contributed to UG_
+|_Given below are the sections I contributed to the User Guide. They showcase my ability to communicate with end-users
+of the product in question. Worked in conjunction with https://github.com/teriaiw[Teri]_
 |===
-
+include::../UserGuide.adoc[tag=walkthrough]
 
 == Contributions to the Developer Guide
-
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Given below are the sections I contributed to the Developer Guide. They showcase my ability to communicate technical
+information into documentation as well as my contributions to the project._
 |===
 
-
-
-
-|===
-|_Sections contributed to DG_
-|===
+include::../DeveloperGuide.adoc[tag=ui]
