@@ -4,6 +4,7 @@ import static igrad.testutil.Assert.assertThrows;
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,6 +16,7 @@ import java.util.function.Predicate;
 import org.junit.jupiter.api.Test;
 
 import igrad.commons.core.GuiSettings;
+import igrad.commons.exceptions.DataConversionException;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.logic.commands.module.ModuleAddCommand;
 import igrad.model.CourseBook;
@@ -270,6 +272,16 @@ public class AddCommandTest {
 
         @Override
         public String getRandomQuoteString() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public List<Module> exportModuleList() throws IOException {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean undoCourseBook() throws IOException, DataConversionException {
             throw new AssertionError("This method should not be called.");
         }
     }

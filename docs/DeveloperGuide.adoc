@@ -195,7 +195,7 @@ Step 3: The new course name is set in the course book.
 
 '''
 
-
+//tag::module[]
 === Module Feature
 
 ==== Module Component
@@ -441,7 +441,7 @@ image::developer-guide/ModuleFilterStateDiagram.png[]
 An issue with the filtering of modules is that when the current state is not obvious, the
 user might lose track of what the module list is filtering on. To solve this problem,
 it would be an improvement to display the current state prominently to the user.
-
+//end::module[]
 '''
 
 === Requirements Feature

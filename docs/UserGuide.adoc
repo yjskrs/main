@@ -340,7 +340,7 @@ Expected Outcome
 You should be able to see the requirement created and/or edited in the main panel.
 
 '''
-
+// tag::module[]
 === Module
 
 This section details each command used to manipulate modules. All module commands begin with the identifier
@@ -630,7 +630,6 @@ Restoring the module is only possible using the `undo` command which would only 
 |===
 
 *Tutorial*
-
 [NOTE]
 For this tutorial, actual values will be given instead of placeholders. Undo or Delete objects created from this tutorial by using the appropriate commands
 
@@ -699,8 +698,9 @@ Ensure that the following modules are in the module list:
 This section contains information which requires prior knowledge of discrete mathematics or more specifically, logical operators
 
 The flag `-o`, is present, sets the logical operator used in concatenating the parameters as _"or"_. The default logical operator used is _"and"_.
-
+// end::module[]
 '''
+
 === Export
 
 This command exports your data to a comma-separated values (.csv) file. This file can then be submitted to the relevant
