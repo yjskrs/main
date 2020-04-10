@@ -1,7 +1,7 @@
 package igrad.logic.parser.requirement;
 
 import static igrad.logic.commands.requirement.RequirementUnassignCommand.MESSAGE_REQUIREMENT_NO_MODULES;
-import static igrad.logic.commands.requirement.RequirementUnassignCommand.REQUIREMENT_UNASSIGN_MESSAGE_HELP;
+import static igrad.logic.commands.requirement.RequirementUnassignCommand.MESSAGE_REQUIREMENT_UNASSIGN_HELP;
 import static igrad.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
 import static igrad.logic.parser.ParserUtil.parseModuleCodes;
 
@@ -18,6 +18,8 @@ import igrad.logic.parser.Specifier;
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.module.ModuleCode;
 import igrad.model.requirement.RequirementCode;
+
+//@@author nathanaelseen
 
 /**
  * Parses {@code Module}s to unassign (from {@code Requirement}) input argument and creates a new
@@ -36,15 +38,28 @@ public class RequirementUnassignCommandParser implements Parser<RequirementUnass
          */
         if (argMultimap.isEmpty(true)) {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
-                REQUIREMENT_UNASSIGN_MESSAGE_HELP));
+                MESSAGE_REQUIREMENT_UNASSIGN_HELP));
         }
 
         Specifier specifier = ParserUtil.parseSpecifier(argMultimap.getPreamble(),
             ParserUtil.REQUIREMENT_CODE_SPECIFIER_RULE, RequirementCode.MESSAGE_CONSTRAINTS);
 
+        RequirementCode requirementCode = parseRequirementCodeSpecifier(argMultimap);
         List<ModuleCode> moduleCodes = parseModulesToUnassign(argMultimap.getAllValues(PREFIX_MODULE_CODE));
 
-        return new RequirementUnassignCommand(new RequirementCode(specifier.getValue()), moduleCodes);
+        return new RequirementUnassignCommand(requirementCode, moduleCodes);
+    }
+
+    /**
+     * Parses specifier from {@code argMultimap} into {@code RequirementCode}.
+     *
+     * @throws ParseException If user input does not conform to the expected format.
+     */
+    public RequirementCode parseRequirementCodeSpecifier(ArgumentMultimap argMultimap) throws ParseException {
+        Specifier specifier = ParserUtil.parseSpecifier(argMultimap.getPreamble(),
+            ParserUtil.REQUIREMENT_CODE_SPECIFIER_RULE, RequirementCode.MESSAGE_CONSTRAINTS);
+
+        return new RequirementCode(specifier.getValue());
     }
 
     /**
