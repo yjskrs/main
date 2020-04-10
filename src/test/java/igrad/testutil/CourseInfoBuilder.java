@@ -8,6 +8,8 @@ import igrad.model.course.Credits;
 import igrad.model.course.Name;
 import igrad.model.course.Semesters;
 
+//@@author nathanaelseen
+
 /**
  * A utility class to help with building {@code CourseInfo} objects.
  */

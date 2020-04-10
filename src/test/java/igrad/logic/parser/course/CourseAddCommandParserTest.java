@@ -81,7 +81,6 @@ public class CourseAddCommandParserTest {
 
         // 'course add n/Bachelor of Computer Science s/3'
         input = COURSE_NAME_DESC_BCOMPSCI + COURSE_SEMESTERS_DESC_BCOMPSCI;
-        System.out.println("input = " + input);
         expectedCourse = new CourseInfoBuilder()
                             .withName(VALID_COURSE_NAME_BCOMPSCI)
                             .withSemesters(VALID_COURSE_SEMESTERS_BCOMPSCI)

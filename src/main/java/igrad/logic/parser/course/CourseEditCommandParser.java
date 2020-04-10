@@ -49,14 +49,7 @@ public class CourseEditCommandParser extends CourseCommandParser implements Pars
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_COURSE_EDIT_HELP));
         }
 
-        CourseEditCommand.EditCourseDescriptor editCourseDescriptor =
-                new CourseEditCommand.EditCourseDescriptor();
-
-        if (argMultimap.getValue(PREFIX_NAME).isEmpty()) {
-            throw new ParseException(MESSAGE_COURSE_NOT_EDITED);
-        }
-
-        editCourseDescriptor.setName(parseName(argMultimap.getValue(PREFIX_NAME).get()));
+        EditCourseDescriptor editCourseDescriptor = parseEditedCourse(argMultimap);
 
         return new CourseEditCommand(editCourseDescriptor);
     }

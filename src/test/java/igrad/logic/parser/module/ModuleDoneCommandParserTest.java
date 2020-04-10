@@ -124,7 +124,7 @@ public class ModuleDoneCommandParserTest {
                                                    .build();
         assertParseSuccess(parser, input, new ModuleDoneCommand(moduleCode, descriptor));
 
-        // with white space preamble:
+        // with white space preamble (without semester):
 
         // 'module done       CS1101S g/A'
         input = PREAMBLE_WHITESPACE + VALID_MODULE_CODE_CS1101S + MODULE_GRADE_DESC_CS1101S;

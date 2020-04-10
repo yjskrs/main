@@ -96,7 +96,7 @@ public class CourseEditCommand extends CourseCommand {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EditCourseDescriptor)) {
+        if (!(other instanceof CourseEditCommand)) {
             return false;
         }
 
