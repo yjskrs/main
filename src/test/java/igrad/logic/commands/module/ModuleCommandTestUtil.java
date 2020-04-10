@@ -44,11 +44,11 @@ import javafx.collections.transformation.FilteredList;
 public class ModuleCommandTestUtil {
 
     // valid requirement arguments
-    public static final String VALID_TITLE_CS1101S = "Programming Methodology";
-    public static final String VALID_TITLE_CS2100 = "Computer Organisation";
-    public static final String VALID_TITLE_CS2103T = "Software Engineering";
-    public static final String VALID_TITLE_CS2101 = "Effective Communication for Computing Professionals";
-    public static final String VALID_TITLE_CS2040 = "Data Structures and Algorithms";
+    public static final String VALID_MODULE_TITLE_CS1101S = "Programming Methodology";
+    public static final String VALID_MODULE_TITLE_CS2100 = "Computer Organisation";
+    public static final String VALID_MODULE_TITLE_CS2103T = "Software Engineering";
+    public static final String VALID_MODULE_TITLE_CS2101 = "Effective Communication for Computing Professionals";
+    public static final String VALID_MODULE_TITLE_CS2040 = "Data Structures and Algorithms";
 
     public static final String VALID_MODULE_CODE_CS1101S = "CS1101S";
     public static final String VALID_MODULE_CODE_CS2100 = "CS2100";
@@ -56,14 +56,20 @@ public class ModuleCommandTestUtil {
     public static final String VALID_MODULE_CODE_CS2101 = "CS2101";
     public static final String VALID_MODULE_CODE_CS2040 = "CS2040";
 
-    public static final String VALID_CREDITS_4 = "4";
-    public static final String VALID_CREDITS_6 = "6";
+    public static final String VALID_MODULE_CREDITS_4 = "4";
+    public static final String VALID_MODULE_CREDITS_6 = "6";
 
-    public static final String VALID_SEMESTER_Y1S1 = "Y1S1";
-    public static final String VALID_SEMESTER_Y2S2 = "Y2S2";
+    public static final String VALID_MODULE_SEMESTER_Y1S1 = "Y1S1";
+    public static final String VALID_MODULE_SEMESTER_Y2S2 = "Y2S2";
 
-    public static final String VALID_GRADE_A = "A";
-    public static final String VALID_GRADE_B = "B";
+    public static final String VALID_MODULE_SEMESTER_CS1101S = "Y1S1";
+    public static final String VALID_MODULE_SEMESTER_CS2100 = "Y2S2";
+
+    public static final String VALID_MODULE_GRADE_A = "A";
+    public static final String VALID_MODULE_GRADE_B = "B";
+
+    public static final String VALID_MODULE_GRADE_CS1101S = "A";
+    public static final String VALID_MODULE_GRADE_CS2100 = "B";
 
     // invalid requirement arguments
     public static final String INVALID_MODULE_CODE = "CS2040S&";
@@ -73,24 +79,24 @@ public class ModuleCommandTestUtil {
 
 
     // module title descriptor for command entered
-    public static final String MODULE_TITLE_DESC_CS1101S = " " + PREFIX_TITLE + VALID_TITLE_CS1101S;
-    public static final String MODULE_TITLE_DESC_CS2100 = " " + PREFIX_TITLE + VALID_TITLE_CS2100;
+    public static final String MODULE_TITLE_DESC_CS1101S = " " + PREFIX_TITLE + VALID_MODULE_TITLE_CS1101S;
+    public static final String MODULE_TITLE_DESC_CS2100 = " " + PREFIX_TITLE + VALID_MODULE_TITLE_CS2100;
 
     // module code descriptor for command entered
     public static final String MODULE_MODULE_CODE_DESC_CS1101S = " " + PREFIX_MODULE_CODE + VALID_MODULE_CODE_CS1101S;
     public static final String MODULE_MODULE_CODE_DESC_CS2100 = " " + PREFIX_MODULE_CODE + VALID_MODULE_CODE_CS2100;
 
     // module credits descriptor for command entered
-    public static final String MODULE_CREDITS_DESC_CS1101S = " " + PREFIX_CREDITS + VALID_CREDITS_4;
-    public static final String MODULE_CREDITS_DESC_CS2100 = " " + PREFIX_CREDITS + VALID_CREDITS_6;
+    public static final String MODULE_CREDITS_DESC_CS1101S = " " + PREFIX_CREDITS + VALID_MODULE_CREDITS_4;
+    public static final String MODULE_CREDITS_DESC_CS2100 = " " + PREFIX_CREDITS + VALID_MODULE_CREDITS_6;
 
     // module grade descriptor for command entered
-    public static final String MODULE_GRADE_DESC_CS1101S = " " + PREFIX_GRADE + VALID_CREDITS_4;
-    public static final String MODULE_GRADE_DESC_CS2100 = " " + PREFIX_GRADE + VALID_CREDITS_6;
+    public static final String MODULE_GRADE_DESC_CS1101S = " " + PREFIX_GRADE + VALID_MODULE_GRADE_CS1101S;
+    public static final String MODULE_GRADE_DESC_CS2100 = " " + PREFIX_GRADE + VALID_MODULE_GRADE_CS2100;
 
     // module semester descriptor for command entered
-    public static final String MODULE_SEMESTER_DESC_CS1101S = " " + PREFIX_SEMESTER + VALID_SEMESTER_Y1S1;
-    public static final String MODULE_SEMESTER_DESC_CS2100 = " " + PREFIX_SEMESTER + VALID_SEMESTER_Y2S2;
+    public static final String MODULE_SEMESTER_DESC_CS1101S = " " + PREFIX_SEMESTER + VALID_MODULE_SEMESTER_CS1101S;
+    public static final String MODULE_SEMESTER_DESC_CS2100 = " " + PREFIX_SEMESTER + VALID_MODULE_SEMESTER_CS2100;
 
     // Starting with ' ' not allowed in titles
     public static final String INVALID_MODULE_TITLE_DESC = " " + PREFIX_TITLE + " Programming Methodology";
@@ -121,16 +127,16 @@ public class ModuleCommandTestUtil {
 
     static {
         DESC_PROGRAMMING_METHODOLOGY = new EditModuleDescriptorBuilder()
-            .withTitle(VALID_TITLE_CS1101S)
+            .withTitle(VALID_MODULE_TITLE_CS1101S)
             .withModuleCode(VALID_MODULE_CODE_CS1101S)
-            .withCredits(VALID_CREDITS_4)
-            .withSemester(VALID_SEMESTER_Y1S1).build();
+            .withCredits(VALID_MODULE_CREDITS_4)
+            .withSemester(VALID_MODULE_SEMESTER_Y1S1).build();
 
         DESC_COMPUTER_ORGANISATION = new EditModuleDescriptorBuilder()
-            .withTitle(VALID_TITLE_CS2100)
+            .withTitle(VALID_MODULE_TITLE_CS2100)
             .withModuleCode(VALID_MODULE_CODE_CS2100)
-            .withCredits(VALID_CREDITS_6)
-            .withSemester(VALID_SEMESTER_Y2S2).build();
+            .withCredits(VALID_MODULE_CREDITS_6)
+            .withSemester(VALID_MODULE_SEMESTER_Y2S2).build();
     }
 
     /**

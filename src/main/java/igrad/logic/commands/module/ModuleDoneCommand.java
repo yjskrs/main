@@ -52,6 +52,10 @@ public class ModuleDoneCommand extends ModuleCommand {
     public ModuleDoneCommand(ModuleCode moduleCode, EditModuleDescriptor editModuleGradeDescriptor) {
         requireAllNonNull(moduleCode, editModuleGradeDescriptor);
 
+        System.out.println("from module done....");
+        System.out.println(editModuleGradeDescriptor.getGrade());
+        System.out.println(editModuleGradeDescriptor.getSemester());
+
         this.moduleCode = moduleCode;
         this.editModuleGradeDescriptor = new EditModuleDescriptor(editModuleGradeDescriptor);
     }
@@ -159,12 +163,10 @@ public class ModuleDoneCommand extends ModuleCommand {
 
     @Override
     public boolean equals(Object other) {
-        /*
-         * TODO (Teri): Please take a look at how ModuleEditCommand.java
-         * implements this, and fill it up!
-         */
-
-        return false;
+        return other == this
+                   || (other instanceof ModuleDoneCommand
+                           && ((ModuleDoneCommand) other).editModuleGradeDescriptor.equals(editModuleGradeDescriptor)
+                           && ((ModuleDoneCommand) other).moduleCode.equals(moduleCode));
     }
 
     /**
@@ -216,7 +218,7 @@ public class ModuleDoneCommand extends ModuleCommand {
             }
 
             // state check
-            ModuleDoneCommand.EditModuleDescriptor e = (EditModuleDescriptor) other;
+            EditModuleDescriptor e = (EditModuleDescriptor) other;
 
             return getGrade().equals(e.getGrade())
                 && getSemester().equals(e.getSemester());

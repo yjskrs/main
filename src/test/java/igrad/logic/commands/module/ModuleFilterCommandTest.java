@@ -16,6 +16,8 @@ import igrad.model.module.Semester;
 import igrad.testutil.ModuleBuilder;
 import igrad.testutil.TypicalModules;
 
+//@@author waynewee
+
 public class ModuleFilterCommandTest {
 
     @Test
@@ -58,31 +60,31 @@ public class ModuleFilterCommandTest {
 
         Module moduleWithGrade = new ModuleBuilder()
             .withModuleCode(ModuleCommandTestUtil.VALID_MODULE_CODE_CS2103T)
-            .withCredits(ModuleCommandTestUtil.VALID_CREDITS_4)
-            .withTitle(ModuleCommandTestUtil.VALID_TITLE_CS2103T)
+            .withCredits(ModuleCommandTestUtil.VALID_MODULE_CREDITS_4)
+            .withTitle(ModuleCommandTestUtil.VALID_MODULE_TITLE_CS2103T)
             .withoutOptionals()
-            .withGrade(ModuleCommandTestUtil.VALID_GRADE_A)
+            .withGrade(ModuleCommandTestUtil.VALID_MODULE_GRADE_A)
             .build();
 
         Module moduleWithSixCredits = new ModuleBuilder()
             .withModuleCode(ModuleCommandTestUtil.VALID_MODULE_CODE_CS2101)
-            .withCredits(ModuleCommandTestUtil.VALID_CREDITS_6)
-            .withTitle(ModuleCommandTestUtil.VALID_TITLE_CS2101)
+            .withCredits(ModuleCommandTestUtil.VALID_MODULE_CREDITS_6)
+            .withTitle(ModuleCommandTestUtil.VALID_MODULE_TITLE_CS2101)
             .withoutOptionals()
             .build();
 
         Module moduleWithSemester = new ModuleBuilder()
             .withModuleCode(ModuleCommandTestUtil.VALID_MODULE_CODE_CS2040)
-            .withCredits(ModuleCommandTestUtil.VALID_CREDITS_4)
-            .withTitle(ModuleCommandTestUtil.VALID_TITLE_CS2040)
+            .withCredits(ModuleCommandTestUtil.VALID_MODULE_CREDITS_4)
+            .withTitle(ModuleCommandTestUtil.VALID_MODULE_TITLE_CS2040)
             .withoutOptionals()
-            .withSemester(ModuleCommandTestUtil.VALID_SEMESTER_Y1S1)
+            .withSemester(ModuleCommandTestUtil.VALID_MODULE_SEMESTER_Y1S1)
             .build();
 
         Module moduleWithoutOptionals = new ModuleBuilder()
             .withModuleCode(ModuleCommandTestUtil.VALID_MODULE_CODE_CS2100)
-            .withCredits(ModuleCommandTestUtil.VALID_CREDITS_4)
-            .withTitle(ModuleCommandTestUtil.VALID_TITLE_CS2100)
+            .withCredits(ModuleCommandTestUtil.VALID_MODULE_CREDITS_4)
+            .withTitle(ModuleCommandTestUtil.VALID_MODULE_TITLE_CS2100)
             .withoutOptionals()
             .build();
 
@@ -97,9 +99,9 @@ public class ModuleFilterCommandTest {
         validModules.add(moduleWithSixCredits);
 
         ModuleFilterCommand moduleFilterCommand = new ModuleFilterCommand(
-            Optional.of(new Semester(ModuleCommandTestUtil.VALID_SEMESTER_Y1S1)),
-            Optional.of(new Credits(ModuleCommandTestUtil.VALID_CREDITS_6)),
-            Optional.of(new Grade(ModuleCommandTestUtil.VALID_GRADE_A)),
+            Optional.of(new Semester(ModuleCommandTestUtil.VALID_MODULE_SEMESTER_Y1S1)),
+            Optional.of(new Credits(ModuleCommandTestUtil.VALID_MODULE_CREDITS_6)),
+            Optional.of(new Grade(ModuleCommandTestUtil.VALID_MODULE_GRADE_A)),
             ModuleFilterCommand.OR
         );
 
@@ -116,24 +118,24 @@ public class ModuleFilterCommandTest {
 
         Module moduleWithGradeA = new ModuleBuilder()
             .withModuleCode(ModuleCommandTestUtil.VALID_MODULE_CODE_CS2103T)
-            .withCredits(ModuleCommandTestUtil.VALID_CREDITS_4)
-            .withTitle(ModuleCommandTestUtil.VALID_TITLE_CS2103T)
+            .withCredits(ModuleCommandTestUtil.VALID_MODULE_CREDITS_4)
+            .withTitle(ModuleCommandTestUtil.VALID_MODULE_TITLE_CS2103T)
             .withoutOptionals()
-            .withGrade(ModuleCommandTestUtil.VALID_GRADE_A)
+            .withGrade(ModuleCommandTestUtil.VALID_MODULE_GRADE_A)
             .build();
 
         Module moduleWithGradeB = new ModuleBuilder()
             .withModuleCode(ModuleCommandTestUtil.VALID_MODULE_CODE_CS2101)
-            .withCredits(ModuleCommandTestUtil.VALID_CREDITS_6)
-            .withTitle(ModuleCommandTestUtil.VALID_TITLE_CS2101)
+            .withCredits(ModuleCommandTestUtil.VALID_MODULE_CREDITS_6)
+            .withTitle(ModuleCommandTestUtil.VALID_MODULE_TITLE_CS2101)
             .withoutOptionals()
-            .withGrade(ModuleCommandTestUtil.VALID_GRADE_A)
+            .withGrade(ModuleCommandTestUtil.VALID_MODULE_GRADE_A)
             .build();
 
         Module moduleWithoutGrade = new ModuleBuilder()
             .withModuleCode(ModuleCommandTestUtil.VALID_MODULE_CODE_CS2040)
-            .withCredits(ModuleCommandTestUtil.VALID_CREDITS_4)
-            .withTitle(ModuleCommandTestUtil.VALID_TITLE_CS2040)
+            .withCredits(ModuleCommandTestUtil.VALID_MODULE_CREDITS_4)
+            .withTitle(ModuleCommandTestUtil.VALID_MODULE_TITLE_CS2040)
             .withoutOptionals()
             .build();
 
@@ -148,7 +150,7 @@ public class ModuleFilterCommandTest {
         ModuleFilterCommand moduleFilterCommand = new ModuleFilterCommand(
             Optional.empty(),
             Optional.empty(),
-            Optional.of(new Grade(ModuleCommandTestUtil.VALID_GRADE_A)),
+            Optional.of(new Grade(ModuleCommandTestUtil.VALID_MODULE_GRADE_A)),
             ModuleFilterCommand.AND
         );
 

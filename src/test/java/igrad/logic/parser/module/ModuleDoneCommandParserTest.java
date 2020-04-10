@@ -5,22 +5,29 @@ package igrad.logic.parser.module;
 import static igrad.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static igrad.commons.core.Messages.MESSAGE_SPECIFIER_INVALID;
 import static igrad.commons.core.Messages.MESSAGE_SPECIFIER_NOT_SPECIFIED;
+import static igrad.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static igrad.logic.commands.module.ModuleCommandTestUtil.INVALID_MODULE_CODE;
 import static igrad.logic.commands.module.ModuleCommandTestUtil.INVALID_MODULE_GRADE_DESC;
 import static igrad.logic.commands.module.ModuleCommandTestUtil.MODULE_GRADE_DESC_CS1101S;
 import static igrad.logic.commands.module.ModuleCommandTestUtil.MODULE_SEMESTER_DESC_CS1101S;
 import static igrad.logic.commands.module.ModuleCommandTestUtil.VALID_MODULE_CODE_CS1101S;
+import static igrad.logic.commands.module.ModuleCommandTestUtil.VALID_MODULE_GRADE_CS1101S;
+import static igrad.logic.commands.module.ModuleCommandTestUtil.VALID_MODULE_SEMESTER_CS1101S;
+import static igrad.logic.commands.module.ModuleDoneCommand.EditModuleDescriptor;
 import static igrad.logic.commands.module.ModuleDoneCommand.MESSAGE_MODULE_DONE_HELP;
 import static igrad.logic.commands.module.ModuleDoneCommand.MESSAGE_MODULE_NOT_EDITED;
 import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
 import static igrad.logic.parser.CliSyntax.PREFIX_GRADE;
 import static igrad.logic.parser.CommandParserTestUtil.assertParseFailure;
+import static igrad.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import org.junit.jupiter.api.Test;
 
+import igrad.logic.commands.module.ModuleDoneCommand;
 import igrad.model.module.Grade;
 import igrad.model.module.ModuleCode;
 import igrad.model.module.Semester;
+import igrad.testutil.EditModuleDescriptorBuilder2;
 
 public class ModuleDoneCommandParserTest {
     private static final String INVALID_COMMAND_FORMAT =
@@ -93,5 +100,51 @@ public class ModuleDoneCommandParserTest {
         // 'module done CS1101S g/A*'
         input = VALID_MODULE_CODE_CS1101S + INVALID_MODULE_GRADE_DESC;
         assertParseFailure(parser, input, INVALID_GRADE_FORMAT);
+    }
+
+    @Test
+    public void parse_validAndPresentSpecifierAndArguments_success() {
+        String input;
+        ModuleCode moduleCode = new ModuleCode(VALID_MODULE_CODE_CS1101S);
+
+        // normal module done (without semester):
+
+        // 'module done CS1101S g/A'
+        input = VALID_MODULE_CODE_CS1101S + MODULE_GRADE_DESC_CS1101S;
+        EditModuleDescriptor descriptor = new EditModuleDescriptorBuilder2()
+                                                   .withGrade(VALID_MODULE_GRADE_CS1101S)
+                                                   .build();
+        assertParseSuccess(parser, input, new ModuleDoneCommand(moduleCode, descriptor));
+
+        // with white space preamble:
+
+        // 'module done       CS1101S g/A'
+        input = PREAMBLE_WHITESPACE + VALID_MODULE_CODE_CS1101S + MODULE_GRADE_DESC_CS1101S;
+
+        descriptor = new EditModuleDescriptorBuilder2()
+                                                   .withGrade(VALID_MODULE_GRADE_CS1101S)
+                                                   .build();
+        assertParseSuccess(parser, input, new ModuleDoneCommand(moduleCode, descriptor));
+
+        // with optional fields (semester):
+
+        // 'module done CS1101S g/A s/Y1S1'
+        input = VALID_MODULE_CODE_CS1101S + MODULE_GRADE_DESC_CS1101S + MODULE_SEMESTER_DESC_CS1101S;
+        descriptor = new EditModuleDescriptorBuilder2()
+                                                   .withGrade(VALID_MODULE_GRADE_CS1101S)
+                                                   .withSemester(VALID_MODULE_SEMESTER_CS1101S)
+                                                   .build();
+        assertParseSuccess(parser, input, new ModuleDoneCommand(moduleCode, descriptor));
+
+        // with white space preamble (with optional fields; semester):
+
+        // 'module done      CS1101S g/A s/Y1S1'
+        input = PREAMBLE_WHITESPACE + VALID_MODULE_CODE_CS1101S + MODULE_GRADE_DESC_CS1101S
+            + MODULE_SEMESTER_DESC_CS1101S;
+        descriptor = new EditModuleDescriptorBuilder2()
+                                                   .withGrade(VALID_MODULE_GRADE_CS1101S)
+                                                   .withSemester(VALID_MODULE_SEMESTER_CS1101S)
+                                                   .build();
+        assertParseSuccess(parser, input, new ModuleDoneCommand(moduleCode, descriptor));
     }
 }

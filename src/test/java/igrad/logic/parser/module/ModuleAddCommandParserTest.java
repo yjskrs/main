@@ -12,9 +12,9 @@ import static igrad.logic.commands.module.ModuleCommandTestUtil.INVALID_MODULE_T
 import static igrad.logic.commands.module.ModuleCommandTestUtil.MODULE_CREDITS_DESC_CS1101S;
 import static igrad.logic.commands.module.ModuleCommandTestUtil.MODULE_MODULE_CODE_DESC_CS1101S;
 import static igrad.logic.commands.module.ModuleCommandTestUtil.MODULE_TITLE_DESC_CS1101S;
-import static igrad.logic.commands.module.ModuleCommandTestUtil.VALID_CREDITS_4;
 import static igrad.logic.commands.module.ModuleCommandTestUtil.VALID_MODULE_CODE_CS1101S;
-import static igrad.logic.commands.module.ModuleCommandTestUtil.VALID_TITLE_CS1101S;
+import static igrad.logic.commands.module.ModuleCommandTestUtil.VALID_MODULE_CREDITS_4;
+import static igrad.logic.commands.module.ModuleCommandTestUtil.VALID_MODULE_TITLE_CS1101S;
 import static igrad.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static igrad.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
@@ -34,9 +34,9 @@ public class ModuleAddCommandParserTest {
     public void parse_allFieldsPresent_success() {
 
         Module expectedModule = new ModuleBuilder()
-                .withTitle(VALID_TITLE_CS1101S)
+                .withTitle(VALID_MODULE_TITLE_CS1101S)
                 .withModuleCode(VALID_MODULE_CODE_CS1101S)
-                .withCredits(VALID_CREDITS_4)
+                .withCredits(VALID_MODULE_CREDITS_4)
                 .withoutOptionals()
                 .build();
 
@@ -57,9 +57,9 @@ public class ModuleAddCommandParserTest {
     public void parse_optionalFieldsMissing_success() {
 
         Module expectedModule = new ModuleBuilder()
-                .withTitle(VALID_TITLE_CS1101S)
+                .withTitle(VALID_MODULE_TITLE_CS1101S)
                 .withModuleCode(VALID_MODULE_CODE_CS1101S)
-                .withCredits(VALID_CREDITS_4)
+                .withCredits(VALID_MODULE_CREDITS_4)
                 .withoutOptionals()
                 .build();
 
@@ -89,7 +89,7 @@ public class ModuleAddCommandParserTest {
         // missing credits prefix (" u/")
         String missingCredits = MODULE_MODULE_CODE_DESC_CS1101S
                 + MODULE_TITLE_DESC_CS1101S
-                + VALID_CREDITS_4;
+                + VALID_MODULE_CREDITS_4;
 
         assertParseFailure(parser, missingTitle, prefixMissingMessage);
         assertParseFailure(parser, missingModuleCode, prefixMissingMessage);

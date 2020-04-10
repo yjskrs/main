@@ -12,6 +12,7 @@ import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.module.Module;
 import igrad.testutil.ModuleBuilder;
 
+//@@author waynewee
 public class ModuleAddAutoCommandTest {
 
 
@@ -28,15 +29,15 @@ public class ModuleAddAutoCommandTest {
 
         Module cs2103t = new ModuleBuilder()
             .withModuleCode(ModuleCommandTestUtil.VALID_MODULE_CODE_CS2103T)
-            .withCredits(ModuleCommandTestUtil.VALID_CREDITS_4)
-            .withTitle(ModuleCommandTestUtil.VALID_TITLE_CS2103T)
+            .withCredits(ModuleCommandTestUtil.VALID_MODULE_CREDITS_4)
+            .withTitle(ModuleCommandTestUtil.VALID_MODULE_TITLE_CS2103T)
             .withoutOptionals()
             .build();
 
         Module cs2101 = new ModuleBuilder()
             .withModuleCode(ModuleCommandTestUtil.VALID_MODULE_CODE_CS2101)
-            .withCredits(ModuleCommandTestUtil.VALID_CREDITS_4)
-            .withTitle(ModuleCommandTestUtil.VALID_TITLE_CS2101)
+            .withCredits(ModuleCommandTestUtil.VALID_MODULE_CREDITS_4)
+            .withTitle(ModuleCommandTestUtil.VALID_MODULE_TITLE_CS2101)
             .withoutOptionals()
             .build();
 
@@ -71,22 +72,22 @@ public class ModuleAddAutoCommandTest {
 
         Module cs2103t = new ModuleBuilder()
             .withModuleCode(ModuleCommandTestUtil.VALID_MODULE_CODE_CS2103T)
-            .withCredits(ModuleCommandTestUtil.VALID_CREDITS_4)
-            .withTitle(ModuleCommandTestUtil.VALID_TITLE_CS2103T)
+            .withCredits(ModuleCommandTestUtil.VALID_MODULE_CREDITS_4)
+            .withTitle(ModuleCommandTestUtil.VALID_MODULE_TITLE_CS2103T)
             .withoutOptionals()
             .build();
 
         Module cs2101 = new ModuleBuilder()
             .withModuleCode(ModuleCommandTestUtil.VALID_MODULE_CODE_CS2101)
-            .withCredits(ModuleCommandTestUtil.VALID_CREDITS_4)
-            .withTitle(ModuleCommandTestUtil.VALID_TITLE_CS2101)
+            .withCredits(ModuleCommandTestUtil.VALID_MODULE_CREDITS_4)
+            .withTitle(ModuleCommandTestUtil.VALID_MODULE_TITLE_CS2101)
             .withoutOptionals()
             .build();
 
         Module cs2040 = new ModuleBuilder()
             .withModuleCode(ModuleCommandTestUtil.VALID_MODULE_CODE_CS2040)
-            .withCredits(ModuleCommandTestUtil.VALID_CREDITS_4)
-            .withTitle(ModuleCommandTestUtil.VALID_TITLE_CS2040)
+            .withCredits(ModuleCommandTestUtil.VALID_MODULE_CREDITS_4)
+            .withTitle(ModuleCommandTestUtil.VALID_MODULE_TITLE_CS2040)
             .withoutOptionals()
             .build();
 
@@ -115,8 +116,8 @@ public class ModuleAddAutoCommandTest {
 
         Module validModule = new ModuleBuilder()
             .withModuleCode(ModuleCommandTestUtil.VALID_MODULE_CODE_CS2103T)
-            .withCredits(ModuleCommandTestUtil.VALID_CREDITS_4)
-            .withTitle(ModuleCommandTestUtil.VALID_TITLE_CS2103T)
+            .withCredits(ModuleCommandTestUtil.VALID_MODULE_CREDITS_4)
+            .withTitle(ModuleCommandTestUtil.VALID_MODULE_TITLE_CS2103T)
             .withoutOptionals()
             .build();
 
