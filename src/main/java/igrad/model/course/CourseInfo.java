@@ -266,8 +266,10 @@ public class CourseInfo {
 
         CourseInfo otherCourseInfo = (CourseInfo) other;
 
-        return otherCourseInfo.getName().equals(getName())
-            && otherCourseInfo.getCap().equals(getCap());
+        return (otherCourseInfo.getName().equals(getName())
+            && otherCourseInfo.getCap().equals(getCap())
+            && otherCourseInfo.getCredits().equals(getCredits())
+            && otherCourseInfo.getSemesters().equals(getSemesters()));
     }
 
     @Override

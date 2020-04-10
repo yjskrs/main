@@ -8,6 +8,7 @@ import static igrad.commons.core.Messages.MESSAGE_SPECIFIER_NOT_SPECIFIED;
 import static igrad.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static igrad.logic.commands.module.ModuleCommandTestUtil.INVALID_MODULE_CODE;
 import static igrad.logic.commands.module.ModuleCommandTestUtil.INVALID_MODULE_GRADE_DESC;
+import static igrad.logic.commands.module.ModuleCommandTestUtil.INVALID_MODULE_SEMESTER_DESC;
 import static igrad.logic.commands.module.ModuleCommandTestUtil.MODULE_GRADE_DESC_CS1101S;
 import static igrad.logic.commands.module.ModuleCommandTestUtil.MODULE_SEMESTER_DESC_CS1101S;
 import static igrad.logic.commands.module.ModuleCommandTestUtil.VALID_MODULE_CODE_CS1101S;
@@ -70,7 +71,7 @@ public class ModuleDoneCommandParserTest {
 
         // 'module done CS1101S s/Y1S1'
         input = VALID_MODULE_CODE_CS1101S + MODULE_SEMESTER_DESC_CS1101S;
-        assertParseFailure(parser, input, ARGUMENTS_NOT_SPECIFIED);
+        assertParseFailure(parser, input, ARGUMENTS_NOT_SPECIFIED); // semesters (optional) provided but not module code
     }
 
     @Test
@@ -100,18 +101,25 @@ public class ModuleDoneCommandParserTest {
         // 'module done CS1101S g/A*'
         input = VALID_MODULE_CODE_CS1101S + INVALID_MODULE_GRADE_DESC;
         assertParseFailure(parser, input, INVALID_GRADE_FORMAT);
+
+        // invalid (optoinal) arguments, i.e, invalid module semester:
+
+        // 'module done CS1101S g/A s/4%'
+        input = VALID_MODULE_CODE_CS1101S + MODULE_GRADE_DESC_CS1101S + INVALID_MODULE_SEMESTER_DESC;
+        assertParseFailure(parser, input, INVALID_SEMESTER_FORMAT);
     }
 
     @Test
     public void parse_validAndPresentSpecifierAndArguments_success() {
         String input;
+        EditModuleDescriptor descriptor;
         ModuleCode moduleCode = new ModuleCode(VALID_MODULE_CODE_CS1101S);
 
         // normal module done (without semester):
 
         // 'module done CS1101S g/A'
         input = VALID_MODULE_CODE_CS1101S + MODULE_GRADE_DESC_CS1101S;
-        EditModuleDescriptor descriptor = new EditModuleDescriptorBuilder2()
+        descriptor = new EditModuleDescriptorBuilder2()
                                                    .withGrade(VALID_MODULE_GRADE_CS1101S)
                                                    .build();
         assertParseSuccess(parser, input, new ModuleDoneCommand(moduleCode, descriptor));

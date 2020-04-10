@@ -14,6 +14,7 @@ import igrad.model.course.CourseInfo;
 import igrad.model.course.Credits;
 import igrad.model.course.Name;
 import igrad.model.course.Semesters;
+//@@author nathanaelseen
 
 /**
  * Edits the details of an existing module in the course book.
@@ -53,12 +54,13 @@ public class CourseEditCommand extends CourseCommand {
                                              CourseEditCommand.EditCourseDescriptor editCourseDescriptor) {
         /*
          * Just copy everything from the original {@code courseInfoToEdit} to our new {@code CourseInfo}.
-         * But for course name, we retrieve the updated value from the editCourseDescriptor here.
+         * But for course name and semesters, we retrieve the updated value from the editCourseDescriptor here.
          */
-        Optional<Name> updatedName = editCourseDescriptor.getName();
         Optional<Cap> cap = courseInfoToEdit.getCap();
         Optional<Credits> credits = courseInfoToEdit.getCredits();
-        Optional<Semesters> semesters = courseInfoToEdit.getSemesters();
+
+        Optional<Name> updatedName = editCourseDescriptor.getName().orElse(courseInfoToEdit.getName());
+        Optional<Semesters> semesters = editCourseDescriptor.getSemesters().orElse(courseInfoToEdit.getSemesters());
 
         return new CourseInfo(updatedName, cap, credits, semesters);
     }
@@ -110,6 +112,7 @@ public class CourseEditCommand extends CourseCommand {
      */
     public static class EditCourseDescriptor {
         private Optional<Name> name;
+        private Optional<Semesters> semesters;
 
         public EditCourseDescriptor() {
         }
@@ -119,15 +122,25 @@ public class CourseEditCommand extends CourseCommand {
          */
         public EditCourseDescriptor(EditCourseDescriptor toCopy) {
             setName(toCopy.name);
-        }
-
-        public Optional<Name> getName() {
-            return name;
+            setSemesters(toCopy.semesters);
         }
 
         public void setName(Optional<Name> name) {
             this.name = name;
         }
+
+        public Optional<Optional<Name>> getName() {
+            return Optional.ofNullable(name);
+        }
+
+        public void setSemesters(Optional<Semesters> semesters) {
+            this.semesters = semesters;
+        }
+
+        public Optional<Optional<Semesters>> getSemesters() {
+            return Optional.ofNullable(semesters);
+        }
+
 
         @Override
         public boolean equals(Object other) {
@@ -144,7 +157,8 @@ public class CourseEditCommand extends CourseCommand {
             // state check
             EditCourseDescriptor e = (EditCourseDescriptor) other;
 
-            return getName().equals(e.getName());
+            return getName().equals(e.getName())
+                && getSemesters().equals(e.getSemesters());
         }
     }
 }

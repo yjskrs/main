@@ -1,6 +1,9 @@
 package igrad.logic.commands.course;
 
+//@@author nathanaelseen
+
 import static igrad.logic.parser.CliSyntax.PREFIX_NAME;
+import static igrad.logic.parser.CliSyntax.PREFIX_SEMESTER;
 
 import igrad.logic.commands.CommandTestUtil;
 
@@ -23,14 +26,17 @@ public class CourseCommandTestUtil extends CommandTestUtil {
     public static final String VALID_COURSE_SEMESTERS_BCOMPSEC = "4";
 
     // invalid course arguments
-    /*public static final String INVALID_REQ_CODE_DECIMAL = "RE1.0";
-    public static final String INVALID_REQ_CODE_SYMBOL = "RE<";
-
-    public static final String INVALID_REQ_CREDITS_ALPHABET = "a";
-    public static final String INVALID_REQ_CREDITS_DECIMAL = "40.0";
-    public static final String INVALID_REQ_CREDITS_SYMBOL = "&";*/
+    public static final String INVALID_COURSE_NAME = " Bachelor of Mathematics";
+    public static final String INVALID_COURSE_SEMESTERS = "4<";
 
     // course name descriptor for command entered
     public static final String COURSE_NAME_DESC_BCOMPSCI = " " + PREFIX_NAME + VALID_COURSE_NAME_BCOMPSCI;
     public static final String COURSE_NAME_DESC_BCOMPSEC = " " + PREFIX_NAME + VALID_COURSE_NAME_BCOMPSEC;
+
+    // course semesters descriptor for command entered
+    public static final String COURSE_SEMESTERS_DESC_BCOMPSCI = " " + PREFIX_SEMESTER + VALID_COURSE_SEMESTERS_BCOMPSCI;
+    public static final String COURSE_SEMESTERS_DESC_BCOMPSEC = " " + PREFIX_SEMESTER + VALID_COURSE_SEMESTERS_BCOMPSEC;
+
+    public static final String INVALID_COURSE_NAME_DESC = " " + PREFIX_NAME + INVALID_COURSE_NAME;
+    public static final String INVALID_COURSE_SEMESTERS_DESC = " " + PREFIX_SEMESTER + INVALID_COURSE_SEMESTERS;
 }

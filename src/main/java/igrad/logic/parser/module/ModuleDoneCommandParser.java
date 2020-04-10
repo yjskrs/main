@@ -61,7 +61,7 @@ public class ModuleDoneCommandParser extends ModuleCommandParser implements Pars
      *
      * @throws ParseException If user input does not conform to the expected format.
      */
-    public ModuleCode parseModuleCodeSpecifier(ArgumentMultimap argMultimap) throws ParseException {
+    private ModuleCode parseModuleCodeSpecifier(ArgumentMultimap argMultimap) throws ParseException {
         Specifier specifier = ParserUtil.parseSpecifier(argMultimap.getPreamble(),
             ParserUtil.MODULE_MODULE_CODE_SPECIFIER_RULE, ModuleCode.MESSAGE_CONSTRAINTS);
 
@@ -73,7 +73,7 @@ public class ModuleDoneCommandParser extends ModuleCommandParser implements Pars
      *
      * @throws ParseException If user input does not conform to the expected format.
      */
-    public EditModuleDescriptor parseEditedModule(ArgumentMultimap argMultimap) throws ParseException {
+    private EditModuleDescriptor parseEditedModule(ArgumentMultimap argMultimap) throws ParseException {
         EditModuleDescriptor editModuleDescriptor = new EditModuleDescriptor();
 
         Optional<String> gradeString = argMultimap.getValue(PREFIX_GRADE);

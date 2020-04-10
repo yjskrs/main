@@ -52,10 +52,6 @@ public class ModuleDoneCommand extends ModuleCommand {
     public ModuleDoneCommand(ModuleCode moduleCode, EditModuleDescriptor editModuleGradeDescriptor) {
         requireAllNonNull(moduleCode, editModuleGradeDescriptor);
 
-        System.out.println("from module done....");
-        System.out.println(editModuleGradeDescriptor.getGrade());
-        System.out.println(editModuleGradeDescriptor.getSemester());
-
         this.moduleCode = moduleCode;
         this.editModuleGradeDescriptor = new EditModuleDescriptor(editModuleGradeDescriptor);
     }

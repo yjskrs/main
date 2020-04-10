@@ -89,6 +89,24 @@ public class CourseInfoBuilder {
     }
 
     /**
+     * Set the Credits field to {@code Optional.empty}
+     */
+    public CourseInfoBuilder withCreditsOptional() {
+        this.credits = Optional.empty();
+
+        return this;
+    }
+
+    /**
+     * Set the Cap field to {@code Optional.empty}
+     */
+    public CourseInfoBuilder withCapOptional() {
+        this.cap = Optional.empty();
+
+        return this;
+    }
+
+    /**
      * Constructs a {@code CourseInfo} object with all fields Optional.empty()
      */
     public CourseInfo buildEmptyCourseInfo() {
