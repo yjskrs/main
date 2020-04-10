@@ -116,4 +116,12 @@ public class RequirementAssignCommand extends RequirementCommand {
         return new CommandResult(
             String.format(MESSAGE_SUCCESS, editedRequirement));
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this
+            || (other instanceof RequirementAssignCommand
+                    && ((RequirementAssignCommand) other).requirementCode.equals(requirementCode)
+                    && ((RequirementAssignCommand) other).moduleCodes.equals(moduleCodes));
+    }
 }
