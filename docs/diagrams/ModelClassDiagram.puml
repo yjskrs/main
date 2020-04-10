@@ -14,10 +14,12 @@ Class Model
 Class ModelManager
 Class UserPrefs
 Class ReadOnlyUserPrefs
+Class CourseInfo
+Class "Name" as n2
 
 Package Requirement {
 Class Requirement
-Class Name
+Class "Name" as n1
 Class "Credits" as c1
 Class UniqueRequirementList
 }
@@ -25,19 +27,13 @@ Class UniqueRequirementList
 Package Module {
 Class Module
 Class "Credits" as c2
-Class Description
 Class Grade
-Class Memo
 Class ModuleCode
 Class Semester
 Class Title
 Class UniqueModuleList
 }
 
-Package Tag {
-Class Tag
-}
-}
 
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
@@ -51,10 +47,11 @@ ModelManager o-left-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
 CourseBook ---> "1" UniqueRequirementList
-CourseBook *--> "1" UniqueModuleList
+CourseBook ---> "1" UniqueModuleList
+CourseBook ---> "1" CourseInfo
 
 UniqueRequirementList o--> "*" Requirement
-Requirement *--> "1" Name
+Requirement *--> "1" n1
 Requirement *--> "1" c1
 Requirement *--> "1" UniqueModuleList
 
@@ -62,18 +59,16 @@ UniqueModuleList o--> "*" Module
 Module *--> "1" Title
 Module *--> "1" ModuleCode
 Module *--> "1" c2
-Module *--> "1" Memo
-Module *--> "1" Description
-Module *--> "1" Semester
-Module *--> "1" Grade
-Module *--> "*" Tag
+Module o--> "1" Semester
+Module o--> "1" Grade
+
+CourseInfo o--> "1" n2
+CourseInfo o--> "1" Cap
+CourseInfo o--> "1" Semesters
 
 
 Title -[hidden]right-> ModuleCode
 ModuleCode -[hidden]right-> c2
-c2 -[hidden]right-> Memo
-Memo -[hidden]right-> Description
-Description -[hidden]right-> Semester
 Semester -[hidden]right-> Grade
 
 

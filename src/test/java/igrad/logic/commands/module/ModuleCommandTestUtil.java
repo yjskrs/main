@@ -8,6 +8,7 @@ import static igrad.testutil.Assert.assertThrows;
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -16,6 +17,7 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 import igrad.commons.core.GuiSettings;
+import igrad.commons.exceptions.DataConversionException;
 import igrad.logic.commands.Command;
 import igrad.logic.commands.CommandResult;
 import igrad.logic.commands.exceptions.CommandException;
@@ -179,6 +181,16 @@ public class ModuleCommandTestUtil {
 
         @Override
         public void resetCourseBook(ReadOnlyCourseBook courseBook) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean undoCourseBook() throws IOException, DataConversionException {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public List<Module> exportModuleList() throws IOException {
             throw new AssertionError("This method should not be called.");
         }
 

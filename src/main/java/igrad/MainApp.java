@@ -56,10 +56,7 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         ReadOnlyUserPrefs userPrefs = initPrefs(userPrefsStorage);
-        CourseBookStorage courseBookStorage = new JsonCourseBookStorage(
-            userPrefs.getCourseBookFilePath(),
-            userPrefs.getBackupCourseBookFilePath()
-        );
+        CourseBookStorage courseBookStorage = new JsonCourseBookStorage(userPrefs.getCourseBookFilePath());
         storage = new StorageManager(courseBookStorage, userPrefsStorage);
 
         initLogging(config);
