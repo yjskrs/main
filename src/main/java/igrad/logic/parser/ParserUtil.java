@@ -21,7 +21,7 @@ import igrad.model.requirement.RequirementCode;
  * Contains utility methods used for parsing strings in the various *Parser classes.
  */
 public class ParserUtil {
-
+    //@@author nathanaelseen
     public static final Function<String, Boolean> REQUIREMENT_CODE_SPECIFIER_RULE =
         RequirementCode::isValidRequirementCode;
 
@@ -56,6 +56,7 @@ public class ParserUtil {
 
         return new Specifier(trimmedSpecifier);
     }
+    //@author
 
     /**
      * Parses a {@code String name} into an {@code Avatar}.

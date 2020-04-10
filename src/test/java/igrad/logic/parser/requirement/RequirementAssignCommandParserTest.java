@@ -2,6 +2,7 @@ package igrad.logic.parser.requirement;
 
 //@@author nathanaelseen
 
+import static igrad.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static igrad.logic.commands.module.ModuleCommandTestUtil.MODULE_MODULE_CODE_DESC_CS1101S;
 import static igrad.logic.commands.module.ModuleCommandTestUtil.MODULE_MODULE_CODE_DESC_CS2100;
 import static igrad.logic.commands.module.ModuleCommandTestUtil.VALID_MODULE_CODE_CS1101S;
@@ -30,7 +31,7 @@ public class RequirementAssignCommandParserTest {
         moduleCodes.add(new ModuleCode(VALID_MODULE_CODE_CS2100));
 
         // whitespace preamble
-        assertParseSuccess(parser, VALID_REQ_CODE_UE
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + VALID_REQ_CODE_UE
             + MODULE_MODULE_CODE_DESC_CS1101S
             + MODULE_MODULE_CODE_DESC_CS2100,
             new RequirementAssignCommand(requirementCode, moduleCodes));

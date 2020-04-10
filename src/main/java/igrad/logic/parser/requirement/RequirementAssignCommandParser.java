@@ -19,6 +19,8 @@ import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.module.ModuleCode;
 import igrad.model.requirement.RequirementCode;
 
+//@@author nathanaelseen
+
 /**
  * Parses {@code Module}s to assign (to {@code Requirement}) input argument and creates a new
  * {@code RequirementAssignCommand} object.
@@ -39,12 +41,22 @@ public class RequirementAssignCommandParser implements Parser<RequirementAssignC
                 REQUIREMENT_ASSIGN_MESSAGE_HELP));
         }
 
+        RequirementCode requirementCode = parseRequirementCodeSpecifier(argMultimap);
+        List<ModuleCode> moduleCodes = parseModulesToAssign(argMultimap.getAllValues(PREFIX_MODULE_CODE));
+
+        return new RequirementAssignCommand(requirementCode, moduleCodes);
+    }
+
+    /**
+     * Parses specifier from {@code argMultimap} into {@code RequirementCode}.
+     *
+     * @throws ParseException If user input does not conform to the expected format.
+     */
+    public RequirementCode parseRequirementCodeSpecifier(ArgumentMultimap argMultimap) throws ParseException {
         Specifier specifier = ParserUtil.parseSpecifier(argMultimap.getPreamble(),
             ParserUtil.REQUIREMENT_CODE_SPECIFIER_RULE, RequirementCode.MESSAGE_CONSTRAINTS);
 
-        List<ModuleCode> moduleCodes = parseModulesToAssign(argMultimap.getAllValues(PREFIX_MODULE_CODE));
-
-        return new RequirementAssignCommand(new RequirementCode(specifier.getValue()), moduleCodes);
+        return new RequirementCode(specifier.getValue());
     }
 
     /**
