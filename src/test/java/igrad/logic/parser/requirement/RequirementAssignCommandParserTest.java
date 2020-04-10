@@ -38,8 +38,8 @@ public class RequirementAssignCommandParserTest {
     private static final String INVALID_SPECIFIER =
         String.format(MESSAGE_SPECIFIER_INVALID, RequirementCode.MESSAGE_CONSTRAINTS);
     private static final String INVALID_MODULE_CODE_FORMAT = ModuleCode.MESSAGE_CONSTRAINTS;
-
     private static final String ARGUMENTS_NOT_SPECIFIED = MESSAGE_REQUIREMENT_NO_MODULES;
+
     private RequirementAssignCommandParser parser = new RequirementAssignCommandParser();
 
     @Test
@@ -47,12 +47,13 @@ public class RequirementAssignCommandParserTest {
         String input;
 
         // missing specifier and arguments
+        // 'requirement assign'
         input = "";
         assertParseFailure(parser, input, INVALID_COMMAND_FORMAT); // just "requirement assign"
 
         // missing specifier only
         // 'requirement assign n/CS1101S'
-        input = " " + MODULE_MODULE_CODE_DESC_CS1101S;
+        input = MODULE_MODULE_CODE_DESC_CS1101S;
         assertParseFailure(parser, input, MISSING_SPECIFIER); // no specifier
 
         // missing arguments only (i.e; module codes, there must be at least one module code)

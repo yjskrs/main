@@ -1,6 +1,7 @@
 package igrad.logic.commands.module;
 
 import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
+import static igrad.logic.parser.CliSyntax.PREFIX_GRADE;
 import static igrad.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
 import static igrad.logic.parser.CliSyntax.PREFIX_SEMESTER;
 import static igrad.logic.parser.CliSyntax.PREFIX_TITLE;
@@ -74,6 +75,10 @@ public class ModuleCommandTestUtil {
     // module credits descriptor for command entered
     public static final String MODULE_CREDITS_DESC_CS1101S = " " + PREFIX_CREDITS + VALID_CREDITS_4;
     public static final String MODULE_CREDITS_DESC_CS2100 = " " + PREFIX_CREDITS + VALID_CREDITS_6;
+
+    // module grade descriptor for command entered
+    public static final String MODULE_GRADE_DESC_CS1101S = " " + PREFIX_GRADE + VALID_CREDITS_4;
+    public static final String MODULE_GRADE_DESC_CS2100 = " " + PREFIX_GRADE + VALID_CREDITS_6;
 
     // Starting with ' ' not allowed in titles
     public static final String INVALID_TITLE_DESC = " " + PREFIX_TITLE + " Programming Methodology";
