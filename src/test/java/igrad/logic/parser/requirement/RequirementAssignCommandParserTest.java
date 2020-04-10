@@ -6,10 +6,7 @@ import static igrad.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static igrad.commons.core.Messages.MESSAGE_SPECIFIER_INVALID;
 import static igrad.commons.core.Messages.MESSAGE_SPECIFIER_NOT_SPECIFIED;
 import static igrad.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
-import static igrad.logic.commands.module.ModuleCommandTestUtil.INVALID_MODULE_CODE_DECIMAL;
-import static igrad.logic.commands.module.ModuleCommandTestUtil.INVALID_MODULE_CODE_LESS_THAN_FOUR_DIGITS;
-import static igrad.logic.commands.module.ModuleCommandTestUtil.INVALID_MODULE_CODE_LESS_THAN_TWO_ALPHABETS;
-import static igrad.logic.commands.module.ModuleCommandTestUtil.INVALID_MODULE_CODE_SYMBOL;
+import static igrad.logic.commands.module.ModuleCommandTestUtil.INVALID_MODULE_CODE_DESC;
 import static igrad.logic.commands.module.ModuleCommandTestUtil.MODULE_MODULE_CODE_DESC_CS1101S;
 import static igrad.logic.commands.module.ModuleCommandTestUtil.MODULE_MODULE_CODE_DESC_CS2100;
 import static igrad.logic.commands.module.ModuleCommandTestUtil.VALID_MODULE_CODE_CS1101S;
@@ -19,6 +16,8 @@ import static igrad.logic.commands.requirement.RequirementAssignCommand.MESSAGE_
 import static igrad.logic.commands.requirement.RequirementCommandTestUtil.INVALID_REQ_CODE_DECIMAL;
 import static igrad.logic.commands.requirement.RequirementCommandTestUtil.INVALID_REQ_CODE_SYMBOL;
 import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_CODE_UE;
+import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
+import static igrad.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
 import static igrad.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static igrad.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
@@ -45,60 +44,64 @@ public class RequirementAssignCommandParserTest {
 
     @Test
     public void parse_missingSpecifierOrMissingArguments_failure() {
+        String input;
+
         // missing specifier and arguments
-        assertParseFailure(parser, "", INVALID_COMMAND_FORMAT); // just "requirement assign"
+        input = "";
+        assertParseFailure(parser, input, INVALID_COMMAND_FORMAT); // just "requirement assign"
 
         // missing specifier only
-        assertParseFailure(parser, " n/", MISSING_SPECIFIER); // no specifier
+        // 'requirement assign n/CS1101S'
+        input = " " + MODULE_MODULE_CODE_DESC_CS1101S;
+        assertParseFailure(parser, input, MISSING_SPECIFIER); // no specifier
 
         // missing arguments only (i.e; module codes, there must be at least one module code)
-        assertParseFailure(parser, VALID_REQ_CODE_UE, ARGUMENTS_NOT_SPECIFIED); // no arguments (module codes)
-        assertParseFailure(parser, VALID_REQ_CODE_UE + " n/", ARGUMENTS_NOT_SPECIFIED); // one empty string module code
+        // 'requirement assign UE0'
+        input = VALID_REQ_CODE_UE;
+        assertParseFailure(parser, input, ARGUMENTS_NOT_SPECIFIED); // no arguments (module codes)
+
+        // 'requirement assign UE0 n/'
+        input = VALID_REQ_CODE_UE + " " + PREFIX_MODULE_CODE;
+        assertParseFailure(parser, input, ARGUMENTS_NOT_SPECIFIED); // one empty string module code
     }
 
     @Test
     public void parse_invalidSpecifierOrInvalidArguments_failure() {
+        String input;
+
         // invalid specifier
-        assertParseFailure(parser, INVALID_REQ_CODE_DECIMAL, INVALID_SPECIFIER);
-        assertParseFailure(parser, INVALID_REQ_CODE_SYMBOL, INVALID_SPECIFIER);
+        // 'requirement assign RE1.0'
+        input = INVALID_REQ_CODE_DECIMAL;
+        assertParseFailure(parser, input, INVALID_SPECIFIER);
+
+        // 'requirement assign RE<'
+        input = INVALID_REQ_CODE_SYMBOL;
+        assertParseFailure(parser, input, INVALID_SPECIFIER);
 
         // wrong start prefix, causing it to be interpreted as (invalid) specifier
-        assertParseFailure(parser, VALID_REQ_CODE_UE + " s/", INVALID_SPECIFIER);
+        // 'requirement assign UE0 u/
+        input = VALID_REQ_CODE_UE + PREFIX_CREDITS;
+        assertParseFailure(parser, input, INVALID_SPECIFIER);
 
         // wrong start prefix, but subsequent correct prefix, but nonetheless same as case above
-        assertParseFailure(parser, VALID_REQ_CODE_UE + " s/ n/", INVALID_SPECIFIER);
+        // 'requirement assign UE0 u/ n/CS1101S'
+        input = VALID_REQ_CODE_UE + PREFIX_CREDITS + MODULE_MODULE_CODE_DESC_CS1101S;
+        assertParseFailure(parser, input, INVALID_SPECIFIER);
 
         // invalid arguments (only one module code specified), i.e, invalid module codes
-        assertParseFailure(parser, VALID_REQ_CODE_UE + " n/" + INVALID_MODULE_CODE_SYMBOL,
-                INVALID_MODULE_CODE_FORMAT);
-        assertParseFailure(parser, VALID_REQ_CODE_UE + " n/" + INVALID_MODULE_CODE_DECIMAL,
-                INVALID_MODULE_CODE_FORMAT);
-        assertParseFailure(parser, VALID_REQ_CODE_UE + " n/" + INVALID_MODULE_CODE_LESS_THAN_FOUR_DIGITS,
-                INVALID_MODULE_CODE_FORMAT);
-        assertParseFailure(parser, VALID_REQ_CODE_UE + " n/" + INVALID_MODULE_CODE_LESS_THAN_TWO_ALPHABETS,
-                INVALID_MODULE_CODE_FORMAT);
+        // 'requirement assign UE0 n/CS2040S&'
+        input = VALID_REQ_CODE_UE + INVALID_MODULE_CODE_DESC;
+        assertParseFailure(parser, input, INVALID_MODULE_CODE_FORMAT);
 
         // invalid arguments, (two module codes specified, first one valid, second one invalid)
-        assertParseFailure(parser, VALID_REQ_CODE_UE
-                + MODULE_MODULE_CODE_DESC_CS1101S
-                + (" n/" + INVALID_MODULE_CODE_SYMBOL),
-                INVALID_MODULE_CODE_FORMAT);
-        assertParseFailure(parser, VALID_REQ_CODE_UE
-                + MODULE_MODULE_CODE_DESC_CS1101S
-                + (" n/" + INVALID_MODULE_CODE_DECIMAL),
-                INVALID_MODULE_CODE_FORMAT);
-        assertParseFailure(parser, VALID_REQ_CODE_UE
-                + MODULE_MODULE_CODE_DESC_CS1101S
-                + (" n/" + INVALID_MODULE_CODE_LESS_THAN_FOUR_DIGITS),
-                INVALID_MODULE_CODE_FORMAT);
-        assertParseFailure(parser, VALID_REQ_CODE_UE
-                + MODULE_MODULE_CODE_DESC_CS1101S
-                + (" n/" + INVALID_MODULE_CODE_LESS_THAN_TWO_ALPHABETS),
-                INVALID_MODULE_CODE_FORMAT);
+        // 'requirement assign UE0 n/CS1101S n/CS2040S&'
+        input = VALID_REQ_CODE_UE + MODULE_MODULE_CODE_DESC_CS1101S + INVALID_MODULE_CODE_DESC;
+        assertParseFailure(parser, input, INVALID_MODULE_CODE_FORMAT);
     }
 
     @Test
-    public void parse_validSpecifierAndArgumentsSuccess() {
+    public void parse_validAndPresentSpecifierAndArguments_success() {
+        String input;
         RequirementCode requirementCode = new RequirementCode(VALID_REQ_CODE_UE);
 
         List<ModuleCode> moduleCodes = new ArrayList<ModuleCode>();
@@ -106,27 +109,25 @@ public class RequirementAssignCommandParserTest {
         moduleCodes.add(new ModuleCode(VALID_MODULE_CODE_CS1101S));
 
         // 1 module only
-        assertParseSuccess(parser, VALID_REQ_CODE_UE
-            + MODULE_MODULE_CODE_DESC_CS1101S,
-            new RequirementAssignCommand(requirementCode, moduleCodes));
+        // 'requirement assign UE0 n/CS1101S'
+        input = VALID_REQ_CODE_UE + MODULE_MODULE_CODE_DESC_CS1101S;
+        assertParseSuccess(parser, input, new RequirementAssignCommand(requirementCode, moduleCodes));
 
         // 1 module only, with white space preamble
-        assertParseSuccess(parser, PREAMBLE_WHITESPACE + VALID_REQ_CODE_UE
-            + MODULE_MODULE_CODE_DESC_CS1101S,
-            new RequirementAssignCommand(requirementCode, moduleCodes));
+        // 'requirement assign       UE0 n/CS1101S'
+        input = PREAMBLE_WHITESPACE + VALID_REQ_CODE_UE + MODULE_MODULE_CODE_DESC_CS1101S;
+        assertParseSuccess(parser, input, new RequirementAssignCommand(requirementCode, moduleCodes));
 
         // 2 modules (or more)
+        // 'requirement assign UE0 n/CS1101S n/CS2100'
         moduleCodes.add(new ModuleCode(VALID_MODULE_CODE_CS2100));
-
-        assertParseSuccess(parser, VALID_REQ_CODE_UE
-            + MODULE_MODULE_CODE_DESC_CS1101S
-            + MODULE_MODULE_CODE_DESC_CS2100,
-            new RequirementAssignCommand(requirementCode, moduleCodes));
+        input = VALID_REQ_CODE_UE + MODULE_MODULE_CODE_DESC_CS1101S + MODULE_MODULE_CODE_DESC_CS2100;
+        assertParseSuccess(parser, input, new RequirementAssignCommand(requirementCode, moduleCodes));
 
         // 2 modules (or more), with white space preamble
-        assertParseSuccess(parser, PREAMBLE_WHITESPACE + VALID_REQ_CODE_UE
-            + MODULE_MODULE_CODE_DESC_CS1101S
-            + MODULE_MODULE_CODE_DESC_CS2100,
-            new RequirementAssignCommand(requirementCode, moduleCodes));
+        // 'requirement assign     UE0 n/CS1101S n/CS2100'
+        input = PREAMBLE_WHITESPACE + VALID_REQ_CODE_UE + MODULE_MODULE_CODE_DESC_CS1101S
+            + MODULE_MODULE_CODE_DESC_CS2100;
+        assertParseSuccess(parser, input, new RequirementAssignCommand(requirementCode, moduleCodes));
     }
 }

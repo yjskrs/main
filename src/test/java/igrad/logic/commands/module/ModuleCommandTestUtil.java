@@ -96,12 +96,6 @@ public class ModuleCommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    // Invalid module code arguments
-    public static final String INVALID_MODULE_CODE_SYMBOL = "CS2040S&";
-    public static final String INVALID_MODULE_CODE_DECIMAL = "CS2040.S";
-    public static final String INVALID_MODULE_CODE_LESS_THAN_FOUR_DIGITS = "CS204";
-    public static final String INVALID_MODULE_CODE_LESS_THAN_TWO_ALPHABETS = "C2040";
-
     public static final ModuleEditCommand.EditModuleDescriptor DESC_PROGRAMMING_METHODOLOGY;
     public static final ModuleEditCommand.EditModuleDescriptor DESC_COMPUTER_ORGANISATION;
 
