@@ -18,13 +18,13 @@ import static igrad.logic.commands.module.ModuleCommandTestUtil.VALID_TITLE_CS11
 import static igrad.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static igrad.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
-import igrad.logic.commands.module.ModuleAddCommand;
-import igrad.model.module.Credits;
-import igrad.model.module.ModuleCode;
-import igrad.model.module.Title;
 import org.junit.jupiter.api.Test;
 
+import igrad.logic.commands.module.ModuleAddCommand;
+import igrad.model.module.Credits;
 import igrad.model.module.Module;
+import igrad.model.module.ModuleCode;
+import igrad.model.module.Title;
 import igrad.testutil.ModuleBuilder;
 
 public class ModuleAddCommandParserTest {
@@ -146,7 +146,7 @@ public class ModuleAddCommandParserTest {
                 + INVALID_CREDITS_DESC;
 
         assertParseFailure(parser, invalidModuleCode, invalidModuleCodeErrorMessage);
-/*        assertParseFailure(parser, invalidTitle, invalidTitleErrorMessage);
+        /* assertParseFailure(parser, invalidTitle, invalidTitleErrorMessage);
         assertParseFailure(parser, invalidTitleSlash, invalidTitleErrorMessage);
         assertParseFailure(parser, invalidTitleEmpty, invalidTitleErrorMessage);*/
         assertParseFailure(parser, invalidCredits, invalidCreditsErrorMessage);

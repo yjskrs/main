@@ -22,12 +22,6 @@ public class JsonCourseBookStorage implements CourseBookStorage {
     private static final Logger logger = LogsCenter.getLogger(JsonCourseBookStorage.class);
 
     private Path filePath;
-    private Path backupFilePath;
-
-    public JsonCourseBookStorage(Path filePath, Path backupFilePath) {
-        this.filePath = filePath;
-        this.backupFilePath = backupFilePath;
-    }
 
     public JsonCourseBookStorage(Path filePath) {
         this.filePath = filePath;
@@ -35,16 +29,6 @@ public class JsonCourseBookStorage implements CourseBookStorage {
 
     public Path getCourseBookFilePath() {
         return filePath;
-    }
-
-    @Override
-    public Path getBackupCourseBookFilePath() {
-        return backupFilePath;
-    }
-
-    @Override
-    public Optional<ReadOnlyCourseBook> readBackupCourseBook() throws DataConversionException {
-        return readCourseBook(backupFilePath);
     }
 
     @Override
@@ -93,11 +77,6 @@ public class JsonCourseBookStorage implements CourseBookStorage {
 
         FileUtil.createIfMissing(filePath);
         JsonUtil.saveJsonFile(new JsonSerializableCourseBook(courseBook), filePath);
-    }
-
-    @Override
-    public void saveBackupCourseBook(ReadOnlyCourseBook courseBook) throws IOException {
-        saveCourseBook(courseBook, backupFilePath);
     }
 
 }
