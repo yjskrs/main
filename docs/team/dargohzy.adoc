@@ -4,6 +4,8 @@
 :stylesDir: ../stylesheets
 
 == PROJECT: iGrad
+---
+image::../images/Ui.png[]
 
 == Overview
 
@@ -45,6 +47,13 @@ created with JavaFX, FXML and CSS.
 
 
 == Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+
+
 
 |===
 |_Sections contributed to DG_

@@ -1,0 +1,30 @@
+@startuml
+!include style.puml
+
+box UI UI_COLOR_T1
+participant ":MainWindow" as MainWindow UI_COLOR
+participant ":ResultDisplay" as ResultDisplay UI_COLOR
+end box
+
+[-> MainWindow : executeCommand("course delete")
+activate MainWindow
+
+MainWindow -> ResultDisplay : refreshResultDisplayAvatar(avatar)
+activate ResultDisplay
+
+ResultDisplay -> ResultDisplay : setAvatar(avatar)
+
+ResultDisplay -> MainWindow
+deactivate
+
+MainWindow -> ResultDisplay : refreshResultDisplay(feedbackToUser)
+activate ResultDisplay
+
+ResultDisplay -> ResultDisplay : setFeedbackToUser(feedbackToUser)
+
+ResultDisplay -> MainWindow
+deactivate
+
+[<-- MainWindow
+deactivate MainWindow
+@enduml

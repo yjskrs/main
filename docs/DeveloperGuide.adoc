@@ -95,6 +95,94 @@ The `UI` component,
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
 
+==== MainWindow
+
+The `MainWindow` class serves as the hub for all the UI components, and contains the following UI classes:
+
+* `AvatarSelectionPanel` - Avatar selection screen on first-time startup.
+* `CommandBox` - Command box for user input.
+* `CommandReceivedPanel` - Displays the last command entered.
+* `ResultDisplay` - Displays the resultant message of the command entered. Also contains the avatar image.
+* `ModuleListPanel` - Panel displaying the modules input into the system.
+* `RequirementListPanel` - Panel displaying the requirements input into the system.
+* `ProgressSidePanel` - Panel displaying the user's academic progress and fundamental details (Eg. CAP).
+
+The `MainWindow` coordinates the development between the backend and frontend components to induce a visible change to the interface.
+
+This is done through the `executeCommand(String commandText, Model model)` method. Upon user input, the `logic` class
+executes the command in `commandText`, and the model is updated to reflect the changes. Subsequently, after the model
+has been updated, the following UI classes `ResultDisplay` and `ProgressSidePanel` are refreshed as a result.
+
+==== AvatarSelectionPanel
+
+The `AvatarSelectionPanel` class displays the avatar selection screen upon first-time startup. Users will choose an
+that will act as a guide throughout their usage of the application.
+
+==== CommandBox
+
+The `CommandBox` class contains an editable `TextArea` JavaFX component which allows the user to enter input commands.
+
+==== CommandReceivedPanel
+The `CommandReceivedPanel` class contains a panel that shows the last command entered into the system.
+
+Here is an example of how the `CommandReceivedPanel` works:
+[[fig-CommandReceivedPanelSequenceDiagram]]
+.CommandReceivedPanel Updating from Received Command
+
+image::developer-guide/CommandReceivedSetCommand.png[]
+
+==== ResultDisplay
+The `ResultDisplay` class shows the resultant message generated from the user's input.
+The avatar will also showcase a different expression according to the success of the command given.
+
+Here is an example of how the `ResultDisplay` works:
+[[fig-ResultDisplaySequenceDiagram]]
+.ResultDisplay Updating from Received Command
+
+image::developer-guide/ResultDisplayHandleCommand.png[]
+
+==== ModuleListPanel
+The `ModuleListPanel` class contains the `ObservableList<Module>`  JavaFX component allowing for a list view of the
+components inside it, in this case, a list of `ModuleCard` objects.
+
+The contents of the list are dependent on the `modules` that the user has input into the system. Each module will be
+displayed as a `ModuleCard` object.
+
+==== RequirementListPanel
+The `RequirementListPanel` class contains the `ObservableList<Requirement` JavaFX component allowing for a list view of
+the components inside it, in this case, a list of `RequirementCard` objects.
+
+The contents of the list are dependent on the `requirements` that the user has input into the system. Each requirement
+will be displayed as a `RequirementCard` object.
+
+==== ProgressSidePanel
+The `ProgressSidePanel` class contains the user's academic progress, as well as essential information. The following
+information is displayed on the `ProgressSidePanel`:
+
+* `Course` name
+* Inspiring quote from `QuoteGenerator`
+* Modular Credits Progress Indicator
+* `Semesters` left
+* Current Cumulative Average Point (C.A.P)
+
+Here is an example of how the `ProgressSidePanel` works:
+
+[[fig-ProgressPanelUpdateProgress]]
+.ProgressSidePanel Updating from Received Command
+
+image::developer-guide/ProgressPanelUpdateProgress.png[]
+
+==== Other Components
+In addition to the main UI components grouped in the `MainWindow` class, these are the other UI components that are
+relevant to the interface:
+
+* `AvatarImage` - Contains the image of the avatar.
+* `ModuleCard` - Individual card containing the relevant information of the module. List of `ModuleCard` contained in the `ModuleListPanel`.
+* `RequirementCard` - Individual card containing the relevant information of the requirement. List of `RequirementCards`  contained in the `RequirementListPanel`.
+* `HelpWindow` - Pop-up window containing the link the User Guide, as well as a list of all the commands in the applicatoin.
+
+
+
 [[Design-Logic]]
 === Logic component
 

@@ -1,0 +1,22 @@
+@startuml
+!include style.puml
+
+box UI UI_COLOR_T1
+participant ":MainWindow" as MainWindow UI_COLOR
+participant ":CommandReceivedPanel" as CommandReceivedPanel UI_COLOR
+end box
+
+[-> MainWindow : executeCommand("course delete")
+activate MainWindow
+
+MainWindow -> CommandReceivedPanel : refreshCommandReceived("course delete")
+activate CommandReceivedPanel
+
+CommandReceivedPanel -> CommandReceivedPanel : setCommandReceived("course delete")
+
+CommandReceivedPanel -> MainWindow
+deactivate
+
+[<-- MainWindow
+deactivate MainWindow
+@enduml
