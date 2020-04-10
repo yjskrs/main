@@ -56,7 +56,7 @@ public class ParserUtil {
 
         return new Specifier(trimmedSpecifier);
     }
-    //@author
+    //@@author
 
     /**
      * Parses a {@code String name} into an {@code Avatar}.
@@ -73,6 +73,8 @@ public class ParserUtil {
         return new Avatar(trimmedName);
     }
 
+    //@@author nathanaelseen
+
     /**
      * Parses {@code Collection<String> moduleCodes} into a {@code List<ModuleCode>}.
      */
@@ -87,6 +89,8 @@ public class ParserUtil {
 
         return moduleCodesList;
     }
+
+    //@@author
 
     /**
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given

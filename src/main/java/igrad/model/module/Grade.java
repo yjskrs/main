@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+//@@author nathanaelseen
+
 /**
  * Represents a Module's grade.
  */
@@ -75,7 +77,8 @@ public class Grade {
     public boolean isSuGrade() {
         return GRADE_CAP_MAP.get(value).isEmpty();
     }
-    // @@author
+
+    // @@author nathanaelseen
 
     /**
      * Returns true if {@code String grade} is valid grade.

@@ -17,21 +17,23 @@ import igrad.model.requirement.Requirement;
 import igrad.model.requirement.RequirementCode;
 import igrad.model.requirement.Title;
 
+//@@author nathanaelseen
+
 /**
  * Assigns modules under a particular requirement.
  */
 public class RequirementAssignCommand extends RequirementCommand {
     public static final String REQUIREMENT_ASSIGN_COMMAND_WORD = REQUIREMENT_COMMAND_WORD + SPACE + "assign";
 
-    public static final String REQUIREMENT_ASSIGN_MESSAGE_DETAILS = REQUIREMENT_ASSIGN_COMMAND_WORD
+    public static final String MESSAGE_REQUIREMENT_ASSIGN_DETAILS = REQUIREMENT_ASSIGN_COMMAND_WORD
         + ": Assigns the requirement identified with modules "
         + "by its requirement code. Existing requirement will be overwritten by the input values\n";
 
-    public static final String REQUIREMENT_ASSIGN_MESSAGE_USAGE = "Parameter(s): REQUIREMENT_CODE "
+    public static final String MESSAGE_REQUIREMENT_ASSIGN_USAGE = "Parameter(s): REQUIREMENT_CODE "
         + PREFIX_MODULE_CODE + "MODULE_CODE ...\n";
 
-    public static final String REQUIREMENT_ASSIGN_MESSAGE_HELP = REQUIREMENT_ASSIGN_MESSAGE_DETAILS
-        + REQUIREMENT_ASSIGN_MESSAGE_USAGE;
+    public static final String MESSAGE_REQUIREMENT_ASSIGN_HELP = MESSAGE_REQUIREMENT_ASSIGN_DETAILS
+        + MESSAGE_REQUIREMENT_ASSIGN_USAGE;
 
     public static final String MESSAGE_REQUIREMENT_NO_MODULES = "There must be at least one modules assigned.";
 
@@ -40,7 +42,7 @@ public class RequirementAssignCommand extends RequirementCommand {
 
     public static final String MESSAGE_MODULES_ALREADY_EXIST_IN_REQUIREMENT =
         "Some Modules already exists in this requirement. Please try other modules.";
-    public static final String MESSAGE_SUCCESS = "Modules assigned under Requirement:\n%1$s";
+    public static final String MESSAGE_REQUIREMENT_ASSIGN_SUCCESS = "Modules assigned under Requirement:\n%1$s";
 
     private RequirementCode requirementCode;
     private List<ModuleCode> moduleCodes;
@@ -114,7 +116,7 @@ public class RequirementAssignCommand extends RequirementCommand {
         model.setCourseInfo(editedCourseInfo);
 
         return new CommandResult(
-            String.format(MESSAGE_SUCCESS, editedRequirement));
+            String.format(MESSAGE_REQUIREMENT_ASSIGN_SUCCESS, editedRequirement));
     }
 
     @Override
