@@ -68,9 +68,8 @@ public class RequirementAssignCommandParser implements Parser<RequirementAssignC
     private List<ModuleCode> parseModulesToAssign(Collection<String> moduleCodes) throws ParseException {
         assert moduleCodes != null;
 
-        if (moduleCodes.isEmpty()) {
-            throw new ParseException(MESSAGE_REQUIREMENT_NO_MODULES);
-        } else if (moduleCodes.size() == 1 && moduleCodes.contains("")) {
+        // If no module codes are specified, throw exception
+        if (moduleCodes.isEmpty() || (moduleCodes.size() == 1 && moduleCodes.contains(""))) {
             throw new ParseException(MESSAGE_REQUIREMENT_NO_MODULES);
         }
 

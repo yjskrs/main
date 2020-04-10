@@ -11,6 +11,7 @@ import static igrad.logic.commands.module.ModuleCommandTestUtil.MODULE_MODULE_CO
 import static igrad.logic.commands.module.ModuleCommandTestUtil.VALID_MODULE_CODE_CS1101S;
 import static igrad.logic.commands.module.ModuleCommandTestUtil.VALID_MODULE_CODE_CS2100;
 import static igrad.logic.commands.requirement.RequirementAssignCommand.MESSAGE_REQUIREMENT_ASSIGN_HELP;
+import static igrad.logic.commands.requirement.RequirementAssignCommand.MESSAGE_REQUIREMENT_NO_MODULES;
 import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_CODE_UE;
 import static igrad.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static igrad.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -31,7 +32,22 @@ public class RequirementAssignCommandParserTest {
         String.format(MESSAGE_SPECIFIER_NOT_SPECIFIED, RequirementCode.MESSAGE_CONSTRAINTS);
     private static final String INVALID_SPECIFIER =
         String.format(MESSAGE_SPECIFIER_INVALID, RequirementCode.MESSAGE_CONSTRAINTS);
+
+    private static final String ARGUMENTS_NOT_SPECIFIED = MESSAGE_REQUIREMENT_NO_MODULES;
     private RequirementAssignCommandParser parser = new RequirementAssignCommandParser();
+
+    @Test
+    public void parse_missingSpecifierOrMissingArguments_failure() {
+        // missing specifier and arguments
+        assertParseFailure(parser, "", INVALID_COMMAND_FORMAT); // just "requirement assign"
+
+        // missing specifier only
+        assertParseFailure(parser, " n/", MISSING_SPECIFIER); // no specifier
+
+        // missing arguments only (i.e; module codes, there must be at least one module code)
+        assertParseFailure(parser, VALID_REQ_CODE_UE, ARGUMENTS_NOT_SPECIFIED); // no arguments (module codes)
+        assertParseFailure(parser, VALID_REQ_CODE_UE + " n/", ARGUMENTS_NOT_SPECIFIED); // one empty string module code
+    }
 
     @Test
     public void parse_validSpecifierAndArgumentsSuccess() {
@@ -64,11 +80,5 @@ public class RequirementAssignCommandParserTest {
             + MODULE_MODULE_CODE_DESC_CS1101S
             + MODULE_MODULE_CODE_DESC_CS2100,
             new RequirementAssignCommand(requirementCode, moduleCodes));
-    }
-
-    @Test
-    public void parse_missingSpecifierOrMissingArguments_failure() {
-        // missing specifier
-        assertParseFailure(parser, "", INVALID_COMMAND_FORMAT); // just "requirement assign"
     }
 }
