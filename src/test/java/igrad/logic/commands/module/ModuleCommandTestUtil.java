@@ -43,6 +43,7 @@ import javafx.collections.transformation.FilteredList;
  */
 public class ModuleCommandTestUtil {
 
+    // valid requirement arguments
     public static final String VALID_TITLE_CS1101S = "Programming Methodology";
     public static final String VALID_TITLE_CS2100 = "Computer Organisation";
     public static final String VALID_TITLE_CS2103T = "Software Engineering";
@@ -64,6 +65,13 @@ public class ModuleCommandTestUtil {
     public static final String VALID_GRADE_A = "A";
     public static final String VALID_GRADE_B = "B";
 
+    // invalid requirement arguments
+    public static final String INVALID_MODULE_CODE = "CS2040S&";
+    public static final String INVALID_MODULE_GRADE = "A*";
+    public static final String INVALID_MODULE_CREDITS = "4%";
+    public static final String INVALID_MODULE_SEMESTER = "4%";
+
+
     // module title descriptor for command entered
     public static final String MODULE_TITLE_DESC_CS1101S = " " + PREFIX_TITLE + VALID_TITLE_CS1101S;
     public static final String MODULE_TITLE_DESC_CS2100 = " " + PREFIX_TITLE + VALID_TITLE_CS2100;
@@ -80,23 +88,30 @@ public class ModuleCommandTestUtil {
     public static final String MODULE_GRADE_DESC_CS1101S = " " + PREFIX_GRADE + VALID_CREDITS_4;
     public static final String MODULE_GRADE_DESC_CS2100 = " " + PREFIX_GRADE + VALID_CREDITS_6;
 
+    // module semester descriptor for command entered
+    public static final String MODULE_SEMESTER_DESC_CS1101S = " " + PREFIX_SEMESTER + VALID_SEMESTER_Y1S1;
+    public static final String MODULE_SEMESTER_DESC_CS2100 = " " + PREFIX_SEMESTER + VALID_SEMESTER_Y2S2;
+
     // Starting with ' ' not allowed in titles
-    public static final String INVALID_TITLE_DESC = " " + PREFIX_TITLE + " Programming Methodology";
+    public static final String INVALID_MODULE_TITLE_DESC = " " + PREFIX_TITLE + " Programming Methodology";
 
     // Starting with '/' not allowed in titles
-    public static final String INVALID_TITLE_SLASH_DESC = " " + PREFIX_TITLE + "/Programming Methodology";
+    public static final String INVALID_MODULE_TITLE_SLASH_DESC = " " + PREFIX_TITLE + "/Programming Methodology";
 
     // Empty titles are not allowed
-    public static final String INVALID_TITLE_EMPTY_DESC = " " + PREFIX_TITLE;
+    public static final String INVALID_MODULE_TITLE_EMPTY_DESC = " " + PREFIX_TITLE;
 
     // '&' not allowed in module codes
-    public static final String INVALID_MODULE_CODE_DESC = " " + PREFIX_MODULE_CODE + "CS2040S&";
+    public static final String INVALID_MODULE_CODE_DESC = " " + PREFIX_MODULE_CODE + INVALID_MODULE_CODE;
 
     // '&' not allowed in credits
-    public static final String INVALID_CREDITS_DESC = " " + PREFIX_CREDITS + "4%";
+    public static final String INVALID_MODULE_CREDITS_DESC = " " + PREFIX_CREDITS + INVALID_MODULE_CREDITS;
 
     // '&' not allowed in semester
-    public static final String INVALID_SEMESTER_DESC = " " + PREFIX_SEMESTER + "4%";
+    public static final String INVALID_MODULE_SEMESTER_DESC = " " + PREFIX_SEMESTER + INVALID_MODULE_SEMESTER;
+
+    // '*' not allowed in grade
+    public static final String INVALID_MODULE_GRADE_DESC = " " + PREFIX_GRADE + INVALID_MODULE_GRADE;
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

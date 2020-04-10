@@ -4,11 +4,11 @@ import static igrad.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static igrad.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static igrad.logic.commands.CommandTestUtil.VALID_TITLE_CS_1101S;
 import static igrad.logic.commands.module.ModuleAddCommand.MESSAGE_MODULE_NOT_ADDED;
-import static igrad.logic.commands.module.ModuleCommandTestUtil.INVALID_CREDITS_DESC;
 import static igrad.logic.commands.module.ModuleCommandTestUtil.INVALID_MODULE_CODE_DESC;
-import static igrad.logic.commands.module.ModuleCommandTestUtil.INVALID_TITLE_DESC;
-import static igrad.logic.commands.module.ModuleCommandTestUtil.INVALID_TITLE_EMPTY_DESC;
-import static igrad.logic.commands.module.ModuleCommandTestUtil.INVALID_TITLE_SLASH_DESC;
+import static igrad.logic.commands.module.ModuleCommandTestUtil.INVALID_MODULE_CREDITS_DESC;
+import static igrad.logic.commands.module.ModuleCommandTestUtil.INVALID_MODULE_TITLE_DESC;
+import static igrad.logic.commands.module.ModuleCommandTestUtil.INVALID_MODULE_TITLE_EMPTY_DESC;
+import static igrad.logic.commands.module.ModuleCommandTestUtil.INVALID_MODULE_TITLE_SLASH_DESC;
 import static igrad.logic.commands.module.ModuleCommandTestUtil.MODULE_CREDITS_DESC_CS1101S;
 import static igrad.logic.commands.module.ModuleCommandTestUtil.MODULE_MODULE_CODE_DESC_CS1101S;
 import static igrad.logic.commands.module.ModuleCommandTestUtil.MODULE_TITLE_DESC_CS1101S;
@@ -127,23 +127,23 @@ public class ModuleAddCommandParserTest {
 
         // invalid title : starting with blank
         String invalidTitle = MODULE_MODULE_CODE_DESC_CS1101S
-                + INVALID_TITLE_DESC
+                + INVALID_MODULE_TITLE_DESC
                 + MODULE_CREDITS_DESC_CS1101S;
 
         // invalid title : starting with slash
         String invalidTitleSlash = MODULE_MODULE_CODE_DESC_CS1101S
-                + INVALID_TITLE_SLASH_DESC
+                + INVALID_MODULE_TITLE_SLASH_DESC
                 + MODULE_CREDITS_DESC_CS1101S;
 
         // invalid title : empty
         String invalidTitleEmpty = MODULE_MODULE_CODE_DESC_CS1101S
-                + INVALID_TITLE_EMPTY_DESC
+                + INVALID_MODULE_TITLE_EMPTY_DESC
                 + MODULE_CREDITS_DESC_CS1101S;
 
         // invalid credits
         String invalidCredits = MODULE_MODULE_CODE_DESC_CS1101S
                 + MODULE_TITLE_DESC_CS1101S
-                + INVALID_CREDITS_DESC;
+                + INVALID_MODULE_CREDITS_DESC;
 
         assertParseFailure(parser, invalidModuleCode, invalidModuleCodeErrorMessage);
         /* assertParseFailure(parser, invalidTitle, invalidTitleErrorMessage);
