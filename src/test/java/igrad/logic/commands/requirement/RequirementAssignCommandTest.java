@@ -31,7 +31,6 @@ import igrad.model.requirement.RequirementCode;
 import igrad.testutil.CourseInfoBuilder;
 import igrad.testutil.ModuleBuilder;
 import igrad.testutil.RequirementBuilder;
-// import igrad.model.requirement.Requirement;
 
 public class RequirementAssignCommandTest {
     @Test
