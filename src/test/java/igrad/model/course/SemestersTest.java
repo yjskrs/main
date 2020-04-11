@@ -1,5 +1,7 @@
 package igrad.model.course;
 
+//@@author teriaiw
+
 import static igrad.logic.commands.course.CourseCommandTestUtil.VALID_COURSE_SEMESTERS_BCOMPSCI;
 import static igrad.logic.commands.course.CourseCommandTestUtil.VALID_COURSE_SEMESTERS_BCOMPSEC;
 import static igrad.logic.commands.course.CourseCommandTestUtil.VALID_COURSE_TOTAL_SEMESTERS_BCOMPSCI;

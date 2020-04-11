@@ -37,6 +37,7 @@ public class CourseAchieveCommand extends CourseCommand {
     private final Optional<Cap> capToAchieve;
 
     public CourseAchieveCommand(Optional<Cap> capToAchieve) {
+        requireNonNull(capToAchieve);
         this.capToAchieve = capToAchieve;
     }
 

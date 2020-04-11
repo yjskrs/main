@@ -2,10 +2,9 @@ package igrad.logic.commands.course;
 
 //@@author nathanaelseen
 
-import static igrad.logic.parser.CliSyntax.PREFIX_NAME;
-import static igrad.logic.parser.CliSyntax.PREFIX_SEMESTER;
-
 import igrad.logic.commands.CommandTestUtil;
+
+import static igrad.logic.parser.CliSyntax.*;
 
 /**
  * Utility class that stores static strings/ints used in creating CourseInfo objects
@@ -43,4 +42,8 @@ public class CourseCommandTestUtil extends CommandTestUtil {
 
     public static final String INVALID_COURSE_NAME_DESC = " " + PREFIX_NAME + INVALID_COURSE_NAME;
     public static final String INVALID_COURSE_SEMESTERS_DESC = " " + PREFIX_SEMESTER + INVALID_COURSE_SEMESTERS;
+
+    // cap descriptor for command entered
+    public static final String VALID_CAP_DESC = " " + PREFIX_CAP + "4.5";
+    public static final String INVALID_CAP_DESC = " " + PREFIX_CAP + "6";
 }
