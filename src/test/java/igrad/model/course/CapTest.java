@@ -82,17 +82,26 @@ public class CapTest {
 
     @Test
     public void equals() {
+        Cap capA;
+        Cap capB;
+
         // null
-        assertFalse(VALID_COURSE_CAP_BCOMPSCI.equals(null));
+        capA = new Cap(VALID_COURSE_CAP_BCOMPSCI);
+        assertFalse(capA.equals(null));
 
         // same cap
-        assertTrue(VALID_COURSE_CAP_BCOMPSCI.equals(VALID_COURSE_CAP_BCOMPSCI));
+        capA = new Cap(VALID_COURSE_CAP_BCOMPSCI);
+        capB = new Cap(VALID_COURSE_CAP_BCOMPSCI);
+        assertTrue(capA.equals(capB));
 
         // different type
+        capA = new Cap(VALID_COURSE_CAP_BCOMPSCI);
         Module module = new ModuleBuilder().build();
-        assertFalse(VALID_COURSE_CAP_BCOMPSCI.equals(module));
+        assertFalse(capA.equals(module));
 
         // different cap
-        assertFalse(VALID_COURSE_CAP_BCOMPSCI.equals(VALID_COURSE_CAP_BCOMPSEC));
+        capA = new Cap(VALID_COURSE_CAP_BCOMPSCI);
+        capB = new Cap(VALID_COURSE_CAP_BCOMPSEC);
+        assertFalse(capA.equals(capB));
     }
 }
