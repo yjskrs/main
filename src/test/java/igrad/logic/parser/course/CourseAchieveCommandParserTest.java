@@ -21,7 +21,8 @@ import igrad.model.course.Cap;
 public class CourseAchieveCommandParserTest {
     private static final String INVALID_COMMAND_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_COURSE_ACHIEVE_HELP);
-    private static final String ARGUMENTS_NOT_SPECIFIED = MESSAGE_ACHIEVED_CAP_NOT_CALCULATED;
+    private static final String ARGUMENTS_NOT_SPECIFIED =
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_COURSE_ACHIEVE_HELP);
     private static final String INVALID_CAP = Cap.MESSAGE_CONSTRAINTS;
 
     private CourseAchieveCommandParser parser = new CourseAchieveCommandParser();

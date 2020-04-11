@@ -19,18 +19,16 @@ public class CourseAddCommand extends CourseCommand {
     public static final String COURSE_ADD_COMMAND_WORD = COURSE_COMMAND_WORD + SPACE + "add";
     public static final String MESSAGE_COURSE_ADD_DETAILS = COURSE_ADD_COMMAND_WORD
         + ": Adds a course with relevant details specified.\n";
-
     public static final String MESSAGE_COURSE_ADD_USAGE = "Parameter(s): "
         + PREFIX_NAME + "COURSE_NAME " + PREFIX_SEMESTER + "TOTAL_SEMESTERS\n"
-        + "Example: " + COURSE_ADD_COMMAND_WORD + " "
+        + "e.g. " + COURSE_ADD_COMMAND_WORD + " "
         + PREFIX_NAME + "Computer Science "
-        + PREFIX_SEMESTER + "Y1S1";
-
+        + PREFIX_SEMESTER + "8";
     public static final String MESSAGE_COURSE_ADD_HELP = MESSAGE_COURSE_ADD_DETAILS + MESSAGE_COURSE_ADD_USAGE;
-
     public static final String MESSAGE_COURSE_ADD_SUCCESS = "New course added: %1$s";
     public static final String MESSAGE_COURSE_NOT_ADDED = "All fields to be filled, course add n/COURSE_NAME "
         + "s/SEMESTERS";
+
     private final CourseInfo toAdd;
 
     /**

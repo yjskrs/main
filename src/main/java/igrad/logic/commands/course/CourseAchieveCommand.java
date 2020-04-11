@@ -1,5 +1,6 @@
 package igrad.logic.commands.course;
 
+import static igrad.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static igrad.logic.parser.CliSyntax.PREFIX_CAP;
 import static igrad.model.course.Cap.MESSAGE_CONSTRAINTS;
 import static java.util.Objects.requireNonNull;
@@ -24,13 +25,11 @@ public class CourseAchieveCommand extends CourseCommand {
         + "of: %1$s";
     public static final String MESSAGE_ACHIEVED_CAP_NOT_CALCULATED = "Please enter desired C.A.P.\n"
         + MESSAGE_CONSTRAINTS;
-    public static final String MESSAGE_UNABLE_TO_ACHIEVE_CAP = "Unable to achieve desired C.A.P. as C.A.P. of %1$s to "
-        + "maintain per semester is invalid";
     public static final String MESSAGE_COURSE_ACHIEVE_DETAILS = COURSE_ACHIEVE_COMMAND_WORD + ": Calculates average "
         + "C.A.P. needed per sem to achieve desired C.A.P.\n";
-
-    public static final String MESSAGE_COURSE_ACHIEVE_USAGE = "Parameter(s): " + PREFIX_CAP + "DESIRED_CAP";
-
+    public static final String MESSAGE_COURSE_ACHIEVE_USAGE = "Parameter(s): " + PREFIX_CAP + "DESIRED_CAP\n"
+            + "e.g. " + COURSE_ACHIEVE_COMMAND_WORD + " "
+            + PREFIX_CAP + "5";
     public static final String MESSAGE_COURSE_ACHIEVE_HELP = MESSAGE_COURSE_ACHIEVE_DETAILS
         + MESSAGE_COURSE_ACHIEVE_USAGE;
 
@@ -46,7 +45,8 @@ public class CourseAchieveCommand extends CourseCommand {
         requireNonNull(model);
 
         if (capToAchieve.toString().isEmpty()) {
-            throw new CommandException(MESSAGE_ACHIEVED_CAP_NOT_CALCULATED);
+            throw new CommandException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    MESSAGE_ACHIEVED_CAP_NOT_CALCULATED));
         }
 
         try {

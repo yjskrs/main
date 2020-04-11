@@ -29,7 +29,10 @@ public class CourseEditCommand extends CourseCommand {
         + ": Edits the name of the course.\n";
     public static final String MESSAGE_COURSE_EDIT_USAGE = "Parameter(s): "
         + "[" + PREFIX_NAME + "COURSE_NAME] "
-        + "[" + PREFIX_SEMESTER + "TOTAL_SEMESTERS]\n";
+        + "[" + PREFIX_SEMESTER + "TOTAL_SEMESTERS]\n"
+        + "e.g. " + COURSE_EDIT_COMMAND_WORD + " "
+        + PREFIX_NAME + "Information Systems "
+        + PREFIX_SEMESTER + "7";
     public static final String MESSAGE_COURSE_EDIT_HELP = MESSAGE_COURSE_EDIT_DETAILS + MESSAGE_COURSE_EDIT_USAGE;
 
     private EditCourseDescriptor editCourseDescriptor;
