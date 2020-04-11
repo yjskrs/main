@@ -1,6 +1,11 @@
 package igrad.logic.parser.module;
 
+import static igrad.logic.commands.module.ModuleDeleteCommand.MESSAGE_MODULE_DELETE_HELP;
+
+import igrad.commons.core.Messages;
 import igrad.logic.commands.module.ModuleDeleteCommand;
+import igrad.logic.parser.ArgumentMultimap;
+import igrad.logic.parser.ArgumentTokenizer;
 import igrad.logic.parser.Parser;
 import igrad.logic.parser.ParserUtil;
 import igrad.logic.parser.Specifier;
@@ -19,6 +24,14 @@ public class ModuleDeleteCommandParser implements Parser<ModuleDeleteCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public ModuleDeleteCommand parse(String args) throws ParseException {
+        ArgumentMultimap argMultimap =
+                ArgumentTokenizer.tokenize(args);
+
+        if (argMultimap.isEmpty(true)) {
+            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                    MESSAGE_MODULE_DELETE_HELP));
+        }
+
         Specifier specifier = ParserUtil.parseSpecifier(args,
             ParserUtil.MODULE_MODULE_CODE_SPECIFIER_RULE, ModuleCode.MESSAGE_CONSTRAINTS);
 

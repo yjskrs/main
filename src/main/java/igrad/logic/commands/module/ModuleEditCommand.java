@@ -41,7 +41,7 @@ public class ModuleEditCommand extends ModuleCommand {
         + "[" + PREFIX_TITLE + "MODULE_TITLE] "
         + "[" + PREFIX_CREDITS + "CREDITS] "
         + "[" + PREFIX_SEMESTER + "SEMESTER]\n"
-        + "Example: " + MODULE_EDIT_COMMAND_WORD + " CS2040 "
+        + "e.g. " + MODULE_EDIT_COMMAND_WORD + " CS2040 "
         + PREFIX_MODULE_CODE + "CS2040S "
         + PREFIX_CREDITS + "4";
 

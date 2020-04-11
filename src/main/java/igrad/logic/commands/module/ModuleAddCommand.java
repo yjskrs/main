@@ -28,7 +28,7 @@ public class ModuleAddCommand extends ModuleCommand {
         + PREFIX_TITLE + "MODULE_TITLE "
         + PREFIX_CREDITS + "CREDITS "
         + "[" + PREFIX_SEMESTER + "SEMESTER]\n"
-        + "Example: " + MODULE_ADD_COMMAND_WORD + " "
+        + "e.g. " + MODULE_ADD_COMMAND_WORD + " "
         + PREFIX_MODULE_CODE + "CS2103T "
         + PREFIX_TITLE + "Software Engineering "
         + PREFIX_CREDITS + "4 "
