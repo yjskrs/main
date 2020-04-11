@@ -13,6 +13,7 @@ import igrad.model.course.Cap;
 import igrad.model.course.CourseInfo;
 import igrad.model.course.exceptions.CapOverflowException;
 
+//@@author teriaiw
 
 /**
  * Adds a course to the application (there can only be one such course).

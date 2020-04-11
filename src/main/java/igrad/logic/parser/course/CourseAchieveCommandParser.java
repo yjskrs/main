@@ -16,6 +16,8 @@ import igrad.logic.parser.Parser;
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.course.Cap;
 
+//@@author teriaiw
+
 /**
  * Parses input arguments and creates a new ModuleDeleteCommand object.
  */

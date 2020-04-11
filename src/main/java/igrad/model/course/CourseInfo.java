@@ -183,6 +183,8 @@ public class CourseInfo {
         return Optional.of(capResult);
     }
 
+    //@@author teriaiw
+
     /**
      * Computes and returns a {@code Optional<Semesters>} object based on {@code Optional<Semesters>} object and a
      * list of {@code Module}s passed in.
@@ -198,6 +200,8 @@ public class CourseInfo {
 
         return Optional.of(new Semesters(totalSemesters, remainingSemesters));
     }
+
+    //@@author teriaiw
 
     /**
      * Computes and returns an Integer representing remaining semesters based on a list of {@Module}s passed in.
@@ -245,6 +249,8 @@ public class CourseInfo {
         return remainingSems;
     }
 
+    //@@author teriaiw
+
     /**
      * Returns an estimated Cap (Double) based on {@code Model} and {@code Cap} object passed in.
      */
@@ -291,7 +297,9 @@ public class CourseInfo {
         CourseInfo otherCourseInfo = (CourseInfo) other;
 
         return otherCourseInfo.getName().equals(getName())
-            && otherCourseInfo.getCap().equals(getCap());
+            && otherCourseInfo.getCap().equals(getCap())
+            && otherCourseInfo.getCredits().equals(getCredits())
+            && otherCourseInfo.getSemesters().equals(getSemesters());
     }
 
     @Override
