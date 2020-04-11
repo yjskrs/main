@@ -13,6 +13,8 @@ import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_
 import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_CODE_UE;
 import static igrad.testutil.Assert.assertThrows;
 import static igrad.testutil.TypicalRequirements.GENERAL_ELECTIVES;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -256,7 +258,62 @@ public class RequirementAssignCommandTest {
 
         RequirementAssignCommand cmd = new RequirementAssignCommand(requirementCode, moduleCodes);
 
-        System.out.println("that's me");
         assertExecuteSuccess(cmd, model, expectedModel, expectedMessage);
+    }
+
+    @Test
+    public void equals() {
+        final RequirementCode requirementCode = new RequirementCode(VALID_REQ_CODE_UE);
+        final List<ModuleCode> moduleCodes = new ArrayList<ModuleCode>() {
+            {
+                add(new ModuleCode(VALID_MODULE_CODE_CS1101S));
+                add(new ModuleCode(VALID_MODULE_CODE_CS2040));
+                add(new ModuleCode(VALID_MODULE_CODE_CS2100));
+            }
+        };
+
+        final RequirementAssignCommand requirementAssignCommand = new RequirementAssignCommand(
+                requirementCode, moduleCodes);
+
+        // null
+        assertFalse(requirementAssignCommand.equals(null));
+
+        // same requirement assign command
+        assertTrue(requirementAssignCommand.equals(requirementAssignCommand));
+
+        // different type
+        Module module = new ModuleBuilder().build();
+        assertFalse(requirementAssignCommand.equals(module));
+
+        RequirementAssignCommand otherRequirementAssignCommand;
+        RequirementCode otherRequirementCode;
+        List<ModuleCode> otherModuleCodes;
+
+        // different requirement assign command; only requirement code different
+        otherRequirementCode = new RequirementCode(VALID_REQ_CODE_GE);
+        otherRequirementAssignCommand = new RequirementAssignCommand(otherRequirementCode, moduleCodes);
+        assertFalse(requirementAssignCommand.equals(otherRequirementAssignCommand));
+
+        // different requirement assign command; only module codes different
+        otherModuleCodes = new ArrayList<ModuleCode>() {
+            {
+                add(new ModuleCode(VALID_MODULE_CODE_CS1101S));
+                add(new ModuleCode(VALID_MODULE_CODE_CS2040));
+            }
+        };
+        otherRequirementAssignCommand = new RequirementAssignCommand(requirementCode,
+                otherModuleCodes);
+        assertFalse(requirementAssignCommand.equals(otherRequirementAssignCommand));
+
+        // different requirement assign command; both requirement code and module codes, different
+        otherRequirementCode = new RequirementCode(VALID_REQ_CODE_GE);
+        otherModuleCodes = new ArrayList<ModuleCode>() {
+            {
+                add(new ModuleCode(VALID_MODULE_CODE_CS1101S));
+                add(new ModuleCode(VALID_MODULE_CODE_CS2040));
+            }
+        };
+        otherRequirementAssignCommand = new RequirementAssignCommand(otherRequirementCode, otherModuleCodes);
+        assertFalse(requirementAssignCommand.equals(otherRequirementAssignCommand));
     }
 }
