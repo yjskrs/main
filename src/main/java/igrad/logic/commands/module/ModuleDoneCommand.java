@@ -159,12 +159,20 @@ public class ModuleDoneCommand extends ModuleCommand {
 
     @Override
     public boolean equals(Object other) {
-        /*
-         * TODO (Teri): Please take a look at how ModuleEditCommand.java
-         * implements this, and fill it up!
-         */
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
 
-        return false;
+        // instanceof handles nulls
+        if (!(other instanceof ModuleDoneCommand)) {
+            return false;
+        }
+
+        // state check
+        ModuleDoneCommand e = (ModuleDoneCommand) other;
+        return moduleCode.equals(e.moduleCode)
+                && editModuleGradeDescriptor.equals(e.editModuleGradeDescriptor);
     }
 
     /**
