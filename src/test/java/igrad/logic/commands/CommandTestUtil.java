@@ -165,6 +165,54 @@ public class CommandTestUtil {
         assertEquals(expectedFilteredList, actualModel.getFilteredModuleList());
     }
 
+    //@@author nathanaelseen
+    /**
+     * Asserts that the execution of {@code command} given a {@code model} is successful and the
+     * model manipulated is equals to {@code expectedModel}, and the success message is equals to
+     * {@code expectedMessage}.
+     *
+     * @param command         Command object.
+     * @param model           User input string.
+     * @param expectedModel   Expected model.
+     * @param expectedMessage Expected message.
+     */
+    public static void assertExecuteSuccess(Command command, Model model, Model expectedModel, String expectedMessage) {
+        try {
+            CommandResult commandResult = command.execute(model);
+
+            // First check the message equals to expected message
+            assertEquals(expectedMessage, commandResult.getFeedbackToUser());
+
+            // Next check if the model equals to the expected model
+            assertEquals(model, expectedModel);
+        } catch (CommandException ce) {
+            throw new AssertionError("The CommandException was unexpectedly thrown.");
+        }
+    }
+
+    /**
+     * Asserts that the execution of {@code command} given a {@code model} is unsuccessful and the error message
+     * is equals to {@code expectedMessage}.
+     *
+     * @param command         Command object.
+     * @param model           User input string.
+     * @param expectedMessage Expected command.
+     */
+    public static void assertExecuteFailure(Command command, Model model, String expectedMessage) {
+        // Create a backup of this model first
+        Model oldModel = new ModelManager(model.getCourseBook(), model.getUserPrefs());
+
+        try {
+            command.execute(model);
+            throw new AssertionError("The expected CommandException was not thrown.");
+        } catch (CommandException ce) {
+            assertEquals(expectedMessage, ce.getMessage());
+        } finally {
+            // in the event a command changes, the model should not be mutated
+            assertEquals(oldModel, model);
+        }
+    }
+    //@@author
 
     /**
      * A default model stub that have all of the methods failing.
@@ -383,32 +431,5 @@ public class CommandTestUtil {
             return this.module.isSameModule(module);
         }
     }
-
-    //@@author nathanaelseen
-
-    /**
-     * Asserts that the execution of {@code command} given a {@code model} is unsuccessful and the error message
-     * is equals to {@code expectedMessage}.
-     *
-     * @param command         Command object.
-     * @param model           User input string.
-     * @param expectedMessage Expected command.
-     */
-    public static void assertExecuteFailure(Command command, Model model, String expectedMessage) {
-        // Create a backup of this model first
-        Model oldModel = new ModelManager(model.getCourseBook(), model.getUserPrefs());
-
-        try {
-            command.execute(model);
-            throw new AssertionError("The expected CommandException was not thrown.");
-        } catch (CommandException ce) {
-            assertEquals(expectedMessage, ce.getMessage());
-        } finally {
-            // in the event a command changes, the model should not be mutated
-            assertEquals(oldModel, model);
-        }
-    }
-
-    //@@author
 }
 

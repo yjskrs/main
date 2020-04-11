@@ -1,7 +1,6 @@
 package igrad.testutil;
 
 import static igrad.logic.commands.CommandTestUtil.VALID_CREDITS_4;
-
 import static igrad.logic.commands.CommandTestUtil.VALID_CREDITS_6;
 import static igrad.logic.commands.CommandTestUtil.VALID_GRADE_A;
 import static igrad.logic.commands.CommandTestUtil.VALID_GRADE_COMPUTER_ORGANISATION;

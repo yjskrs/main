@@ -54,6 +54,25 @@ public class RequirementEditCommand extends RequirementCommand {
         this.requirementDescriptor = new EditRequirementDescriptor(requirementDescriptor);
     }
 
+    /**
+     * Creates and returns a {@code Requirement} with the details of {@code requirementToEdit}
+     * edited with {@code editRequirementDescriptor}.
+     */
+    private static Requirement createEditedRequirement(Requirement requirementToEdit,
+                                                       EditRequirementDescriptor editRequirementDescriptor) {
+        assert requirementToEdit != null;
+        assert editRequirementDescriptor != null;
+
+        Title updatedTitle = editRequirementDescriptor.getTitle().orElse(requirementToEdit.getTitle());
+        Credits updatedCredits = editRequirementDescriptor.getCredits().orElse(requirementToEdit.getCredits());
+        RequirementCode requirementCode = requirementToEdit.getRequirementCode();
+        List<Module> moduleList = requirementToEdit.getModuleList();
+
+        return new Requirement(requirementCode, updatedTitle, updatedCredits, moduleList);
+    }
+
+    //@@author yjskrs
+
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
@@ -93,31 +112,12 @@ public class RequirementEditCommand extends RequirementCommand {
         return new CommandResult(String.format(MESSAGE_REQUIREMENT_EDIT_SUCCESS, editedRequirement));
     }
 
-    //@@author yjskrs
-
-    /**
-     * Creates and returns a {@code Requirement} with the details of {@code requirementToEdit}
-     * edited with {@code editRequirementDescriptor}.
-     */
-    private static Requirement createEditedRequirement(Requirement requirementToEdit,
-                                                       EditRequirementDescriptor editRequirementDescriptor) {
-        assert requirementToEdit != null;
-        assert editRequirementDescriptor != null;
-
-        Title updatedTitle = editRequirementDescriptor.getTitle().orElse(requirementToEdit.getTitle());
-        Credits updatedCredits = editRequirementDescriptor.getCredits().orElse(requirementToEdit.getCredits());
-        RequirementCode requirementCode = requirementToEdit.getRequirementCode();
-        List<Module> moduleList = requirementToEdit.getModuleList();
-
-        return new Requirement(requirementCode, updatedTitle, updatedCredits, moduleList);
-    }
-
     @Override
     public boolean equals(Object other) {
         return other == this
-                   || (other instanceof RequirementEditCommand
-                           && ((RequirementEditCommand) other).requirementDescriptor.equals(requirementDescriptor)
-                           && ((RequirementEditCommand) other).requirementCode.equals(requirementCode));
+            || (other instanceof RequirementEditCommand
+            && ((RequirementEditCommand) other).requirementDescriptor.equals(requirementDescriptor)
+            && ((RequirementEditCommand) other).requirementCode.equals(requirementCode));
     }
 
     /**
@@ -146,20 +146,20 @@ public class RequirementEditCommand extends RequirementCommand {
             return CollectionUtil.isAnyNonNull(title, credits);
         }
 
-        public void setTitle(Title title) {
-            this.title = title;
-        }
-
         public Optional<Title> getTitle() {
             return Optional.ofNullable(title);
         }
 
-        public void setCredits(Credits credits) {
-            this.credits = credits;
+        public void setTitle(Title title) {
+            this.title = title;
         }
 
         public Optional<Credits> getCredits() {
             return Optional.ofNullable(credits);
+        }
+
+        public void setCredits(Credits credits) {
+            this.credits = credits;
         }
 
         @Override
@@ -171,8 +171,8 @@ public class RequirementEditCommand extends RequirementCommand {
             EditRequirementDescriptor e = (EditRequirementDescriptor) other;
 
             return other == this
-                       || (getCredits().equals(e.getCredits())
-                               && getTitle().equals(e.getTitle()));
+                || (getCredits().equals(e.getCredits())
+                && getTitle().equals(e.getTitle()));
         }
     }
 }

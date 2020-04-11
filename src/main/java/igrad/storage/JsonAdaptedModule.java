@@ -27,6 +27,7 @@ class JsonAdaptedModule {
     private final String semester;
     private final String description;
     private final String grade;
+
     /**
      * Constructs a {@code JsonAdaptedModule} with the given module details.
      */

@@ -133,9 +133,9 @@ public class CourseBookParser {
         case ModuleCommand.MODULE_COMMAND_WORD:
             throw new ParseException(MESSAGE_UNKNOWN_MODULE_COMMAND);
 
-        /*
-         * Process the command if it matches its command word.
-         */
+            /*
+             * Process the command if it matches its command word.
+             */
         case CourseAddCommand.COURSE_ADD_COMMAND_WORD:
             return new CourseAddCommandParser().parse(arguments);
 

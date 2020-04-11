@@ -21,9 +21,9 @@ public class CourseAchieveCommand extends CourseCommand {
     public static final String MESSAGE_COURSE_ACHIEVE_SUCCESS = "You need to maintain an average C.A.P. (per sem) "
         + "of: %1$s";
     public static final String MESSAGE_ACHIEVED_CAP_NOT_CALCULATED = "Please enter desired C.A.P.\n"
-            + MESSAGE_CONSTRAINTS;
+        + MESSAGE_CONSTRAINTS;
     public static final String MESSAGE_UNABLE_TO_ACHIEVE_CAP = "Unable to achieve desired C.A.P. as C.A.P. of %1$s to "
-            + "maintain per semester is invalid";
+        + "maintain per semester is invalid";
     public static final String MESSAGE_COURSE_ACHIEVE_DETAILS = COURSE_ACHIEVE_COMMAND_WORD + ": Calculates average "
         + "C.A.P. needed per sem to achieve desired C.A.P.\n";
 
@@ -58,6 +58,6 @@ public class CourseAchieveCommand extends CourseCommand {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof CourseAchieveCommand); // instanceof handles nulls
+            || (other instanceof CourseAchieveCommand); // instanceof handles nulls
     }
 }

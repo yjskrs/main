@@ -26,19 +26,19 @@ public class CourseEditCommand extends CourseCommand {
     public static final String MESSAGE_EDIT_COURSE_SAME_PARAMETERS = "Please change the name of the course.";
     public static final String MESSAGE_COURSE_NOT_EDITED = "Course name must be provided.";
     public static final String MESSAGE_COURSE_EDIT_DETAILS = COURSE_EDIT_COMMAND_WORD
-                                                                 + ": Edits the name of the course.\n";
+        + ": Edits the name of the course.\n";
     public static final String MESSAGE_COURSE_EDIT_USAGE = "Parameter(s): "
-                                                               + "[" + PREFIX_NAME + "COURSE_NAME] "
-                                                               + "[" + PREFIX_SEMESTER + "TOTAL_SEMESTERS]\n";
+        + "[" + PREFIX_NAME + "COURSE_NAME] "
+        + "[" + PREFIX_SEMESTER + "TOTAL_SEMESTERS]\n";
     public static final String MESSAGE_COURSE_EDIT_HELP = MESSAGE_COURSE_EDIT_DETAILS + MESSAGE_COURSE_EDIT_USAGE;
 
     private EditCourseDescriptor editCourseDescriptor;
 
     /**
      * @param editCourseDescriptor details (course name) to edit the course with
-     * (Note: course is special unlike module and requirement as there is only
-     * one course in the course book, hence we don't need a 'Name'/'ModuleCode', or any
-     * kind of identifier to identify the course we want to edit)
+     *                             (Note: course is special unlike module and requirement as there is only
+     *                             one course in the course book, hence we don't need a 'Name'/'ModuleCode', or any
+     *                             kind of identifier to identify the course we want to edit)
      */
     public CourseEditCommand(EditCourseDescriptor editCourseDescriptor) {
         requireNonNull(editCourseDescriptor);
@@ -51,7 +51,7 @@ public class CourseEditCommand extends CourseCommand {
      * edited with {@code editCourseDescriptor}.
      */
     private static CourseInfo createEditedCourseInfo(CourseInfo courseInfoToEdit,
-                                             CourseEditCommand.EditCourseDescriptor editCourseDescriptor) {
+                                                     CourseEditCommand.EditCourseDescriptor editCourseDescriptor) {
         /*
          * Just copy everything from the original {@code courseInfoToEdit} to our new {@code CourseInfo}.
          * But for course name and semesters, we retrieve the updated value from the editCourseDescriptor here.
@@ -125,22 +125,21 @@ public class CourseEditCommand extends CourseCommand {
             setSemesters(toCopy.semesters);
         }
 
-        public void setName(Optional<Name> name) {
-            this.name = name;
-        }
-
         public Optional<Optional<Name>> getName() {
             return Optional.ofNullable(name);
         }
 
-        public void setSemesters(Optional<Semesters> semesters) {
-            this.semesters = semesters;
+        public void setName(Optional<Name> name) {
+            this.name = name;
         }
 
         public Optional<Optional<Semesters>> getSemesters() {
             return Optional.ofNullable(semesters);
         }
 
+        public void setSemesters(Optional<Semesters> semesters) {
+            this.semesters = semesters;
+        }
 
         @Override
         public boolean equals(Object other) {

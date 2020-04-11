@@ -47,7 +47,7 @@ public class CourseAddCommandParser extends CourseCommandParser implements Parse
 
         if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_SEMESTER)) {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
-                    MESSAGE_COURSE_NOT_ADDED));
+                MESSAGE_COURSE_NOT_ADDED));
         }
 
         /*

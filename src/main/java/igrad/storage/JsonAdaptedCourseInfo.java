@@ -49,7 +49,7 @@ public class JsonAdaptedCourseInfo {
      * @throws IllegalValueException if there were any data constraints violated in the adapted module.
      */
     public CourseInfo toModelType(List<Module> moduleList, List<Requirement> requirementList)
-            throws IllegalValueException {
+        throws IllegalValueException {
         // Course name can be null (in the event that the user hasn't run course add command
         if (name != null && !Name.isValidName(name)) {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);

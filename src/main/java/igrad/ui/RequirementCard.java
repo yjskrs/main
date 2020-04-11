@@ -10,6 +10,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 
 // @@author dargohzy
+
 /**
  * Shows requirements, where each {@code requirement} is a list of {@code Module}
  */

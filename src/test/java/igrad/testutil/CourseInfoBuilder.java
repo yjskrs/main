@@ -62,7 +62,7 @@ public class CourseInfoBuilder {
     /**
      * Sets the {@code Cap} of the {@code CourseInfo} that we are building.
      */
-    public CourseInfoBuilder withCap(int cap) {
+    public CourseInfoBuilder withCap(double cap) {
         this.cap = Optional.of(new Cap(cap));
         return this;
     }
@@ -80,6 +80,14 @@ public class CourseInfoBuilder {
      */
     public CourseInfoBuilder withSemesters(String totalSemesters) {
         this.semesters = Optional.of(new Semesters(totalSemesters));
+        return this;
+    }
+
+    /**
+     * Sets the {@code Semesters} of the {@code CourseInfo} that we are building.
+     */
+    public CourseInfoBuilder withSemestersTwoParameters(int totalSemesters, int remainingSemesters) {
+        this.semesters = Optional.of(new Semesters(totalSemesters, remainingSemesters));
         return this;
     }
 
@@ -104,6 +112,15 @@ public class CourseInfoBuilder {
      */
     public CourseInfoBuilder withCapOptional() {
         this.cap = Optional.empty();
+
+        return this;
+    }
+
+    /**
+     * Set the Semesters field to {@code Optional.empty}
+     */
+    public CourseInfoBuilder withSemestersOptional() {
+        this.semesters = Optional.empty();
 
         return this;
     }

@@ -4,7 +4,7 @@ import static igrad.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 import java.util.Optional;
-
+//@@author waynewee
 /**
  * Represents a Module in the course book.
  * Guarantees: details are present and not null, field values are validated, immutable.

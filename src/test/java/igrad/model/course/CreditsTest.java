@@ -28,13 +28,13 @@ public class CreditsTest {
         invalidCreditsRequired = -1;
         validCreditsFulfilled = 1;
         assertThrows(IllegalArgumentException.class, () -> new Credits(
-                    invalidCreditsRequired, validCreditsFulfilled));
+            invalidCreditsRequired, validCreditsFulfilled));
 
         // invalid credits fulfilled, but valid credits required
         invalidCreditsFulfilled = -1;
         validCreditsRequired = 1;
         assertThrows(IllegalArgumentException.class, () -> new Credits(
-                    validCreditsRequired, invalidCreditsFulfilled));
+            validCreditsRequired, invalidCreditsFulfilled));
     }
 
     @Test
@@ -64,19 +64,19 @@ public class CreditsTest {
 
         // null
         creditsA = new Credits(VALID_COURSE_CREDITS_REQUIRED_BCOMPSCI,
-                VALID_COURSE_CREDITS_FULFILLED_BCOMPSCI);
+            VALID_COURSE_CREDITS_FULFILLED_BCOMPSCI);
         assertFalse(creditsA.equals(null));
 
         // same credits
         creditsA = new Credits(VALID_COURSE_CREDITS_REQUIRED_BCOMPSCI,
-                VALID_COURSE_CREDITS_FULFILLED_BCOMPSCI);
+            VALID_COURSE_CREDITS_FULFILLED_BCOMPSCI);
         creditsB = new Credits(VALID_COURSE_CREDITS_REQUIRED_BCOMPSCI,
-                VALID_COURSE_CREDITS_FULFILLED_BCOMPSCI);
+            VALID_COURSE_CREDITS_FULFILLED_BCOMPSCI);
         assertTrue(creditsA.equals(creditsB));
 
         // different type
         creditsA = new Credits(VALID_COURSE_CREDITS_REQUIRED_BCOMPSCI,
-                VALID_COURSE_CREDITS_FULFILLED_BCOMPSCI);
+            VALID_COURSE_CREDITS_FULFILLED_BCOMPSCI);
         Module module = new ModuleBuilder().build();
         assertFalse(creditsA.equals(module));
 
@@ -92,9 +92,9 @@ public class CreditsTest {
 
         // different credits required and different credits fulfilled
         creditsA = new Credits(VALID_COURSE_CREDITS_REQUIRED_BCOMPSCI,
-                VALID_COURSE_CREDITS_FULFILLED_BCOMPSCI);
+            VALID_COURSE_CREDITS_FULFILLED_BCOMPSCI);
         creditsB = new Credits(VALID_COURSE_CREDITS_REQUIRED_BCOMPSEC,
-                VALID_COURSE_CREDITS_FULFILLED_BCOMPSEC);
+            VALID_COURSE_CREDITS_FULFILLED_BCOMPSEC);
         assertFalse(creditsA.equals(creditsB));
     }
 }

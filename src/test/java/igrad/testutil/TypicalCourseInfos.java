@@ -25,7 +25,7 @@ public class TypicalCourseInfos {
         .withName(VALID_COURSE_NAME_BCOMPSCI)
         .withCap(VALID_COURSE_CAP_BCOMPSCI)
         .withCredits(VALID_COURSE_CREDITS_REQUIRED_BCOMPSCI,
-                VALID_COURSE_CREDITS_FULFILLED_BCOMPSCI)
+            VALID_COURSE_CREDITS_FULFILLED_BCOMPSCI)
         .withSemesters(VALID_COURSE_SEMESTERS_BCOMPSCI)
         .build();
 
@@ -33,7 +33,7 @@ public class TypicalCourseInfos {
         .withName(VALID_COURSE_NAME_BCOMPSEC)
         .withCap(VALID_COURSE_CAP_BCOMPSEC)
         .withCredits(VALID_COURSE_CREDITS_REQUIRED_BCOMPSEC,
-                VALID_COURSE_CREDITS_FULFILLED_BCOMPSEC)
+            VALID_COURSE_CREDITS_FULFILLED_BCOMPSEC)
         .withSemesters(VALID_COURSE_SEMESTERS_BCOMPSEC)
         .build();
 

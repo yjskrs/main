@@ -123,7 +123,7 @@ public class RequirementAssignCommand extends RequirementCommand {
     public boolean equals(Object other) {
         return other == this
             || (other instanceof RequirementAssignCommand
-                    && ((RequirementAssignCommand) other).requirementCode.equals(requirementCode)
-                    && ((RequirementAssignCommand) other).moduleCodes.equals(moduleCodes));
+            && ((RequirementAssignCommand) other).requirementCode.equals(requirementCode)
+            && ((RequirementAssignCommand) other).moduleCodes.equals(moduleCodes));
     }
 }

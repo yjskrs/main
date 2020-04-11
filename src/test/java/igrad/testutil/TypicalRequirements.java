@@ -51,7 +51,7 @@ public class TypicalRequirements {
         .withRequirementCode(VALID_REQ_CODE_IP)
         .withTitle(VALID_REQ_TITLE_IP)
         .withCreditsThreeParameters(VALID_REQ_CREDITS_REQUIRED_IP, VALID_REQ_CREDITS_ASSIGNED_IP,
-                VALID_REQ_CREDITS_FULFILLED_IP)
+            VALID_REQ_CREDITS_FULFILLED_IP)
         .build();
 
     /**

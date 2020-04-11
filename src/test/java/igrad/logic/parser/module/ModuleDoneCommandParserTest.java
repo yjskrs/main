@@ -120,8 +120,8 @@ public class ModuleDoneCommandParserTest {
         // 'module done CS1101S g/A'
         input = VALID_MODULE_CODE_CS1101S + MODULE_GRADE_DESC_CS1101S;
         descriptor = new EditModuleDescriptorBuilder2()
-                                                   .withGrade(VALID_MODULE_GRADE_CS1101S)
-                                                   .build();
+            .withGrade(VALID_MODULE_GRADE_CS1101S)
+            .build();
         assertParseSuccess(parser, input, new ModuleDoneCommand(moduleCode, descriptor));
 
         // with white space preamble (without semester):
@@ -130,8 +130,8 @@ public class ModuleDoneCommandParserTest {
         input = PREAMBLE_WHITESPACE + VALID_MODULE_CODE_CS1101S + MODULE_GRADE_DESC_CS1101S;
 
         descriptor = new EditModuleDescriptorBuilder2()
-                                                   .withGrade(VALID_MODULE_GRADE_CS1101S)
-                                                   .build();
+            .withGrade(VALID_MODULE_GRADE_CS1101S)
+            .build();
         assertParseSuccess(parser, input, new ModuleDoneCommand(moduleCode, descriptor));
 
         // with optional fields (semester):
@@ -139,9 +139,9 @@ public class ModuleDoneCommandParserTest {
         // 'module done CS1101S g/A s/Y1S1'
         input = VALID_MODULE_CODE_CS1101S + MODULE_GRADE_DESC_CS1101S + MODULE_SEMESTER_DESC_CS1101S;
         descriptor = new EditModuleDescriptorBuilder2()
-                                                   .withGrade(VALID_MODULE_GRADE_CS1101S)
-                                                   .withSemester(VALID_MODULE_SEMESTER_CS1101S)
-                                                   .build();
+            .withGrade(VALID_MODULE_GRADE_CS1101S)
+            .withSemester(VALID_MODULE_SEMESTER_CS1101S)
+            .build();
         assertParseSuccess(parser, input, new ModuleDoneCommand(moduleCode, descriptor));
 
         // with white space preamble (with optional fields; semester):
@@ -150,9 +150,9 @@ public class ModuleDoneCommandParserTest {
         input = PREAMBLE_WHITESPACE + VALID_MODULE_CODE_CS1101S + MODULE_GRADE_DESC_CS1101S
             + MODULE_SEMESTER_DESC_CS1101S;
         descriptor = new EditModuleDescriptorBuilder2()
-                                                   .withGrade(VALID_MODULE_GRADE_CS1101S)
-                                                   .withSemester(VALID_MODULE_SEMESTER_CS1101S)
-                                                   .build();
+            .withGrade(VALID_MODULE_GRADE_CS1101S)
+            .withSemester(VALID_MODULE_SEMESTER_CS1101S)
+            .build();
         assertParseSuccess(parser, input, new ModuleDoneCommand(moduleCode, descriptor));
     }
 }

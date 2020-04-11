@@ -8,6 +8,8 @@ import static igrad.logic.commands.course.CourseCommandTestUtil.VALID_COURSE_CRE
 import static igrad.logic.commands.course.CourseCommandTestUtil.VALID_COURSE_CREDITS_REQUIRED_BCOMPSEC;
 import static igrad.logic.commands.course.CourseCommandTestUtil.VALID_COURSE_NAME_BCOMPSCI;
 import static igrad.logic.commands.course.CourseCommandTestUtil.VALID_COURSE_SEMESTERS_BCOMPSCI;
+import static igrad.logic.commands.module.ModuleCommandTestUtil.VALID_MODULE_CODE_CS1101S;
+import static igrad.logic.commands.module.ModuleCommandTestUtil.VALID_MODULE_CODE_CS2100;
 import static igrad.model.course.Cap.CAP_ZERO;
 import static igrad.testutil.Assert.assertThrows;
 import static igrad.testutil.TypicalCourseInfos.BCOMPSCI;
@@ -31,6 +33,7 @@ import igrad.model.requirement.Requirement;
 import igrad.testutil.CourseInfoBuilder;
 import igrad.testutil.ModuleBuilder;
 import igrad.testutil.RequirementBuilder;
+
 //@@author nathanaelseen
 public class CourseInfoTest {
     @Test
@@ -71,10 +74,10 @@ public class CourseInfoTest {
     @Test
     public void getCredits_success() {
         Optional<Credits> newCredits = Optional.of(new Credits(VALID_COURSE_CREDITS_REQUIRED_BCOMPSCI,
-                VALID_COURSE_CREDITS_FULFILLED_BCOMPSCI));
+            VALID_COURSE_CREDITS_FULFILLED_BCOMPSCI));
         CourseInfo newCourseInfo = new CourseInfoBuilder()
             .withCredits(VALID_COURSE_CREDITS_REQUIRED_BCOMPSCI,
-                    VALID_COURSE_CREDITS_FULFILLED_BCOMPSCI)
+                VALID_COURSE_CREDITS_FULFILLED_BCOMPSCI)
             .build();
 
         assertEquals(newCredits, newCourseInfo.getCredits());
@@ -138,7 +141,7 @@ public class CourseInfoTest {
         requirementList.add(CS_FOUNDATION);
         List<Module> moduleList = null;
         assertThrows(NullPointerException.class, () -> CourseInfo.computeCap(moduleList,
-                    requirementList));
+            requirementList));
     }
 
     @Test
@@ -148,7 +151,7 @@ public class CourseInfoTest {
         List<Module> moduleList = new ArrayList<Module>();
         moduleList.add(CS2040);
         assertThrows(NullPointerException.class, () -> CourseInfo.computeCap(moduleList,
-                    requirementList));
+            requirementList));
     }
 
     @Test
@@ -157,7 +160,7 @@ public class CourseInfoTest {
         List<Requirement> requirementList = null;
         List<Module> moduleList = null;
         assertThrows(NullPointerException.class, () -> CourseInfo.computeCap(moduleList,
-                    requirementList));
+            requirementList));
     }
 
     @Test
@@ -213,10 +216,10 @@ public class CourseInfoTest {
 
         // Create 2 modules without any grade
         Module moduleOne = new ModuleBuilder()
-            .withModuleCode("CS2030")
+            .withModuleCode(VALID_MODULE_CODE_CS1101S)
             .withoutOptionals().build();
         Module moduleTwo = new ModuleBuilder()
-            .withModuleCode("CS2100")
+            .withModuleCode(VALID_MODULE_CODE_CS2100)
             .withoutOptionals().build();
 
         moduleList.add(moduleOne);
@@ -245,6 +248,7 @@ public class CourseInfoTest {
 
         // Create a modules with grade; A
         Module module = new ModuleBuilder()
+            .withModuleCode(VALID_MODULE_CODE_CS1101S)
             .withGrade("A").build();
 
         moduleList.add(module);
@@ -271,10 +275,10 @@ public class CourseInfoTest {
 
         // Create 2 modules with grade; A
         Module moduleOne = new ModuleBuilder()
-            .withModuleCode("CS2030")
+            .withModuleCode(VALID_MODULE_CODE_CS1101S)
             .withGrade("A").build();
         Module moduleTwo = new ModuleBuilder()
-            .withModuleCode("CS2100")
+            .withModuleCode(VALID_MODULE_CODE_CS2100)
             .withGrade("A").build();
 
         moduleList.add(moduleOne);
@@ -303,10 +307,10 @@ public class CourseInfoTest {
 
         // Create 2 modules with grade; A
         Module moduleOne = new ModuleBuilder()
-            .withModuleCode("CS2030")
+            .withModuleCode(VALID_MODULE_CODE_CS1101S)
             .withGrade("A").build();
         Module moduleTwo = new ModuleBuilder()
-            .withModuleCode("CS2100")
+            .withModuleCode(VALID_MODULE_CODE_CS2100)
             .withGrade("B-").build();
 
         moduleList.add(moduleOne);
@@ -335,10 +339,10 @@ public class CourseInfoTest {
 
         // Create 2 modules with grade; A
         Module moduleOne = new ModuleBuilder()
-            .withModuleCode("CS2030")
+            .withModuleCode(VALID_MODULE_CODE_CS1101S)
             .withGrade("A").build();
         Module moduleTwo = new ModuleBuilder()
-            .withModuleCode("CS2100")
+            .withModuleCode(VALID_MODULE_CODE_CS2100)
             .withGrade("S").build();
 
         moduleList.add(moduleOne);
@@ -367,10 +371,10 @@ public class CourseInfoTest {
 
         // Create 2 modules with grade; A
         Module moduleOne = new ModuleBuilder()
-            .withModuleCode("CS2030")
+            .withModuleCode(VALID_MODULE_CODE_CS1101S)
             .withGrade("A").build();
         Module moduleTwo = new ModuleBuilder()
-            .withModuleCode("CS2100")
+            .withModuleCode(VALID_MODULE_CODE_CS2100)
             .withGrade("S").build();
 
         moduleList.add(moduleOne);
@@ -409,7 +413,7 @@ public class CourseInfoTest {
         CourseInfo other = new CourseInfoBuilder(BCOMPSCI)
             .withCap(VALID_COURSE_CAP_BCOMPSEC)
             .withCredits(VALID_COURSE_CREDITS_REQUIRED_BCOMPSEC,
-                    VALID_COURSE_CREDITS_FULFILLED_BCOMPSEC)
+                VALID_COURSE_CREDITS_FULFILLED_BCOMPSEC)
             .build();
         assertFalse(GENERAL_ELECTIVES.equals(other));
     }

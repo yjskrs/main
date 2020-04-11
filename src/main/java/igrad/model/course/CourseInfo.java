@@ -57,22 +57,6 @@ public class CourseInfo {
         this.semesters = semesters;
     }
 
-    public Optional<Name> getName() {
-        return name;
-    }
-
-    public Optional<Cap> getCap() {
-        return cap;
-    }
-
-    public Optional<Credits> getCredits() {
-        return credits;
-    }
-
-    public Optional<Semesters> getSemesters() {
-        return semesters;
-    }
-
     /**
      * Computes and returns a {@code Credits} object which has {@code creditsFulfilled} and
      * {@code creditsRequired}, based  on a list of {@code Requirement}s;
@@ -248,6 +232,22 @@ public class CourseInfo {
         totalSems += sem;
 
         return totalSems;
+    }
+
+    public Optional<Name> getName() {
+        return name;
+    }
+
+    public Optional<Cap> getCap() {
+        return cap;
+    }
+
+    public Optional<Credits> getCredits() {
+        return credits;
+    }
+
+    public Optional<Semesters> getSemesters() {
+        return semesters;
     }
 
     /**

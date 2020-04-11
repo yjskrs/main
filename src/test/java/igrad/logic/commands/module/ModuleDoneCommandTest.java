@@ -1,24 +1,39 @@
 package igrad.logic.commands.module;
 
 //@@author nathanaelseen
+
 import static igrad.logic.commands.CommandTestUtil.assertExecuteFailure;
+import static igrad.logic.commands.CommandTestUtil.assertExecuteSuccess;
 import static igrad.logic.commands.module.ModuleCommand.MESSAGE_MODULE_NON_EXISTENT;
 import static igrad.logic.commands.module.ModuleCommandTestUtil.VALID_MODULE_CODE_CS1101S;
+import static igrad.logic.commands.module.ModuleCommandTestUtil.VALID_MODULE_CODE_CS2040;
 import static igrad.logic.commands.module.ModuleCommandTestUtil.VALID_MODULE_GRADE_CS1101S;
+import static igrad.logic.commands.module.ModuleDoneCommand.MESSAGE_MODULE_DONE_SUCCESS;
+import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_CODE_GE;
+import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_CODE_UE;
 import static igrad.testutil.Assert.assertThrows;
 import static igrad.testutil.TypicalModules.CS2040;
-// import static org.junit.jupiter.api.Assertions.assertFalse;
-// import static org.junit.jupiter.api.Assertions.assertTrue;
-// import static igrad.testutil.TypicalModules.getTypicalModules;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
 import igrad.logic.commands.module.ModuleDoneCommand.EditModuleDescriptor;
 import igrad.model.Model;
 import igrad.model.ModelManager;
+import igrad.model.course.CourseInfo;
+import igrad.model.module.Module;
 import igrad.model.module.ModuleCode;
+import igrad.model.requirement.Requirement;
+import igrad.testutil.CourseInfoBuilder;
 import igrad.testutil.EditModuleDescriptorBuilder2;
-// import igrad.testutil.ModuleBuilder;
+import igrad.testutil.ModuleBuilder;
+import igrad.testutil.RequirementBuilder;
+
+// import static org.junit.jupiter.api.Assertions.assertFalse;
+// import static org.junit.jupiter.api.Assertions.assertTrue;
+// import static igrad.testutil.TypicalModules.getTypicalModules;
 // import igrad.logic.commands.module.ModuleDoneCommand;
 
 
@@ -29,23 +44,18 @@ import igrad.testutil.EditModuleDescriptorBuilder2;
 public class ModuleDoneCommandTest {
     @Test
     public void constructor_null_throwsNullPointerException() {
-        ModuleCode moduleCode1;
-        EditModuleDescriptor descriptor1;
-        ModuleCode moduleCode2;
-        EditModuleDescriptor descriptor2;
-
         // ModuleCode null, but EditModuleDescriptor not null
-        moduleCode1 = null;
-        descriptor1 = new EditModuleDescriptorBuilder2()
+        ModuleCode moduleCodeA = null;
+        EditModuleDescriptor descriptorA = new EditModuleDescriptorBuilder2()
             .build();
         assertThrows(NullPointerException.class, (
-                    ) -> new ModuleDoneCommand(moduleCode1, descriptor1));
+        ) -> new ModuleDoneCommand(moduleCodeA, descriptorA));
 
         // EditModuleDescriptor null, but ModuleCode not null
-        moduleCode2 = new ModuleCode(VALID_MODULE_CODE_CS1101S);
-        descriptor2 = null;
+        ModuleCode moduleCodeB = new ModuleCode(VALID_MODULE_CODE_CS1101S);
+        EditModuleDescriptor descriptorB = null;
         assertThrows(NullPointerException.class, (
-                    ) -> new ModuleDoneCommand(moduleCode2, descriptor2));
+        ) -> new ModuleDoneCommand(moduleCodeB, descriptorB));
     }
 
     @Test
@@ -53,36 +63,183 @@ public class ModuleDoneCommandTest {
         Model model = null;
         ModuleCode moduleCode = new ModuleCode(VALID_MODULE_CODE_CS1101S);
         EditModuleDescriptor descriptor = new EditModuleDescriptorBuilder2()
-                                               .withGrade(VALID_MODULE_GRADE_CS1101S)
-                                               .build();
+            .withGrade(VALID_MODULE_GRADE_CS1101S)
+            .build();
         ModuleDoneCommand cmd = new ModuleDoneCommand(moduleCode, descriptor);
         assertThrows(NullPointerException.class, () -> cmd.execute(model));
     }
 
     @Test
-    public void execute_moduleNonExistentOnEmptyModel_throwCommandException() {
+    public void execute_moduleNonExistentOnEmptyModel_failure() {
         Model model = new ModelManager(); // set-up an empty Model
         ModuleCode moduleCode = new ModuleCode(VALID_MODULE_CODE_CS1101S);
         EditModuleDescriptor descriptor = new EditModuleDescriptorBuilder2()
-                                                   .withGrade(VALID_MODULE_GRADE_CS1101S)
-                                                   .build();
+            .withGrade(VALID_MODULE_GRADE_CS1101S)
+            .build();
         ModuleDoneCommand cmd = new ModuleDoneCommand(moduleCode, descriptor);
 
         assertExecuteFailure(cmd, model, MESSAGE_MODULE_NON_EXISTENT);
     }
 
     @Test
-    public void execute_moduleNonExistentNonEmptyModel_throwCommandException() {
+    public void execute_moduleNonExistentNonEmptyModel_failure() {
         // set-up a non-empty Model
         Model model = new ModelManager();
         model.addModule(CS2040);
 
         ModuleCode moduleCode = new ModuleCode(VALID_MODULE_CODE_CS1101S);
         EditModuleDescriptor descriptor = new EditModuleDescriptorBuilder2()
-                                                   .withGrade(VALID_MODULE_GRADE_CS1101S)
-                                                   .build();
+            .withGrade(VALID_MODULE_GRADE_CS1101S)
+            .build();
         ModuleDoneCommand cmd = new ModuleDoneCommand(moduleCode, descriptor);
 
         assertExecuteFailure(cmd, model, MESSAGE_MODULE_NON_EXISTENT);
+    }
+
+    @Test
+    public void execute_existentModuleEditGradeOnly_success() {
+        //set-up our Model
+        Model model = new ModelManager();
+        int creditsCs1101s = 4;
+        int creditsCs2040 = 4;
+        String gradeCs1101s = "A";
+        String gradeCs2040 = "B";
+        int totalReqCreditsAssigned = creditsCs1101s + creditsCs2040;
+        int totalReqCreditsFulfilled = creditsCs2040;
+        int totalReqCreditsRequired = 16;
+        int totalCourseCreditsRequired = (totalReqCreditsRequired * 2);
+        int totalCourseCreditsFulfilled = creditsCs2040 * 2;
+        double courseCap = 3.5;
+        int totalSemesters = 5;
+
+        // Create a module with no grade
+        Module moduleToEdit = new ModuleBuilder()
+            .withModuleCode(VALID_MODULE_CODE_CS1101S)
+            .withCredits(Integer.toString(creditsCs1101s))
+            .withoutOptionals()
+            .build();
+
+        // Create a dummy module, with grade 'B'
+        Module dummyModule = new ModuleBuilder()
+            .withModuleCode(VALID_MODULE_CODE_CS2040)
+            .withCredits(Integer.toString(creditsCs2040))
+            .withoutOptionals()
+            .withGrade(gradeCs2040)
+            .build();
+
+        model.addModule(moduleToEdit);
+        model.addModule(dummyModule);
+
+        // Create a new requirement and add that module inside
+        List<Module> moduleListA = new ArrayList<>();
+        moduleListA.add(moduleToEdit);
+        moduleListA.add(dummyModule); // add another dummy module inside
+        Requirement requirementA = new RequirementBuilder()
+            .withRequirementCode(VALID_REQ_CODE_GE)
+            .withModules(moduleListA)
+            .withCreditsThreeParameters(totalReqCreditsRequired,
+                totalReqCreditsAssigned, totalReqCreditsFulfilled)
+            .build();
+        model.addRequirement(requirementA); // Add that requirement to our Model
+
+        // Create another requirement with that module inside too
+        List<Module> moduleListB = new ArrayList<>();
+        moduleListB.add(moduleToEdit);
+        moduleListB.add(dummyModule); // add another dummy module inside
+        Requirement requirementB = new RequirementBuilder()
+            .withRequirementCode(VALID_REQ_CODE_UE)
+            .withModules(moduleListB)
+            .withCreditsThreeParameters(totalReqCreditsRequired,
+                totalReqCreditsAssigned, totalReqCreditsFulfilled)
+            .build();
+        model.addRequirement(requirementB);
+
+        //Finally, create the appropriate course info and add it to Model too
+        CourseInfo courseInfo = new CourseInfoBuilder()
+            .withCap(3.5)
+            .withCredits(totalCourseCreditsRequired, totalCourseCreditsFulfilled)
+            .withSemesters(Integer.toString(totalSemesters))
+            .build();
+        model.setCourseInfo(courseInfo);
+
+        // set-up expected Model
+        Model expectedModel = new ModelManager();
+
+        // The module should have its grade updated to 'A'
+        Module editedModule = new ModuleBuilder()
+            .withModuleCode(VALID_MODULE_CODE_CS1101S)
+            .withCredits(Integer.toString(creditsCs1101s))
+            .withoutOptionals()
+            .withGrade(gradeCs1101s)
+            .build();
+
+        // Create a dummy module, with grade 'B'
+        Module dummyModuleCopy = new ModuleBuilder()
+            .withModuleCode(VALID_MODULE_CODE_CS2040)
+            .withCredits(Integer.toString(creditsCs2040))
+            .withoutOptionals()
+            .withGrade(gradeCs2040)
+            .build();
+
+        expectedModel.addModule(editedModule);
+        expectedModel.addModule(dummyModuleCopy);
+
+        // Create an 'updated' requirement and add that 'updated' module inside
+        List<Module> editedModuleListA = new ArrayList<>();
+        editedModuleListA.add(editedModule);
+        editedModuleListA.add(dummyModuleCopy); // add another dummy module inside
+        Requirement editedRequirementA = new RequirementBuilder()
+            .withRequirementCode(VALID_REQ_CODE_GE)
+            .withModules(editedModuleListA)
+            .withCreditsThreeParameters(totalReqCreditsRequired,
+                totalReqCreditsAssigned, totalReqCreditsFulfilled + creditsCs1101s)
+            .build();
+        expectedModel.addRequirement(editedRequirementA); // Add that requirement to our Model
+
+        // Create another requirement with that module inside too
+        List<Module> editedModuleListB = new ArrayList<>();
+        editedModuleListB.add(editedModule);
+        editedModuleListB.add(dummyModuleCopy); // add another dummy module inside
+        Requirement editedRequirementB = new RequirementBuilder()
+            .withRequirementCode(VALID_REQ_CODE_UE)
+            .withModules(editedModuleListB)
+            .withCreditsThreeParameters(totalReqCreditsRequired,
+                totalReqCreditsAssigned, totalReqCreditsFulfilled + creditsCs1101s)
+            .build();
+        expectedModel.addRequirement(editedRequirementB);
+
+        // Finally, create an 'updated' course info and add that 'updated' course info inside
+        /*
+         * Here we cheat abit to get remaining semesters because the computation is complicated, and
+         * currently the implementation is slightly buggy
+         */
+        List<Module> tempList = new ArrayList<>();
+        tempList.add(editedModule);
+        tempList.add(dummyModuleCopy);
+        int remainingSemesters = CourseInfo.computeSemesters(
+                courseInfo.getSemesters(), tempList).get().getRemainingSemesters();
+
+        CourseInfo editedCourseInfo = new CourseInfoBuilder()
+            .withCap(4.25)
+            .withCredits(totalCourseCreditsRequired, totalCourseCreditsFulfilled
+                    + (2 * creditsCs1101s))
+            .withSemestersTwoParameters(totalSemesters, remainingSemesters)
+            .build();
+        expectedModel.setCourseInfo(editedCourseInfo);
+
+        // Now, specify the edits on Module through the descriptor and test it!
+        ModuleCode moduleCode = new ModuleCode(VALID_MODULE_CODE_CS1101S);
+        EditModuleDescriptor descriptor = new EditModuleDescriptorBuilder2()
+            .withGrade(gradeCs1101s)
+            .build();
+        ModuleDoneCommand cmd = new ModuleDoneCommand(moduleCode, descriptor);
+        String expectedMessage = String.format(MESSAGE_MODULE_DONE_SUCCESS, editedModule);
+
+        System.out.println("before meee");
+        assertExecuteSuccess(cmd, model, expectedModel, expectedMessage);
+    }
+
+    @Test
+    public void equals() {
     }
 }

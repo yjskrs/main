@@ -67,7 +67,7 @@ public class CourseEditCommandParser extends CourseCommandParser implements Pars
 
         // If neither name nor semesters is specified, we flag an error to the user
         if ((nameString.isEmpty() || nameString.get().isEmpty())
-                && (semestersString.isEmpty() || semestersString.get().isEmpty())) {
+            && (semestersString.isEmpty() || semestersString.get().isEmpty())) {
             throw new ParseException(MESSAGE_COURSE_NOT_EDITED);
         }
 

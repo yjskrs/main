@@ -78,8 +78,8 @@ public class CourseEditCommandParserTest {
         // 'course edit n/Bachelor of Computer Science'
         input = COURSE_NAME_DESC_BCOMPSCI;
         descriptor = new EditCourseDescriptorBuilder()
-                            .withName(VALID_COURSE_NAME_BCOMPSCI)
-                            .build();
+            .withName(VALID_COURSE_NAME_BCOMPSCI)
+            .build();
         assertParseSuccess(parser, input, new CourseEditCommand(descriptor));
 
         // with whitespace preamble (name field only):
@@ -87,8 +87,8 @@ public class CourseEditCommandParserTest {
         // 'course edit       n/Bachelor of Computer Science'
         input = PREAMBLE_WHITESPACE + COURSE_NAME_DESC_BCOMPSCI;
         descriptor = new EditCourseDescriptorBuilder()
-                            .withName(VALID_COURSE_NAME_BCOMPSCI)
-                            .build();
+            .withName(VALID_COURSE_NAME_BCOMPSCI)
+            .build();
         assertParseSuccess(parser, input, new CourseEditCommand(descriptor));
 
         // normal course edit, semesters field only:
@@ -96,8 +96,8 @@ public class CourseEditCommandParserTest {
         // 'course edit s/3'
         input = COURSE_SEMESTERS_DESC_BCOMPSCI;
         descriptor = new EditCourseDescriptorBuilder()
-                            .withSemesters(VALID_COURSE_SEMESTERS_BCOMPSCI)
-                            .build();
+            .withSemesters(VALID_COURSE_SEMESTERS_BCOMPSCI)
+            .build();
         assertParseSuccess(parser, input, new CourseEditCommand(descriptor));
 
         // with whitespace preamble (semesters field only):
@@ -105,8 +105,8 @@ public class CourseEditCommandParserTest {
         // 'course edit       s/3'
         input = PREAMBLE_WHITESPACE + COURSE_SEMESTERS_DESC_BCOMPSCI;
         descriptor = new EditCourseDescriptorBuilder()
-                            .withSemesters(VALID_COURSE_SEMESTERS_BCOMPSCI)
-                            .build();
+            .withSemesters(VALID_COURSE_SEMESTERS_BCOMPSCI)
+            .build();
         assertParseSuccess(parser, input, new CourseEditCommand(descriptor));
 
         // normal course edit, both name and semesters field:
@@ -114,9 +114,9 @@ public class CourseEditCommandParserTest {
         // 'course edit n/Bachelor of Computer Science s/3'
         input = COURSE_NAME_DESC_BCOMPSCI + COURSE_SEMESTERS_DESC_BCOMPSCI;
         descriptor = new EditCourseDescriptorBuilder()
-                            .withName(VALID_COURSE_NAME_BCOMPSCI)
-                            .withSemesters(VALID_COURSE_SEMESTERS_BCOMPSCI)
-                            .build();
+            .withName(VALID_COURSE_NAME_BCOMPSCI)
+            .withSemesters(VALID_COURSE_SEMESTERS_BCOMPSCI)
+            .build();
         assertParseSuccess(parser, input, new CourseEditCommand(descriptor));
 
         // with whitespace preamble (both name and semesters field):
@@ -124,9 +124,9 @@ public class CourseEditCommandParserTest {
         // 'course edit       n/Bachelor of Computer Science s/3'
         input = PREAMBLE_WHITESPACE + COURSE_NAME_DESC_BCOMPSCI + COURSE_SEMESTERS_DESC_BCOMPSCI;
         descriptor = new EditCourseDescriptorBuilder()
-                            .withName(VALID_COURSE_NAME_BCOMPSCI)
-                            .withSemesters(VALID_COURSE_SEMESTERS_BCOMPSCI)
-                            .build();
+            .withName(VALID_COURSE_NAME_BCOMPSCI)
+            .withSemesters(VALID_COURSE_SEMESTERS_BCOMPSCI)
+            .build();
         assertParseSuccess(parser, input, new CourseEditCommand(descriptor));
     }
 }

@@ -19,14 +19,11 @@ public class Cap {
 
     // set max cap limit to 5
     private static final double MAX_CAP_LIMIT = 5.0;
-
+    public static final Cap MAX_CAP = new Cap(MAX_CAP_LIMIT);
     // set min cap limit to 0
     private static final double MIN_CAP_LIMIT = 0.0;
-
     public static final Cap CAP_ZERO = new Cap(MIN_CAP_LIMIT);
     public static final Cap MIN_CAP = new Cap(MIN_CAP_LIMIT);
-    public static final Cap MAX_CAP = new Cap(MAX_CAP_LIMIT);
-
     public final double value;
 
     /**

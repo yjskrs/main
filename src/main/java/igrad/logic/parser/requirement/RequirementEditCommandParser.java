@@ -73,7 +73,7 @@ public class RequirementEditCommandParser extends RequirementCommandParser {
 
         // If neither the requirement title nor credits are specified, throw exception
         if ((titleString.isEmpty() || titleString.get().isEmpty())
-                && (creditsString.isEmpty() || creditsString.get().isEmpty())) {
+            && (creditsString.isEmpty() || creditsString.get().isEmpty())) {
             throw new ParseException(MESSAGE_REQUIREMENT_NOT_EDITED);
         }
 

@@ -64,6 +64,14 @@ public class Grade {
     }
 
     // @@author teriaiw
+
+    /**
+     * Returns true if {@code String grade} is valid grade.
+     */
+    public static boolean isValidGrade(String test) {
+        return test.matches(VALIDATION_REGEX);
+    }
+
     /**
      * @return cap which represents a particular grade
      */
@@ -71,20 +79,13 @@ public class Grade {
         return GRADE_CAP_MAP.get(value).orElse(0.0);
     }
 
+    // @@author nathanaelseen
+
     /**
      * Determines whether a grade is SU or not.
      */
     public boolean isSuGrade() {
         return GRADE_CAP_MAP.get(value).isEmpty();
-    }
-
-    // @@author nathanaelseen
-
-    /**
-     * Returns true if {@code String grade} is valid grade.
-     */
-    public static boolean isValidGrade(String test) {
-        return test.matches(VALIDATION_REGEX);
     }
 
     @Override
