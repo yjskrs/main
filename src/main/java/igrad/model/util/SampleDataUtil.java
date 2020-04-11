@@ -12,7 +12,6 @@ import igrad.model.ReadOnlyCourseBook;
 import igrad.model.UserPrefs;
 import igrad.model.avatar.Avatar;
 import igrad.model.module.Credits;
-import igrad.model.module.Description;
 import igrad.model.module.Grade;
 import igrad.model.module.Module;
 import igrad.model.module.ModuleCode;
