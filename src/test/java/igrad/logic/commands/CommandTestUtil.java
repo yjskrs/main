@@ -22,6 +22,7 @@ import igrad.logic.commands.exceptions.CommandException;
 import igrad.logic.commands.module.ModuleEditCommand;
 import igrad.model.CourseBook;
 import igrad.model.Model;
+import igrad.model.ModelManager;
 import igrad.model.ReadOnlyCourseBook;
 import igrad.model.ReadOnlyUserPrefs;
 import igrad.model.avatar.Avatar;
@@ -383,5 +384,31 @@ public class CommandTestUtil {
         }
     }
 
+    //@@author nathanaelseen
+
+    /**
+     * Asserts that the execution of {@code command} given a {@code model} is unsuccessful and the error message
+     * is equals to {@code expectedMessage}.
+     *
+     * @param command         Command object.
+     * @param model           User input string.
+     * @param expectedMessage Expected command.
+     */
+    public static void assertExecuteFailure(Command command, Model model, String expectedMessage) {
+        // Create a backup of this model first
+        Model oldModel = new ModelManager(model.getCourseBook(), model.getUserPrefs());
+
+        try {
+            command.execute(model);
+            throw new AssertionError("The expected CommandException was not thrown.");
+        } catch (CommandException ce) {
+            assertEquals(expectedMessage, ce.getMessage());
+        } finally {
+            // in the event a command changes, the model should not be mutated
+            assertEquals(oldModel, model);
+        }
+    }
+
+    //@@author
 }
 

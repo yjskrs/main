@@ -58,34 +58,6 @@ public class ModuleDoneCommand extends ModuleCommand {
         this.editModuleGradeDescriptor = new EditModuleDescriptor(editModuleGradeDescriptor);
     }
 
-    /**
-     * Creates and returns a {@code Module} with the details of {@code moduleToEdit}
-     * edited with {@code editModuleGradeDescriptor}.
-     */
-    private static Module createEditedModule(Module moduleToEdit, EditModuleDescriptor editModuleDescriptor) {
-        assert moduleToEdit != null;
-
-        // Just copy everything from the original {@code moduleToEdit} to our new {@code Module}
-        ModuleCode moduleCode = moduleToEdit.getModuleCode();
-        Title title = moduleToEdit.getTitle();
-        Credits credits = moduleToEdit.getCredits();
-        Optional<Description> description = moduleToEdit.getDescription();
-
-        /*
-         * But for Semester, since it is an optional field, we copy its value over from the
-         * EditModuleDescriptor if any
-         */
-        Optional<Semester> updatedSemester = editModuleDescriptor.getSemester().orElse(moduleToEdit.getSemester());
-
-        /*
-         * But for Grade, It's compulsory for Grade to be optionally edited/updated. This should have already been
-         * guaranteed through the validations in the ModuleDoneCommandParser
-         */
-        Optional<Grade> updatedGrade = editModuleDescriptor.getGrade();
-
-        return new Module(title, moduleCode, credits, updatedSemester, description, updatedGrade);
-    }
-
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
@@ -157,6 +129,35 @@ public class ModuleDoneCommand extends ModuleCommand {
         model.setCourseInfo(editedCourseInfo);
 
         return new CommandResult(String.format(MESSAGE_MODULE_DONE_SUCCESS, editedModule));
+    }
+
+
+    /**
+     * Creates and returns a {@code Module} with the details of {@code moduleToEdit}
+     * edited with {@code editModuleGradeDescriptor}.
+     */
+    private static Module createEditedModule(Module moduleToEdit, EditModuleDescriptor editModuleDescriptor) {
+        assert moduleToEdit != null;
+
+        // Just copy everything from the original {@code moduleToEdit} to our new {@code Module}
+        ModuleCode moduleCode = moduleToEdit.getModuleCode();
+        Title title = moduleToEdit.getTitle();
+        Credits credits = moduleToEdit.getCredits();
+        Optional<Description> description = moduleToEdit.getDescription();
+
+        /*
+         * But for Semester, since it is an optional field, we copy its value over from the
+         * EditModuleDescriptor if any
+         */
+        Optional<Semester> updatedSemester = editModuleDescriptor.getSemester().orElse(moduleToEdit.getSemester());
+
+        /*
+         * But for Grade, It's compulsory for Grade to be optionally edited/updated. This should have already been
+         * guaranteed through the validations in the ModuleDoneCommandParser
+         */
+        Optional<Grade> updatedGrade = editModuleDescriptor.getGrade();
+
+        return new Module(title, moduleCode, credits, updatedSemester, description, updatedGrade);
     }
 
     @Override
