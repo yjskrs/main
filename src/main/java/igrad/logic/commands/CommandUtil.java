@@ -8,6 +8,8 @@ import igrad.model.course.CourseInfo;
 import igrad.model.course.Name;
 import igrad.model.course.Semesters;
 
+//@@author nathanaelseen
+
 /**
  * Contains general purpose utility methods used by some of the commands.
  */

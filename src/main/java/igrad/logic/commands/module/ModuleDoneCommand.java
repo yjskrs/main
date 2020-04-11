@@ -21,6 +21,8 @@ import igrad.model.module.Semester;
 import igrad.model.module.Title;
 import igrad.model.requirement.Requirement;
 
+//@@author nathanaelseen
+
 /**
  * Marks the module as done, with a specified grade.
  */

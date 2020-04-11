@@ -21,6 +21,7 @@ import igrad.model.course.Name;
 import igrad.model.course.Semesters;
 
 //@@author nathanaelseen
+
 /**
  * Parses input arguments and creates a new CourseAddCommand object.
  */

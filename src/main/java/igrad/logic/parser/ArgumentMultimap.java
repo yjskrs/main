@@ -96,5 +96,4 @@ public class ArgumentMultimap {
             return argMultimap.size() <= 1;
         }
     }
-    //@@author
 }
