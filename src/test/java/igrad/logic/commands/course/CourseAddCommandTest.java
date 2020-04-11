@@ -91,7 +91,7 @@ public class CourseAddCommandTest {
 
         CourseAddCommand cmd = new CourseAddCommand(courseInfoToAdd);
 
-        String expectedMessage = String.format(MESSAGE_COURSE_ADD_SUCCESS, courseInfoToAdd);
+        String expectedMessage = String.format(MESSAGE_COURSE_ADD_SUCCESS, addedCourseInfo);
 
         assertExecuteSuccess(cmd, model, expectedModel, expectedMessage);
     }
