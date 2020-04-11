@@ -7,12 +7,16 @@ import static igrad.logic.commands.CommandTestUtil.assertExecuteSuccess;
 import static igrad.logic.commands.module.ModuleCommand.MESSAGE_MODULE_NON_EXISTENT;
 import static igrad.logic.commands.module.ModuleCommandTestUtil.VALID_MODULE_CODE_CS1101S;
 import static igrad.logic.commands.module.ModuleCommandTestUtil.VALID_MODULE_CODE_CS2040;
+import static igrad.logic.commands.module.ModuleCommandTestUtil.VALID_MODULE_CODE_CS2100;
 import static igrad.logic.commands.module.ModuleCommandTestUtil.VALID_MODULE_GRADE_CS1101S;
+import static igrad.logic.commands.module.ModuleCommandTestUtil.VALID_MODULE_GRADE_CS2100;
 import static igrad.logic.commands.module.ModuleDoneCommand.MESSAGE_MODULE_DONE_SUCCESS;
 import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_CODE_GE;
 import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_CODE_UE;
 import static igrad.testutil.Assert.assertThrows;
 import static igrad.testutil.TypicalModules.CS2040;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,8 +35,6 @@ import igrad.testutil.EditModuleDescriptorBuilder2;
 import igrad.testutil.ModuleBuilder;
 import igrad.testutil.RequirementBuilder;
 
-// import static org.junit.jupiter.api.Assertions.assertFalse;
-// import static org.junit.jupiter.api.Assertions.assertTrue;
 // import static igrad.testutil.TypicalModules.getTypicalModules;
 // import igrad.logic.commands.module.ModuleDoneCommand;
 
@@ -240,5 +242,45 @@ public class ModuleDoneCommandTest {
 
     @Test
     public void equals() {
+        final ModuleCode moduleCode = new ModuleCode(VALID_MODULE_CODE_CS1101S);
+        final EditModuleDescriptor descriptor = new EditModuleDescriptorBuilder2()
+            .withGrade(VALID_MODULE_GRADE_CS1101S)
+            .build();
+
+        final ModuleDoneCommand moduleDoneCommand = new ModuleDoneCommand(moduleCode, descriptor);
+
+        // null
+        assertFalse(moduleDoneCommand.equals(null));
+
+        // same module done command
+        assertTrue(moduleDoneCommand.equals(moduleDoneCommand));
+
+        // different type
+        Module module = new ModuleBuilder().build();
+        assertFalse(moduleDoneCommand.equals(module));
+
+        ModuleDoneCommand otherModuleDoneCommand;
+        ModuleCode otherModuleCode;
+        EditModuleDescriptor otherDescriptor;
+
+        // different module done command; only module code different
+        otherModuleCode = new ModuleCode(VALID_MODULE_CODE_CS2100);
+        otherModuleDoneCommand = new ModuleDoneCommand(otherModuleCode, descriptor);
+        assertFalse(moduleDoneCommand.equals(otherModuleDoneCommand));
+
+        // different module done command; only descriptor different
+        otherDescriptor = new EditModuleDescriptorBuilder2()
+            .withGrade(VALID_MODULE_GRADE_CS2100)
+            .build();
+        otherModuleDoneCommand = new ModuleDoneCommand(moduleCode, otherDescriptor);
+        assertFalse(moduleDoneCommand.equals(otherModuleDoneCommand));
+
+        // different module done command; both module code and descriptor, different
+        otherModuleCode = new ModuleCode(VALID_MODULE_CODE_CS2100);
+        otherDescriptor = new EditModuleDescriptorBuilder2()
+            .withGrade(VALID_MODULE_GRADE_CS2100)
+            .build();
+        otherModuleDoneCommand = new ModuleDoneCommand(otherModuleCode, otherDescriptor);
+        assertFalse(moduleDoneCommand.equals(otherModuleDoneCommand));
     }
 }
