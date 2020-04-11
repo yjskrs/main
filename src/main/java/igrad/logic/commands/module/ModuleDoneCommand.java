@@ -67,7 +67,6 @@ public class ModuleDoneCommand extends ModuleCommand {
         ModuleCode moduleCode = moduleToEdit.getModuleCode();
         Title title = moduleToEdit.getTitle();
         Credits credits = moduleToEdit.getCredits();
-        Optional<Description> description = moduleToEdit.getDescription();
 
         /*
          * But for Semester, since it is an optional field, we copy its value over from the
@@ -81,7 +80,7 @@ public class ModuleDoneCommand extends ModuleCommand {
          */
         Optional<Grade> updatedGrade = editModuleDescriptor.getGrade();
 
-        return new Module(title, moduleCode, credits, updatedSemester, description, updatedGrade);
+        return new Module(title, moduleCode, credits, updatedSemester, updatedGrade);
     }
 
     @Override

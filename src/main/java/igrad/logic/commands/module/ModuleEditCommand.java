@@ -79,8 +79,6 @@ public class ModuleEditCommand extends ModuleCommand {
         ModuleCode updatedModuleCode = editModuleDescriptor.getModuleCode().orElse(moduleToEdit.getModuleCode());
         Credits updatedCredits = editModuleDescriptor.getCredits().orElse(moduleToEdit.getCredits());
         Optional<Semester> updatedSemester = editModuleDescriptor.getSemester().orElse(moduleToEdit.getSemester());
-        Optional<Description> updatedDescription = editModuleDescriptor.getDescription()
-            .orElse(moduleToEdit.getDescription());
 
         /*
          * (Note): Grade cannot be edited here (using the edit command), have to do so using the module done
@@ -88,8 +86,7 @@ public class ModuleEditCommand extends ModuleCommand {
          */
         Optional<Grade> updatedGrade = moduleToEdit.getGrade();
 
-        return new Module(updatedTitle, updatedModuleCode, updatedCredits, updatedSemester,
-            updatedDescription, updatedGrade);
+        return new Module(updatedTitle, updatedModuleCode, updatedCredits, updatedSemester, updatedGrade);
     }
 
     @Override
