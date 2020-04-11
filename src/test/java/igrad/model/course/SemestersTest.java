@@ -2,12 +2,12 @@ package igrad.model.course;
 
 //@@author teriaiw
 
+import static igrad.logic.commands.course.CourseCommandTestUtil.VALID_COURSE_REMAINING_SEMESTERS_BCOMPSCI;
+import static igrad.logic.commands.course.CourseCommandTestUtil.VALID_COURSE_REMAINING_SEMESTERS_BCOMPSEC;
 import static igrad.logic.commands.course.CourseCommandTestUtil.VALID_COURSE_SEMESTERS_BCOMPSCI;
 import static igrad.logic.commands.course.CourseCommandTestUtil.VALID_COURSE_SEMESTERS_BCOMPSEC;
 import static igrad.logic.commands.course.CourseCommandTestUtil.VALID_COURSE_TOTAL_SEMESTERS_BCOMPSCI;
 import static igrad.logic.commands.course.CourseCommandTestUtil.VALID_COURSE_TOTAL_SEMESTERS_BCOMPSEC;
-import static igrad.logic.commands.course.CourseCommandTestUtil.VALID_COURSE_REMAINING_SEMESTERS_BCOMPSCI;
-import static igrad.logic.commands.course.CourseCommandTestUtil.VALID_COURSE_REMAINING_SEMESTERS_BCOMPSEC;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;

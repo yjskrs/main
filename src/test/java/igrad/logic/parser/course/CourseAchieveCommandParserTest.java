@@ -3,19 +3,20 @@ package igrad.logic.parser.course;
 //@@author teriaiw
 
 import static igrad.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static igrad.logic.commands.course.CourseAchieveCommand.MESSAGE_COURSE_ACHIEVE_HELP;
 import static igrad.logic.commands.course.CourseAchieveCommand.MESSAGE_ACHIEVED_CAP_NOT_CALCULATED;
+import static igrad.logic.commands.course.CourseAchieveCommand.MESSAGE_COURSE_ACHIEVE_HELP;
 import static igrad.logic.commands.course.CourseCommandTestUtil.INVALID_CAP_DESC;
 import static igrad.logic.commands.course.CourseCommandTestUtil.VALID_CAP_DESC;
 import static igrad.logic.parser.CliSyntax.PREFIX_NAME;
 import static igrad.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static igrad.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
-import igrad.logic.commands.course.CourseAchieveCommand;
-import igrad.model.course.Cap;
+import java.util.Optional;
+
 import org.junit.jupiter.api.Test;
 
-import java.util.Optional;
+import igrad.logic.commands.course.CourseAchieveCommand;
+import igrad.model.course.Cap;
 
 public class CourseAchieveCommandParserTest {
     private static final String INVALID_COMMAND_FORMAT =

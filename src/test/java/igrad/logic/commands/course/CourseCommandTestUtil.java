@@ -2,9 +2,11 @@ package igrad.logic.commands.course;
 
 //@@author nathanaelseen
 
-import igrad.logic.commands.CommandTestUtil;
+import static igrad.logic.parser.CliSyntax.PREFIX_CAP;
+import static igrad.logic.parser.CliSyntax.PREFIX_NAME;
+import static igrad.logic.parser.CliSyntax.PREFIX_SEMESTER;
 
-import static igrad.logic.parser.CliSyntax.*;
+import igrad.logic.commands.CommandTestUtil;
 
 /**
  * Utility class that stores static strings/ints used in creating CourseInfo objects

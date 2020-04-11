@@ -6,13 +6,13 @@ import static igrad.logic.commands.course.CourseAchieveCommand.MESSAGE_COURSE_AC
 import static igrad.logic.commands.course.CourseCommandTestUtil.VALID_COURSE_CAP_BCOMPSCI;
 import static igrad.logic.commands.course.CourseCommandTestUtil.VALID_COURSE_NAME_BCOMPSCI;
 import static igrad.logic.commands.course.CourseCommandTestUtil.VALID_COURSE_SEMESTERS_BCOMPSCI;
-import static igrad.logic.commands.course.CourseCommandTestUtil.assertExecuteFailure;
 import static igrad.logic.commands.course.CourseCommandTestUtil.assertExecuteSuccess;
 import static igrad.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import igrad.model.course.exceptions.CapOverflowException;
+import java.util.Optional;
+
 import org.junit.jupiter.api.Test;
 
 import igrad.model.Model;
@@ -22,8 +22,6 @@ import igrad.model.course.CourseInfo;
 import igrad.model.module.Module;
 import igrad.testutil.CourseInfoBuilder;
 import igrad.testutil.ModuleBuilder;
-
-import java.util.Optional;
 
 public class CourseAchieveCommandTest {
     @Test
