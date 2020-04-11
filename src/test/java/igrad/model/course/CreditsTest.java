@@ -1,5 +1,7 @@
 package igrad.model.course;
 
+//@@author nathanaelseen
+
 import static igrad.logic.commands.course.CourseCommandTestUtil.VALID_COURSE_CREDITS_FULFILLED_BCOMPSCI;
 import static igrad.logic.commands.course.CourseCommandTestUtil.VALID_COURSE_CREDITS_FULFILLED_BCOMPSEC;
 import static igrad.logic.commands.course.CourseCommandTestUtil.VALID_COURSE_CREDITS_REQUIRED_BCOMPSCI;
@@ -12,8 +14,6 @@ import org.junit.jupiter.api.Test;
 
 import igrad.model.module.Module;
 import igrad.testutil.ModuleBuilder;
-
-//@@author nathanaelseen
 
 public class CreditsTest {
 

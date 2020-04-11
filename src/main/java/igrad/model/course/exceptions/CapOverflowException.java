@@ -1,5 +1,7 @@
 package igrad.model.course.exceptions;
 
+//@@author teriaiw
+
 /**
  * Signals that the operation will result in overflow of Cap.
  */

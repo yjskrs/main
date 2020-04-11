@@ -1,5 +1,7 @@
 package igrad.model.course;
 
+//@@author nathanaelseen
+
 import static igrad.logic.commands.course.CourseCommandTestUtil.VALID_COURSE_CAP_BCOMPSCI;
 import static igrad.logic.commands.course.CourseCommandTestUtil.VALID_COURSE_CAP_BCOMPSEC;
 import static igrad.logic.commands.course.CourseCommandTestUtil.VALID_COURSE_CREDITS_FULFILLED_BCOMPSCI;
@@ -34,7 +36,6 @@ import igrad.testutil.CourseInfoBuilder;
 import igrad.testutil.ModuleBuilder;
 import igrad.testutil.RequirementBuilder;
 
-//@@author nathanaelseen
 public class CourseInfoTest {
     @Test
     public void constructor_withNoArgs_createsCourseInfoWithAllFieldsOptionalEmpty() {

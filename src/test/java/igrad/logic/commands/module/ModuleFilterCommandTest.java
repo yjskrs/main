@@ -1,5 +1,7 @@
 package igrad.logic.commands.module;
 
+//@@author waynewee
+
 import static igrad.testutil.TypicalModules.getEmptyCourseBook;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -19,8 +21,6 @@ import igrad.model.module.Module;
 import igrad.model.module.Semester;
 import igrad.testutil.ModuleBuilder;
 import igrad.testutil.TypicalModules;
-
-//@@author waynewee
 
 public class ModuleFilterCommandTest {
 

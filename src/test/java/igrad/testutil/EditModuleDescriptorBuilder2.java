@@ -7,6 +7,8 @@ import igrad.model.module.Grade;
 import igrad.model.module.Module;
 import igrad.model.module.Semester;
 
+//@@author nathanaelseen
+
 /**
  * A utility class to help with building EditModuleDescriptor objects (in module done command).
  */

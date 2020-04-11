@@ -14,6 +14,8 @@ import igrad.model.module.Module;
 import igrad.model.module.Semester;
 import igrad.model.requirement.Requirement;
 
+//@@author nathanaelseen
+
 /**
  * Represents all the (additional) details a Course (there's only one of which), might have e.g, course name, cap, etc
  * Guarantees: details are present and not null, field values are validated, immutable.
@@ -212,7 +214,6 @@ public class CourseInfo {
         return Optional.of(new Semesters(totalSemesters, remainingSemesters));
     }
 
-    //@@author teriaiw
 
     /**
      * Computes and returns an Integer representing remaining semesters based on a list of {@Module}s passed in.
@@ -264,7 +265,6 @@ public class CourseInfo {
         return remainingSems;
     }
 
-    //@@author teriaiw
 
     /**
      * Returns an estimated Cap (Double) based on {@code Model} and {@code Cap} object passed in.
@@ -294,6 +294,8 @@ public class CourseInfo {
 
         return Optional.of(new Cap(Double.toString(estimatedCapEachSem)));
     }
+
+    //@@author nathanaelseen
 
     public Optional<Name> getName() {
         return name;

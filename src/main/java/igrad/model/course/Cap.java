@@ -3,6 +3,8 @@ package igrad.model.course;
 import static igrad.commons.util.AppUtil.checkArgument;
 import static java.util.Objects.requireNonNull;
 
+//@@author nathanaelseen
+
 /**
  * Represents a Course Info's cap in the course book.
  * Guarantees: immutable; is valid as declared in {@link #isValidCap(String)}

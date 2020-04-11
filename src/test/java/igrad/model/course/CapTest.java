@@ -1,5 +1,7 @@
 package igrad.model.course;
 
+//@@author nathanaelseen
+
 import static igrad.logic.commands.course.CourseCommandTestUtil.VALID_COURSE_CAP_BCOMPSCI;
 import static igrad.logic.commands.course.CourseCommandTestUtil.VALID_COURSE_CAP_BCOMPSEC;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -10,8 +12,6 @@ import org.junit.jupiter.api.Test;
 
 import igrad.model.module.Module;
 import igrad.testutil.ModuleBuilder;
-
-//@@author nathanaelseen
 
 public class CapTest {
     @Test

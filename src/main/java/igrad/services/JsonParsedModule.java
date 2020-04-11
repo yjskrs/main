@@ -1,5 +1,7 @@
 package igrad.services;
 
+//@@author waynewee
+
 /**
  * A buffer for the Module class which additionally handles the parsing of a JSON response string.
  */
