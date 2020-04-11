@@ -1,5 +1,8 @@
 package igrad.model.course.exceptions;
 
+/**
+ * Signals that the operation will result in an overflow of Semesters.
+ */
 public class SemsOverflowException extends RuntimeException {
     public SemsOverflowException() {
         super("Semester input exceeds total semester count!\n"
