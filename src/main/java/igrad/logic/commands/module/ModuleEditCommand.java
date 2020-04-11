@@ -94,28 +94,15 @@ public class ModuleEditCommand extends ModuleCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Module> lastShownList = model.getFilteredModuleList();
 
-        /*
-         * TODO: For this i still prefer how yijie does it, using streams to query
-         *  the list, it looks much neater, please take a look at RequirementEditCommand.java.
-         *  However, over there I've also recommended her to have a method in the Model interface
-         *  which gets a requirement/module (in your case), by RequirementName/ModuleCode
-         *  ~ nathanael
-         */
-        Optional<Module> moduleToEditOpt = Optional.empty();
-
-        for (Module module : lastShownList) {
-            if (module.getModuleCode().equals(moduleCode)) {
-                moduleToEditOpt = Optional.of(module);
-            }
-        }
+        Optional<Module> moduleToEditOpt = model.getModule(moduleCode);
 
         if (moduleToEditOpt.isEmpty()) {
             throw new CommandException(MESSAGE_MODULE_NON_EXISTENT);
         }
 
         Module moduleToEdit = moduleToEditOpt.get();
+
         Module editedModule = createEditedModule(moduleToEdit, editModuleDescriptor);
 
         if (!moduleToEdit.isSameModule(editedModule) && model.hasModule(editedModule)) {
@@ -123,7 +110,6 @@ public class ModuleEditCommand extends ModuleCommand {
         }
 
         model.setModule(moduleToEdit, editedModule);
-        // model.updateFilteredModuleList(Model.PREDICATE_SHOW_ALL_MODULES);
 
         List<Requirement> requirementsToUpdate = model.getRequirementsWithModule(editedModule);
 
