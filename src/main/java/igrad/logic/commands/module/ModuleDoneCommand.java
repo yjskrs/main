@@ -13,7 +13,6 @@ import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
 import igrad.model.course.CourseInfo;
 import igrad.model.module.Credits;
-import igrad.model.module.Description;
 import igrad.model.module.Grade;
 import igrad.model.module.Module;
 import igrad.model.module.ModuleCode;
@@ -96,8 +95,6 @@ public class ModuleDoneCommand extends ModuleCommand {
 
         // Update the module in our model
         model.setModule(moduleToEdit, editedModule);
-
-
 
         List<Requirement> requirementsToUpdate = model.getRequirementsWithModule(editedModule);
 

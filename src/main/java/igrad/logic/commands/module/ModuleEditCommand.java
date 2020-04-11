@@ -16,7 +16,6 @@ import igrad.logic.commands.CommandUtil;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
 import igrad.model.course.CourseInfo;
-import igrad.model.course.exceptions.SemsOverflowException;
 import igrad.model.module.Credits;
 import igrad.model.module.Description;
 import igrad.model.module.Grade;
@@ -120,16 +119,8 @@ public class ModuleEditCommand extends ModuleCommand {
             throw new CommandException(MESSAGE_DUPLICATE_MODULE);
         }
 
-        try {
-            model.setModule(moduleToEdit, editedModule);
-            // model.updateFilteredModuleList(Model.PREDICATE_SHOW_ALL_MODULES);
-            CommandUtil.retrieveLatestCourseInfo(model.getCourseInfo(), model);
-
-        } catch (SemsOverflowException e) {
-            //reset module to original
-            model.setModule(editedModule, moduleToEdit);
-            throw new CommandException(e.getMessage());
-        }
+        model.setModule(moduleToEdit, editedModule);
+        // model.updateFilteredModuleList(Model.PREDICATE_SHOW_ALL_MODULES);
 
         List<Requirement> requirementsToUpdate = model.getRequirementsWithModule(editedModule);
 
