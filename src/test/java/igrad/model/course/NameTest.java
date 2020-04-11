@@ -1,10 +1,17 @@
 package igrad.model.course;
 
+import static igrad.logic.commands.course.CourseCommandTestUtil.VALID_COURSE_NAME_BCOMPSCI;
+import static igrad.logic.commands.course.CourseCommandTestUtil.VALID_COURSE_NAME_BCOMPSEC;
 import static igrad.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
+
+import igrad.model.module.Module;
+import igrad.testutil.ModuleBuilder;
+
+//@@author nathanaelseen
 
 public class NameTest {
 
@@ -39,5 +46,30 @@ public class NameTest {
         // contains non-alphanumeric characters
         assertTrue(Name.isValidName("Bachelor of Computer Science (with maths minor)"));
         assertTrue(Name.isValidName("计算机科学")); // contains only non-alphaneumeric characters
+    }
+
+    @Test
+    public void equals() {
+        Name nameA;
+        Name nameB;
+
+        // null
+        nameA = new Name(VALID_COURSE_NAME_BCOMPSCI);
+        assertFalse(nameA.equals(null));
+
+        // same name
+        nameA = new Name(VALID_COURSE_NAME_BCOMPSCI);
+        nameB = new Name(VALID_COURSE_NAME_BCOMPSCI);
+        assertTrue(nameA.equals(nameB));
+
+        // different type
+        nameA = new Name(VALID_COURSE_NAME_BCOMPSCI);
+        Module module = new ModuleBuilder().build();
+        assertFalse(nameA.equals(module));
+
+        // different name
+        nameA = new Name(VALID_COURSE_NAME_BCOMPSCI);
+        nameB = new Name(VALID_COURSE_NAME_BCOMPSEC);
+        assertFalse(nameA.equals(nameB));
     }
 }

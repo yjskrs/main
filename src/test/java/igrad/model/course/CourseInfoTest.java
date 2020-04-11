@@ -31,7 +31,7 @@ import igrad.model.requirement.Requirement;
 import igrad.testutil.CourseInfoBuilder;
 import igrad.testutil.ModuleBuilder;
 import igrad.testutil.RequirementBuilder;
-
+//@@author nathanaelseen
 public class CourseInfoTest {
     @Test
     public void constructor_withNoArgs_createsCourseInfoWithAllFieldsOptionalEmpty() {

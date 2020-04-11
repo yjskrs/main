@@ -11,6 +11,8 @@ import org.junit.jupiter.api.Test;
 import igrad.model.module.Module;
 import igrad.testutil.ModuleBuilder;
 
+//@@author nathanaelseen
+
 public class CapTest {
     @Test
     public void constructor_null_throwsNullPointerException() {
