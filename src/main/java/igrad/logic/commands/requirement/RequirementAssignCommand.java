@@ -1,7 +1,7 @@
 package igrad.logic.commands.requirement;
 
 import static igrad.commons.util.CollectionUtil.requireAllNonNull;
-import static igrad.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
+import static igrad.logic.parser.CliSyntax.*;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
@@ -30,7 +30,9 @@ public class RequirementAssignCommand extends RequirementCommand {
         + "by its requirement code. Existing requirement will be overwritten by the input values\n";
 
     public static final String MESSAGE_REQUIREMENT_ASSIGN_USAGE = "Parameter(s): REQUIREMENT_CODE "
-        + PREFIX_MODULE_CODE + "MODULE_CODE ...\n";
+        + PREFIX_MODULE_CODE + "MODULE_CODE ...\n"
+        + "e.g. " + REQUIREMENT_ASSIGN_COMMAND_WORD + " "
+        + "UE1 " + PREFIX_NAME + "CS2030";
 
     public static final String MESSAGE_REQUIREMENT_ASSIGN_HELP = MESSAGE_REQUIREMENT_ASSIGN_DETAILS
         + MESSAGE_REQUIREMENT_ASSIGN_USAGE;

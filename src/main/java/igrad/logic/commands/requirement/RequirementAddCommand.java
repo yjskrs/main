@@ -27,7 +27,7 @@ public class RequirementAddCommand extends RequirementCommand {
     public static final String MESSAGE_USAGE = "Parameter(s): "
         + PREFIX_TITLE + "REQUIREMENT_TITLE "
         + PREFIX_CREDITS + "CREDITS_TO_FULFIL\n"
-        + "Example: " + REQUIREMENT_ADD_COMMAND_WORD + " "
+        + "e.g. " + REQUIREMENT_ADD_COMMAND_WORD + " "
         + PREFIX_TITLE + "Unrestricted Electives "
         + PREFIX_CREDITS + "24\n";
 
