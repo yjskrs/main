@@ -10,7 +10,7 @@ import static igrad.testutil.Assert.assertThrows;
 import org.junit.jupiter.api.Test;
 
 import igrad.logic.commands.module.ModuleDoneCommand.EditModuleDescriptor;
-// import igrad.model.Model;
+import igrad.model.Model;
 // import igrad.model.ModelManager;
 // import igrad.model.module.Module;
 import igrad.model.module.ModuleCode;
@@ -38,6 +38,16 @@ public class ModuleDoneCommandTest {
         EditModuleDescriptor descriptor2 = null;
         assertThrows(NullPointerException.class, (
                     ) -> new ModuleDoneCommand(moduleCode2, descriptor2));
+    }
+
+    @Test
+    public void execute_nullModel_throwsNullPointerException() {
+        Model model = null;
+        ModuleCode moduleCode = new ModuleCode(VALID_MODULE_CODE_CS1101S);
+        EditModuleDescriptor descriptor = new EditModuleDescriptorBuilder2()
+            .build();
+        ModuleDoneCommand cmd = new ModuleDoneCommand(moduleCode, descriptor);
+        assertThrows(NullPointerException.class, () -> cmd.execute(model));
     }
 
     @Test
