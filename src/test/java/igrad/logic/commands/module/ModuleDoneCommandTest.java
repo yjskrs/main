@@ -95,13 +95,14 @@ public class ModuleDoneCommandTest {
     }
 
     @Test
-    public void execute_existentModuleEditGradeOnly_success() {
+    public void execute_existentModule_success() {
         //set-up our Model
         Model model = new ModelManager();
         int creditsCs1101s = 4;
         int creditsCs2040 = 4;
         String gradeCs1101s = "A";
         String gradeCs2040 = "B";
+        String semesterCs1101s = "Y1S1";
         int totalReqCreditsAssigned = creditsCs1101s + creditsCs2040;
         int totalReqCreditsFulfilled = creditsCs2040;
         int totalReqCreditsRequired = 16;
@@ -154,7 +155,7 @@ public class ModuleDoneCommandTest {
 
         //Finally, create the appropriate course info and add it to Model too
         CourseInfo courseInfo = new CourseInfoBuilder()
-            .withCap(3.5)
+            .withCap(courseCap)
             .withCredits(totalCourseCreditsRequired, totalCourseCreditsFulfilled)
             .withSemesters(Integer.toString(totalSemesters))
             .build();
@@ -190,7 +191,7 @@ public class ModuleDoneCommandTest {
             .withRequirementCode(VALID_REQ_CODE_GE)
             .withModules(editedModuleListA)
             .withCreditsThreeParameters(totalReqCreditsRequired,
-                totalReqCreditsAssigned, totalReqCreditsFulfilled + creditsCs1101s)
+                totalReqCreditsAssigned, totalReqCreditsFulfilled + creditsCs1101s) // credits fulfilled should update
             .build();
         expectedModel.addRequirement(editedRequirementA); // Add that requirement to our Model
 
@@ -202,7 +203,7 @@ public class ModuleDoneCommandTest {
             .withRequirementCode(VALID_REQ_CODE_UE)
             .withModules(editedModuleListB)
             .withCreditsThreeParameters(totalReqCreditsRequired,
-                totalReqCreditsAssigned, totalReqCreditsFulfilled + creditsCs1101s)
+                totalReqCreditsAssigned, totalReqCreditsFulfilled + creditsCs1101s) // credits ulfilled should update
             .build();
         expectedModel.addRequirement(editedRequirementB);
 
@@ -220,7 +221,7 @@ public class ModuleDoneCommandTest {
         CourseInfo editedCourseInfo = new CourseInfoBuilder()
             .withCap(4.25)
             .withCredits(totalCourseCreditsRequired, totalCourseCreditsFulfilled
-                    + (2 * creditsCs1101s))
+                    + (2 * creditsCs1101s)) // total credits fulfilled should be updated in both requirements
             .withSemestersTwoParameters(totalSemesters, remainingSemesters)
             .build();
         expectedModel.setCourseInfo(editedCourseInfo);
