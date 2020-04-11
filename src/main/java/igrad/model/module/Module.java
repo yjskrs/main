@@ -20,7 +20,6 @@ public class Module {
     private final ModulePreclusions preclusions;
 
     // A module object can be created without all these fields (which are optional)
-    private final Optional<Description> description;
     private final Optional<Semester> semester;
     private final Optional<Grade> grade;
 
@@ -32,14 +31,12 @@ public class Module {
         ModuleCode moduleCode,
         Credits credits,
         Optional<Semester> semester,
-        Optional<Description> description,
         Optional<Grade> grade
     ) {
         requireAllNonNull(title, moduleCode, credits);
         this.title = title;
         this.moduleCode = moduleCode;
         this.credits = credits;
-        this.description = description;
         this.semester = semester;
         this.grade = grade;
         this.preclusions = new ModulePreclusions();
@@ -57,7 +54,6 @@ public class Module {
         this.title = title;
         this.moduleCode = moduleCode;
         this.credits = credits;
-        this.description = Optional.empty();
         this.semester = Optional.empty();
         this.grade = Optional.empty();
         this.preclusions = preclusions;
@@ -74,10 +70,6 @@ public class Module {
 
     public Credits getCredits() {
         return credits;
-    }
-
-    public Optional<Description> getDescription() {
-        return description;
     }
 
     public Optional<Semester> getSemester() {
@@ -154,7 +146,7 @@ public class Module {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(title, moduleCode, credits, description, semester);
+        return Objects.hash(title, moduleCode, credits, semester);
     }
 
     @Override
@@ -174,7 +166,6 @@ public class Module {
             .append("\nCredits: ")
             .append(credits);
 
-        description.ifPresent(x -> builder.append("\nDescription: ").append(x));
         semester.ifPresent(x -> builder.append("\nSemester: ").append(x));
         grade.ifPresent(x -> builder.append("\nGrade: ").append(x));
 

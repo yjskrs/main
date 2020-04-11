@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 
+// @@author dargohzy
 /**
  * Panel showing the last command input into the system.
  */

@@ -3,7 +3,6 @@ package igrad.testutil;
 import java.util.Optional;
 
 import igrad.model.module.Credits;
-import igrad.model.module.Description;
 import igrad.model.module.Grade;
 import igrad.model.module.Module;
 import igrad.model.module.ModuleCode;
@@ -26,7 +25,6 @@ public class ModuleBuilder {
     private ModuleCode moduleCode;
     private Credits credits;
     private Optional<Semester> semester;
-    private Optional<Description> description;
     private Optional<Grade> grade;
 
     public ModuleBuilder() {
@@ -34,7 +32,6 @@ public class ModuleBuilder {
         moduleCode = new ModuleCode(DEFAULT_MODULE_CODE);
         credits = new Credits(DEFAULT_CREDITS);
         semester = Optional.of(new Semester(DEFAULT_SEMESTER));
-        description = Optional.of(new Description(DEFAULT_DESCRIPTION));
         grade = Optional.of(new Grade(DEFAULT_GRADE));
     }
 
@@ -81,15 +78,6 @@ public class ModuleBuilder {
         return this;
     }
 
-
-    /**
-     * Sets the {@code Semester} of the {@code Module} that we are building.
-     */
-    public ModuleBuilder withDescription(String description) {
-        this.description = Optional.of(new Description(description));
-        return this;
-    }
-
     /**
      * Sets the {@code Grade} of the {@code Module} that we are building.
      */
@@ -104,7 +92,6 @@ public class ModuleBuilder {
     public ModuleBuilder withoutOptionals() {
         this.grade = Optional.empty();
         this.semester = Optional.empty();
-        this.description = Optional.empty();
 
         return this;
     }
@@ -113,7 +100,7 @@ public class ModuleBuilder {
      * Builds a {@code Module} for testing
      */
     public Module build() {
-        return new Module(title, moduleCode, credits, semester, description, grade);
+        return new Module(title, moduleCode, credits, semester, grade);
     }
 
 }

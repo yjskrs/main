@@ -1,0 +1,12 @@
+@startuml
+hide empty description
+
+EmptyState : Initial state of the root directory
+EmptyState : Does not contain the file study_plan.csv
+
+EmptyState -> NonEmptyState: export()
+NonEmptyState: Contains study_plan.csv with latest module data
+
+NonEmptyState -> EmptyState: manual deletion
+NonEmptyState -> NonEmptyState: export()
+@enduml

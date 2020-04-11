@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+import igrad.model.course.exceptions.CapOverflowException;
 import igrad.model.module.Grade;
 import igrad.model.module.Module;
 import igrad.model.module.Semester;
@@ -182,6 +183,8 @@ public class CourseInfo {
         return Optional.of(capResult);
     }
 
+    //@@author teriaiw
+
     /**
      * Computes and returns a {@code Optional<Semesters>} object based on {@code Optional<Semesters>} object and a
      * list of {@code Module}s passed in.
@@ -189,22 +192,28 @@ public class CourseInfo {
     public static Optional<Semesters> computeSemesters(Optional<Semesters> semesters, List<Module> moduleList) {
 
         if (moduleList.isEmpty()) {
-            return Optional.of(new Semesters(semesters.get().toString()));
+            return semesters.map(value -> new Semesters(value.toString()));
         }
 
-        int totalSemester = semesters.get().getTotalSemesters();
-        int remainingSemesters = computeRemainingSemesters(moduleList);
+        if (semesters.isEmpty()) {
+            return Optional.empty();
+        }
 
-        return Optional.of(new Semesters(totalSemester, remainingSemesters));
+        int totalSemesters = semesters.get().getTotalSemesters();
+        int remainingSemesters = computeRemainingSemesters(totalSemesters, moduleList);
+
+        return Optional.of(new Semesters(totalSemesters, remainingSemesters));
     }
+
+    //@@author teriaiw
 
     /**
      * Computes and returns an Integer representing remaining semesters based on a list of {@Module}s passed in.
      */
-    private static int computeRemainingSemesters(List<Module> moduleList) {
+    private static int computeRemainingSemesters(int totalSemesters, List<Module> moduleList) {
         //If module list is empty, no semesters have been done yet
         if (moduleList.isEmpty()) {
-            return 0;
+            return totalSemesters;
         }
 
         int totalNumOfModules = moduleList.size();
@@ -231,15 +240,52 @@ public class CourseInfo {
 
         int year = latestFinishedSem / 10;
         int sem = latestFinishedSem % 10;
-        int totalSems = 0;
+        int totalCompletedSems = 0;
 
         if (year > 0) {
-            totalSems = ((year - 1) * 2);
+            totalCompletedSems = ((year - 1) * 2);
         }
 
-        totalSems += sem;
+        totalCompletedSems += sem;
 
-        return totalSems;
+        int remainingSems = totalSemesters - totalCompletedSems;
+
+        if (!Semesters.isValidRemainingSemesters(remainingSems)) {
+            return 0;
+        }
+
+        return remainingSems;
+    }
+
+    //@@author teriaiw
+
+    /**
+     * Returns an estimated Cap (Double) based on {@code Model} and {@code Cap} object passed in.
+     */
+    public static Optional<Cap> computeEstimatedCap(CourseInfo courseInfo, Cap capToAchieve) {
+        Optional<Semesters> semesters = courseInfo.getSemesters();
+        int totalSemesters = semesters.get().getTotalSemesters();
+        int remainingSemesters = semesters.get().getRemainingSemesters();
+
+        Optional<Cap> current = courseInfo.getCap();
+
+        if (current.isEmpty()) {
+            return Optional.of(capToAchieve);
+        } else {
+            totalSemesters = remainingSemesters + 1;
+        }
+
+        Cap currentCap = courseInfo.getCap().orElse(CAP_ZERO);
+        double capWanted = capToAchieve.value;
+        double capNow = currentCap.value;
+
+        double estimatedCapEachSem = ((capWanted * totalSemesters) - capNow) / remainingSemesters;
+
+        if (!Cap.isValidCap(estimatedCapEachSem)) {
+            throw new CapOverflowException(estimatedCapEachSem);
+        }
+
+        return Optional.of(new Cap(Double.toString(estimatedCapEachSem)));
     }
 
     /**
@@ -259,7 +305,9 @@ public class CourseInfo {
         CourseInfo otherCourseInfo = (CourseInfo) other;
 
         return otherCourseInfo.getName().equals(getName())
-            && otherCourseInfo.getCap().equals(getCap());
+            && otherCourseInfo.getCap().equals(getCap())
+            && otherCourseInfo.getCredits().equals(getCredits())
+            && otherCourseInfo.getSemesters().equals(getSemesters());
     }
 
     @Override

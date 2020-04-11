@@ -1,0 +1,56 @@
+@startuml
+class Module {
+    +isDone()
+    +hasModuleCodeOf()
+}
+class Title {
+    +value: String
+    +isValidTitle()
+}
+class ModuleCode {
+    +value: String
+    +isValidModuleCode()
+}
+class Credits {
+    -creditsRequired: int
+    -creditsFulfilled: int
+    +isValidCredits()
+    +isValidCreditsFulfilled()
+    +isValidCreditsRequired()
+}
+
+class Semester {
+    +value: String
+    +isValidSemester()
+}
+
+class Grade {
+    -SU_GRADE_CAP_MAP: HashMap<String, Optional<Double>>
+    -GRADE_CAP_MAP: Map<String, Optional<Double>>
+    +isValidGrade()
+    +isSuGrade()
+}
+
+class ModulePrerequisites {}
+
+class ModulePreclusions {}
+
+class ModulePrerequisitesOrPreclusions {
+    #moduleCodes: List<ModuleCode>
+    +isEmpty()
+}
+
+Module *-- "1" Title
+Module *-- "1" ModuleCode
+Module *-- "1" Credits
+
+Module 	o-- "1" Semester
+Module 	o-- "1" Grade
+
+ModulePrerequisitesOrPreclusions <|--- ModulePrerequisites
+ModulePrerequisitesOrPreclusions <|--- ModulePreclusions
+
+Module *-- "1" ModulePrerequisites
+Module *-- "1" ModulePreclusions
+
+@enduml

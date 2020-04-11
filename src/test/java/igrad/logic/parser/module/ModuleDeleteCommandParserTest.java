@@ -1,5 +1,17 @@
 package igrad.logic.parser.module;
 
+import static igrad.commons.core.Messages.MESSAGE_SPECIFIER_INVALID;
+import static igrad.commons.core.Messages.MESSAGE_SPECIFIER_NOT_SPECIFIED;
+import static igrad.logic.commands.module.ModuleCommandTestUtil.INVALID_MODULE_CODE_DESC;
+import static igrad.logic.commands.module.ModuleCommandTestUtil.VALID_MODULE_CODE_CS1101S;
+import static igrad.logic.parser.CommandParserTestUtil.assertParseFailure;
+import static igrad.logic.parser.CommandParserTestUtil.assertParseSuccess;
+
+import org.junit.jupiter.api.Test;
+
+import igrad.logic.commands.module.ModuleDeleteCommand;
+import igrad.model.module.ModuleCode;
+
 /**
  * As we are only doing white-box testing, our test cases do not cover path variations
  * outside of the ModuleDeleteCommand code. For example, inputs "1" and "1 abc" take the
@@ -11,17 +23,26 @@ public class ModuleDeleteCommandParserTest {
 
     private ModuleDeleteCommandParser parser = new ModuleDeleteCommandParser();
 
-    /*
     @Test
     public void parse_validArgs_returnsDeleteCommand() {
-        assertParseSuccess(parser,
-            "1", new ModuleDeleteCommand(INDEX_FIRST_MODULE));
-    }*/
+        ModuleCode moduleCode = new ModuleCode(VALID_MODULE_CODE_CS1101S);
 
-    /*
+        assertParseSuccess(parser,
+            VALID_MODULE_CODE_CS1101S, new ModuleDeleteCommand(moduleCode));
+    }
+
     @Test
     public void parse_invalidArgs_throwsParseException() {
-        assertParseFailure(parser,
-            "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT, ModuleDeleteCommand.MESSAGE_USAGE));
-    }*/
+        String errorMessageEmpty = String.format(MESSAGE_SPECIFIER_NOT_SPECIFIED, ModuleCode.MESSAGE_CONSTRAINTS);
+        String errorMessageInvalid = String.format(MESSAGE_SPECIFIER_INVALID, ModuleCode.MESSAGE_CONSTRAINTS);
+
+        // Empty arguments
+        String empty = "";
+
+        // Invalid module code
+        String invalidModuleCode = INVALID_MODULE_CODE_DESC;
+
+        assertParseFailure(parser, empty, errorMessageEmpty);
+        assertParseFailure(parser, invalidModuleCode, errorMessageInvalid);
+    }
 }

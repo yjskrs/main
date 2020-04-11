@@ -1,6 +1,9 @@
 package igrad.logic.parser.module;
 
 import static igrad.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static igrad.logic.commands.module.ModuleCommandTestUtil.VALID_MODULE_CODE_CS1101S;
+import static igrad.logic.commands.module.ModuleEditCommand.MESSAGE_MODULE_NOT_EDITED;
+import static igrad.logic.parser.CommandParserTestUtil.assertParseFailure;
 
 import org.junit.jupiter.api.Test;
 
@@ -14,15 +17,13 @@ public class ModuleEditCommandParserTest {
     private ModuleEditCommandParser parser = new ModuleEditCommandParser();
 
     @Test
-    public void parse_missingParts_failure() {
-        // no index specified
-        //assertParseFailure(parser, CommandTestUtil.VALID_NAME_AMY, MESSAGE_INVALID_FORMAT);
+    public void parse_missingArguments_failure() {
+        String errorMessageNoField = MESSAGE_MODULE_NOT_EDITED;
 
-        // no field specified
-        //assertParseFailure(parser, "1", ModuleEditCommand.MESSAGE_NOT_EDITED);
+        // no field
+        String noField = VALID_MODULE_CODE_CS1101S;
 
-        // no index and no field specified
-        //assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, noField, errorMessageNoField);
     }
 
     @Test
