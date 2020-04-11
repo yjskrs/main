@@ -394,6 +394,26 @@ public class CourseInfoTest {
         assertEquals(expectedCap, computedCap);
     }
 
+    //@@author teriaiw
+
+    @Test
+    public void computeSemesters_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> CourseInfo.computeSemesters(null, null));
+    }
+
+    @Test
+    public void computeSemesters_emptySemesters_returnsOptionalEmpty() {
+        List<Module> emptyModuleList = new ArrayList<Module>();
+        assertEquals(Optional.empty(), CourseInfo.computeSemesters(Optional.empty(), emptyModuleList));
+    }
+
+    @Test
+    public void computeSemesters_emptyModuleList_returnsOriginalSemesters() {
+        List<Module> emptyModuleList = new ArrayList<Module>();
+        Optional<Semesters> semesters = Optional.of(new Semesters("5"));
+        assertEquals(semesters, CourseInfo.computeSemesters(semesters, emptyModuleList));
+    }
+
     @Test
     public void equals() {
         // null
