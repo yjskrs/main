@@ -1,5 +1,7 @@
 package igrad.logic.commands.requirement;
 
+//@@author yjskrs
+
 import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
 import static igrad.logic.parser.CliSyntax.PREFIX_TITLE;
 
@@ -27,11 +29,12 @@ public class RequirementCommandTestUtil extends CommandTestUtil {
     public static final String VALID_REQ_CREDITS_CSF = "32";
     public static final String VALID_REQ_CREDITS_CSBD = "48";
     public static final String VALID_REQ_CREDITS_MS = "16";
+    public static final String VALID_REQ_CREDITS_IP = "12";
+    public static final String VALID_REQ_CREDITS_UE = "32";
+    public static final String VALID_REQ_CREDITS_GE = "20";
     public static final int VALID_REQ_CREDITS_REQUIRED_IP = 12;
     public static final int VALID_REQ_CREDITS_ASSIGNED_IP = 4;
     public static final int VALID_REQ_CREDITS_FULFILLED_IP = 4;
-    public static final String VALID_REQ_CREDITS_UE = "32";
-    public static final String VALID_REQ_CREDITS_GE = "20";
 
     // invalid requirement arguments
     public static final String INVALID_REQ_CODE_DECIMAL = "RE1.0";
@@ -55,4 +58,6 @@ public class RequirementCommandTestUtil extends CommandTestUtil {
     public static final String REQ_CREDITS_DESC_IP = " " + PREFIX_CREDITS + VALID_REQ_CREDITS_REQUIRED_IP;
     public static final String REQ_CREDITS_DESC_UE = " " + PREFIX_CREDITS + VALID_REQ_CREDITS_UE;
     public static final String REQ_CREDITS_DESC_GE = " " + PREFIX_CREDITS + VALID_REQ_CREDITS_GE;
+
+    public static final String INVALID_REQ_CREDITS_DESC = " " + PREFIX_CREDITS + INVALID_REQ_CREDITS_ALPHABET;
 }

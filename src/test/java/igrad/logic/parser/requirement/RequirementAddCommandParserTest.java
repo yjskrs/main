@@ -1,5 +1,7 @@
 package igrad.logic.parser.requirement;
 
+//@@author yjskrs
+
 import static igrad.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static igrad.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static igrad.logic.commands.requirement.RequirementAddCommand.MESSAGE_REQUIREMENT_NOT_ADDED;
@@ -25,7 +27,6 @@ import igrad.model.requirement.Credits;
 import igrad.model.requirement.Requirement;
 import igrad.testutil.RequirementBuilder;
 
-//@@author yjskrs
 
 public class RequirementAddCommandParserTest {
     private RequirementAddCommandParser parser = new RequirementAddCommandParser();

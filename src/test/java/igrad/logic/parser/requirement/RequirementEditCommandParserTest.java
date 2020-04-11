@@ -5,18 +5,24 @@ package igrad.logic.parser.requirement;
 import static igrad.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static igrad.commons.core.Messages.MESSAGE_SPECIFIER_INVALID;
 import static igrad.commons.core.Messages.MESSAGE_SPECIFIER_NOT_SPECIFIED;
+import static igrad.logic.commands.requirement.RequirementCommandTestUtil.INVALID_REQ_CREDITS_DESC;
 import static igrad.logic.commands.requirement.RequirementCommandTestUtil.REQ_CREDITS_DESC_CSF;
+import static igrad.logic.commands.requirement.RequirementCommandTestUtil.REQ_CREDITS_DESC_IP;
 import static igrad.logic.commands.requirement.RequirementCommandTestUtil.REQ_CREDITS_DESC_MS;
 import static igrad.logic.commands.requirement.RequirementCommandTestUtil.REQ_CREDITS_DESC_UE;
 import static igrad.logic.commands.requirement.RequirementCommandTestUtil.REQ_TITLE_DESC_CSF;
+import static igrad.logic.commands.requirement.RequirementCommandTestUtil.REQ_TITLE_DESC_IP;
 import static igrad.logic.commands.requirement.RequirementCommandTestUtil.REQ_TITLE_DESC_MS;
 import static igrad.logic.commands.requirement.RequirementCommandTestUtil.REQ_TITLE_DESC_UE;
 import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_CODE_CSBD;
+import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_CODE_IP;
 import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_CODE_UE;
 import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_CREDITS_CSF;
+import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_CREDITS_IP;
 import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_CREDITS_MS;
 import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_CREDITS_UE;
 import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_TITLE_CSF;
+import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_TITLE_IP;
 import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_TITLE_MS;
 import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_TITLE_UE;
 import static igrad.logic.commands.requirement.RequirementEditCommand.EditRequirementDescriptor;
@@ -137,21 +143,16 @@ public class RequirementEditCommandParserTest {
 
     @Test
     public void parse_invalidValueFollowedByValidValue_success() {
+        RequirementCode code = new RequirementCode(VALID_REQ_CODE_IP);
 
+        String input = VALID_REQ_CODE_IP + INVALID_REQ_CREDITS_DESC + REQ_CREDITS_DESC_IP;
+        EditRequirementDescriptor descriptor = new EditRequirementDescriptorBuilder()
+                                                  .withCredits(VALID_REQ_CREDITS_IP)
+                                                  .build();
+        assertParseSuccess(parser, input, new RequirementEditCommand(code, descriptor));
+
+        input = VALID_REQ_CODE_IP + INVALID_REQ_CREDITS_DESC + REQ_TITLE_DESC_IP + REQ_CREDITS_DESC_IP;
+        descriptor = new EditRequirementDescriptorBuilder(descriptor).withTitle(VALID_REQ_TITLE_IP).build();
+        assertParseSuccess(parser, input, new RequirementEditCommand(code, descriptor));
     }
-    //     // no other valid values specified
-    //     Index targetIndex = INDEX_FIRST_PERSON;
-    //     String userInput = targetIndex.getOneBased() + INVALID_PHONE_DESC + PHONE_DESC_BOB;
-    //     EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withPhone(VALID_PHONE_BOB).build();
-    //     EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
-    //     assertParseSuccess(parser, userInput, expectedCommand);
-    //
-    //     // other valid values specified
-    //     userInput = targetIndex.getOneBased() + EMAIL_DESC_BOB + INVALID_PHONE_DESC + ADDRESS_DESC_BOB
-    //                     + PHONE_DESC_BOB;
-    //     descriptor = new EditPersonDescriptorBuilder().withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
-    //                      .withAddress(VALID_ADDRESS_BOB).build();
-    //     expectedCommand = new EditCommand(targetIndex, descriptor);
-    //     assertParseSuccess(parser, userInput, expectedCommand);
-    // }
 }
