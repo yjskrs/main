@@ -102,6 +102,7 @@ A module is the building block of all other components. Mark your modules as don
 a grade. You can also add optional memos to help you remember why
 you took the module.
 
+//tag::walkthrough[]
 == Walkthrough
 ____
 This segment details a simple tutorial on how to use the application.
@@ -194,6 +195,7 @@ image::../images/user-guide/walkthrough10.1.png[]
 image::../images/user-guide/walkthrough10.2.png[]
 +
 image::../images/user-guide/walkthrough10.3.png[]
+//end::walkthrough[]
 
 == Command List
 ____

@@ -100,7 +100,6 @@ public class ModuleTest {
             new ModuleCode(VALID_MODULE_CODE_CS_1101S),
             new Credits(VALID_CREDITS_4),
             Optional.of(new Semester(VALID_SEMESTER_Y1S1)),
-            Optional.of(new Description("blah")),
             grade);
         assertFalse(newModule.isDone());
     }

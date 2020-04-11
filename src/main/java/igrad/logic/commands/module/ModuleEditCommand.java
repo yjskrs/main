@@ -17,7 +17,6 @@ import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
 import igrad.model.course.CourseInfo;
 import igrad.model.module.Credits;
-import igrad.model.module.Description;
 import igrad.model.module.Grade;
 import igrad.model.module.Module;
 import igrad.model.module.ModuleCode;
@@ -80,8 +79,6 @@ public class ModuleEditCommand extends ModuleCommand {
         ModuleCode updatedModuleCode = editModuleDescriptor.getModuleCode().orElse(moduleToEdit.getModuleCode());
         Credits updatedCredits = editModuleDescriptor.getCredits().orElse(moduleToEdit.getCredits());
         Optional<Semester> updatedSemester = editModuleDescriptor.getSemester().orElse(moduleToEdit.getSemester());
-        Optional<Description> updatedDescription = editModuleDescriptor.getDescription()
-            .orElse(moduleToEdit.getDescription());
 
         /*
          * (Note): Grade cannot be edited here (using the edit command), have to do so using the module done
@@ -89,8 +86,7 @@ public class ModuleEditCommand extends ModuleCommand {
          */
         Optional<Grade> updatedGrade = moduleToEdit.getGrade();
 
-        return new Module(updatedTitle, updatedModuleCode, updatedCredits, updatedSemester,
-            updatedDescription, updatedGrade);
+        return new Module(updatedTitle, updatedModuleCode, updatedCredits, updatedSemester, updatedGrade);
     }
 
     @Override
@@ -198,7 +194,6 @@ public class ModuleEditCommand extends ModuleCommand {
         private Title title;
         private ModuleCode moduleCode;
         private Credits credits;
-        private Optional<Description> description;
         private Optional<Semester> semester;
 
         public EditModuleDescriptor() {
@@ -213,14 +208,13 @@ public class ModuleEditCommand extends ModuleCommand {
             setModuleCode(toCopy.moduleCode);
             setCredits(toCopy.credits);
             setSemester(toCopy.semester);
-            setDescription(toCopy.description);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(title, moduleCode, credits, description, semester);
+            return CollectionUtil.isAnyNonNull(title, moduleCode, credits, semester);
         }
 
         public Optional<Title> getTitle() {
@@ -255,14 +249,6 @@ public class ModuleEditCommand extends ModuleCommand {
             this.semester = semester;
         }
 
-        public Optional<Optional<Description>> getDescription() {
-            return Optional.ofNullable(description);
-        }
-
-        public void setDescription(Optional<Description> description) {
-            this.description = description;
-        }
-
         @Override
         public boolean equals(Object other) {
             // short circuit if same object
@@ -281,7 +267,6 @@ public class ModuleEditCommand extends ModuleCommand {
             return getTitle().equals(e.getTitle())
                 && getModuleCode().equals(e.getModuleCode())
                 && getCredits().equals(e.getCredits())
-                && getDescription().equals(e.getDescription())
                 && getSemester().equals(e.getSemester());
         }
     }

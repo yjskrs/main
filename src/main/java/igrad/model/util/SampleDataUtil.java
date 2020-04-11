@@ -17,7 +17,6 @@ import igrad.model.course.CourseInfo;
 import igrad.model.course.Name;
 import igrad.model.course.Semesters;
 import igrad.model.module.Credits;
-import igrad.model.module.Description;
 import igrad.model.module.Grade;
 import igrad.model.module.Module;
 import igrad.model.module.ModuleCode;
@@ -39,70 +38,60 @@ public class SampleDataUtil {
                     new ModuleCode("CS2103T"),
                     new Credits("4"),
                     Optional.of(new Semester("Y1S1")),
-                    Optional.of(new Description("blah")),
                     Optional.of(new Grade("A+"))));
                 add(new Module(
                     new Title("Introduction to Operating Systems"),
                     new ModuleCode("CS2106"),
                     new Credits("4"),
                     Optional.of(new Semester("Y2S2")),
-                    Optional.of(new Description("blah")),
                     Optional.of(new Grade("A+"))));
                 add(new Module(
                     new Title("Digital Storytelling"),
                     new ModuleCode("NM3230"),
                     new Credits("4"),
                     Optional.of(new Semester("Y2S2")),
-                    Optional.of(new Description("blah")),
                     Optional.of(new Grade("B"))));
                 add(new Module(
                     new Title("Quantitative Reasoning"),
                     new ModuleCode("GER1000"),
                     new Credits("4"),
                     Optional.of(new Semester("Y1S1")),
-                    Optional.of(new Description("blah")),
                     Optional.of(new Grade("B+"))));
                 add(new Module(
                     new Title("Programming Methodology I"),
                     new ModuleCode("CS1101S"),
                     new Credits("4"),
                     Optional.of(new Semester("Y1S1")),
-                    Optional.of(new Description("blah")),
                     Optional.of(new Grade("C+"))));
                 add(new Module(
                     new Title("Discrete Structures"),
                     new ModuleCode("CS1231"),
                     new Credits("4"),
                     Optional.of(new Semester("Y1S1")),
-                    Optional.of(new Description("blah")),
                     Optional.of(new Grade("C+"))));
                 add(new Module(
                     new Title("Linear Algebra I"),
                     new ModuleCode("MA1101R"),
                     new Credits("4"),
                     Optional.of(new Semester("Y1S1")),
-                    Optional.of(new Description("blah")),
                     Optional.of(new Grade("B+"))));
                 add(new Module(
                     new Title("Communicating in the Information Age"),
                     new ModuleCode("ES2660"),
                     new Credits("4"),
                     Optional.of(new Semester("Y2S1")),
-                    Optional.of(new Description("blah")),
                     Optional.of(new Grade("B"))));
                 add(new Module(
                     new Title("Introduction to Human-Computer Interaction Design"),
                     new ModuleCode("NM2213"),
                     new Credits("4"),
                     Optional.of(new Semester("Y2S2")),
-                    Optional.of(new Description("blah")),
                     Optional.of(new Grade("A"))));
                 add(new Module(
                     new Title("Darwin and Evolution"),
                     new ModuleCode("GET1020"),
                     new Credits("4"),
                     Optional.of(new Semester("Y2S1")),
-                    Optional.of(new Description("blah")),
                     Optional.of(new Grade("B"))));
             }
         };

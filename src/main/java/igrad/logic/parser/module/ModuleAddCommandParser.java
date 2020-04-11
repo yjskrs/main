@@ -3,7 +3,6 @@ package igrad.logic.parser.module;
 import static igrad.logic.commands.module.ModuleAddCommand.MESSAGE_MODULE_ADD_HELP;
 import static igrad.logic.commands.module.ModuleAddCommand.MESSAGE_MODULE_NOT_ADDED;
 import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
-import static igrad.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static igrad.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
 import static igrad.logic.parser.CliSyntax.PREFIX_SEMESTER;
 import static igrad.logic.parser.CliSyntax.PREFIX_TITLE;
@@ -18,7 +17,6 @@ import igrad.logic.parser.Parser;
 import igrad.logic.parser.ParserUtil;
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.module.Credits;
-import igrad.model.module.Description;
 import igrad.model.module.Grade;
 import igrad.model.module.Module;
 import igrad.model.module.ModuleCode;
@@ -64,9 +62,6 @@ public class ModuleAddCommandParser extends ModuleCommandParser implements Parse
         ModuleCode moduleCode = parseModuleCode(argMultimap.getValue(PREFIX_MODULE_CODE).get());
         Credits credits = parseCredits(argMultimap.getValue(PREFIX_CREDITS).get());
 
-        Optional<Description> description = argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()
-            ? parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get())
-            : Optional.empty();
         Optional<Semester> semester = argMultimap.getValue(PREFIX_SEMESTER).isPresent()
             ? parseSemester(argMultimap.getValue(PREFIX_SEMESTER).get())
             : Optional.empty();
@@ -77,7 +72,7 @@ public class ModuleAddCommandParser extends ModuleCommandParser implements Parse
          */
         Optional<Grade> grade = Optional.empty();
 
-        Module module = new Module(title, moduleCode, credits, semester, description, grade);
+        Module module = new Module(title, moduleCode, credits, semester, grade);
 
         return new ModuleAddCommand(module);
     }
