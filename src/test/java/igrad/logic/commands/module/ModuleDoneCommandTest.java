@@ -35,10 +35,6 @@ import igrad.testutil.EditModuleDescriptorBuilder2;
 import igrad.testutil.ModuleBuilder;
 import igrad.testutil.RequirementBuilder;
 
-// import static igrad.testutil.TypicalModules.getTypicalModules;
-// import igrad.logic.commands.module.ModuleDoneCommand;
-
-
 /**
  * Contains integration tests (interaction with the Model) and unit tests
  * for ModuleDoneCommand.
