@@ -193,19 +193,19 @@ public class CourseInfo {
             return Optional.of(new Semesters(semesters.get().toString()));
         }
 
-        int totalSemester = semesters.get().getTotalSemesters();
-        int remainingSemesters = computeRemainingSemesters(moduleList);
+        int totalSemesters = semesters.get().getTotalSemesters();
+        int remainingSemesters = computeRemainingSemesters(totalSemesters, moduleList);
 
-        return Optional.of(new Semesters(totalSemester, remainingSemesters));
+        return Optional.of(new Semesters(totalSemesters, remainingSemesters));
     }
 
     /**
      * Computes and returns an Integer representing remaining semesters based on a list of {@Module}s passed in.
      */
-    private static int computeRemainingSemesters(List<Module> moduleList) {
+    private static int computeRemainingSemesters(int totalSemesters, List<Module> moduleList) {
         //If module list is empty, no semesters have been done yet
         if (moduleList.isEmpty()) {
-            return 0;
+            return totalSemesters;
         }
 
         int totalNumOfModules = moduleList.size();
@@ -232,15 +232,17 @@ public class CourseInfo {
 
         int year = latestFinishedSem / 10;
         int sem = latestFinishedSem % 10;
-        int totalSems = 0;
+        int totalCompletedSems = 0;
 
         if (year > 0) {
-            totalSems = ((year - 1) * 2);
+            totalCompletedSems = ((year - 1) * 2);
         }
 
-        totalSems += sem;
+        totalCompletedSems += sem;
 
-        return totalSems;
+        int remainingSems = totalSemesters - totalCompletedSems;
+
+        return remainingSems;
     }
 
     /**
