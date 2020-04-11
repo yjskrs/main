@@ -2,6 +2,7 @@ package igrad.model.course;
 
 import static igrad.commons.util.CollectionUtil.requireAllNonNull;
 import static igrad.model.course.Cap.CAP_ZERO;
+import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 import java.util.Objects;
@@ -55,6 +56,20 @@ public class CourseInfo {
         this.cap = cap;
         this.credits = credits;
         this.semesters = semesters;
+    }
+
+    /**
+     * Creates a course info by making a copy from an existing course info {@code toBeCopied}.
+     *
+     * @param toBeCopied Requirement to copy from.
+     */
+    public CourseInfo(CourseInfo toBeCopied) {
+        requireNonNull(toBeCopied);
+
+        this.name = toBeCopied.getName();
+        this.cap = toBeCopied.getCap();
+        this.credits = toBeCopied.getCredits();
+        this.semesters = toBeCopied.getSemesters();
     }
 
     /**
