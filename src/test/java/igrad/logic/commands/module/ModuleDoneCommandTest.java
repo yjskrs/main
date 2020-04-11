@@ -235,7 +235,6 @@ public class ModuleDoneCommandTest {
         ModuleDoneCommand cmd = new ModuleDoneCommand(moduleCode, descriptor);
         String expectedMessage = String.format(MESSAGE_MODULE_DONE_SUCCESS, editedModule);
 
-        System.out.println("before meee");
         assertExecuteSuccess(cmd, model, expectedModel, expectedMessage);
     }
 

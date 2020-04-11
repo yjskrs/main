@@ -409,7 +409,22 @@ public class CourseInfoTest {
         Module module = new ModuleBuilder().build();
         assertFalse(BCOMPSCI.equals(module));
 
-        // different course info cap and credits
+        CourseInfo otherCourseInfo;
+
+        // different course info; only cap different
+        otherCourseInfo = new CourseInfoBuilder(BCOMPSCI)
+            .withCap(VALID_COURSE_CAP_BCOMPSEC)
+            .build();
+        assertFalse(GENERAL_ELECTIVES.equals(otherCourseInfo));
+
+        // different course info; only credits different
+        otherCourseInfo = new CourseInfoBuilder(BCOMPSCI)
+            .withCredits(VALID_COURSE_CREDITS_REQUIRED_BCOMPSEC,
+                VALID_COURSE_CREDITS_FULFILLED_BCOMPSEC)
+            .build();
+        assertFalse(GENERAL_ELECTIVES.equals(otherCourseInfo));
+
+        // different course info; both cap and credits, different
         CourseInfo other = new CourseInfoBuilder(BCOMPSCI)
             .withCap(VALID_COURSE_CAP_BCOMPSEC)
             .withCredits(VALID_COURSE_CREDITS_REQUIRED_BCOMPSEC,
