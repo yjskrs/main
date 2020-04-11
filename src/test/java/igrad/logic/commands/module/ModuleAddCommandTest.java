@@ -10,17 +10,18 @@ import org.junit.jupiter.api.Test;
 import igrad.logic.commands.CommandResult;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.module.Module;
+import igrad.model.module.ModuleCode;
 import igrad.testutil.ModuleBuilder;
 
 public class ModuleAddCommandTest {
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
+    public void constructor_nullModule_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new ModuleAddCommand(null));
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
+    public void execute_moduleAcceptedByModel_addSuccessful() throws Exception {
         ModuleCommandTestUtil.ModelStubAcceptingModuleAdded modelStub =
             new ModuleCommandTestUtil.ModelStubAcceptingModuleAdded();
         Module validModule = new ModuleBuilder().build();
@@ -33,7 +34,28 @@ public class ModuleAddCommandTest {
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() {
+    public void execute_moduleRejectedByModel_invalidModuleCode() throws Exception {
+
+        ModuleCommandTestUtil.ModelStubAcceptingModuleAdded modelStub =
+            new ModuleCommandTestUtil.ModelStubAcceptingModuleAdded();
+
+        try {
+
+            Module invalidModule = new ModuleBuilder()
+                .withModuleCode("INVALID")
+                .build();
+
+            CommandResult commandResult = new ModuleAddCommand(invalidModule).execute(modelStub);
+
+            commandResult.getFeedbackToUser();
+
+        } catch (IllegalArgumentException iae) {
+            assertEquals(ModuleCode.MESSAGE_CONSTRAINTS, iae.getMessage());
+        }
+    }
+
+    @Test
+    public void execute_duplicateModule_throwsCommandException() {
         Module validModule = new ModuleBuilder().build();
         ModuleAddCommand moduleAddCommand = new ModuleAddCommand(validModule);
         ModuleCommandTestUtil.ModelStub modelStub =

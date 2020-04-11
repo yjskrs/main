@@ -35,7 +35,6 @@ import igrad.model.requirement.Requirement;
 import igrad.model.requirement.RequirementCode;
 import igrad.testutil.EditModuleDescriptorBuilder;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 
 /**
  * Contains helper methods for testing commands.
@@ -376,36 +375,6 @@ public class ModuleCommandTestUtil {
         }
     }
 
-    /**
-     * A Model stub that helps to test filtering
-     */
-    public static class ModelStubAcceptingFilteredModules extends ModelStub {
-
-        final CourseBook courseBook = getCourseBook();
-        final FilteredList<Module> filteredModules = new FilteredList<>(courseBook.getModuleList());
-
-        @Override
-        public void addModule(Module module) {
-            requireNonNull(module);
-            courseBook.addModule(module);
-        }
-
-        @Override
-        public void updateFilteredModuleList(Predicate<Module> predicate) {
-            requireNonNull(predicate);
-            filteredModules.setPredicate(predicate);
-        }
-
-        @Override
-        public CourseBook getCourseBook() {
-            return new CourseBook();
-        }
-
-        @Override
-        public ObservableList<Module> getFilteredModuleList() {
-            return filteredModules;
-        }
-    }
 
     /**
      * A Model stub that always accept the module being added.

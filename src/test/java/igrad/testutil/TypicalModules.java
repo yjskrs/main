@@ -88,6 +88,13 @@ public class TypicalModules {
     }
 
     /**
+     * Returns an empty {@code CourseBook}
+     */
+    public static CourseBook getEmptyCourseBook() {
+        return new CourseBook();
+    }
+
+    /**
      * Returns a {@code Requirement} with all the typical modules.
      */
     public static Requirement getTypicalRequirement() {
