@@ -43,7 +43,7 @@ public class RequirementUnassignCommand extends RequirementCommand {
 
     public static final String MESSAGE_MODULES_NON_EXISTENT_IN_REQUIREMENT =
         "Not all modules exist in the requirement. Please try other modules.";
-    public static final String MESSAGE_SUCCESS = "Modules unassigned under Requirement:\n%1$s";
+    public static final String MESSAGE_REQUIREMENT_UNASSIGN_SUCCESS = "Modules unassigned under Requirement:\n%1$s";
 
     private RequirementCode requirementCode;
     private List<ModuleCode> moduleCodes;
@@ -122,7 +122,7 @@ public class RequirementUnassignCommand extends RequirementCommand {
         model.setCourseInfo(editedCourseInfo);
 
         return new CommandResult(
-            String.format(MESSAGE_SUCCESS, editedRequirement));
+            String.format(MESSAGE_REQUIREMENT_UNASSIGN_SUCCESS, editedRequirement));
     }
 
     @Override

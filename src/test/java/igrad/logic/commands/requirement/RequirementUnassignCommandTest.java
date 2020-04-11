@@ -7,10 +7,10 @@ import static igrad.logic.commands.CommandTestUtil.assertExecuteSuccess;
 import static igrad.logic.commands.module.ModuleCommandTestUtil.VALID_MODULE_CODE_CS1101S;
 import static igrad.logic.commands.module.ModuleCommandTestUtil.VALID_MODULE_CODE_CS2040;
 import static igrad.logic.commands.module.ModuleCommandTestUtil.VALID_MODULE_CODE_CS2100;
-import static igrad.logic.commands.requirement.RequirementAssignCommand.MESSAGE_REQUIREMENT_ASSIGN_SUCCESS;
 import static igrad.logic.commands.requirement.RequirementCommand.MESSAGE_REQUIREMENT_NON_EXISTENT;
 import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_CODE_GE;
 import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_CODE_UE;
+import static igrad.logic.commands.requirement.RequirementUnassignCommand.MESSAGE_REQUIREMENT_UNASSIGN_SUCCESS;
 import static igrad.testutil.Assert.assertThrows;
 import static igrad.testutil.TypicalRequirements.GENERAL_ELECTIVES;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -46,14 +46,14 @@ public class RequirementUnassignCommandTest {
         };
 
         assertThrows(NullPointerException.class, (
-        ) -> new RequirementAssignCommand(requirementCodeA, moduleCodesA));
+        ) -> new RequirementUnassignCommand(requirementCodeA, moduleCodesA));
 
         // moduleCodes null, but RequirementCode not null
         RequirementCode requirementCodeB = new RequirementCode(VALID_REQ_CODE_UE);
         List<ModuleCode> moduleCodesB = null;
 
         assertThrows(NullPointerException.class, (
-        ) -> new RequirementAssignCommand(requirementCodeB, moduleCodesB));
+        ) -> new RequirementUnassignCommand(requirementCodeB, moduleCodesB));
     }
 
     @Test
@@ -68,7 +68,7 @@ public class RequirementUnassignCommandTest {
             }
         };
 
-        RequirementAssignCommand cmd = new RequirementAssignCommand(requirementCode, moduleCodes);
+        RequirementUnassignCommand cmd = new RequirementUnassignCommand(requirementCode, moduleCodes);
         assertThrows(NullPointerException.class, () -> cmd.execute(model));
     }
 
@@ -83,7 +83,7 @@ public class RequirementUnassignCommandTest {
                 add(new ModuleCode(VALID_MODULE_CODE_CS2100));
             }
         };
-        RequirementAssignCommand cmd = new RequirementAssignCommand(requirementCode, moduleCodes);
+        RequirementUnassignCommand cmd = new RequirementUnassignCommand(requirementCode, moduleCodes);
 
         assertExecuteFailure(cmd, model, MESSAGE_REQUIREMENT_NON_EXISTENT);
     }
@@ -103,7 +103,7 @@ public class RequirementUnassignCommandTest {
             }
         };
 
-        RequirementAssignCommand cmd = new RequirementAssignCommand(requirementCode, moduleCodes);
+        RequirementUnassignCommand cmd = new RequirementUnassignCommand(requirementCode, moduleCodes);
 
         assertExecuteFailure(cmd, model, MESSAGE_REQUIREMENT_NON_EXISTENT);
     }
@@ -117,10 +117,10 @@ public class RequirementUnassignCommandTest {
         String gradeCs1101s = "A";
         String gradeCs2040 = "B";
         String semesterCs1101s = "Y1S1";
-        int totalReqCreditsAssignedReqA = creditsCs2040;
+        int totalReqCreditsAssignedReqA = creditsCs2040 + creditsCs2040;
         int totalReqCreditsAssignedReqB = creditsCs1101s + creditsCs2040;
         int totalReqCreditsRequired = 16;
-        int totalReqCreditsFulfilledReqA = creditsCs2040;
+        int totalReqCreditsFulfilledReqA = creditsCs2040 + creditsCs2040;
         int totalReqCreditsFulfilledReqB = creditsCs1101s + creditsCs2040;
         int totalCourseCreditsRequired = (totalReqCreditsRequired * 2);
         int totalCourseCreditsFulfilled = totalReqCreditsFulfilledReqA
@@ -129,7 +129,7 @@ public class RequirementUnassignCommandTest {
         int totalSemesters = 5;
 
         // Create a module with grade 'A'
-        Module moduleToAssign = new ModuleBuilder()
+        Module moduleToUnassign = new ModuleBuilder()
             .withModuleCode(VALID_MODULE_CODE_CS1101S)
             .withCredits(Integer.toString(creditsCs1101s))
             .withoutOptionals()
@@ -144,11 +144,12 @@ public class RequirementUnassignCommandTest {
             .withGrade(gradeCs2040)
             .build();
 
-        model.addModule(moduleToAssign);
+        model.addModule(moduleToUnassign);
         model.addModule(dummyModule);
 
-        // Create a new requirement and add the dummy module inside
+        // Create a new requirement and add these two modules inside
         List<Module> moduleListA = new ArrayList<>();
+        moduleListA.add(moduleToUnassign);
         moduleListA.add(dummyModule); // assign the dummy module inside
         Requirement requirementA = new RequirementBuilder()
             .withRequirementCode(VALID_REQ_CODE_GE)
@@ -160,7 +161,7 @@ public class RequirementUnassignCommandTest {
 
         // Create another requirement with the two modules already assigned
         List<Module> moduleListB = new ArrayList<>();
-        moduleListB.add(moduleToAssign);
+        moduleListB.add(moduleToUnassign);
         moduleListB.add(dummyModule); // add another dummy module inside
         Requirement requirementB = new RequirementBuilder()
             .withRequirementCode(VALID_REQ_CODE_UE)
@@ -182,7 +183,7 @@ public class RequirementUnassignCommandTest {
         Model expectedModel = new ModelManager();
 
         // Create a module with grade 'A'
-        Module moduleToAssignCopy = new ModuleBuilder()
+        Module moduleToUnassignCopy = new ModuleBuilder()
             .withModuleCode(VALID_MODULE_CODE_CS1101S)
             .withCredits(Integer.toString(creditsCs1101s))
             .withoutOptionals()
@@ -197,25 +198,24 @@ public class RequirementUnassignCommandTest {
             .withGrade(gradeCs2040)
             .build();
 
-        expectedModel.addModule(moduleToAssignCopy);
+        expectedModel.addModule(moduleToUnassignCopy);
         expectedModel.addModule(dummyModuleCopy);
 
-        // Create an 'updated' requirement and assign both modules inside
+        // Create an 'updated' requirement and assign only the dummy module inside
         List<Module> editedModuleListA = new ArrayList<>();
         editedModuleListA.add(dummyModuleCopy);
-        editedModuleListA.add(moduleToAssignCopy);
         Requirement editedRequirementA = new RequirementBuilder()
             .withRequirementCode(VALID_REQ_CODE_GE)
             .withModules(editedModuleListA)
             .withCreditsThreeParameters(totalReqCreditsRequired,
-                totalReqCreditsAssignedReqA + creditsCs1101s, // total credits assigned should be updated
-                totalReqCreditsFulfilledReqA + creditsCs1101s) // total credits fulfilled should be updated
+                totalReqCreditsAssignedReqA - creditsCs1101s, // total credits assigned should be updated
+                totalReqCreditsFulfilledReqA - creditsCs1101s) // total credits fulfilled should be updated
             .build();
         expectedModel.addRequirement(editedRequirementA); // Add that requirement to our Model
 
         // Create another requirement with that module inside too
         List<Module> editedModuleListB = new ArrayList<>();
-        editedModuleListB.add(moduleToAssignCopy);
+        editedModuleListB.add(moduleToUnassignCopy);
         editedModuleListB.add(dummyModuleCopy); // add another dummy module inside
         Requirement editedRequirementB = new RequirementBuilder()
             .withRequirementCode(VALID_REQ_CODE_UE)
@@ -231,7 +231,7 @@ public class RequirementUnassignCommandTest {
          * currently the implementation is slightly buggy
          */
         List<Module> tempList = new ArrayList<>();
-        tempList.add(moduleToAssignCopy);
+        tempList.add(moduleToUnassignCopy);
         tempList.add(dummyModuleCopy);
         int remainingSemesters = CourseInfo.computeSemesters(
                 courseInfo.getSemesters(), tempList).get().getRemainingSemesters();
@@ -239,23 +239,22 @@ public class RequirementUnassignCommandTest {
         CourseInfo editedCourseInfo = new CourseInfoBuilder()
             .withCap(courseCap) // total cap no change
             .withCredits(totalCourseCreditsRequired, totalCourseCreditsFulfilled
-                    + (creditsCs1101s)) // total credits required should be updated
+                    - (creditsCs1101s)) // total credits required should be updated
             .withSemestersTwoParameters(totalSemesters, remainingSemesters)
             .build();
         expectedModel.setCourseInfo(editedCourseInfo);
 
-        // Now, specify 2 modules to assign to that requirement (one already assigned) and test it!
+        // Now, specify 1 modules to unassign to that requirement (two currently assigned to it) and test it!
         RequirementCode requirementCode = new RequirementCode(VALID_REQ_CODE_GE);
         List<ModuleCode> moduleCodes = new ArrayList<ModuleCode>() {
             {
-                add(new ModuleCode(VALID_MODULE_CODE_CS2040));
                 add(new ModuleCode(VALID_MODULE_CODE_CS1101S));
             }
         };
 
-        String expectedMessage = String.format(MESSAGE_REQUIREMENT_ASSIGN_SUCCESS, requirementA);
+        String expectedMessage = String.format(MESSAGE_REQUIREMENT_UNASSIGN_SUCCESS, requirementA);
 
-        RequirementAssignCommand cmd = new RequirementAssignCommand(requirementCode, moduleCodes);
+        RequirementUnassignCommand cmd = new RequirementUnassignCommand(requirementCode, moduleCodes);
 
         assertExecuteSuccess(cmd, model, expectedModel, expectedMessage);
     }
@@ -271,40 +270,40 @@ public class RequirementUnassignCommandTest {
             }
         };
 
-        final RequirementAssignCommand requirementAssignCommand = new RequirementAssignCommand(
+        final RequirementUnassignCommand requirementAssignCommand = new RequirementUnassignCommand(
                 requirementCode, moduleCodes);
 
         // null
         assertFalse(requirementAssignCommand.equals(null));
 
-        // same requirement assign command
+        // same requirement unassign command
         assertTrue(requirementAssignCommand.equals(requirementAssignCommand));
 
         // different type
         Module module = new ModuleBuilder().build();
         assertFalse(requirementAssignCommand.equals(module));
 
-        RequirementAssignCommand otherRequirementAssignCommand;
+        RequirementUnassignCommand otherRequirementUnassignCommand;
         RequirementCode otherRequirementCode;
         List<ModuleCode> otherModuleCodes;
 
-        // different requirement assign command; only requirement code different
+        // different requirement unassign command; only requirement code different
         otherRequirementCode = new RequirementCode(VALID_REQ_CODE_GE);
-        otherRequirementAssignCommand = new RequirementAssignCommand(otherRequirementCode, moduleCodes);
-        assertFalse(requirementAssignCommand.equals(otherRequirementAssignCommand));
+        otherRequirementUnassignCommand = new RequirementUnassignCommand(otherRequirementCode, moduleCodes);
+        assertFalse(requirementAssignCommand.equals(otherRequirementUnassignCommand));
 
-        // different requirement assign command; only module codes different
+        // different requirement unassign command; only module codes different
         otherModuleCodes = new ArrayList<ModuleCode>() {
             {
                 add(new ModuleCode(VALID_MODULE_CODE_CS1101S));
                 add(new ModuleCode(VALID_MODULE_CODE_CS2040));
             }
         };
-        otherRequirementAssignCommand = new RequirementAssignCommand(requirementCode,
+        otherRequirementUnassignCommand = new RequirementUnassignCommand(requirementCode,
                 otherModuleCodes);
-        assertFalse(requirementAssignCommand.equals(otherRequirementAssignCommand));
+        assertFalse(requirementAssignCommand.equals(otherRequirementUnassignCommand));
 
-        // different requirement assign command; both requirement code and module codes, different
+        // different requirement unassign command; both requirement code and module codes, different
         otherRequirementCode = new RequirementCode(VALID_REQ_CODE_GE);
         otherModuleCodes = new ArrayList<ModuleCode>() {
             {
@@ -312,7 +311,7 @@ public class RequirementUnassignCommandTest {
                 add(new ModuleCode(VALID_MODULE_CODE_CS2040));
             }
         };
-        otherRequirementAssignCommand = new RequirementAssignCommand(otherRequirementCode, otherModuleCodes);
-        assertFalse(requirementAssignCommand.equals(otherRequirementAssignCommand));
+        otherRequirementUnassignCommand = new RequirementUnassignCommand(otherRequirementCode, otherModuleCodes);
+        assertFalse(requirementAssignCommand.equals(otherRequirementUnassignCommand));
     }
 }
