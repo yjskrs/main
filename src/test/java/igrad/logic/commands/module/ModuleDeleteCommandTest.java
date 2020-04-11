@@ -1,9 +1,11 @@
 package igrad.logic.commands.module;
 
-import static igrad.logic.commands.module.ModuleCommandTestUtil.VALID_CREDITS_4;
+//@@author waynewee
+
 import static igrad.logic.commands.module.ModuleCommandTestUtil.VALID_MODULE_CODE_CS2040;
 import static igrad.logic.commands.module.ModuleCommandTestUtil.VALID_MODULE_CODE_CS2103T;
-import static igrad.logic.commands.module.ModuleCommandTestUtil.VALID_TITLE_CS2040;
+import static igrad.logic.commands.module.ModuleCommandTestUtil.VALID_MODULE_CREDITS_4;
+import static igrad.logic.commands.module.ModuleCommandTestUtil.VALID_MODULE_TITLE_CS2040;
 import static igrad.logic.commands.module.ModuleEditCommand.MESSAGE_MODULE_NON_EXISTENT;
 import static igrad.testutil.TypicalModules.getEmptyCourseBook;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -30,22 +32,22 @@ public class ModuleDeleteCommandTest {
 
     private Module cs2040 = new ModuleBuilder()
             .withModuleCode(VALID_MODULE_CODE_CS2040)
-            .withTitle(VALID_TITLE_CS2040)
-            .withCredits(VALID_CREDITS_4)
+            .withTitle(VALID_MODULE_TITLE_CS2040)
+            .withCredits(VALID_MODULE_CREDITS_4)
             .withoutOptionals()
             .build();
 
     private Module cs2103t = new ModuleBuilder()
         .withModuleCode(ModuleCommandTestUtil.VALID_MODULE_CODE_CS2103T)
-        .withCredits(ModuleCommandTestUtil.VALID_CREDITS_4)
-        .withTitle(ModuleCommandTestUtil.VALID_TITLE_CS2103T)
+        .withCredits(ModuleCommandTestUtil.VALID_MODULE_CREDITS_4)
+        .withTitle(ModuleCommandTestUtil.VALID_MODULE_TITLE_CS2103T)
         .withoutOptionals()
         .build();
 
     private Module cs2101 = new ModuleBuilder()
         .withModuleCode(ModuleCommandTestUtil.VALID_MODULE_CODE_CS2101)
-        .withCredits(ModuleCommandTestUtil.VALID_CREDITS_4)
-        .withTitle(ModuleCommandTestUtil.VALID_TITLE_CS2101)
+        .withCredits(ModuleCommandTestUtil.VALID_MODULE_CREDITS_4)
+        .withTitle(ModuleCommandTestUtil.VALID_MODULE_TITLE_CS2101)
         .withoutOptionals()
         .build();
 

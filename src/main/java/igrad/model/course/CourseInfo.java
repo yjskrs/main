@@ -1,6 +1,8 @@
 package igrad.model.course;
 
+import static igrad.commons.util.CollectionUtil.requireAllNonNull;
 import static igrad.model.course.Cap.CAP_ZERO;
+import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 import java.util.Objects;
@@ -11,6 +13,8 @@ import igrad.model.module.Grade;
 import igrad.model.module.Module;
 import igrad.model.module.Semester;
 import igrad.model.requirement.Requirement;
+
+//@@author nathanaelseen
 
 /**
  * Represents all the (additional) details a Course (there's only one of which), might have e.g, course name, cap, etc
@@ -49,26 +53,26 @@ public class CourseInfo {
      */
     public CourseInfo(Optional<Name> name, Optional<Cap> cap, Optional<Credits> credits,
                       Optional<Semesters> semesters) {
+        requireAllNonNull(name, cap, credits, semesters);
+
         this.name = name;
         this.cap = cap;
         this.credits = credits;
         this.semesters = semesters;
     }
 
-    public Optional<Name> getName() {
-        return name;
-    }
+    /**
+     * Creates a course info by making a copy from an existing course info {@code toBeCopied}.
+     *
+     * @param toBeCopied Requirement to copy from.
+     */
+    public CourseInfo(CourseInfo toBeCopied) {
+        requireNonNull(toBeCopied);
 
-    public Optional<Cap> getCap() {
-        return cap;
-    }
-
-    public Optional<Credits> getCredits() {
-        return credits;
-    }
-
-    public Optional<Semesters> getSemesters() {
-        return semesters;
+        this.name = toBeCopied.getName();
+        this.cap = toBeCopied.getCap();
+        this.credits = toBeCopied.getCredits();
+        this.semesters = toBeCopied.getSemesters();
     }
 
     /**
@@ -77,6 +81,8 @@ public class CourseInfo {
      * {@code requirementList} passed in.
      */
     public static Optional<Credits> computeCredits(List<Requirement> requirementList) {
+        requireAllNonNull(requirementList);
+
         // If the requirementList is empty, there's no talk about this, Credits would be Optional.empty
         if (requirementList.isEmpty()) {
             return Optional.empty();
@@ -123,9 +129,11 @@ public class CourseInfo {
      * in {@code requirementList} and list of {@code Module}s in {@code moduleList} passed in.
      */
     public static Optional<Cap> computeCap(List<Module> moduleList, List<Requirement> requirementList) {
+        requireAllNonNull(moduleList, requirementList);
+
         /*
          * If the moduleList or requirementList is empty, there's no talk about this, Cap would be
-         * Optional.empty
+         * Optional.empty, because there is (literally) nothing by which cap could be computed upon
          */
         if (moduleList.isEmpty() || requirementList.isEmpty()) {
             return Optional.empty();
@@ -177,7 +185,7 @@ public class CourseInfo {
         if (totalModuleCredits == 0) {
             capResult = CAP_ZERO;
         } else {
-            capResult = new Cap(Double.toString(totalCredits / totalModuleCredits));
+            capResult = new Cap(totalCredits / totalModuleCredits);
         }
 
         return Optional.of(capResult);
@@ -190,6 +198,7 @@ public class CourseInfo {
      * list of {@code Module}s passed in.
      */
     public static Optional<Semesters> computeSemesters(Optional<Semesters> semesters, List<Module> moduleList) {
+        requireAllNonNull(semesters, moduleList);
 
         if (moduleList.isEmpty()) {
             return semesters.map(value -> new Semesters(value.toString()));
@@ -205,7 +214,6 @@ public class CourseInfo {
         return Optional.of(new Semesters(totalSemesters, remainingSemesters));
     }
 
-    //@@author teriaiw
 
     /**
      * Computes and returns an Integer representing remaining semesters based on a list of {@Module}s passed in.
@@ -257,7 +265,6 @@ public class CourseInfo {
         return remainingSems;
     }
 
-    //@@author teriaiw
 
     /**
      * Returns an estimated Cap (Double) based on {@code Model} and {@code Cap} object passed in.
@@ -288,6 +295,24 @@ public class CourseInfo {
         return Optional.of(new Cap(Double.toString(estimatedCapEachSem)));
     }
 
+    //@@author nathanaelseen
+
+    public Optional<Name> getName() {
+        return name;
+    }
+
+    public Optional<Cap> getCap() {
+        return cap;
+    }
+
+    public Optional<Credits> getCredits() {
+        return credits;
+    }
+
+    public Optional<Semesters> getSemesters() {
+        return semesters;
+    }
+
     /**
      * Returns true if both modules have the same identity and data fields.
      * This defines a stronger notion of equality between two modules.
@@ -304,10 +329,10 @@ public class CourseInfo {
 
         CourseInfo otherCourseInfo = (CourseInfo) other;
 
-        return otherCourseInfo.getName().equals(getName())
+        return (otherCourseInfo.getName().equals(getName())
             && otherCourseInfo.getCap().equals(getCap())
             && otherCourseInfo.getCredits().equals(getCredits())
-            && otherCourseInfo.getSemesters().equals(getSemesters());
+            && otherCourseInfo.getSemesters().equals(getSemesters()));
     }
 
     @Override

@@ -25,11 +25,7 @@ public class Avatar {
 
     private String name;
 
-    /*
-     * Model classes; Module.java, CourseInfo.java should not have such no-arg constructor, by convention.
-     * This is an exception here because the Model class (Avatar.java) needs to be saved (serialised)
-     * to a file. Hence the serialising library requires such constructor
-     */
+    // This empty constructor is only required and used for Json serialising during user prefs
     public Avatar() {
     }
 

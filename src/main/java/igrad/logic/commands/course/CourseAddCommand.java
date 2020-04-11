@@ -7,9 +7,10 @@ import static java.util.Objects.requireNonNull;
 
 import igrad.logic.commands.CommandResult;
 import igrad.logic.commands.exceptions.CommandException;
-import igrad.logic.commands.module.ModuleAddCommand;
 import igrad.model.Model;
 import igrad.model.course.CourseInfo;
+
+//@@author nathanaelseen
 
 /**
  * Adds a course to the application (there can only be one such course).
@@ -28,6 +29,8 @@ public class CourseAddCommand extends CourseCommand {
     public static final String MESSAGE_COURSE_ADD_HELP = MESSAGE_COURSE_ADD_DETAILS + MESSAGE_COURSE_ADD_USAGE;
 
     public static final String MESSAGE_COURSE_ADD_SUCCESS = "New course added: %1$s";
+    public static final String MESSAGE_COURSE_NOT_ADDED = "All fields to be filled, course add n/COURSE_NAME "
+        + "s/SEMESTERS";
     private final CourseInfo toAdd;
 
     /**
@@ -55,13 +58,13 @@ public class CourseAddCommand extends CourseCommand {
 
         model.addCourseInfo(toAdd);
         return new CommandResult(String.format(MESSAGE_COURSE_ADD_SUCCESS, toAdd),
-                false, false, true);
+            false, false, true);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof ModuleAddCommand // instanceof handles nulls
+            || (other instanceof CourseAddCommand // instanceof handles nulls
             && toAdd.equals(((CourseAddCommand) other).toAdd));
     }
 }

@@ -2,6 +2,8 @@ package igrad.logic.commands.module;
 
 import igrad.logic.commands.Command;
 
+//@@author nathanaelseen
+
 /**
  * Represents a generic module command.
  */

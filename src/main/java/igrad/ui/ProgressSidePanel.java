@@ -1,5 +1,7 @@
 package igrad.ui;
 
+import static igrad.model.course.Cap.MAX_CAP;
+
 import java.util.Optional;
 
 import igrad.model.Model;
@@ -64,16 +66,13 @@ public class ProgressSidePanel extends UiPart<Region> {
         Optional<Cap> cap = courseInfo.getCap();
         Optional<Semesters> semesters = courseInfo.getSemesters();
 
-        if (semesters.isPresent()) {
-            int remainingSemesters = semesters.get().getRemainingSemesters();
-            semesterLabel.setText(String.valueOf(remainingSemesters));
-        }
 
         courseName.ifPresentOrElse(
             name -> courseNameLabel.setText(name.value), () -> courseNameLabel
                 .setText("Your Course."));
 
         String creditsCountString = "";
+        String semestersCountString = "";
 
         if (credits.isPresent()) {
             progressBarPercentage = (double) credits.get().getCreditsFulfilled()
@@ -88,11 +87,19 @@ public class ProgressSidePanel extends UiPart<Region> {
             creditsCountString = "- MCs";
         }
 
+        if (semesters.isPresent()) {
+            int remainingSemesters = semesters.get().getRemainingSemesters();
+            semestersCountString = String.valueOf(remainingSemesters);
+        } else {
+            semestersCountString = "-";
+        }
+
         cap.ifPresentOrElse(
-            x -> currentCapLabel.setText(x + "/5.00"), () -> currentCapLabel
+            x -> currentCapLabel.setText(x + "/" + MAX_CAP), () -> currentCapLabel
                 .setText("-"));
 
         creditsCount.setText(creditsCountString);
+        semesterLabel.setText(semestersCountString);
     }
 
     /**

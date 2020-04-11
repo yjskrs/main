@@ -49,8 +49,8 @@ public class UniqueModuleListTest {
     public void contains_moduleWithSameIdentityFieldsInList_returnsTrue() {
         uniqueModuleList.add(cs1101s);
         Module editedModule = new ModuleBuilder()
-                .withModuleCode(VALID_MODULE_CODE_CS_1101S)
-                .build();
+            .withModuleCode(VALID_MODULE_CODE_CS_1101S)
+            .build();
         assertTrue(uniqueModuleList.contains(editedModule));
     }
 
@@ -74,7 +74,7 @@ public class UniqueModuleListTest {
     @Test
     public void setModule_nullEditedModule_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueModuleList
-                .setModule(cs1101s, null));
+            .setModule(cs1101s, null));
     }
 
     @Test
@@ -119,9 +119,9 @@ public class UniqueModuleListTest {
     public void setPerson_editedPersonHasNonUniqueIdentity_throwsDuplicatePersonException() {
         uniqueModuleList.add(cs1101s);
         Module newModule = new ModuleBuilder()
-                .withTitle(VALID_TITLE_CS_2100)
-                .withModuleCode(VALID_MODULE_CODE_CS_1101S)
-                .build();
+            .withTitle(VALID_TITLE_CS_2100)
+            .withModuleCode(VALID_MODULE_CODE_CS_1101S)
+            .build();
         assertThrows(DuplicateModuleException.class, () -> uniqueModuleList.add(newModule));
     }
 

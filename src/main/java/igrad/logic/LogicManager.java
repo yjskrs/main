@@ -93,8 +93,8 @@ public class LogicManager implements Logic {
          * before a course has been set/added.
          */
         if (!model.isCourseNameSet()
-                && !(command instanceof CourseAddCommand || command instanceof UndoCommand
-                     || command instanceof HelpCommand)) {
+            && !(command instanceof CourseAddCommand || command instanceof UndoCommand
+            || command instanceof HelpCommand)) {
             throw new CommandException(MESSAGE_COURSE_NOT_SET);
         }
 

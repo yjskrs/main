@@ -20,6 +20,8 @@ import igrad.model.module.Semester;
 import igrad.model.module.Title;
 import igrad.model.requirement.Requirement;
 
+//@@author nathanaelseen
+
 /**
  * Marks the module as done, with a specified grade.
  */
@@ -155,20 +157,10 @@ public class ModuleDoneCommand extends ModuleCommand {
 
     @Override
     public boolean equals(Object other) {
-        // short circuit if same object
-        if (other == this) {
-            return true;
-        }
-
-        // instanceof handles nulls
-        if (!(other instanceof ModuleDoneCommand)) {
-            return false;
-        }
-
-        // state check
-        ModuleDoneCommand e = (ModuleDoneCommand) other;
-        return moduleCode.equals(e.moduleCode)
-                && editModuleGradeDescriptor.equals(e.editModuleGradeDescriptor);
+        return other == this
+            || (other instanceof ModuleDoneCommand
+            && ((ModuleDoneCommand) other).editModuleGradeDescriptor.equals(editModuleGradeDescriptor)
+            && ((ModuleDoneCommand) other).moduleCode.equals(moduleCode));
     }
 
     /**
@@ -220,7 +212,7 @@ public class ModuleDoneCommand extends ModuleCommand {
             }
 
             // state check
-            ModuleDoneCommand.EditModuleDescriptor e = (EditModuleDescriptor) other;
+            EditModuleDescriptor e = (EditModuleDescriptor) other;
 
             return getGrade().equals(e.getGrade())
                 && getSemester().equals(e.getSemester());

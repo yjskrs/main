@@ -2,6 +2,8 @@ package igrad.logic.commands.course;
 
 import igrad.logic.commands.Command;
 
+//@@author nathanaelseen
+
 /**
  * Represents a generic course command.
  */

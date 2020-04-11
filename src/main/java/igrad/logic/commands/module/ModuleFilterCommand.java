@@ -16,6 +16,7 @@ import igrad.model.module.Grade;
 import igrad.model.module.Module;
 import igrad.model.module.Semester;
 
+//@@author waynewee
 /**
  * Filters the module list based on the following parameters:
  * {@code semester, credits, grade}

@@ -1,5 +1,7 @@
 package igrad.storage;
 
+//@@author waynewee
+
 import java.util.Optional;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -25,6 +27,7 @@ class JsonAdaptedModule {
     private final String credits;
     private final String semester;
     private final String grade;
+
     /**
      * Constructs a {@code JsonAdaptedModule} with the given module details.
      */

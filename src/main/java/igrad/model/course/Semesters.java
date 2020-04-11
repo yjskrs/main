@@ -3,7 +3,7 @@ package igrad.model.course;
 import static igrad.commons.util.AppUtil.checkArgument;
 import static java.util.Objects.requireNonNull;
 
-//@@ teriaiw
+//@@author teriaiw
 
 /**
  * Represents a {@code CourseInfo}'s semester information in the course book.
@@ -38,7 +38,7 @@ public class Semesters {
      * Constructs a {@code Semesters} with {@code totalSemesters} total semesters and
      * {@code remainingSemesters} remaining semesters.
      *
-     * @param totalSemesters  A valid semester count (integer).
+     * @param totalSemesters     A valid semester count (integer).
      * @param remainingSemesters A valid semester count (integer).
      */
     public Semesters(int totalSemesters, int remainingSemesters) {
@@ -89,9 +89,9 @@ public class Semesters {
     @Override
     public boolean equals(Object other) {
         return other == this // return true if same object, else check
-                || (other instanceof Semesters
-                && totalSemesters == ((Semesters) other).totalSemesters
-                && remainingSemesters == ((Semesters) other).remainingSemesters);
+            || (other instanceof Semesters
+            && totalSemesters == ((Semesters) other).totalSemesters
+            && remainingSemesters == ((Semesters) other).remainingSemesters);
     }
 
     @Override

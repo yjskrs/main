@@ -13,6 +13,8 @@ import igrad.model.module.Module;
 import igrad.model.module.ModuleCode;
 import igrad.testutil.ModuleBuilder;
 
+//@@author waynewee
+
 public class ModuleAddCommandTest {
 
     @Test

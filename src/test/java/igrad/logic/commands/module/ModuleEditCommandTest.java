@@ -1,14 +1,16 @@
 package igrad.logic.commands.module;
 
-import static igrad.logic.commands.module.ModuleCommandTestUtil.VALID_CREDITS_4;
-import static igrad.logic.commands.module.ModuleCommandTestUtil.VALID_CREDITS_6;
-import static igrad.logic.commands.module.ModuleCommandTestUtil.VALID_GRADE_A;
+//@@author waynewee
+
 import static igrad.logic.commands.module.ModuleCommandTestUtil.VALID_MODULE_CODE_CS2040;
 import static igrad.logic.commands.module.ModuleCommandTestUtil.VALID_MODULE_CODE_CS2103T;
-import static igrad.logic.commands.module.ModuleCommandTestUtil.VALID_SEMESTER_Y1S1;
-import static igrad.logic.commands.module.ModuleCommandTestUtil.VALID_SEMESTER_Y2S2;
-import static igrad.logic.commands.module.ModuleCommandTestUtil.VALID_TITLE_CS2040;
-import static igrad.logic.commands.module.ModuleCommandTestUtil.VALID_TITLE_CS2100;
+import static igrad.logic.commands.module.ModuleCommandTestUtil.VALID_MODULE_CREDITS_4;
+import static igrad.logic.commands.module.ModuleCommandTestUtil.VALID_MODULE_CREDITS_6;
+import static igrad.logic.commands.module.ModuleCommandTestUtil.VALID_MODULE_GRADE_A;
+import static igrad.logic.commands.module.ModuleCommandTestUtil.VALID_MODULE_SEMESTER_Y1S1;
+import static igrad.logic.commands.module.ModuleCommandTestUtil.VALID_MODULE_SEMESTER_Y2S2;
+import static igrad.logic.commands.module.ModuleCommandTestUtil.VALID_MODULE_TITLE_CS2040;
+import static igrad.logic.commands.module.ModuleCommandTestUtil.VALID_MODULE_TITLE_CS2100;
 import static igrad.logic.commands.module.ModuleEditCommand.MESSAGE_MODULE_EDIT_SUCCESS;
 import static igrad.logic.commands.module.ModuleEditCommand.MESSAGE_MODULE_NON_EXISTENT;
 import static igrad.testutil.TypicalModules.getEmptyCourseBook;
@@ -38,11 +40,11 @@ public class ModuleEditCommandTest {
 
     private Module cs2040 = new ModuleBuilder()
         .withModuleCode(VALID_MODULE_CODE_CS2040)
-        .withTitle(VALID_TITLE_CS2040)
-        .withCredits(VALID_CREDITS_6)
+        .withTitle(VALID_MODULE_TITLE_CS2040)
+        .withCredits(VALID_MODULE_CREDITS_6)
         .withoutOptionals()
-        .withSemester(VALID_SEMESTER_Y1S1)
-        .withGrade(VALID_GRADE_A)
+        .withSemester(VALID_MODULE_SEMESTER_Y1S1)
+        .withGrade(VALID_MODULE_GRADE_A)
         .build();
 
     @Test
@@ -52,9 +54,9 @@ public class ModuleEditCommandTest {
 
         EditModuleDescriptor descriptor = new EditModuleDescriptorBuilder()
             .withModuleCode(toBeEdited.getModuleCode().value)
-            .withTitle(VALID_TITLE_CS2100)
-            .withCredits(VALID_CREDITS_4)
-            .withSemester(VALID_SEMESTER_Y2S2)
+            .withTitle(VALID_MODULE_TITLE_CS2100)
+            .withCredits(VALID_MODULE_CREDITS_4)
+            .withSemester(VALID_MODULE_SEMESTER_Y2S2)
             .build();
 
 
@@ -63,9 +65,9 @@ public class ModuleEditCommandTest {
          * overwritten
          */
         Module editedModule = new ModuleBuilder(toBeEdited)
-            .withTitle(VALID_TITLE_CS2100)
-            .withCredits(VALID_CREDITS_4)
-            .withSemester(VALID_SEMESTER_Y2S2)
+            .withTitle(VALID_MODULE_TITLE_CS2100)
+            .withCredits(VALID_MODULE_CREDITS_4)
+            .withSemester(VALID_MODULE_SEMESTER_Y2S2)
             .build();
 
         model.addModule(toBeEdited);
@@ -91,7 +93,7 @@ public class ModuleEditCommandTest {
 
         EditModuleDescriptor descriptor = new EditModuleDescriptorBuilder()
             .withModuleCode(toBeEdited.getModuleCode().value)
-            .withTitle(VALID_TITLE_CS2100)
+            .withTitle(VALID_MODULE_TITLE_CS2100)
             .build();
 
 
@@ -100,7 +102,7 @@ public class ModuleEditCommandTest {
          * overwritten
          */
         Module editedModule = new ModuleBuilder(toBeEdited)
-            .withTitle(VALID_TITLE_CS2100)
+            .withTitle(VALID_MODULE_TITLE_CS2100)
             .build();
 
         model.addModule(toBeEdited);
@@ -158,7 +160,7 @@ public class ModuleEditCommandTest {
 
         EditModuleDescriptor descriptor = new EditModuleDescriptorBuilder()
             .withModuleCode(toBeEdited.getModuleCode().value)
-            .withTitle(VALID_TITLE_CS2100)
+            .withTitle(VALID_MODULE_TITLE_CS2100)
             .build();
 
 

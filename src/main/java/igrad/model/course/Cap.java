@@ -3,6 +3,8 @@ package igrad.model.course;
 import static igrad.commons.util.AppUtil.checkArgument;
 import static java.util.Objects.requireNonNull;
 
+//@@author nathanaelseen
+
 /**
  * Represents a Course Info's cap in the course book.
  * Guarantees: immutable; is valid as declared in {@link #isValidCap(String)}
@@ -11,8 +13,15 @@ public class Cap {
     public static final String MESSAGE_CONSTRAINTS = "C.A.P. should not start with a space or slash and should not "
         + "be blank.\nC.A.P. should not be negative and should be within value of 5.0";
 
-    public static final Cap CAP_ZERO = new Cap(0);
+    public static final String VALIDATION_REGEX = "^[0-5](\\.[0-9]+){0,1}$";
 
+    // set max cap limit to 5
+    private static final double MAX_CAP_LIMIT = 5.0;
+    public static final Cap MAX_CAP = new Cap(MAX_CAP_LIMIT);
+    // set min cap limit to 0
+    private static final double MIN_CAP_LIMIT = 0.0;
+    public static final Cap CAP_ZERO = new Cap(MIN_CAP_LIMIT);
+    public static final Cap MIN_CAP = new Cap(MIN_CAP_LIMIT);
     public final double value;
 
     /**
@@ -40,20 +49,17 @@ public class Cap {
      * Returns true if a given double is a valid cap.
      */
     public static boolean isValidCap(double test) {
-        return (test >= 0) && (test <= 5.0);
+        return (test >= MIN_CAP_LIMIT) && (test <= MAX_CAP_LIMIT);
     }
 
     /**
-     * Returns true if a given double is a valid cap.
+     * Returns true if a given String is a valid cap.
      */
     public static boolean isValidCap(String test) {
         requireNonNull(test);
 
-        if (test.isEmpty()) {
-            return false;
-        }
-
-        return (Double.parseDouble(test) >= 0) && (Double.parseDouble(test) <= 5.0);
+        return test.matches(VALIDATION_REGEX)
+            && (Double.parseDouble(test) >= MIN_CAP_LIMIT && Double.parseDouble(test) <= MAX_CAP_LIMIT);
     }
 
     @Override

@@ -80,7 +80,7 @@ public class ModelManager implements Model {
 
     @Override
     public String getRandomQuoteString() {
-        return quoteGenerator.getRandomQuote().toString();
+        return quoteGenerator.getRandomQuote();
     }
 
     @Override
@@ -148,7 +148,7 @@ public class ModelManager implements Model {
 
         boolean hasChanged = false;
 
-        CourseBookStorage courseBookStorage = new JsonCourseBookStorage (
+        CourseBookStorage courseBookStorage = new JsonCourseBookStorage(
             getBackupCourseBookFilePath()
         );
 
