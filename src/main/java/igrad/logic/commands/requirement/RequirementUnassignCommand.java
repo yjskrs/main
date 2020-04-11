@@ -17,6 +17,8 @@ import igrad.model.requirement.Requirement;
 import igrad.model.requirement.RequirementCode;
 import igrad.model.requirement.Title;
 
+//@@author nathanaelseen
+
 /**
  * Unassigns modules under a particular requirement.
  */
@@ -24,15 +26,15 @@ public class RequirementUnassignCommand extends RequirementCommand {
     public static final String REQUIREMENT_UNASSIGN_COMMAND_WORD = REQUIREMENT_COMMAND_WORD + SPACE
         + "unassign";
 
-    public static final String REQUIREMENT_UNASSIGN_MESSAGE_DETAILS = REQUIREMENT_UNASSIGN_COMMAND_WORD
+    public static final String MESSAGE_REQUIREMENT_UNASSIGN_DETAILS = REQUIREMENT_UNASSIGN_COMMAND_WORD
         + ": Unassigns the requirement identified with modules "
         + "by its requirement code. Existing requirement will be overwritten by the input values\n";
 
-    public static final String REQUIREMENT_UNASSIGN_MESSAGE_USAGE = "Parameter(s): REQUIREMENT_CODE "
+    public static final String MESSAGE_REQUIREMENT_UNASSIGN_USAGE = "Parameter(s): REQUIREMENT_CODE "
         + PREFIX_MODULE_CODE + "MODULE_CODE...\n";
 
-    public static final String REQUIREMENT_UNASSIGN_MESSAGE_HELP = REQUIREMENT_UNASSIGN_MESSAGE_DETAILS
-        + REQUIREMENT_UNASSIGN_MESSAGE_USAGE;
+    public static final String MESSAGE_REQUIREMENT_UNASSIGN_HELP = MESSAGE_REQUIREMENT_UNASSIGN_DETAILS
+        + MESSAGE_REQUIREMENT_UNASSIGN_USAGE;
 
     public static final String MESSAGE_REQUIREMENT_NO_MODULES = "There must be at least one modules unassigned.";
 
@@ -41,7 +43,7 @@ public class RequirementUnassignCommand extends RequirementCommand {
 
     public static final String MESSAGE_MODULES_NON_EXISTENT_IN_REQUIREMENT =
         "Not all modules exist in the requirement. Please try other modules.";
-    public static final String MESSAGE_SUCCESS = "Modules unassigned under Requirement:\n%1$s";
+    public static final String MESSAGE_REQUIREMENT_UNASSIGN_SUCCESS = "Modules unassigned under Requirement:\n%1$s";
 
     private RequirementCode requirementCode;
     private List<ModuleCode> moduleCodes;
@@ -120,6 +122,14 @@ public class RequirementUnassignCommand extends RequirementCommand {
         model.setCourseInfo(editedCourseInfo);
 
         return new CommandResult(
-            String.format(MESSAGE_SUCCESS, editedRequirement));
+            String.format(MESSAGE_REQUIREMENT_UNASSIGN_SUCCESS, editedRequirement));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this
+            || (other instanceof RequirementUnassignCommand
+            && ((RequirementUnassignCommand) other).requirementCode.equals(requirementCode)
+            && ((RequirementUnassignCommand) other).moduleCodes.equals(moduleCodes));
     }
 }

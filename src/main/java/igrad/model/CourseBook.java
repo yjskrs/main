@@ -19,9 +19,9 @@ import javafx.collections.ObservableList;
  */
 public class CourseBook implements ReadOnlyCourseBook {
 
-    private CourseInfo courseInfo = new CourseInfo();
     private final UniqueModuleList modules = new UniqueModuleList();
     private final UniqueRequirementList requirements = new UniqueRequirementList();
+    private CourseInfo courseInfo = new CourseInfo();
 
     public CourseBook() {
     }

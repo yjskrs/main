@@ -11,7 +11,7 @@ import igrad.model.module.Semester;
 import igrad.model.module.Title;
 
 /**
- * A utility class to help with building EditModuleDescriptor objects.
+ * A utility class to help with building EditModuleDescriptor objects (in module edit command).
  */
 public class EditModuleDescriptorBuilder {
 

@@ -1,6 +1,7 @@
 package igrad.logic.parser.course;
 
 import static igrad.logic.commands.course.CourseAddCommand.MESSAGE_COURSE_ADD_HELP;
+import static igrad.logic.commands.course.CourseAddCommand.MESSAGE_COURSE_NOT_ADDED;
 import static igrad.logic.parser.CliSyntax.PREFIX_NAME;
 import static igrad.logic.parser.CliSyntax.PREFIX_SEMESTER;
 
@@ -19,12 +20,12 @@ import igrad.model.course.Credits;
 import igrad.model.course.Name;
 import igrad.model.course.Semesters;
 
+//@@author nathanaelseen
+
 /**
  * Parses input arguments and creates a new CourseAddCommand object.
  */
 public class CourseAddCommandParser extends CourseCommandParser implements Parser<CourseAddCommand> {
-    private static final String MESSAGE_NOT_ADDED = "All fields to be filled, course add n/COURSE_NAME s/SEMESTERS";
-
     /**
      * Parses the given {@code String} of arguments in the context of the CourseAddCommand
      * and returns an CourseAddCommand object for execution.
@@ -46,28 +47,12 @@ public class CourseAddCommandParser extends CourseCommandParser implements Parse
 
         if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_SEMESTER)) {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
-                    MESSAGE_NOT_ADDED));
+                MESSAGE_COURSE_NOT_ADDED));
         }
 
         /*
-         * course add n/NAME
-         *
-         * We have that; NAME is a compulsory field, so we're just validating for its
-         * presence in the below.
-         *
-         * But actually we don't need to validate for course name argument, as we did
-         * in module and requirement;
-         * if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_NAME)) {
-         *       throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
-                    MESSAGE_NOT_ADDED));
-         * }.
-         * This is because course has only one field; name, and fulfilling the above condition;
-         * where {@code argMultimap.isEmpty(false)} would automatically mean that the map has the
-         * argument we need, hence we don't need to re-validate for its presence.
-         * (Please read the Javadoc comments for {@code argMultimap.isEmpty(boolean checkPreamble)} for more
-         * details, if you would like to know more.)
+         * Parsing and setting the name of our new course
          */
-
         Optional<Name> name = parseName(argMultimap.getValue(PREFIX_NAME).get());
 
         /*

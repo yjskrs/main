@@ -65,8 +65,8 @@ public class Credits {
         requireNonNull(test);
 
         return test.matches(VALIDATION_REGEX)
-                   && Integer.parseInt(test) > MIN_CREDITS
-                   && Integer.parseInt(test) < MAX_CREDITS;
+            && Integer.parseInt(test) > MIN_CREDITS
+            && Integer.parseInt(test) < MAX_CREDITS;
     }
 
     /**
@@ -84,11 +84,7 @@ public class Credits {
         }
 
         // field specific checks
-        if (required == MIN_CREDITS || fulfilled > assigned) {
-            return false;
-        }
-
-        return true;
+        return required != MIN_CREDITS && fulfilled <= assigned;
     }
 
     /**

@@ -1,5 +1,7 @@
 package igrad.services;
 
+//@@author waynewee
+
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
@@ -46,8 +48,9 @@ public class NusModsRequester {
 
     /**
      * Formulates the URL to retrieve from
+     *
      * @param academicYear formatted as YYYY-YYYY
-     * @param moduleCode {@code moduleCode}
+     * @param moduleCode   {@code moduleCode}
      */
     private static String getUrlPath(String academicYear, String moduleCode) {
         return Routes.NUS_MODS_ROOT + "/" + academicYear

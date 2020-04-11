@@ -194,6 +194,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     // @@author dargohzy
+
     /**
      * Fills up and displays/refreshes the the placeholders of the side panels (Modular credits info, CAP info).
      */
@@ -217,6 +218,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     // @@author dargohzy
+
     /**
      * Refreshes the avatar expression on the result display (UI component).
      */

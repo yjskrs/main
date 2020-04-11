@@ -7,6 +7,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 
 // @@author dargohzy
+
 /**
  * A (permanent) top-panel that displays course status information.
  */

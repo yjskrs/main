@@ -44,8 +44,8 @@ public class ModuleTest {
     public void getTitle_success() {
         Title newTitle = new Title(VALID_GRADE_PROGRAMMING_METHODOLOGY);
         Module newModule = new ModuleBuilder()
-                .withTitle(VALID_GRADE_PROGRAMMING_METHODOLOGY)
-                .build();
+            .withTitle(VALID_GRADE_PROGRAMMING_METHODOLOGY)
+            .build();
         assertEquals(newTitle, newModule.getTitle());
     }
 
@@ -53,8 +53,8 @@ public class ModuleTest {
     public void getModuleCode_success() {
         ModuleCode newModuleCode = new ModuleCode(VALID_MODULE_CODE_CS_1101S);
         Module newModule = new ModuleBuilder()
-                .withModuleCode(VALID_MODULE_CODE_CS_1101S)
-                .build();
+            .withModuleCode(VALID_MODULE_CODE_CS_1101S)
+            .build();
         assertEquals(newModuleCode, newModule.getModuleCode());
     }
 
@@ -62,8 +62,8 @@ public class ModuleTest {
     public void getCredits_success() {
         Credits newCredits = new Credits(VALID_CREDITS_4);
         Module newModule = new ModuleBuilder()
-                .withCredits(VALID_CREDITS_4)
-                .build();
+            .withCredits(VALID_CREDITS_4)
+            .build();
         assertEquals(newCredits, newModule.getCredits());
     }
 
@@ -71,8 +71,8 @@ public class ModuleTest {
     public void getSemester_success() {
         Semester newSemester = new Semester(VALID_SEMESTER_Y1S1);
         Module newModule = new ModuleBuilder()
-                .withSemester(VALID_SEMESTER_Y1S1)
-                .build();
+            .withSemester(VALID_SEMESTER_Y1S1)
+            .build();
         assertEquals(Optional.of(newSemester), newModule.getSemester());
     }
 
@@ -80,16 +80,16 @@ public class ModuleTest {
     public void getGrade_success() {
         Grade newGrade = new Grade(VALID_GRADE_PROGRAMMING_METHODOLOGY);
         Module newModule = new ModuleBuilder()
-                .withGrade(VALID_GRADE_PROGRAMMING_METHODOLOGY)
-                .build();
+            .withGrade(VALID_GRADE_PROGRAMMING_METHODOLOGY)
+            .build();
         assertEquals(Optional.of(newGrade), newModule.getGrade());
     }
 
     @Test
     public void isDone_gradePresent_returnsTrue() {
         Module newModule = new ModuleBuilder()
-                .withGrade(VALID_GRADE_PROGRAMMING_METHODOLOGY)
-                .build();
+            .withGrade(VALID_GRADE_PROGRAMMING_METHODOLOGY)
+            .build();
         assertTrue(newModule.isDone());
     }
 

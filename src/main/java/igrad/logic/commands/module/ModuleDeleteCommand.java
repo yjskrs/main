@@ -14,6 +14,8 @@ import igrad.model.module.Module;
 import igrad.model.module.ModuleCode;
 import igrad.model.requirement.Requirement;
 
+//@@author waynewee
+
 /**
  * Deletes a {@code Module} identified using it's displayed index from the course book.
  */
@@ -50,6 +52,7 @@ public class ModuleDeleteCommand extends ModuleCommand {
 
         model.deleteModule(moduleToDelete);
 
+        //@@author nathanaelseen
 
         List<Requirement> requirementsToUpdate = model.getRequirementsWithModule(moduleToDelete);
 

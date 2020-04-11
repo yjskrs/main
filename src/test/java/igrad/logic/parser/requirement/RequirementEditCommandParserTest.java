@@ -54,11 +54,11 @@ public class RequirementEditCommandParserTest {
 
         // both fields modified
         EditRequirementDescriptor descriptor = new EditRequirementDescriptorBuilder()
-                                                   .withTitle(VALID_REQ_TITLE_CSF)
-                                                   .withCredits(VALID_REQ_CREDITS_CSF)
-                                                   .build();
+            .withTitle(VALID_REQ_TITLE_CSF)
+            .withCredits(VALID_REQ_CREDITS_CSF)
+            .build();
         assertParseSuccess(parser, VALID_REQ_CODE_UE + REQ_TITLE_DESC_CSF + REQ_CREDITS_DESC_CSF,
-               new RequirementEditCommand(requirementCode, descriptor));
+            new RequirementEditCommand(requirementCode, descriptor));
 
         // only one field modified
         descriptor = new EditRequirementDescriptorBuilder().withTitle(VALID_REQ_TITLE_CSF).build();

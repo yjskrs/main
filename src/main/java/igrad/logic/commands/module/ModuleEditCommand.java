@@ -24,6 +24,8 @@ import igrad.model.module.Semester;
 import igrad.model.module.Title;
 import igrad.model.requirement.Requirement;
 
+//@@author waynewee
+
 /**
  * Edits the details (course name) of the existing module.
  */
@@ -107,6 +109,7 @@ public class ModuleEditCommand extends ModuleCommand {
 
         model.setModule(moduleToEdit, editedModule);
 
+        //@@author nathanaelseen
         List<Requirement> requirementsToUpdate = model.getRequirementsWithModule(editedModule);
 
         /*
@@ -164,6 +167,7 @@ public class ModuleEditCommand extends ModuleCommand {
         return new CommandResult(String.format(MESSAGE_MODULE_EDIT_SUCCESS, editedModule));
     }
 
+    //@@author waynewee
     @Override
     public boolean equals(Object other) {
         // short circuit if same object
