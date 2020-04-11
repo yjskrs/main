@@ -7,6 +7,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 import igrad.model.course.exceptions.CapOverflowException;
+import igrad.model.course.exceptions.SemsOverflowException;
 import igrad.model.module.Grade;
 import igrad.model.module.Module;
 import igrad.model.module.Semester;
@@ -245,6 +246,10 @@ public class CourseInfo {
         totalCompletedSems += sem;
 
         int remainingSems = totalSemesters - totalCompletedSems;
+
+        if (!Semesters.isValidRemainingSemesters(remainingSems)) {
+            throw new SemsOverflowException();
+        }
 
         return remainingSems;
     }
