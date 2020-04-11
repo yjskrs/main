@@ -3,6 +3,8 @@ package igrad.model.course;
 import static igrad.commons.util.AppUtil.checkArgument;
 import static java.util.Objects.requireNonNull;
 
+//@@ teriaiw
+
 /**
  * Represents a {@code CourseInfo}'s semester information in the course book.
  * Guarantees: immutable, fields are non-null and valid as declared by {@link #isValidSemesters(String)}

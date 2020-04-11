@@ -10,8 +10,10 @@ import igrad.logic.commands.CommandResult;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
 import igrad.model.course.Cap;
+import igrad.model.course.CourseInfo;
 import igrad.model.course.exceptions.CapOverflowException;
 
+//@@author teriaiw
 
 /**
  * Adds a course to the application (there can only be one such course).
@@ -47,7 +49,7 @@ public class CourseAchieveCommand extends CourseCommand {
         }
 
         try {
-            Optional<Cap> estimatedCap = Cap.computeEstimatedCap(model.getCourseInfo(), capToAchieve.get());
+            Optional<Cap> estimatedCap = CourseInfo.computeEstimatedCap(model.getCourseInfo(), capToAchieve.get());
             return new CommandResult(String.format(MESSAGE_COURSE_ACHIEVE_SUCCESS, estimatedCap.get()));
 
         } catch (CapOverflowException e) {

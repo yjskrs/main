@@ -13,7 +13,6 @@ import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
 import igrad.model.course.CourseInfo;
 import igrad.model.module.Credits;
-import igrad.model.module.Description;
 import igrad.model.module.Grade;
 import igrad.model.module.Module;
 import igrad.model.module.ModuleCode;
@@ -67,7 +66,6 @@ public class ModuleDoneCommand extends ModuleCommand {
         ModuleCode moduleCode = moduleToEdit.getModuleCode();
         Title title = moduleToEdit.getTitle();
         Credits credits = moduleToEdit.getCredits();
-        Optional<Description> description = moduleToEdit.getDescription();
 
         /*
          * But for Semester, since it is an optional field, we copy its value over from the
@@ -81,7 +79,7 @@ public class ModuleDoneCommand extends ModuleCommand {
          */
         Optional<Grade> updatedGrade = editModuleDescriptor.getGrade();
 
-        return new Module(title, moduleCode, credits, updatedSemester, description, updatedGrade);
+        return new Module(title, moduleCode, credits, updatedSemester, updatedGrade);
     }
 
     @Override
@@ -97,8 +95,6 @@ public class ModuleDoneCommand extends ModuleCommand {
 
         // Update the module in our model
         model.setModule(moduleToEdit, editedModule);
-
-
 
         List<Requirement> requirementsToUpdate = model.getRequirementsWithModule(editedModule);
 
@@ -159,12 +155,20 @@ public class ModuleDoneCommand extends ModuleCommand {
 
     @Override
     public boolean equals(Object other) {
-        /*
-         * TODO (Teri): Please take a look at how ModuleEditCommand.java
-         * implements this, and fill it up!
-         */
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
 
-        return false;
+        // instanceof handles nulls
+        if (!(other instanceof ModuleDoneCommand)) {
+            return false;
+        }
+
+        // state check
+        ModuleDoneCommand e = (ModuleDoneCommand) other;
+        return moduleCode.equals(e.moduleCode)
+                && editModuleGradeDescriptor.equals(e.editModuleGradeDescriptor);
     }
 
     /**
