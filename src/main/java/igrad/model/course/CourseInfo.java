@@ -196,7 +196,11 @@ public class CourseInfo {
         requireAllNonNull(semesters, moduleList);
 
         if (moduleList.isEmpty()) {
-            return Optional.of(new Semesters(semesters.get().toString()));
+            return semesters.map(value -> new Semesters(value.toString()));
+        }
+
+        if (semesters.isEmpty()) {
+            return Optional.empty();
         }
 
         int totalSemester = semesters.get().getTotalSemesters();

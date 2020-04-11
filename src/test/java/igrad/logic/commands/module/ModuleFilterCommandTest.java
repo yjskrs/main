@@ -1,5 +1,6 @@
 package igrad.logic.commands.module;
 
+import static igrad.testutil.TypicalModules.getEmptyCourseBook;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
@@ -9,6 +10,9 @@ import java.util.Optional;
 import org.junit.jupiter.api.Test;
 
 import igrad.logic.commands.exceptions.CommandException;
+import igrad.model.Model;
+import igrad.model.ModelManager;
+import igrad.model.UserPrefs;
 import igrad.model.module.Credits;
 import igrad.model.module.Grade;
 import igrad.model.module.Module;
@@ -20,11 +24,10 @@ import igrad.testutil.TypicalModules;
 
 public class ModuleFilterCommandTest {
 
+    private Model model = new ModelManager(getEmptyCourseBook(), new UserPrefs());
+
     @Test
     public void execute_filterModule_noParameters() throws CommandException {
-
-        ModuleCommandTestUtil.ModelStubAcceptingFilteredModules modelStub =
-            new ModuleCommandTestUtil.ModelStubAcceptingFilteredModules();
 
         Module cs1101s = TypicalModules.CS1101S;
         Module cs2103t = TypicalModules.CS2103T;
@@ -36,9 +39,9 @@ public class ModuleFilterCommandTest {
         validModules.add(cs2103t);
         validModules.add(cs2101);
 
-        modelStub.addModule(cs1101s);
-        modelStub.addModule(cs2103t);
-        modelStub.addModule(cs2101);
+        model.addModule(cs1101s);
+        model.addModule(cs2103t);
+        model.addModule(cs2101);
 
         ModuleFilterCommand moduleFilterCommand = new ModuleFilterCommand(
             Optional.empty(),
@@ -47,16 +50,13 @@ public class ModuleFilterCommandTest {
             ModuleFilterCommand.AND
         );
 
-        moduleFilterCommand.execute(modelStub);
+        moduleFilterCommand.execute(model);
 
-        assertEquals(validModules, modelStub.getFilteredModuleList());
+        assertEquals(validModules, model.getFilteredModuleList());
     }
 
     @Test
     public void execute_filterModule_orOperator() throws CommandException {
-
-        ModuleCommandTestUtil.ModelStubAcceptingFilteredModules modelStub =
-            new ModuleCommandTestUtil.ModelStubAcceptingFilteredModules();
 
         Module moduleWithGrade = new ModuleBuilder()
             .withModuleCode(ModuleCommandTestUtil.VALID_MODULE_CODE_CS2103T)
@@ -88,10 +88,10 @@ public class ModuleFilterCommandTest {
             .withoutOptionals()
             .build();
 
-        modelStub.addModule(moduleWithGrade);
-        modelStub.addModule(moduleWithSemester);
-        modelStub.addModule(moduleWithSixCredits);
-        modelStub.addModule(moduleWithoutOptionals);
+        model.addModule(moduleWithGrade);
+        model.addModule(moduleWithSemester);
+        model.addModule(moduleWithSixCredits);
+        model.addModule(moduleWithoutOptionals);
 
         List<Module> validModules = new ArrayList<>();
         validModules.add(moduleWithGrade);
@@ -105,16 +105,13 @@ public class ModuleFilterCommandTest {
             ModuleFilterCommand.OR
         );
 
-        moduleFilterCommand.execute(modelStub);
+        moduleFilterCommand.execute(model);
 
-        assertEquals(validModules, modelStub.getFilteredModuleList());
+        assertEquals(validModules, model.getFilteredModuleList());
     }
 
     @Test
     public void execute_filterModule_andOperator() throws CommandException {
-
-        ModuleCommandTestUtil.ModelStubAcceptingFilteredModules modelStub =
-            new ModuleCommandTestUtil.ModelStubAcceptingFilteredModules();
 
         Module moduleWithGradeA = new ModuleBuilder()
             .withModuleCode(ModuleCommandTestUtil.VALID_MODULE_CODE_CS2103T)
@@ -139,9 +136,9 @@ public class ModuleFilterCommandTest {
             .withoutOptionals()
             .build();
 
-        modelStub.addModule(moduleWithGradeA);
-        modelStub.addModule(moduleWithGradeB);
-        modelStub.addModule(moduleWithoutGrade);
+        model.addModule(moduleWithGradeA);
+        model.addModule(moduleWithGradeB);
+        model.addModule(moduleWithoutGrade);
 
         List<Module> validModules = new ArrayList<>();
         validModules.add(moduleWithGradeA);
@@ -154,9 +151,9 @@ public class ModuleFilterCommandTest {
             ModuleFilterCommand.AND
         );
 
-        moduleFilterCommand.execute(modelStub);
+        moduleFilterCommand.execute(model);
 
-        assertEquals(validModules, modelStub.getFilteredModuleList());
+        assertEquals(validModules, model.getFilteredModuleList());
     }
 
 }

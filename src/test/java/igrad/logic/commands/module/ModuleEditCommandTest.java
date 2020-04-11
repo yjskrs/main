@@ -1,12 +1,33 @@
 package igrad.logic.commands.module;
 
-import static igrad.testutil.TypicalModules.getTypicalCourseBook;
+//@@author waynewee
+import static igrad.logic.commands.module.ModuleCommandTestUtil.VALID_MODULE_CODE_CS2040;
+import static igrad.logic.commands.module.ModuleCommandTestUtil.VALID_MODULE_CODE_CS2103T;
+import static igrad.logic.commands.module.ModuleCommandTestUtil.VALID_MODULE_CREDITS_4;
+import static igrad.logic.commands.module.ModuleCommandTestUtil.VALID_MODULE_CREDITS_6;
+import static igrad.logic.commands.module.ModuleCommandTestUtil.VALID_MODULE_GRADE_A;
+import static igrad.logic.commands.module.ModuleCommandTestUtil.VALID_MODULE_SEMESTER_Y1S1;
+import static igrad.logic.commands.module.ModuleCommandTestUtil.VALID_MODULE_SEMESTER_Y2S2;
+import static igrad.logic.commands.module.ModuleCommandTestUtil.VALID_MODULE_TITLE_CS2040;
+import static igrad.logic.commands.module.ModuleCommandTestUtil.VALID_MODULE_TITLE_CS2100;
+import static igrad.logic.commands.module.ModuleEditCommand.MESSAGE_MODULE_EDIT_SUCCESS;
+import static igrad.logic.commands.module.ModuleEditCommand.MESSAGE_MODULE_NON_EXISTENT;
+import static igrad.testutil.TypicalModules.getEmptyCourseBook;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import org.junit.jupiter.api.Test;
 
+import igrad.logic.commands.CommandResult;
+import igrad.logic.commands.exceptions.CommandException;
+import igrad.logic.commands.module.ModuleEditCommand.EditModuleDescriptor;
 import igrad.model.Model;
 import igrad.model.ModelManager;
 import igrad.model.UserPrefs;
+import igrad.model.module.Module;
+import igrad.model.module.ModuleCode;
+import igrad.testutil.EditModuleDescriptorBuilder;
+import igrad.testutil.ModuleBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests
@@ -14,166 +35,185 @@ import igrad.model.UserPrefs;
  */
 public class ModuleEditCommandTest {
 
-    private Model model = new ModelManager(getTypicalCourseBook(), new UserPrefs());
+    private Model model = new ModelManager(getEmptyCourseBook(), new UserPrefs());
+
+    private Module cs2040 = new ModuleBuilder()
+        .withModuleCode(VALID_MODULE_CODE_CS2040)
+        .withTitle(VALID_MODULE_TITLE_CS2040)
+        .withCredits(VALID_MODULE_CREDITS_6)
+        .withoutOptionals()
+        .withSemester(VALID_MODULE_SEMESTER_Y1S1)
+        .withGrade(VALID_MODULE_GRADE_A)
+        .build();
 
     @Test
-    public void execute_allFieldsSpecifiedUnfilteredList_success() {
-        /*Module editedModule = new ModuleBuilder().build();
-        ModuleEditCommand.EditModuleDescriptor descriptor = new EditModuleDescriptorBuilder(editedModule).build();
-        ModuleEditCommand editCommand = new ModuleEditCommand(INDEX_FIRST_MODULE, descriptor);
+    public void execute_allFieldsSpecified_success() throws CommandException {
 
-        String expectedMessage = String.format(ModuleEditCommand.MESSAGE_EDIT_MODULE_SUCCESS, editedModule);
-
-        Model expectedModel = new ModelManager(new CourseBook(model.getCourseBook()), new UserPrefs());
-        expectedModel.setModule(model.getFilteredModuleList().get(0), editedModule);
-
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
-         */
-    }
-
-    @Test
-    public void execute_someFieldsSpecifiedUnfilteredList_success() {
-        /*Index indexLastPerson = Index.fromOneBased(model.getFilteredModuleList().size());
-        Module lastModule = model.getFilteredModuleList().get(indexLastPerson.getZeroBased());
-
-        ModuleBuilder personInList = new ModuleBuilder(lastModule);
-        Module editedModule = personInList.withTitle(VALID_TITLE_COMPUTER_ORGANISATION)
-            .withModuleCode(VALID_MODULE_CODE_COMPUTER_ORGANISATION)
-            .withCredits(VALID_CREDITS_COMPUTER_ORGANISATION)
-            .withMemo(VALID_MEMO_COMPUTER_ORGANISATION)
-            .withSemester(VALID_SEMESTER_COMPUTER_ORGANISATION)
-            .withTags(VALID_TAG_HARD)
-            .build();
+        Module toBeEdited = cs2040;
 
         EditModuleDescriptor descriptor = new EditModuleDescriptorBuilder()
-            .withModuleCode(VALID_MODULE_CODE_COMPUTER_ORGANISATION)
-            .withCredits(VALID_CREDITS_COMPUTER_ORGANISATION)
-            .withMemo(VALID_MEMO_COMPUTER_ORGANISATION)
-            .withSemester(VALID_SEMESTER_COMPUTER_ORGANISATION)
-            .withTags(VALID_TAG_HARD)
+            .withModuleCode(toBeEdited.getModuleCode().value)
+            .withTitle(VALID_MODULE_TITLE_CS2100)
+            .withCredits(VALID_MODULE_CREDITS_4)
+            .withSemester(VALID_MODULE_SEMESTER_Y2S2)
             .build();
-        ModuleEditCommand editCommand = new ModuleEditCommand(indexLastPerson, descriptor);
 
-        String expectedMessage = String.format(ModuleEditCommand.MESSAGE_EDIT_MODULE_SUCCESS, editedModule);
 
-        Model expectedModel = new ModelManager(new CourseBook(model.getCourseBook()), new UserPrefs());
-        expectedModel.setModule(lastModule, editedModule);
-
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+        /**
+         * The edited module should have the fields specified in the descriptor
+         * overwritten
          */
-    }
-
-    @Test
-    public void execute_noFieldSpecifiedUnfilteredList_success() {
-        /*ModuleEditCommand editCommand = new ModuleEditCommand(INDEX_FIRST_MODULE,
-            new ModuleEditCommand.EditModuleDescriptor());
-        Module editedModule = model.getFilteredModuleList().get(INDEX_FIRST_MODULE.getZeroBased());
-
-        String expectedMessage = String.format(ModuleEditCommand.MESSAGE_EDIT_MODULE_SUCCESS, editedModule);
-
-        Model expectedModel = new ModelManager(new CourseBook(model.getCourseBook()), new UserPrefs());
-
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
-         */
-    }
-
-    @Test
-    public void execute_filteredList_success() {
-        /*showModuleAtIndex(model, INDEX_FIRST_MODULE);
-
-        Module moduleInFilteredList = model.getFilteredModuleList()
-            .get(INDEX_FIRST_MODULE.getZeroBased());
-        Module editedModule = new ModuleBuilder(moduleInFilteredList).withTitle(VALID_TITLE_COMPUTER_ORGANISATION)
+        Module editedModule = new ModuleBuilder(toBeEdited)
+            .withTitle(VALID_MODULE_TITLE_CS2100)
+            .withCredits(VALID_MODULE_CREDITS_4)
+            .withSemester(VALID_MODULE_SEMESTER_Y2S2)
             .build();
-        ModuleEditCommand editCommand = new ModuleEditCommand(INDEX_FIRST_MODULE,
-            new EditModuleDescriptorBuilder().withTitle(VALID_TITLE_COMPUTER_ORGANISATION).build());
 
-        String expectedMessage = String.format(ModuleEditCommand.MESSAGE_EDIT_MODULE_SUCCESS, editedModule);
+        model.addModule(toBeEdited);
 
-        Model expectedModel = new ModelManager(new CourseBook(model.getCourseBook()), new UserPrefs());
-        expectedModel.setModule(model.getFilteredModuleList().get(0), editedModule);
+        ModuleEditCommand editCommand = new ModuleEditCommand(toBeEdited.getModuleCode(), descriptor);
 
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
-         */
+        CommandResult expectedMessage = new CommandResult(String.format(MESSAGE_MODULE_EDIT_SUCCESS, editedModule));
+
+        Model expectedModel = new ModelManager(getEmptyCourseBook(), new UserPrefs());
+
+        expectedModel.addModule(editedModule);
+
+        CommandResult actualMessage = editCommand.execute(model);
+
+        assertEquals(expectedMessage, actualMessage);
+        assertEquals(model.getFilteredModuleList(), expectedModel.getFilteredModuleList());
     }
 
-    /*
     @Test
-    public void execute_duplicatePersonUnfilteredList_failure() {
-        Module firstModule = model.getFilteredModuleList().get(INDEX_FIRST_MODULE.getZeroBased());
-        EditModuleDescriptor descriptor = new EditModuleDescriptorBuilder(firstModule).build();
-        ModuleEditCommand editCommand = new ModuleEditCommand(INDEX_SECOND_MODULE, descriptor);
+    public void execute_someFieldsSpecifiedUnfilteredList_success() throws CommandException {
 
-        assertCommandFailure(editCommand, model, ModuleEditCommand.MESSAGE_DUPLICATE_MODULE);
-    }*/
+        Module toBeEdited = cs2040;
 
-    /*
-    @Test
-    public void execute_duplicatePersonFilteredList_failure() {
-        showModuleAtIndex(model, INDEX_FIRST_MODULE);
-
-        // edit module in filtered list into a duplicate in course book
-        Module moduleInList = model.getCourseBook().getModuleList()
-            .get(INDEX_SECOND_MODULE.getZeroBased());
-        ModuleEditCommand editCommand = new ModuleEditCommand(INDEX_FIRST_MODULE,
-            new EditModuleDescriptorBuilder(moduleInList).build());
-
-        assertCommandFailure(editCommand, model, ModuleEditCommand.MESSAGE_DUPLICATE_MODULE);
-    }*/
-
-    /*
-    @Test
-    public void execute_invalidPersonIndexUnfilteredList_failure() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredModuleList().size() + 1);
         EditModuleDescriptor descriptor = new EditModuleDescriptorBuilder()
-            .withTitle(VALID_TITLE_COMPUTER_ORGANISATION)
+            .withModuleCode(toBeEdited.getModuleCode().value)
+            .withTitle(VALID_MODULE_TITLE_CS2100)
             .build();
-        ModuleEditCommand editCommand = new ModuleEditCommand(outOfBoundIndex, descriptor);
 
-        assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_MODULE_DISPLAYED_INDEX);
-    }*/
 
-    /**
-     * Edit filtered list where index is larger than size of filtered list,
-     * but smaller than size of course book
-     */
-    /*
+        /**
+         * The edited module should have the fields specified in the descriptor
+         * overwritten
+         */
+        Module editedModule = new ModuleBuilder(toBeEdited)
+            .withTitle(VALID_MODULE_TITLE_CS2100)
+            .build();
+
+        model.addModule(toBeEdited);
+
+        ModuleEditCommand editCommand = new ModuleEditCommand(toBeEdited.getModuleCode(), descriptor);
+
+        CommandResult expectedMessage = new CommandResult(String.format(MESSAGE_MODULE_EDIT_SUCCESS, editedModule));
+
+        Model expectedModel = new ModelManager(getEmptyCourseBook(), new UserPrefs());
+
+        expectedModel.addModule(editedModule);
+
+        CommandResult actualMessage = editCommand.execute(model);
+
+        assertEquals(expectedMessage, actualMessage);
+        assertEquals(model.getFilteredModuleList(), expectedModel.getFilteredModuleList());
+    }
+
     @Test
-    public void execute_invalidPersonIndexFilteredList_failure() {
-        showModuleAtIndex(model, INDEX_FIRST_MODULE);
-        Index outOfBoundIndex = INDEX_SECOND_MODULE;
-        // ensures that outOfBoundIndex is still in bounds of course book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getCourseBook().getModuleList().size());
+    public void execute_noFieldSpecifiedUnfilteredList_success() throws CommandException {
 
-        ModuleEditCommand editCommand = new ModuleEditCommand(outOfBoundIndex,
-            new EditModuleDescriptorBuilder().withTitle(VALID_TITLE_COMPUTER_ORGANISATION).build());
+        Module toBeEdited = cs2040;
 
-        assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_MODULE_DISPLAYED_INDEX);
-    }*/
+        EditModuleDescriptor descriptor = new EditModuleDescriptorBuilder()
+            .withModuleCode(toBeEdited.getModuleCode().value)
+            .build();
 
-    /*
+
+        /**
+         * The edited module should have the fields specified in the descriptor
+         * overwritten
+         */
+        Module editedModule = new ModuleBuilder(toBeEdited)
+            .build();
+
+        model.addModule(toBeEdited);
+
+        ModuleEditCommand editCommand = new ModuleEditCommand(toBeEdited.getModuleCode(), descriptor);
+
+        CommandResult expectedMessage = new CommandResult(String.format(MESSAGE_MODULE_EDIT_SUCCESS, editedModule));
+
+        Model expectedModel = new ModelManager(getEmptyCourseBook(), new UserPrefs());
+
+        expectedModel.addModule(editedModule);
+
+        CommandResult actualMessage = editCommand.execute(model);
+
+        assertEquals(expectedMessage, actualMessage);
+        assertEquals(model.getFilteredModuleList(), expectedModel.getFilteredModuleList());
+    }
+
+    @Test
+    public void execute_moduleCodeNotFound_failure() {
+        Module toBeEdited = cs2040;
+
+        EditModuleDescriptor descriptor = new EditModuleDescriptorBuilder()
+            .withModuleCode(toBeEdited.getModuleCode().value)
+            .withTitle(VALID_MODULE_TITLE_CS2100)
+            .build();
+
+
+        ModuleEditCommand editCommand = new ModuleEditCommand(toBeEdited.getModuleCode(), descriptor);
+
+        CommandResult expectedMessage = new CommandResult(MESSAGE_MODULE_NON_EXISTENT);
+
+        /**
+         * note that the module is not added to the model
+         */
+
+        try {
+
+            editCommand.execute(model);
+
+        } catch (CommandException ce) {
+            assertEquals(expectedMessage, new CommandResult(ce.getMessage()));
+        }
+
+
+    }
+
+
     @Test
     public void equals() {
-        final ModuleEditCommand standardCommand = new ModuleEditCommand(INDEX_FIRST_MODULE,
-            DESC_PROGRAMMING_METHODOLOGY);
+
+        EditModuleDescriptor descriptor = new EditModuleDescriptorBuilder()
+            .build();
+
+
+        final ModuleEditCommand standardCommand = new ModuleEditCommand(
+            new ModuleCode(VALID_MODULE_CODE_CS2040),
+            descriptor
+        );
 
         // same values -> returns true
-        EditModuleDescriptor copyDescriptor = new EditModuleDescriptor(DESC_PROGRAMMING_METHODOLOGY);
-        ModuleEditCommand commandWithSameValues = new ModuleEditCommand(INDEX_FIRST_MODULE, copyDescriptor);
-        assertTrue(standardCommand.equals(commandWithSameValues));
+        EditModuleDescriptor copyDescriptor = new EditModuleDescriptor();
+        ModuleEditCommand commandWithSameValues = new ModuleEditCommand(
+            new ModuleCode(VALID_MODULE_CODE_CS2040),
+            copyDescriptor
+        );
+
+        assertEquals(standardCommand, commandWithSameValues);
 
         // same object -> returns true
-        assertTrue(standardCommand.equals(standardCommand));
+        assertEquals(standardCommand, standardCommand);
 
         // null -> returns false
-        assertFalse(standardCommand.equals(null));
+        assertNotEquals(standardCommand, null);
 
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new ModuleEditCommand(INDEX_SECOND_MODULE, DESC_PROGRAMMING_METHODOLOGY)));
+        assertNotEquals(standardCommand, new ModuleEditCommand(new ModuleCode(VALID_MODULE_CODE_CS2103T), descriptor));
 
-        // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new ModuleEditCommand(INDEX_FIRST_MODULE, DESC_COMPUTER_ORGANISATION)));
     }
-    */
+
 }
