@@ -10,4 +10,3 @@ NonEmptyState: Contains study_plan.csv with latest module data
 NonEmptyState -> EmptyState: manual deletion
 NonEmptyState -> NonEmptyState: export()
 @enduml
-

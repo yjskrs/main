@@ -12,4 +12,3 @@ InitialState -> FilteredByOrState: filter(predicates, OR)
 FilteredByAndState --> InitialState: filter()
 FilteredByOrState --> InitialState: filter()
 @enduml
-
