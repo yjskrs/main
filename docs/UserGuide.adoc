@@ -104,11 +104,25 @@ you took the module.
 
 //tag::walkthrough[]
 == Walkthrough
-____
-This segment details a simple tutorial on how to use the application.
-____
 
-1. Start up the application
+Section by: https://github.com/dargohzy[Daryl] & https://github.com/teriaiw[Teri]
+
+This segment details a simple tutorial on how to use the application. It provides a step-by-step guide on how to
+utilise the main components of the application, and covers the following:
+
+* Choosing an `Avatar`
+* Adding a `Course`
+* Adding a course `Requirement`
+* Adding a `Module`
+* Assigning a `Module` to a `Requirement`
+* Adding additional details to a `Module`
+* Marking as `Module` as done and assigning a `Grade` to it
+* Tracking your academic progress: `MCs` and `C.A.P`
+* Exporting your data
+
+Here is a 10-step guide to use `iGrad`.
+
+. Start up the application
 
 - Open up the application by opening the `iGrad.jar` file.
 - Select an avatar by typing its name before pressing enter.
@@ -116,7 +130,7 @@ ____
 +
 image::../images/user-guide/walkthrough1.png[]
 
-2. Enter your course details
+. Enter your course details
 
 - Course refers to the name of the course you are currently enrolled in.
 - Enter the name of your course in the format: `course add n/COURSE_NAME`
@@ -126,7 +140,7 @@ image::../images/user-guide/walkthrough2.1.png[]
 +
 image::../images/user-guide/walkthrough2.2.png[]
 
-3. Key in your graduation requirements
+. Key in your graduation requirements
 
 - Requirements are categories for modules required in the entered course.
 - Enter your course graduation requirements in the format: `requirement add t/REQUIREMENT_TITLE u/MCS_REQUIRED`
@@ -136,7 +150,7 @@ image::../images/user-guide/walkthrough3.1.png[]
 +
 image::../images/user-guide/walkthrough3.2.png[]
 
-4. Add modules to the tracker
+. Add modules to the tracker
 
 - Modules refer to modules that you have taken or are planning to take.
 - Enter modules into the system in the format: `module add n/MODULE_CODE t/MODULE_TITLE u/MCs`
@@ -146,7 +160,7 @@ image::../images/user-guide/walkthrough4.1.png[]
 +
 image::../images/user-guide/walkthrough4.2.png[]
 
-5. Assign your modules
+. Assign your modules
 
 - Assign modules under their respective requirements.
 - Enter assign in the format: `requirement assign REQUIREMENT_CODE n/MODULE_CODE`
@@ -157,7 +171,7 @@ image::../images/user-guide/walkthrough5.1.png[]
 +
 image::../images/user-guide/walkthrough5.2.png[]
 
-6. Key in additional details for your modules
+. Key in additional details for your modules
 
 - (Teri)
 +
@@ -165,7 +179,7 @@ image::../images/user-guide/walkthrough6.1.png[]
 +
 image::../images/user-guide/walkthrough6.2.png[]
 
-7. Mark a module as done and assign a grade to it
+. Mark a module as done and assign a grade to it
 
 - (Teri)
 +
@@ -173,20 +187,20 @@ image::../images/user-guide/walkthrough7.1.png[]
 +
 image::../images/user-guide/walkthrough7.2.png[]
 
-8. Track your MCs
+. Track your MCs
 
 - (Teri)
 +
 image::../images/user-guide/walkthrough8.png[]
 
-9. View your CAP
+. View your CAP
 
 - (Teri)
 +
 image::../images/user-guide/walkthrough8.png[]
 
 
-10. Export your data
+. Export your data
 
 - (Teri)
 +

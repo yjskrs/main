@@ -27,7 +27,7 @@ public class HelpWindow extends UiPart<Stage> {
     private static final String FXML = "HelpWindow.fxml";
 
     // Cheatsheet command formats
-    private static final String COURSE_ADD = "course add n/COURSE_NAME s/TOTAL_SEMESTERS";
+    private static final String COURSE_ADD = "course set n/COURSE_NAME s/TOTAL_SEMESTERS";
     private static final String COURSE_EDIT = "course edit n/COURSE_NAME s/TOTAL_SEMESTERS";
     private static final String COURSE_DELETE = "course delete";
     private static final String COURSE_ACHIEVE = "course achieve c/DESIRED_CAP";
@@ -70,6 +70,7 @@ public class HelpWindow extends UiPart<Stage> {
 
     @FXML
     private Label requirementDelete;
+
 
     @FXML
     private Label requirementAssign;
