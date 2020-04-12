@@ -10,8 +10,8 @@ import static igrad.commons.util.AppUtil.checkArgument;
  */
 public class Credits {
 
-    public static final String MESSAGE_CONSTRAINTS =
-        "Total modular credits of a course should be a number more than 0.";
+    public static final String MESSAGE_CONSTRAINTS = "Total modular Credits provided for the course is invalid!\n"
+        + "It should be a number more than 0.";
 
     public static final String VALIDATION_REGEX = "^[0-9]\\d*$";
 

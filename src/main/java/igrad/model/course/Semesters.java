@@ -11,7 +11,8 @@ import static java.util.Objects.requireNonNull;
  */
 public class Semesters {
 
-    public static final String MESSAGE_CONSTRAINTS = "Total semesters of a course should be more than 0";
+    public static final String MESSAGE_CONSTRAINTS = "Total Semesters of a course provided is invalid!\n"
+        + "It should be a number more than 0.";
 
     public static final String MESSAGE_INVALID_SEMS = "Remaining semester count invalid";
 
