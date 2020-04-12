@@ -7,6 +7,7 @@ import static igrad.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import igrad.logic.commands.CommandResult;
 import igrad.logic.commands.CommandUtil;
@@ -39,7 +40,7 @@ public class RequirementUnassignCommand extends RequirementCommand {
     public static final String MESSAGE_REQUIREMENT_NO_MODULES = "There must be at least one modules unassigned.";
 
     public static final String MESSAGE_MODULES_NON_EXISTENT =
-        "Not all modules exist in the system. Please try other modules.";
+        "Some modules do not exist in the system:\n%1$s\n\nPlease try other modules.";
 
     public static final String MESSAGE_MODULES_NON_EXISTENT_IN_REQUIREMENT =
         "Not all modules exist in the requirement. Please try other modules.";
@@ -70,7 +71,13 @@ public class RequirementUnassignCommand extends RequirementCommand {
 
         // First check, if all modules (codes) are existent modules in the course book (they should all be)
         if (modulesToUnassign.size() < moduleCodes.size()) {
-            throw new CommandException(MESSAGE_MODULES_NON_EXISTENT);
+            List<ModuleCode> moduleCodesToAssign = modulesToUnassign.stream()
+                .map(module -> module.getModuleCode())
+                .collect(Collectors.toList());
+
+            moduleCodes.removeAll(moduleCodesToAssign);
+
+            throw new CommandException(String.format(MESSAGE_MODULES_NON_EXISTENT, moduleCodes));
         }
 
         // Now check, if all modules specified are existent in the requirement (they should be)

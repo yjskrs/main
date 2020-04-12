@@ -5,6 +5,7 @@ import static igrad.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import igrad.logic.commands.CommandResult;
 import igrad.logic.commands.CommandUtil;
@@ -38,7 +39,7 @@ public class RequirementAssignCommand extends RequirementCommand {
     public static final String MESSAGE_REQUIREMENT_NO_MODULES = "There must be at least one modules assigned.";
 
     public static final String MESSAGE_MODULES_NON_EXISTENT =
-        "Some Modules do not exist in the system:\n%1$s\nPlease try other modules.";
+        "Some modules do not exist in the system:\n%1$s\n\nPlease try other modules.";
 
     public static final String MESSAGE_REQUIREMENT_ASSIGN_SUCCESS = "Modules assigned under Requirement:\n%1$s";
 
@@ -67,7 +68,12 @@ public class RequirementAssignCommand extends RequirementCommand {
 
         // First check, if all modules (codes) are existent modules in the course book (they should all be)
         if (modulesToAssign.size() < moduleCodes.size()) {
-            throw new CommandException(MESSAGE_MODULES_NON_EXISTENT);
+            List<ModuleCode> moduleCodesToAssign = modulesToAssign.stream()
+                .map(module -> module.getModuleCode())
+                .collect(Collectors.toList());
+
+            moduleCodes.removeAll(moduleCodesToAssign);
+            throw new CommandException(String.format(MESSAGE_MODULES_NON_EXISTENT, moduleCodes));
         }
 
         // Now filter out, modules which are already in the requirement, they should not be re-added again
