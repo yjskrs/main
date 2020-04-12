@@ -301,7 +301,25 @@ The course related commands that can be called are:
 * `course delete` - deletes existing course and all information in the course book
 * `course achieve` - calculates CAP needed to maintain each semester to achieve overall CAP targer
 
+==== Semesters
+Section by: https://github.com/teriaiw[Teri]
+
+.Course Semesters Class Diagram
+image::developer-guide/CourseSemestersClassDiagram.png[]
+
+`Semesters` stores the total semesters and remaining semesters that a user has in the course.
+
+* `Semesters` is first initialized when user does command `course set`. `totalSemesters` will be equal to
+`remainingSemesters` as user has not entered any other data to indicate completion of semesters.
+* `Semesters` is updated through method `computeSemesters` in `CourseInfo`.
+* `remainingSemesters` is computed by method `computeRemainingSemesters`. This method uses the `moduleList`
+to check for `module` that has `Semester` and `Grade`. The `module` which fulfils the mentioned and has the latest
+`Semester` will be taken as the latest completed semester.
+
+
 ==== Course Edit
+Section by: https://github.com/teriaiw[Teri]
+
 ===== Overview
 Users can edit their course info, which are `Name` and `Semesters` by using the `course edit` command.
 
@@ -321,6 +339,8 @@ Step 2: The CourseEditCommand is executed to set the new course name and course 
 Step 3: The new course name and course semesters is set in the course book.
 
 ==== Course Achieve
+Section by: https://github.com/teriaiw[Teri]
+
 ===== Overview
 Users can get an automatic calculation of their desired C.A.P. by using the `course achieve` command and
 entering their desired `Cap`.
@@ -331,14 +351,19 @@ and `Cap` of `courseInfo`.
 
 .Course Achieve Sequence Diagram
 image::developer-guide/CourseAchieveSequenceDiagram.png[]
-When a user wants to calculate achievable C.A.P., the user has to specify the prefix `c/` for `Cap`/
+When a user wants to calculate achievable C.A.P., the user has to specify the prefix `c/` for `Cap`.
 Then the application proceeds to do the following steps:
 
 Step 1: The CourseAchieveCommandParser is called to parse the CourseAchieveCommand with the `c/` prefix.
 
-Step 2: The CourseAchieveCommand is executed to calculate estimated cap by calling CourseInfo.
+Step 2: The CourseAchieveCommand is executed and it calls CourseInfo to calculate estimated cap.
 
 Step 3: The result is passed back to the user.
+
+===== Design Considerations
+It is possible that a calculated `Cap` to achieve is not a valid `Cap`. In such situations, an exception is
+thrown within the `computeEstimatedCap` command and it is caught in the `CourseAchieveCommand`. User will be
+given feedback that the desired C.A.P. is not achievable.
 
 '''
 
