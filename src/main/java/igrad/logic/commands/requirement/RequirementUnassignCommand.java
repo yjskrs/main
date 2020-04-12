@@ -4,6 +4,7 @@ package igrad.logic.commands.requirement;
 
 import static igrad.commons.util.CollectionUtil.requireAllNonNull;
 import static igrad.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
+import static igrad.logic.parser.CliSyntax.PREFIX_NAME;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
@@ -32,7 +33,9 @@ public class RequirementUnassignCommand extends RequirementCommand {
         + "by its requirement code. Existing requirement will be overwritten by the input values\n";
 
     public static final String MESSAGE_REQUIREMENT_UNASSIGN_USAGE = "Parameter(s): REQUIREMENT_CODE "
-        + PREFIX_MODULE_CODE + "MODULE_CODE...\n";
+        + PREFIX_MODULE_CODE + "MODULE_CODE...\n"
+        + "e.g. " + REQUIREMENT_UNASSIGN_COMMAND_WORD + " "
+        + "UE1 " + PREFIX_NAME + "CS2030";
 
     public static final String MESSAGE_REQUIREMENT_UNASSIGN_HELP = MESSAGE_REQUIREMENT_UNASSIGN_DETAILS
         + MESSAGE_REQUIREMENT_UNASSIGN_USAGE;
@@ -45,8 +48,8 @@ public class RequirementUnassignCommand extends RequirementCommand {
     public static final String MESSAGE_MODULES_NON_EXISTENT_IN_REQUIREMENT =
         "Some modules do not exist in the requirement (%1$s):\n%2$s\nPlease try other modules.";
 
-    public static final String MESSAGE_REQUIREMENT_UNASSIGN_SUCCESS = "Modules successfully unassigned under "
-        + "requirement (%1$s):\n"
+    public static final String MESSAGE_REQUIREMENT_UNASSIGN_SUCCESS = "I have successfully unassigned the following "
+        + "module(s) under requirement (%1$s):\n"
         + "%2$s";
 
     private static final String MODULE_CODE_DELIMITER = "\n";

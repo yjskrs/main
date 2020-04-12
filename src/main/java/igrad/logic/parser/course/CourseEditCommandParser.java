@@ -1,7 +1,6 @@
 package igrad.logic.parser.course;
 
 import static igrad.logic.commands.course.CourseEditCommand.MESSAGE_COURSE_EDIT_HELP;
-import static igrad.logic.commands.course.CourseEditCommand.MESSAGE_COURSE_NOT_EDITED;
 import static igrad.logic.parser.CliSyntax.PREFIX_NAME;
 import static igrad.logic.parser.CliSyntax.PREFIX_SEMESTER;
 import static java.util.Objects.requireNonNull;
@@ -68,7 +67,7 @@ public class CourseEditCommandParser extends CourseCommandParser implements Pars
         // If neither name nor semesters is specified, we flag an error to the user
         if ((nameString.isEmpty() || nameString.get().isEmpty())
             && (semestersString.isEmpty() || semestersString.get().isEmpty())) {
-            throw new ParseException(MESSAGE_COURSE_NOT_EDITED);
+            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_COURSE_EDIT_HELP));
         }
 
         // If name is specified, add it into our editCourseDescriptor

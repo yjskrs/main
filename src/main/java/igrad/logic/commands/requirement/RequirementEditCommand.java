@@ -34,12 +34,13 @@ public class RequirementEditCommand extends RequirementCommand {
     public static final String MESSAGE_USAGE = "Parameter(s): REQUIREMENT_CODE "
         + "[" + PREFIX_TITLE + "REQUIREMENT_TITLE] "
         + "[" + PREFIX_CREDITS + "CREDITS]\n"
-        + "Example: " + REQUIREMENT_EDIT_COMMAND_WORD + " UE0 "
+        + "e.g. " + REQUIREMENT_EDIT_COMMAND_WORD + " UE0 "
         + PREFIX_TITLE + "Unrestricted Electives";
 
     public static final String MESSAGE_REQUIREMENT_EDIT_HELP = MESSAGE_DETAILS + MESSAGE_USAGE;
 
-    public static final String MESSAGE_REQUIREMENT_EDIT_SUCCESS = "Edited Requirement:\n%1$s";
+    public static final String MESSAGE_REQUIREMENT_EDIT_SUCCESS = "Got it! This requirement has been "
+            + "edited successfully:\n%1$s";
     public static final String MESSAGE_REQUIREMENT_NOT_EDITED = "At least one field must be modified.";
 
     private final RequirementCode requirementCode;
