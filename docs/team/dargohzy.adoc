@@ -46,10 +46,15 @@ of the product in question. Worked in conjunction with https://github.com/teriai
 |===
 include::../UserGuide.adoc[tag=walkthrough]
 
+include::../UserGuide.adoc[tag=cheatsheet]
+|===
+
 == Contributions to the Developer Guide
 |===
 |_Given below are the sections I contributed to the Developer Guide. They showcase my ability to communicate technical
 information into documentation as well as my contributions to the project._
 |===
 
+
 include::../DeveloperGuide.adoc[tag=ui]
+
