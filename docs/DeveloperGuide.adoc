@@ -312,6 +312,7 @@ image::developer-guide/CourseSemestersClassDiagram.png[]
 * `Semesters` is first initialized when user does command `course set`. `totalSemesters` will be equal to
 `remainingSemesters` as user has not entered any other data to indicate completion of semesters.
 * `Semesters` is updated through method `computeSemesters` in `CourseInfo`.
+* `totalSemesters` is changed by user through the command `course edit`.
 * `remainingSemesters` is computed by method `computeRemainingSemesters`. This method uses the `moduleList`
 to check for `module` that has `Semester` and `Grade`. The `module` which fulfils the mentioned and has the latest
 `Semester` will be taken as the latest completed semester.
@@ -363,9 +364,23 @@ Then the application proceeds to do the following steps:
 . The result is passed back to the user.
 
 ===== Design Considerations
+
+*Invalid and Unachievable C.A.P.*
+
 It is possible that a calculated `Cap` to achieve is not a valid `Cap`. In such situations, an exception is
 thrown within the `computeEstimatedCap` command and it is caught in the `CourseAchieveCommand`. User will be
 given feedback that the desired C.A.P. is not achievable.
+
+The figure below illustrates this:
+
+.Course Achieve Activity Diagram
+image::developer-guide/CourseAchieveActivityDiagram.png[]
+
+Therefore, there are three types of result displayed to User:
+
+. When User enters invalid Cap to achieve
+. When computed Cap is invalid
+. When computed Cap is valid
 
 '''
 
