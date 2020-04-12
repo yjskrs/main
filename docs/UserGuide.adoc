@@ -859,6 +859,8 @@ in one place.
 
 ## FAQs
 
+
+
 _I'm not an NUS student. Can I still use iGrad?_
 
 As long as your university follows a similar <<fig-2,hierachical structure>>!
@@ -871,8 +873,8 @@ and you'll have to key in your module details manually.
 
 _Where can I get the icons for the avatars?_
 
-Avatar pictures were obtained from https://www.freepik.com/free-vector/hand-drawn-kawaii-characters-collection_4098554.htm#page=1&query=cute%20animals&position=2[Freepik].
-All credits go towards the original creators.
+The avatar icons were obtained from https://www.freepik.com/free-vector/hand-drawn-kawaii-characters-collection_4098554.htm#page=1&query=cute%20animals&position=2[Freepik].
+All credits go to the original creator.
 
 //tag::cheatsheet[]
 == Cheat Sheet
