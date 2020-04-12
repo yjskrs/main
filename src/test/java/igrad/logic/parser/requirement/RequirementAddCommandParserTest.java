@@ -50,16 +50,20 @@ public class RequirementAddCommandParserTest {
             new RequirementAddCommand(expectedRequirement));
 
         // multiple titles, only last title parsed
-        assertParseSuccess(parser, REQ_CREDITS_DESC_UE + REQ_TITLE_DESC_CSBD + REQ_TITLE_DESC_UE, new RequirementAddCommand(expectedRequirement));
+        assertParseSuccess(parser,
+            REQ_CREDITS_DESC_UE + REQ_TITLE_DESC_CSBD + REQ_TITLE_DESC_UE,
+            new RequirementAddCommand(expectedRequirement));
         assertParseNotEquals(parser,
             REQ_CREDITS_DESC_UE + REQ_TITLE_DESC_CSBD + REQ_TITLE_DESC_UE,
             REQ_CREDITS_DESC_UE + REQ_TITLE_DESC_UE + REQ_TITLE_DESC_CSBD);
 
         // multiple credits, only last credits parsed
-        assertParseSuccess(parser, REQ_CREDITS_DESC_CSBD + REQ_CREDITS_DESC_UE + REQ_TITLE_DESC_UE, new RequirementAddCommand(expectedRequirement));
+        assertParseSuccess(parser,
+            REQ_CREDITS_DESC_CSBD + REQ_CREDITS_DESC_UE + REQ_TITLE_DESC_UE,
+            new RequirementAddCommand(expectedRequirement));
         assertParseNotEquals(parser,
             REQ_CREDITS_DESC_CSBD + REQ_CREDITS_DESC_UE + REQ_TITLE_DESC_UE,
-            REQ_TITLE_DESC_UE + REQ_CREDITS_DESC_UE  + REQ_CREDITS_DESC_CSBD);
+            REQ_TITLE_DESC_UE + REQ_CREDITS_DESC_UE + REQ_CREDITS_DESC_CSBD);
     }
 
     @Test
