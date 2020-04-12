@@ -332,11 +332,10 @@ When a user edits name of a course, the user has to specify the prefix `n/` for 
 for `Semesters`.
 Then the application proceeds to do the following steps:
 
-Step 1: The CourseEditCommandParser is called to parse the CourseEditCommand with the `n/` and `s/` prefix.
-
-Step 2: The CourseEditCommand is executed to set the new course name and course semesters to the model.
-
-Step 3: The new course name and course semesters is set in the course book.
+. The `CourseEditCommandParser` is called to parse the `CourseEditCommand` with the `n/` and `s/` prefix.
+. The `CourseEditCommand` is executed and calls `setCourseInfo` to `Model`.
+. `Model` calls the same method `setCourseInfo` to `CourseBook`.
+. The new course `Name` and course `Semesters` is set in the `CourseBook`.
 
 ==== Course Achieve
 Section by: https://github.com/teriaiw[Teri]
@@ -354,11 +353,14 @@ image::developer-guide/CourseAchieveSequenceDiagram.png[]
 When a user wants to calculate achievable C.A.P., the user has to specify the prefix `c/` for `Cap`.
 Then the application proceeds to do the following steps:
 
-Step 1: The CourseAchieveCommandParser is called to parse the CourseAchieveCommand with the `c/` prefix.
-
-Step 2: The CourseAchieveCommand is executed and it calls CourseInfo to calculate estimated cap.
-
-Step 3: The result is passed back to the user.
+. The `CourseAchieveCommandParser` is called to parse the `CourseAchieveCommand` with the `c/` prefix.
+. The `CourseAchieveCommand` is executed and it calls method `getCourseInfo` in `Model` to get `CourseInfo`.
+. With the `CourseInfo` and `Cap`, `CourseAchieveCommand` calls method `calculateEstimatedCap` in `CourseInfo`.
+. `CourseInfo` calls method `getSemesters` and `getCap` to itself to get the following information:
+... `Semesters`
+... `Cap`
+. `computeEstimmatedCap` computes and returns estimate `Cap`.
+. The result is passed back to the user.
 
 ===== Design Considerations
 It is possible that a calculated `Cap` to achieve is not a valid `Cap`. In such situations, an exception is
