@@ -75,7 +75,7 @@ public class RequirementUnassignCommand extends RequirementCommand {
                 .map(module -> module.getModuleCode())
                 .collect(Collectors.toList());
 
-            moduleCodes.removeAll(moduleCodesToAssign);
+            moduleCodes.removeIf(moduleCode -> moduleCodesToAssign.contains(moduleCode));
 
             throw new CommandException(String.format(MESSAGE_MODULES_NON_EXISTENT, moduleCodes));
         }
