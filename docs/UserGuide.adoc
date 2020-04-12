@@ -59,9 +59,8 @@ TIP: Specifies extra tips you can use when navigating through our app.
 IMPORTANT: Specifies important things to take note of
 
 == Features
-____
+
 This segment highlights the key features of iGrad.
-____
 
 ==== Course Builder
 
@@ -80,9 +79,9 @@ even offers predictive services so you know how well you have to do
 in order to achieve your dream CAP.
 
 == Components
-____
+
 This segment contains details on the structure of iGrad.
-____
+
 
 image:https://user-images.githubusercontent.com/34233605/75425925-9774ff80-597e-11ea-87f5-228f95b5c84f.png[]
 
@@ -120,9 +119,9 @@ utilise the main components of the application, and covers the following:
 * Tracking your academic progress: `MCs` and `C.A.P`
 * Exporting your data
 
-Here is a 10-step guide to use `iGrad`.
+Here is a 10-step guide on how to use `iGrad`.
 
-. Start up the application
+=== Start up the application
 
 - Open up the application by opening the `iGrad.jar` file.
 - Select an avatar by typing its name before pressing enter.
@@ -130,7 +129,7 @@ Here is a 10-step guide to use `iGrad`.
 +
 image::../images/user-guide/walkthrough1.png[]
 
-. Enter your course details
+=== Enter your course details
 
 - Course refers to the name of the course you are currently enrolled in.
 - Enter the name of your course in the format: `course add n/COURSE_NAME`
@@ -140,7 +139,7 @@ image::../images/user-guide/walkthrough2.1.png[]
 +
 image::../images/user-guide/walkthrough2.2.png[]
 
-. Key in your graduation requirements
+=== Key in your graduation requirements
 
 - Requirements are categories for modules required in the entered course.
 - Enter your course graduation requirements in the format: `requirement add t/REQUIREMENT_TITLE u/MCS_REQUIRED`
@@ -150,7 +149,7 @@ image::../images/user-guide/walkthrough3.1.png[]
 +
 image::../images/user-guide/walkthrough3.2.png[]
 
-. Add modules to the tracker
+=== Add modules to the tracker
 
 - Modules refer to modules that you have taken or are planning to take.
 - Enter modules into the system in the format: `module add n/MODULE_CODE t/MODULE_TITLE u/MCs`
@@ -160,7 +159,7 @@ image::../images/user-guide/walkthrough4.1.png[]
 +
 image::../images/user-guide/walkthrough4.2.png[]
 
-. Assign your modules
+=== Assign your modules
 
 - Assign modules under their respective requirements.
 - Enter assign in the format: `requirement assign REQUIREMENT_CODE n/MODULE_CODE`
@@ -171,7 +170,7 @@ image::../images/user-guide/walkthrough5.1.png[]
 +
 image::../images/user-guide/walkthrough5.2.png[]
 
-. Key in additional details for your modules
+=== Key in additional details for your modules
 
 - (Teri)
 +
@@ -179,7 +178,7 @@ image::../images/user-guide/walkthrough6.1.png[]
 +
 image::../images/user-guide/walkthrough6.2.png[]
 
-. Mark a module as done and assign a grade to it
+=== Mark a module as done and assign a grade to it
 
 - (Teri)
 +
@@ -187,20 +186,20 @@ image::../images/user-guide/walkthrough7.1.png[]
 +
 image::../images/user-guide/walkthrough7.2.png[]
 
-. Track your MCs
+=== Track your MCs
 
 - (Teri)
 +
 image::../images/user-guide/walkthrough8.png[]
 
-. View your CAP
+=== View your CAP
 
 - (Teri)
 +
 image::../images/user-guide/walkthrough8.png[]
 
 
-. Export your data
+=== Export your data
 
 - (Teri)
 +
@@ -212,9 +211,9 @@ image::../images/user-guide/walkthrough10.3.png[]
 //end::walkthrough[]
 
 == Command List
-____
+Section by: https://github.com/waynewee[Wayne] & https://github.com/yjskrs[Yijie]
+
 This segment contains a list of commands with examples that you can use to make full use of iGrad.
-____
 
 Take note of the following when using our commands:
 
@@ -798,45 +797,78 @@ _I'm not an NUS student. Can I still use iGrad?_
 As long as your university follows a similar <<fig-1,hierachical structure>>!
 However, we will be unable to provide features such as validation from NUSMods.
 
+_Do I require an online connection to use iGrad?_
+
+Nope! iGrad may be used offline. However, our validation feature which utilises NUSMods would be unavailable,
+and you'll have to key in your module details manually.
+
+_Where can I get the icons for the avatars?_
+
+Avatar pictures were obtained from https://www.freepik.com/free-vector/hand-drawn-kawaii-characters-collection_4098554.htm#page=1&query=cute%20animals&position=2[Freepik].
+All credits go towards the original creators.
+
+//tag::cheatsheet[]
 == Cheat Sheet
 
-____
+Section by: https://github.com/dargohzy[Daryl]
 
-This segment contains all the commands detailed in this guide in a consolidated list.
+This segment contains a consolidated view of all the commands utilised in `iGrad`. Commands are split into the following
+categories:
 
-____
+* Essential Commands
+* Course Commands
+* Requirement Commands
+* Module Commands
 
-`help`
 
-`course add n/COURSE_NAME`
+=== Essential Commands
+.Essential Commands
+|===
+|Description | Command
 
-`course edit [n/COURSE_NAME] [u/MCs]`
+|Open the help window | `help`
+|Undo last command | `undo`
+|Export data | `export`
+|Exit the application | `exit`
+|===
 
-`course delete COURSE_NAME`
+=== Course Commands
+.Course Commands
+|===
+|Description | Command
 
-`course achieve c/DESIRED_CAP`
+|Add a `Course` |  `course set n/COURSE_NAME s/TOTAL_SEMESTERS`
+|Edit the `Course`|  `course edit n/Information Systems s/10`
+|Delete the `Course` |  `course delete`
+|Find out `CAP` required per semester for desired `CAP` | `course achieve c/4.50 s/2`
 
-`requirement add n/REQUIREMENT_TITLE u/MCS_REQUIRED`
+|===
 
-`requirement edit REQUIREMENT_CODE [n/REQUIREMENT_TITLE] [u/MCS_REQUIRED]`
+=== Requirement Commands
+.Requirement Commands
+|===
+|Description | Command
 
-`requirement delete REQUIREMENT_CODE`
+|Add a `Requirement` | `requirement add t/REQUIREMENT_TITLE u/MCS_REQUIRED`
+|Edit a `Requirement` | `requirement edit UE0 t/GEs u/20`
+|Delete a `Requirement` | `requirement delete GE0`
+|`requirement assign REQUIREMENT_CODE [n/MODULE_CODE...]` | Assigns the modules under the requirement. | `requirement assign GE0 n/GER1000 n/GEQ1000`
 
-`requirement assign REQUIREMENT_CODE [n/MODULE_CODE ...]`
+|===
 
-`module add n/MODULE_CODE n/MODULE_TITLE u/MCs [n/DESCRIPTION] [s/SEMESTER] [g/GRADE] [m/MEMO_NOTES]`
+=== Module Commands
+.Module Commands
+|===
+|Description | Command
 
-`module edit MODULE_CODE [n/MODULE_CODE] [n/MODULE_TITLE] [n/DESCRIPTION] [u/MCs] [s/SEMESTER] [g/GRADE] [m/MEMO_NOTES]`
+| Add a `Module` | `module add n/MODULE_CODE t/MODULE_TITLE u/MCs [n/DESCRIPTION] [s/SEMESTER] [g/GRADE] [m/MEMO_NOTES]`
+| Edit a `Module`| `module edit MODULE_CODE [n/MODULE_CODE] [t/MODULE_TITLE] [u/MCs] [s/SEMESTER] [g/GRADE]`
+| Delete a `Module` | `module delete MODULE_CODE`
+| Mark a `Module` as done. Counts the modular credits towards academic progress. |  `module done MODULE_CODE [g/GRADE] [s/SEMESTER]`
 
-`module delete MODULE_CODE`
+//end::cheatsheet[]
 
-`module done MODULE_CODE g/GRADE`
-
-`undo`
-
-`export`
-
-`exit`
+|===
 
 ## Glossary
 
@@ -850,7 +882,7 @@ ____
 |Semester |A semester is a part of the academic year. Each semester typically lasts 13 weeks in NUS.
 |Modular Credits (MCs) |A modular credit (MC) is a unit of the effort, stated in terms of time, expected of a typical student in managing his/her workload.
 |NUSMods |A timetabling application built for NUS students, by NUS students. Much like this iGrad!
-| |
+
 |===
 
 *Handy Links*

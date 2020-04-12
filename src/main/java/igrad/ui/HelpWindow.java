@@ -37,9 +37,9 @@ public class HelpWindow extends UiPart<Stage> {
     private static final String REQUIREMENT_DELETE = "requirement delete REQUIREMENT_CODE";
     private static final String REQUIREMENT_ASSIGN = "requirement un/assign REQUIREMENT_CODE n/MODULE_CODE …";
     private static final String MODULE_ADD =
-        "module add n/MODULE_CODE t/MODULE_TITLE u/MCs [n/DESCRIPTION] [s/SEMESTER]";
+        "module add n/MODULE_CODE t/MODULE_TITLE u/MCs [s/SEMESTER]";
     private static final String MODULE_EDIT =
-        "module edit MODULE_CODE [n/MODULE_CODE] [t/MODULE_TITLE] [u/MCs] [n/DESCRIPTION] [s/SEMESTER]";
+        "module edit MODULE_CODE [n/MODULE_CODE] [t/MODULE_TITLE] [u/MCs] [s/SEMESTER]";
     private static final String MODULE_DELETE = "module delete MODULE_CODE";
     private static final String MODULE_DONE = "module done MODULE_CODE [g/GRADE] [s/SEMESTER]";
     private static final String UNDO = "undo";
