@@ -5,6 +5,7 @@ package igrad.logic.commands.requirement;
 import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
 import static igrad.logic.parser.CliSyntax.PREFIX_TITLE;
 import static java.util.Objects.requireNonNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -15,7 +16,10 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 import igrad.commons.core.GuiSettings;
+import igrad.logic.commands.Command;
+import igrad.logic.commands.CommandResult;
 import igrad.logic.commands.CommandTestUtil;
+import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.CourseBook;
 import igrad.model.Model;
 import igrad.model.ReadOnlyCourseBook;
@@ -84,6 +88,37 @@ public class RequirementCommandTestUtil extends CommandTestUtil {
     public static final String REQ_CREDITS_DESC_GE = " " + PREFIX_CREDITS + VALID_REQ_CREDITS_GE;
 
     public static final String INVALID_REQ_CREDITS_DESC = " " + PREFIX_CREDITS + INVALID_REQ_CREDITS_ALPHABET;
+
+    /**
+     * Executes the {@code command} and checks if the returned {@link CommandResult} matches CommandResult
+     * created with {@code expectedMessage} and that the result requirement lists are the same.
+     */
+    public static void assertCommandSuccess(Command command, Model actualModel, String expectedMessage,
+                                            Model expectedModel) {
+        try {
+            CommandResult expectedCommandResult = new CommandResult(expectedMessage);
+            CommandResult result = command.execute(actualModel);
+            assertEquals(expectedCommandResult, result);
+            assertEquals(expectedModel.getRequirementList(), actualModel.getRequirementList());
+        } catch (CommandException ce) {
+            throw new AssertionError(ce.getMessage(), ce);
+        }
+    }
+
+    /**
+     * Executes the {@code command} and checks if the exception thrown has the same message
+     * as {@code expectedMessage} and the resultant {@code expectedModel} is the same
+     * as {@code actualModel}.
+     */
+    public static void assertCommandThrows(Command command, Model actualModel, String expectedMessage,
+                                            Model expectedModel) {
+        try {
+            command.execute(actualModel);
+        } catch (CommandException ce) {
+            assertEquals(ce.getMessage(), expectedMessage);
+            assertEquals(expectedModel.getRequirementList(), actualModel.getRequirementList());
+        }
+    }
 
     /**
      * A default model stub with all non-essential methods failing.

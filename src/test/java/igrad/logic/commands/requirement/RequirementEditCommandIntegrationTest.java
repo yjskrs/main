@@ -2,63 +2,82 @@ package igrad.logic.commands.requirement;
 
 //@@author yjskrs
 
+import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_CODE_CSF;
+import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_CREDITS_MS;
+import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_TITLE_MS;
+import static igrad.logic.commands.requirement.RequirementCommandTestUtil.assertCommandSuccess;
+import static igrad.logic.commands.requirement.RequirementCommandTestUtil.assertCommandThrows;
+import static igrad.logic.commands.requirement.RequirementEditCommand.EditRequirementDescriptor;
+import static igrad.logic.commands.requirement.RequirementEditCommand.MESSAGE_REQUIREMENT_EDIT_SUCCESS;
+import static igrad.logic.commands.requirement.RequirementEditCommand.MESSAGE_REQUIREMENT_NOT_EDITED;
+import static igrad.testutil.TypicalRequirements.CS_FOUNDATION;
 import static igrad.testutil.TypicalRequirements.getTypicalCourseBook;
 
+import org.junit.jupiter.api.Test;
+
+import igrad.model.CourseBook;
 import igrad.model.Model;
 import igrad.model.ModelManager;
 import igrad.model.UserPrefs;
+import igrad.model.requirement.Requirement;
+import igrad.model.requirement.RequirementCode;
+import igrad.testutil.EditRequirementDescriptorBuilder;
+import igrad.testutil.RequirementBuilder;
 
 public class RequirementEditCommandIntegrationTest {
-
     private Model model = new ModelManager(getTypicalCourseBook(), new UserPrefs());
+    private Requirement requirement = CS_FOUNDATION;
+    private RequirementCode code = new RequirementCode(VALID_REQ_CODE_CSF);
 
-    // @Test
-    // public void execute_allFieldsSpecifiedUnfilteredList_success() {
-    //     Person editedPerson = new PersonBuilder().build();
-    //     EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPerson).build();
-    //     EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
-    //
-    //     String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
-    //
-    //     Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-    //     expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
-    //
-    //     assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
-    // }
-    //
-    // @Test
-    // public void execute_someFieldsSpecifiedUnfilteredList_success() {
-    //     Index indexLastPerson = Index.fromOneBased(model.getFilteredPersonList().size());
-    //     Person lastPerson = model.getFilteredPersonList().get(indexLastPerson.getZeroBased());
-    //
-    //     PersonBuilder personInList = new PersonBuilder(lastPerson);
-    //     Person editedPerson = personInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
-    //                               .withTags(VALID_TAG_HUSBAND).build();
-    //
-    //     EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
-    //                                           .withPhone(VALID_PHONE_BOB).withTags(VALID_TAG_HUSBAND).build();
-    //     EditCommand editCommand = new EditCommand(indexLastPerson, descriptor);
-    //
-    //     String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
-    //
-    //     Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-    //     expectedModel.setPerson(lastPerson, editedPerson);
-    //
-    //     assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
-    // }
-    //
-    // @Test
-    // public void execute_noFieldSpecifiedUnfilteredList_success() {
-    //     EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, new EditPersonDescriptor());
-    //     Person editedPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-    //
-    //     String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
-    //
-    //     Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-    //
-    //     assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
-    // }
-    //
+    @Test
+    public void execute_allFieldsSpecified_success() {
+        Model expectedModel = new ModelManager(new CourseBook(model.getCourseBook()), new UserPrefs());
+        Requirement editedRequirement = new RequirementBuilder(requirement).withTitle(VALID_REQ_TITLE_MS)
+                                            .withCreditsOneParameter(VALID_REQ_CREDITS_MS).build();
+        EditRequirementDescriptor descriptor = new EditRequirementDescriptorBuilder().withTitle(VALID_REQ_TITLE_MS)
+                                                   .withCredits(VALID_REQ_CREDITS_MS).build();
+
+        expectedModel.setRequirement(model.getRequirement(code).get(), editedRequirement);
+        RequirementEditCommand command = new RequirementEditCommand(code, descriptor);
+        String expectedMessage = String.format(MESSAGE_REQUIREMENT_EDIT_SUCCESS, editedRequirement);
+
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_someFieldsSpecified_success() {
+        Requirement editedTitle = new RequirementBuilder(requirement).withTitle(VALID_REQ_TITLE_MS).build();
+        Requirement editedCredits = new RequirementBuilder(requirement)
+                                        .withCreditsOneParameter(VALID_REQ_CREDITS_MS).build();
+        EditRequirementDescriptor descriptorTitle = new EditRequirementDescriptorBuilder()
+                                                        .withTitle(VALID_REQ_TITLE_MS).build();
+        EditRequirementDescriptor descriptorCredits = new EditRequirementDescriptorBuilder()
+                                                        .withCredits(VALID_REQ_CREDITS_MS).build();
+
+        Model expectedModel = new ModelManager(new CourseBook(model.getCourseBook()), new UserPrefs());
+        expectedModel.setRequirement(model.getRequirement(code).get(), editedTitle);
+        RequirementEditCommand command = new RequirementEditCommand(code, descriptorTitle);
+        String expectedMessage = String.format(MESSAGE_REQUIREMENT_EDIT_SUCCESS, editedTitle);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+
+        model = new ModelManager(getTypicalCourseBook(), new UserPrefs());
+        expectedModel = new ModelManager(new CourseBook(model.getCourseBook()), new UserPrefs());
+        expectedModel.setRequirement(model.getRequirement(code).get(), editedCredits);
+        command = new RequirementEditCommand(code, descriptorCredits);
+        expectedMessage = String.format(MESSAGE_REQUIREMENT_EDIT_SUCCESS, editedCredits);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_noFieldSpecified_modelNotUpdated() {
+        EditRequirementDescriptor descriptor = new EditRequirementDescriptor();
+        Model expectedModel = new ModelManager(new CourseBook(model.getCourseBook()), new UserPrefs());
+        RequirementEditCommand command = new RequirementEditCommand(code, descriptor);
+        String expectedMessage = MESSAGE_REQUIREMENT_NOT_EDITED;
+
+        assertCommandThrows(command, model, expectedMessage, expectedModel);
+    }
+
     // @Test
     // public void execute_filteredList_success() {
     //     showPersonAtIndex(model, INDEX_FIRST_PERSON);
