@@ -76,25 +76,7 @@ public class RequirementAssignCommand extends RequirementCommand {
         modulesToAssign.removeIf(module -> requirementToEdit.hasModule(module));
 
         // Finally if everything alright, we can actually then assign/add the specified modules under this requirement
-        requirementToEdit.addModules(modulesToAssign);
-
-        // First, we copy over all the old values of requirementToEdit
-        RequirementCode requirementCode = requirementToEdit.getRequirementCode();
-        Title title = requirementToEdit.getTitle();
-
-        /*
-         * Now given that we've added this list of new modules to requirement, we've to update (recompute)
-         * creditsFulfilled, but since Requirement constructor already does it for us, based
-         * on the module list passed in, we don't have to do anything here, just propage
-         * the old credits value.
-         */
-        igrad.model.requirement.Credits credits = requirementToEdit.getCredits();
-
-        // Get the most update module list (now with the new modules assigned/added)
-        List<Module> modules = requirementToEdit.getModuleList();
-
-        // Finally, create a new Requirement with all the updated information (details).
-        Requirement editedRequirement = new Requirement(requirementCode, title, credits, modules);
+        Requirement editedRequirement = createEditedRequirement(requirementToEdit, modulesToAssign);
 
         model.setRequirement(requirementToEdit, editedRequirement);
 
@@ -117,6 +99,33 @@ public class RequirementAssignCommand extends RequirementCommand {
 
         return new CommandResult(
             String.format(MESSAGE_REQUIREMENT_ASSIGN_SUCCESS, editedRequirement));
+    }
+
+    /**
+     * Creates and returns a new {@code Requirement} with modules assigned (specified by;
+     * {@code modulesToAssign}) to the original requirement; {@code requirementToEdit}
+     */
+    private static Requirement createEditedRequirement(Requirement requirementToEdit, List<Module> modulesToAssign) {
+        // Finally if everything alright, we can actually then assign/add the specified modules under this requirement
+        requirementToEdit.addModules(modulesToAssign);
+
+        // First, we copy over all the old values of requirementToEdit
+        RequirementCode requirementCode = requirementToEdit.getRequirementCode();
+        Title title = requirementToEdit.getTitle();
+
+        /*
+         * Now given that we've added this list of new modules to requirement, we've to update (recompute)
+         * creditsFulfilled, but since Requirement constructor already does it for us, based
+         * on the module list passed in, we don't have to do anything here, just propage
+         * the old credits value.
+         */
+        igrad.model.requirement.Credits credits = requirementToEdit.getCredits();
+
+        // Get the most update module list (now with the new modules assigned/added)
+        List<Module> modules = requirementToEdit.getModuleList();
+
+        // Finally, create a new Requirement with all the updated information (details).
+        return new Requirement(requirementCode, title, credits, modules);
     }
 
     @Override
