@@ -62,19 +62,30 @@ IMPORTANT: Specifies important things to take note of
 (Nathanael)
 ____
 This segment highlights the three key features iGrad offers to NUS students, namely;
-the Course Planner, an Module Credits (MCs) Tracker, and a Cummulative Average Point (CAP) Tracker.
+a Course Planner, an Module Credits (MCs) Tracker, and a Cummulative Average Point (CAP) Tracker.
+
+If you would like a more in-depth overview of the actual components of our application, please
+refer to the next section; <<Components>>, for more details.
 ____
 
 ==== Course Planner
-iGrad was built with every NUS student in mind. Our flexible course planner allows you to plan
-the course of your own dreams, be it those of you doing a single degree programme,
-a minor programme, a double degree programme, and even those from the concurrent degree programme.
-With our course planner, you would be able to enter
+_iGrad_ was built with every NUS student in mind. Our flexible course planner allows you to plan
+a course of your own dreams, be it those of you doing a _single degree programme_,
+a _double degree programme_, and even a _concurrent degree programme_.
+
+With our course planner, you would be able to enter your current course details such as your
+*modules* and the various broad degree *requirements* by which those modules are mapped.
+
+For instance, in the _Computer Science_ course (as shown in the _Figure
+
+image::../images/user-guide/components/graduation_degree_requirements.png[]
+
 
 ==== MCs Tracker
 
-We are sick of counting our MCs at the beginning of every semester. Easily see how many MCs you
-have left in order to apply for graduation.
+We are sick of counting our MCs at the beginning of every semester, be it our total course MCs left before
+we can apply for graduation, or maybe the MCs for those invidual requirements. Our MCs feature allows you
+to easily keep track of these information, at your fingertips.
 
 ==== CAP Tracker
 
@@ -82,14 +93,17 @@ No more googling for CAP calculators. iGrad's CAP tracker helps you keeps track 
 every step of your journey in your course, and it even offers predictive features so you know how
 well you have to do in order to achieve your dream CAP.
 
-
-Finally, the best part about these features, are that they are all in one app; iGrad. With all
-information in one place, you would never go amiss keeping track of your graduation requirements.
+==== Everything Integrated in One Application
+But the best part about these features, is that they are all in one application; iGrad. Hence, with all
+these important pieces of information in one place, you would never go amiss keeping track
+of your graduation requirements.
 
 == Components
 (Nathanael)
 ____
-This segment contains details of the application's components and entities of iGrad.
+This segment details various components of our application; iGrad. As shown in the picture below,
+the components follows a hierachical structure.
+
 ____
 
 image::../images/user-guide/components/hierachical_structure.png[]
@@ -97,7 +111,8 @@ image::../images/user-guide/components/hierachical_structure.png[]
 ==== Course
 
 A course is simply a group of requirements. It is also how we keep track of your overall CAP
-and total MCs.
+and total number of MCs towards graduataion.
+
 
 ==== Requirements
 
