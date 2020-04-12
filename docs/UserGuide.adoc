@@ -59,37 +59,45 @@ TIP: Specifies extra tips you can use when navigating through our app.
 IMPORTANT: Specifies important things to take note of
 
 == Features
+(Nathanael)
 ____
-This segment highlights the key features of iGrad.
+This segment highlights the three key features iGrad offers to NUS students, namely;
+the Course Planner, an Module Credits (MCs) Tracker, and a Cummulative Average Point (CAP) Tracker.
 ____
 
-==== Course Builder
+==== Course Planner
+iGrad was built with every NUS student in mind. Our flexible course planner allows you to plan
+the course of your own dreams, be it those of you doing a single degree programme,
+a minor programme, a double degree programme, and even those from the concurrent degree programme.
+With our course planner, you would be able to enter
 
-iGrad was built with every NUS student in mind. Our custom course builder allows you to build
-the course of your dreams.
-
-==== Modular Credits (MCs) Tracker
+==== MCs Tracker
 
 We are sick of counting our MCs at the beginning of every semester. Easily see how many MCs you
 have left in order to apply for graduation.
 
-==== Cumulative Average Point (CAP) Tracker
+==== CAP Tracker
 
-No more googling CAP calculators. iGrad's CAP tracker keeps track of your CAP at every step and
-even offers predictive services so you know how well you have to do
-in order to achieve your dream CAP.
+No more googling for CAP calculators. iGrad's CAP tracker helps you keeps track of your CAP at
+every step of your journey in your course, and it even offers predictive features so you know how
+well you have to do in order to achieve your dream CAP.
+
+
+Finally, the best part about these features, are that they are all in one app; iGrad. With all
+information in one place, you would never go amiss keeping track of your graduation requirements.
 
 == Components
+(Nathanael)
 ____
-This segment contains details on the structure of iGrad.
+This segment contains details of the application's components and entities of iGrad.
 ____
 
-image:https://user-images.githubusercontent.com/34233605/75425925-9774ff80-597e-11ea-87f5-228f95b5c84f.png[]
+image::../images/user-guide/components/hierachical_structure.png[]
 
 ==== Course
 
 A course is simply a group of requirements. It is also how we keep track of your overall CAP
-and MCs.
+and total MCs.
 
 ==== Requirements
 
@@ -99,7 +107,7 @@ complete it.
 ==== Modules
 
 A module is the building block of all other components. Mark your modules as done and give it
-a grade. You can also add optional memos to help you remember why
+a grade. You could also add optional memos to help you remember why
 you took the module.
 
 //tag::walkthrough[]
