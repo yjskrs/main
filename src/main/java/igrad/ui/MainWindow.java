@@ -320,6 +320,8 @@ public class MainWindow extends UiPart<Stage> {
         return moduleListPanel;
     }
 
+    //@@author nathanaelseen
+
     /**
      * Executes the command and returns the result.
      *

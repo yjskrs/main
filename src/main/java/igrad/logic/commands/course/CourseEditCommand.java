@@ -14,6 +14,7 @@ import igrad.model.course.CourseInfo;
 import igrad.model.course.Credits;
 import igrad.model.course.Name;
 import igrad.model.course.Semesters;
+
 //@@author nathanaelseen
 
 /**
@@ -24,7 +25,7 @@ public class CourseEditCommand extends CourseCommand {
     public static final String COURSE_EDIT_COMMAND_WORD = COURSE_COMMAND_WORD + SPACE + "edit";
     public static final String MESSAGE_COURSE_EDIT_SUCCESS = "Edited Course: %1$s";
     public static final String MESSAGE_EDIT_COURSE_SAME_PARAMETERS = "Please change the name of the course.";
-    public static final String MESSAGE_COURSE_NOT_EDITED = "Course name must be provided.";
+    public static final String MESSAGE_COURSE_NOT_EDITED = "At least one field must be modified.";
     public static final String MESSAGE_COURSE_EDIT_DETAILS = COURSE_EDIT_COMMAND_WORD
         + ": Edits the name of the course.\n";
     public static final String MESSAGE_COURSE_EDIT_USAGE = "Parameter(s): "
@@ -63,32 +64,31 @@ public class CourseEditCommand extends CourseCommand {
         Optional<Credits> credits = courseInfoToEdit.getCredits();
 
         Optional<Name> updatedName = editCourseDescriptor.getName().orElse(courseInfoToEdit.getName());
-        Optional<Semesters> semesters = editCourseDescriptor.getSemesters().orElse(courseInfoToEdit.getSemesters());
+        Optional<Semesters> updatedSemesters = editCourseDescriptor.getSemesters()
+            .orElse(courseInfoToEdit.getSemesters());
 
-        return new CourseInfo(updatedName, cap, credits, semesters);
+        return new CourseInfo(updatedName, cap, credits, updatedSemesters);
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        CourseInfo courseToEdit = model.getCourseInfo();
+        CourseInfo courseInfoToEdit = model.getCourseInfo();
 
         // The course name has to first be set, else we can't proceed to even edit it.
-        courseToEdit.getName().orElseThrow(() -> new CommandException(MESSAGE_COURSE_NON_EXISTENT));
+        courseInfoToEdit.getName().orElseThrow(() -> new CommandException(MESSAGE_COURSE_NON_EXISTENT));
 
-        if (editCourseDescriptor.getName().isEmpty()) {
+        CourseInfo editedCourseInfo = createEditedCourseInfo(courseInfoToEdit, editCourseDescriptor);
+
+        // If none of the parameters have been modified
+        if (editedCourseInfo.equals(courseInfoToEdit)) {
             throw new CommandException(MESSAGE_COURSE_NOT_EDITED);
         }
 
-        if (courseToEdit.getName().equals(editCourseDescriptor.getName())) {
-            throw new CommandException(MESSAGE_EDIT_COURSE_SAME_PARAMETERS);
-        }
+        model.setCourseInfo(editedCourseInfo);
 
-        CourseInfo editedCourse = createEditedCourseInfo(courseToEdit, editCourseDescriptor);
-
-        model.setCourseInfo(editedCourse);
-        return new CommandResult(String.format(MESSAGE_COURSE_EDIT_SUCCESS, editedCourse));
+        return new CommandResult(String.format(MESSAGE_COURSE_EDIT_SUCCESS, editedCourseInfo));
     }
 
     @Override
