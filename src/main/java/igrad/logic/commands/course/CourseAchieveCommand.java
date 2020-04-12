@@ -21,8 +21,8 @@ import igrad.model.course.exceptions.CapOverflowException;
  */
 public class CourseAchieveCommand extends CourseCommand {
     public static final String COURSE_ACHIEVE_COMMAND_WORD = COURSE_COMMAND_WORD + SPACE + "achieve";
-    public static final String MESSAGE_COURSE_ACHIEVE_SUCCESS = "You need to maintain an average C.A.P. (per sem) "
-        + "of: %1$s";
+    public static final String MESSAGE_COURSE_ACHIEVE_SUCCESS = "Maintain an average C.A.P. (per sem) "
+        + "of: %1$s to get there! You can do it!";
     public static final String MESSAGE_ACHIEVED_CAP_NOT_CALCULATED = "Please enter desired C.A.P.\n"
         + MESSAGE_CONSTRAINTS;
     public static final String MESSAGE_COURSE_ACHIEVE_DETAILS = COURSE_ACHIEVE_COMMAND_WORD + ": Calculates average "

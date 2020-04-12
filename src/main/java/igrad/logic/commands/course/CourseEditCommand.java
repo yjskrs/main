@@ -23,8 +23,7 @@ import igrad.model.course.Semesters;
 public class CourseEditCommand extends CourseCommand {
 
     public static final String COURSE_EDIT_COMMAND_WORD = COURSE_COMMAND_WORD + SPACE + "edit";
-    public static final String MESSAGE_COURSE_EDIT_SUCCESS = "Edited Course: %1$s";
-    public static final String MESSAGE_EDIT_COURSE_SAME_PARAMETERS = "Please change the name of the course.";
+    public static final String MESSAGE_COURSE_EDIT_SUCCESS = "Course: %1$s edited successfully!";
     public static final String MESSAGE_COURSE_NOT_EDITED = "At least one field must be modified.";
     public static final String MESSAGE_COURSE_EDIT_DETAILS = COURSE_EDIT_COMMAND_WORD
         + ": Edits the name of the course.\n";

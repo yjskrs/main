@@ -26,7 +26,7 @@ public class CourseAddCommand extends CourseCommand {
         + PREFIX_NAME + "Computer Science "
         + PREFIX_SEMESTER + "8";
     public static final String MESSAGE_COURSE_ADD_HELP = MESSAGE_COURSE_ADD_DETAILS + MESSAGE_COURSE_ADD_USAGE;
-    public static final String MESSAGE_COURSE_ADD_SUCCESS = "New course set: %1$s";
+    public static final String MESSAGE_COURSE_ADD_SUCCESS = "New course: %1$s has been set successfully!";
     public static final String MESSAGE_COURSE_NOT_ADDED = "All fields to be filled, course set n/COURSE_NAME "
         + "s/SEMESTERS";
 
