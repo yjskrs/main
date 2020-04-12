@@ -38,10 +38,8 @@ public class RequirementAssignCommand extends RequirementCommand {
     public static final String MESSAGE_REQUIREMENT_NO_MODULES = "There must be at least one modules assigned.";
 
     public static final String MESSAGE_MODULES_NON_EXISTENT =
-        "Not all Modules exist in the system. Please try other modules.";
+        "Some Modules do not exist in the system:\n%1$s\nPlease try other modules.";
 
-    public static final String MESSAGE_MODULES_ALREADY_EXIST_IN_REQUIREMENT =
-        "Some Modules already exists in this requirement. Please try other modules.";
     public static final String MESSAGE_REQUIREMENT_ASSIGN_SUCCESS = "Modules assigned under Requirement:\n%1$s";
 
     private RequirementCode requirementCode;
