@@ -1,5 +1,6 @@
 @startuml
 !include style.puml
+autoactivate on
 
 box UI UI_COLOR_T1
 participant ":MainWindow" as MainWindow UI_COLOR
@@ -9,23 +10,23 @@ end box
 [-> MainWindow : executeCommand("course delete")
 activate MainWindow
 
-MainWindow -> ResultDisplay : refreshResultDisplayAvatar(avatar)
+MainWindow -> MainWindow : refreshResultDisplayAvatar(avatar)
+
+MainWindow -> ResultDisplay : setAvatar(avatar)
 activate ResultDisplay
-
-ResultDisplay -> ResultDisplay : setAvatar(avatar)
-
-ResultDisplay -> MainWindow
+return done
+deactivate ResultDisplay
 deactivate
 
-MainWindow -> ResultDisplay : refreshResultDisplay(feedbackToUser)
+MainWindow -> MainWindow : refreshResultDisplay(feedbackToUser)
+
+MainWindow -> ResultDisplay : setFeedbackToUser(feedbackToUser)
 activate ResultDisplay
-
-ResultDisplay -> ResultDisplay : setFeedbackToUser(feedbackToUser)
-
-ResultDisplay -> MainWindow
+return done
+deactivate ResultDisplay
 deactivate
 
-[<-- MainWindow
+[<-- MainWindow : return CommandResult
 deactivate MainWindow
 @enduml
 

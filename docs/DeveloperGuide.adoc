@@ -132,6 +132,12 @@ Here is an example of how the `CommandReceivedPanel` works:
 
 image::developer-guide/CommandReceivedSetCommand.png[]
 
+. Command executed on `MainWindow`.
+. `MainWindow` calls the method `refreshCommandReceivedPanel`, which refreshes the `CommandReceivedPanel`.
+. `CommandReceivedPanel` updates its JavaFX `Label` with the `String` of the command given.
+. `CommandReceivedPanel` displays visible change on the interface.
+. `refreshCommandReceivedPanel` ends execution.
+
 ==== ResultDisplay
 The `ResultDisplay` class shows the resultant message generated from the user's input.
 The avatar will also showcase a different expression according to the success of the command given.
@@ -141,6 +147,18 @@ Here is an example of how the `ResultDisplay` works:
 .ResultDisplay Updating from Received Command
 
 image::developer-guide/ResultDisplayHandleCommand.png[]
+
+. Command executed on `MainWindow`.
+. `MainWindow` calls the method `refreshResultDisplayAvatar`, which refreshes the `Avatar` in `ResultDisplay`.
+. `ResultDisplay` updates its JavaFX `ImageView` according to the `Avatar` of the command given. In this case, when no
+exception is thrown, the `Avatar` displays that of a positive expression.
+. `refreshResultDisplayAvatar` ends execution.
+. `ResultDisplay` displays visible change on the interface.
+. `MainWindow` calls the method `refreshResultDisplay`, which refreshes the resultant message displayed in `ResultDisplay`.
+. `ResultDisplay` updates its JavaFX `TextArea` according to the `CommandResult` of the command given. In this case, the
+TextArea will display the 'success' message generated as a result of the command.
+. `ResultDisplay` displays visible change on the interface.
+. `refreshResultDisplay` ends execution.
 
 ==== ModuleListPanel
 The `ModuleListPanel` class contains the `ObservableList<Module>`  JavaFX component allowing for a list view of the
@@ -172,6 +190,18 @@ Here is an example of how the `ProgressSidePanel` works:
 .ProgressSidePanel Updating from Received Command
 
 image::developer-guide/ProgressPanelUpdateProgress.png[]
+
+. Command executed on `MainWindow`.
+. `Model` is updated.
+. `MainWindow` calls the method `refreshProgressPanel`, which refreshes the `ProgressSidePanel`.
+. `ProgressSidePanel` uses `Model` to obtain the corresponding `CourseInfo` information:
+.. `Name`
+.. `Credits`
+.. `Cap`
+.. `Semesters`
+. `ProgressSidePanel` executes corresponding JavaFX methods to update displayed information.
+. `ProgressSidePanel` shows visible change on the interface.
+. `refreshProgressPanel` ends execution.
 
 ==== Other Components
 In addition to the main UI components grouped in the `MainWindow` class, these are the other UI components that are

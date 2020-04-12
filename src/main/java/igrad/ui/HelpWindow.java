@@ -71,6 +71,7 @@ public class HelpWindow extends UiPart<Stage> {
     @FXML
     private Label requirementDelete;
 
+
     @FXML
     private Label requirementAssign;
 

@@ -36,19 +36,18 @@ HiddenOutside ..> Ui
 
 UiManager .left.|> Ui
 UiManager -down-> MainWindow
-MainWindow --> HelpWindow
-MainWindow *-down-> CommandBox
-MainWindow *-down-> ResultDisplay
-MainWindow *-down-> StatusBar
-MainWindow *-down-> ProgressSidePanel
-MainWindow *-down-> CommandReceivedPanel
-MainWindow *-down-> RequirementListPanel
-MainWindow *-down-> ModuleListPanel
+MainWindow *-down-> "1" CommandBox
+MainWindow *-down-> "1" ResultDisplay
+MainWindow *-down-> "1" StatusBar
+MainWindow *-down-> "1" ProgressSidePanel
+MainWindow *-down-> "1" CommandReceivedPanel
+MainWindow *-down-> "1" RequirementListPanel
+MainWindow *-down-> "1" ModuleListPanel
+MainWindow *-down-> "1" AvatarSelectionPanel
 
-ModuleListPanel -down-> ModuleCard
-RequirementListPanel -down-> RequirementCard
-AvatarSelectionPanel ..> AvatarImage
-
+ModuleListPanel o-down-> "*" ModuleCard
+RequirementListPanel o-down-> "*" RequirementCard
+AvatarSelectionPanel o-down-> "6" AvatarImage
 MainWindow -left-|> UiPart
 
 ResultDisplay --|> UiPart
@@ -60,16 +59,16 @@ CommandReceivedPanel --|> UiPart
 ProgressSidePanel --|> UiPart
 RequirementListPanel --|> UiPart
 RequirementCard --|> UiPart
+AvatarSelectionPanel --|> UiPart
+HelpWindow --|> UiPart
 
-UiManager -right-> Logic
+UiManager -right-> "1" Logic
 UiManager -left-> Model
 MainWindow ..> Model
-MainWindow ..> AvatarSelectionPanel
 MainWindow -left-> Logic
 
 ProgressSidePanel -[hidden]left- CommandReceivedPanel
-CommandReceivedPanel -[hidden]left- HelpWindow
-HelpWindow -[hidden]left- CommandBox
+CommandReceivedPanel -[hidden]left- CommandBox
 CommandBox -[hidden]left- ResultDisplay
 ResultDisplay -[hidden]left- StatusBar
 
