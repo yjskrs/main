@@ -48,8 +48,8 @@ public class RequirementUnassignCommand extends RequirementCommand {
     public static final String MESSAGE_MODULES_NON_EXISTENT_IN_REQUIREMENT =
         "Some modules do not exist in the requirement (%1$s):\n%2$s\nPlease try other modules.";
 
-    public static final String MESSAGE_REQUIREMENT_UNASSIGN_SUCCESS = "Modules successfully unassigned under "
-        + "requirement (%1$s):\n"
+    public static final String MESSAGE_REQUIREMENT_UNASSIGN_SUCCESS = "I have successfully unassigned the following "
+        + "module(s) under requirement (%1$s):\n"
         + "%2$s";
 
     private static final String MODULE_CODE_DELIMITER = "\n";

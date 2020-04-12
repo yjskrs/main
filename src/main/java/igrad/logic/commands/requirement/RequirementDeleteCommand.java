@@ -30,7 +30,8 @@ public class RequirementDeleteCommand extends RequirementCommand {
 
     public static final String MESSAGE_REQUIREMENT_DELETE_HELP = MESSAGE_DETAILS + MESSAGE_USAGE;
 
-    public static final String MESSAGE_REQUIREMENT_DELETE_SUCCESS = "Deleted Requirement:\n%1$s";
+    public static final String MESSAGE_REQUIREMENT_DELETE_SUCCESS = "Got it! This requirement has been "
+            + "deleted successfully:\n%1$s";
 
     private final RequirementCode requirementCode;
 

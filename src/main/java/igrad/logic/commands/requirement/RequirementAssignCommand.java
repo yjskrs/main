@@ -44,8 +44,8 @@ public class RequirementAssignCommand extends RequirementCommand {
     public static final String MESSAGE_MODULES_NON_EXISTENT =
         "Some modules do not exist in the system:\n%1$s\nPlease try other modules instead.";
 
-    public static final String MESSAGE_REQUIREMENT_ASSIGN_SUCCESS = "Modules successfully assigned under "
-        + "requirement (%1$s):\n"
+    public static final String MESSAGE_REQUIREMENT_ASSIGN_SUCCESS = "Nice! I have successfully assigned the following "
+        + "module(s) under requirement (%1$s):\n"
         + "%2$s\n"
         + "Some modules have already been assigned under this requirement (%1$s):\n"
         + "%3$s";
