@@ -11,7 +11,6 @@ import static igrad.logic.commands.course.CourseCommandTestUtil.VALID_COURSE_NAM
 import static igrad.logic.commands.course.CourseCommandTestUtil.VALID_COURSE_SEMESTERS_BCOMPSCI;
 import static igrad.logic.commands.course.CourseEditCommand.EditCourseDescriptor;
 import static igrad.logic.commands.course.CourseEditCommand.MESSAGE_COURSE_EDIT_HELP;
-import static igrad.logic.commands.course.CourseEditCommand.MESSAGE_COURSE_NOT_EDITED;
 import static igrad.logic.parser.CliSyntax.PREFIX_NAME;
 import static igrad.logic.parser.CliSyntax.PREFIX_SEMESTER;
 import static igrad.logic.parser.CommandParserTestUtil.assertParseFailure;
@@ -27,7 +26,8 @@ import igrad.testutil.EditCourseDescriptorBuilder;
 public class CourseEditCommandParserTest {
     private static final String INVALID_COMMAND_FORMAT =
         String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_COURSE_EDIT_HELP);
-    private static final String ARGUMENTS_NOT_SPECIFIED = MESSAGE_COURSE_NOT_EDITED;
+    private static final String ARGUMENTS_NOT_SPECIFIED =
+        String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_COURSE_EDIT_HELP);
     private static final String INVALID_NAME_FORMAT = Name.MESSAGE_CONSTRAINTS;
     private static final String INVALID_SEMESTERS_FORMAT = Semesters.MESSAGE_CONSTRAINTS;
 

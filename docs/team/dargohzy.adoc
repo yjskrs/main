@@ -42,9 +42,12 @@ created with JavaFX, FXML and CSS.
 == Contributions to the User Guide
 |===
 |_Given below are the sections I contributed to the User Guide. They showcase my ability to communicate with end-users
-of the product in question. Worked in conjunction with https://github.com/teriaiw[Teri]_
+of the product in question. Worked in conjunction with https://github.com/teriaiw[Teri]._
 |===
 include::../UserGuide.adoc[tag=walkthrough]
+
+include::../UserGuide.adoc[tag=cheatsheet]
+|===
 
 == Contributions to the Developer Guide
 |===
@@ -52,4 +55,6 @@ include::../UserGuide.adoc[tag=walkthrough]
 information into documentation as well as my contributions to the project._
 |===
 
+
 include::../DeveloperGuide.adoc[tag=ui]
+

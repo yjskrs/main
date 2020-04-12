@@ -23,7 +23,15 @@ public class ModuleDeleteCommand extends ModuleCommand {
 
     public static final String MODULE_DELETE_COMMAND_WORD = MODULE_COMMAND_WORD + SPACE + "delete";
 
-    public static final String MESSAGE_MODULE_DELETE_SUCCESS = "Deleted Module:\n%1$s";
+    public static final String MESSAGE_MODULE_DELETE_DETAILS = MODULE_DELETE_COMMAND_WORD
+            + ": Deletes module from list\n";
+
+    public static final String MESSAGE_MODULE_DELETE_USAGE = "Parameter(s): MODULE_CODE\n"
+            + "e.g. " + MODULE_DELETE_COMMAND_WORD + " CS2030";
+
+    public static final String MESSAGE_MODULE_DELETE_HELP = MESSAGE_MODULE_DELETE_DETAILS + MESSAGE_MODULE_DELETE_USAGE;
+
+    public static final String MESSAGE_MODULE_DELETE_SUCCESS = "Got it! I have deleted this module for you:\n%1$s";
 
     private final ModuleCode moduleCode;
 

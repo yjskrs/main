@@ -16,7 +16,8 @@ public class CourseDeleteCommand extends CourseCommand {
 
     public static final String COURSE_DELETE_COMMAND_WORD = COURSE_COMMAND_WORD + SPACE + "delete";
 
-    public static final String MESSAGE_COURSE_DELETE_SUCCESS = "Deleted Course: %1$s\nAll data cleared!";
+    public static final String MESSAGE_COURSE_DELETE_SUCCESS = "Course: %1$s has been deleted successfully!\n"
+            + "All data cleared! If you made a mistake, use: undo";
 
     @Override
     public CommandResult execute(Model model) {

@@ -10,6 +10,7 @@ import static igrad.logic.commands.course.CourseCommandTestUtil.VALID_COURSE_CRE
 import static igrad.logic.commands.course.CourseCommandTestUtil.VALID_COURSE_CREDITS_REQUIRED_BCOMPSEC;
 import static igrad.logic.commands.course.CourseCommandTestUtil.VALID_COURSE_NAME_BCOMPSCI;
 import static igrad.logic.commands.course.CourseCommandTestUtil.VALID_COURSE_SEMESTERS_BCOMPSCI;
+import static igrad.logic.commands.course.CourseCommandTestUtil.VALID_COURSE_SEMESTERS_BCOMPSEC;
 import static igrad.logic.commands.module.ModuleCommandTestUtil.VALID_MODULE_CODE_CS1101S;
 import static igrad.logic.commands.module.ModuleCommandTestUtil.VALID_MODULE_CODE_CS2100;
 import static igrad.model.course.Cap.CAP_ZERO;
@@ -394,6 +395,26 @@ public class CourseInfoTest {
         assertEquals(expectedCap, computedCap);
     }
 
+    //@@author teriaiw
+
+    @Test
+    public void computeSemesters_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> CourseInfo.computeSemesters(null, null));
+    }
+
+    @Test
+    public void computeSemesters_emptySemesters_returnsOptionalEmpty() {
+        List<Module> emptyModuleList = new ArrayList<Module>();
+        assertEquals(Optional.empty(), CourseInfo.computeSemesters(Optional.empty(), emptyModuleList));
+    }
+
+    @Test
+    public void computeSemesters_emptyModuleList_returnsOriginalSemesters() {
+        List<Module> emptyModuleList = new ArrayList<Module>();
+        Optional<Semesters> semesters = Optional.of(new Semesters("5"));
+        assertEquals(semesters, CourseInfo.computeSemesters(semesters, emptyModuleList));
+    }
+
     @Test
     public void equals() {
         // null
@@ -410,20 +431,28 @@ public class CourseInfoTest {
         Module module = new ModuleBuilder().build();
         assertFalse(BCOMPSCI.equals(module));
 
+        assertFalse(BCOMPSCI.equals(GENERAL_ELECTIVES));
+
         CourseInfo otherCourseInfo;
 
         // different course info; only cap different
         otherCourseInfo = new CourseInfoBuilder(BCOMPSCI)
             .withCap(VALID_COURSE_CAP_BCOMPSEC)
             .build();
-        assertFalse(GENERAL_ELECTIVES.equals(otherCourseInfo));
+        assertFalse(BCOMPSCI.equals(otherCourseInfo));
 
         // different course info; only credits different
         otherCourseInfo = new CourseInfoBuilder(BCOMPSCI)
             .withCredits(VALID_COURSE_CREDITS_REQUIRED_BCOMPSEC,
                 VALID_COURSE_CREDITS_FULFILLED_BCOMPSEC)
             .build();
-        assertFalse(GENERAL_ELECTIVES.equals(otherCourseInfo));
+        assertFalse(BCOMPSCI.equals(otherCourseInfo));
+
+        //different course info; only semesters different
+        otherCourseInfo = new CourseInfoBuilder(BCOMPSCI)
+                .withSemesters(VALID_COURSE_SEMESTERS_BCOMPSEC)
+                .build();
+        assertFalse(BCOMPSCI.equals(otherCourseInfo));
 
         // different course info; both cap and credits, different
         CourseInfo other = new CourseInfoBuilder(BCOMPSCI)
@@ -431,7 +460,16 @@ public class CourseInfoTest {
             .withCredits(VALID_COURSE_CREDITS_REQUIRED_BCOMPSEC,
                 VALID_COURSE_CREDITS_FULFILLED_BCOMPSEC)
             .build();
-        assertFalse(GENERAL_ELECTIVES.equals(other));
+        assertFalse(BCOMPSCI.equals(other));
+
+        //different course info; cap, credits, semesters, all different
+        other = new CourseInfoBuilder(BCOMPSCI)
+                .withCap(VALID_COURSE_CAP_BCOMPSEC)
+                .withCredits(VALID_COURSE_CREDITS_REQUIRED_BCOMPSEC,
+                        VALID_COURSE_CREDITS_FULFILLED_BCOMPSEC)
+                .withSemesters(VALID_COURSE_SEMESTERS_BCOMPSEC)
+                .build();
+        assertFalse(BCOMPSCI.equals(other));
     }
 }
 

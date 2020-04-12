@@ -49,7 +49,7 @@ public class ModuleAddAutoCommand extends ModuleCommand {
     public static final String MESSAGE_MODULE_OVERLOAD = "Please do not attempt to "
         + "add more than %d modules.\nYou attempted to add %d modules.\n";
     public static final String MESSAGE_COMPLETE = "%d module(s) added through NUSMods API.\n";
-    public static final String MESSAGE_SUCCESS = "Added module: %s\n";
+    public static final String MESSAGE_SUCCESS = "Got it! I have added the following module(s) for you:\n%s";
     public static final String MESSAGE_DUPLICATE_MODULE = "Duplicate detected: %s\n";
     public static final String MESSAGE_PREREQUISITE_NOT_PRESENT =
         "WARNING: Prerequisite not found!\n";
