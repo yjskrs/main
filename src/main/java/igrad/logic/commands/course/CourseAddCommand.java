@@ -17,7 +17,7 @@ import igrad.model.course.CourseInfo;
  * Adds a course to the application (there can only be one such course).
  */
 public class CourseAddCommand extends CourseCommand {
-    public static final String COURSE_ADD_COMMAND_WORD = COURSE_COMMAND_WORD + SPACE + "add";
+    public static final String COURSE_ADD_COMMAND_WORD = COURSE_COMMAND_WORD + SPACE + "set";
     public static final String MESSAGE_COURSE_ADD_DETAILS = COURSE_ADD_COMMAND_WORD
         + ": Adds a course with relevant details specified.\n";
 
@@ -29,9 +29,10 @@ public class CourseAddCommand extends CourseCommand {
 
     public static final String MESSAGE_COURSE_ADD_HELP = MESSAGE_COURSE_ADD_DETAILS + MESSAGE_COURSE_ADD_USAGE;
 
-    public static final String MESSAGE_COURSE_ADD_SUCCESS = "New course added: %1$s";
-    public static final String MESSAGE_COURSE_NOT_ADDED = "All fields to be filled, course add n/COURSE_NAME "
+    public static final String MESSAGE_COURSE_ADD_SUCCESS = "New course set: %1$s";
+    public static final String MESSAGE_COURSE_NOT_ADDED = "All fields to be filled, course set n/COURSE_NAME "
         + "s/SEMESTERS";
+
     private final CourseInfo toAdd;
 
     /**
