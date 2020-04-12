@@ -15,8 +15,8 @@ import igrad.model.course.Semesters;
  */
 public class CommandUtil {
     /**
-     * Retrieves the latest {@code CourseInfo} fields (with the details of {@code courseInfoToEdit},
-     * based on the most updated information in {@code model}
+     * Creates and returns a new {@code CourseInfo} (with the details of {@code courseInfoToEdit},
+     * and also based on the most updated information in {@code model}
      */
     public static CourseInfo createEditedCourseInfo(CourseInfo courseInfoToEdit, Model model) {
         // Copy over all the old values of course

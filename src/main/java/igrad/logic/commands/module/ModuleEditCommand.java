@@ -122,26 +122,8 @@ public class ModuleEditCommand extends ModuleCommand {
          */
         requirementsToUpdate.stream()
             .forEach(requirementToEdit -> {
-                // Copy over all the old values of requirementToEdit
-                igrad.model.requirement.RequirementCode requirementCode = requirementToEdit.getRequirementCode();
-                igrad.model.requirement.Title title = requirementToEdit.getTitle();
-
-                /*
-                 * Now given that we've edited a module from a requirement, we've to update (recompute)
-                 * creditsFulfilled in the relevant Requirements, but since Requirement constructor already does
-                 * it for us, based on the module list passed in, we don't have to do anything here, just
-                 * propagate the old credits value.
-                 */
-                igrad.model.requirement.Credits credits = requirementToEdit.getCredits();
-
-                // Updates the existing requirement; requirementToEdit with the editedModule
-                requirementToEdit.setModule(moduleToEdit, editedModule);
-
-                // Get the most update module list (now with the new module replaced)
-                List<Module> modules = requirementToEdit.getModuleList();
-
-                // Finally, create a new Requirement with all the updated information (details).
-                Requirement editedRequirement = new Requirement(requirementCode, title, credits, modules);
+                // Create a new Requirement with all the updated information (details).
+                Requirement editedRequirement = createEditedRequirement(requirementToEdit, moduleToEdit, editedModule);
 
                 // Update the current Requirement in the model (coursebook) with this latest version.
                 model.setRequirement(requirementToEdit, editedRequirement);
@@ -165,6 +147,34 @@ public class ModuleEditCommand extends ModuleCommand {
         model.setCourseInfo(editedCourseInfo);
 
         return new CommandResult(String.format(MESSAGE_MODULE_EDIT_SUCCESS, editedModule));
+    }
+
+    /**
+     * Creates and returns a new {@code Requirement}, replacing a module; {@code moduleToEdit} (which is under that
+     * the original requirement; {@code requirementToEdit}), by the module; {@code editedModule})
+     */
+    private static Requirement createEditedRequirement(Requirement requirementToEdit,
+            Module moduleToEdit, Module editedModule) {
+        // Copy over all the old values of requirementToEdit
+        igrad.model.requirement.RequirementCode requirementCode = requirementToEdit.getRequirementCode();
+        igrad.model.requirement.Title title = requirementToEdit.getTitle();
+
+        /*
+         * Now given that we've marked a module in a requirement as done, we've to update (recompute)
+         * creditsFulfilled in the relevant Requirements, but since Requirement constructor already does
+         * it for us, based on the module list passed in, we don't have to do anything here, just
+         * propagate the old credits value.
+         */
+        igrad.model.requirement.Credits credits = requirementToEdit.getCredits();
+
+        // Updates the existing requirement; requirementToEdit with the editedModule
+        requirementToEdit.setModule(moduleToEdit, editedModule);
+
+        // Get the most update module list (now with the new module replaced)
+        List<Module> modules = requirementToEdit.getModuleList();
+
+        // Finally, create a new Requirement with all the updated information (details).
+        return new Requirement(requirementCode, title, credits, modules);
     }
 
     //@@author waynewee
