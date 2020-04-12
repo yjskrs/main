@@ -54,6 +54,23 @@ public class RequirementEditCommand extends RequirementCommand {
         this.requirementDescriptor = new EditRequirementDescriptor(requirementDescriptor);
     }
 
+    /**
+     * Creates and returns a {@code Requirement} with the details of {@code requirementToEdit}
+     * edited with {@code editRequirementDescriptor}.
+     */
+    private static Requirement createEditedRequirement(Requirement requirementToEdit,
+                                                       EditRequirementDescriptor editRequirementDescriptor) {
+        assert requirementToEdit != null;
+        assert editRequirementDescriptor != null;
+
+        Title updatedTitle = editRequirementDescriptor.getTitle().orElse(requirementToEdit.getTitle());
+        Credits updatedCredits = editRequirementDescriptor.getCredits().orElse(requirementToEdit.getCredits());
+        RequirementCode requirementCode = requirementToEdit.getRequirementCode();
+        List<Module> moduleList = requirementToEdit.getModuleList();
+
+        return new Requirement(requirementCode, updatedTitle, updatedCredits, moduleList);
+    }
+
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
@@ -79,13 +96,13 @@ public class RequirementEditCommand extends RequirementCommand {
          *
          * However, in the method below, we just recompute everything (field in course info).
          */
-        CourseInfo courseToEdit = model.getCourseInfo();
+        CourseInfo courseInfoToEdit = model.getCourseInfo();
 
         /*
          * A call to the retrieveLatestCourseInfo(..) helps to recompute latest course info,
          * based on information provided through Model (coursebook).
          */
-        CourseInfo editedCourseInfo = CommandUtil.retrieveLatestCourseInfo(courseToEdit, model);
+        CourseInfo editedCourseInfo = CommandUtil.createEditedCourseInfo(courseInfoToEdit, model);
 
         // Updating the model with the latest course info
         model.setCourseInfo(editedCourseInfo);
@@ -95,29 +112,12 @@ public class RequirementEditCommand extends RequirementCommand {
 
     //@@author yjskrs
 
-    /**
-     * Creates and returns a {@code Requirement} with the details of {@code requirementToEdit}
-     * edited with {@code editRequirementDescriptor}.
-     */
-    private static Requirement createEditedRequirement(Requirement requirementToEdit,
-                                                       EditRequirementDescriptor editRequirementDescriptor) {
-        assert requirementToEdit != null;
-        assert editRequirementDescriptor != null;
-
-        Title updatedTitle = editRequirementDescriptor.getTitle().orElse(requirementToEdit.getTitle());
-        Credits updatedCredits = editRequirementDescriptor.getCredits().orElse(requirementToEdit.getCredits());
-        RequirementCode requirementCode = requirementToEdit.getRequirementCode();
-        List<Module> moduleList = requirementToEdit.getModuleList();
-
-        return new Requirement(requirementCode, updatedTitle, updatedCredits, moduleList);
-    }
-
     @Override
     public boolean equals(Object other) {
         return other == this
-                   || (other instanceof RequirementEditCommand
-                           && ((RequirementEditCommand) other).requirementDescriptor.equals(requirementDescriptor)
-                           && ((RequirementEditCommand) other).requirementCode.equals(requirementCode));
+            || (other instanceof RequirementEditCommand
+            && ((RequirementEditCommand) other).requirementDescriptor.equals(requirementDescriptor)
+            && ((RequirementEditCommand) other).requirementCode.equals(requirementCode));
     }
 
     /**
@@ -146,20 +146,20 @@ public class RequirementEditCommand extends RequirementCommand {
             return CollectionUtil.isAnyNonNull(title, credits);
         }
 
-        public void setTitle(Title title) {
-            this.title = title;
-        }
-
         public Optional<Title> getTitle() {
             return Optional.ofNullable(title);
         }
 
-        public void setCredits(Credits credits) {
-            this.credits = credits;
+        public void setTitle(Title title) {
+            this.title = title;
         }
 
         public Optional<Credits> getCredits() {
             return Optional.ofNullable(credits);
+        }
+
+        public void setCredits(Credits credits) {
+            this.credits = credits;
         }
 
         @Override
@@ -171,8 +171,8 @@ public class RequirementEditCommand extends RequirementCommand {
             EditRequirementDescriptor e = (EditRequirementDescriptor) other;
 
             return other == this
-                       || (getCredits().equals(e.getCredits())
-                               && getTitle().equals(e.getTitle()));
+                || (getCredits().equals(e.getCredits())
+                && getTitle().equals(e.getTitle()));
         }
     }
 }

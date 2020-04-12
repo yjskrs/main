@@ -1,5 +1,7 @@
 package igrad.storage;
 
+//@@author waynewee
+
 import java.util.Optional;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -7,7 +9,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import igrad.commons.exceptions.IllegalValueException;
 import igrad.model.module.Credits;
-import igrad.model.module.Description;
 import igrad.model.module.Grade;
 import igrad.model.module.Module;
 import igrad.model.module.ModuleCode;
@@ -25,21 +26,19 @@ class JsonAdaptedModule {
     private final String moduleCode;
     private final String credits;
     private final String semester;
-    private final String description;
     private final String grade;
+
     /**
      * Constructs a {@code JsonAdaptedModule} with the given module details.
      */
     @JsonCreator
     public JsonAdaptedModule(@JsonProperty("title") String name, @JsonProperty("moduleCode") String moduleCode,
                              @JsonProperty("credits") String credits, @JsonProperty("memo") String memo,
-                             @JsonProperty("semester") String semester, @JsonProperty("description") String description,
-                             @JsonProperty("grade") String grade) {
+                             @JsonProperty("semester") String semester, @JsonProperty("grade") String grade) {
         this.title = name;
         this.moduleCode = moduleCode;
         this.credits = credits;
         this.semester = semester;
-        this.description = description;
         this.grade = grade;
 
     }
@@ -52,7 +51,6 @@ class JsonAdaptedModule {
         moduleCode = source.getModuleCode().value;
         credits = source.getCredits().value;
         semester = source.getSemester().isPresent() ? source.getSemester().get().value : null;
-        description = source.getDescription().isPresent() ? source.getDescription().get().value : null;
         grade = source.getGrade().isPresent() ? source.getGrade().get().value : null;
     }
 
@@ -105,14 +103,10 @@ class JsonAdaptedModule {
         final Optional<Semester> modelSemester = semester != null
             ? Optional.of(new Semester(semester)) : Optional.empty();
 
-        final Optional<Description> modelDescription = description != null
-            ? Optional.of(new Description(description)) : Optional.empty();
-
         final Optional<Grade> modelGrade = grade != null
             ? Optional.of(new Grade(grade)) : Optional.empty();
 
-        return new Module(modelTitle, modelModuleCode, modelCredits, modelSemester,
-            modelDescription, modelGrade);
+        return new Module(modelTitle, modelModuleCode, modelCredits, modelSemester, modelGrade);
     }
 
 }

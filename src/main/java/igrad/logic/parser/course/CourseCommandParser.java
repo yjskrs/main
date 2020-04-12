@@ -9,6 +9,8 @@ import igrad.model.course.Cap;
 import igrad.model.course.Name;
 import igrad.model.course.Semesters;
 
+//@@author nathanaelseen
+
 /**
  * Represents a generic course command parser
  */

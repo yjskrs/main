@@ -16,6 +16,8 @@ import igrad.logic.parser.Parser;
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.course.Cap;
 
+//@@author teriaiw
+
 /**
  * Parses input arguments and creates a new ModuleDeleteCommand object.
  */
@@ -33,7 +35,7 @@ public class CourseAchieveCommandParser implements Parser<CourseAchieveCommand> 
 
         if (argMultimap.isEmpty(true)) {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
-                    MESSAGE_COURSE_ACHIEVE_HELP));
+                MESSAGE_COURSE_ACHIEVE_HELP));
         }
 
         if (argMultimap.getValue(PREFIX_CAP).isEmpty()) {

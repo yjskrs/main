@@ -1,6 +1,7 @@
 package igrad.logic;
 
 import static igrad.commons.core.Messages.MESSAGE_COURSE_NOT_SET;
+import static igrad.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -60,6 +61,7 @@ public class LogicManager implements Logic {
         return commandResult;
     }
 
+    //@@author nathanaelseen
     @Override
     public CommandResult execute(String commandText) throws CommandException,
         ParseException, IOException, ServiceException {
@@ -67,37 +69,48 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = courseBookParser.parseCommand(commandText);
+
+        Command command = null;
+
+        try {
+            command = courseBookParser.parseCommand(commandText);
+        } catch (ParseException pe) {
+            if (!model.isCourseNameSet()
+                    && !(pe.getMessage().equals(MESSAGE_UNKNOWN_COMMAND))) {
+                /*
+                 * If the command is not properly formmated, and it's a command
+                 * which the system partially recognises, but the course (name) is not set,
+                 * show the course not set error.
+                 */
+                throw new CommandException(MESSAGE_COURSE_NOT_SET);
+            } else {
+                /* There are 2 cases here:
+                 * 1) If the command is not properly formmated, and it's a command
+                 * which the system entirely does not recognises, and the course (name) is not set,
+                 * show the help message (by propagating this exception).
+                 *
+                 * 2) If the command is not properly formatted, and its a command which the
+                 * system partially recognises/entirely does not recognise, then just
+                 * propagate this exception too (as exactly thrown).
+                 */
+                throw pe;
+            }
+        }
 
         /*
-         * If user has not selected her course name, and she is trying to execute any other
-         * command except the 'course add', prevent her from doing so.
-         *
-         * With the addition of the 'undo' command, there is a slight catch to this.
-         *
-         * Suppose the situation where the user has done a 'course delete' command
-         * and thus the course name is not set (as all the data in the system has been reverted to
-         * a blank state), we must still allow the 'undo' command.
-         *
-         * However, if indeed, the user hasn't initially set a course, and undo is still entered,
-         * we are unable to distinguish the first case from this second case.
-         *
-         * Hence, in addition to allowing only the 'course add' command, when a course name is
-         * not set, we allow the 'undo' command too.
-         *
-         * In the second case, where there is indeed nothing to undo, and we still 'undo',
-         * the 'undo' command would be able to handle this error and gracefully flag
-         * and error message to the user.
-         *
-         * Finally, we also allow the 'help' command to be always executed anytime, even
-         * before a course has been set/added.
+         * If the command is a properly formatted command, but the command is not and undo,
+         * help, or course add command, and where the course (name) is not set, then we have
+         * to prevent its execution here. If on the contrary, the course were not set,
+         * but the command is properly formatted as undo, help or course add, then we still
+         * allow it to execute.
          */
         if (!model.isCourseNameSet()
-                && !(command instanceof CourseAddCommand || command instanceof UndoCommand
-                     || command instanceof HelpCommand)) {
+            && !(command instanceof CourseAddCommand || command instanceof UndoCommand
+            || command instanceof HelpCommand)) {
             throw new CommandException(MESSAGE_COURSE_NOT_SET);
         }
 
+        //@@author waynewee
         if (!(command instanceof UndoCommand)) {
             try {
                 // First, load current state into backup
@@ -107,6 +120,8 @@ public class LogicManager implements Logic {
                 throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
             }
         }
+
+        //@@author nathanaelseen
 
         commandResult = command.execute(model);
 

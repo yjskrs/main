@@ -192,7 +192,7 @@ public class Requirement implements ReadOnlyRequirement {
         }
 
         return this == otherRequirement
-                   || this.requirementCode.equals(otherRequirement.requirementCode);
+            || this.requirementCode.equals(otherRequirement.requirementCode);
     }
 
     @Override

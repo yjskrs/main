@@ -17,7 +17,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     private GuiSettings guiSettings = new GuiSettings();
     private Path courseBookFilePath = Paths.get("data", "coursebook.json");
     private Path backupCourseBookFilePath = Paths.get("data", "backup_coursebook.json");
-    private Avatar avatar = new Avatar();
+    private Avatar avatar = Avatar.getSampleAvatar();
 
     /**
      * Creates a {@code UserPrefs} with default values.

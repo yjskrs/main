@@ -6,7 +6,6 @@ import java.util.Optional;
 
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.module.Credits;
-import igrad.model.module.Description;
 import igrad.model.module.Grade;
 import igrad.model.module.ModuleCode;
 import igrad.model.module.Semester;
@@ -60,19 +59,6 @@ public class ModuleCommandParser {
             throw new ParseException(Credits.MESSAGE_CONSTRAINTS);
         }
         return new Credits(trimmedCredits);
-    }
-
-    /**
-     * Parses a {@code String address} into an {@code Address}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code address} is invalid.
-     */
-    public static Optional<Description> parseDescription(String description) throws ParseException {
-        requireNonNull(description);
-        String trimmedDescription = description.trim();
-
-        return Optional.of(new Description(trimmedDescription));
     }
 
     /**
