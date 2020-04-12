@@ -8,6 +8,7 @@ import static igrad.logic.commands.module.ModuleCommandTestUtil.VALID_MODULE_COD
 import static igrad.logic.commands.module.ModuleCommandTestUtil.VALID_MODULE_CODE_CS2040;
 import static igrad.logic.commands.module.ModuleCommandTestUtil.VALID_MODULE_CODE_CS2100;
 import static igrad.logic.commands.requirement.RequirementCommand.MESSAGE_REQUIREMENT_NON_EXISTENT;
+import static igrad.logic.commands.requirement.RequirementCommand.getFormattedModulesStr;
 import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_CODE_GE;
 import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_CODE_UE;
 import static igrad.logic.commands.requirement.RequirementUnassignCommand.MESSAGE_REQUIREMENT_UNASSIGN_SUCCESS;
@@ -252,7 +253,15 @@ public class RequirementUnassignCommandTest {
             }
         };
 
-        String expectedMessage = String.format(MESSAGE_REQUIREMENT_UNASSIGN_SUCCESS, requirementA);
+        String formattedModulesToUnassign = getFormattedModulesStr(new ArrayList<Module>() {
+            {
+                add(moduleToUnassignCopy);
+            }
+        }, "\n");
+
+        String expectedMessage = String.format(MESSAGE_REQUIREMENT_UNASSIGN_SUCCESS,
+                editedRequirementA.getRequirementCode(),
+                formattedModulesToUnassign);
 
         RequirementUnassignCommand cmd = new RequirementUnassignCommand(requirementCode, moduleCodes);
 

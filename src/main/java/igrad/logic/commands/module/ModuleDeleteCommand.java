@@ -66,26 +66,8 @@ public class ModuleDeleteCommand extends ModuleCommand {
          */
         requirementsToUpdate.stream()
             .forEach(requirementToEdit -> {
-                // Copy over all the old values of requirementToEdit
-                igrad.model.requirement.RequirementCode requirementCode = requirementToEdit.getRequirementCode();
-                igrad.model.requirement.Title title = requirementToEdit.getTitle();
-
-                /*
-                 * Now given that we've delete a module from a requirement, we've to update (recompute)
-                 * creditsFulfilled in the relevant Requirements, but since Requirement constructor already does
-                 * it for us, based on the module list passed in, we don't have to do anything here, just
-                 * propagate the old credits value.
-                 */
-                igrad.model.requirement.Credits credits = requirementToEdit.getCredits();
-
-                // Deletes from the existing requirement; requirementToEdit, the moduleToDelete
-                requirementToEdit.removeModule(moduleToDelete);
-
-                // Get the most update module list (now with the new module replaced)
-                List<Module> modules = requirementToEdit.getModuleList();
-
-                // Finally, create a new Requirement with all the updated information (details).
-                Requirement editedRequirement = new Requirement(requirementCode, title, credits, modules);
+                // Create a new Requirement with all the updated information (details).
+                Requirement editedRequirement = createEditedRequirement(requirementToEdit, moduleToDelete);
 
                 // Update the current Requirement in the model (coursebook) with this latest version.
                 model.setRequirement(requirementToEdit, editedRequirement);
@@ -97,19 +79,48 @@ public class ModuleDeleteCommand extends ModuleCommand {
          *
          * However, in the method below, we just recompute everything (field in course info).
          */
-        CourseInfo courseToEdit = model.getCourseInfo();
+        CourseInfo courseInfoToEdit = model.getCourseInfo();
 
         /*
          * A call to the retrieveLatestCourseInfo(..) helps to recompute latest course info,
          * based on information provided through Model (coursebook).
          */
-        CourseInfo editedCourseInfo = CommandUtil.retrieveLatestCourseInfo(courseToEdit, model);
+        CourseInfo editedCourseInfo = CommandUtil.createEditedCourseInfo(courseInfoToEdit, model);
 
         // Updating the model with the latest course info
         model.setCourseInfo(editedCourseInfo);
 
         return new CommandResult(String.format(MESSAGE_MODULE_DELETE_SUCCESS, moduleToDelete));
     }
+
+    /**
+     * Creates and returns a new {@code Requirement}, deleting a module; {@code moduleToDelete} (which is under that
+     * the original requirement; {@code requirementToEdit})
+     */
+    private static Requirement createEditedRequirement(Requirement requirementToEdit, Module moduleToDelete) {
+        // Copy over all the old values of requirementToEdit
+        igrad.model.requirement.RequirementCode requirementCode = requirementToEdit.getRequirementCode();
+        igrad.model.requirement.Title title = requirementToEdit.getTitle();
+
+        /*
+         * Now given that we've deleted a module from a requirement, we've to update (recompute)
+         * creditsFulfilled in the relevant Requirements, but since Requirement constructor already does
+         * it for us, based on the module list passed in, we don't have to do anything here, just
+         * propagate the old credits value.
+         */
+        igrad.model.requirement.Credits credits = requirementToEdit.getCredits();
+
+        // Deletes from the existing requirement; requirementToEdit, the moduleToDelete
+        requirementToEdit.removeModule(moduleToDelete);
+
+        // Get the most update module list (now with the new module replaced)
+        List<Module> modules = requirementToEdit.getModuleList();
+
+        // Finally, create a new Requirement with all the updated information (details).
+        return new Requirement(requirementCode, title, credits, modules);
+    }
+
+    //@@author waynewee
 
     @Override
     public boolean equals(Object other) {

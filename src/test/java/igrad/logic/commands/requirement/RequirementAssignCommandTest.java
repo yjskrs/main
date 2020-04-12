@@ -9,6 +9,7 @@ import static igrad.logic.commands.module.ModuleCommandTestUtil.VALID_MODULE_COD
 import static igrad.logic.commands.module.ModuleCommandTestUtil.VALID_MODULE_CODE_CS2100;
 import static igrad.logic.commands.requirement.RequirementAssignCommand.MESSAGE_REQUIREMENT_ASSIGN_SUCCESS;
 import static igrad.logic.commands.requirement.RequirementCommand.MESSAGE_REQUIREMENT_NON_EXISTENT;
+import static igrad.logic.commands.requirement.RequirementCommand.getFormattedModulesStr;
 import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_CODE_GE;
 import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_CODE_UE;
 import static igrad.testutil.Assert.assertThrows;
@@ -253,7 +254,18 @@ public class RequirementAssignCommandTest {
             }
         };
 
-        String expectedMessage = String.format(MESSAGE_REQUIREMENT_ASSIGN_SUCCESS, requirementA);
+        String formattedModulesToAssign = getFormattedModulesStr(new ArrayList<Module>() {
+            {
+                add(moduleToAssignCopy);
+            }
+        }, "\n");
+
+        String formattedModulesAlreadyAssigned = getFormattedModulesStr(requirementA.getModuleList(), "\n");
+
+        String expectedMessage = String.format(MESSAGE_REQUIREMENT_ASSIGN_SUCCESS,
+                editedRequirementA.getRequirementCode(),
+                formattedModulesToAssign,
+                formattedModulesAlreadyAssigned);
 
         RequirementAssignCommand cmd = new RequirementAssignCommand(requirementCode, moduleCodes);
 
