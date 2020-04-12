@@ -105,6 +105,8 @@ you took the module.
 //tag::walkthrough[]
 == Walkthrough
 
+Section by: https://github.com/dargohzy[Daryl] & https://github.com/teriaiw[Teri]
+
 This segment details a simple tutorial on how to use the application. It provides a step-by-step guide on how to
 utilise the main components of the application, and covers the following:
 

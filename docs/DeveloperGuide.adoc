@@ -84,6 +84,8 @@ image::developer-guide/UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/igrad/ui/Ui.java[`Ui.java`]
 
+Section by: https://github.com/dargohzy[Daryl]
+
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `ModuleListPanel`, `StatusBar` etc.
 All these, including the `MainWindow` (excluding `AvatarImage`), inherit from the abstract `UiPart` class.
 
