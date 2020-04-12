@@ -26,11 +26,12 @@ public class RequirementDeleteCommand extends RequirementCommand {
         + "identified by its requirement code.\n";
 
     public static final String MESSAGE_USAGE = "Parameter(s): REQUIREMENT_CODE\n"
-        + "Example: " + REQUIREMENT_DELETE_COMMAND_WORD + " UE0";
+        + "e.g. " + REQUIREMENT_DELETE_COMMAND_WORD + " UE0";
 
     public static final String MESSAGE_REQUIREMENT_DELETE_HELP = MESSAGE_DETAILS + MESSAGE_USAGE;
 
-    public static final String MESSAGE_REQUIREMENT_DELETE_SUCCESS = "Deleted Requirement:\n%1$s";
+    public static final String MESSAGE_REQUIREMENT_DELETE_SUCCESS = "Got it! This requirement has been "
+            + "deleted successfully:\n%1$s";
 
     private final RequirementCode requirementCode;
 

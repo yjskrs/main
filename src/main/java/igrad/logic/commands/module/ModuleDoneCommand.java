@@ -34,14 +34,14 @@ public class ModuleDoneCommand extends ModuleCommand {
 
     public static final String MESSAGE_MODULE_DONE_USAGE = "Parameter(s): MODULE_CODE "
         + PREFIX_GRADE + "GRADE\n"
-        + "Example: " + MODULE_DONE_COMMAND_WORD + " CS2103T "
+        + "e.g. " + MODULE_DONE_COMMAND_WORD + " CS2103T "
         + PREFIX_GRADE + "A+";
 
     public static final String MESSAGE_MODULE_DONE_HELP = MESSAGE_MODULE_DONE_DETAILS + MESSAGE_MODULE_DONE_USAGE;
 
     public static final String MESSAGE_MODULE_NOT_EDITED = "Grade must be provided.";
 
-    public static final String MESSAGE_MODULE_DONE_SUCCESS = "Marked Module as done:\n%1$s";
+    public static final String MESSAGE_MODULE_DONE_SUCCESS = "Yay! I have marked this module as done:\n%1$s";
 
     private ModuleCode moduleCode;
     private EditModuleDescriptor editModuleGradeDescriptor;
