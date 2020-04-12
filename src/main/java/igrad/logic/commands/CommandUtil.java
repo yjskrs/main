@@ -15,12 +15,12 @@ import igrad.model.course.Semesters;
  */
 public class CommandUtil {
     /**
-     * Retrieves the latest {@code CourseInfo} fields, based on the most updated {@code Requirement}
-     * list and {@code Module} list in {@code Model}
+     * Retrieves the latest {@code CourseInfo} fields (with the details of {@code courseInfoToEdit},
+     * based on the most updated information in {@code model}
      */
-    public static CourseInfo retrieveLatestCourseInfo(CourseInfo course, Model model) {
+    public static CourseInfo createEditedCourseInfo(CourseInfo courseInfoToEdit, Model model) {
         // Copy over all the old values of course
-        Optional<Name> currentName = course.getName();
+        Optional<Name> currentName = courseInfoToEdit.getName();
 
         // Now we actually go to our model and recompute cap based on updated module list in model (coursebook)
         Optional<Cap> updatedCap = CourseInfo.computeCap(model.getFilteredModuleList(),
@@ -37,10 +37,8 @@ public class CommandUtil {
          * Recompute semesters (total and updated)
          */
         Optional<Semesters> updatedSemesters = CourseInfo.computeSemesters(
-            course.getSemesters(), model.getFilteredModuleList());
+            courseInfoToEdit.getSemesters(), model.getFilteredModuleList());
 
-        CourseInfo latestCourseInfo = new CourseInfo(currentName, updatedCap, updatedCredits, updatedSemesters);
-
-        return latestCourseInfo;
+        return new CourseInfo(currentName, updatedCap, updatedCredits, updatedSemesters);
     }
 }
