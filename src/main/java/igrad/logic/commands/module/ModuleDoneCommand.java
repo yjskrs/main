@@ -1,5 +1,7 @@
 package igrad.logic.commands.module;
 
+//@@author nathanaelseen
+
 import static igrad.commons.util.CollectionUtil.requireAllNonNull;
 import static igrad.logic.parser.CliSyntax.PREFIX_GRADE;
 import static java.util.Objects.requireNonNull;
@@ -19,8 +21,6 @@ import igrad.model.module.ModuleCode;
 import igrad.model.module.Semester;
 import igrad.model.module.Title;
 import igrad.model.requirement.Requirement;
-
-//@@author nathanaelseen
 
 /**
  * Marks the module as done, with a specified grade.

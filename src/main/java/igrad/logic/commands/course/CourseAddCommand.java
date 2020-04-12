@@ -1,5 +1,7 @@
 package igrad.logic.commands.course;
 
+//@@author nathanaelseen
+
 import static igrad.commons.core.Messages.MESSAGE_COURSE_ALREADY_SET;
 import static igrad.logic.parser.CliSyntax.PREFIX_NAME;
 import static igrad.logic.parser.CliSyntax.PREFIX_SEMESTER;
@@ -10,7 +12,6 @@ import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
 import igrad.model.course.CourseInfo;
 
-//@@author nathanaelseen
 
 /**
  * Adds a course to the application (there can only be one such course).

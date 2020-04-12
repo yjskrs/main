@@ -71,8 +71,6 @@ public class RequirementEditCommand extends RequirementCommand {
         return new Requirement(requirementCode, updatedTitle, updatedCredits, moduleList);
     }
 
-    //@@author yjskrs
-
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
@@ -111,6 +109,8 @@ public class RequirementEditCommand extends RequirementCommand {
 
         return new CommandResult(String.format(MESSAGE_REQUIREMENT_EDIT_SUCCESS, editedRequirement));
     }
+
+    //@@author yjskrs
 
     @Override
     public boolean equals(Object other) {

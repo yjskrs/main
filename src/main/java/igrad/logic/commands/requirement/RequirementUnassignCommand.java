@@ -1,5 +1,7 @@
 package igrad.logic.commands.requirement;
 
+//@@author nathanaelseen
+
 import static igrad.commons.util.CollectionUtil.requireAllNonNull;
 import static igrad.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
 import static java.util.Objects.requireNonNull;
@@ -16,8 +18,6 @@ import igrad.model.module.ModuleCode;
 import igrad.model.requirement.Requirement;
 import igrad.model.requirement.RequirementCode;
 import igrad.model.requirement.Title;
-
-//@@author nathanaelseen
 
 /**
  * Unassigns modules under a particular requirement.
