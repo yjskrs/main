@@ -31,7 +31,7 @@ public class ModuleDeleteCommand extends ModuleCommand {
 
     public static final String MESSAGE_MODULE_DELETE_HELP = MESSAGE_MODULE_DELETE_DETAILS + MESSAGE_MODULE_DELETE_USAGE;
 
-    public static final String MESSAGE_MODULE_DELETE_SUCCESS = "Deleted Module:\n%1$s";
+    public static final String MESSAGE_MODULE_DELETE_SUCCESS = "Got it! I have deleted this module for you:\n%1$s";
 
     private final ModuleCode moduleCode;
 

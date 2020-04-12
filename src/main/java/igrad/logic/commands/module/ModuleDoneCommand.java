@@ -41,7 +41,7 @@ public class ModuleDoneCommand extends ModuleCommand {
 
     public static final String MESSAGE_MODULE_NOT_EDITED = "Grade must be provided.";
 
-    public static final String MESSAGE_MODULE_DONE_SUCCESS = "Marked Module as done:\n%1$s";
+    public static final String MESSAGE_MODULE_DONE_SUCCESS = "Yay! I have marked this module as done:\n%1$s";
 
     private ModuleCode moduleCode;
     private EditModuleDescriptor editModuleGradeDescriptor;
