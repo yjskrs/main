@@ -40,11 +40,16 @@ public class RequirementUnassignCommand extends RequirementCommand {
     public static final String MESSAGE_REQUIREMENT_NO_MODULES = "There must be at least one modules unassigned.";
 
     public static final String MESSAGE_MODULES_NON_EXISTENT =
-        "Some modules do not exist in the system:\n%1$s\n\nPlease try other modules.";
+        "Some modules do not exist in the system:\n%1$s\nPlease try other modules instead.";
 
     public static final String MESSAGE_MODULES_NON_EXISTENT_IN_REQUIREMENT =
-        "Not all modules exist in the requirement. Please try other modules.";
-    public static final String MESSAGE_REQUIREMENT_UNASSIGN_SUCCESS = "Modules unassigned under Requirement:\n%1$s";
+        "Some modules do not exist in the requirement (%1$s):\n%2$s\nPlease try other modules.";
+
+    public static final String MESSAGE_REQUIREMENT_UNASSIGN_SUCCESS = "Modules successfully unassigned under "
+        + "requirement (%1$s):\n"
+        + "%2$s";
+
+    private static final String MODULE_CODE_DELIMITER = "\n";
 
     private RequirementCode requirementCode;
     private List<ModuleCode> moduleCodes;
@@ -71,18 +76,26 @@ public class RequirementUnassignCommand extends RequirementCommand {
 
         // First check, if all modules (codes) are existent modules in the course book (they should all be)
         if (modulesToUnassign.size() < moduleCodes.size()) {
-            List<ModuleCode> moduleCodesToAssign = modulesToUnassign.stream()
+            List<ModuleCode> moduleCodesToUnassign = modulesToUnassign.stream()
                 .map(module -> module.getModuleCode())
                 .collect(Collectors.toList());
 
-            moduleCodes.removeIf(moduleCode -> moduleCodesToAssign.contains(moduleCode));
+            moduleCodes.removeIf(moduleCode -> moduleCodesToUnassign.contains(moduleCode));
 
-            throw new CommandException(String.format(MESSAGE_MODULES_NON_EXISTENT, moduleCodes));
+            String formattedModuleCodes = getFormattedModuleCodesStr(moduleCodes, MODULE_CODE_DELIMITER);
+
+            throw new CommandException(String.format(MESSAGE_MODULES_NON_EXISTENT, formattedModuleCodes));
         }
 
         // Now check, if all modules specified are existent in the requirement (they should be)
         if (!requirementToEdit.hasModules(modulesToUnassign)) {
-            throw new CommandException(MESSAGE_MODULES_NON_EXISTENT_IN_REQUIREMENT);
+            modulesToUnassign.removeIf(module -> requirementToEdit.hasModule(module));
+
+            String formattedNonExistentModulesInReq = getFormattedModulesStr(modulesToUnassign,
+                    MODULE_CODE_DELIMITER);
+            throw new CommandException(String.format(MESSAGE_MODULES_NON_EXISTENT_IN_REQUIREMENT,
+                        requirementToEdit.getRequirementCode(),
+                        formattedNonExistentModulesInReq));
         }
 
         /*
@@ -110,8 +123,11 @@ public class RequirementUnassignCommand extends RequirementCommand {
         // Updating the model with the latest course info
         model.setCourseInfo(editedCourseInfo);
 
+        String formattedModulesToUnassign = getFormattedModulesStr(modulesToUnassign, MODULE_CODE_DELIMITER);
         return new CommandResult(
-            String.format(MESSAGE_REQUIREMENT_UNASSIGN_SUCCESS, editedRequirement));
+            String.format(MESSAGE_REQUIREMENT_UNASSIGN_SUCCESS,
+                editedRequirement.getRequirementCode(),
+                formattedModulesToUnassign));
     }
 
     /**

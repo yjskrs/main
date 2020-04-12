@@ -4,6 +4,7 @@ import static igrad.commons.util.CollectionUtil.requireAllNonNull;
 import static igrad.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -39,9 +40,15 @@ public class RequirementAssignCommand extends RequirementCommand {
     public static final String MESSAGE_REQUIREMENT_NO_MODULES = "There must be at least one modules assigned.";
 
     public static final String MESSAGE_MODULES_NON_EXISTENT =
-        "Some modules do not exist in the system:\n%1$s\n\nPlease try other modules.";
+        "Some modules do not exist in the system:\n%1$s\nPlease try other modules instead.";
 
-    public static final String MESSAGE_REQUIREMENT_ASSIGN_SUCCESS = "Modules assigned under Requirement:\n%1$s";
+    public static final String MESSAGE_REQUIREMENT_ASSIGN_SUCCESS = "Modules successfully assigned under "
+        + "requirement (%1$s):\n"
+        + "%2$s\n"
+        + "Some modules have already been assigned under this requirement (%1$s):\n"
+        + "%3$s";
+
+    private static final String MODULE_CODE_DELIMITER = "\n";
 
     private RequirementCode requirementCode;
     private List<ModuleCode> moduleCodes;
@@ -74,11 +81,19 @@ public class RequirementAssignCommand extends RequirementCommand {
 
             moduleCodes.removeIf(moduleCode -> moduleCodesToAssign.contains(moduleCode));
 
-            throw new CommandException(String.format(MESSAGE_MODULES_NON_EXISTENT, moduleCodes));
+            String formattedModuleCodes = getFormattedModuleCodesStr(moduleCodes, MODULE_CODE_DELIMITER);
+
+            throw new CommandException(String.format(MESSAGE_MODULES_NON_EXISTENT, formattedModuleCodes));
         }
 
         // Now filter out, modules which are already in the requirement, they should not be re-added again
+        List<Module> modulesAlreadyAssigned = new ArrayList<Module>(modulesToAssign);
+
+        // remove modules that are already assigned, to get modules to newly assign
         modulesToAssign.removeIf(module -> requirementToEdit.hasModule(module));
+
+        // remove modules that are newly assigned, to get modules already assigned
+        modulesAlreadyAssigned.removeIf(module -> modulesToAssign.contains(module));
 
         // Finally if everything alright, we can actually then assign/add the specified modules under this requirement
         Requirement editedRequirement = createEditedRequirement(requirementToEdit, modulesToAssign);
@@ -102,8 +117,14 @@ public class RequirementAssignCommand extends RequirementCommand {
         // Updating the model with the latest course info
         model.setCourseInfo(editedCourseInfo);
 
+        String formattedModulesToAssign = getFormattedModulesStr(modulesToAssign, MODULE_CODE_DELIMITER);
+        String formattedModulesAlreadyAssigned = getFormattedModulesStr(modulesAlreadyAssigned, MODULE_CODE_DELIMITER);
+
         return new CommandResult(
-            String.format(MESSAGE_REQUIREMENT_ASSIGN_SUCCESS, editedRequirement));
+            String.format(MESSAGE_REQUIREMENT_ASSIGN_SUCCESS,
+                editedRequirement.getRequirementCode(),
+                formattedModulesToAssign,
+                formattedModulesAlreadyAssigned));
     }
 
     /**
