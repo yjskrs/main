@@ -10,8 +10,8 @@ import static java.util.Objects.requireNonNull;
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
 public class Name {
-    public static final String MESSAGE_CONSTRAINTS = "Names should not start with a space or slash and should not "
-        + "be blank.";
+    public static final String MESSAGE_CONSTRAINTS = "Name provided for the course is invalid!\n"
+        + "It should not start with a space or slash and should not be blank.";
 
     // The first character of the course name must not be a whitespace (" ").
     // The name must not be blank.

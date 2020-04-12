@@ -13,8 +13,8 @@ import java.util.Optional;
  * Represents a Module's grade.
  */
 public class Grade {
-    public static final String MESSAGE_CONSTRAINTS = "Grade should be a valid format: A+, A, A-, B+, B-, C+, C, D, D+, "
-        + "F, S, U";
+    public static final String MESSAGE_CONSTRAINTS = "The Grade provided for the module is invalid!\n"
+        + "It should be in the valid format: A+, A, A-, B+, B-, C+, C, D, D+, F, S, U";
 
     public static final String VALIDATION_REGEX = "(A\\+)|(A)|(A-)|(B\\+)|(B)|(B-)|(C\\+)|(C)|(D)|(D\\+)|(F)|(S)|(U)";
 
