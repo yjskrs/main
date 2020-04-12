@@ -90,7 +90,7 @@ We are sick of counting our MCs at the beginning of every semester; be it counti
 total course MCs left before you can graduate, or tracking the number of MCs left
 for those invidual degree requirements (boxed in [green]#green#,
 in xref:figure-a-anchor[_Figure 1_]).
-    
+
 With our MCs feature, you would be able to easily keep track of how close you are to
 graduation, as all this information is automatically updated and recomputed, each time you have
 completed a certain module.
@@ -128,7 +128,7 @@ image::../images/user-guide/components/app_screenshot_ui_components_highlighted.
 As per the screenshot above (in _figure 4_):
 
 * xref:Course[Course] is indicated in [blue]#blue#,
-* xref:Degree Requirements[Degree Requirements] is indicated in [red]#red#, and 
+* xref:Degree Requirements[Degree Requirements] is indicated in [red]#red#, and
 * xref:Modules[Modules] is indicated in [yellow]#yellow#
 
 You may refer to xref:figure-b-anchor[_Figure 2_], if you would like a quick recap on the
