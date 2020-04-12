@@ -48,7 +48,13 @@ public class ModuleEditCommand extends ModuleCommand {
     public static final String MESSAGE_MODULE_EDIT_HELP = MESSAGE_MODULE_EDIT_DETAILS + MESSAGE_MODULE_EDIT_USAGE;
 
     public static final String MESSAGE_MODULE_EDIT_SUCCESS = "This module has been edited successfully:\n%1$s ";
-    public static final String MESSAGE_MODULE_NOT_EDITED = "At least one field to edit must be provided.";
+
+    public static final String MESSAGE_MODULE_NOT_EDITED = "At least one field to edit must be provided.\n"
+        + "[" + PREFIX_MODULE_CODE + "MODULE_CODE] "
+        + "[" + PREFIX_TITLE + "MODULE_TITLE] "
+        + "[" + PREFIX_CREDITS + "CREDITS] "
+        + "[" + PREFIX_SEMESTER + "SEMESTER]";
+
     public static final String MESSAGE_DUPLICATE_MODULE = "This module already exists in the course book.";
 
     protected final ModuleCode moduleCode;

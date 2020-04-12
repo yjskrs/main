@@ -10,8 +10,9 @@ import static java.util.Objects.requireNonNull;
  * Guarantees: immutable; is valid as declared in {@link #isValidCap(String)}
  */
 public class Cap {
-    public static final String MESSAGE_CONSTRAINTS = "C.A.P. should not start with a space or slash and should not "
-        + "be blank.\nC.A.P. should not be negative and should be within value of 5.0";
+    public static final String MESSAGE_CONSTRAINTS = "The C.A.P. provided for the course is invalid!\n"
+        + "It should not start with a space or slash and should not "
+        + "be blank.\nIt should be a non-negative number and should be within value of 5.0.";
 
     public static final String VALIDATION_REGEX = "^[0-5](\\.[0-9]+){0,1}$";
 
