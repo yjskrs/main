@@ -1,30 +1,129 @@
-= Name - Project Portfolio
+= Nathanael Seen Zhong Qi - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
 == PROJECT: iGrad
+---
+image::../images/Ui.png[]
 
 == Overview
+
+iGrad is a desktop module management and graduation tracking application. The user interacts with it using a CLI, and it has a GUI created with JavaFX, FXML and CSS.
 
 == Summary of contributions
 
 * *Code contributed*: [https://github.com/AY1920S2-CS2103T-F09-3/main/commits?author=nathanaelseen[All commits]] [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=nathanaelseen[Project Code Dashboard]]
 
-* *Enhancements Implemented*:
+* *Major enhancement*: Added *course management* feature.
+** _What it does_: Allows the user to create/edit/delete a course, through which various modules,
+and requirements (degree requirements) are 'housed'. Also allows users to track other
+import degree progress information, such as overal MCs completed for the course, and current CAP.
+** _Justification_: This feature is crucial because our application is a course management app, which
+helps students plan their graduation requirements. Without a course, it does not make sense to
+have modules and degree requirements (by which those modules are mapped under) as standalone
+features. In fact, this feature could be said to be the most important feature.
+** _Credits_: The original AB3 codebase which provided the necessary backing for the implementation
+of this feature, and my teamates for implementing the *module management* and *requirement
+management* features.
 
-* *Documentation*:
+* *Major enhancement*: Integrate *course management*, *requirement management*, and *module management*
+feature together, through the `module done`,  `requirement assign`, and `requirement unassign`,
+commands.
+** _What it does_:
+
+*** `module done`: allows the user to record down the grade she has obtained for a particular
+module she has completed
+
+*** `requirement assign`: allows the user to assign certain modules under a requirement
+
+*** `requirement unassign`: opposite of requirement assign
+
+** _Justification_: Again this feature is particularly important, in helping one track her graduation
+requirements and overall degree progress.
+
+** _Highlights_: This three commands function like a 'glue' in the entire application, glueing the
+*module management*, *requirement management*, and *course management* altogether.
+
+*** Take for example, the `module done` command. It might seem trivial, but when a
+module is marked as 'done' with a certain grade recorded for it, first of all,
+the _module manager_ has to be called so as to update the module with that grade.
+Next, the _requirement manager_ has to also be invoked to updated all requirements which contains
+this module with this new module information, as well as recompute the total MCs fulfilled
+for those requirements. Finally, the _course manager_ has to called as well, as the total
+MCs fulfilled for the course needs to be updated, and the CAP needs to be recomputed.
+** _Credits_: Here, I would like to credit the rest of my teamates for implementing the module
+management and requirement management feature, without which this feature would not have
+been able to make sense.
+
+* *Minor enhancement*: remodularise animal guide (avatar) selection logic,
+which https://github.com/waynewee[Wayne], has initially written.
+
+* *Minor enhancement*: assisted in updating of UI information for course information (left
+most panel in screenshot above),
+which https://github.com/waynewee[Wayne], has initially written.
 
 * *Contribution to Team Based Tasks*:
+** In-charge of merging any pull request in the team, this involves critically reviewing the code,
+and fixing it if necessary.
+
+*** Things I checked/helped my teamates fix upon merging any pull request were;
+violating checkstyle, obvious logic bug errors, design/implementation considerations and concerns,
+remodularising of code.
+
+*** Also, before I give the thumbs-up for merging those PRs, I always help my teamates test
+the features they implemented, i.e, whether it works as 'advertised'. Sometimes, when I test
+their features with the latest code in 'master' branch, it does not work as 'advertised', due
+to integration issues. In those cases, I helped to pinpoint exact location of fault,
+and feedback to them for further fixing.
+
+*** Somehow in my role of merging PRs, I was also part of the initial refactoring of the codebase.
+This was because two of my teamates refactored the codebase at the same time, causing
+a very huge merge https://github.com/AY1920S2-CS2103T-F09-3/main/pull/93[conflict] which I had to resolve.
+
+*** Besides that, other merge conflicts I helped resolved while merging are;
+https://github.com/AY1920S2-CS2103T-F09-3/main/pull/320[#320],
+https://github.com/AY1920S2-CS2103T-F09-3/main/pull/307[#307], and
+https://github.com/AY1920S2-CS2103T-F09-3/main/pull/295[#295].
+
+** Set-up Reposense, and Nelify for my team, for tracking code contributions and easy reviewing of
+UG/DG docs.
+
+** Remind my teamates on upcoming deadlines; submission of UG, DG, milestone deadline tasks, etc
+
+** Managed the issue tracker for the first-half of this project, creating and assigning issues
+to track the progress of my teamates
+
+** Designed the initial application UI prototype for the first draft UG submission.
 
 * *Review/Mentoring Contributions*:
+** Assisted https://github.com/teriaiw[Teri], in her initial difficulties understanding and
+adapting to such a large code-base, by creating stubs for her implementation. She feedbacked that
+she liked my way of mentoring and found it to be really helpful. I also provided her
+a listening ear for voicing any difficulties or concerns she had when implementing her code
+portions.
+
+** Provided PR code reviews to my team members on how potential things they could improve
+and work on, as I merged their PRs
+(https://github.com/AY1920S2-CS2103T-F09-3/main/pull/313[#313],
+https://github.com/AY1920S2-CS2103T-F09-3/main/pull/295[#295],
+https://github.com/AY1920S2-CS2103T-F09-3/main/pull/281[#281],
+https://github.com/AY1920S2-CS2103T-F09-3/main/pull/276[#276],
+https://github.com/AY1920S2-CS2103T-F09-3/main/pull/269[#269],
+https://github.com/AY1920S2-CS2103T-F09-3/main/pull/188[#188],
+https://github.com/AY1920S2-CS2103T-F09-3/main/pull/193[#193],
+https://github.com/AY1920S2-CS2103T-F09-3/main/pull/177[#177],
+https://github.com/AY1920S2-CS2103T-F09-3/main/pull/89[#89],
+https://github.com/AY1920S2-CS2103T-F09-3/main/pull/80[#80], and many more!)
 
 == Contributions to the User Guide
 
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability in
+written communication, in the form of documentation, with possibly non-technical end-users._
+|===
 
-|===
-|_Sections contributed to UG_
-|===
+include::../UserGuide.adoc[tag=nat-ug]
 
 
 == Contributions to the Developer Guide

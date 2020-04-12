@@ -40,8 +40,11 @@ public class RequirementEditCommand extends RequirementCommand {
     public static final String MESSAGE_REQUIREMENT_EDIT_HELP = MESSAGE_DETAILS + MESSAGE_USAGE;
 
     public static final String MESSAGE_REQUIREMENT_EDIT_SUCCESS = "Got it! This requirement has been "
-            + "edited successfully:\n%1$s";
-    public static final String MESSAGE_REQUIREMENT_NOT_EDITED = "At least one field must be modified.";
+        + "edited successfully:\n%1$s";
+
+    public static final String MESSAGE_REQUIREMENT_NOT_EDITED = "At least one field to edit must be provided.\n"
+        + "[" + PREFIX_TITLE + "REQUIREMENT_TITLE] "
+        + "[" + PREFIX_CREDITS + "CREDITS]";
 
     private final RequirementCode requirementCode;
 

@@ -9,8 +9,8 @@ import static java.util.Objects.requireNonNull;
  * Guarantees: immutable and non-null.
  */
 public class RequirementCode {
-    public static final String MESSAGE_CONSTRAINTS = "Requirement Code should only contain uppercase alphabets"
-        + " and/or integers and should not be blank.";
+    public static final String MESSAGE_CONSTRAINTS = "The Requirement Code provided for the requirement is invalid!\n"
+        + "It should only contain uppercase alphabets and/or integers and should not be blank.\ne.g. UE1";
 
     // Requirement Code should have alphabets followed by some digits.
     public static final String VALIDATION_REGEX = "[A-Z0-9]+";
