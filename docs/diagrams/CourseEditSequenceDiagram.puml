@@ -13,24 +13,25 @@ participant ":Model" as Model MODEL_COLOR
 participant ":CourseBook" as CourseBook MODEL_COLOR
 end box
 
-[-> LogicManager : execute(edit course)
+[-> LogicManager : execute(\ncourse edit)
 activate LogicManager
 
-LogicManager -> CourseBookParser : parseCommand(edit course)
+LogicManager -> CourseBookParser : parseCommand(\ncourse edit)
 activate CourseBookParser
 
 create CourseEditCommandParser
-CourseBookParser -> CourseEditCommandParser : new CourseEditCommandParser(\nname)
+CourseBookParser -> CourseEditCommandParser : new CourseEditCommandParser(\nname, semesters)
 activate CourseEditCommandParser
 
 create CourseEditCommand
-CourseEditCommandParser -> CourseEditCommand : new CourseEditCommand(\nname)
+CourseEditCommandParser -> CourseEditCommand : new CourseEditCommand(\nname, semesters)
 activate CourseEditCommand
 
 CourseEditCommand --> CourseEditCommandParser
-CourseEditCommandParser --> CourseBookParser : r
+CourseEditCommandParser --> CourseBookParser : n
+deactivate CourseEditCommandParser
 
-CourseBookParser --> LogicManager : r
+CourseBookParser --> LogicManager : n
 deactivate CourseBookParser
 
 LogicManager -> CourseEditCommand : execute()
