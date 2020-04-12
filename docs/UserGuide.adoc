@@ -131,8 +131,8 @@ As per the screenshot above (in _figure 4_):
 * xref:Degree Requirements[Degree Requirements] is indicated in [red]#red#, and 
 * xref:Modules[Modules] is indicated in [yellow]#yellow#
 
-Please refer to xref:figure-b-anchor[_Figure 2_], if you would like a quick recap on the
-hierachical structure of these components.
+You may refer to xref:figure-b-anchor[_Figure 2_], if you would like a quick recap on the
+hierachical structuring of these components.
 
 ==== Course
 
