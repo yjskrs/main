@@ -42,7 +42,6 @@ public class CourseEditCommand extends CourseCommand {
         + "[" + PREFIX_NAME + "COURSE_NAME] "
         + "[" + PREFIX_SEMESTER + "TOTAL_SEMESTERS]";
 
-
     private EditCourseDescriptor editCourseDescriptor;
 
     /**

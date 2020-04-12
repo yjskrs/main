@@ -13,7 +13,7 @@ public class ModuleCode {
 
 
     public static final String MESSAGE_CONSTRAINTS = "The Module Code provided for the module is invalid!\n"
-        +"Module code should contain at least two or three letters at the front and four numbers at the back, "
+        + "Module code should contain at least two or three letters at the front and four numbers at the back, "
         + "with an optional letter at the end.\ne.g. CS2103T";
 
     public static final String VALIDATION_REGEX = ".{2,3}\\d{4}\\w{0,1}";
