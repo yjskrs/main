@@ -8,6 +8,7 @@ import static igrad.logic.commands.requirement.RequirementAddCommand.MESSAGE_REQ
 import static igrad.logic.commands.requirement.RequirementCommandTestUtil.INVALID_REQ_CREDITS_ALPHABET;
 import static igrad.logic.commands.requirement.RequirementCommandTestUtil.INVALID_REQ_CREDITS_DECIMAL;
 import static igrad.logic.commands.requirement.RequirementCommandTestUtil.INVALID_REQ_CREDITS_SYMBOL;
+import static igrad.logic.commands.requirement.RequirementCommandTestUtil.REQ_CREDITS_DESC_CSBD;
 import static igrad.logic.commands.requirement.RequirementCommandTestUtil.REQ_CREDITS_DESC_CSF;
 import static igrad.logic.commands.requirement.RequirementCommandTestUtil.REQ_CREDITS_DESC_UE;
 import static igrad.logic.commands.requirement.RequirementCommandTestUtil.REQ_TITLE_DESC_CSBD;
@@ -18,6 +19,7 @@ import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_
 import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
 import static igrad.logic.parser.CliSyntax.PREFIX_TITLE;
 import static igrad.logic.parser.CommandParserTestUtil.assertParseFailure;
+import static igrad.logic.parser.CommandParserTestUtil.assertParseNotEquals;
 import static igrad.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import org.junit.jupiter.api.Test;
@@ -48,13 +50,16 @@ public class RequirementAddCommandParserTest {
             new RequirementAddCommand(expectedRequirement));
 
         // multiple titles, only last title parsed
-        // assertParseFailure(parser, , new RequirementAddCommand(expectedRequirement));
-        // assertParseSuccess(parser, , new RequirementAddCommand(expectedRequirement));
+        assertParseSuccess(parser, REQ_CREDITS_DESC_UE + REQ_TITLE_DESC_CSBD + REQ_TITLE_DESC_UE, new RequirementAddCommand(expectedRequirement));
+        assertParseNotEquals(parser,
+            REQ_CREDITS_DESC_UE + REQ_TITLE_DESC_CSBD + REQ_TITLE_DESC_UE,
+            REQ_CREDITS_DESC_UE + REQ_TITLE_DESC_UE + REQ_TITLE_DESC_CSBD);
 
         // multiple credits, only last credits parsed
-        // assertParseFailure(parser, , new RequirementAddCommand(expectedRequirement));
-        // assertParseSuccess(parser, , new RequirementAddCommand(expectedRequirement));
-
+        assertParseSuccess(parser, REQ_CREDITS_DESC_CSBD + REQ_CREDITS_DESC_UE + REQ_TITLE_DESC_UE, new RequirementAddCommand(expectedRequirement));
+        assertParseNotEquals(parser,
+            REQ_CREDITS_DESC_CSBD + REQ_CREDITS_DESC_UE + REQ_TITLE_DESC_UE,
+            REQ_TITLE_DESC_UE + REQ_CREDITS_DESC_UE  + REQ_CREDITS_DESC_CSBD);
     }
 
     @Test

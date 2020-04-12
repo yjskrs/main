@@ -157,7 +157,7 @@ public class RequirementCommandTestUtil extends CommandTestUtil {
 
         @Override
         public ReadOnlyCourseBook getCourseBook() {
-            throw new AssertionError("This method should not be called.");
+            return new CourseBook();
         }
 
         @Override
@@ -364,11 +364,6 @@ public class RequirementCommandTestUtil extends CommandTestUtil {
             UniqueRequirementList list = new UniqueRequirementList();
             list.setRequirements(requirements);
             return list.asUnmodifiableObservableList();
-        }
-
-        @Override
-        public ReadOnlyCourseBook getCourseBook() {
-            return new CourseBook();
         }
 
         @Override
