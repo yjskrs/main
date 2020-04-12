@@ -29,7 +29,7 @@ public class RequirementDeleteCommandParser extends RequirementCommandParser {
     public RequirementDeleteCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args);
 
-        if (argMultimap.isEmpty(false)) {
+        if (argMultimap.isEmpty(true)) {
             throw new ParseException(
                     String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_REQUIREMENT_DELETE_HELP));
         }
