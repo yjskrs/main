@@ -60,46 +60,110 @@ IMPORTANT: Specifies important things to take note of
 
 == Features
 
-This segment highlights the key features of iGrad.
+Section by: https://github.com/nathanaelseen[Nathanael Seen]
 
-==== Course Builder
+This segment highlights three key features iGrad offers to NUS students, namely;
+a Course Planner, an MCs Tracker, and a CAP Tracker.
 
-iGrad was built with every NUS student in mind. Our custom course builder allows you to build
-the course of your dreams.
+If you would like a more in-depth overview of the actual components of our application, please
+refer to the next section; <<Components>>, for more details.
 
-==== Modular Credits (MCs) Tracker
+==== Course Planner
+_iGrad_ was built with every NUS student in mind. Our flexible course planner allows you to plan
+a course of your own dreams, be it those of you doing a single degree programme,
+a double degree programme, and even a concurrent degree programme.
 
-We are sick of counting our MCs at the beginning of every semester. Easily see how many MCs you
-have left in order to apply for graduation.
+With our course planner, you would be able to enter your current course details such as your
+*modules* and the various degree *requirements* by which those modules are mapped.
 
-==== Cumulative Average Point (CAP) Tracker
+(For instance, the _Computer Science_ course has the various
+*modules*, highlighted in [blue]#blue#, and degree *requirements*, boxed in [red]#red#):
 
-No more googling CAP calculators. iGrad's CAP tracker keeps track of your CAP at every step and
-even offers predictive services so you know how well you have to do
-in order to achieve your dream CAP.
+anchor:figure-a-anchor[]
+
+.Computer science degree requirements
+image::../images/user-guide/components/graduation_degree_requirements.png[]
+
+==== MCs Tracker
+
+We are sick of counting our MCs at the beginning of every semester; be it counting the
+total course MCs left before you can graduate, or tracking the number of MCs left
+for those invidual degree requirements (boxed in [green]#green#,
+in xref:figure-a-anchor[_Figure 1_]).
+
+With our MCs feature, you would be able to easily keep track of how close you are to
+graduation, as all this information is automatically updated and recomputed, each time you have
+completed a certain module.
+
+==== CAP Tracker
+No more googling for CAP calculators. iGrad's CAP tracker helps you keeps track of your current CAP at
+every step of your journey in your course. In addition, it even offers predictive features so you know how
+well you have to do in order to achieve your dream CAP.
+
+==== Everything Integrated into One Application
+But the best part is that these features are all integrated into our application; _iGrad_.
+And with all these important pieces of information in one place, you would never go amiss keeping
+track of all your graduation requirements.
 
 == Components
+This segment details the various components of _iGrad_. As shown in _Figure 2_ below,
+these components follow a hierachical structure, exactly like how an NUS course is structured.
 
-This segment contains details on the structure of iGrad.
+anchor:figure-b-anchor[]
 
+.Hierachical overview of iGrad components
+image::../images/user-guide/components/hierachical_structure.png[]
 
-image:https://user-images.githubusercontent.com/34233605/75425925-9774ff80-597e-11ea-87f5-228f95b5c84f.png[]
+Here is how our application looks like (on a typical usage):
+
+.iGrad application screenshot
+image::../images/user-guide/components/app_screenshot_ui.png[]
+
+The following is the same screenshot of our application, but with the various components
+of our application highlighted:
+
+.iGrad components screenshot
+image::../images/user-guide/components/app_screenshot_ui_components_highlighted.png[]
+
+As per the screenshot above (in _figure 4_):
+
+* xref:Course[Course] is indicated in [blue]#blue#,
+* xref:Degree Requirements[Degree Requirements] is indicated in [red]#red#, and
+* xref:Modules[Modules] is indicated in [yellow]#yellow#
+
+You may refer to xref:figure-b-anchor[_Figure 2_], if you would like a quick recap on the
+hierachical structuring of these components.
 
 ==== Course
 
-A course is simply a group of requirements. It is also how we keep track of your overall CAP
-and MCs.
+A course is simply a group of degree requirements.
 
-==== Requirements
+It contains important information such as your current CAP, total number of MCs
+you have completed thus far, and semesters left before you can graduate.
 
-A requirement consists of at least one module. Fulfill all modules within a requirement to
-complete it.
+In short, it helps you keep track of your overall degree progress.
+
+==== Degree Requirements
+
+Under a course are the various degree requirements, such as the ones shown in
+xref:figure-b-anchor[_Figure 2_] above; _Computer Science Foundation_,
+_Mathematics and Sciences_, and _Unrestricted Electives_.
+
+Each requirement comprises of the modules you need to complete in order to fulfill that particular
+requirement.
+
+Additionally, each requirement consists of important information such as
+the number of MCs you have already fulfilled.
 
 ==== Modules
 
-A module is the building block of all other components. Mark your modules as done and give it
-a grade. You can also add optional memos to help you remember why
-you took the module.
+Finally, modules are the basic building block of all the other components.
+
+These could be modules you have taken, modules you are currently taking and modules that
+you plan to take.
+
+Each module allows recording of other optional information, such as indicating the grade you
+have obtained for those modules.
 
 //tag::walkthrough[]
 == Walkthrough
@@ -794,7 +858,7 @@ in one place.
 
 _I'm not an NUS student. Can I still use iGrad?_
 
-As long as your university follows a similar <<fig-1,hierachical structure>>!
+As long as your university follows a similar <<fig-2,hierachical structure>>!
 However, we will be unable to provide features such as validation from NUSMods.
 
 _Do I require an online connection to use iGrad?_
