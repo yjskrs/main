@@ -1,5 +1,7 @@
 package igrad.logic.commands.course;
 
+//@@author nathanaelseen
+
 import static igrad.commons.core.Messages.MESSAGE_COURSE_ALREADY_SET;
 import static igrad.logic.parser.CliSyntax.PREFIX_NAME;
 import static igrad.logic.parser.CliSyntax.PREFIX_SEMESTER;
@@ -7,15 +9,15 @@ import static java.util.Objects.requireNonNull;
 
 import igrad.logic.commands.CommandResult;
 import igrad.logic.commands.exceptions.CommandException;
-import igrad.logic.commands.module.ModuleAddCommand;
 import igrad.model.Model;
 import igrad.model.course.CourseInfo;
+
 
 /**
  * Adds a course to the application (there can only be one such course).
  */
 public class CourseAddCommand extends CourseCommand {
-    public static final String COURSE_ADD_COMMAND_WORD = COURSE_COMMAND_WORD + SPACE + "add";
+    public static final String COURSE_ADD_COMMAND_WORD = COURSE_COMMAND_WORD + SPACE + "set";
     public static final String MESSAGE_COURSE_ADD_DETAILS = COURSE_ADD_COMMAND_WORD
         + ": Adds a course with relevant details specified.\n";
 
@@ -27,7 +29,10 @@ public class CourseAddCommand extends CourseCommand {
 
     public static final String MESSAGE_COURSE_ADD_HELP = MESSAGE_COURSE_ADD_DETAILS + MESSAGE_COURSE_ADD_USAGE;
 
-    public static final String MESSAGE_COURSE_ADD_SUCCESS = "New course added: %1$s";
+    public static final String MESSAGE_COURSE_ADD_SUCCESS = "New course set: %1$s";
+    public static final String MESSAGE_COURSE_NOT_ADDED = "All fields to be filled, course set n/COURSE_NAME "
+        + "s/SEMESTERS";
+
     private final CourseInfo toAdd;
 
     /**
@@ -55,13 +60,13 @@ public class CourseAddCommand extends CourseCommand {
 
         model.addCourseInfo(toAdd);
         return new CommandResult(String.format(MESSAGE_COURSE_ADD_SUCCESS, toAdd),
-                false, false, true);
+            false, false, true);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof ModuleAddCommand // instanceof handles nulls
+            || (other instanceof CourseAddCommand // instanceof handles nulls
             && toAdd.equals(((CourseAddCommand) other).toAdd));
     }
 }

@@ -1,6 +1,7 @@
 package igrad.logic.commands.module;
 
 import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
+import static igrad.logic.parser.CliSyntax.PREFIX_GRADE;
 import static igrad.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
 import static igrad.logic.parser.CliSyntax.PREFIX_SEMESTER;
 import static igrad.logic.parser.CliSyntax.PREFIX_TITLE;
@@ -35,18 +36,18 @@ import igrad.model.requirement.Requirement;
 import igrad.model.requirement.RequirementCode;
 import igrad.testutil.EditModuleDescriptorBuilder;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 
 /**
  * Contains helper methods for testing commands.
  */
 public class ModuleCommandTestUtil {
 
-    public static final String VALID_TITLE_CS1101S = "Programming Methodology";
-    public static final String VALID_TITLE_CS2100 = "Computer Organisation";
-    public static final String VALID_TITLE_CS2103T = "Software Engineering";
-    public static final String VALID_TITLE_CS2101 = "Effective Communication for Computing Professionals";
-    public static final String VALID_TITLE_CS2040 = "Data Structures and Algorithms";
+    // valid requirement arguments
+    public static final String VALID_MODULE_TITLE_CS1101S = "Programming Methodology";
+    public static final String VALID_MODULE_TITLE_CS2100 = "Computer Organisation";
+    public static final String VALID_MODULE_TITLE_CS2103T = "Software Engineering";
+    public static final String VALID_MODULE_TITLE_CS2101 = "Effective Communication for Computing Professionals";
+    public static final String VALID_MODULE_TITLE_CS2040 = "Data Structures and Algorithms";
 
     public static final String VALID_MODULE_CODE_CS1101S = "CS1101S";
     public static final String VALID_MODULE_CODE_CS2100 = "CS2100";
@@ -54,44 +55,68 @@ public class ModuleCommandTestUtil {
     public static final String VALID_MODULE_CODE_CS2101 = "CS2101";
     public static final String VALID_MODULE_CODE_CS2040 = "CS2040";
 
-    public static final String VALID_CREDITS_4 = "4";
-    public static final String VALID_CREDITS_6 = "6";
+    public static final String VALID_MODULE_CREDITS_4 = "4";
+    public static final String VALID_MODULE_CREDITS_6 = "6";
 
-    public static final String VALID_SEMESTER_Y1S1 = "Y1S1";
-    public static final String VALID_SEMESTER_Y2S2 = "Y2S2";
+    public static final String VALID_MODULE_SEMESTER_Y1S1 = "Y1S1";
+    public static final String VALID_MODULE_SEMESTER_Y2S2 = "Y2S2";
 
-    public static final String VALID_GRADE_A = "A";
-    public static final String VALID_GRADE_B = "B";
+    public static final String VALID_MODULE_SEMESTER_CS1101S = "Y1S1";
+    public static final String VALID_MODULE_SEMESTER_CS2100 = "Y2S2";
+
+    public static final String VALID_MODULE_GRADE_A = "A";
+    public static final String VALID_MODULE_GRADE_B = "B";
+
+    public static final String VALID_MODULE_GRADE_CS1101S = "A";
+    public static final String VALID_MODULE_GRADE_CS2100 = "B";
+
+    // invalid requirement arguments
+    public static final String INVALID_MODULE_CODE = "CS2040S&";
+    public static final String INVALID_MODULE_GRADE = "A*";
+    public static final String INVALID_MODULE_CREDITS = "4%";
+    public static final String INVALID_MODULE_SEMESTER = "4%";
+
 
     // module title descriptor for command entered
-    public static final String MODULE_TITLE_DESC_CS1101S = " " + PREFIX_TITLE + VALID_TITLE_CS1101S;
-    public static final String MODULE_TITLE_DESC_CS2100 = " " + PREFIX_TITLE + VALID_TITLE_CS2100;
+    public static final String MODULE_TITLE_DESC_CS1101S = " " + PREFIX_TITLE + VALID_MODULE_TITLE_CS1101S;
+    public static final String MODULE_TITLE_DESC_CS2100 = " " + PREFIX_TITLE + VALID_MODULE_TITLE_CS2100;
 
     // module code descriptor for command entered
     public static final String MODULE_MODULE_CODE_DESC_CS1101S = " " + PREFIX_MODULE_CODE + VALID_MODULE_CODE_CS1101S;
     public static final String MODULE_MODULE_CODE_DESC_CS2100 = " " + PREFIX_MODULE_CODE + VALID_MODULE_CODE_CS2100;
 
     // module credits descriptor for command entered
-    public static final String MODULE_CREDITS_DESC_CS1101S = " " + PREFIX_CREDITS + VALID_CREDITS_4;
-    public static final String MODULE_CREDITS_DESC_CS2100 = " " + PREFIX_CREDITS + VALID_CREDITS_6;
+    public static final String MODULE_CREDITS_DESC_CS1101S = " " + PREFIX_CREDITS + VALID_MODULE_CREDITS_4;
+    public static final String MODULE_CREDITS_DESC_CS2100 = " " + PREFIX_CREDITS + VALID_MODULE_CREDITS_6;
+
+    // module grade descriptor for command entered
+    public static final String MODULE_GRADE_DESC_CS1101S = " " + PREFIX_GRADE + VALID_MODULE_GRADE_CS1101S;
+    public static final String MODULE_GRADE_DESC_CS2100 = " " + PREFIX_GRADE + VALID_MODULE_GRADE_CS2100;
+
+    // module semester descriptor for command entered
+    public static final String MODULE_SEMESTER_DESC_CS1101S = " " + PREFIX_SEMESTER + VALID_MODULE_SEMESTER_CS1101S;
+    public static final String MODULE_SEMESTER_DESC_CS2100 = " " + PREFIX_SEMESTER + VALID_MODULE_SEMESTER_CS2100;
 
     // Starting with ' ' not allowed in titles
-    public static final String INVALID_TITLE_DESC = " " + PREFIX_TITLE + " Programming Methodology";
+    public static final String INVALID_MODULE_TITLE_DESC = " " + PREFIX_TITLE + " Programming Methodology";
 
     // Starting with '/' not allowed in titles
-    public static final String INVALID_TITLE_SLASH_DESC = " " + PREFIX_TITLE + "/Programming Methodology";
+    public static final String INVALID_MODULE_TITLE_SLASH_DESC = " " + PREFIX_TITLE + "/Programming Methodology";
 
     // Empty titles are not allowed
-    public static final String INVALID_TITLE_EMPTY_DESC = " " + PREFIX_TITLE;
+    public static final String INVALID_MODULE_TITLE_EMPTY_DESC = " " + PREFIX_TITLE;
 
     // '&' not allowed in module codes
-    public static final String INVALID_MODULE_CODE_DESC = " " + PREFIX_MODULE_CODE + "CS2040S&";
+    public static final String INVALID_MODULE_CODE_DESC = " " + PREFIX_MODULE_CODE + INVALID_MODULE_CODE;
 
     // '&' not allowed in credits
-    public static final String INVALID_CREDITS_DESC = " " + PREFIX_CREDITS + "4%";
+    public static final String INVALID_MODULE_CREDITS_DESC = " " + PREFIX_CREDITS + INVALID_MODULE_CREDITS;
 
     // '&' not allowed in semester
-    public static final String INVALID_SEMESTER_DESC = " " + PREFIX_SEMESTER + "4%";
+    public static final String INVALID_MODULE_SEMESTER_DESC = " " + PREFIX_SEMESTER + INVALID_MODULE_SEMESTER;
+
+    // '*' not allowed in grade
+    public static final String INVALID_MODULE_GRADE_DESC = " " + PREFIX_GRADE + INVALID_MODULE_GRADE;
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
@@ -101,16 +126,16 @@ public class ModuleCommandTestUtil {
 
     static {
         DESC_PROGRAMMING_METHODOLOGY = new EditModuleDescriptorBuilder()
-            .withTitle(VALID_TITLE_CS1101S)
+            .withTitle(VALID_MODULE_TITLE_CS1101S)
             .withModuleCode(VALID_MODULE_CODE_CS1101S)
-            .withCredits(VALID_CREDITS_4)
-            .withSemester(VALID_SEMESTER_Y1S1).build();
+            .withCredits(VALID_MODULE_CREDITS_4)
+            .withSemester(VALID_MODULE_SEMESTER_Y1S1).build();
 
         DESC_COMPUTER_ORGANISATION = new EditModuleDescriptorBuilder()
-            .withTitle(VALID_TITLE_CS2100)
+            .withTitle(VALID_MODULE_TITLE_CS2100)
             .withModuleCode(VALID_MODULE_CODE_CS2100)
-            .withCredits(VALID_CREDITS_6)
-            .withSemester(VALID_SEMESTER_Y2S2).build();
+            .withCredits(VALID_MODULE_CREDITS_6)
+            .withSemester(VALID_MODULE_SEMESTER_Y2S2).build();
     }
 
     /**
@@ -376,36 +401,6 @@ public class ModuleCommandTestUtil {
         }
     }
 
-    /**
-     * A Model stub that helps to test filtering
-     */
-    public static class ModelStubAcceptingFilteredModules extends ModelStub {
-
-        final CourseBook courseBook = getCourseBook();
-        final FilteredList<Module> filteredModules = new FilteredList<>(courseBook.getModuleList());
-
-        @Override
-        public void addModule(Module module) {
-            requireNonNull(module);
-            courseBook.addModule(module);
-        }
-
-        @Override
-        public void updateFilteredModuleList(Predicate<Module> predicate) {
-            requireNonNull(predicate);
-            filteredModules.setPredicate(predicate);
-        }
-
-        @Override
-        public CourseBook getCourseBook() {
-            return new CourseBook();
-        }
-
-        @Override
-        public ObservableList<Module> getFilteredModuleList() {
-            return filteredModules;
-        }
-    }
 
     /**
      * A Model stub that always accept the module being added.

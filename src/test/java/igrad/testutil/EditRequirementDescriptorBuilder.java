@@ -6,6 +6,8 @@ import igrad.model.requirement.Credits;
 import igrad.model.requirement.Requirement;
 import igrad.model.requirement.Title;
 
+//@@author yjskrs
+
 /**
  * A utility class to help with building EditRequirementDescriptor objects.
  */

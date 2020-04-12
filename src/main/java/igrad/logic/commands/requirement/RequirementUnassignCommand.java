@@ -1,10 +1,13 @@
 package igrad.logic.commands.requirement;
 
+//@@author nathanaelseen
+
 import static igrad.commons.util.CollectionUtil.requireAllNonNull;
 import static igrad.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import igrad.logic.commands.CommandResult;
 import igrad.logic.commands.CommandUtil;
@@ -24,24 +27,29 @@ public class RequirementUnassignCommand extends RequirementCommand {
     public static final String REQUIREMENT_UNASSIGN_COMMAND_WORD = REQUIREMENT_COMMAND_WORD + SPACE
         + "unassign";
 
-    public static final String REQUIREMENT_UNASSIGN_MESSAGE_DETAILS = REQUIREMENT_UNASSIGN_COMMAND_WORD
+    public static final String MESSAGE_REQUIREMENT_UNASSIGN_DETAILS = REQUIREMENT_UNASSIGN_COMMAND_WORD
         + ": Unassigns the requirement identified with modules "
         + "by its requirement code. Existing requirement will be overwritten by the input values\n";
 
-    public static final String REQUIREMENT_UNASSIGN_MESSAGE_USAGE = "Parameter(s): REQUIREMENT_CODE "
+    public static final String MESSAGE_REQUIREMENT_UNASSIGN_USAGE = "Parameter(s): REQUIREMENT_CODE "
         + PREFIX_MODULE_CODE + "MODULE_CODE...\n";
 
-    public static final String REQUIREMENT_UNASSIGN_MESSAGE_HELP = REQUIREMENT_UNASSIGN_MESSAGE_DETAILS
-        + REQUIREMENT_UNASSIGN_MESSAGE_USAGE;
+    public static final String MESSAGE_REQUIREMENT_UNASSIGN_HELP = MESSAGE_REQUIREMENT_UNASSIGN_DETAILS
+        + MESSAGE_REQUIREMENT_UNASSIGN_USAGE;
 
     public static final String MESSAGE_REQUIREMENT_NO_MODULES = "There must be at least one modules unassigned.";
 
     public static final String MESSAGE_MODULES_NON_EXISTENT =
-        "Not all modules exist in the system. Please try other modules.";
+        "Some modules do not exist in the system:\n%1$s\nPlease try other modules instead.";
 
     public static final String MESSAGE_MODULES_NON_EXISTENT_IN_REQUIREMENT =
-        "Not all modules exist in the requirement. Please try other modules.";
-    public static final String MESSAGE_SUCCESS = "Modules unassigned under Requirement:\n%1$s";
+        "Some modules do not exist in the requirement (%1$s):\n%2$s\nPlease try other modules.";
+
+    public static final String MESSAGE_REQUIREMENT_UNASSIGN_SUCCESS = "Modules successfully unassigned under "
+        + "requirement (%1$s):\n"
+        + "%2$s";
+
+    private static final String MODULE_CODE_DELIMITER = "\n";
 
     private RequirementCode requirementCode;
     private List<ModuleCode> moduleCodes;
@@ -68,14 +76,65 @@ public class RequirementUnassignCommand extends RequirementCommand {
 
         // First check, if all modules (codes) are existent modules in the course book (they should all be)
         if (modulesToUnassign.size() < moduleCodes.size()) {
-            throw new CommandException(MESSAGE_MODULES_NON_EXISTENT);
+            List<ModuleCode> moduleCodesToUnassign = modulesToUnassign.stream()
+                .map(module -> module.getModuleCode())
+                .collect(Collectors.toList());
+
+            moduleCodes.removeIf(moduleCode -> moduleCodesToUnassign.contains(moduleCode));
+
+            String formattedModuleCodes = getFormattedModuleCodesStr(moduleCodes, MODULE_CODE_DELIMITER);
+
+            throw new CommandException(String.format(MESSAGE_MODULES_NON_EXISTENT, formattedModuleCodes));
         }
 
         // Now check, if all modules specified are existent in the requirement (they should be)
         if (!requirementToEdit.hasModules(modulesToUnassign)) {
-            throw new CommandException(MESSAGE_MODULES_NON_EXISTENT_IN_REQUIREMENT);
+            modulesToUnassign.removeIf(module -> requirementToEdit.hasModule(module));
+
+            String formattedNonExistentModulesInReq = getFormattedModulesStr(modulesToUnassign,
+                    MODULE_CODE_DELIMITER);
+            throw new CommandException(String.format(MESSAGE_MODULES_NON_EXISTENT_IN_REQUIREMENT,
+                        requirementToEdit.getRequirementCode(),
+                        formattedNonExistentModulesInReq));
         }
 
+        /*
+         * Finally if everything alright, we can actually then unassign/'delete' the specified modules under
+         * this requirement
+         */
+        Requirement editedRequirement = createEditedRequirement(requirementToEdit, modulesToUnassign);
+
+        model.setRequirement(requirementToEdit, editedRequirement);
+
+        /*
+         * Now that we've assigned some modules under a particular Requirement to the system, we need to update
+         * CourseInfo, specifically its creditsFulfilled property.
+         *
+         * However, in the method below, we just recompute everything (field in course info).
+         */
+        CourseInfo courseInfoToEdit = model.getCourseInfo();
+
+        /*
+         * A call to the retrieveLatestCourseInfo(..) helps to recompute latest course info,
+         * based on information provided through Model (coursebook).
+         */
+        CourseInfo editedCourseInfo = CommandUtil.createEditedCourseInfo(courseInfoToEdit, model);
+
+        // Updating the model with the latest course info
+        model.setCourseInfo(editedCourseInfo);
+
+        String formattedModulesToUnassign = getFormattedModulesStr(modulesToUnassign, MODULE_CODE_DELIMITER);
+        return new CommandResult(
+            String.format(MESSAGE_REQUIREMENT_UNASSIGN_SUCCESS,
+                editedRequirement.getRequirementCode(),
+                formattedModulesToUnassign));
+    }
+
+    /**
+     * Creates and returns a new {@code Requirement} with modules unassigned (specified by;
+     * {@code modulesToUnassign}) to the original requirement; {@code requirementToEdit}
+     */
+    private static Requirement createEditedRequirement(Requirement requirementToEdit, List<Module> modulesToUnassign) {
         /*
          * Finally if everything alright, we can actually then unassign/'delete' the specified modules under
          * this requirement
@@ -98,28 +157,14 @@ public class RequirementUnassignCommand extends RequirementCommand {
         List<Module> modules = requirementToEdit.getModuleList();
 
         // Finally, create a new Requirement with all the updated information (details).
-        Requirement editedRequirement = new Requirement(requirementCode, title, credits, modules);
+        return new Requirement(requirementCode, title, credits, modules);
+    }
 
-        model.setRequirement(requirementToEdit, editedRequirement);
-
-        /*
-         * Now that we've assigned some modules under a particular Requirement to the system, we need to update
-         * CourseInfo, specifically its creditsFulfilled property.
-         *
-         * However, in the method below, we just recompute everything (field in course info).
-         */
-        CourseInfo courseToEdit = model.getCourseInfo();
-
-        /*
-         * A call to the retrieveLatestCourseInfo(..) helps to recompute latest course info,
-         * based on information provided through Model (coursebook).
-         */
-        CourseInfo editedCourseInfo = CommandUtil.retrieveLatestCourseInfo(courseToEdit, model);
-
-        // Updating the model with the latest course info
-        model.setCourseInfo(editedCourseInfo);
-
-        return new CommandResult(
-            String.format(MESSAGE_SUCCESS, editedRequirement));
+    @Override
+    public boolean equals(Object other) {
+        return other == this
+            || (other instanceof RequirementUnassignCommand
+            && ((RequirementUnassignCommand) other).requirementCode.equals(requirementCode)
+            && ((RequirementUnassignCommand) other).moduleCodes.equals(moduleCodes));
     }
 }

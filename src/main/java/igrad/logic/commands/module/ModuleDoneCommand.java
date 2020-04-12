@@ -1,5 +1,7 @@
 package igrad.logic.commands.module;
 
+//@@author nathanaelseen
+
 import static igrad.commons.util.CollectionUtil.requireAllNonNull;
 import static igrad.logic.parser.CliSyntax.PREFIX_GRADE;
 import static java.util.Objects.requireNonNull;
@@ -13,7 +15,6 @@ import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
 import igrad.model.course.CourseInfo;
 import igrad.model.module.Credits;
-import igrad.model.module.Description;
 import igrad.model.module.Grade;
 import igrad.model.module.Module;
 import igrad.model.module.ModuleCode;
@@ -56,33 +57,6 @@ public class ModuleDoneCommand extends ModuleCommand {
         this.editModuleGradeDescriptor = new EditModuleDescriptor(editModuleGradeDescriptor);
     }
 
-    /**
-     * Creates and returns a {@code Module} with the details of {@code moduleToEdit}
-     * edited with {@code editModuleGradeDescriptor}.
-     */
-    private static Module createEditedModule(Module moduleToEdit, EditModuleDescriptor editModuleDescriptor) {
-        assert moduleToEdit != null;
-
-        // Just copy everything from the original {@code moduleToEdit} to our new {@code Module}
-        ModuleCode moduleCode = moduleToEdit.getModuleCode();
-        Title title = moduleToEdit.getTitle();
-        Credits credits = moduleToEdit.getCredits();
-        Optional<Description> description = moduleToEdit.getDescription();
-
-        /*
-         * But for Semester, since it is an optional field, we copy its value over from the
-         * EditModuleDescriptor if any
-         */
-        Optional<Semester> updatedSemester = editModuleDescriptor.getSemester().orElse(moduleToEdit.getSemester());
-
-        /*
-         * But for Grade, It's compulsory for Grade to be optionally edited/updated. This should have already been
-         * guaranteed through the validations in the ModuleDoneCommandParser
-         */
-        Optional<Grade> updatedGrade = editModuleDescriptor.getGrade();
-
-        return new Module(title, moduleCode, credits, updatedSemester, description, updatedGrade);
-    }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
@@ -98,8 +72,6 @@ public class ModuleDoneCommand extends ModuleCommand {
         // Update the module in our model
         model.setModule(moduleToEdit, editedModule);
 
-
-
         List<Requirement> requirementsToUpdate = model.getRequirementsWithModule(editedModule);
 
         /*
@@ -112,26 +84,8 @@ public class ModuleDoneCommand extends ModuleCommand {
          */
         requirementsToUpdate.stream()
             .forEach(requirementToEdit -> {
-                // Copy over all the old values of requirementToEdit
-                igrad.model.requirement.RequirementCode requirementCode = requirementToEdit.getRequirementCode();
-                igrad.model.requirement.Title title = requirementToEdit.getTitle();
-
-                /*
-                 * Now given that we've marked a module in a requirement as done, we've to update (recompute)
-                 * creditsFulfilled in the relevant Requirements, but since Requirement constructor already does
-                 * it for us, based on the module list passed in, we don't have to do anything here, just
-                 * propagate the old credits value.
-                 */
-                igrad.model.requirement.Credits credits = requirementToEdit.getCredits();
-
-                // Updates the existing requirement; requirementToEdit with the editedModule
-                requirementToEdit.setModule(moduleToEdit, editedModule);
-
-                // Get the most update module list (now with the new module replaced)
-                List<Module> modules = requirementToEdit.getModuleList();
-
-                // Finally, create a new Requirement with all the updated information (details).
-                Requirement editedRequirement = new Requirement(requirementCode, title, credits, modules);
+                // Create a new Requirement with all the updated information (details).
+                Requirement editedRequirement = createEditedRequirement(requirementToEdit, moduleToEdit, editedModule);
 
                 // Update the current Requirement in the model (coursebook) with this latest version.
                 model.setRequirement(requirementToEdit, editedRequirement);
@@ -143,13 +97,13 @@ public class ModuleDoneCommand extends ModuleCommand {
          *
          * However, in the method below, we just recompute everything (field in course info).
          */
-        CourseInfo courseToEdit = model.getCourseInfo();
+        CourseInfo courseInfoToEdit = model.getCourseInfo();
 
         /*
          * A call to the retrieveLatestCourseInfo(..) helps to recompute latest course info,
          * based on information provided through Model (coursebook).
          */
-        CourseInfo editedCourseInfo = CommandUtil.retrieveLatestCourseInfo(courseToEdit, model);
+        CourseInfo editedCourseInfo = CommandUtil.createEditedCourseInfo(courseInfoToEdit, model);
 
         // Updating the model with the latest course info
         model.setCourseInfo(editedCourseInfo);
@@ -157,14 +111,67 @@ public class ModuleDoneCommand extends ModuleCommand {
         return new CommandResult(String.format(MESSAGE_MODULE_DONE_SUCCESS, editedModule));
     }
 
+    /**
+     * Creates and returns a new {@code Requirement}, replacing a module; {@code moduleToEdit} (which is under that
+     * the original requirement; {@code requirementToEdit}), by the module; {@code editedModule})
+     */
+    private static Requirement createEditedRequirement(Requirement requirementToEdit,
+            Module moduleToEdit, Module editedModule) {
+        // Copy over all the old values of requirementToEdit
+        igrad.model.requirement.RequirementCode requirementCode = requirementToEdit.getRequirementCode();
+        igrad.model.requirement.Title title = requirementToEdit.getTitle();
+
+        /*
+         * Now given that we've marked a module in a requirement as done, we've to update (recompute)
+         * creditsFulfilled in the relevant Requirements, but since Requirement constructor already does
+         * it for us, based on the module list passed in, we don't have to do anything here, just
+         * propagate the old credits value.
+         */
+        igrad.model.requirement.Credits credits = requirementToEdit.getCredits();
+
+        // Updates the existing requirement; requirementToEdit with the editedModule
+        requirementToEdit.setModule(moduleToEdit, editedModule);
+
+        // Get the most update module list (now with the new module replaced)
+        List<Module> modules = requirementToEdit.getModuleList();
+
+        // Finally, create a new Requirement with all the updated information (details).
+        return new Requirement(requirementCode, title, credits, modules);
+    }
+
+    /**
+     * Creates and returns a {@code Module} with the details of {@code moduleToEdit}
+     * edited with {@code editModuleGradeDescriptor}.
+     */
+    private static Module createEditedModule(Module moduleToEdit, EditModuleDescriptor editModuleDescriptor) {
+        assert moduleToEdit != null;
+
+        // Just copy everything from the original {@code moduleToEdit} to our new {@code Module}
+        ModuleCode moduleCode = moduleToEdit.getModuleCode();
+        Title title = moduleToEdit.getTitle();
+        Credits credits = moduleToEdit.getCredits();
+
+        /*
+         * But for Semester, since it is an optional field, we copy its value over from the
+         * EditModuleDescriptor if any
+         */
+        Optional<Semester> updatedSemester = editModuleDescriptor.getSemester().orElse(moduleToEdit.getSemester());
+
+        /*
+         * But for Grade, It's compulsory for Grade to be optionally edited/updated. This should have already been
+         * guaranteed through the validations in the ModuleDoneCommandParser
+         */
+        Optional<Grade> updatedGrade = editModuleDescriptor.getGrade();
+
+        return new Module(title, moduleCode, credits, updatedSemester, updatedGrade);
+    }
+
     @Override
     public boolean equals(Object other) {
-        /*
-         * TODO (Teri): Please take a look at how ModuleEditCommand.java
-         * implements this, and fill it up!
-         */
-
-        return false;
+        return other == this
+            || (other instanceof ModuleDoneCommand
+            && ((ModuleDoneCommand) other).editModuleGradeDescriptor.equals(editModuleGradeDescriptor)
+            && ((ModuleDoneCommand) other).moduleCode.equals(moduleCode));
     }
 
     /**
@@ -216,7 +223,7 @@ public class ModuleDoneCommand extends ModuleCommand {
             }
 
             // state check
-            ModuleDoneCommand.EditModuleDescriptor e = (EditModuleDescriptor) other;
+            EditModuleDescriptor e = (EditModuleDescriptor) other;
 
             return getGrade().equals(e.getGrade())
                 && getSemester().equals(e.getSemester());

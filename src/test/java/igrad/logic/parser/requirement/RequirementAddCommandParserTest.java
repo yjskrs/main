@@ -33,10 +33,10 @@ public class RequirementAddCommandParserTest {
     @Test
     public void parse_allFieldsPresent_success() {
         Requirement expectedRequirement = new RequirementBuilder()
-                                              .withRequirementCode("UE")
-                                              .withTitle(VALID_REQ_TITLE_UE)
-                                              .withCreditsOneParameter(VALID_REQ_CREDITS_UE)
-                                              .build();
+            .withRequirementCode("UE")
+            .withTitle(VALID_REQ_TITLE_UE)
+            .withCreditsOneParameter(VALID_REQ_CREDITS_UE)
+            .build();
 
         // whitespace preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + REQ_TITLE_DESC_UE + REQ_CREDITS_DESC_UE,

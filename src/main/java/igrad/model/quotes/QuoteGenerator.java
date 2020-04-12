@@ -1,5 +1,7 @@
 package igrad.model.quotes;
 
+//@@author waynewee
+
 /**
  * Randomly selects a {@code Quote} each time the user starts the application.
  */

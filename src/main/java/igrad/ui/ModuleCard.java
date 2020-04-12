@@ -7,6 +7,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 
 // @@author dargohzy
+
 /**
  * An UI component that displays information about {@code Module}.
  */

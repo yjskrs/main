@@ -1,5 +1,7 @@
 package igrad.logic.commands.course;
 
+//@@author nathanaelseen
+
 import static java.util.Objects.requireNonNull;
 
 import igrad.logic.commands.CommandResult;
@@ -22,7 +24,8 @@ public class CourseDeleteCommand extends CourseCommand {
 
         ReadOnlyCourseBook courseBookToDelete = model.getCourseBook();
 
-        CourseInfo oldCourseInfo = model.getCourseInfo();
+        // We have to make a copy of the previous course info as they would be deleted by garbage collector
+        CourseInfo oldCourseInfo = new CourseInfo(model.getCourseInfo());
 
         model.resetCourseBook(courseBookToDelete);
 

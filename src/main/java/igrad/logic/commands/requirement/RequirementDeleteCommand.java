@@ -26,7 +26,7 @@ public class RequirementDeleteCommand extends RequirementCommand {
         + "identified by its requirement code.\n";
 
     public static final String MESSAGE_USAGE = "Parameter(s): REQUIREMENT_CODE\n"
-                                                   + "Example: " + REQUIREMENT_DELETE_COMMAND_WORD + " UE0";
+        + "Example: " + REQUIREMENT_DELETE_COMMAND_WORD + " UE0";
 
     public static final String MESSAGE_REQUIREMENT_DELETE_HELP = MESSAGE_DETAILS + MESSAGE_USAGE;
 
@@ -66,13 +66,13 @@ public class RequirementDeleteCommand extends RequirementCommand {
          *
          * However, in the method below, we just recompute everything (field in course info).
          */
-        CourseInfo courseToEdit = model.getCourseInfo();
+        CourseInfo courseInfoToEdit = model.getCourseInfo();
 
         /*
          * A call to the retrieveLatestCourseInfo(..) helps to recompute latest course info,
          * based on information provided through Model (coursebook).
          */
-        CourseInfo editedCourseInfo = CommandUtil.retrieveLatestCourseInfo(courseToEdit, model);
+        CourseInfo editedCourseInfo = CommandUtil.createEditedCourseInfo(courseInfoToEdit, model);
 
         // Updating the model with the latest course info
         model.setCourseInfo(editedCourseInfo);
@@ -86,7 +86,7 @@ public class RequirementDeleteCommand extends RequirementCommand {
     @Override
     public boolean equals(Object other) {
         return other == this
-                   || (other instanceof RequirementDeleteCommand
-                           && ((RequirementDeleteCommand) other).requirementCode.equals(requirementCode));
+            || (other instanceof RequirementDeleteCommand
+            && ((RequirementDeleteCommand) other).requirementCode.equals(requirementCode));
     }
 }

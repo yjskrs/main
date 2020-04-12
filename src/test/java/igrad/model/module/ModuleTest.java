@@ -25,27 +25,27 @@ import igrad.testutil.TypicalModules;
 
 public class ModuleTest {
 
-    private final Module CS1101S = TypicalModules.CS1101S;
-    private final Module CS2100 = TypicalModules.CS2100;
+    private final Module cs1101s = TypicalModules.CS1101S;
+    private final Module cs2100 = TypicalModules.CS2100;
 
     @Test
     public void hasModuleCodeOf_sameModuleCode_returnsTrue() {
-        ModuleCode moduleCode = CS1101S.getModuleCode();
-        assertTrue(CS1101S.hasModuleCodeOf(moduleCode));
+        ModuleCode moduleCode = cs1101s.getModuleCode();
+        assertTrue(cs1101s.hasModuleCodeOf(moduleCode));
     }
 
     @Test
     public void hasModuleCodeOf_differentModuleCode_returnsTrue() {
-        ModuleCode moduleCode = CS2100.getModuleCode();
-        assertFalse(CS1101S.hasModuleCodeOf(moduleCode));
+        ModuleCode moduleCode = cs2100.getModuleCode();
+        assertFalse(cs1101s.hasModuleCodeOf(moduleCode));
     }
 
     @Test
     public void getTitle_success() {
         Title newTitle = new Title(VALID_GRADE_PROGRAMMING_METHODOLOGY);
         Module newModule = new ModuleBuilder()
-                .withTitle(VALID_GRADE_PROGRAMMING_METHODOLOGY)
-                .build();
+            .withTitle(VALID_GRADE_PROGRAMMING_METHODOLOGY)
+            .build();
         assertEquals(newTitle, newModule.getTitle());
     }
 
@@ -53,8 +53,8 @@ public class ModuleTest {
     public void getModuleCode_success() {
         ModuleCode newModuleCode = new ModuleCode(VALID_MODULE_CODE_CS_1101S);
         Module newModule = new ModuleBuilder()
-                .withModuleCode(VALID_MODULE_CODE_CS_1101S)
-                .build();
+            .withModuleCode(VALID_MODULE_CODE_CS_1101S)
+            .build();
         assertEquals(newModuleCode, newModule.getModuleCode());
     }
 
@@ -62,8 +62,8 @@ public class ModuleTest {
     public void getCredits_success() {
         Credits newCredits = new Credits(VALID_CREDITS_4);
         Module newModule = new ModuleBuilder()
-                .withCredits(VALID_CREDITS_4)
-                .build();
+            .withCredits(VALID_CREDITS_4)
+            .build();
         assertEquals(newCredits, newModule.getCredits());
     }
 
@@ -71,8 +71,8 @@ public class ModuleTest {
     public void getSemester_success() {
         Semester newSemester = new Semester(VALID_SEMESTER_Y1S1);
         Module newModule = new ModuleBuilder()
-                .withSemester(VALID_SEMESTER_Y1S1)
-                .build();
+            .withSemester(VALID_SEMESTER_Y1S1)
+            .build();
         assertEquals(Optional.of(newSemester), newModule.getSemester());
     }
 
@@ -80,16 +80,16 @@ public class ModuleTest {
     public void getGrade_success() {
         Grade newGrade = new Grade(VALID_GRADE_PROGRAMMING_METHODOLOGY);
         Module newModule = new ModuleBuilder()
-                .withGrade(VALID_GRADE_PROGRAMMING_METHODOLOGY)
-                .build();
+            .withGrade(VALID_GRADE_PROGRAMMING_METHODOLOGY)
+            .build();
         assertEquals(Optional.of(newGrade), newModule.getGrade());
     }
 
     @Test
     public void isDone_gradePresent_returnsTrue() {
         Module newModule = new ModuleBuilder()
-                .withGrade(VALID_GRADE_PROGRAMMING_METHODOLOGY)
-                .build();
+            .withGrade(VALID_GRADE_PROGRAMMING_METHODOLOGY)
+            .build();
         assertTrue(newModule.isDone());
     }
 
@@ -100,7 +100,6 @@ public class ModuleTest {
             new ModuleCode(VALID_MODULE_CODE_CS_1101S),
             new Credits(VALID_CREDITS_4),
             Optional.of(new Semester(VALID_SEMESTER_Y1S1)),
-            Optional.of(new Description("blah")),
             grade);
         assertFalse(newModule.isDone());
     }
@@ -108,90 +107,90 @@ public class ModuleTest {
     @Test
     public void isSameModule() {
         // null
-        assertFalse(CS1101S.isSameModule(null));
+        assertFalse(cs1101s.isSameModule(null));
 
         // same module
-        assertTrue(CS1101S.isSameModule(CS1101S));
+        assertTrue(cs1101s.isSameModule(cs1101s));
 
         // different module
-        assertFalse(CS1101S.isSameModule(CS2100));
+        assertFalse(cs1101s.isSameModule(cs2100));
 
         // different title
-        Module editedModule = new ModuleBuilder(CS1101S)
+        Module editedModule = new ModuleBuilder(cs1101s)
                 .withTitle(VALID_TITLE_CS_2100)
                 .build();
-        assertTrue(CS1101S.isSameModule(editedModule));
+        assertTrue(cs1101s.isSameModule(editedModule));
 
         // different module code
-        editedModule = new ModuleBuilder(CS1101S)
+        editedModule = new ModuleBuilder(cs1101s)
                 .withModuleCode(VALID_MODULE_CODE_CS_2100)
                 .build();
-        assertFalse(CS1101S.isSameModule(editedModule));
+        assertFalse(cs1101s.isSameModule(editedModule));
 
         // different credits
-        editedModule = new ModuleBuilder(CS1101S)
+        editedModule = new ModuleBuilder(cs1101s)
                 .withCredits(VALID_CREDITS_6)
                 .build();
-        assertTrue(CS1101S.isSameModule(editedModule));
+        assertTrue(cs1101s.isSameModule(editedModule));
 
         // different semester
-        editedModule = new ModuleBuilder(CS1101S)
+        editedModule = new ModuleBuilder(cs1101s)
                 .withSemester(VALID_SEMESTER_Y1S2)
                 .build();
-        assertTrue(CS1101S.isSameModule(editedModule));
+        assertTrue(cs1101s.isSameModule(editedModule));
 
         // different grade
-        editedModule = new ModuleBuilder(CS1101S)
+        editedModule = new ModuleBuilder(cs1101s)
                 .withGrade(VALID_GRADE_COMPUTER_ORGANISATION)
                 .build();
-        assertTrue(CS1101S.isSameModule(editedModule));
+        assertTrue(cs1101s.isSameModule(editedModule));
     }
 
     @Test
     public void equals() {
 
         // null
-        assertFalse(CS1101S.equals(null));
+        assertFalse(cs1101s.equals(null));
 
         // same module
-        assertTrue(CS1101S.equals(CS1101S));
+        assertTrue(cs1101s.equals(cs1101s));
 
         // copied module
         Module moduleCopy = new ModuleBuilder().build();
-        assertTrue(CS1101S.equals(moduleCopy));
+        assertTrue(cs1101s.equals(moduleCopy));
 
         // different type
         Requirement requirement = new RequirementBuilder().build();
-        assertFalse(CS1101S.equals(requirement));
+        assertFalse(cs1101s.equals(requirement));
 
         // different module code
         Module editedModule = new ModuleBuilder()
                 .withModuleCode(VALID_MODULE_CODE_CS_2100)
                 .build();
-        assertFalse(CS1101S.equals(editedModule));
+        assertFalse(cs1101s.equals(editedModule));
 
         // different title
         editedModule = new ModuleBuilder()
                 .withTitle(VALID_TITLE_CS_2100)
                 .build();
-        assertFalse(CS1101S.equals(editedModule));
+        assertFalse(cs1101s.equals(editedModule));
 
         // different credits
         editedModule = new ModuleBuilder()
                 .withCredits(VALID_CREDITS_6)
                 .build();
-        assertFalse(CS1101S.equals(editedModule));
+        assertFalse(cs1101s.equals(editedModule));
 
         // different semester
         editedModule = new ModuleBuilder()
                 .withSemester(VALID_SEMESTER_Y1S2)
                 .build();
-        assertFalse(CS1101S.equals(editedModule));
+        assertFalse(cs1101s.equals(editedModule));
 
         // different grade
         editedModule = new ModuleBuilder()
                 .withGrade(VALID_GRADE_COMPUTER_ORGANISATION)
                 .build();
-        assertFalse(CS1101S.equals(editedModule));
+        assertFalse(cs1101s.equals(editedModule));
     }
 }
