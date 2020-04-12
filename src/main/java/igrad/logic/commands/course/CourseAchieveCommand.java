@@ -61,6 +61,7 @@ public class CourseAchieveCommand extends CourseCommand {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof CourseAchieveCommand); // instanceof handles nulls
+            || (other instanceof CourseAchieveCommand) // instanceof handles nulls
+            && (capToAchieve.equals(((CourseAchieveCommand) other).capToAchieve));
     }
 }

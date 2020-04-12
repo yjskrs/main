@@ -94,7 +94,6 @@ public class CourseAchieveCommandTest {
 
         otherCourseAchieveCommand = new CourseAchieveCommand(otherCapToAchieve);
 
-        //For some weird reason the below returns true. Am not sure of it so am commenting it out first. (Teri)
-        //assertFalse(courseAchieveCommand.equals(otherCourseAchieveCommand));
+        assertFalse(courseAchieveCommand.equals(otherCourseAchieveCommand));
     }
 }
