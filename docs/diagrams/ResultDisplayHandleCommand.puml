@@ -14,7 +14,7 @@ MainWindow -> MainWindow : refreshResultDisplayAvatar(avatar)
 
 MainWindow -> ResultDisplay : setAvatar(avatar)
 activate ResultDisplay
-return done
+return
 deactivate ResultDisplay
 deactivate
 
@@ -22,7 +22,7 @@ MainWindow -> MainWindow : refreshResultDisplay(feedbackToUser)
 
 MainWindow -> ResultDisplay : setFeedbackToUser(feedbackToUser)
 activate ResultDisplay
-return done
+return
 deactivate ResultDisplay
 deactivate
 
