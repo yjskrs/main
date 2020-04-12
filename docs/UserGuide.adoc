@@ -61,8 +61,8 @@ IMPORTANT: Specifies important things to take note of
 == Features
 (Nathanael)
 ____
-This segment highlights the three key features iGrad offers to NUS students, namely;
-a Course Planner, an Module Credits (MCs) Tracker, and a Cummulative Average Point (CAP) Tracker.
+This segment highlights three key features iGrad offers to NUS students, namely;
+a Course Planner, an MCs Tracker, and a CAP Tracker.
 
 If you would like a more in-depth overview of the actual components of our application, please
 refer to the next section; <<Components>>, for more details.
@@ -70,60 +70,95 @@ ____
 
 ==== Course Planner
 _iGrad_ was built with every NUS student in mind. Our flexible course planner allows you to plan
-a course of your own dreams, be it those of you doing a _single degree programme_,
-a _double degree programme_, and even a _concurrent degree programme_.
+a course of your own dreams, be it those of you doing a single degree programme,
+a double degree programme, and even a concurrent degree programme.
 
 With our course planner, you would be able to enter your current course details such as your
-*modules* and the various broad degree *requirements* by which those modules are mapped.
+*modules* and the various degree *requirements* by which those modules are mapped.
 
-For instance, in the _Computer Science_ course (as shown in the _Figure
+(For instance, the _Computer Science_ course (as shown in _Figure 1_ below) has the various
+*modules*, highlighted in blue, and degree *requirements*, boxed in red.)
 
+.Computer science degree requirements
 image::../images/user-guide/components/graduation_degree_requirements.png[]
-
 
 ==== MCs Tracker
 
-We are sick of counting our MCs at the beginning of every semester, be it our total course MCs left before
-we can apply for graduation, or maybe the MCs for those invidual requirements. Our MCs feature allows you
-to easily keep track of these information, at your fingertips.
+We are sick of counting our MCs at the beginning of every semester; be it counting the
+total course MCs left before you can graduate, or tracking the number of MCs left
+for those invidual degree requirements.
+    
+With our MCs feature, you would be able to easily keep track of how close you are to
+graduation, as all this information is automatically updated and recomputed, each time you have
+completed a certain module.
 
 ==== CAP Tracker
-
-No more googling for CAP calculators. iGrad's CAP tracker helps you keeps track of your CAP at
-every step of your journey in your course, and it even offers predictive features so you know how
+No more googling for CAP calculators. iGrad's CAP tracker helps you keeps track of your current CAP at
+every step of your journey in your course. In addition, it even offers predictive features so you know how
 well you have to do in order to achieve your dream CAP.
 
-==== Everything Integrated in One Application
-But the best part about these features, is that they are all in one application; iGrad. Hence, with all
-these important pieces of information in one place, you would never go amiss keeping track
-of your graduation requirements.
+==== Everything Integrated into One Application
+But the best part is that these features are all integrated into our application; _iGrad_.
+And with all these important pieces of information in one place, you would never go amiss keeping
+track of all your graduation requirements.
 
 == Components
 (Nathanael)
 ____
-This segment details various components of our application; iGrad. As shown in the picture below,
-the components follows a hierachical structure.
+This segment details the various components of _iGrad_. As shown in _Figure 2_ below,
+these components follow a hierachical structure, exactly like how an NUS course is structured.
 
 ____
 
+.Hierachical overview of iGrad components
 image::../images/user-guide/components/hierachical_structure.png[]
+
+Here is how our application looks like (on a typical usage):
+
+.iGrad application screenshot
+image::../images/user-guide/components/app_screenshot_ui.png[]
+
+The following is the same screenshot of our application, but with the various components
+of our application highlighted:
+
+.iGrad components screenshot
+image::../images/user-guide/components/app_screenshot_ui_components_highlighted.png[]
+
+As per the screenshot above (in _figure 4_):
+
+* _Course_ (<<Course>>) is indicated in [blue]#blue#
+* _Degree Requirements_ (<<Degree Requirements>>) is indicated in [red]#red#
+* _Modules_ (<<Modules>>) is indicated in [yellow]#yellow#
 
 ==== Course
 
-A course is simply a group of requirements. It is also how we keep track of your overall CAP
-and total number of MCs towards graduataion.
+A course is simply a group of degree requirements.
 
+It contains important information such as your current CAP, total number of MCs
+you have completed thus far, and semesters left before you can graduate.
 
-==== Requirements
+In short, it helps you keep track of your overall degree progress.
 
-A requirement consists of at least one module. Fulfill all modules within a requirement to
-complete it.
+==== Degree Requirements
+
+Under a course are the various degree requirements, such as the ones shown in _Figure 2_ above;
+_Computer Science Foundation_, _Mathematics and Sciences_, and _Unrestricted Electives_.
+
+Each requirement comprises of the modules you need to complete in order to fulfill that particular
+requirement.
+
+Additionally, each requirement consists of important information such as
+the number of MCs you have already fulfilled.
 
 ==== Modules
 
-A module is the building block of all other components. Mark your modules as done and give it
-a grade. You could also add optional memos to help you remember why
-you took the module.
+Finally, modules are the basic building block of all the other components.
+
+These could be modules you have taken, modules you are currently taking and modules that
+you plan to take.
+
+Each module allows recording of other optional information, such as indicating the grade you
+have obtained for those modules.
 
 //tag::walkthrough[]
 == Walkthrough
@@ -818,7 +853,7 @@ in one place.
 
 _I'm not an NUS student. Can I still use iGrad?_
 
-As long as your university follows a similar <<fig-1,hierachical structure>>!
+As long as your university follows a similar <<fig-2,hierachical structure>>!
 However, we will be unable to provide features such as validation from NUSMods.
 
 == Cheat Sheet
