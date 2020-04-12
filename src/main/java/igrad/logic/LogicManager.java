@@ -61,6 +61,7 @@ public class LogicManager implements Logic {
         return commandResult;
     }
 
+    //@@author nathanaelseen
     @Override
     public CommandResult execute(String commandText) throws CommandException,
         ParseException, IOException, ServiceException {
@@ -109,6 +110,7 @@ public class LogicManager implements Logic {
             throw new CommandException(MESSAGE_COURSE_NOT_SET);
         }
 
+        //@@author waynewee
         if (!(command instanceof UndoCommand)) {
             try {
                 // First, load current state into backup
@@ -118,6 +120,8 @@ public class LogicManager implements Logic {
                 throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
             }
         }
+
+        //@@author nathanaelseen
 
         commandResult = command.execute(model);
 
