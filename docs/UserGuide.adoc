@@ -173,7 +173,11 @@ image::../images/user-guide/walkthrough5.2.png[]
 
 . Key in additional details for your modules
 
-- (Teri)
+- Edit modules with additional information such as Semester. Other information that has already be input can be
+  edited as well.
+- Enter edit to be done to the module in the format: `module edit MODULE_CODE s/SEMESTER`
+- Note: For Semester, it has to follow the format of `Y_S_`
+- E.g. `module edit GER1000 s/Y1S1`
 +
 image::../images/user-guide/walkthrough6.1.png[]
 +
@@ -181,7 +185,9 @@ image::../images/user-guide/walkthrough6.2.png[]
 
 . Mark a module as done and assign a grade to it
 
-- (Teri)
+- A module is considered as done when a grade is assigned to it.
+- Enter grade for the module in the format: `module done MODULE_CODE g/GRADE`
+- E.g. `module done GER1000 g/A+`
 +
 image::../images/user-guide/walkthrough7.1.png[]
 +
@@ -189,20 +195,27 @@ image::../images/user-guide/walkthrough7.2.png[]
 
 . Track your MCs
 
-- (Teri)
+- MCs refer to Module Credits.
+- MCs are automatically tracked and updated.
+- Total MCs count is the total of all requirement MCs.
+- MCs are fulfilled when modules that are within a requirement are marked done.
 +
 image::../images/user-guide/walkthrough8.png[]
 
-. View your CAP
+. View your C.A.P.
 
-- (Teri)
+- C.A.P. refers to Cumulative Average Points and is out of 5 (max).
+- C.A.P. is automatically tracked and updated.
+- C.A.P. is updated whenever a module within a requirement is marked done with a grade.
 +
 image::../images/user-guide/walkthrough8.png[]
 
 
 . Export your data
 
-- (Teri)
+- Data of your entire study plan can to exported to a comma-separated values (.csv) file.
+- Export your data in the format: `export`
+- Note: Data file can be found in the same folder as this application.
 +
 image::../images/user-guide/walkthrough10.1.png[]
 +
