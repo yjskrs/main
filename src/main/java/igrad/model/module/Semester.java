@@ -12,9 +12,11 @@ import static java.util.Objects.requireNonNull;
 public class Semester {
 
 
-    public static final String MESSAGE_CONSTRAINTS =
-        "Semester should be in the format Y_S_ e.g. Y1S2";
+    public static final String MESSAGE_CONSTRAINTS = "The Semester provided for the module is invalid!\n"
+        + "Semester should be in the format Y_S_\ne.g. Y1S2";
+
     public static final String VALIDATION_REGEX = "(?i)Y[1-9]S[1-2]";
+
     public final String value;
 
     /**
