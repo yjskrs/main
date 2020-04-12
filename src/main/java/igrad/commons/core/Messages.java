@@ -11,7 +11,7 @@ public class Messages {
         + "you may key in `help` to get a list of commands!";
     public static final String MESSAGE_UNKNOWN_COURSE_COMMAND = "I don't know this course command, "
         + "you might want to try:\n"
-        + "course add | course edit | course achieve | course delete\n";
+        + "course set | course edit | course achieve | course delete\n";
     public static final String MESSAGE_UNKNOWN_REQUIREMENT_COMMAND = "I don't know this requirement command, "
         + "you might want to try:\n"
         + "requirement add | requirement edit | requirement delete | requirement assign\n";
@@ -20,7 +20,7 @@ public class Messages {
         + "module add | module edit | module done | module delete\n";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format!\n%1$s";
     public static final String MESSAGE_COURSE_NOT_SET = "You need to set a course first! Use this command:\n"
-        + "course add n/COURSE_NAME s/TOTAL_SEMESTERS";
+        + "course set n/COURSE_NAME s/TOTAL_SEMESTERS";
     public static final String MESSAGE_COURSE_ALREADY_SET = "Sorry, you have already set a course. "
         + "Only one course can be added!";
 

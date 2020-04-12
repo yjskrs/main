@@ -4,7 +4,9 @@ import static igrad.commons.util.CollectionUtil.requireAllNonNull;
 import static igrad.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import igrad.logic.commands.CommandResult;
 import igrad.logic.commands.CommandUtil;
@@ -38,11 +40,15 @@ public class RequirementAssignCommand extends RequirementCommand {
     public static final String MESSAGE_REQUIREMENT_NO_MODULES = "There must be at least one modules assigned.";
 
     public static final String MESSAGE_MODULES_NON_EXISTENT =
-        "Not all Modules exist in the system. Please try other modules.";
+        "Some modules do not exist in the system:\n%1$s\nPlease try other modules instead.";
 
-    public static final String MESSAGE_MODULES_ALREADY_EXIST_IN_REQUIREMENT =
-        "Some Modules already exists in this requirement. Please try other modules.";
-    public static final String MESSAGE_REQUIREMENT_ASSIGN_SUCCESS = "Modules assigned under Requirement:\n%1$s";
+    public static final String MESSAGE_REQUIREMENT_ASSIGN_SUCCESS = "Modules successfully assigned under "
+        + "requirement (%1$s):\n"
+        + "%2$s\n"
+        + "Some modules have already been assigned under this requirement (%1$s):\n"
+        + "%3$s";
+
+    private static final String MODULE_CODE_DELIMITER = "\n";
 
     private RequirementCode requirementCode;
     private List<ModuleCode> moduleCodes;
@@ -69,12 +75,63 @@ public class RequirementAssignCommand extends RequirementCommand {
 
         // First check, if all modules (codes) are existent modules in the course book (they should all be)
         if (modulesToAssign.size() < moduleCodes.size()) {
-            throw new CommandException(MESSAGE_MODULES_NON_EXISTENT);
+            List<ModuleCode> moduleCodesToAssign = modulesToAssign.stream()
+                .map(module -> module.getModuleCode())
+                .collect(Collectors.toList());
+
+            moduleCodes.removeIf(moduleCode -> moduleCodesToAssign.contains(moduleCode));
+
+            String formattedModuleCodes = getFormattedModuleCodesStr(moduleCodes, MODULE_CODE_DELIMITER);
+
+            throw new CommandException(String.format(MESSAGE_MODULES_NON_EXISTENT, formattedModuleCodes));
         }
 
         // Now filter out, modules which are already in the requirement, they should not be re-added again
+        List<Module> modulesAlreadyAssigned = new ArrayList<Module>(modulesToAssign);
+
+        // remove modules that are already assigned, to get modules to newly assign
         modulesToAssign.removeIf(module -> requirementToEdit.hasModule(module));
 
+        // remove modules that are newly assigned, to get modules already assigned
+        modulesAlreadyAssigned.removeIf(module -> modulesToAssign.contains(module));
+
+        // Finally if everything alright, we can actually then assign/add the specified modules under this requirement
+        Requirement editedRequirement = createEditedRequirement(requirementToEdit, modulesToAssign);
+
+        model.setRequirement(requirementToEdit, editedRequirement);
+
+        /*
+         * Now that we've assigned some modules under a particular Requirement to the system, we need to update
+         * CourseInfo, specifically its creditsFulfilled property.
+         *
+         * However, in the method below, we just recompute everything (field in course info).
+         */
+        CourseInfo courseInfoToEdit = model.getCourseInfo();
+
+        /*
+         * A call to the retrieveLatestCourseInfo(..) helps to recompute latest course info,
+         * based on information provided through Model (coursebook).
+         */
+        CourseInfo editedCourseInfo = CommandUtil.createEditedCourseInfo(courseInfoToEdit, model);
+
+        // Updating the model with the latest course info
+        model.setCourseInfo(editedCourseInfo);
+
+        String formattedModulesToAssign = getFormattedModulesStr(modulesToAssign, MODULE_CODE_DELIMITER);
+        String formattedModulesAlreadyAssigned = getFormattedModulesStr(modulesAlreadyAssigned, MODULE_CODE_DELIMITER);
+
+        return new CommandResult(
+            String.format(MESSAGE_REQUIREMENT_ASSIGN_SUCCESS,
+                editedRequirement.getRequirementCode(),
+                formattedModulesToAssign,
+                formattedModulesAlreadyAssigned));
+    }
+
+    /**
+     * Creates and returns a new {@code Requirement} with modules assigned (specified by;
+     * {@code modulesToAssign}) to the original requirement; {@code requirementToEdit}
+     */
+    private static Requirement createEditedRequirement(Requirement requirementToEdit, List<Module> modulesToAssign) {
         // Finally if everything alright, we can actually then assign/add the specified modules under this requirement
         requirementToEdit.addModules(modulesToAssign);
 
@@ -94,29 +151,7 @@ public class RequirementAssignCommand extends RequirementCommand {
         List<Module> modules = requirementToEdit.getModuleList();
 
         // Finally, create a new Requirement with all the updated information (details).
-        Requirement editedRequirement = new Requirement(requirementCode, title, credits, modules);
-
-        model.setRequirement(requirementToEdit, editedRequirement);
-
-        /*
-         * Now that we've assigned some modules under a particular Requirement to the system, we need to update
-         * CourseInfo, specifically its creditsFulfilled property.
-         *
-         * However, in the method below, we just recompute everything (field in course info).
-         */
-        CourseInfo courseToEdit = model.getCourseInfo();
-
-        /*
-         * A call to the retrieveLatestCourseInfo(..) helps to recompute latest course info,
-         * based on information provided through Model (coursebook).
-         */
-        CourseInfo editedCourseInfo = CommandUtil.retrieveLatestCourseInfo(courseToEdit, model);
-
-        // Updating the model with the latest course info
-        model.setCourseInfo(editedCourseInfo);
-
-        return new CommandResult(
-            String.format(MESSAGE_REQUIREMENT_ASSIGN_SUCCESS, editedRequirement));
+        return new Requirement(requirementCode, title, credits, modules);
     }
 
     @Override

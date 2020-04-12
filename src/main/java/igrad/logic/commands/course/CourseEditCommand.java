@@ -14,6 +14,7 @@ import igrad.model.course.CourseInfo;
 import igrad.model.course.Credits;
 import igrad.model.course.Name;
 import igrad.model.course.Semesters;
+
 //@@author nathanaelseen
 
 /**
