@@ -3,7 +3,6 @@ package igrad.logic.parser.course;
 //@@author teriaiw
 
 import static igrad.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static igrad.logic.commands.course.CourseAchieveCommand.MESSAGE_ACHIEVED_CAP_NOT_CALCULATED;
 import static igrad.logic.commands.course.CourseAchieveCommand.MESSAGE_COURSE_ACHIEVE_HELP;
 import static igrad.logic.commands.course.CourseCommandTestUtil.INVALID_CAP_DESC;
 import static igrad.logic.commands.course.CourseCommandTestUtil.VALID_CAP_DESC;
