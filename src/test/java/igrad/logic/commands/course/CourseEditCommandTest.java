@@ -44,7 +44,7 @@ public class CourseEditCommandTest {
     }
 
     @Test
-    public void execute_addCourse_success() {
+    public void execute_editCourse_success() {
         //set-up our Model
         Model model = new ModelManager();
 
