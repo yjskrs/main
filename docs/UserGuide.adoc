@@ -919,7 +919,7 @@ categories:
 |Add a `Requirement` | `requirement add t/REQUIREMENT_TITLE u/MCS_REQUIRED`
 |Edit a `Requirement` | `requirement edit REQUIREMENT_CODE u/MCS_REQUIRED`
 |Delete a `Requirement` | `requirement delete REQUIREMENT_CODE`
-|Assigns the modules under the requirement. |`requirement assign REQUIREMENT_CODE [n/MODULE_CODE...]`
+|Assigns the `Module`(s) under the requirement. |`requirement assign REQUIREMENT_CODE [n/MODULE_CODE...]`
 
 |===
 
