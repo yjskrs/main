@@ -292,8 +292,8 @@ A `CourseBook` contains only one course information.
 
 .Structure of CourseInfo Class
 image::developer-guide/CourseInfoClassDiagram.png[]
-A course consists of three information: Name, CAP, and SemsLeft. One course should only have one name,
-and one CAP.
+A course consists of four information: Name, Cap, Credits and Semesters. One course should only have one name,
+one Cap, one Credits and one Semesters.
 
 The course related commands that can be called are:
 
@@ -301,18 +301,44 @@ The course related commands that can be called are:
 * `course delete` - deletes existing course and all information in the course book
 * `course achieve` - calculates CAP needed to maintain each semester to achieve overall CAP targer
 
-Here is how the courseInfo class updates when name of course is edited:
+==== Course Edit
+===== Overview
+Users can edit their course info, which are `Name` and `Semesters` by using the `course edit` command.
 
-.Sequence Diagram when editing course name.
+===== Implementation
+Here is how the courseInfo class updates when name of course is edited.
+
+.Sequence Diagram when editing course name and course semesters.
 image::developer-guide/CourseEditSequenceDiagram.png[]
-When a user edits name of a course, the user has to specify the prefix `/n` for name.
+When a user edits name of a course, the user has to specify the prefix `n/` for `Name` or `s/` prefix
+for `Semesters`.
 Then the application proceeds to do the following steps:
 
-Step 1: The CourseEditCommandParser is called to parse the CourseEditCommand with the n/ prefix.
+Step 1: The CourseEditCommandParser is called to parse the CourseEditCommand with the `n/` and `s/` prefix.
 
-Step 2: The CourseEditCommand is executed to set the new course name to the model.
+Step 2: The CourseEditCommand is executed to set the new course name and course semesters to the model.
 
-Step 3: The new course name is set in the course book.
+Step 3: The new course name and course semesters is set in the course book.
+
+==== Course Achieve
+===== Overview
+Users can get an automatic calculation of their desired C.A.P. by using the `course achieve` command and
+entering their desired `Cap`.
+
+===== Implementation
+The computation of C.A.P. is done through `computeEstimatedCap` in `courseInfo` which uses `Semesters`
+and `Cap` of `courseInfo`.
+
+.Course Achieve Sequence Diagram
+image::developer-guide/CourseAchieveSequenceDiagram.png[]
+When a user wants to calculate achievable C.A.P., the user has to specify the prefix `c/` for `Cap`/
+Then the application proceeds to do the following steps:
+
+Step 1: The CourseAchieveCommandParser is called to parse the CourseAchieveCommand with the `c/` prefix.
+
+Step 2: The CourseAchieveCommand is executed to calculate estimated cap by calling CourseInfo.
+
+Step 3: The result is passed back to the user.
 
 '''
 
