@@ -838,9 +838,9 @@ categories:
 |Description | Command
 
 |Add a `Course` |  `course set n/COURSE_NAME s/TOTAL_SEMESTERS`
-|Edit the `Course`|  `course edit n/Information Systems s/10`
+|Edit the `Course`|  `course edit n/COURSE_NAME s/TOTAL_SEMESTERS`
 |Delete the `Course` |  `course delete`
-|Find out `CAP` required per semester for desired `CAP` | `course achieve c/4.50 s/2`
+|Find out `CAP` required per semester for desired `CAP` | `course achieve c/DESIRED_CAP s/SEMESTERS_LEFT`
 
 |===
 
@@ -850,9 +850,9 @@ categories:
 |Description | Command
 
 |Add a `Requirement` | `requirement add t/REQUIREMENT_TITLE u/MCS_REQUIRED`
-|Edit a `Requirement` | `requirement edit UE0 t/GEs u/20`
-|Delete a `Requirement` | `requirement delete GE0`
-|`requirement assign REQUIREMENT_CODE [n/MODULE_CODE...]` | Assigns the modules under the requirement. | `requirement assign GE0 n/GER1000 n/GEQ1000`
+|Edit a `Requirement` | `requirement edit REQUIREMENT_CODE u/MCS_REQUIRED`
+|Delete a `Requirement` | `requirement delete REQUIREMENT_CODE`
+|Assigns the modules under the requirement. |`requirement assign REQUIREMENT_CODE [n/MODULE_CODE...]`
 
 |===
 
