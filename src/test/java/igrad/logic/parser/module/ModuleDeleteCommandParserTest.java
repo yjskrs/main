@@ -3,14 +3,15 @@ package igrad.logic.parser.module;
 //@@author dargohzy
 
 import static igrad.commons.core.Messages.MESSAGE_SPECIFIER_INVALID;
-import static igrad.commons.core.Messages.MESSAGE_SPECIFIER_NOT_SPECIFIED;
 import static igrad.logic.commands.module.ModuleCommandTestUtil.INVALID_MODULE_CODE_DESC;
 import static igrad.logic.commands.module.ModuleCommandTestUtil.VALID_MODULE_CODE_CS1101S;
+import static igrad.logic.commands.module.ModuleDeleteCommand.MESSAGE_MODULE_DELETE_HELP;
 import static igrad.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static igrad.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import org.junit.jupiter.api.Test;
 
+import igrad.commons.core.Messages;
 import igrad.logic.commands.module.ModuleDeleteCommand;
 import igrad.model.module.ModuleCode;
 
@@ -35,7 +36,7 @@ public class ModuleDeleteCommandParserTest {
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
-        String errorMessageEmpty = String.format(MESSAGE_SPECIFIER_NOT_SPECIFIED, ModuleCode.MESSAGE_CONSTRAINTS);
+        String errorMessageEmpty = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_MODULE_DELETE_HELP);
         String errorMessageInvalid = String.format(MESSAGE_SPECIFIER_INVALID, ModuleCode.MESSAGE_CONSTRAINTS);
 
         // Empty arguments

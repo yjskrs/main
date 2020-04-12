@@ -23,14 +23,16 @@ import igrad.model.course.Semesters;
 public class CourseEditCommand extends CourseCommand {
 
     public static final String COURSE_EDIT_COMMAND_WORD = COURSE_COMMAND_WORD + SPACE + "edit";
-    public static final String MESSAGE_COURSE_EDIT_SUCCESS = "Edited Course: %1$s";
-    public static final String MESSAGE_EDIT_COURSE_SAME_PARAMETERS = "Please change the name of the course.";
+    public static final String MESSAGE_COURSE_EDIT_SUCCESS = "Course: %1$s edited successfully!";
     public static final String MESSAGE_COURSE_NOT_EDITED = "At least one field must be modified.";
     public static final String MESSAGE_COURSE_EDIT_DETAILS = COURSE_EDIT_COMMAND_WORD
         + ": Edits the name of the course.\n";
     public static final String MESSAGE_COURSE_EDIT_USAGE = "Parameter(s): "
         + "[" + PREFIX_NAME + "COURSE_NAME] "
-        + "[" + PREFIX_SEMESTER + "TOTAL_SEMESTERS]\n";
+        + "[" + PREFIX_SEMESTER + "TOTAL_SEMESTERS]\n"
+        + "e.g. " + COURSE_EDIT_COMMAND_WORD + " "
+        + PREFIX_NAME + "Information Systems "
+        + PREFIX_SEMESTER + "7";
     public static final String MESSAGE_COURSE_EDIT_HELP = MESSAGE_COURSE_EDIT_DETAILS + MESSAGE_COURSE_EDIT_USAGE;
 
     private EditCourseDescriptor editCourseDescriptor;
