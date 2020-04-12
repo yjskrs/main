@@ -210,7 +210,7 @@ relevant to the interface:
 * `AvatarImage` - Contains the image of the avatar.
 * `ModuleCard` - Individual card containing the relevant information of the module. List of `ModuleCard` contained in the `ModuleListPanel`.
 * `RequirementCard` - Individual card containing the relevant information of the requirement. List of `RequirementCards`  contained in the `RequirementListPanel`.
-* `HelpWindow` - Pop-up window containing the link the User Guide, as well as a list of all the commands in the applicatoin.
+* `HelpWindow` - Pop-up window containing the link the User Guide, as well as a list of all the commands in the application.
 
 //end::ui[]
 
