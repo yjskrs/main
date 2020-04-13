@@ -19,7 +19,7 @@ import igrad.model.course.Name;
 import igrad.model.course.Semesters;
 import igrad.services.exceptions.ServiceException;
 
-//@@author nathanaelseen
+//@@author teriaiw
 
 /**
  * Parses input arguments and creates a new CourseEditCommand object.

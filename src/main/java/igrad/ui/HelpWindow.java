@@ -1,5 +1,7 @@
 package igrad.ui;
 
+//@@author dargohzy
+
 import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URI;
@@ -14,7 +16,6 @@ import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.stage.Stage;
 
-//@@author dargohzy
 
 /**
  * Controller for a help page.
@@ -29,19 +30,19 @@ public class HelpWindow extends UiPart<Stage> {
     // Cheatsheet command formats
     private static final String COURSE_ADD = "course set n/COURSE_NAME s/TOTAL_SEMESTERS";
     private static final String COURSE_EDIT = "course edit n/COURSE_NAME s/TOTAL_SEMESTERS";
-    private static final String COURSE_DELETE = "course delete";
     private static final String COURSE_ACHIEVE = "course achieve c/DESIRED_CAP";
+    private static final String COURSE_DELETE = "course delete";
     private static final String REQUIREMENT_ADD = "requirement add t/REQUIREMENT_TITLE u/MCS_REQUIRED";
     private static final String REQUIREMENT_EDIT =
         "requirement edit REQUIREMENT_CODE [t/REQUIREMENT_TITLE] [u/MCS_REQUIRED]";
-    private static final String REQUIREMENT_DELETE = "requirement delete REQUIREMENT_CODE";
     private static final String REQUIREMENT_ASSIGN = "requirement un/assign REQUIREMENT_CODE n/MODULE_CODE …";
+    private static final String REQUIREMENT_DELETE = "requirement delete REQUIREMENT_CODE";
     private static final String MODULE_ADD =
         "module add n/MODULE_CODE t/MODULE_TITLE u/MCs [s/SEMESTER]";
     private static final String MODULE_EDIT =
         "module edit MODULE_CODE [n/MODULE_CODE] [t/MODULE_TITLE] [u/MCs] [s/SEMESTER]";
-    private static final String MODULE_DELETE = "module delete MODULE_CODE";
     private static final String MODULE_DONE = "module done MODULE_CODE [g/GRADE] [s/SEMESTER]";
+    private static final String MODULE_DELETE = "module delete MODULE_CODE";
     private static final String UNDO = "undo";
     private static final String EXPORT = "export";
     private static final String EXIT = "exit";
@@ -70,7 +71,6 @@ public class HelpWindow extends UiPart<Stage> {
 
     @FXML
     private Label requirementDelete;
-
 
     @FXML
     private Label requirementAssign;
@@ -181,16 +181,16 @@ public class HelpWindow extends UiPart<Stage> {
     public void setLabels() {
         courseAdd.setText(COURSE_ADD);
         courseEdit.setText(COURSE_EDIT);
-        courseDelete.setText(COURSE_DELETE);
         courseAchieve.setText(COURSE_ACHIEVE);
+        courseDelete.setText(COURSE_DELETE);
         requirementAdd.setText(REQUIREMENT_ADD);
         requirementEdit.setText(REQUIREMENT_EDIT);
-        requirementDelete.setText(REQUIREMENT_DELETE);
         requirementAssign.setText(REQUIREMENT_ASSIGN);
+        requirementDelete.setText(REQUIREMENT_DELETE);
         moduleAdd.setText(MODULE_ADD);
         moduleEdit.setText(MODULE_EDIT);
-        moduleDelete.setText(MODULE_DELETE);
         moduleDone.setText(MODULE_DONE);
+        moduleDelete.setText(MODULE_DELETE);
         undo.setText(UNDO);
         export.setText(EXPORT);
         exit.setText(EXIT);

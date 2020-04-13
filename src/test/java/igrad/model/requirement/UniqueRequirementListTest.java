@@ -1,5 +1,7 @@
 package igrad.model.requirement;
 
+//@@author yjskrs
+
 import static igrad.testutil.Assert.assertThrows;
 import static igrad.testutil.TypicalRequirements.CS_FOUNDATION;
 import static igrad.testutil.TypicalRequirements.GENERAL_ELECTIVES;
@@ -17,8 +19,6 @@ import org.junit.jupiter.api.Test;
 import igrad.model.requirement.exceptions.DuplicateRequirementException;
 import igrad.model.requirement.exceptions.RequirementNotFoundException;
 import igrad.testutil.RequirementBuilder;
-
-//@@author yjskrs
 
 public class UniqueRequirementListTest {
     private final UniqueRequirementList uniqueRequirementList = new UniqueRequirementList();

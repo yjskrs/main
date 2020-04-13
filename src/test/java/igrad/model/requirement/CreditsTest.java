@@ -1,12 +1,12 @@
 package igrad.model.requirement;
 
+//@@author yjskrs
+
 import static igrad.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
-
-//@@author yjskrs
 
 public class CreditsTest {
 

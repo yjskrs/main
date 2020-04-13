@@ -57,7 +57,7 @@ public class RequirementDeleteCommand extends RequirementCommand {
 
         Requirement toDelete = requirementToDelete.get();
 
-        model.removeRequirement(toDelete);
+        model.deleteRequirement(toDelete);
 
         //@@author nathanaelseen
 

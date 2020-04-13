@@ -1,6 +1,6 @@
 package igrad.logic.commands.course;
 
-//@@author nathanaelseen
+//@@author teriaiw
 
 import static java.util.Objects.requireNonNull;
 

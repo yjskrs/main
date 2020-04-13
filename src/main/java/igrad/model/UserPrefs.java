@@ -86,15 +86,13 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         if (other == this) {
             return true;
         }
-        if (!(other instanceof UserPrefs)) { //this handles null as well.
+        if (!(other instanceof UserPrefs)) { // this handles null
             return false;
         }
 
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
-            && courseBookFilePath.equals(o.courseBookFilePath)
-            && backupCourseBookFilePath.equals(o.backupCourseBookFilePath)
             && avatar.equals(o.avatar);
     }
 

@@ -1,5 +1,7 @@
 package igrad.logic.parser.course;
 
+//@@author teriaiw
+
 import static igrad.logic.commands.course.CourseAchieveCommand.MESSAGE_COURSE_ACHIEVE_HELP;
 import static igrad.logic.parser.CliSyntax.PREFIX_CAP;
 import static igrad.logic.parser.course.CourseCommandParser.parseCap;
@@ -15,7 +17,6 @@ import igrad.logic.parser.Parser;
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.course.Cap;
 
-//@@author teriaiw
 
 /**
  * Parses input arguments and creates a new ModuleDeleteCommand object.
