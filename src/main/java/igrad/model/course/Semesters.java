@@ -12,7 +12,7 @@ import static java.util.Objects.requireNonNull;
 public class Semesters {
 
     public static final String MESSAGE_CONSTRAINTS = "Total Semesters of a course provided is invalid!\n"
-        + "It should be a number more than 0.";
+        + "It should be a number more than 0 and less than 100.";
 
     public static final String MESSAGE_INVALID_SEMS = "Remaining semester count invalid";
 
@@ -62,10 +62,14 @@ public class Semesters {
      */
     public static boolean isValidSemesters(String test) {
         requireNonNull(test);
+        try {
+            return test.matches(VALIDATION_REGEX)
+                    && Integer.parseInt(test) > MIN_SEMS
+                    && Integer.parseInt(test) < MAX_SEMS;
 
-        return test.matches(VALIDATION_REGEX)
-                && Integer.parseInt(test) > MIN_SEMS
-                && Integer.parseInt(test) < MAX_SEMS;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
     /**
