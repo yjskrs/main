@@ -4,13 +4,13 @@
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":CourseBookParser" as CourseBookParser LOGIC_COLOR
-participant ":CourseAchieveCommandParser" as CourseAchieveCommandParser LOGIC_COLOR
-participant "r:CourseAchieveCommand" as CourseAchieveCommand LOGIC_COLOR
+participant ":CourseAchieve\nCommandParser" as CourseAchieveCommandParser LOGIC_COLOR
+participant "c:CourseAchieve\nCommand" as CourseAchieveCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
-participant ":CourseBook" as CourseBook MODEL_COLOR
 participant ":CourseInfo" as CourseInfo MODEL_COLOR
 end box
 
@@ -29,8 +29,11 @@ CourseAchieveCommandParser -> CourseAchieveCommand : new CourseAchieveCommand(\n
 activate CourseAchieveCommand
 
 CourseAchieveCommand --> CourseAchieveCommandParser
+deactivate CourseAchieveCommand
+
 CourseAchieveCommandParser --> CourseBookParser : c
 deactivate CourseAchieveCommandParser
+destroy CourseAchieveCommandParser
 
 CourseBookParser --> LogicManager : c
 deactivate CourseBookParser
@@ -41,23 +44,20 @@ activate CourseAchieveCommand
 CourseAchieveCommand -> Model : getCourseInfo()
 activate Model
 
-Model -> CourseBook : getCourseInfo()
-activate CourseBook
-
-CourseBook --> Model
-deactivate CourseBook
-
 Model --> CourseAchieveCommand
 deactivate Model
 
 CourseAchieveCommand --> CourseInfo : computeEstimatedCap(Course info, Cap)
 activate CourseInfo
 
-CourseInfo --> CourseInfo : getSemesters()
-CourseInfo --> CourseInfo : getCap()
-
 CourseInfo --> CourseAchieveCommand
 deactivate CourseInfo
+
+create CommandResult
+CourseAchieveCommand --> CommandResult
+activate CommandResult
+CommandResult --> CourseAchieveCommand
+deactivate CommandResult
 
 CourseAchieveCommand --> LogicManager : result
 deactivate CourseAchieveCommand

@@ -329,11 +329,11 @@ Section by: https://github.com/teriaiw[Teri]
 Users can edit their course info, which are `Name` and `Semesters` by using the `course edit` command.
 
 ===== Implementation
-Here is how the courseInfo class updates when name of course is edited.
+Here is how the courseInfo class updates when name and semesters of course is edited.
 
 .Sequence Diagram when editing course name and course semesters.
 image::developer-guide/CourseEditSequenceDiagram.png[]
-When a user edits name of a course, the user has to specify the prefix `n/` for `Name` or `s/` prefix
+When a user edits a course, the user has to specify the prefix `n/` for `Name` or `s/` prefix
 for `Semesters`.
 Then the application proceeds to do the following steps:
 
@@ -357,19 +357,30 @@ entering their desired `Cap`.
 The computation of C.A.P. is done through `computeEstimatedCap` in `courseInfo` which uses `Semesters`
 and `Cap` of `courseInfo`.
 
-.Course Achieve Sequence Diagram
+.Course Achieve Logic Sequence Diagram
 image::developer-guide/CourseAchieveSequenceDiagram.png[]
 When a user wants to calculate achievable C.A.P., the user has to specify the prefix `c/` for `Cap`.
 Then the application proceeds to do the following steps:
 
 . The `CourseAchieveCommandParser` is called to parse the `CourseAchieveCommand` with the `c/` prefix.
 . The `CourseAchieveCommand` is executed and it calls method `getCourseInfo` in `Model` to get `CourseInfo`.
-. With the `CourseInfo` and `Cap`, `CourseAchieveCommand` calls method `calculateEstimatedCap` in `CourseInfo`.
+. The `CourseAchieveCommand` then proceeds to call method `computeEstimatedCap` in `CourseInfo`.
+. The `CourseAchieveCommand` then passes the computed result to `CommandResult`
+
+The below is a detailed description of what happens inside the `Model`:
+
+.Course Achieve Model Sequence Diagram
+image::developer-guide/CourseAchieveSequenceDiagram2.png[]
+
+. After the execute call, the `CourseAchieveCommand` calls method `getCourseInfo` in `Model`.
+. `Model` then calls the same method `getCourseInfo` to `CourseBook` to retrieve `CourseInfo`.
+. With the `CourseInfo` and `Cap`, `CourseAchieveCommand` calls method `computeEstimatedCap` in `CourseInfo`.
 . `CourseInfo` calls method `getSemesters` and `getCap` to itself to get the following information:
 ... `Semesters`
 ... `Cap`
 . `computeEstimmatedCap` computes and returns estimate `Cap`.
-. The result is passed back to the user.
+. The result is passed back to `CourseAchieveCommand`, which passes to `CommandResult` and eventually returns to
+the user.
 
 ===== Design Considerations
 

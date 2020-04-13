@@ -1,4 +1,4 @@
-= Name - Project Portfolio
+= Teri Aiw - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -7,6 +7,7 @@
 image::../images/Ui.png[]
 
 == Overview
+
 iGrad is a desktop module management and graduation tracking application. The user interacts with it using a CLI, and
 it has a GUI created with JavaFX, FXML and CSS.
 
@@ -38,17 +39,17 @@ deletion in initial phase of project.
 ** Standardized overall messages to be shown to user while using the application.
 ** Presented project as part of the product pitch team.
 
+<<<
+
 == Contributions to the User Guide
 |===
 |_Given below are the sections I contributed to the User Guide. They showcase my ability to communicate with end-users
 of the product in question. Worked in conjunction with https://github.com/dargohzy[Daryl]._
 |===
+
 include::../UserGuide.adoc[tag=walkthrough]
 
-|===
-|_Sections contributed to UG_
-|===
-
+<<<
 
 == Contributions to the Developer Guide
 
@@ -56,6 +57,7 @@ include::../UserGuide.adoc[tag=walkthrough]
 |_Given below are the sections I contributed to the Developer Guide. They showcase my ability to communicate technical
 information into documentation as well as my contributions to the project._
 |===
+
 include::../DeveloperGuide.adoc[tag=semesters]
 include::../DeveloperGuide.adoc[tag=courseedit]
 include::../DeveloperGuide.adoc[tag=courseachieve]
