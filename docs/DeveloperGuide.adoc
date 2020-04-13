@@ -778,6 +778,16 @@ it would be an improvement to display the current state prominently to the user.
 //end::module[]
 '''
 
+==== Module Done
+
+===== Overview
+
+This feature allows students to mark a module with a certain grade when she has completed
+a module.
+===== Implementation
+
+===== Design consideration
+
 anchor:anchor-tag-c[]
 
 === Requirements Feature
