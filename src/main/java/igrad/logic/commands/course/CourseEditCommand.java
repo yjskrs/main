@@ -9,6 +9,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.Optional;
 
 import igrad.logic.commands.CommandResult;
+import igrad.logic.commands.CommandUtil;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
 import igrad.model.course.Cap;
@@ -93,9 +94,15 @@ public class CourseEditCommand extends CourseCommand {
             throw new CommandException(MESSAGE_COURSE_NOT_EDITED);
         }
 
-        model.setCourseInfo(editedCourseInfo);
+        /*
+         * A call to the retrieveLatestCourseInfo(..) helps to recompute latest course info,
+         * based on information provided through Model (coursebook).
+         */
+        CourseInfo finalEditedCourseInfo = CommandUtil.createEditedCourseInfo(editedCourseInfo, model);
 
-        return new CommandResult(String.format(MESSAGE_COURSE_EDIT_SUCCESS, editedCourseInfo));
+        model.setCourseInfo(finalEditedCourseInfo);
+
+        return new CommandResult(String.format(MESSAGE_COURSE_EDIT_SUCCESS, finalEditedCourseInfo));
     }
 
     @Override
