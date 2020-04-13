@@ -4,12 +4,19 @@
 :stylesDir: ../stylesheets
 
 == PROJECT: iGrad
+image::../images/Ui.png[]
 
 == Overview
+iGrad is a desktop module management and graduation tracking application. The user interacts with it using a CLI, and
+it has a GUI created with JavaFX, FXML and CSS.
 
 == Summary of contributions
 
-* *Code contributed*: [https://github.com/AY1920S2-CS2103T-F09-3/main/commits?author=teriaiw[All commits]] [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=teriaiw[Project Code Dashboard]]
+* *Major Enhancement*: added feature to *calculate C.A.P. to achieve desired C.A.P.*
+** What it does: allows the user to get an estimate of what C.A.P. they should expect to maintain per semester to
+achieve the desired C.A.P. that they want.
+
+* *Code contributed*: [https://github.com/AY1920S2-CS2103T-F09-3/main/commits?author=teriaiw[All commits]][https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=teriaiw[Project Code Dashboard]]
 
 * *Enhancements Implemented*:
 
@@ -20,7 +27,11 @@
 * *Review/Mentoring Contributions*:
 
 == Contributions to the User Guide
-
+|===
+|_Given below are the sections I contributed to the User Guide. They showcase my ability to communicate with end-users
+of the product in question. Worked in conjunction with https://github.com/dargohzy[Daryl]._
+|===
+include::../UserGuide.adoc[tag=walkthrough]
 
 |===
 |_Sections contributed to UG_
