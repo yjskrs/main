@@ -166,7 +166,11 @@ public class ModuleEditCommandTest {
 
         ModuleEditCommand editCommand = new ModuleEditCommand(toBeEdited.getModuleCode(), descriptor);
 
-        CommandResult expectedMessage = new CommandResult(MESSAGE_MODULE_NON_EXISTENT);
+        CommandResult expectedMessage = new CommandResult(
+            String.format(
+                MESSAGE_MODULE_NON_EXISTENT, toBeEdited.getModuleCode().value
+            )
+        );
 
         /**
          * note that the module is not added to the model

@@ -1,5 +1,7 @@
 package igrad.logic.parser;
 
+//@@author teriaiw
+
 import static java.util.Objects.requireNonNull;
 
 /**

@@ -1,7 +1,7 @@
 = iGrad - Developer Guide
 :site-section: DeveloperGuide
 :toc:
-:toc-name:
+:toc-title:
 :toc-placement: preamble
 :toclevels: 3
 :sectnums: 4
@@ -301,6 +301,7 @@ The course related commands that can be called are:
 * `course delete` - deletes existing course and all information in the course book
 * `course achieve` - calculates CAP needed to maintain each semester to achieve overall CAP targer
 
+//tag::semesters[]
 ==== Semesters
 Section by: https://github.com/teriaiw[Teri]
 
@@ -317,7 +318,10 @@ image::developer-guide/CourseSemestersClassDiagram.png[]
 to check for `module` that has `Semester` and `Grade`. The `module` which fulfils the mentioned and has the latest
 `Semester` will be taken as the latest completed semester.
 
+//end::semesters[]
+'''
 
+//tag::courseedit[]
 ==== Course Edit
 Section by: https://github.com/teriaiw[Teri]
 
@@ -338,6 +342,10 @@ Then the application proceeds to do the following steps:
 . `Model` calls the same method `setCourseInfo` to `CourseBook`.
 . The new course `Name` and course `Semesters` is set in the `CourseBook`.
 
+//end::courseedit[]
+'''
+
+//tag::courseachieve[]
 ==== Course Achieve
 Section by: https://github.com/teriaiw[Teri]
 
@@ -381,11 +389,11 @@ Therefore, there are three types of result displayed to User:
 . When User enters invalid Cap to achieve
 . When computed Cap is invalid
 . When computed Cap is valid
-
+//end::courseachieve[]
 '''
 
-//tag::module[]
 === Module Feature
+Section by: https://github.com/waynewee[Wayne]
 
 ==== Module Component
 
@@ -426,8 +434,9 @@ A module may also have the following optional values:
 .Module Class Diagram
 image::developer-guide/ModuleClassDiagram.png[]
 
-
+//tag::wayne-ug[]
 ==== Module Add Auto
+Section by: https://github.com/waynewee[Wayne]
 
 ===== Overview
 
@@ -523,8 +532,8 @@ Extensions:
 .Module Auto Add Use Case Diagram
 image::developer-guide/ModuleAutoAddUseCaseDiagram.png[]
 
+//end::wayne-ug[]
 '''
-
 *Messages for individual modules*
 
 As this feature allows a user to add `modules` by batches, it is possible that one or more `modules` in
@@ -559,6 +568,7 @@ currently only one request is made.
 .Previous implementation of Module Add Auto
 image::developer-guide/ModuleAddAutoActivityDiagram.png[]
 
+
 ==== Module Filter
 
 ===== Overview
@@ -570,7 +580,9 @@ a way to filter `modules` so that only what is required is displayed.
 ===== Implementation
 
 The filtering of modules is done by calling the `execute` function of `ModuleFilterCommand`.`ModuleFilterCommand` takes in
-optional parameters `Semester`, `Credits`, `Grade` and an operator, which could be `AND` or `OR`.
+optional parameters `Semester`, `Credits`, `Grade` and an operator, which could be `AND` or `OR`. The `ModuleFilterCommand` then
+calls `updateFilteredModuleList` on the `Model` such that the `Model` updates the `filteredList` based on the predicates provided.
+The `ModuleFilterCommand` then calls `getFilteredModuleList()` to check if the filter was applied successfully.
 
 The matching is done by the functions `checkSemesterMatch(Module m)`, `checkCreditsMatch(Module m)` and `checkGradeMatch(Module m)`. Unlike
 the other two functions, `checkCreditsMatch(Module m)` does not check if the actual `credits` for a module is present since the
@@ -630,7 +642,7 @@ image::developer-guide/ModuleFilterStateDiagram.png[]
 An issue with the filtering of modules is that when the current state is not obvious, the
 user might lose track of what the module list is filtering on. To solve this problem,
 it would be an improvement to display the current state prominently to the user.
-//end::module[]
+
 '''
 
 === Requirements Feature
@@ -672,6 +684,7 @@ Step 3: The new requirement is added to the course book.
 '''
 
 === Export Feature
+Section by: https://github.com/waynewee[Wayne]
 
 ==== Overview
 
@@ -723,6 +736,7 @@ for the user to close the file and issuing the command again.
 '''
 
 === Undo Feature
+Section by: https://github.com/waynewee[Wayne]
 
 ==== Overview
 

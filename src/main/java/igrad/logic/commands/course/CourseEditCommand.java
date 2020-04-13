@@ -1,5 +1,7 @@
 package igrad.logic.commands.course;
 
+//@@author teriaiw
+
 import static igrad.logic.parser.CliSyntax.PREFIX_NAME;
 import static igrad.logic.parser.CliSyntax.PREFIX_SEMESTER;
 import static java.util.Objects.requireNonNull;
@@ -16,7 +18,6 @@ import igrad.model.course.Credits;
 import igrad.model.course.Name;
 import igrad.model.course.Semesters;
 
-//@@author nathanaelseen
 
 /**
  * Edits the details of an existing module in the course book.

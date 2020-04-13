@@ -1,5 +1,7 @@
 package igrad.logic.parser;
 
+//@@author teriaiw
+
 /**
  * A flag that, if present, specifies the system to include the option.
  * E.g. '-a' in 'module add n/CS2103T -a'.

@@ -1,9 +1,9 @@
 package igrad.model.course;
 
+//@@author teriaiw
+
 import static igrad.commons.util.AppUtil.checkArgument;
 import static java.util.Objects.requireNonNull;
-
-//@@author teriaiw
 
 /**
  * Represents a {@code CourseInfo}'s semester information in the course book.

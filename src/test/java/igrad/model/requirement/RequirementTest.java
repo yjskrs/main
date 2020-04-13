@@ -1,5 +1,7 @@
 package igrad.model.requirement;
 
+//@@author yjskrs
+
 import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_CODE_MS;
 import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_CREDITS_GE;
 import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_CREDITS_MS;
@@ -26,8 +28,6 @@ import igrad.model.module.exceptions.DuplicateModuleException;
 import igrad.model.module.exceptions.ModuleNotFoundException;
 import igrad.testutil.ModuleBuilder;
 import igrad.testutil.RequirementBuilder;
-
-//@@author yjskrs
 
 public class RequirementTest {
     private final Requirement requirement = new RequirementBuilder().build();
@@ -248,9 +248,6 @@ public class RequirementTest {
 
     @Test
     public void equals() {
-        // null
-        assertFalse(GENERAL_ELECTIVES.equals(null));
-
         // same requirement
         assertTrue(GENERAL_ELECTIVES.equals(GENERAL_ELECTIVES));
 

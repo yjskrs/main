@@ -6,8 +6,6 @@ import igrad.logic.commands.Command;
 import igrad.model.module.Module;
 import igrad.model.module.ModuleCode;
 
-//@@author yjskrs
-
 /**
  * A generic Requirement command class.
  */
