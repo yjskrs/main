@@ -3,15 +3,10 @@ package igrad.logic.parser.module;
 //@@author dargohzy
 
 import static igrad.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static igrad.logic.commands.module.ModuleCommandTestUtil.VALID_MODULE_CODE_CS1101S;
-import static igrad.logic.commands.module.ModuleEditCommand.MESSAGE_MODULE_NOT_EDITED;
-import static igrad.logic.parser.CommandParserTestUtil.assertParseFailure;
 
 import org.junit.jupiter.api.Test;
 
 import igrad.logic.commands.module.ModuleEditCommand;
-import igrad.logic.parser.Prefix;
-import igrad.model.module.ModuleCode;
 import igrad.testutil.TypicalModules;
 
 public class ModuleEditCommandParserTest {
@@ -23,12 +18,12 @@ public class ModuleEditCommandParserTest {
 
     @Test
     public void parse_missingArguments_failure() {
-//        String errorMessageNoField = MESSAGE_MODULE_NOT_EDITED;
-//
-//        // no field
-//        String noField = VALID_MODULE_CODE_CS1101S;
-//
-//        assertParseFailure(parser, noField, errorMessageNoField);
+        //        String errorMessageNoField = MESSAGE_MODULE_NOT_EDITED;
+        //
+        //        // no field
+        //        String noField = VALID_MODULE_CODE_CS1101S;
+        //
+        //        assertParseFailure(parser, noField, errorMessageNoField);
     }
 
     @Test
@@ -161,7 +156,7 @@ public class ModuleEditCommandParserTest {
 
         String targetModuleCode = TypicalModules.CS2040.getModuleCode().value;
 
-        String userInput =
+        // String userInput =
 
         // no other valid values specified
         //Index targetIndex = TypicalIndexes.INDEX_FIRST_PERSON;
