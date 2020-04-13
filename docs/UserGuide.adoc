@@ -311,7 +311,6 @@ image::../images/user-guide/walkthrough10.3.png[]
 //end::walkthrough[]
 
 == Command List
-Section by: https://github.com/waynewee[Wayne] & https://github.com/yjskrs[Yijie]
 
 This segment contains a list of commands with examples that you can use to make full use of iGrad.
 
@@ -455,8 +454,8 @@ Expected Outcome
 You should be able to see the requirement created and/or edited in the main panel.
 
 '''
-// tag::module[]
 === Module
+Section by: https://github.com/waynewee[Wayne]
 
 This section details each command used to manipulate modules. All module commands begin with the identifier
 `module` followed by the action e.g. `add`.
@@ -482,18 +481,19 @@ The following errors are generic and may be encountered when dealing with any mo
 [#tableModuleParametersErrorReference]
 .Module Parameters Error Reference
 |===
-|Parameter|Error Name
+|Parameter|Error Message
 
-|`MODULE_CODE`| Invalid Module Code
-|`MODULE_CREDITS`| Invalid Module Credits
-|`SEMESTER`| Invalid Semester
-|`GRADE`| Invalid Grade
+|`MODULE_CODE`| The Module Code provided for the module is invalid!
+|`MODULE_CREDITS`| The Module Credits provided for the module is invalid!
+|`SEMESTER`| The Semester provided for the module is invalid!
+|`GRADE`| The Grade provided for the module is invalid!
 |===
 
 These errors can all be resolved by adhering to the restrictions detailed in <<tableModuleParameters>>
 
 [#ModuleAddCommand]
 ==== Module Add
+Section by: https://github.com/waynewee[Wayne]
 
 This command adds a module to the module list.
 
@@ -517,7 +517,7 @@ and fill in those fields. We do not check if the given `MODULE_CODE` or `MODULE_
 |===
 |Name | Message| Explanation| Solution
 
-|Duplicate Module Error | Duplicate Detected| The module you are attempting to add already exists in the module list| Delete the existing module in the list and try again|
+|Duplicate Module Error |Sorry, this module already exists in the course book. | The module you are attempting to add already exists in the module list| Delete the existing module in the list and try again|
 |===
 
 
@@ -542,8 +542,10 @@ For this tutorial, actual values will be given instead of placeholders. Undo or 
 .Modules CS2103T and CS2101 successfully added
 image::../images/user-guide\moduleAutoAddCommand\two_modules.png[]
 
+//tag::wayne-ug[]
 [#ModuleAutoAddCommand]
 ==== Module Auto Add
+Section by: https://github.com/waynewee[Wayne]
 
 This command adds a module to the module list. The module information is taken
 from the https://api.nusmods.com/[NUSMods API] and includes the `MODULE_CODE`, `MODULE_TITLE`
@@ -590,11 +592,10 @@ You can add up to 10 modules at once! Try this: `module add n/CS1101 n/CS1231 n/
 |===
 |Name| Message| Explanation |Solution
 
-|Duplicate Module Error | Duplicate Detected| The module you are attempting to add already exists in the module list| Delete the existing module in the list and try again
-|Module Not Found Error| Module Not Found| The module you are attempting to add could not be found on the NUSMods API |  Use the command <<ModuleAddCommand>> instead
-|Module Overload Error | Module Overload Error|You attemped to add too many modules. The limit is 10| Divide the list of modules into smaller batches of size less than 10 and try again
-|Connection Error I | Connection Error| You are not connected to the internet| Whilst all other commands work offline. You need an internet connection to issue this command. Go online before trying again
-|Connection Error II | Connection Error| The NUSMods API server is down| Use the command module add instead or wait until the NUSMods API server is restored
+|Duplicate Module Error | Duplicate Detected| Sorry, this module already exists in the course book.| Delete the existing module in the list and try again
+|Module Not Found Error| Module Not Found| Sorry, I was unable to find this module. Is your internet down? |  Use the command <<ModuleAddCommand>> instead
+|Module Overload Error | Module Overload Error| Please do not attempt to add more then 10 modules. | Divide the list of modules into smaller batches of size less than 10 and try again
+|Connection Error| Connection Error| Sorry, I was unable to find this module. Is your internet down? | Whilst all other commands work offline. You need an internet connection to issue this command. Go online before trying again
 |===
 
 *Tutorial*
@@ -625,8 +626,9 @@ in addition to tracking your graduation requirements, we do not prevent you from
 WARNING: As the prerequisites and preclusions from NUSMods do not follow any standard formatting, the warning messages shown might not
 always be accurate. This is due to a difficulty of interpreting
 the data given by NUSMods. This remains a BETA feature and we hope to upgrade it in time.
-
+// end::wayne-ug[]
 ==== Module Done
+Section by: https://github.com/waynewee[Wayne]
 
 This command marks a module as done by giving it a grade and optionally, a semester.
 
@@ -656,7 +658,7 @@ during special term, you could input the most recent semester instead
 |===
 |Name| Message| Explanation |Solution
 
-|Module Not Found Error | Module Not Found| The module you are attempting to mark as done does not exist in the module list| Add the module you wish to mark as done and try again
+|Module Not Found Error | Sorry, I was unable to find this module. | The module you are attempting to mark as done does not exist in the module list| Add the module you wish to mark as done and try again
 |===
 
 *Tutorial*
@@ -675,6 +677,7 @@ Ensure that you have the module CS2103T in the module list
 image::../images/user-guide\moduleAutoAddCommand\one_module.png[]
 
 ==== Module Edit
+Section by: https://github.com/waynewee[Wayne]
 
 This command edits the editable fields in a module which include the `MODULE_TITLE`, `MODULE_CREDITS`, `SEMESTER`.
 Although it is possible to edit the fields as listed, it is unadvisable unless you made a mistake while keying
@@ -699,7 +702,7 @@ change the values as you wish as long as they follow the restrictions as listed 
 |===
 |Name| Message| Explanation |Solution
 
-|Module Not Found Error | Module Not Found| The module you are attempting to edit does not exist in the module list| Instead of editing a module that does not exist, try adding a new one!
+|Module Not Found Error | Sorry, I was unable to find this module | The module you are attempting to edit does not exist in the module list| Instead of editing a module that does not exist, try adding a new one!
 |===
 
 *Tutorial*
@@ -718,6 +721,7 @@ Ensure that you have the module CS2103T in the module list
 image::../images/user-guide\moduleAutoAddCommand\module_edit.png[]
 
 ==== Module Delete
+Section by: https://github.com/waynewee[Wayne]
 
 This command deletes a module from the module list.
 
@@ -741,7 +745,7 @@ Restoring the module is only possible using the `undo` command which would only 
 |===
 |Name| Message| Explanation |Solution
 
-|Module Not Found Error | Module Not Found| The module you are attempting to delete does not exist in the module list| Your problem is your solution!
+|Module Not Found Error | Sorry, I was unable to find this module| The module you are attempting to delete does not exist in the module list| Your problem is your solution!
 |===
 
 *Tutorial*
@@ -755,6 +759,7 @@ Ensure that you have the module CS2103T in the module list
 2. The message in the response box should change and you should see that the module CS2103T disappears from the module list
 
 ==== Module Filter
+Section by: https://github.com/waynewee[Wayne]
 
 This command allows you to find your modules by various parameters. You can filter the
 complete module list by `SEMESTER`, `MODULE_CREDITS` and `GRADE`.
@@ -813,10 +818,11 @@ Ensure that the following modules are in the module list:
 This section contains information which requires prior knowledge of discrete mathematics or more specifically, logical operators
 
 The flag `-o`, is present, sets the logical operator used in concatenating the parameters as _"or"_. The default logical operator used is _"and"_.
-// end::module[]
+
 '''
 
 === Export
+Section by: https://github.com/waynewee[Wayne]
 
 This command exports your data to a comma-separated values (.csv) file. This file can then be submitted to the relevant
 administration for processing of Leave of Absence (LOA), exchange programmes or internship applications.
@@ -848,13 +854,14 @@ NOTE: For example, if the app is stored in your Desktop folder, the file _study_
 |===
 |Name| Message| Explanation |Solution
 
-|Write Error | Unable to write to file| You have the file open. The system is unable to write to an open file | Close the file and try again
-|Data Not Found Error | Nothing to write| You do not have any modules tagged with a semester | Tag at least one module with a semester and try again
+|Write Error | Unable to write to file| Sorry, I was unable to export data to CSV file. Please ensure that you do not have the file 'study_plan.csv' open | Close the file and try again
+|Data Not Found Error |Sorry, I couldn't find any modules that are tagged to a semester! I can only export modules that are tagged with a semester. | You do not have any modules tagged with a semester | Tag at least one module with a semester and try again
 |===
 
 '''
 
 === Exit
+Section by: https://github.com/waynewee[Wayne]
 
 This command assists you in exiting the program.
 
@@ -870,10 +877,12 @@ This command assists you in exiting the program.
 You can also exit the program by clicking the close icon on the top right hand corner of the application's window.
 
 ## Version 2.0
+Section by: https://github.com/waynewee[Wayne]
 
 This sections details features that would be packaged with the next release
 
 === Module Suggester
+Section by: https://github.com/waynewee[Wayne]
 
 Using tried and tested recommendation algorithms such as https://en.wikipedia.org/wiki/Collaborative_filtering[collborative filtering], we would be able to automatically suggest
 to you what modules to take next.
@@ -886,6 +895,7 @@ to you what modules to take next.
 |===
 
 === Integration with NUSMods
+Section by: https://github.com/waynewee[Wayne]
 
 We plan to integrate with popular timetabling application NUSMods so that you can manage all aspects of your academics
 in one place.

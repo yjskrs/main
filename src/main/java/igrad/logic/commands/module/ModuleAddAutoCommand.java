@@ -1,6 +1,5 @@
 package igrad.logic.commands.module;
 
-import static igrad.commons.core.Messages.MESSAGE_REQUEST_FAILED;
 import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
 import static igrad.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
 import static igrad.logic.parser.CliSyntax.PREFIX_SEMESTER;
@@ -50,7 +49,9 @@ public class ModuleAddAutoCommand extends ModuleCommand {
         + "add more than %d modules.\nYou attempted to add %d modules.\n";
     public static final String MESSAGE_COMPLETE = "%d module(s) added through NUSMods API.\n";
     public static final String MESSAGE_SUCCESS = "Got it! I have added the following module(s) for you:\n%s";
-    public static final String MESSAGE_DUPLICATE_MODULE = "Duplicate detected: %s\n";
+    public static final String MESSAGE_DUPLICATE_MODULE = "Sorry, this module already exists in the course book: %s\n";
+    public static final String MESSAGE_MODULE_NOT_FOUND =
+        "Sorry, I was unable to find this module: %s\nIs your internet down?\n";
     public static final String MESSAGE_PREREQUISITE_NOT_PRESENT =
         "WARNING: Prerequisite not found!\n";
     public static final String MESSAGE_PRECLUSION_PRESENT =
@@ -86,7 +87,7 @@ public class ModuleAddAutoCommand extends ModuleCommand {
             try {
                 jsonParsedModule = NusModsRequester.getModule(moduleCodeStr);
             } catch (IOException e) {
-                messageAdditional.append(String.format(MESSAGE_REQUEST_FAILED, moduleCodeStr));
+                messageAdditional.append(String.format(MESSAGE_MODULE_NOT_FOUND, moduleCodeStr));
                 continue;
             }
 
@@ -146,7 +147,7 @@ public class ModuleAddAutoCommand extends ModuleCommand {
         for (Module module : modules) {
 
             if (model.hasModule(module)) {
-                message.append(String.format(MESSAGE_DUPLICATE_MODULE, module.toString()));
+                message.append(String.format(MESSAGE_DUPLICATE_MODULE, module.getModuleCode().value));
             } else {
                 message.append(String.format(MESSAGE_SUCCESS, module.toString()));
 
