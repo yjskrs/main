@@ -314,8 +314,7 @@ image::../images/user-guide/walkthrough10.3.png[]
 == Command List
 Section by: https://github.com/yjskrs[Yijie]
 
-This section provides a detailed breakdown of the various commands you may use in iGrad,
-by typing the commands into the command box.
+This section provides a detailed breakdown of the various commands you may use in iGrad.
 Please read <<Command Format>> to understand how our commands work!
 
 // tag::commandFormat[]
@@ -352,7 +351,9 @@ Flags can only be indicated at the end of the command.
 We have also listed all the parameters and their corresponding prefixes in the table below.
 If square brackets (i.e. `[` `]`) are specified around a parameter-prefix pair, this means
 that the parameter-prefix pair is optional. However, do note that if all parameter-prefix pairs
-are indicated with square brackets, this means that at least one of them must be provided.
+are indicated with square brackets, this means that at least one of them must be provided. Parameter-prefix
+pairs which can be entered multiple times in a single command are also indicated by ellipses
+(i.e. `...`) behind the parameter.
 
 [#tableParameterPrefixPairs]
 .Parameter Prefix Pairs
@@ -382,7 +383,7 @@ The two flags used in iGrad are listed in the table below.
 Section by: https://github.com/yjskrs[Yijie]
 
 This command opens up a help window for easy reference on the list of commands that can be used in iGrad.
-A link is also provided to link back to the user guide for more detailed explanations.
+A link is also provided to direct users to the user guide for more detailed explanations.
 
 [#tableHelpQuickReference]
 .Help Quick Reference
@@ -406,15 +407,143 @@ All course commands use the same parameters, as listed in the table below:
 |===
 |Name| Description | Example | Restrictions
 
-|`COURSE_TITLE`| The course title | Computer Science |-
+|`COURSE_NAME`| The course name | Computer Science |-
 |`SEMESTER`| The total number of semesters you will be spending in NUS | 8 |Must be a number less than 100.
 |===
 
+If the parameter restrictions are not strictly adhered to when issuing a course command, or if
+iGrad cannot find what you're looking for, you might come across a common error.
+The following error is generic and may be encountered when dealing with any course command:
+
+[#tableCourseParametersErrorReference]
+.Course Parameters Error Reference
+|===
+|Parameter |Error Name
+
+|`COURSE_CREDITS`| Invalid Course Credits
+|===
+
+This error can be resolved by adhering to the restriction detailed in <<tableCourseParameters>>
+
 ==== Course Set
+
+This command sets the course.
+
+[#CourseSetQuickReference]
+.Course Set Quick Reference
+|===
+|Purpose | Sets the course
+|Syntax| `course set n/COURSE_NAME s/SEMESTERS`
+|Example | `course set n/Computer Science s/8`
+|===
+
+*How it Works*
+
+When you type in this command, we take the values given for the `COURSE_NAME` and `SEMESTERS`
+and fill in those fields for your course. We do not check if the given course refers
+to actual courses in NUS. However, restrictions stated in the xref:tableRequirementParameters[Requirement Parameters]
+table still apply.
+
+<<CourseSetErrorReference>> lists errors you might encounter after issuing this command:
+
+[#CourseSetErrorReference]
+.Course Set Error Reference
+|===
+|Name | Message| Explanation| Solution
+
+|Parameters Not Provided Error |All fields to be filled, course set n/COURSE_NAME s/SEMESTERS
+|Not all parameters needed to set the course have been provided
+|Provide all parameters prepended with their prefixes
+|===
+
+*Tutorial*
+
+Follow these steps to get a clearer idea of how this command works.
+[NOTE]
+For this tutorial, actual values will be given instead of placeholders.
+You may undo changes made from this tutorial by using the appropriate command.
+
+1. Ensure that you do not have a course yet. You may do so by deleting the existing course
+with the `course delete` command.
+
+2. Type the following into the command box:
+`course set n/Computer Science s/8`, and press enter.
+
+3. The message in the response box should change and you should see the course name and semesters
+updated in the top left corner panel.
 
 ==== Course Edit
 
+This command edits the editable fields in a course which include the `COURSE_NAME` and `SEMESTERS`.
+
+IMPORTANT: Course name does not need to be specified.
+
+[#CourseEditQuickReference]
+.Course Edit Quick Reference
+|===
+|Purpose | Edits the course
+|Syntax| `course edit [n/COURSE_NAME] [s/SEMESTERS]`
+|Example | `course edit n/Engineering s/8`
+|===
+
+*How it Works*
+
+When you issue the command, we replace the fields provided with the given values. You are able to
+change the values as you wish as long as they follow the restrictions as listed in the parameters table.
+
+<<CourseEditErrorReference>> lists the errors you might encounter after issuing this command:
+
+[#CourseEditErrorReference]
+.Course Edit Error Reference
+|===
+|Name| Message| Explanation |Solution
+
+|Parameters Not Provided Or Not Modified |At least one field to edit must be provided
+|Parameters needed to edit the course are not provided
+|Try specifying either the name or the credits, or provide a value that is different from the existing one
+|===
+
+*Tutorial*
+
+[NOTE]
+For this tutorial, actual values will be given instead of placeholders.
+You may undo or delete objects created from this tutorial by using the appropriate commands.
+
+1. Ensure that you have a course set.
+
+2. Type the following into the command box:
+`course edit n/Computer Science s/8`, and press enter.
+
+3. The message in the response box should change and you should see the course name and semesters
+updated in the top left corner panel.
+
 ==== Course Delete
+
+This command *deletes the course as well as all other information stored* in iGrad. Please use with caution!
+
+IMPORTANT: Course name does not need to be specified.
+
+[#CourseDeleteQuickReference]
+.Course Delete Quick Reference
+|===
+|Purpose | Deletes the course
+|Syntax| `course delete`
+|Example | `course delete`
+|===
+
+*Tutorial*
+
+[NOTE]
+You may undo changes made from this tutorial by using the appropriate command.
+
+1. Ensure that you have a course set.
+
+2. Type the following into the command box:
+`course delete`, and press enter.
+
+3. The message in the response box should change and you should see the course name and semesters
+disappear, as well as all other information in iGrad.
+
 
 [#requirementSection]
 === Requirement
@@ -432,11 +561,11 @@ All requirement commands use the same parameters, as listed in the table below:
 
 |`REQUIREMENT_CODE`| A requirement's unique identifier, automagically generated by iGrad based on the requirement title | CSF0 |-
 |`REQUIREMENT_TITLE`| A requirement's title | Computer Science Foundation |Must contain at least one alphabet
-|`REQUIREMENT_CREDITS`| The number of http://www.nus.edu.sg/registrar/academic-information-policies/graduate/modular-system[modular credits] needed to fulfill the requirement | 32 | Must be a positive number less than or equals to 10,000
+|`REQUIREMENT_CREDITS`| The number of http://www.nus.edu.sg/registrar/academic-information-policies/graduate/modular-system[modular credits] needed to fulfill the requirement | 32 | Must be a positive number less than or equal to 10,000
 |`MODULE_CODE`| A module's module code, used when assigning or unassigning modules to and from a requirement | CS2103T | Detailed restrictions are specified xref:tableModuleParameters[here], but the requirement-specific restriction is that the module must already be added to iGrad.
 |===
 
-If, when issuing a requirement command, the parameter restrictions are not strictly adhered to, or if
+If the parameter restrictions are not strictly adhered to when issuing a requirement command, or if
 iGrad cannot find what you're looking for, you might come across some common errors.
 The following errors are generic and may be encountered when dealing with any requirement command:
 
@@ -446,6 +575,7 @@ The following errors are generic and may be encountered when dealing with any re
 |Parameter |Error Name
 
 |`REQUIREMENT_CODE`| Invalid Requirement Code
+|`REQUIREMENT_TITLE`| Invalid Requirement Title
 |`REQUIREMENT_CREDITS`| Invalid Requirement Credits
 |===
 
@@ -486,7 +616,7 @@ xref:tableRequirementParameters[Requirement Parameters] table still apply.
 Follow these steps to get a clearer idea of how this command works.
 [NOTE]
 For this tutorial, actual values will be given instead of placeholders.
-You may undo or delete objects created from this tutorial by using the appropriate commands.
+You may undo changes made from this tutorial by using the appropriate command.
 
 1. Type the following into the command box:
 `requirement add t/Computer Science Foundation u/32`, and press enter
@@ -502,6 +632,7 @@ image::../images/user-guide/requirementCommand/requirementAddSuccess.png[]
 This command edits the editable fields in a requirement which include the `REQUIREMENT_TITLE` and `REQUIREMENT_CREDITS`.
 The `REQUIREMENT_CODE` is not editable as it is a unique identifier assigned by iGrad.
 
+[#RequirementEditQuickReference]
 .Requirement Edit Quick Reference
 |===
 |Purpose | Edits a requirement
@@ -591,7 +722,97 @@ disappears from the list.
 
 ==== Requirement Assign
 
+This command assigns one or more than one module to a requirement.
+
+[#RequirementAssignQuickReference]
+.Requirement Assign Quick Reference
+|===
+|Purpose | Assigns module(s) to a requirement
+|Syntax| `requirement assign REQUIREMENT_CODE n/MODULE_CODE ...`
+|Example | `requirement assign CSF0 n/CS2103T n/CS2101`
+|===
+
+*How it Works*
+
+IMPORTANT: The module must already be added in iGrad for this command to work!
+Refer to <<ModuleAddCommand>> to find out how to add a module.
+
+<<RequirementAssignErrorReference>> lists the errors you might encounter after issuing this command:
+
+[#RequirementAssignErrorReference]
+.Requirement Assign Error Reference
+|===
+|Name |Message| Explanation |Solution
+
+|Requirement Not Found Error |The requirement code provided is invalid
+|The requirement you are attempting to assign to does not exist
+|Try changing the requirement code to one that you can find in the list
+|Module Not Found Error |The module does not exit in system
+|The module you are attempting to assign does not exist
+|You need to first add the module!
+|Module Already Assigned Error |The module is already assigned under the requirement
+|The module has been assigned to the requirement
+|Try assigning a different module instead
+|===
+
+*Tutorial*
+
+[NOTE]
+For this tutorial, actual values will be given instead of placeholders.
+You may undo changes made from this tutorial by using the appropriate command.
+
+1. Ensure that you have the requirement "Computer Science Foundation", coded CSF0, in the list.
+
+2. Type the following into the command box: `requirement assign CSF0 n/CS2103T n/CS2101`, and press enter.
+
+3. The message in the response box should change and you should see the following updated in the list:
+
++
+.Modules successfully assigned to requirement "Computer Science Foundation"
+image::../images/user-guide/requirementCommand/requirementAssignSuccess.png[]
+
 ==== Requirement Unassign
+
+This command unassigns one or more than one module from a requirement.
+
+[#RequirementUnassignQuickReference]
+.Requirement Unassign Quick Reference
+|===
+|Purpose | Unassign module(s) from a requirement
+|Syntax| `requirement unassign REQUIREMENT_CODE n/MODULE_CODE ...`
+|Example | `requirement unassign CSF0 n/CS2103T n/CS2101`
+|===
+
+*How it Works*
+
+IMPORTANT: The module must already be assigned to the requirement for this command to work!
+
+<<RequirementUnassignErrorReference>> lists the errors you might encounter after issuing this command:
+
+[#RequirementUnassignErrorReference]
+.Requirement Unassign Error Reference
+|===
+|Name |Message| Explanation |Solution
+
+|Requirement Not Found Error |The requirement code provided is invalid
+|The requirement you are attempting to unassign from does not exist
+|Try changing the requirement code to one that you can find in the list
+|Module Not Found Error |The module does not exit in system
+|The module you are attempting to unassign does not exist
+|You can add the module if you want
+|===
+
+*Tutorial*
+
+[NOTE]
+For this tutorial, actual values will be given instead of placeholders.
+You may undo changes made from this tutorial by using the appropriate command.
+
+1. Ensure that you have the requirement "Computer Science Foundation", coded CSF0, in the list, with modules CS2103T and CS2101 assigned to it.
+
+2. Type the following into the command box: `requirement unassign CSF0 n/CS2103T n/CS2101`, and press enter.
+
+3. The message in the response box should change and you should see the modules disappear from the requirement.
 
 // tag::module[]
 
