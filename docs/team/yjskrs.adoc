@@ -12,25 +12,27 @@ iGrad is a desktop module management and graduation tracking application. The us
 
 == Summary of contributions
 
-* *Major enhancement*: Added the *architecture for requirements*, integrating the requirement feature with the course feature and the module feature*.
+* *Major enhancement*: Added the *architecture for requirements and integrating the requirement feature with the course and module features*.
 ** _What it does_: Provides the requirement structure where modules can be assigned to, to keep track of the progress of a requirement.
 ** _Justification_: This feature is crucial in providing the ability for users to keep track of their graduation status through smaller categories known as requirements, instead of directly under a course.
 ** _Highlights_: This enhancement greatly increases the usability of the application because it makes course completion easier to track. It was also difficult to integrate this together with the course feature and the module feature since the code for this feature had to be written from scratch.
-** _Credits_: The original AB3 code which I referenced from the AddressBook structure as well as the Person structure to create this feature.
+** _Credits_: The original Address Book 3 code which I referenced from the AddressBook structure as well as the Person structure to create this feature.
 
 * *Major enhancement*: Added the *ability to add, edit and delete requirements*.
 ** _What it does_: Allows the user to add, edit and delete requirements.
 ** _Justification_: This feature improves the product significantly because it provides the flexibility for users to add their own requirement categories, edit them, and delete them if no longer needed.
-** _Highlights_:
-** _Credits_: The original AB3 code which I referenced to create the commands.
+** _Highlights_: Ensured that all the requirement properties, such as credits, are up-to-date after every command. I initially updated this in the command itself for efficiency, but this design was not modular since anyone creating a new requirement instance had to do the calculation themselves. So I chose modularity over efficiency and left the calculation in the requirement class instead.
+** _Credits_: The original Address Book 3 code which I referenced to create the commands.
 
 * *Minor enhancement*: Added the *ability to keep track of requirements being fulfilled*.
-** _What it does_: Allows the user to add, edit and delete requirements.
-** _Justification_: This feature improves the product significantly because it provides the flexibility for users to add their own requirement categories, edit them, and delete them if no longer needed.
-** _Highlights_:
-** _Credits_: The original AB3 code which I referenced to create the commands.
 
 * *Code contributed*: [https://github.com/AY1920S2-CS2103T-F09-3/main/commits?author=yjskrs[All commits]] [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=yjskrs[Project Code Dashboard]] _{give links to collated code files}_
+
+* *Contribution to Team Based Tasks*:
+** Refactored the entire Address Book 3 into iGrad at the initial stage, while making sure the tests still pass such that my teammates can work on the refactored code in peace.
+** Managed the issue tracker throughout the semester, helping the team add issues and document bugs found along the way.
+** Created the first mock User Guide with all the commands needed by our application, to set the direction for the application.
+
 * *Other contributions*:
 
 ** Project management:
@@ -48,8 +50,6 @@ iGrad is a desktop module management and graduation tracking application. The us
 ** Tools:
 *** Integrated a third party library (Natty) to the project (https://github.com[#42])
 *** Integrated a new Github plugin (CircleCI) to the team repo
-
-_{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
 |===
