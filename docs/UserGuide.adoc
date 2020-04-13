@@ -434,7 +434,6 @@ Expected Outcome
 You should be able to see the requirement created and/or edited in the main panel.
 
 '''
-// tag::module[]
 === Module
 Section by: https://github.com/waynewee[Wayne]
 
@@ -523,6 +522,7 @@ For this tutorial, actual values will be given instead of placeholders. Undo or 
 .Modules CS2103T and CS2101 successfully added
 image::../images/user-guide\moduleAutoAddCommand\two_modules.png[]
 
+//tag::wayne-ug[]
 [#ModuleAutoAddCommand]
 ==== Module Auto Add
 Section by: https://github.com/waynewee[Wayne]
@@ -606,7 +606,7 @@ in addition to tracking your graduation requirements, we do not prevent you from
 WARNING: As the prerequisites and preclusions from NUSMods do not follow any standard formatting, the warning messages shown might not
 always be accurate. This is due to a difficulty of interpreting
 the data given by NUSMods. This remains a BETA feature and we hope to upgrade it in time.
-
+// end::wayne-ug[]
 ==== Module Done
 Section by: https://github.com/waynewee[Wayne]
 
@@ -798,7 +798,7 @@ Ensure that the following modules are in the module list:
 This section contains information which requires prior knowledge of discrete mathematics or more specifically, logical operators
 
 The flag `-o`, is present, sets the logical operator used in concatenating the parameters as _"or"_. The default logical operator used is _"and"_.
-// end::module[]
+
 '''
 
 === Export

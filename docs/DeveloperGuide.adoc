@@ -384,7 +384,6 @@ Therefore, there are three types of result displayed to User:
 
 '''
 
-//tag::module[]
 === Module Feature
 Section by: https://github.com/waynewee[Wayne]
 
@@ -427,6 +426,7 @@ A module may also have the following optional values:
 .Module Class Diagram
 image::developer-guide/ModuleClassDiagram.png[]
 
+//tag::wayne-ug[]
 ==== Module Add Auto
 Section by: https://github.com/waynewee[Wayne]
 
@@ -524,8 +524,8 @@ Extensions:
 .Module Auto Add Use Case Diagram
 image::developer-guide/ModuleAutoAddUseCaseDiagram.png[]
 
+//end::wayne-ug[]
 '''
-
 *Messages for individual modules*
 
 As this feature allows a user to add `modules` by batches, it is possible that one or more `modules` in
@@ -559,6 +559,7 @@ currently only one request is made.
 [#previousImplementationOfModuleAddAuto]
 .Previous implementation of Module Add Auto
 image::developer-guide/ModuleAddAutoActivityDiagram.png[]
+
 
 ==== Module Filter
 
@@ -633,7 +634,7 @@ image::developer-guide/ModuleFilterStateDiagram.png[]
 An issue with the filtering of modules is that when the current state is not obvious, the
 user might lose track of what the module list is filtering on. To solve this problem,
 it would be an improvement to display the current state prominently to the user.
-//end::module[]
+
 '''
 
 === Requirements Feature
