@@ -208,7 +208,7 @@ image::../images/user-guide/walkthrough2.2.png[]
 
 === Key in your graduation requirements
 
-- Requirements are categories for modules required in the entered course.
+- Requirements refer to degree requirements needed in the entered course.
 - Enter your course graduation requirements in the format: `requirement add t/REQUIREMENT_TITLE u/MCS_REQUIRED`
 - Eg. `requirement add n/General Education u/20`
 +
