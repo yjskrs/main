@@ -292,8 +292,8 @@ A `CourseBook` contains only one course information.
 
 .Structure of CourseInfo Class
 image::developer-guide/CourseInfoClassDiagram.png[]
-A course consists of three information: Name, CAP, and SemsLeft. One course should only have one name,
-and one CAP.
+A course consists of four information: Name, Cap, Credits and Semesters. One course should only have one name,
+one Cap, one Credits and one Semesters.
 
 The course related commands that can be called are:
 
@@ -301,18 +301,86 @@ The course related commands that can be called are:
 * `course delete` - deletes existing course and all information in the course book
 * `course achieve` - calculates CAP needed to maintain each semester to achieve overall CAP targer
 
-Here is how the courseInfo class updates when name of course is edited:
+==== Semesters
+Section by: https://github.com/teriaiw[Teri]
 
-.Sequence Diagram when editing course name.
+.Course Semesters Class Diagram
+image::developer-guide/CourseSemestersClassDiagram.png[]
+
+`Semesters` stores the total semesters and remaining semesters that a user has in the course.
+
+* `Semesters` is first initialized when user does command `course set`. `totalSemesters` will be equal to
+`remainingSemesters` as user has not entered any other data to indicate completion of semesters.
+* `Semesters` is updated through method `computeSemesters` in `CourseInfo`.
+* `totalSemesters` is changed by user through the command `course edit`.
+* `remainingSemesters` is computed by method `computeRemainingSemesters`. This method uses the `moduleList`
+to check for `module` that has `Semester` and `Grade`. The `module` which fulfils the mentioned and has the latest
+`Semester` will be taken as the latest completed semester.
+
+
+==== Course Edit
+Section by: https://github.com/teriaiw[Teri]
+
+===== Overview
+Users can edit their course info, which are `Name` and `Semesters` by using the `course edit` command.
+
+===== Implementation
+Here is how the courseInfo class updates when name of course is edited.
+
+.Sequence Diagram when editing course name and course semesters.
 image::developer-guide/CourseEditSequenceDiagram.png[]
-When a user edits name of a course, the user has to specify the prefix `/n` for name.
+When a user edits name of a course, the user has to specify the prefix `n/` for `Name` or `s/` prefix
+for `Semesters`.
 Then the application proceeds to do the following steps:
 
-Step 1: The CourseEditCommandParser is called to parse the CourseEditCommand with the n/ prefix.
+. The `CourseEditCommandParser` is called to parse the `CourseEditCommand` with the `n/` and `s/` prefix.
+. The `CourseEditCommand` is executed and calls `setCourseInfo` to `Model`.
+. `Model` calls the same method `setCourseInfo` to `CourseBook`.
+. The new course `Name` and course `Semesters` is set in the `CourseBook`.
 
-Step 2: The CourseEditCommand is executed to set the new course name to the model.
+==== Course Achieve
+Section by: https://github.com/teriaiw[Teri]
 
-Step 3: The new course name is set in the course book.
+===== Overview
+Users can get an automatic calculation of their desired C.A.P. by using the `course achieve` command and
+entering their desired `Cap`.
+
+===== Implementation
+The computation of C.A.P. is done through `computeEstimatedCap` in `courseInfo` which uses `Semesters`
+and `Cap` of `courseInfo`.
+
+.Course Achieve Sequence Diagram
+image::developer-guide/CourseAchieveSequenceDiagram.png[]
+When a user wants to calculate achievable C.A.P., the user has to specify the prefix `c/` for `Cap`.
+Then the application proceeds to do the following steps:
+
+. The `CourseAchieveCommandParser` is called to parse the `CourseAchieveCommand` with the `c/` prefix.
+. The `CourseAchieveCommand` is executed and it calls method `getCourseInfo` in `Model` to get `CourseInfo`.
+. With the `CourseInfo` and `Cap`, `CourseAchieveCommand` calls method `calculateEstimatedCap` in `CourseInfo`.
+. `CourseInfo` calls method `getSemesters` and `getCap` to itself to get the following information:
+... `Semesters`
+... `Cap`
+. `computeEstimmatedCap` computes and returns estimate `Cap`.
+. The result is passed back to the user.
+
+===== Design Considerations
+
+*Invalid and Unachievable C.A.P.*
+
+It is possible that a calculated `Cap` to achieve is not a valid `Cap`. In such situations, an exception is
+thrown within the `computeEstimatedCap` command and it is caught in the `CourseAchieveCommand`. User will be
+given feedback that the desired C.A.P. is not achievable.
+
+The figure below illustrates this:
+
+.Course Achieve Activity Diagram
+image::developer-guide/CourseAchieveActivityDiagram.png[]
+
+Therefore, there are three types of result displayed to User:
+
+. When User enters invalid Cap to achieve
+. When computed Cap is invalid
+. When computed Cap is valid
 
 '''
 
