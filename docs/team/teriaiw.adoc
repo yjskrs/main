@@ -4,23 +4,46 @@
 :stylesDir: ../stylesheets
 
 == PROJECT: iGrad
+image::../images/Ui.png[]
 
 == Overview
+iGrad is a desktop module management and graduation tracking application. The user interacts with it using a CLI, and
+it has a GUI created with JavaFX, FXML and CSS.
 
 == Summary of contributions
 
-* *Code contributed*: [https://github.com/AY1920S2-CS2103T-F09-3/main/commits?author=teriaiw[All commits]] [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=teriaiw[Project Code Dashboard]]
+* *Major Enhancement*: added feature to *calculate C.A.P. to achieve desired C.A.P.*
+** What it does: allows the user to get an estimate of what C.A.P. they should expect to maintain per semester to
+achieve the desired C.A.P. that they want.
+** Justification: This feature allows users to better keep track and aim for better grades.
+It provides added convenience for users as it uses existing data that user has already input.
+** Highlights: Consideration for unachievable C.A.P. was included
 
-* *Enhancements Implemented*:
+* *Major Enhancement*: Integrate *Semesters tracking* under course management feature
+** What it does: tracking of how many semesters a user has left for their course of study, calculated based
+on total semesters that user has input and completed semesters based on modules completed.
+** Justification: This feature provides convenience to users as it allows the user to know of such information without
+additional calculations. Therefore, it adds to user experience. This feature is also necessary for the calculation
+of C.A.P. feature.
+** Highlights: Tracking does not require any additional input by user, and is updated automatically on the UI.
+** Credits: http://github.com/waynewee[Wayne] for integrating backend to frontend functionality
 
-* *Documentation*:
+* *Minor Enhancement*: assisted https://github.com/nathanaelseen[Nathanael] in adding feature of Course editing and
+deletion in initial phase of project.
+
+* *Code contributed*: [https://github.com/AY1920S2-CS2103T-F09-3/main/commits?author=teriaiw[All commits]][https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=teriaiw[Project Code Dashboard]]
 
 * *Contribution to Team Based Tasks*:
-
-* *Review/Mentoring Contributions*:
+** Added personalization to messages that are feedback to user while using the application.
+** Standardized overall messages to be shown to user while using the application.
+** Presented project as part of the product pitch team.
 
 == Contributions to the User Guide
-
+|===
+|_Given below are the sections I contributed to the User Guide. They showcase my ability to communicate with end-users
+of the product in question. Worked in conjunction with https://github.com/dargohzy[Daryl]._
+|===
+include::../UserGuide.adoc[tag=walkthrough]
 
 |===
 |_Sections contributed to UG_
@@ -30,5 +53,9 @@
 == Contributions to the Developer Guide
 
 |===
-|_Sections contributed to DG_
+|_Given below are the sections I contributed to the Developer Guide. They showcase my ability to communicate technical
+information into documentation as well as my contributions to the project._
 |===
+include::../DeveloperGuide.adoc[tag=semesters]
+include::../DeveloperGuide.adoc[tag=courseedit]
+include::../DeveloperGuide.adoc[tag=courseachieve]
