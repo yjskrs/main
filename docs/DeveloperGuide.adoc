@@ -845,7 +845,7 @@ bypassing the updating of the `Requirement(s)`.
 '''
 
 
-//tag::RequirementFeature[]
+//end::requirement-yijie[]
 === Requirement Feature
 Section by: https://github.com/yjskrs[Yijie]
 
@@ -964,9 +964,44 @@ may exist, so we need to allow users to differentiate amongst such requirements.
 allowed to add requirements with the same `Title` to enhance the flexibility of adding requirements, so the
 `RequirementCode` also allows users to differentiate amongst these requirements.
 
-//tag::RequirementEdit[]
-==== Requirement Edit
-Section by: https://github.com/yjskrs[Yijie]
+The use case for adding a requirement is as follows:
+
+System: iGrad
+
+Use case: UCR1 - Add requirement
+
+Actor: User
+
+MSS:
+
+1. User requests to add a requirement.
+
+2. iGrad requires user to enter a requirement title and credits.
+
+3. User enters the title and credits.
+
+4. iGrad creates the requirement.
+
+5. Use case ends.
+
+Extensions:
+
+3a. The requirement title is not provided.
+
+3a1. iGrad prompts user for requirement title.
+
+3a2. User enters a requirement title.
+
+Steps 3a1-3a2 are repeated until a valid requirement title is provided.
+
+Use case resumes at step 4.
+
+Below displays the activity diagram for adding a requirement.
+
+.Activity Diagram when adding a requirement.
+image::developer-guide/RequirementAddActivityDiagram.png[]
+
+//end::requirement-yijie[]
 
 //tag::requirement-assign-dg[]
 

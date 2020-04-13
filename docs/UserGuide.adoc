@@ -308,14 +308,13 @@ image::../images/user-guide/walkthrough10.2.png[]
 image::../images/user-guide/walkthrough10.3.png[]
 //end::walkthrough[]
 
-
 == Command List
 Section by: https://github.com/yjskrs[Yijie]
 
 This section provides a detailed breakdown of the various commands you may use in iGrad.
 Please read <<Command Format>> to understand how our commands work!
 
-// tag::commandFormat[]
+//tag::command-yijie[]
 === Command Format
 Section by: https://github.com/yjskrs[Yijie]
 
@@ -375,6 +374,8 @@ The two flags used in iGrad are listed in the table below.
 |`-a`| Informs iGrad to use automated module adding by pulling data of modules from NUSMods. Only used in the xref:ModuleAutoAddCommand[ModuleAutoAdd] command.
 |`-o`| Informs iGrad to use the or option when filtering modules. Only used in the xref:ModuleFilterCommand[ModuleFilter] command.
 |===
+
+//end::command-yijie[]
 
 [#helpSection]
 === Help
@@ -542,7 +543,7 @@ You may undo changes made from this tutorial by using the appropriate command.
 3. The message in the response box should change and you should see the course name and semesters
 disappear, as well as all other information in iGrad.
 
-
+//tag::requirement-yijie[]
 [#requirementSection]
 === Requirement
 Section by: https://github.com/yjskrs[Yijie]
@@ -717,6 +718,7 @@ You may undo objects deleted from this tutorial by using the appropriate command
 
 2. The message in the response box should change and you should see that the requirement CSF0
 disappears from the list.
+//end::requirement-yijie[]
 
 ==== Requirement Assign
 

@@ -26,17 +26,17 @@ iGrad is a desktop module management and graduation tracking application. The us
 
 * *Minor enhancement*: Added the *ability to keep track of requirements being fulfilled*.
 
-* *Code contributed*: [https://github.com/AY1920S2-CS2103T-F09-3/main/commits?author=yjskrs[All commits]] [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=yjskrs[Project Code Dashboard]] _{give links to collated code files}_
+* *Code contributed*: [https://github.com/AY1920S2-CS2103T-F09-3/main/commits?author=yjskrs[All commits]] [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=yjskrs[Project Code Dashboard]]
 
 * *Contribution to Team Based Tasks*:
-** Refactored the entire Address Book 3 into iGrad at the initial stage, while making sure the tests still pass such that my teammates can work on the refactored code in peace.
+** Refactored the entire Address Book 3 into iGrad at the initial stage, while making sure the tests still pass so that my teammates can work on the refactored code without any issues.
 ** Managed the issue tracker throughout the semester, helping the team add issues and document bugs found along the way.
 ** Helped set up Coveralls and Codacy for the team.
 
 * *Other contributions*:
 
 ** Project management:
-*** Created the first mock User Guide with all the commands needed by our application, to set the direction for the application.
+*** Wrote the first draft of the User Guide with all the commands that our application would use. This was crucial in setting the direction of our application.
 *** In charge of delegation of work and ensuring that the team completes their work on time.
 *** Managed the issue tracker to reflect project progress at least once a week, assigning issues or bugs to the relevant teammate and closing issues when they have been resolved.
 
@@ -44,14 +44,14 @@ iGrad is a desktop module management and graduation tracking application. The us
 *** PRs reviewed: https://github.com/AY1920S2-CS2103T-F09-3/main/pull/89[#89], https://github.com/AY1920S2-CS2103T-F09-3/main/pull/110[#110], https://github.com/AY1920S2-CS2103T-F09-3/main/pull/160[#160], https://github.com/AY1920S2-CS2103T-F09-3/main/pull/170[#170]
 *** Reported bugs and suggestions for other teams in the class (examples: https://github.com/nus-cs2103-AY1920S2/addressbook-level3/pull/18#pullrequestreview-370037005[#18], https://github.com/nus-cs2103-AY1920S2/addressbook-level3/pull/45#pullrequestreview-382526605[#45])
 
-
 == Contributions to the User Guide
 |===
-|_Given below are the sections I contributed to the User Guide. They showcase my ability to communicate with end-users
-of the product in question.
+_Given below are the sections I contributed to the User Guide. They showcase my ability to communicate with end-users
+of the product in question._
 |===
 
-//include::../UserGuide.adoc[tag=walkthrough]
+include::../UserGuide.adoc[tag=command-yjskrs]
+include::../UserGuide.adoc[tag=requirement-yjskrs]
 
 <<<
 
@@ -62,7 +62,5 @@ of the product in question.
 information into documentation as well as my contributions to the project._
 |===
 
-//include::../DeveloperGuide.adoc[tag=semesters]
-//include::../DeveloperGuide.adoc[tag=courseedit]
-//include::../DeveloperGuide.adoc[tag=courseachieve]
+include::../DeveloperGuide.adoc[tag=requirement-yijie]
 
