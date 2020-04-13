@@ -21,7 +21,7 @@ iGrad is a desktop module management and graduation tracking application. The us
 * *Major enhancement*: Added the *ability to add, edit and delete requirements*.
 ** _What it does_: Allows the user to add, edit and delete requirements.
 ** _Justification_: This feature improves the product significantly because it provides the flexibility for users to add their own requirement categories, edit them, and delete them if no longer needed.
-** _Highlights_: Ensured that all the requirement properties, such as credits, are up-to-date after every command. I initially updated this in the command itself for efficiency, but this design was not modular since anyone creating a new requirement instance had to do the calculation themselves. So I chose modularity over efficiency and left the calculation in the requirement class instead.
+** _Highlights_: Ensured that all the requirement properties, such as credits, are up-to-date after every command. The feature initially prioritized efficiency over modularity, but this caused issues as new requirement instances required manual calculations of the properties, prompting the change to a more modular implementation of the code.
 ** _Credits_: The original Address Book 3 code which I referenced to create the commands.
 
 * *Minor enhancement*: Added the *ability to keep track of requirements being fulfilled*.
@@ -31,25 +31,19 @@ iGrad is a desktop module management and graduation tracking application. The us
 * *Contribution to Team Based Tasks*:
 ** Refactored the entire Address Book 3 into iGrad at the initial stage, while making sure the tests still pass such that my teammates can work on the refactored code in peace.
 ** Managed the issue tracker throughout the semester, helping the team add issues and document bugs found along the way.
-** Created the first mock User Guide with all the commands needed by our application, to set the direction for the application.
+** Helped set up Coveralls and Codacy for the team.
 
 * *Other contributions*:
 
 ** Project management:
-*** In charge of delegation of work and ensuring that the team completes their work on time
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Created the first mock User Guide with all the commands needed by our application, to set the direction for the application.
+*** In charge of delegation of work and ensuring that the team completes their work on time.
+*** Managed the issue tracker to reflect project progress at least once a week, assigning issues or bugs to the relevant teammate and closing issues when they have been resolved.
+
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** PRs reviewed: https://github.com/AY1920S2-CS2103T-F09-3/main/pull/89[#89], https://github.com/AY1920S2-CS2103T-F09-3/main/pull/110[#110], https://github.com/AY1920S2-CS2103T-F09-3/main/pull/160[#160], https://github.com/AY1920S2-CS2103T-F09-3/main/pull/170[#170]
+*** Reported bugs and suggestions for other teams in the class (examples: https://github.com/nus-cs2103-AY1920S2/addressbook-level3/pull/18#pullrequestreview-370037005[#18], https://github.com/nus-cs2103-AY1920S2/addressbook-level3/pull/45#pullrequestreview-382526605[#45])
+
 
 == Contributions to the User Guide
 |===
