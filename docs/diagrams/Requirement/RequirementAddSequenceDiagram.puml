@@ -28,14 +28,25 @@ RequirementAddCommandParser -> RequirementAddCommand
 activate RequirementAddCommand
 
 RequirementAddCommand --> RequirementAddCommandParser
+deactivate RequirementAddCommand
 RequirementAddCommandParser --> CourseBookParser : r
 deactivate RequirementAddCommandParser
+destroy RequirementAddCommandParser
 
 CourseBookParser --> LogicManager : r
 deactivate CourseBookParser
 
 LogicManager -> RequirementAddCommand : execute()
 activate RequirementAddCommand
+
+RequirementAddCommand -> RequirementAddCommand : generateRequirementCode()
+activate RequirementAddCommand
+RequirementAddCommand -> Model : getRequirementList()
+activate Model
+Model -> RequirementAddCommand
+deactivate Model
+RequirementAddCommand -> RequirementAddCommand : requirementCode
+deactivate RequirementAddCommand
 
 RequirementAddCommand -> Model : addRequirement()
 activate Model

@@ -36,14 +36,17 @@ class Credits {
 class UniqueModuleList {
     -internalList
     -internalUnmodifiableList
+    +add()
+    +set()
+    +remove()
     +contains()
     +getByModuleCode()
     +asUnmodifiableObservableList()
 }
 
 ReadOnlyRequirement <|-- Requirement
-Requirement *-- "1" RequirementCode : contains
-Requirement *-- "1" Title : contains
-Requirement *-- "1" Credits : contains
-Requirement *-- "1" UniqueModuleList : contains
+Requirement *-- "1" RequirementCode
+Requirement *-- "1" Title
+Requirement *-- "1" Credits
+Requirement *-- "1" UniqueModuleList
 @enduml

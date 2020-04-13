@@ -666,18 +666,24 @@ All four sub-components are compulsory and must always be specified in a `Requir
 sub-components are specified in the table below:
 
 [#tableRequirementComponentProperties]
-.Requirement Component Properties
+.Requirement Component Properties.
 |===
 |Class Name |Properties |Example
 
-|`RequirementCode` |The unique identifier of a requirement. |CSF0
+|`RequirementCode` |The *unique* identifier of a requirement.
+
+Implemented to allow users to easily specify the requirement they want to modify or remove. See xref:requirementCodeDesignConsiderations[Requirement Code Design Considerations].
+
+|CSF0
+
 |`Title` |The title of a requirement.
 
 Does not have to be unique.
 
 |Computer Science Foundation
-|`Credits` |The credits of a requirement |40
-|`UniqueModuleList` |The list of modules assigned to a requirement |List containing modules CS1101S, CS2101, CS2103T
+
+|`Credits` |The credits of a requirement, |40
+|`UniqueModuleList` |The list of modules assigned to a requirement. |List containing modules CS1101S, CS2101, CS2103T
 |===
 
 When a `Module` is added to a `Requirement`, the `UniqueModuleList` is updated with the new `Module`.
@@ -688,6 +694,7 @@ to a `Requirement`, `creditsAssigned` and `creditsFulfilled` would both increase
 
 The class diagram below illustrates the relationship between `Requirement` components.
 
+[#requirementClassDiagram]
 .Structure of the Requirement class.
 image::developer-guide/RequirementClassDiagram.png[]
 
@@ -702,28 +709,59 @@ image::developer-guide/RequirementClassDiagram.png[]
 ==== Requirement Add
 Section by: https://github.com/yjskrs[Yijie]
 
-Here is how the requirement class updates when a requirement is added:
+===== Overview
+The `requirement add` command adds a `Requirement` to the `Course`. The `Credits` information held by the `Course`
+is updated to reflect the total modular credits required to complete the course.
 
+===== Implementation
+When a user enters a `requirement add` command, the parameters specified by the user, i.e. the requirement title
+and the requirement credits required to fulfill the `Requirement`, are passed to the `LogicManager`,
+`CourseBookParser` and subsequently into the `RequirementAddCommandParser` where the parameters are extracted
+and parsed into `Title` and `Credits` objects.
+
+The `RequirementCode` is generated at this stage by using the first letter of every word in the
+title parameter passed in, upper-cased. For example, if the title provided is "Computer Science Foundation",
+the `RequirementCode` generated would be `CSF`. Similarly, if the title provided is "3Computer Science 4Foundation",
+the `RequirementCode` generated would still be `CSF` because non-alphabets in the title are ignored.
+
+The parsed `Title`, `Credits` and the generated `RequirementCode` are used to create a `RequirementAddCommand` object,
+which is later executed by the `LogicManager`, as shown in the
+xref:requirementAddSequenceDiagram[Requirement Add Sequence Diagram] below.
+
+When the command is executed by the `LogicManager`, the new `Requirement` is created and
+stored in the `CourseBook` through the `Model`.
+
+[#requirementAddSequenceDiagram]
 .Sequence Diagram when adding a requirement.
 image::developer-guide/RequirementAddSequenceDiagram.png[]
 
-When the user adds a requirement, the user has to specify two prefixes: `n/` for title and `u/` for credits value (number of credits needed to fulfill for the requirement).
-Then, the application proceeds to do the following steps
+===== Design Considerations
 
-Step 1: The RequirementAddCommandParser is called to parse the RequirementAddCommand with the `n/` and the `u/` prefixes into a new requirement.
+[#requirementCodeDesignConsiderations]
+====== Requirement Code
 
-Step 2: The RequirementAddCommand is executed to add the new requirement to the model. In this step, the following check is performed:
+Originally, we chose to use the requirement `Title` as the *unique* identifier for requirements, which means that
+specifying a `Requirement` to be modified or deleted would be handled by entering the `Title`. However, we realised
+that that was a big deterrent in users staying on our application in the long run. The reason is because requirement
+titles are generally long, and often require more than one word to be expressed. For example, typing "Computer
+Science Foundation" or "Computer Science Breadth and Depth" every time a module was to be assigned to a requirement
+would require a relatively long time, and would violate our xref:nonFunctionalRequirements[Non-Functional Requirement]
+of providing users with an application which can be navigated quickly through typing.
 
-* Check if a requirement with the same title already exists in the course book.
+Hence, we chose the design of providing users with a `RequirementCode`, the *unique* identifier which allows
+users to quickly access the `Requirement` they want to modify or delete.
 
-Step 3: The new requirement is added to the course book.
+In order to make the `RequirementCode` strictly *unique*, further parsing is performed on the `RequirementCode`
+generated by the `RequirementAddCommandParser`. When the `RequirementAddCommand` is executed by the `LogicManager`,
+a new `RequirementCode` is generated, as shown in the
+xref:requirementAddSequenceDiagram[Requirement Add Sequence Diagram], by appending an integer to the back of
+the original `RequirementCode`. This is necessary as multiple requirements with the same starting alphabets
+may exist, so we need to allow users to differentiate amongst such requirements. Furthermore, users are also
+allowed to add requirements with the same `Title` to enhance the flexibility of adding requirements, so the
+`RequirementCode` also allows users to differentiate amongst these requirements.
 
 //tag::RequirementEdit[]
 ==== Requirement Edit
-Section by: https://github.com/yjskrs[Yijie]
-
-//tag::RequirementDelete[]
-==== Requirement Delete
 Section by: https://github.com/yjskrs[Yijie]
 
 '''
@@ -1050,6 +1088,7 @@ Module has already been assigned to the requirement.
 Use case ends.
 
 [appendix]
+[#nonFunctionalRequirements]
 == Non Functional Requirements
 
 . Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
