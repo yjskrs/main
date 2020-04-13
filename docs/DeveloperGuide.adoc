@@ -645,24 +645,62 @@ it would be an improvement to display the current state prominently to the user.
 
 '''
 
-=== Requirements Feature
-Within a course, there are multiple requirements to be tracked.
+//tag::RequirementFeature[]
+=== Requirement Feature
+Section by: https://github.com/yjskrs[Yijie]
 
+The `Requirement` feature bridges the connection between a `Module` and a `Course`. A `Requirement` represents
+a category with a set amount of modular credits needed to be fulfilled in order to graduate. By
+adding modules to a `Requirement`, these modules are tracked under the modular credits needed to fulfill
+the `Requirement`, as well as the total modular credits needed to fulfill the `Course`.
+
+Multiple requirements can exist in a `Course`. When all requirements have been fulfilled,
+we indicate that the `Course` has been completed.
+
+//tag::RequirementImplementation[]
 ==== Implementation
-.The Requirement class
+Section by: https://github.com/yjskrs[Yijie]
+
+The `Requirement` component contains 4 sub-components: `RequirementCode`, `Title`, `Credits` and `UniqueModuleList`.
+All four sub-components are compulsory and must always be specified in a `Requirement`. The properties of these four
+sub-components are specified in the table below:
+
+[#tableRequirementComponentProperties]
+.Requirement Component Properties
+|===
+|Class Name |Properties |Example
+
+|`RequirementCode` |The unique identifier of a requirement. |CSF0
+|`Title` |The title of a requirement.
+
+Does not have to be unique.
+
+|Computer Science Foundation
+|`Credits` |The credits of a requirement |40
+|`UniqueModuleList` |The list of modules assigned to a requirement |List containing modules CS1101S, CS2101, CS2103T
+|===
+
+When a `Module` is added to a `Requirement`, the `UniqueModuleList` is updated with the new `Module`.
+At the same time, the `creditsAssigned` property of the `Credits` class also updates accordingly. If
+the `Module` is completed, the `creditsFulfilled` property of `Credits` also updates to add the
+credits of the `Module`. For example, if a module with 4 modular credits was marked as done and assigned
+to a `Requirement`, `creditsAssigned` and `creditsFulfilled` would both increase by 4.
+
+The class diagram below illustrates the relationship between `Requirement` components.
 
 .Structure of the Requirement class.
 image::developer-guide/RequirementClassDiagram.png[]
-A requirement consists of three components: title, credits and unique module list.
-The unique module list implies that each requirement stores modules assigned to that requirement.
-Multiple requirements can exist in the course book at any one time.
 
-The requirement-related commands that can be called are:
+`Requirement` commands that are available are:
 
-* `requirement add` - adds a new requirement to the course book
-* `requirement edit` - edits an existing requirement in the course book
-* `requirement delete` - deletes an existing requirement from the course book
-* `assign` - assigns a module to the requirement
+* `requirement add` - adds a new requirement to the course
+* `requirement edit` - edits an existing requirement in the course
+* `requirement delete` - deletes an existing requirement from the course
+* `requirement assign` - assigns module(s) to the requirement
+
+//tag::RequirementAdd[]
+==== Requirement Add
+Section by: https://github.com/yjskrs[Yijie]
 
 Here is how the requirement class updates when a requirement is added:
 
@@ -680,6 +718,13 @@ Step 2: The RequirementAddCommand is executed to add the new requirement to the 
 
 Step 3: The new requirement is added to the course book.
 
+//tag::RequirementEdit[]
+==== Requirement Edit
+Section by: https://github.com/yjskrs[Yijie]
+
+//tag::RequirementDelete[]
+==== Requirement Delete
+Section by: https://github.com/yjskrs[Yijie]
 
 '''
 
@@ -901,8 +946,9 @@ _{All user stories can be viewed from our wiki page and from our issues tracker.
 
 [appendix]
 == Use Cases
+Section by: https://github.com/yjskrs[Yijie]
 
-(For all use cases below, the *System* is `iGrad` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is `iGrad` and the *Actor* is the `user`, unless specified otherwise.)
 
 [discrete]
 === Use case: U01 - Create Course
@@ -1003,8 +1049,6 @@ Module has already been assigned to the requirement.
 +
 Use case ends.
 
-_{More to be added}_
-
 [appendix]
 == Non Functional Requirements
 
@@ -1025,23 +1069,6 @@ Windows, Linux, Unix, OS-X
 [[private-contact-detail]]
 Private contact detail::
 A contact detail that is not meant to be shared with others
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 [appendix]
 == Instructions for Manual Testing
@@ -1081,11 +1108,8 @@ Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
-
 === Saving data
 
 . Dealing with missing/corrupted data files
 
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-_{ more test cases ... }_
