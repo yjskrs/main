@@ -18,6 +18,12 @@ public class Semesters {
 
     public static final String VALIDATION_REGEX = "^[0-9]\\d*$";
 
+    // set max limit to 100
+    public static final int MAX_SEMS = 100;
+
+    // set min limit to 0
+    public static final int MIN_SEMS = 0;
+
     public final int totalSemesters;
 
     public final int remainingSemesters;
@@ -57,21 +63,23 @@ public class Semesters {
     public static boolean isValidSemesters(String test) {
         requireNonNull(test);
 
-        return test.matches(VALIDATION_REGEX) && Integer.parseInt(test) > 0;
+        return test.matches(VALIDATION_REGEX)
+                && Integer.parseInt(test) > MIN_SEMS
+                && Integer.parseInt(test) < MAX_SEMS;
     }
 
     /**
      * Returns true if given integer {@code test} is a valid total Semesters count (i.e. more than or equals 0).
      */
     public static boolean isValidTotalSemesters(int test) {
-        return test > 0;
+        return test > MIN_SEMS && test < MAX_SEMS;
     }
 
     /**
      * Returns true if given integer {@code test} is a valid remaining Semesters count (i.e. more than or equals 0).
      */
     public static boolean isValidRemainingSemesters(int test) {
-        return test >= 0;
+        return test >= MIN_SEMS && test < MAX_SEMS;
     }
 
     public int getTotalSemesters() {
