@@ -76,14 +76,22 @@ public class Semesters {
      * Returns true if given integer {@code test} is a valid total Semesters count (i.e. more than or equals 0).
      */
     public static boolean isValidTotalSemesters(int test) {
-        return test > MIN_SEMS && test < MAX_SEMS;
+        try {
+            return test > MIN_SEMS && test < MAX_SEMS;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
     /**
      * Returns true if given integer {@code test} is a valid remaining Semesters count (i.e. more than or equals 0).
      */
     public static boolean isValidRemainingSemesters(int test) {
-        return test >= MIN_SEMS && test < MAX_SEMS;
+        try {
+            return test >= MIN_SEMS && test < MAX_SEMS;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
     public int getTotalSemesters() {
