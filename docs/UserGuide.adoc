@@ -199,8 +199,8 @@ image::../images/user-guide/walkthrough1.png[]
 === Enter your course details
 
 - Course refers to the name of the course you are currently enrolled in.
-- Enter the name of your course in the format: `course add n/COURSE_NAME`
-- Eg. `course add n/Computer Science`
+- Enter the name of your course in the format: `course add n/COURSE_NAME s/TOTAL_SEMESTERS`
+- Eg. `course add n/Computer Science s/2`
 +
 image::../images/user-guide/walkthrough2.1.png[]
 +
@@ -274,7 +274,7 @@ image::../images/user-guide/walkthrough8.png[]
 - C.A.P. is automatically tracked and updated.
 - C.A.P. is updated whenever a module within a requirement is marked done with a grade.
 +
-image::../images/user-guide/walkthrough8.png[]
+image::../images/user-guide/walkthrough9.png[]
 
 
 === Export your data
