@@ -287,6 +287,8 @@ Classes used by multiple components are in the `iGrad.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
+//tag::course-feature-dg[]
+
 === Course Feature
 Section by: https://github.com/nathanaelseen[Nathanael Seen]
 
@@ -321,15 +323,15 @@ Also, as per the diagram above, we note that these fields (in a `CourseInfo`) ar
 because a user might not even have a course set in the first place. This occurs when the
 application is started out in a 'blank' state, with no initial or sample data.
 
-Now, to describe more of this `CourseInfo` class, its fields, the following two sections would
+Now, to describe more of this `CourseInfo` class, its fields, the following two sub-sections would
 detail the `Credits` and `Semesters` classes and their design.
 
-Thereafter, the next two sections would attempt to explain the mechanics of the two crucial static
+Thereafter, the next two sub-sections would attempt to explain the mechanics of the two crucial static
 methods `computeCredits(...)` and `computeCap(...)`, which is used
 throughout the application.
 
 Finally, the last few sections would be dedicated to elaborating how the various
-course commands; `course set`, `course edit`, `course achieve`, and `course delete` works.
+course commands; `course edit` and `course achieve` works.
 
 ===== Credits
 Section by: https://github.com/nathanaelseen[Nathanael Seen]
@@ -376,6 +378,8 @@ following conditions have been met:
 ** There is at least one `Requirement` in the `UniqueRequirementList`, by which `creditsRequired`
 and `creditsFulfilled` could be re/computed.
 
+//end::course-feature-dg[]
+
 ===== Semesters
 
 //tag::semesters[]
@@ -399,6 +403,8 @@ to check for `module` that has `Semester` and `Grade`. The `module` which fulfil
 
 //end::semesters[]
 '''
+
+//tag::course-compute-credits-cap-dg[]
 
 anchor:anchor-tag-d[]
 
@@ -464,6 +470,8 @@ In summary, the following steps are performed as `computeCap(...)` is invoked:
 . Finally, `CourseInfo` interacts with `Grade` to determine if the `Grade` is a non-SU grade.
 . If the `Grade` is non-SU, the `Module` is factored into Cap computation.
 
+//end::course-compute-credits-cap-dg[]
+
 anchor:anchor-tag-e[]
 
 //tag::courseedit[]
@@ -489,7 +497,6 @@ Then the application proceeds to do the following steps:
 . The new course `Name` and course `Semesters` is set in the `CourseBook`.
 
 //end::courseedit[]
-'''
 
 //tag::courseachieve[]
 ==== Course Achieve
@@ -536,6 +543,7 @@ Therefore, there are three types of result displayed to User:
 . When computed Cap is invalid
 . When computed Cap is valid
 //end::courseachieve[]
+
 '''
 
 anchor:anchor-tag-b[]
@@ -793,17 +801,39 @@ An issue with the filtering of modules is that when the current state is not obv
 user might lose track of what the module list is filtering on. To solve this problem,
 it would be an improvement to display the current state prominently to the user.
 
-'''
+//tag::module-done-dg[]
 
 ==== Module Done
 
+Section by: https://github.com/nathanaelseen[Nathanael Seen]
+
 ===== Overview
 
-This feature allows students to mark a module with a certain grade when she has completed
-a module.
+This feature enables students to mark a module which they have completed with a certain grade.
+Once a module is marked 'done', it would be counted to graduation requirements.
+
 ===== Implementation
 
-===== Design consideration
+Trivial as it might seem, there are actually quite a number of `coursebook` data which needs to
+be updated when a module is marked 'done'.
+
+This includes the `Module` itself, the various `Requirements` in the `UniqueRequirementList`,
+and the `CourseInfo`.
+
+The following diagram illustrates this:
+
+.Module Done Sequence Diagram
+image::developer-guide/ModuleDoneActivityDiagram.png[]
+
+As from the above, there are two possible scenarios; either a `Module` belongs to at least one
+`Requirement` or that it does not belong to any `Requirement`.
+
+In the latter case, calls to methods which update `CourseInfo` would be immediately invoked,
+bypassing the updating of the `Requirement(s)`.
+
+//end::module-done-dg[]
+
+'''
 
 anchor:anchor-tag-c[]
 
@@ -824,7 +854,7 @@ The requirement-related commands that can be called are:
 * `requirement add` - adds a new requirement to the course book
 * `requirement edit` - edits an existing requirement in the course book
 * `requirement delete` - deletes an existing requirement from the course book
-* `assign` - assigns a module to the requirement
+* `requirement assign` - assigns module(s) to the requirement
 
 Here is how the requirement class updates when a requirement is added:
 
@@ -842,6 +872,35 @@ Step 2: The RequirementAddCommand is executed to add the new requirement to the 
 
 Step 3: The new requirement is added to the course book.
 
+//tag::requirement-assign-dg[]
+
+==== Requirement Assign
+
+===== Overview
+
+This feature allows `Module(s)` to be assigned or mapped under a `Requirement`.
+
+===== Implementation
+
+We note that as like the `module done` command, a few pieces of information in the
+`coursebook` would have to be updated.
+
+The command-parsing-execute mechanism is largely similar to `requirement add` the above, however,
+we would like to focus more on the activities (such as validations, etc) that happens
+at the `Model` side.
+
+The following diagram details this:
+
+.Activity Diagram when assigning modules under a requirement.
+image::developer-guide/RequirementAssignActivityDiagram.png[]
+
+Hence as per the diagram, we observe that modules are assigned to a `Requirement`
+on the following two conditions:
+
+. All `Modules` to assign are existent in the `coursebook` (more specifically, the `UniqueModuleList`)
+. `Modules` have not already been previously assigned to that `Requirement`
+
+//end::requirement-assign-dg[]
 
 '''
 

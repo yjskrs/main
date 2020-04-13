@@ -1,0 +1,18 @@
+@startuml
+start
+:User executes 'module done' command;
+
+:Module is updated in coursebook;
+
+if (Module belongs to at least one Requirement) then ([no])
+else ([yes])
+    :All Requirements in the UniqueRequirementList consisting the module is updated (e.g, total credits (MCs) fulfilled);
+endif
+
+:Calls to methods responsible for updating CourseInfo (e.g, computeCap(...));
+
+:Success command message is displayed;
+
+stop
+@enduml
+

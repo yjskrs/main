@@ -1,0 +1,78 @@
+:imagesDir: images
+
+==== Implementation
+
+Section by: https://github.com/nathanaelseen[Nathanael Seen]
+
+
+In the implementation of the course feature which 'houses' the various xref:anchor-tag-c[`Requirements`]
+and the xref:anchor-tag-b[`Modules`] mapped under those requirements, a `CourseInfo` class is
+necessary in order to represent overall course information, such as the name of the course, the
+current cap of the student (or user), the total credits (MCs) fulfilled/required, and
+semesters left before she could graduate.
+
+These important information are encapsulated in the `CourseInfo` class which should only
+have one `Name`, one `Cap`, one `Credits` and one `Semesters` object(s), at any one time:
+
+.Structure of CourseInfo Class
+image::developer-guide/CourseInfoClassDiagram.png[]
+
+Also, as per the diagram above, we note that these fields (in a `CourseInfo`) are optional,
+because a user might not even have a course set in the first place. This occurs when the
+application is started out in a 'blank' state, with no initial or sample data.
+
+<<<
+
+===== Compute Cap
+
+Similar to `Credits`, `Cap` has to be updated frequently, each time module information
+in `coursebook` changes, and the static method, `computeCap(...)`, facilitates the recomputation of the
+updated `Cap`.
+
+The diagram below describes the interactions between the various classes, as the computation
+is performed:
+
+.Sequence Diagram for computing updated cap
+image::developer-guide/ComputeCapSequenceDiagram.png[]
+
+We note that from above, `CourseInfo` does most of the interfacing with other classes,
+and the rest of the classes don't interact with each another.
+
+In summary, the following steps are performed as `computeCap(...)` is invoked:
+
+(For each `Module` in the `moduleList`):
+
+. `CourseInfo` first iterates through `reqList` to determine if a `Module` belongs to any `Requirement`
+. If it does, `CourseInfo` again interfaces with `Module` to extract its `Grade`.
+. Finally, `CourseInfo` interacts with `Grade` to determine if the `Grade` is a non-SU grade.
+. If the `Grade` is non-SU, the `Module` is factored into Cap computation.
+
+<<<
+
+==== Module Done
+
+Section by: https://github.com/nathanaelseen[Nathanael Seen]
+
+===== Overview
+
+This feature enables students to mark a module which they have completed with a certain grade.
+Once a module is marked 'done', it would be counted to graduation requirements.
+
+===== Implementation
+
+Trivial as it might seem, there are actually quite a number of `coursebook` data which needs to
+be updated when a module is marked 'done'.
+
+This includes the `Module` itself, the various `Requirements` in the `UniqueRequirementList`,
+and the `CourseInfo`.
+
+The following diagram illustrates this:
+
+.Module Done Sequence Diagram
+image::developer-guide/ModuleDoneActivityDiagram.png[]
+
+As from the above, there are two possible scenarios; either a `Module` belongs to at least one
+`Requirement` or that it does not belong to any `Requirement`.
+
+In the latter case, calls to methods which update `CourseInfo` would be immediately invoked,
+bypassing the updating of the `Requirement(s)`.

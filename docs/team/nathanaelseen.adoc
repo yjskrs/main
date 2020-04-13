@@ -132,3 +132,10 @@ include::../UserGuide.adoc[tag=nat-ug]
 |===
 |_Sections contributed to DG_
 |===
+
+include::../DeveloperGuide.adoc[tag=course-feature-dg]
+include::../DeveloperGuide.adoc[tag=course-compute-credits-cap-dg]
+'''
+include::../DeveloperGuide.adoc[tag=module-done-dg]
+'''
+include::../DeveloperGuide.adoc[tag=requirement-assign-dg]
