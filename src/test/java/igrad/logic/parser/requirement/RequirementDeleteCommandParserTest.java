@@ -1,5 +1,7 @@
 package igrad.logic.parser.requirement;
 
+//@@author yjskrs
+
 import static igrad.commons.core.Messages.MESSAGE_SPECIFIER_INVALID;
 import static igrad.logic.commands.requirement.RequirementCommandTestUtil.INVALID_REQ_CODE_DECIMAL;
 import static igrad.logic.commands.requirement.RequirementCommandTestUtil.INVALID_REQ_CODE_SYMBOL;
@@ -11,8 +13,6 @@ import org.junit.jupiter.api.Test;
 
 import igrad.logic.commands.requirement.RequirementDeleteCommand;
 import igrad.model.requirement.RequirementCode;
-
-//@@author yjskrs
 
 public class RequirementDeleteCommandParserTest {
     private RequirementDeleteCommandParser parser = new RequirementDeleteCommandParser();

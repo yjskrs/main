@@ -1,6 +1,5 @@
 package igrad.model.module;
 
-//@@author waynewee
 import static igrad.commons.util.AppUtil.checkArgument;
 import static java.util.Objects.requireNonNull;
 

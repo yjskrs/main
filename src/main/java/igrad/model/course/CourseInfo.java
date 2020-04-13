@@ -295,8 +295,6 @@ public class CourseInfo {
         return Optional.of(new Cap(Double.toString(estimatedCapEachSem)));
     }
 
-    //@@author nathanaelseen
-
     public Optional<Name> getName() {
         return name;
     }

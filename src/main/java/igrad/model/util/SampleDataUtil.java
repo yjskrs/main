@@ -1,5 +1,7 @@
 package igrad.model.util;
 
+//@@author dargohzy
+
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -29,7 +31,6 @@ import igrad.model.requirement.RequirementCode;
  * Contains utility methods for populating {@code CourseBook} with sample data.
  */
 public class SampleDataUtil {
-    //@@author dargohzy
     private static List<Module> getSampleModules() {
         return new ArrayList<Module>() {
             {
@@ -96,7 +97,6 @@ public class SampleDataUtil {
             }
         };
     }
-    // @@author
 
     private static ArrayList<Requirement> getSampleRequirements() {
         List<Module> modules = getSampleModules();
@@ -152,7 +152,7 @@ public class SampleDataUtil {
         return new CourseInfo(name, cap, credits, semesters);
     }
 
-    //@@author
+    //@@author dargohzy
 
     public static Avatar getSampleAvatar() {
         return Avatar.getSampleAvatar();

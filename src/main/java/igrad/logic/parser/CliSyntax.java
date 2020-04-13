@@ -1,5 +1,7 @@
 package igrad.logic.parser;
 
+//@@author teriaiw
+
 /**
  * Contains Command Line Interface (CLI) syntax definitions common to multiple commands.
  */
