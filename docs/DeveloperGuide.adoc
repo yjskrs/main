@@ -292,8 +292,8 @@ A `CourseBook` contains only one course information.
 
 .Structure of CourseInfo Class
 image::developer-guide/CourseInfoClassDiagram.png[]
-A course consists of three information: Name, CAP, and SemsLeft. One course should only have one name,
-and one CAP.
+A course consists of four information: Name, Cap, Credits and Semesters. One course should only have one name,
+one Cap, one Credits and one Semesters.
 
 The course related commands that can be called are:
 
@@ -301,23 +301,99 @@ The course related commands that can be called are:
 * `course delete` - deletes existing course and all information in the course book
 * `course achieve` - calculates CAP needed to maintain each semester to achieve overall CAP targer
 
-Here is how the courseInfo class updates when name of course is edited:
+//tag::semesters[]
+==== Semesters
+Section by: https://github.com/teriaiw[Teri]
 
-.Sequence Diagram when editing course name.
-image::developer-guide/CourseEditSequenceDiagram.png[]
-When a user edits name of a course, the user has to specify the prefix `/n` for name.
-Then the application proceeds to do the following steps:
+.Course Semesters Class Diagram
+image::developer-guide/CourseSemestersClassDiagram.png[]
 
-Step 1: The CourseEditCommandParser is called to parse the CourseEditCommand with the n/ prefix.
+`Semesters` stores the total semesters and remaining semesters that a user has in the course.
 
-Step 2: The CourseEditCommand is executed to set the new course name to the model.
+* `Semesters` is first initialized when user does command `course set`. `totalSemesters` will be equal to
+`remainingSemesters` as user has not entered any other data to indicate completion of semesters.
+* `Semesters` is updated through method `computeSemesters` in `CourseInfo`.
+* `totalSemesters` is changed by user through the command `course edit`.
+* `remainingSemesters` is computed by method `computeRemainingSemesters`. This method uses the `moduleList`
+to check for `module` that has `Semester` and `Grade`. The `module` which fulfils the mentioned and has the latest
+`Semester` will be taken as the latest completed semester.
 
-Step 3: The new course name is set in the course book.
-
+//end::semesters[]
 '''
 
-//tag::module[]
+//tag::courseedit[]
+==== Course Edit
+Section by: https://github.com/teriaiw[Teri]
+
+===== Overview
+Users can edit their course info, which are `Name` and `Semesters` by using the `course edit` command.
+
+===== Implementation
+Here is how the courseInfo class updates when name of course is edited.
+
+.Sequence Diagram when editing course name and course semesters.
+image::developer-guide/CourseEditSequenceDiagram.png[]
+When a user edits name of a course, the user has to specify the prefix `n/` for `Name` or `s/` prefix
+for `Semesters`.
+Then the application proceeds to do the following steps:
+
+. The `CourseEditCommandParser` is called to parse the `CourseEditCommand` with the `n/` and `s/` prefix.
+. The `CourseEditCommand` is executed and calls `setCourseInfo` to `Model`.
+. `Model` calls the same method `setCourseInfo` to `CourseBook`.
+. The new course `Name` and course `Semesters` is set in the `CourseBook`.
+
+//end::courseedit[]
+'''
+
+//tag::courseachieve[]
+==== Course Achieve
+Section by: https://github.com/teriaiw[Teri]
+
+===== Overview
+Users can get an automatic calculation of their desired C.A.P. by using the `course achieve` command and
+entering their desired `Cap`.
+
+===== Implementation
+The computation of C.A.P. is done through `computeEstimatedCap` in `courseInfo` which uses `Semesters`
+and `Cap` of `courseInfo`.
+
+.Course Achieve Sequence Diagram
+image::developer-guide/CourseAchieveSequenceDiagram.png[]
+When a user wants to calculate achievable C.A.P., the user has to specify the prefix `c/` for `Cap`.
+Then the application proceeds to do the following steps:
+
+. The `CourseAchieveCommandParser` is called to parse the `CourseAchieveCommand` with the `c/` prefix.
+. The `CourseAchieveCommand` is executed and it calls method `getCourseInfo` in `Model` to get `CourseInfo`.
+. With the `CourseInfo` and `Cap`, `CourseAchieveCommand` calls method `calculateEstimatedCap` in `CourseInfo`.
+. `CourseInfo` calls method `getSemesters` and `getCap` to itself to get the following information:
+... `Semesters`
+... `Cap`
+. `computeEstimmatedCap` computes and returns estimate `Cap`.
+. The result is passed back to the user.
+
+===== Design Considerations
+
+*Invalid and Unachievable C.A.P.*
+
+It is possible that a calculated `Cap` to achieve is not a valid `Cap`. In such situations, an exception is
+thrown within the `computeEstimatedCap` command and it is caught in the `CourseAchieveCommand`. User will be
+given feedback that the desired C.A.P. is not achievable.
+
+The figure below illustrates this:
+
+.Course Achieve Activity Diagram
+image::developer-guide/CourseAchieveActivityDiagram.png[]
+
+Therefore, there are three types of result displayed to User:
+
+. When User enters invalid Cap to achieve
+. When computed Cap is invalid
+. When computed Cap is valid
+//end::courseachieve[]
+'''
+
 === Module Feature
+Section by: https://github.com/waynewee[Wayne]
 
 ==== Module Component
 
@@ -358,8 +434,9 @@ A module may also have the following optional values:
 .Module Class Diagram
 image::developer-guide/ModuleClassDiagram.png[]
 
-
+//tag::wayne-ug[]
 ==== Module Add Auto
+Section by: https://github.com/waynewee[Wayne]
 
 ===== Overview
 
@@ -455,8 +532,8 @@ Extensions:
 .Module Auto Add Use Case Diagram
 image::developer-guide/ModuleAutoAddUseCaseDiagram.png[]
 
+//end::wayne-ug[]
 '''
-
 *Messages for individual modules*
 
 As this feature allows a user to add `modules` by batches, it is possible that one or more `modules` in
@@ -491,6 +568,7 @@ currently only one request is made.
 .Previous implementation of Module Add Auto
 image::developer-guide/ModuleAddAutoActivityDiagram.png[]
 
+
 ==== Module Filter
 
 ===== Overview
@@ -502,7 +580,9 @@ a way to filter `modules` so that only what is required is displayed.
 ===== Implementation
 
 The filtering of modules is done by calling the `execute` function of `ModuleFilterCommand`.`ModuleFilterCommand` takes in
-optional parameters `Semester`, `Credits`, `Grade` and an operator, which could be `AND` or `OR`.
+optional parameters `Semester`, `Credits`, `Grade` and an operator, which could be `AND` or `OR`. The `ModuleFilterCommand` then
+calls `updateFilteredModuleList` on the `Model` such that the `Model` updates the `filteredList` based on the predicates provided.
+The `ModuleFilterCommand` then calls `getFilteredModuleList()` to check if the filter was applied successfully.
 
 The matching is done by the functions `checkSemesterMatch(Module m)`, `checkCreditsMatch(Module m)` and `checkGradeMatch(Module m)`. Unlike
 the other two functions, `checkCreditsMatch(Module m)` does not check if the actual `credits` for a module is present since the
@@ -562,7 +642,7 @@ image::developer-guide/ModuleFilterStateDiagram.png[]
 An issue with the filtering of modules is that when the current state is not obvious, the
 user might lose track of what the module list is filtering on. To solve this problem,
 it would be an improvement to display the current state prominently to the user.
-//end::module[]
+
 '''
 
 === Requirements Feature
@@ -604,6 +684,7 @@ Step 3: The new requirement is added to the course book.
 '''
 
 === Export Feature
+Section by: https://github.com/waynewee[Wayne]
 
 ==== Overview
 
@@ -655,6 +736,7 @@ for the user to close the file and issuing the command again.
 '''
 
 === Undo Feature
+Section by: https://github.com/waynewee[Wayne]
 
 ==== Overview
 

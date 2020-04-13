@@ -1,0 +1,18 @@
+@startuml
+start
+:User executes command;
+
+if (has valid desired Cap) then (no)
+        :Show Cap constraints;
+else (yes)
+    :Compute estimated Cap;
+    if(computed Cap is Valid) then (no)
+        :Throw capOverflowException;
+    else (yes)
+        :create new computed Cap;
+    endif
+endif
+
+:Result displayed;
+stop
+@enduml

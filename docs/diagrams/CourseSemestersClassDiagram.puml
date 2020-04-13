@@ -1,0 +1,15 @@
+@startuml
+hide circle
+class Semesters {
+    +totalSemesters: int
+    +remainingSemesters: int
+    +isValidSemesters()
+    +isValidTotalSemesters()
+    +isValidRemainingSemesters()
+    +getTotalSemesters()
+    +getRemainingSemesters()
+    +toString()
+    +equals()
+    +hashcode()
+}
+@enduml
