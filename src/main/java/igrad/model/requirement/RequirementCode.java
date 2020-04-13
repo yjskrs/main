@@ -18,7 +18,7 @@ public class RequirementCode {
     public static final String STRIP_DIGITS_REGEX = "[0123456789]";
     public static final String STRIP_ALPHABETS_REGEX = "\\D+";
 
-    public final String value;
+    private final String value;
 
     /**
      * Constructs a {@code requirementCode}.

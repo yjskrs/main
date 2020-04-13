@@ -1,0 +1,11 @@
+@startuml
+start
+:User executes Requirement\n            Add command;
+
+if () then (invalid or missing prefixes\n       and/or parameters)
+    :iGrad displays an\n  error message;
+else (  valid prefixes\nand parameters)
+    :Requirement is\n        added;
+endif
+stop
+@enduml

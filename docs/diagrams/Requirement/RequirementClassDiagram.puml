@@ -1,0 +1,49 @@
+@startuml
+hide circle
+skinparam classAttributeIconSize 0
+
+interface ReadOnlyRequirement {
+    +isFulfilled()
+    +isSameRequirement()
+    +equals()
+}
+
+class Requirement {
+    +addModule()
+    +setModule()
+    +removeModule()
+    -computeCredits()
+}
+
+class RequirementCode {
+    -value
+    +isValidRequirementCode()
+}
+
+class Title {
+    -value
+    +isValidTitle()
+}
+
+class Credits {
+    -creditsRequired
+    -creditsAssigned
+    -creditsFulfilled
+    +isValidCredits()
+    +isFulfilled()
+}
+
+class UniqueModuleList {
+    -internalList
+    -internalUnmodifiableList
+    +contains()
+    +getByModuleCode()
+    +asUnmodifiableObservableList()
+}
+
+ReadOnlyRequirement <|-- Requirement
+Requirement *-- "1" RequirementCode : contains
+Requirement *-- "1" Title : contains
+Requirement *-- "1" Credits : contains
+Requirement *-- "1" UniqueModuleList : contains
+@enduml

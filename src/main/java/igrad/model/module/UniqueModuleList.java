@@ -1,5 +1,7 @@
 package igrad.model.module;
 
+//@@author teriaiw
+
 import static igrad.commons.util.CollectionUtil.requireAllNonNull;
 import static java.util.Objects.requireNonNull;
 
@@ -112,6 +114,24 @@ public class UniqueModuleList implements Iterable<Module> {
         internalList.set(index, editedModule);
     }
 
+    public void setModules(UniqueModuleList replacement) {
+        requireNonNull(replacement);
+        internalList.setAll(replacement.internalList);
+    }
+
+    /**
+     * Replaces the contents of this list with {@code modules}.
+     * {@code modules} must not contain duplicate modules.
+     */
+    public void setModules(List<Module> modules) {
+        requireAllNonNull(modules);
+        if (!modulesAreUnique(modules)) {
+            throw new DuplicateModuleException();
+        }
+
+        internalList.setAll(modules);
+    }
+
     /**
      * Removes the equivalent module from the list.
      * The module must exist in the list.
@@ -131,24 +151,6 @@ public class UniqueModuleList implements Iterable<Module> {
         requireNonNull(modulesToRemove);
 
         modulesToRemove.forEach(this::remove);
-    }
-
-    public void setModules(UniqueModuleList replacement) {
-        requireNonNull(replacement);
-        internalList.setAll(replacement.internalList);
-    }
-
-    /**
-     * Replaces the contents of this list with {@code modules}.
-     * {@code modules} must not contain duplicate modules.
-     */
-    public void setModules(List<Module> modules) {
-        requireAllNonNull(modules);
-        if (!modulesAreUnique(modules)) {
-            throw new DuplicateModuleException();
-        }
-
-        internalList.setAll(modules);
     }
 
     /**

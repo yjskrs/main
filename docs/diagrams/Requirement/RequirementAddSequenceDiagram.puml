@@ -1,5 +1,5 @@
 @startuml
-!include style.puml
+!include ../style.puml
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
@@ -20,15 +20,16 @@ LogicManager -> CourseBookParser : parseCommand(add requirement)
 activate CourseBookParser
 
 create RequirementAddCommandParser
-CourseBookParser -> RequirementAddCommandParser : new RequirementAddCommandParser(\nname, credits)
+CourseBookParser -> RequirementAddCommandParser
 activate RequirementAddCommandParser
 
 create RequirementAddCommand
-RequirementAddCommandParser -> RequirementAddCommand : new RequirementAddCommand(\nrequirement)
+RequirementAddCommandParser -> RequirementAddCommand
 activate RequirementAddCommand
 
 RequirementAddCommand --> RequirementAddCommandParser
 RequirementAddCommandParser --> CourseBookParser : r
+deactivate RequirementAddCommandParser
 
 CourseBookParser --> LogicManager : r
 deactivate CourseBookParser
@@ -50,7 +51,6 @@ deactivate Model
 
 RequirementAddCommand --> LogicManager : result
 deactivate RequirementAddCommand
-RequirementAddCommand -[hidden]-> LogicManager : result
 destroy RequirementAddCommand
 
 [<--LogicManager
