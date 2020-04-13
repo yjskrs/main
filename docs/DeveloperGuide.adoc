@@ -301,6 +301,7 @@ The course related commands that can be called are:
 * `course delete` - deletes existing course and all information in the course book
 * `course achieve` - calculates CAP needed to maintain each semester to achieve overall CAP targer
 
+//tag::semesters[]
 ==== Semesters
 Section by: https://github.com/teriaiw[Teri]
 
@@ -317,7 +318,10 @@ image::developer-guide/CourseSemestersClassDiagram.png[]
 to check for `module` that has `Semester` and `Grade`. The `module` which fulfils the mentioned and has the latest
 `Semester` will be taken as the latest completed semester.
 
+//end::semesters[]
+'''
 
+//tag::courseedit[]
 ==== Course Edit
 Section by: https://github.com/teriaiw[Teri]
 
@@ -338,6 +342,10 @@ Then the application proceeds to do the following steps:
 . `Model` calls the same method `setCourseInfo` to `CourseBook`.
 . The new course `Name` and course `Semesters` is set in the `CourseBook`.
 
+//end::courseedit[]
+'''
+
+//tag::courseachieve[]
 ==== Course Achieve
 Section by: https://github.com/teriaiw[Teri]
 
@@ -381,7 +389,7 @@ Therefore, there are three types of result displayed to User:
 . When User enters invalid Cap to achieve
 . When computed Cap is invalid
 . When computed Cap is valid
-
+//end::courseachieve[]
 '''
 
 //tag::module[]
