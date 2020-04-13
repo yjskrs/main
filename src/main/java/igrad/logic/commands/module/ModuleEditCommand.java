@@ -102,7 +102,7 @@ public class ModuleEditCommand extends ModuleCommand {
         Optional<Module> moduleToEditOpt = model.getModule(moduleCode);
 
         if (moduleToEditOpt.isEmpty()) {
-            throw new CommandException(MESSAGE_MODULE_NON_EXISTENT);
+            throw new CommandException(String.format(MESSAGE_MODULE_NON_EXISTENT, moduleCode));
         }
 
         Module moduleToEdit = moduleToEditOpt.get();

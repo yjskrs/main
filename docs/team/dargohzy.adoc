@@ -31,6 +31,8 @@ created with JavaFX, FXML and CSS.
 ** Justification: Important to ensure that modules added do not clash for the user, which may affect module planning.
 ** Credits: Adding modules based on NUSMods data functionality by https://github.com/waynewee[Wayne], further improvements also by https://github.com/waynewee[Wayne].
 
+* *Minor Enhancement*: added multiple JUnit tests in testing the code.
+
 * *Minor Enhancement*: did mock-ups and image designs for the interface, using Photoshop.
 
 * *Code contributed*: [https://github.com/AY1920S2-CS2103T-F09-3/main/commits?author=dargohzy[All commits]] [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=dargohzy[Project Code Dashboard]]

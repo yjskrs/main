@@ -11,7 +11,7 @@ import static java.util.Objects.requireNonNull;
  */
 public class Credits {
 
-    public static final String MESSAGE_CONSTRAINTS = "The modular Credits provided for the requirement is invalid!\n"
+    public static final String MESSAGE_CONSTRAINTS = "The Module Credits provided for the requirement is invalid!\n"
         + "It should be a number more than 0 and less than 1000.";
 
     // allow any numbers more than or equals zero

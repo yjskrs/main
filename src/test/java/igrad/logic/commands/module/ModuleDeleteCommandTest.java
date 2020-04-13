@@ -126,7 +126,7 @@ public class ModuleDeleteCommandTest {
         ModuleDeleteCommand moduleDeleteCommand = new ModuleDeleteCommand(moduleToDelete.getModuleCode());
 
         CommandResult expectedResult = new CommandResult(
-            MESSAGE_MODULE_NON_EXISTENT
+            String.format(MESSAGE_MODULE_NON_EXISTENT, moduleToDelete.getModuleCode().value)
         );
 
         Model exepectedModel = new ModelManager(getEmptyCourseBook(), new UserPrefs());

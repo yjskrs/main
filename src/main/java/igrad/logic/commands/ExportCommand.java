@@ -19,11 +19,12 @@ public class ExportCommand extends Command {
 
     public static final String SHOWING_EXPORT_MESSAGE = "I've exported your data to a CSV file."
         + " You can find it in the same folder as this app's executable!";
-    public static final String EXPORT_ERROR_MESSAGE = "Unable to export data to CSV file."
-        + " Please ensure that you do not have the file <study_plan.csv> open";
+    public static final String EXPORT_ERROR_MESSAGE = "Sorry, I was unable to export data to CSV file."
+        + " Please ensure that you do not have the file 'study_plan.csv' open";
 
-    public static final String NO_MODULE_WITH_SEMESTERS_ERROR_MESSAGE = "No modules with"
-        + " semesters found";
+    public static final String NO_MODULE_WITH_SEMESTERS_ERROR_MESSAGE =
+        "Sorry, I couldn't find any modules that are tagged to a semester!"
+        + " I can only export modules that are tagged with a semester.";
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
