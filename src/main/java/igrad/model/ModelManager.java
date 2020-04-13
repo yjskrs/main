@@ -3,6 +3,7 @@ package igrad.model;
 import static igrad.commons.util.CollectionUtil.requireAllNonNull;
 import static java.util.Objects.requireNonNull;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -14,15 +15,20 @@ import java.util.stream.Collectors;
 
 import igrad.commons.core.GuiSettings;
 import igrad.commons.core.LogsCenter;
+import igrad.commons.exceptions.DataConversionException;
+import igrad.csvwriter.CsvWriter;
 import igrad.model.avatar.Avatar;
-import igrad.model.course.Cap;
 import igrad.model.course.CourseInfo;
 import igrad.model.module.Module;
 import igrad.model.module.ModuleCode;
-import igrad.model.requirement.Credits;
+import igrad.model.module.ModulePreclusions;
+import igrad.model.module.ModulePrerequisites;
+import igrad.model.module.sorters.SortBySemester;
+import igrad.model.quotes.QuoteGenerator;
 import igrad.model.requirement.Requirement;
 import igrad.model.requirement.RequirementCode;
-import igrad.model.requirement.Title;
+import igrad.storage.CourseBookStorage;
+import igrad.storage.JsonCourseBookStorage;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
@@ -35,6 +41,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Module> filteredModules;
     private final FilteredList<Requirement> requirements;
+    private final QuoteGenerator quoteGenerator = new QuoteGenerator();
 
     /**
      * Initializes a ModelManager with the given courseBook and userPrefs.
@@ -69,6 +76,11 @@ public class ModelManager implements Model {
     public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
         requireNonNull(userPrefs);
         this.userPrefs.resetData(userPrefs);
+    }
+
+    @Override
+    public String getRandomQuoteString() {
+        return quoteGenerator.getRandomQuote();
     }
 
     @Override
@@ -132,6 +144,46 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean undoCourseBook() throws IOException, DataConversionException {
+
+        boolean hasChanged = false;
+
+        CourseBookStorage courseBookStorage = new JsonCourseBookStorage(
+            getBackupCourseBookFilePath()
+        );
+
+        Optional<ReadOnlyCourseBook> backupCourseBookOpt = courseBookStorage.readCourseBook();
+
+        if (backupCourseBookOpt.isPresent()) {
+
+            ReadOnlyCourseBook backupCourseBook = backupCourseBookOpt.get();
+
+            if (!courseBook.equals(backupCourseBook)) {
+                hasChanged = true;
+                setCourseBook(backupCourseBook);
+            }
+        }
+
+        return hasChanged;
+    }
+
+    @Override
+    public List<Module> exportModuleList() throws IOException {
+        List<Module> moduleList = getFilteredModuleList()
+            .stream()
+            .filter(m -> m.getSemester().isPresent())
+            .sorted(new SortBySemester())
+            .collect(Collectors.toList());
+
+        if (moduleList.size() > 0) {
+            CsvWriter csvWriter = new CsvWriter(moduleList);
+            csvWriter.write();
+        }
+
+        return moduleList;
+    }
+
+    @Override
     public boolean hasModule(Module module) {
         requireNonNull(module);
 
@@ -139,9 +191,63 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasModulePreclusions(Module module) {
+        requireNonNull(module);
+
+        boolean hasModulePreclusions = false;
+
+        ModulePreclusions preclusions = module.getPreclusions();
+
+        if (!preclusions.isEmpty()) {
+
+            List<ModuleCode> moduleCodes = preclusions.getModuleCodes();
+
+            for (ModuleCode preclusion : moduleCodes) {
+                Optional<Module> mOpt = getModule(preclusion);
+                if (mOpt.isPresent()) {
+                    hasModulePreclusions = true;
+                }
+            }
+
+        }
+
+        return hasModulePreclusions;
+
+    }
+
+    @Override
+    public boolean hasModulePrerequisites(Module module) {
+        requireNonNull(module);
+
+        boolean hasModulePrerequisites = true;
+
+        ModulePrerequisites prerequisites = module.getPrequisites();
+
+        if (!prerequisites.isEmpty()) {
+
+            List<ModuleCode> moduleCodes = prerequisites.getModuleCodes();
+
+            for (ModuleCode moduleCode : moduleCodes) {
+                Optional<Module> mOpt = getModule(moduleCode);
+                if (mOpt.isEmpty()) {
+                    hasModulePrerequisites = false;
+                } else {
+                    Module m = mOpt.get();
+                    if (!m.isDone()) {
+                        hasModulePrerequisites = false;
+                    }
+                }
+            }
+
+        }
+
+        return hasModulePrerequisites;
+
+    }
+
+    @Override
     public void deleteModule(Module target) {
         courseBook.removeModule(target);
-        courseBook.removeModuleFromRequirement(target);
     }
 
     @Override
@@ -157,11 +263,6 @@ public class ModelManager implements Model {
     @Override
     public boolean isCourseNameSet() {
         return courseBook.getCourseInfo().getName().isPresent();
-    }
-
-    @Override
-    public Cap computeCap() {
-        return CourseInfo.computeCap(courseBook.getModuleList());
     }
 
     @Override
@@ -183,44 +284,42 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public Optional<Module> getModule(ModuleCode moduleCode) {
+        requireNonNull(moduleCode);
+        return courseBook.getModule(moduleCode);
+    }
+
+    @Override
+    public List<Module> getModules(List<ModuleCode> moduleCodes) {
+        requireNonNull(moduleCodes);
+        return courseBook.getModules(moduleCodes);
+    }
+
+    @Override
     public boolean hasRequirement(Requirement requirement) {
         requireNonNull(requirement);
+
         return courseBook.hasRequirement(requirement);
     }
 
     @Override
     public Optional<Requirement> getRequirement(RequirementCode requirementCode) {
-        // TODO: clean-up logic, and make an equivalent method in course book
-        return requirements.stream()
-            .filter(requirement -> requirement.getRequirementCode().equals(requirementCode))
-            .findFirst();
+        requireNonNull(requirementCode);
+
+        return courseBook.getRequirement(requirementCode);
     }
 
     @Override
     public List<Requirement> getRequirementsWithModule(Module module) {
-        // TODO: clean-up logic, and make an equivalent method in course book
-        return requirements.stream()
-            .filter(requirement -> requirement.hasModule(module))
-            .collect(Collectors.toList());
-    }
+        requireNonNull(module);
 
-    @Override
-    public Optional<Module> getModuleByModuleCode(ModuleCode moduleCode) {
-        return filteredModules.stream()
-            .filter(module -> module.getModuleCode().equals(moduleCode))
-            .findFirst();
-    }
-
-    @Override
-    public List<Module> getModulesByModuleCode(List<ModuleCode> moduleCodes) {
-        return filteredModules.stream()
-            .filter(requirement -> moduleCodes.stream()
-                .anyMatch(moduleCode -> moduleCode.equals(requirement.getModuleCode())))
-            .collect(Collectors.toList());
+        return courseBook.getRequirementsWithModule(module);
     }
 
     @Override
     public void addRequirement(Requirement requirement) {
+        requireNonNull(requirement);
+
         courseBook.addRequirement(requirement);
         updateRequirementList(PREDICATE_SHOW_ALL_REQUIREMENTS);
     }
@@ -230,46 +329,14 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedRequirement);
 
         courseBook.setRequirement(target, editedRequirement);
+
     }
 
     @Override
     public void deleteRequirement(Requirement requirement) {
+        requireNonNull(requirement);
+
         courseBook.removeRequirement(requirement);
-    }
-
-    //========================================================================================================
-
-    @Override
-    public int getTotalCreditsRequired() {
-
-        return requirements
-            .stream()
-            .mapToInt(requirement -> requirement.getCreditsRequired())
-            .sum();
-
-    }
-
-    @Override
-    public int getTotalCreditsFulfilled() {
-        int totalCreditsFulfilled = 0;
-        int totalCreditsRequired = getTotalCreditsRequired();
-
-        for (Requirement requirement : requirements) {
-            int creditsFulfilled = filteredModules
-                .stream()
-                .filter(module -> requirement.getModuleList().contains(module) && module.isDone())
-                .mapToInt(module -> module.getCredits().toInteger())
-                .sum();
-
-            totalCreditsFulfilled += creditsFulfilled;
-        }
-
-        if (totalCreditsFulfilled > totalCreditsRequired) {
-            totalCreditsFulfilled = totalCreditsRequired;
-        }
-
-        return totalCreditsFulfilled;
-
     }
 
     //=========== Filtered Module List Accessors =============================================================
@@ -309,67 +376,13 @@ public class ModelManager implements Model {
     @Override
     public void updateRequirementList(Predicate<Requirement> predicate) {
         requireNonNull(predicate);
+
         requirements.setPredicate(predicate);
     }
 
-    @Override
-    public void recalculateRequirementList() {
+    // util
 
-        int[] requirementCredits = new int[requirements.size()];
-
-        for (Module module : filteredModules) {
-            int requirementIndex = 0;
-            for (Requirement requirement : requirements) {
-                ObservableList<Module> requirementModules = requirement.getModuleList();
-                if (requirementModules.contains(module)) {
-                    requirementCredits[requirementIndex] += module.getCredits().toInteger();
-                }
-                requirementIndex++;
-            }
-        }
-
-        for (int i = 0; i < requirementCredits.length; i++) {
-            // Compute credits fulfilled based on modules in the module list
-            Requirement requirement = requirements.get(i);
-
-            // TODO: Improve design of this part, can move logic to CourseBook itself maybe hmm
-
-            // Copy all other requirement fields over
-            Title title = requirement.getTitle();
-            List<Module> modules = requirement.getModuleList();
-            RequirementCode requirementCode = requirement.getRequirementCode();
-            Credits credits = new Credits(requirement.getCreditsRequired(), requirementCredits[i]);
-
-            Requirement updatedRequirement = new Requirement(requirementCode, title, credits, modules);
-            setRequirement(requirement, updatedRequirement);
-        }
-
-        this.updateRequirementList(PREDICATE_SHOW_ALL_REQUIREMENTS);
-
-    }
-
-    @Override
-    public Cap computeEstimatedCap(Cap capToAchieve, int semsLeft) {
-        int totalSems;
-
-        Optional<Cap> current = courseBook.getCourseInfo().getCap();
-
-        if (current.isEmpty()) {
-            totalSems = semsLeft;
-        } else {
-            totalSems = semsLeft + 1;
-        }
-
-        Cap currentCap = courseBook.getCourseInfo().getCap().orElse(new Cap("0"));
-        double capWanted = capToAchieve.getValue();
-        double capNow = currentCap.getValue();
-
-        double estimatedCapEachSem = ((capWanted * totalSems) - capNow) / semsLeft;
-        Cap capToAchieveEachSem = new Cap(estimatedCapEachSem + "");
-
-        return capToAchieveEachSem;
-    }
-
+    //@author teriaiw
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
@@ -386,7 +399,8 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return courseBook.equals(other.courseBook)
             && userPrefs.equals(other.userPrefs)
-            && filteredModules.equals(other.filteredModules);
+            && filteredModules.equals(other.filteredModules)
+            && requirements.equals(other.requirements);
     }
 
 }

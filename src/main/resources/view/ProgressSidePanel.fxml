@@ -19,14 +19,17 @@
                         styleClass="grad-cap"
                         fx:id="gradCapImageView"/>
                 <Label
+                        wrapText="true"
                         styleClass="course-name"
-                        text="Your Course"
+                        text="My Course"
                         fx:id="courseNameLabel"/>
             </HBox>
             <HBox
                     style="-fx-border-color: #4d4d4d; -fx-border-width: 0 0 2 0;"
                     alignment="CENTER">
                 <Label
+                        alignment="CENTER"
+                        wrapText="true"
                         styleClass="inspirational-quote"
                     fx:id="inspirationalQuote"
                     text="&quot;Strive for progress, not perfection.&quot;"
@@ -44,23 +47,31 @@
                 >
                 </ProgressBar>
             </VBox>
-            <GridPane hgap="50.0" vgap="4.0">
+            <VBox>
                 <Label
-                        style="-fx-font-size: 13px !important;"
-                        text="Semesters Left"
-                        GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-                <Label
-                        style="-fx-font-size: 13px !important;-fx-font-weight: bold"
-                        text="2"
-                        GridPane.rowIndex="0" GridPane.columnIndex="1"/>
-                <Label
-                        style="-fx-font-size: 13px !important;"
-                        text="Current CAP"
-                        GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                <Label
-                        style="-fx-font-size: 13px !important;-fx-font-weight: bold"
-                        text="4.2/5.0"
-                        GridPane.rowIndex="1" GridPane.columnIndex="1"/>
-            </GridPane>
+                        styleClass="progress-title"
+                    text="My Progress"
+                />
+                <GridPane hgap="80.0" vgap="4.0">
+                    <Label
+                            styleClass="progress-label"
+                            text="Semesters Left"
+                            GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                    <Label
+                            fx:id="semesterLabel"
+                            styleClass="progress-value"
+                            text="-"
+                            GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                    <Label
+                            styleClass="progress-label"
+                            text="Current CAP"
+                            GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                    <Label
+                            fx:id="currentCapLabel"
+                            styleClass="progress-value"
+                            text="-/5.0"
+                            GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                </GridPane>
+            </VBox>
     </children>
 </VBox>

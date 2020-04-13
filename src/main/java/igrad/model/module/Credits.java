@@ -9,9 +9,16 @@ import static java.util.Objects.requireNonNull;
  */
 public class Credits {
 
-    public static final String MESSAGE_CONSTRAINTS = "Modular credits should contain one or more digits!";
+    public static final String MESSAGE_CONSTRAINTS = "The modular Credits provided for the module is invalid!\n"
+            + "It should be a number more than 0 and less than 200.";
 
     public static final String VALIDATION_REGEX = "\\d+";
+
+    // set max limit to 200
+    public static final int MAX_CREDITS = 200;
+
+    // set min limit to 0
+    public static final int MIN_CREDITS = 0;
 
     public final String value;
 
@@ -30,7 +37,15 @@ public class Credits {
      * Returns true if a given string is a valid credits.
      */
     public static boolean isValidCredits(String test) {
-        return test.matches(VALIDATION_REGEX);
+        try {
+            Integer.parseInt(test);
+            return test.matches(VALIDATION_REGEX)
+                && Integer.parseInt(test) > MIN_CREDITS
+                && Integer.parseInt(test) < MAX_CREDITS;
+
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
     /**

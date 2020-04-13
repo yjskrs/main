@@ -1,0 +1,97 @@
+@startuml
+!include ../style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":CourseBookParser" as CourseBookParser LOGIC_COLOR
+participant "a:ModuleAddAutoCommand" as ModuleAddAutoCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":Coursebook" as Coursebook MODEL_COLOR
+participant ":AddAutoCommandParser" as AddAutoCommandParser MODEL_COLOR
+participant ":Module" as Module MODEL_COLOR
+end box
+
+box Services SERVICES_COLOR_T1
+participant ":NusModsRequester" as NusModsRequester SERVICES_COLOR
+participant ":GetRequestManager" as GetRequestManager SERVICES_COLOR
+participant ":JsonParsedModule" as JsonParsedModule SERVICES_COLOR
+end box
+
+[-> LogicManager : execute(auto add)
+activate LogicManager
+
+LogicManager -> CourseBookParser : parseCommand(auto add)
+activate CourseBookParser
+
+CourseBookParser -> AddAutoCommandParser:parse()
+
+activate AddAutoCommandParser
+
+AddAutoCommandParser -> NusModsRequester:getModule()
+
+activate NusModsRequester
+
+NusModsRequester -> GetRequestManager
+
+activate GetRequestManager
+
+GetRequestManager -> GetRequestManager: makeRequest()
+
+GetRequestManager --> NusModsRequester
+
+deactivate GetRequestManager
+
+NusModsRequester -> JsonParsedModule:initJsonParsedModule
+
+activate JsonParsedModule
+
+JsonParsedModule --> NusModsRequester:
+
+deactivate JsonParsedModule
+
+deactivate GetRequestManager
+NusModsRequester --> AddAutoCommandParser: jsonParsedModule
+
+deactivate NusModsRequester
+
+AddAutoCommandParser -> Module
+
+activate Module
+
+Module --> AddAutoCommandParser
+
+deactivate Module
+
+AddAutoCommandParser --> CourseBookParser: addAutoCommand(module)
+
+deactivate AddAutoCommandParser
+
+CourseBookParser --> LogicManager : commandResult
+deactivate CourseBookParser
+
+LogicManager -> ModuleAddAutoCommand : execute()
+activate ModuleAddAutoCommand
+
+ModuleAddAutoCommand -> Model : addModule()
+activate Model
+
+Model -> Coursebook : addModule()
+activate Coursebook
+
+Coursebook --> Model :
+deactivate Coursebook
+
+Model --> ModuleAddAutoCommand
+deactivate Model
+
+ModuleAddAutoCommand --> LogicManager : result
+deactivate ModuleAddAutoCommand
+ModuleAddAutoCommand -[hidden]-> LogicManager : result
+destroy ModuleAddAutoCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

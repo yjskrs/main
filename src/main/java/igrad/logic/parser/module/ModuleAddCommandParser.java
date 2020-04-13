@@ -3,15 +3,11 @@ package igrad.logic.parser.module;
 import static igrad.logic.commands.module.ModuleAddCommand.MESSAGE_MODULE_ADD_HELP;
 import static igrad.logic.commands.module.ModuleAddCommand.MESSAGE_MODULE_NOT_ADDED;
 import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
-import static igrad.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static igrad.logic.parser.CliSyntax.PREFIX_MEMO;
 import static igrad.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
 import static igrad.logic.parser.CliSyntax.PREFIX_SEMESTER;
-import static igrad.logic.parser.CliSyntax.PREFIX_TAG;
 import static igrad.logic.parser.CliSyntax.PREFIX_TITLE;
 
 import java.util.Optional;
-import java.util.Set;
 
 import igrad.commons.core.Messages;
 import igrad.logic.commands.module.ModuleAddCommand;
@@ -21,14 +17,11 @@ import igrad.logic.parser.Parser;
 import igrad.logic.parser.ParserUtil;
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.module.Credits;
-import igrad.model.module.Description;
 import igrad.model.module.Grade;
-import igrad.model.module.Memo;
 import igrad.model.module.Module;
 import igrad.model.module.ModuleCode;
 import igrad.model.module.Semester;
 import igrad.model.module.Title;
-import igrad.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new ModuleAddCommand object.
@@ -43,8 +36,7 @@ public class ModuleAddCommandParser extends ModuleCommandParser implements Parse
      */
     public ModuleAddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-            ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_MODULE_CODE, PREFIX_CREDITS,
-                PREFIX_MEMO, PREFIX_SEMESTER, PREFIX_TAG);
+            ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_MODULE_CODE, PREFIX_CREDITS, PREFIX_SEMESTER);
 
         /*
          * If all arguments in the command are empty; i.e, 'module add', and nothing else (except preambles), show
@@ -70,12 +62,6 @@ public class ModuleAddCommandParser extends ModuleCommandParser implements Parse
         ModuleCode moduleCode = parseModuleCode(argMultimap.getValue(PREFIX_MODULE_CODE).get());
         Credits credits = parseCredits(argMultimap.getValue(PREFIX_CREDITS).get());
 
-        Optional<Memo> memo = argMultimap.getValue(PREFIX_MEMO).isPresent()
-            ? parseMemo(argMultimap.getValue(PREFIX_MEMO).get())
-            : Optional.empty();
-        Optional<Description> description = argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()
-            ? parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get())
-            : Optional.empty();
         Optional<Semester> semester = argMultimap.getValue(PREFIX_SEMESTER).isPresent()
             ? parseSemester(argMultimap.getValue(PREFIX_SEMESTER).get())
             : Optional.empty();
@@ -86,9 +72,7 @@ public class ModuleAddCommandParser extends ModuleCommandParser implements Parse
          */
         Optional<Grade> grade = Optional.empty();
 
-        Set<Tag> tagList = ParserUtil.parseTag(argMultimap.getAllValues(PREFIX_TAG));
-
-        Module module = new Module(title, moduleCode, credits, memo, semester, description, grade, tagList);
+        Module module = new Module(title, moduleCode, credits, semester, grade);
 
         return new ModuleAddCommand(module);
     }

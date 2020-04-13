@@ -1,6 +1,5 @@
 package igrad.model;
 
-import static igrad.model.Model.PREDICATE_SHOW_ALL_MODULES;
 import static igrad.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -23,10 +22,9 @@ public class ModelManagerTest {
 
     @Test
     public void constructor() {
-        /*assertEquals(new UserPrefs(), modelManager.getUserPrefs());
+        assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
         assertEquals(new CourseBook(), new CourseBook(modelManager.getCourseBook()));
-         */
     }
 
     @Test
@@ -79,13 +77,13 @@ public class ModelManagerTest {
 
     @Test
     public void hasPerson_personNotInCourseBook_returnsFalse() {
-        assertFalse(modelManager.hasModule(TypicalModules.PROGRAMMING_METHODOLOGY));
+        assertFalse(modelManager.hasModule(TypicalModules.CS1101S));
     }
 
     @Test
     public void hasPerson_personInCourseBook_returnsTrue() {
-        modelManager.addModule(TypicalModules.PROGRAMMING_METHODOLOGY);
-        assertTrue(modelManager.hasModule(TypicalModules.PROGRAMMING_METHODOLOGY));
+        modelManager.addModule(TypicalModules.CS1101S);
+        assertTrue(modelManager.hasModule(TypicalModules.CS1101S));
     }
 
     @Test
@@ -96,8 +94,8 @@ public class ModelManagerTest {
     @Test
     public void equals() {
         CourseBook courseBook = new CourseBookBuilder()
-            .withModule(TypicalModules.PROGRAMMING_METHODOLOGY)
-            .withModule(TypicalModules.COMPUTER_ORGANISATION)
+            .withModule(TypicalModules.CS1101S)
+            .withModule(TypicalModules.CS2100)
             .build();
         CourseBook differentCourseBook = new CourseBook();
         UserPrefs userPrefs = new UserPrefs();
@@ -120,16 +118,8 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(differentCourseBook, userPrefs)));
 
         // different filteredList -> returns false
-        String[] keywords = TypicalModules.PROGRAMMING_METHODOLOGY.getTitle().value.split("\\s+");
+        String[] keywords = TypicalModules.CS1101S.getTitle().value.split("\\s+");
         modelManager.updateFilteredModuleList(new TitleContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(courseBook, userPrefs)));
-
-        // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
-
-        // different userPrefs -> returns false
-        UserPrefs differentUserPrefs = new UserPrefs();
-        differentUserPrefs.setCourseBookFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(courseBook, differentUserPrefs)));
     }
 }

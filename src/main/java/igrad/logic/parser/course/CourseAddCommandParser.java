@@ -1,7 +1,9 @@
 package igrad.logic.parser.course;
 
 import static igrad.logic.commands.course.CourseAddCommand.MESSAGE_COURSE_ADD_HELP;
+import static igrad.logic.commands.course.CourseAddCommand.MESSAGE_COURSE_NOT_ADDED;
 import static igrad.logic.parser.CliSyntax.PREFIX_NAME;
+import static igrad.logic.parser.CliSyntax.PREFIX_SEMESTER;
 
 import java.util.Optional;
 
@@ -9,12 +11,16 @@ import igrad.commons.core.Messages;
 import igrad.logic.commands.course.CourseAddCommand;
 import igrad.logic.parser.ArgumentMultimap;
 import igrad.logic.parser.ArgumentTokenizer;
-import igrad.logic.parser.CourseCommandParser;
 import igrad.logic.parser.Parser;
+import igrad.logic.parser.ParserUtil;
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.course.Cap;
 import igrad.model.course.CourseInfo;
+import igrad.model.course.Credits;
 import igrad.model.course.Name;
+import igrad.model.course.Semesters;
+
+//@@author nathanaelseen
 
 /**
  * Parses input arguments and creates a new CourseAddCommand object.
@@ -28,7 +34,7 @@ public class CourseAddCommandParser extends CourseCommandParser implements Parse
      */
     public CourseAddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-            ArgumentTokenizer.tokenize(args, PREFIX_NAME);
+            ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_SEMESTER);
 
         /*
          * If all arguments in the command are empty; i.e, 'course add', and nothing else (except preambles), show
@@ -39,34 +45,37 @@ public class CourseAddCommandParser extends CourseCommandParser implements Parse
                 MESSAGE_COURSE_ADD_HELP));
         }
 
-        /*
-         * course add n/NAME
-         *
-         * We have that; NAME is a compulsory field, so we're just validating for its
-         * presence in the below.
-         *
-         * But actually we don't need to validate for course name argument, as we did
-         * in module and requirement;
-         * if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_NAME)) {
-         *       throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
-                    MESSAGE_NOT_ADDED));
-         * }.
-         * This is because course has only one field; name, and fulfilling the above condition;
-         * where {@code argMultimap.isEmpty(false)} would automatically mean that the map has the
-         * argument we need, hence we don't need to re-validate for its presence.
-         * (Please read the Javadoc comments for {@code argMultimap.isEmpty(boolean checkPreamble)} for more
-         * details, if you would like to know more.)
-         */
+        if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_SEMESTER)) {
+            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                MESSAGE_COURSE_NOT_ADDED));
+        }
 
+        /*
+         * Parsing and setting the name of our new course
+         */
         Optional<Name> name = parseName(argMultimap.getValue(PREFIX_NAME).get());
 
         /*
-         * A newly created course has no cap since there are no modules added to the system yet.
-         * Hence, we set cap to be {@code Optional.empty()}
+         * A newly created course has no (graded) modules added to it yet, thus, it does not make sense to set any
+         * cap, even 0, so we're setting it to optional here.
          */
         Optional<Cap> cap = Optional.empty();
 
-        CourseInfo courseInfo = new CourseInfo(name, cap);
+        /*
+         * Similarly,a newly created course has no requirements tagged to it and hence it does not make sense to talk
+         * about credits (required or fulfilled), hence we set it to Optional here
+         */
+        Optional<Credits> credits = Optional.empty();
+
+        /*
+         * A newly created course has no semesters added to it yet as different students have different length of study.
+         * Hence, it does not make sense to set any semester, so it is set to Optional.
+         */
+        //Optional<Semesters> semesters = Optional.empty();
+        Optional<Semesters> semesters = parseSemesters(argMultimap.getValue(PREFIX_SEMESTER).get());
+
+        CourseInfo courseInfo = new CourseInfo(name, cap, credits, semesters);
+
         return new CourseAddCommand(courseInfo);
     }
 }

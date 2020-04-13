@@ -1,0 +1,54 @@
+@startuml
+!include ../style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":CourseBookParser" as CourseBookParser LOGIC_COLOR
+participant "u:UndoCommand" as UndoCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant "b:BackupCourseBook" as BackupCourseBook MODEL_COLOR
+end box
+
+[-> LogicManager : execute(undo)
+activate LogicManager
+
+LogicManager -> CourseBookParser : parseCommand(undo)
+activate CourseBookParser
+
+create UndoCommand
+CourseBookParser -> UndoCommand
+activate UndoCommand
+
+UndoCommand --> CourseBookParser
+
+CourseBookParser --> LogicManager : u
+deactivate CourseBookParser
+
+LogicManager -> UndoCommand : execute()
+activate UndoCommand
+
+UndoCommand -> Model : undoCourseBook()
+activate Model
+
+Model -> BackupCourseBook
+activate BackupCourseBook
+
+BackupCourseBook --> Model :
+deactivate BackupCourseBook
+
+Model -> Model: setCourseBook(b)
+
+Model --> UndoCommand
+deactivate Model
+
+UndoCommand --> LogicManager : result
+deactivate UndoCommand
+UndoCommand -[hidden]-> LogicManager : result
+destroy UndoCommand
+
+<--LogicManager
+deactivate LogicManager
+@enduml

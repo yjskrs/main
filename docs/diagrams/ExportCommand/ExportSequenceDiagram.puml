@@ -1,0 +1,55 @@
+@startuml
+!include ../style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":CourseBookParser" as CourseBookParser LOGIC_COLOR
+participant "e:ExportCommand" as ExportCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+box CsvWriter CSV_WRITER_COLOR_T1
+participant ":CsvWriter" as CsvWriter CSV_WRITER_COLOR
+end box
+
+[-> LogicManager : execute(export)
+activate LogicManager
+
+LogicManager -> CourseBookParser : parseCommand(export)
+activate CourseBookParser
+
+create ExportCommand
+CourseBookParser -> ExportCommand
+activate ExportCommand
+
+ExportCommand --> CourseBookParser
+
+CourseBookParser --> LogicManager : u
+deactivate CourseBookParser
+
+LogicManager -> ExportCommand : execute()
+activate ExportCommand
+
+ExportCommand -> Model : exportModuleList()
+activate Model
+
+Model -> CsvWriter: write()
+activate CsvWriter
+
+CsvWriter--> Model :
+deactivate CsvWriter
+
+Model --> ExportCommand
+deactivate Model
+
+ExportCommand --> LogicManager : result
+deactivate ExportCommand
+ExportCommand -[hidden]-> LogicManager : result
+destroy ExportCommand
+
+<--LogicManager
+deactivate LogicManager
+@enduml

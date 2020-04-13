@@ -7,9 +7,8 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
@@ -17,13 +16,12 @@ import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.avatar.Avatar;
 import igrad.model.module.ModuleCode;
 import igrad.model.requirement.RequirementCode;
-import igrad.model.tag.Tag;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
  */
 public class ParserUtil {
-
+    //@@author nathanaelseen
     public static final Function<String, Boolean> REQUIREMENT_CODE_SPECIFIER_RULE =
         RequirementCode::isValidRequirementCode;
 
@@ -58,6 +56,7 @@ public class ParserUtil {
 
         return new Specifier(trimmedSpecifier);
     }
+    //@@author
 
     /**
      * Parses a {@code String name} into an {@code Avatar}.
@@ -74,32 +73,7 @@ public class ParserUtil {
         return new Avatar(trimmedName);
     }
 
-    /**
-     * Parses a {@code String tag} into a {@code Tag}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code tag} is invalid.
-     */
-    public static Tag parseTag(String tag) throws ParseException {
-        requireNonNull(tag);
-        String trimmedTag = tag.trim();
-        if (!Tag.isValidTagName(trimmedTag)) {
-            throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
-        }
-        return new Tag(trimmedTag);
-    }
-
-    /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
-     */
-    public static Set<Tag> parseTag(Collection<String> tags) throws ParseException {
-        requireNonNull(tags);
-        final Set<Tag> tagsSet = new HashSet<>();
-        for (String tagName : tags) {
-            tagsSet.add(parseTag(tagName));
-        }
-        return tagsSet;
-    }
+    //@@author nathanaelseen
 
     /**
      * Parses {@code Collection<String> moduleCodes} into a {@code List<ModuleCode>}.
@@ -116,11 +90,16 @@ public class ParserUtil {
         return moduleCodesList;
     }
 
+    //@@author
+
     /**
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given
      * {@code ArgumentMultimap}.
      */
     public static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+        return Stream.of(prefixes).allMatch(prefix -> {
+            Optional<String> value = argumentMultimap.getValue(prefix);
+            return value.isPresent() && !value.get().isEmpty();
+        });
     }
 }

@@ -1,0 +1,31 @@
+@startuml
+start
+:User executes command\nwith multiple module codes;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+repeat
+    :Makes a get request to NUSMods for current academic year;
+repeat while () is (more modules to add)
+->;
+
+:Stores all modules in a list;
+
+fork
+    :Filters out duplicate modules;
+fork again
+    :Begin generating response message to user based on module list;
+    repeat
+        if(is duplicate?) then (no)
+            if(has prerequisite/ does not have preclusion?) then (no)
+                :add prerequisite/ preclusion warning;
+            endif
+        else ()
+            :add duplicate error to message;
+        endif
+    repeat while () is (more modules to parse)->;
+endfork
+
+:Creates mulitple modules with response message;
+stop
+@enduml

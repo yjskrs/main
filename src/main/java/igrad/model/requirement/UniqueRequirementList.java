@@ -3,9 +3,13 @@ package igrad.model.requirement;
 import static igrad.commons.util.CollectionUtil.requireAllNonNull;
 import static java.util.Objects.requireNonNull;
 
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
+import igrad.model.module.Module;
 import igrad.model.requirement.exceptions.DuplicateRequirementException;
 import igrad.model.requirement.exceptions.RequirementNotFoundException;
 import javafx.collections.FXCollections;
@@ -28,6 +32,9 @@ public class UniqueRequirementList implements Iterable<Requirement> {
     private final ObservableList<Requirement> internalUnmodifiableList =
         FXCollections.unmodifiableObservableList(internalList);
 
+    private final Comparator<Requirement> compareByFulfilledCriteria = (Requirement r1, Requirement r2) ->
+        !r1.isFulfilled() && r2.isFulfilled() ? 0 : 1;
+
     /**
      * Returns true if the list contains an equivalent requirement to {@code toCheck}.
      */
@@ -38,8 +45,35 @@ public class UniqueRequirementList implements Iterable<Requirement> {
     }
 
     /**
+     * Returns a requirement if the list contains an equivalent {@code Requirement};
+     * which has requirement code; {@code requirementCode}, and returns an
+     * {@code Optional.empty} if otherwise.
+     */
+    public Optional<Requirement> getByRequirementCode(RequirementCode requirementCode) {
+        requireNonNull(requirementCode);
+
+        return internalList.stream()
+            .filter(requirement -> requirement.getRequirementCode().equals(requirementCode))
+            .findFirst();
+    }
+
+    /**
+     * Returns a list of requirement; {@code List<Requirement>} of all requirements in the internal list
+     * which contains the specified module; {@code module}.
+     */
+    public List<Requirement> getByModule(Module module) {
+        requireNonNull(module);
+
+        return internalList.stream()
+            .filter(requirement -> requirement.hasModule(module))
+            .collect(Collectors.toList());
+    }
+
+    /**
      * Adds a {@code requirement} to the list.
      * The requirement must not already exist in the list.
+     *
+     * @throws DuplicateRequirementException If a duplicate requirement exists in the list.
      */
     public void add(Requirement toAdd) throws DuplicateRequirementException {
         requireNonNull(toAdd);
@@ -49,6 +83,7 @@ public class UniqueRequirementList implements Iterable<Requirement> {
         }
 
         internalList.add(toAdd);
+        //FXCollections.sort(internalList, compareByFulfilledCriteria);
     }
 
     /**
@@ -58,11 +93,14 @@ public class UniqueRequirementList implements Iterable<Requirement> {
         requireNonNull(replacement);
 
         internalList.setAll(replacement.internalList);
+        //FXCollections.sort(internalList, compareByFulfilledCriteria);
     }
 
     /**
      * Replaces the contents of this list with the list {@code requirements}.
      * The {@code requirements} list must not contain duplicate requirements.
+     *
+     * @throws DuplicateRequirementException If a duplicate requirement exists in the list to set.
      */
     public void setRequirements(List<Requirement> requirements) throws DuplicateRequirementException {
         requireAllNonNull(requirements);
@@ -72,11 +110,14 @@ public class UniqueRequirementList implements Iterable<Requirement> {
         }
 
         internalList.setAll(requirements);
+        //FXCollections.sort(internalList, compareByFulfilledCriteria);
     }
 
     /**
      * Replaces the requirement {@code target} in the list with {@code editedRequirement}.
      * {@code target} must exist in the list.
+     *
+     * @throws RequirementNotFoundException If the target requirement does not exist.
      */
     public void setRequirement(Requirement target, Requirement editedRequirement) throws RequirementNotFoundException {
         requireAllNonNull(target, editedRequirement);
@@ -91,13 +132,16 @@ public class UniqueRequirementList implements Iterable<Requirement> {
         }
 
         internalList.set(index, editedRequirement);
+        //FXCollections.sort(internalList, compareByFulfilledCriteria);
     }
 
     /**
      * Removes the requirement {@code toRemove} from the list.
      * The requirement must exist in the list.
+     *
+     * @throws RequirementNotFoundException If the requirement to remove does not exist.
      */
-    public void remove(Requirement toRemove) {
+    public void remove(Requirement toRemove) throws RequirementNotFoundException {
         requireNonNull(toRemove);
 
         if (!internalList.remove(toRemove)) {

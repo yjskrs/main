@@ -1,0 +1,60 @@
+= Daryl Goh - Project Portfolio
+
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: iGrad
+---
+image::../images/Ui.png[]
+
+== Overview
+
+iGrad is a desktop module management and graduation tracking application. The user interacts with it using a CLI, and it has a GUI
+created with JavaFX, FXML and CSS.
+
+== Summary of contributions
+
+* *Major Enhancement*: added *backend to frontend functionality*
+** What it does: allows for visible change on the GUI upon user input.
+** Justification: This feature allows the user to view data that they have input into the system, such that they are able to view their data in a cohesive window.
+** Highlights: This feature was done mainly by adding and refactoring existing code from AB3.
+
+* *Major Enhancement*: added and designed *a clean and user-friendly Graphical User Interface (GUI)*
+** What it does: improves user experience greatly.
+** Justification: Greatly improves usability by ensuring that the user experience is good when using the application.
+** Highlights: Did up initial mock-ups on Photoshop as well as revamping the initial from AB3 to provide a template for the current UI. Also did up initial skeletons for various UI components.
+** Credits: Skeleton code for multiple GUI components before handing over to https://github.com/waynewee[Wayne] for future iterations.
+
+* *Major Enhancement*: added *module validation* when adding from NUSMods.
+** What it does: added modules are validated to check if prerequisites or preclusions already exist in the current data.
+** Justification: Important to ensure that modules added do not clash for the user, which may affect module planning.
+** Credits: Adding modules based on NUSMods data functionality by https://github.com/waynewee[Wayne], further improvements also by https://github.com/waynewee[Wayne].
+
+* *Minor Enhancement*: did mock-ups and image designs for the interface, using Photoshop.
+
+* *Code contributed*: [https://github.com/AY1920S2-CS2103T-F09-3/main/commits?author=dargohzy[All commits]] [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=dargohzy[Project Code Dashboard]]
+
+* *Other contributions*:
+** Project Presentation
+*** Was part of the team that did the product pitch
+
+== Contributions to the User Guide
+|===
+|_Given below are the sections I contributed to the User Guide. They showcase my ability to communicate with end-users
+of the product in question. Worked in conjunction with https://github.com/teriaiw[Teri]._
+|===
+include::../UserGuide.adoc[tag=walkthrough]
+
+include::../UserGuide.adoc[tag=cheatsheet]
+|===
+
+== Contributions to the Developer Guide
+|===
+|_Given below are the sections I contributed to the Developer Guide. They showcase my ability to communicate technical
+information into documentation as well as my contributions to the project._
+|===
+
+
+include::../DeveloperGuide.adoc[tag=ui]
+

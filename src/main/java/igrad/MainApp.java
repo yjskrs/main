@@ -36,7 +36,7 @@ import javafx.stage.Stage;
  */
 public class MainApp extends Application {
 
-    public static final Version VERSION = new Version(0, 6, 0, true);
+    public static final Version VERSION = new Version(1, 4, 0, true);
 
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
@@ -56,10 +56,7 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         ReadOnlyUserPrefs userPrefs = initPrefs(userPrefsStorage);
-        CourseBookStorage courseBookStorage = new JsonCourseBookStorage(
-            userPrefs.getCourseBookFilePath(),
-            userPrefs.getBackupCourseBookFilePath()
-        );
+        CourseBookStorage courseBookStorage = new JsonCourseBookStorage(userPrefs.getCourseBookFilePath());
         storage = new StorageManager(courseBookStorage, userPrefsStorage);
 
         initLogging(config);
@@ -87,7 +84,7 @@ public class MainApp extends Application {
                 logger.info("CourseBook Data file not found. Will be starting with an empty CourseBook");
             }
 
-            initialData = courseBookOptional.orElseGet(SampleDataUtil::getEmptyCourseBook);
+            initialData = courseBookOptional.orElseGet(SampleDataUtil::getSampleCourseBook);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty CourseBook");
             initialData = new CourseBook();

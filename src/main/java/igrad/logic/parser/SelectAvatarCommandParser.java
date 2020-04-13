@@ -4,6 +4,8 @@ import igrad.logic.commands.SelectAvatarCommand;
 import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.avatar.Avatar;
 
+//@@author nathanaelseen
+
 /**
  * Parses input arguments and creates a new SelectAvatarCommand object
  */

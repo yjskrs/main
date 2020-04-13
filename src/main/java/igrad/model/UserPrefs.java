@@ -17,7 +17,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     private GuiSettings guiSettings = new GuiSettings();
     private Path courseBookFilePath = Paths.get("data", "coursebook.json");
     private Path backupCourseBookFilePath = Paths.get("data", "backup_coursebook.json");
-    private Avatar avatar = new Avatar();
+    private Avatar avatar = Avatar.getSampleAvatar();
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -86,15 +86,13 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         if (other == this) {
             return true;
         }
-        if (!(other instanceof UserPrefs)) { //this handles null as well.
+        if (!(other instanceof UserPrefs)) { // this handles null
             return false;
         }
 
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
-            && courseBookFilePath.equals(o.courseBookFilePath)
-            && backupCourseBookFilePath.equals(o.backupCourseBookFilePath)
             && avatar.equals(o.avatar);
     }
 

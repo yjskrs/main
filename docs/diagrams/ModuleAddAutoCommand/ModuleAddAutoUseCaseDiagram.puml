@@ -1,0 +1,13 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+actor user
+actor NUSMods
+rectangle iGrad {
+  user -- (request for module information)
+  (request for module information) .> (adds module to module list) : include
+  (manually add module) .> (request for module information) : extends
+  (request for module information) -- NUSMods
+}
+@enduml
+

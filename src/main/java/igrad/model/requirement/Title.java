@@ -3,15 +3,16 @@ package igrad.model.requirement;
 import static igrad.commons.util.AppUtil.checkArgument;
 import static java.util.Objects.requireNonNull;
 
+//@@author yjskrs
+
 /**
  * Represents a Requirement's title.
  * Guarantees: immutable, non-null and is valid as declared by {@link #isValidTitle(String)}
  */
 public class Title {
 
-    public static final String MESSAGE_CONSTRAINTS = "Title should not start with a space or slash,"
-                                                         + " should not contain only numbers,"
-                                                         + " and should not be blank.";
+    public static final String MESSAGE_CONSTRAINTS = "The Title provided for requirement is invalid!\n"
+        + "Title should not start with a space and should not be blank.";
 
     // The first character of the requirement title must not be a whitespace (" ").
     // The title must not contain only numbers or be blank.

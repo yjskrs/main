@@ -1,5 +1,7 @@
 package igrad.model.requirement;
 
+//@@author yjskrs
+
 import static igrad.testutil.Assert.assertThrows;
 import static igrad.testutil.TypicalRequirements.CS_FOUNDATION;
 import static igrad.testutil.TypicalRequirements.GENERAL_ELECTIVES;
@@ -41,8 +43,8 @@ public class UniqueRequirementListTest {
     public void contains_requirementWithSameIdentity_returnsTrue() {
         uniqueRequirementList.add(CS_FOUNDATION);
         Requirement editedRequirement = new RequirementBuilder(CS_FOUNDATION)
-                                            .withCreditsOneParameter("40")
-                                            .build();
+            .withCreditsOneParameter("40")
+            .build();
         assertTrue(uniqueRequirementList.contains(editedRequirement));
     }
 
@@ -61,8 +63,8 @@ public class UniqueRequirementListTest {
     public void add_requirementWithSameIdentity_throwsDuplicateRequirementException() {
         uniqueRequirementList.add(CS_FOUNDATION);
         Requirement editedRequirement = new RequirementBuilder(CS_FOUNDATION)
-                                            .withCreditsOneParameter("40")
-                                            .build();
+            .withCreditsOneParameter("40")
+            .build();
         assertThrows(DuplicateRequirementException.class, () -> uniqueRequirementList.add(editedRequirement));
     }
 
@@ -99,9 +101,9 @@ public class UniqueRequirementListTest {
     public void setRequirement_editedRequirementWithSameIdentity_success() {
         uniqueRequirementList.add(CS_FOUNDATION);
         Requirement editedRequirement = new RequirementBuilder(CS_FOUNDATION)
-                                            .withTitle("New Title")
-                                            .withCreditsOneParameter("36")
-                                            .build();
+            .withTitle("New Title")
+            .withCreditsOneParameter("36")
+            .build();
         uniqueRequirementList.setRequirement(CS_FOUNDATION, editedRequirement);
 
         UniqueRequirementList differentListWithSameRequirement = new UniqueRequirementList();
@@ -130,8 +132,10 @@ public class UniqueRequirementListTest {
     public void setRequirements_uniqueRequirementList_replacesOwnListWithProvidedUniqueRequirementList() {
         uniqueRequirementList.add(CS_FOUNDATION);
         uniqueRequirementList.add(GENERAL_ELECTIVES);
+
         UniqueRequirementList newRequirementList = new UniqueRequirementList();
         newRequirementList.add(UNRESTRICTED_ELECTIVES);
+
         uniqueRequirementList.setRequirements(newRequirementList);
         assertEquals(newRequirementList, uniqueRequirementList);
 

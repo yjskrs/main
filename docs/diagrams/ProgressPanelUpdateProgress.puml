@@ -1,0 +1,68 @@
+@startuml
+!include style.puml
+autoactivate on
+
+box UI UI_COLOR_T1
+participant ":MainWindow" as MainWindow UI_COLOR
+participant ":ProgressSidePanel" as ProgressSidePanel UI_COLOR
+end box
+
+box MODEL MODEL_COLOR_T1
+participant ":ModelManager" as ModelManager MODEL_COLOR
+participant ":Name" as Name MODEL_COLOR
+participant ":Credits" as Credits MODEL_COLOR
+participant ":Cap" as Cap MODEL_COLOR
+participant ":Semesters" as Semesters MODEL_COLOR
+end box
+
+[-> MainWindow : executeCommand("module done n/CS1101S g/A")
+activate MainWindow
+
+MainWindow -> ModelManager : update model
+activate ModelManager
+return done
+deactivate ModelManager
+
+MainWindow -> MainWindow : refreshProgressPanel(model)
+
+MainWindow -> ProgressSidePanel : updateProgress(model)
+activate ProgressSidePanel
+
+ProgressSidePanel -> ModelManager : getCourseInfo()
+activate ModelManager
+return courseInfo
+deactivate
+
+ProgressSidePanel -> Name : courseInfo.getName()
+return courseName
+
+ProgressSidePanel -> Credits : courseInfo.getCredits()
+return creditsCount
+
+ProgressSidePanel -> Cap : courseInfo.getCap()
+return cap
+
+ProgressSidePanel -> Semesters : courseInfo.getSemesters()
+return semesters
+
+ProgressSidePanel -> ProgressSidePanel : setProgress(percentage)
+return
+
+ProgressSidePanel -> ProgressSidePanel : currentCapLabel.setText(currentCap)
+return
+
+ProgressSidePanel -> ProgressSidePanel : creditsCount.setText(creditsCount)
+return
+
+ProgressSidePanel -> ProgressSidePanel : semesterLabel.setText(semesters)
+return
+
+deactivate ProgressSidePanel
+return
+
+deactivate
+
+[<-- MainWindow
+deactivate MainWindow
+@enduml
+

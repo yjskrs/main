@@ -1,6 +1,9 @@
 package igrad.model.requirement;
 
+//@@author yjskrs
+
 import static igrad.testutil.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -39,5 +42,19 @@ public class TitleTest {
         assertTrue(Title.isValidTitle("Computer Science Foundation 1")); // contains alphanumeric characters
         assertTrue(Title.isValidTitle("Requirements (for 2nd major)")); // contains non-alphanumeric characters
         assertTrue(Title.isValidTitle("日本研究学科")); // contains only non-alphaneumeric characters
+    }
+
+    @Test
+    public void toString_sameTitle_equals() {
+        String str = "Title";
+        Title title = new Title(str);
+        assertEquals(title.toString(), str);
+    }
+
+    @Test
+    public void equals() {
+        String str = "Title";
+        Title title = new Title(str);
+        assertTrue(title.equals(new Title(str)));
     }
 }

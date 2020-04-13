@@ -1,15 +1,11 @@
 package igrad.model.module;
 
+//@@author waynewee
+
 import static igrad.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.Set;
-
-import igrad.model.tag.Tag;
-
 /**
  * Represents a Module in the course book.
  * Guarantees: details are present and not null, field values are validated, immutable.
@@ -21,31 +17,48 @@ public class Module {
     private final ModuleCode moduleCode;
     private final Credits credits;
 
-    // Data fields
+    private final ModulePrerequisites prequisites;
+    private final ModulePreclusions preclusions;
 
     // A module object can be created without all these fields (which are optional)
-    private final Optional<Memo> memo;
-    private final Optional<Description> description;
     private final Optional<Semester> semester;
     private final Optional<Grade> grade;
-
-    private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Module(Title title, ModuleCode moduleCode, Credits credits,
-                  Optional<Memo> memo, Optional<Semester> semester,
-                  Optional<Description> description, Optional<Grade> grade, Set<Tag> tags) {
+    public Module(
+        Title title,
+        ModuleCode moduleCode,
+        Credits credits,
+        Optional<Semester> semester,
+        Optional<Grade> grade
+    ) {
         requireAllNonNull(title, moduleCode, credits);
         this.title = title;
         this.moduleCode = moduleCode;
         this.credits = credits;
-        this.memo = memo;
-        this.description = description;
         this.semester = semester;
         this.grade = grade;
-        this.tags.addAll(tags);
+        this.preclusions = new ModulePreclusions();
+        this.prequisites = new ModulePrerequisites();
+    }
+
+    public Module(
+        Title title,
+        ModuleCode moduleCode,
+        Credits credits,
+        ModulePreclusions preclusions,
+        ModulePrerequisites prequisites
+    ) {
+        requireAllNonNull(title, moduleCode, credits);
+        this.title = title;
+        this.moduleCode = moduleCode;
+        this.credits = credits;
+        this.semester = Optional.empty();
+        this.grade = Optional.empty();
+        this.preclusions = preclusions;
+        this.prequisites = prequisites;
     }
 
     public Title getTitle() {
@@ -60,14 +73,6 @@ public class Module {
         return credits;
     }
 
-    public Optional<Memo> getMemo() {
-        return memo;
-    }
-
-    public Optional<Description> getDescription() {
-        return description;
-    }
-
     public Optional<Semester> getSemester() {
         return semester;
     }
@@ -76,12 +81,12 @@ public class Module {
         return grade;
     }
 
-    /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
-     */
-    public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tags);
+    public ModulePrerequisites getPrequisites() {
+        return prequisites;
+    }
+
+    public ModulePreclusions getPreclusions() {
+        return preclusions;
     }
 
     /**
@@ -134,13 +139,15 @@ public class Module {
 
         return otherModule.getTitle().equals(getTitle())
             && otherModule.getModuleCode().equals(getModuleCode())
-            && otherModule.getCredits().equals(getCredits());
+            && otherModule.getCredits().equals(getCredits())
+            && otherModule.getGrade().equals(getGrade())
+            && otherModule.getSemester().equals(getSemester());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(title, moduleCode, credits, memo, description, semester, tags);
+        return Objects.hash(title, moduleCode, credits, semester);
     }
 
     @Override
@@ -150,25 +157,18 @@ public class Module {
         ModuleCode moduleCode = getModuleCode();
         Credits credits = getCredits();
 
-        /*Optional<Memo> memo = getMemo();
-        Optional<Description> description = getDescription();
-        Optional<Semester> semester = getSemester();
-        Optional<Grade> grade = getGrade();*/
-
         final StringBuilder builder = new StringBuilder();
 
         builder
             .append("Module Code: ")
             .append(moduleCode)
-            .append(", Title: ")
+            .append("\nTitle: ")
             .append(title)
-            .append(", Credits: ")
+            .append("\nCredits: ")
             .append(credits);
 
-        /*memo.ifPresent(x -> builder.append(" Memo: ").append(x));
-        description.ifPresent(x -> builder.append(" Description: ").append(x));
-        semester.ifPresent(x -> builder.append(" Semester: ").append(x));
-        grade.ifPresent(x -> builder.append(" Grade: ").append(x));*/
+        semester.ifPresent(x -> builder.append("\nSemester: ").append(x));
+        grade.ifPresent(x -> builder.append("\nGrade: ").append(x));
 
         return builder.toString();
     }

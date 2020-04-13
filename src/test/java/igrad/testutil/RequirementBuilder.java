@@ -1,5 +1,9 @@
 package igrad.testutil;
 
+import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_CODE_CSF;
+import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_CREDITS_CSF;
+import static igrad.logic.commands.requirement.RequirementCommandTestUtil.VALID_REQ_TITLE_CSF;
+
 import java.util.List;
 
 import igrad.model.module.Module;
@@ -9,13 +13,15 @@ import igrad.model.requirement.Requirement;
 import igrad.model.requirement.RequirementCode;
 import igrad.model.requirement.Title;
 
+//@@author yjskrs
+
 /**
  * A utility class to help with building {@code Requirement} objects.
  */
 public class RequirementBuilder {
-    public static final String DEFAULT_REQUIREMENT_CODE = "CSF0";
-    public static final String DEFAULT_TITLE = "Computer Science Foundation";
-    public static final String DEFAULT_CREDITS = "48";
+    public static final String DEFAULT_REQUIREMENT_CODE = VALID_REQ_CODE_CSF;
+    public static final String DEFAULT_TITLE = VALID_REQ_TITLE_CSF;
+    public static final String DEFAULT_CREDITS = VALID_REQ_CREDITS_CSF;
 
     private RequirementCode requirementCode;
     private Title title;
@@ -70,8 +76,28 @@ public class RequirementBuilder {
     /**
      * Sets the {@code Credits} of the {@code Requirement} that we are building.
      */
-    public RequirementBuilder withCreditsTwoParameters(int creditsRequired, int creditsFulfilled) {
-        this.credits = new Credits(creditsRequired, creditsFulfilled);
+    public RequirementBuilder withCreditsThreeParameters(int creditsRequired,
+                                                         int creditsAssigned,
+                                                         int creditsFulfilled) {
+        this.credits = new Credits(creditsRequired, creditsAssigned, creditsFulfilled);
+        return this;
+    }
+
+    /**
+     * Update credits value with addition of modules.
+     */
+    public RequirementBuilder updateCredits() {
+        int creditsAssigned = 0;
+        int creditsFulfilled = 0;
+
+        for (Module module : modules) {
+            creditsAssigned += module.getCredits().toInteger();
+            if (module.isDone()) {
+                creditsFulfilled += module.getCredits().toInteger();
+            }
+        }
+
+        this.credits = new Credits(credits.getCreditsRequired(), creditsAssigned, creditsFulfilled);
         return this;
     }
 
@@ -80,7 +106,7 @@ public class RequirementBuilder {
      */
     public RequirementBuilder withModules(List<Module> moduleList) {
         modules.setModules(moduleList);
-        return this;
+        return updateCredits();
     }
 
     /**

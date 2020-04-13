@@ -1,19 +1,13 @@
 package igrad.testutil;
 
-import java.util.HashSet;
 import java.util.Optional;
-import java.util.Set;
 
 import igrad.model.module.Credits;
-import igrad.model.module.Description;
 import igrad.model.module.Grade;
-import igrad.model.module.Memo;
 import igrad.model.module.Module;
 import igrad.model.module.ModuleCode;
 import igrad.model.module.Semester;
 import igrad.model.module.Title;
-import igrad.model.tag.Tag;
-import igrad.model.util.SampleDataUtil;
 
 /**
  * A utility class to help with building Module objects.
@@ -23,26 +17,22 @@ public class ModuleBuilder {
     public static final String DEFAULT_TITLE = "Programming Methodology";
     public static final String DEFAULT_MODULE_CODE = "CS1101S";
     public static final String DEFAULT_CREDITS = "4";
-    public static final String DEFAULT_MEMO = "this is about recursion";
     public static final String DEFAULT_SEMESTER = "Y1S1";
-    public static final String DEFAULT_DESCRIPTION = "blah";
+    public static final String DEFAULT_DESCRIPTION = "Good Module";
+    public static final String DEFAULT_GRADE = "A+";
 
     private Title title;
     private ModuleCode moduleCode;
     private Credits credits;
-    private Optional<Memo> memo;
     private Optional<Semester> semester;
-    private Optional<Description> description;
-    private Set<Tag> tags;
+    private Optional<Grade> grade;
 
     public ModuleBuilder() {
         title = new Title(DEFAULT_TITLE);
         moduleCode = new ModuleCode(DEFAULT_MODULE_CODE);
         credits = new Credits(DEFAULT_CREDITS);
-        memo = Optional.of(new Memo(DEFAULT_MEMO));
         semester = Optional.of(new Semester(DEFAULT_SEMESTER));
-        description = Optional.of(new Description(DEFAULT_DESCRIPTION));
-        tags = new HashSet<>();
+        grade = Optional.of(new Grade(DEFAULT_GRADE));
     }
 
     /**
@@ -52,9 +42,8 @@ public class ModuleBuilder {
         title = moduleToCopy.getTitle();
         moduleCode = moduleToCopy.getModuleCode();
         credits = moduleToCopy.getCredits();
-        memo = moduleToCopy.getMemo();
         semester = moduleToCopy.getSemester();
-        tags = new HashSet<>(moduleToCopy.getTags());
+        grade = moduleToCopy.getGrade();
     }
 
     /**
@@ -62,14 +51,6 @@ public class ModuleBuilder {
      */
     public ModuleBuilder withTitle(String title) {
         this.title = new Title(title);
-        return this;
-    }
-
-    /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Module} that we are building.
-     */
-    public ModuleBuilder withTags(String... tags) {
-        this.tags = SampleDataUtil.getTagSet(tags);
         return this;
     }
 
@@ -90,14 +71,6 @@ public class ModuleBuilder {
     }
 
     /**
-     * Sets the {@code Memo} of the {@code Module} that we are building.
-     */
-    public ModuleBuilder withMemo(String memo) {
-        this.memo = Optional.of(new Memo(memo));
-        return this;
-    }
-
-    /**
      * Sets the {@code Semester} of the {@code Module} that we are building.
      */
     public ModuleBuilder withSemester(String semester) {
@@ -106,10 +79,20 @@ public class ModuleBuilder {
     }
 
     /**
-     * Sets the {@code Semester} of the {@code Module} that we are building.
+     * Sets the {@code Grade} of the {@code Module} that we are building.
      */
-    public ModuleBuilder withDescription(String description) {
-        this.description = Optional.of(new Description(description));
+    public ModuleBuilder withGrade(String grade) {
+        this.grade = Optional.of(new Grade(grade));
+        return this;
+    }
+
+    /**
+     * Sets all the optional fields to empty
+     */
+    public ModuleBuilder withoutOptionals() {
+        this.grade = Optional.empty();
+        this.semester = Optional.empty();
+
         return this;
     }
 
@@ -117,9 +100,7 @@ public class ModuleBuilder {
      * Builds a {@code Module} for testing
      */
     public Module build() {
-        // TODO: Add support for grade
-        Optional<Grade> grade = Optional.empty();
-        return new Module(title, moduleCode, credits, memo, semester, description, grade, tags);
+        return new Module(title, moduleCode, credits, semester, grade);
     }
 
 }

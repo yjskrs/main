@@ -1,6 +1,7 @@
 package igrad.logic;
 
 import static igrad.commons.core.Messages.MESSAGE_COURSE_NOT_SET;
+import static igrad.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -10,6 +11,7 @@ import igrad.commons.core.GuiSettings;
 import igrad.commons.core.LogsCenter;
 import igrad.logic.commands.Command;
 import igrad.logic.commands.CommandResult;
+import igrad.logic.commands.HelpCommand;
 import igrad.logic.commands.SelectAvatarCommand;
 import igrad.logic.commands.UndoCommand;
 import igrad.logic.commands.course.CourseAddCommand;
@@ -59,6 +61,7 @@ public class LogicManager implements Logic {
         return commandResult;
     }
 
+    //@@author nathanaelseen
     @Override
     public CommandResult execute(String commandText) throws CommandException,
         ParseException, IOException, ServiceException {
@@ -66,24 +69,59 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = courseBookParser.parseCommand(commandText);
+
+        Command command = null;
+
+        try {
+            command = courseBookParser.parseCommand(commandText);
+        } catch (ParseException pe) {
+            if (!model.isCourseNameSet()
+                    && !(pe.getMessage().equals(MESSAGE_UNKNOWN_COMMAND))) {
+                /*
+                 * If the command is not properly formmated, and it's a command
+                 * which the system partially recognises, but the course (name) is not set,
+                 * show the course not set error.
+                 */
+                throw new CommandException(MESSAGE_COURSE_NOT_SET);
+            } else {
+                /* There are 2 cases here:
+                 * 1) If the command is not properly formmated, and it's a command
+                 * which the system entirely does not recognises, and the course (name) is not set,
+                 * show the help message (by propagating this exception).
+                 *
+                 * 2) If the command is not properly formatted, and its a command which the
+                 * system partially recognises/entirely does not recognise, then just
+                 * propagate this exception too (as exactly thrown).
+                 */
+                throw pe;
+            }
+        }
 
         /*
-         * If user has not selected her course name, and she is trying to execute any other
-         * command except course add n/course_name, prevent her from doing so.
+         * If the command is a properly formatted command, but the command is not and undo,
+         * help, or course add command, and where the course (name) is not set, then we have
+         * to prevent its execution here. If on the contrary, the course were not set,
+         * but the command is properly formatted as undo, help or course add, then we still
+         * allow it to execute.
          */
-        if (!model.isCourseNameSet() && !(command instanceof CourseAddCommand)) {
+        if (!model.isCourseNameSet()
+            && !(command instanceof CourseAddCommand || command instanceof UndoCommand
+            || command instanceof HelpCommand)) {
             throw new CommandException(MESSAGE_COURSE_NOT_SET);
         }
 
+        //@@author waynewee
         if (!(command instanceof UndoCommand)) {
             try {
                 // First, load current state into backup
-                storage.saveBackupCourseBook(model.getCourseBook());
+                Path backupCourseBookFilePath = model.getBackupCourseBookFilePath();
+                storage.saveCourseBook(model.getCourseBook(), backupCourseBookFilePath);
             } catch (IOException ioe) {
                 throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
             }
         }
+
+        //@@author nathanaelseen
 
         commandResult = command.execute(model);
 

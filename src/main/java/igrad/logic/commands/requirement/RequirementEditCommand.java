@@ -10,13 +10,17 @@ import java.util.Optional;
 
 import igrad.commons.util.CollectionUtil;
 import igrad.logic.commands.CommandResult;
+import igrad.logic.commands.CommandUtil;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
+import igrad.model.course.CourseInfo;
 import igrad.model.module.Module;
 import igrad.model.requirement.Credits;
 import igrad.model.requirement.Requirement;
 import igrad.model.requirement.RequirementCode;
 import igrad.model.requirement.Title;
+
+//@@author yjskrs
 
 /**
  * Modifies an existing requirement in the course book.
@@ -28,15 +32,19 @@ public class RequirementEditCommand extends RequirementCommand {
         + "by its requirement code. Existing requirement will be overwritten by the input values.\n";
 
     public static final String MESSAGE_USAGE = "Parameter(s): REQUIREMENT_CODE "
-        + "[" + PREFIX_TITLE + "TITLE] "
+        + "[" + PREFIX_TITLE + "REQUIREMENT_TITLE] "
         + "[" + PREFIX_CREDITS + "CREDITS]\n"
-        + "Example: " + REQUIREMENT_EDIT_COMMAND_WORD + " UE0 "
+        + "e.g. " + REQUIREMENT_EDIT_COMMAND_WORD + " UE0 "
         + PREFIX_TITLE + "Unrestricted Electives";
 
     public static final String MESSAGE_REQUIREMENT_EDIT_HELP = MESSAGE_DETAILS + MESSAGE_USAGE;
 
-    public static final String MESSAGE_REQUIREMENT_EDIT_SUCCESS = "Edited Requirement:\n%1$s";
-    public static final String MESSAGE_REQUIREMENT_NOT_EDITED = "At least one field must be modified.";
+    public static final String MESSAGE_REQUIREMENT_EDIT_SUCCESS = "Got it! This requirement has been "
+        + "edited successfully:\n%1$s";
+
+    public static final String MESSAGE_REQUIREMENT_NOT_EDITED = "At least one field to edit must be provided.\n"
+        + "[" + PREFIX_TITLE + "REQUIREMENT_TITLE] "
+        + "[" + PREFIX_CREDITS + "CREDITS]";
 
     private final RequirementCode requirementCode;
 
@@ -48,26 +56,6 @@ public class RequirementEditCommand extends RequirementCommand {
 
         this.requirementCode = requirementCode;
         this.requirementDescriptor = new EditRequirementDescriptor(requirementDescriptor);
-    }
-
-    @Override
-    public CommandResult execute(Model model) throws CommandException {
-        requireNonNull(model);
-
-        Requirement requirementToEdit = model.getRequirement(requirementCode)
-            .orElseThrow(() -> new CommandException(MESSAGE_REQUIREMENT_NON_EXISTENT));
-
-        Requirement editedRequirement = createEditedRequirement(requirementToEdit, requirementDescriptor);
-
-        // If none of the parameters have been modified
-        if (editedRequirement.equals(requirementToEdit)) {
-            throw new CommandException(MESSAGE_REQUIREMENT_NOT_EDITED);
-        }
-
-        model.setRequirement(requirementToEdit, editedRequirement);
-        model.updateRequirementList(Model.PREDICATE_SHOW_ALL_REQUIREMENTS);
-
-        return new CommandResult(String.format(MESSAGE_REQUIREMENT_EDIT_SUCCESS, editedRequirement));
     }
 
     /**
@@ -87,9 +75,58 @@ public class RequirementEditCommand extends RequirementCommand {
         return new Requirement(requirementCode, updatedTitle, updatedCredits, moduleList);
     }
 
+    @Override
+    public CommandResult execute(Model model) throws CommandException {
+        requireNonNull(model);
+
+        Requirement requirementToEdit = model.getRequirement(requirementCode)
+            .orElseThrow(() -> new CommandException(MESSAGE_REQUIREMENT_NON_EXISTENT));
+
+        Requirement editedRequirement = createEditedRequirement(requirementToEdit, requirementDescriptor);
+
+        // If none of the parameters have been modified
+        if (editedRequirement.equals(requirementToEdit)) {
+            throw new CommandException(MESSAGE_REQUIREMENT_NOT_EDITED);
+        }
+
+        model.setRequirement(requirementToEdit, editedRequirement);
+        //model.updateRequirementList(Model.PREDICATE_SHOW_ALL_REQUIREMENTS);
+
+        //@@author nathanaelseen
+
+        /*
+         * Now that we've edited a new Requirement in the system, we need to update CourseInfo, specifically its
+         * creditsRequired property.
+         *
+         * However, in the method below, we just recompute everything (field in course info).
+         */
+        CourseInfo courseInfoToEdit = model.getCourseInfo();
+
+        /*
+         * A call to the retrieveLatestCourseInfo(..) helps to recompute latest course info,
+         * based on information provided through Model (coursebook).
+         */
+        CourseInfo editedCourseInfo = CommandUtil.createEditedCourseInfo(courseInfoToEdit, model);
+
+        // Updating the model with the latest course info
+        model.setCourseInfo(editedCourseInfo);
+
+        return new CommandResult(String.format(MESSAGE_REQUIREMENT_EDIT_SUCCESS, editedRequirement));
+    }
+
+    //@@author yjskrs
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this
+            || (other instanceof RequirementEditCommand
+            && ((RequirementEditCommand) other).requirementDescriptor.equals(requirementDescriptor)
+            && ((RequirementEditCommand) other).requirementCode.equals(requirementCode));
+    }
+
     /**
      * Stores the details to edit the requirement with. Each non-empty field value will replace the
-     * corresponding field value of the person.
+     * corresponding field value of the requirement.
      */
     public static class EditRequirementDescriptor {
         private Title title;
@@ -102,6 +139,8 @@ public class RequirementEditCommand extends RequirementCommand {
          * Makes a copy of a EditRequirementDescriptor.
          */
         public EditRequirementDescriptor(EditRequirementDescriptor toCopy) {
+            requireNonNull(toCopy);
+
             setTitle(toCopy.title);
             setCredits(toCopy.credits);
         }
@@ -113,20 +152,33 @@ public class RequirementEditCommand extends RequirementCommand {
             return CollectionUtil.isAnyNonNull(title, credits);
         }
 
+        public Optional<Title> getTitle() {
+            return Optional.ofNullable(title);
+        }
+
         public void setTitle(Title title) {
             this.title = title;
         }
 
-        public Optional<Title> getTitle() {
-            return Optional.ofNullable(title);
+        public Optional<Credits> getCredits() {
+            return Optional.ofNullable(credits);
         }
 
         public void setCredits(Credits credits) {
             this.credits = credits;
         }
 
-        public Optional<Credits> getCredits() {
-            return Optional.ofNullable(credits);
+        @Override
+        public boolean equals(Object other) {
+            if (!(other instanceof EditRequirementDescriptor)) {
+                return false;
+            }
+
+            EditRequirementDescriptor e = (EditRequirementDescriptor) other;
+
+            return other == this
+                || (getCredits().equals(e.getCredits())
+                && getTitle().equals(e.getTitle()));
         }
     }
 }

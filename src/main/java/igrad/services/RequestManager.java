@@ -1,5 +1,7 @@
 package igrad.services;
 
+//@@author waynewee
+
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -20,7 +22,7 @@ public abstract class RequestManager {
         connection = (HttpURLConnection) url.openConnection();
         connection.setRequestProperty("Content-Type", "application/json");
         connection.setConnectTimeout(1000);
-        connection.setReadTimeout(1000);
+        connection.setReadTimeout(5000);
     }
 
 }

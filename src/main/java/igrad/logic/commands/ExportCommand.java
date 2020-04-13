@@ -3,11 +3,9 @@ package igrad.logic.commands;
 import java.io.IOException;
 import java.util.List;
 
-import igrad.csvwriter.CsvWriter;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
 import igrad.model.module.Module;
-import igrad.model.module.sorters.SortBySemester;
 
 /**
  * Format full help instructions for every command for display.
@@ -22,16 +20,22 @@ public class ExportCommand extends Command {
     public static final String SHOWING_EXPORT_MESSAGE = "I've exported your data to a CSV file."
         + " You can find it in the same folder as this app's executable!";
     public static final String EXPORT_ERROR_MESSAGE = "Unable to export data to CSV file."
-        + " Please ensure that you do not have the file <study_plan.csv> open and "
-        + "each module is tagged to a semester.";
+        + " Please ensure that you do not have the file <study_plan.csv> open";
+
+    public static final String NO_MODULE_WITH_SEMESTERS_ERROR_MESSAGE = "No modules with"
+        + " semesters found";
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
 
         try {
-            List<Module> sortedModuleList = model.getSortedModuleList(new SortBySemester());
-            CsvWriter csvWriter = new CsvWriter(sortedModuleList);
-            csvWriter.write();
+
+            List<Module> moduleList = model.exportModuleList();
+
+            if (moduleList.size() == 0) {
+                throw new CommandException(NO_MODULE_WITH_SEMESTERS_ERROR_MESSAGE);
+            }
+
         } catch (IOException | NumberFormatException e) {
             throw new CommandException(EXPORT_ERROR_MESSAGE);
         }

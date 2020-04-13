@@ -6,6 +6,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 
+// @@author dargohzy
+
 /**
  * An UI component that displays information about {@code Module}.
  */
@@ -25,13 +27,11 @@ public class ModuleCard extends UiPart<Region> {
     private int displayedIndex;
 
     @FXML
-    private HBox cardPane;
+    private HBox moduleCardPane;
     @FXML
     private Label title;
     @FXML
     private Label moduleCode;
-    @FXML
-    private Label memo;
     @FXML
     private Label semester;
     @FXML
@@ -47,17 +47,16 @@ public class ModuleCard extends UiPart<Region> {
         title.setText(module.getTitle().value);
         moduleCode.setText(module.getModuleCode().value);
         credits.setText(module.getCredits().value + " MCs");
-
-        if (module.getMemo().isPresent()) {
-            memo.setText("Memo: " + module.getMemo().get().value);
-        }
+        credits.getStyleClass().add("module-card-default-present");
 
         if (module.getSemester().isPresent()) {
             semester.setText(module.getSemester().get().value);
+            semester.getStyleClass().add("module-card-default-present");
         }
 
         if (module.getGrade().isPresent()) {
             grade.setText(module.getGrade().get().value);
+            grade.getStyleClass().add("module-card-default-present");
         }
     }
 

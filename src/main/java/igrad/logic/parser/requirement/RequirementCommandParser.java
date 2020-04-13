@@ -1,5 +1,6 @@
 package igrad.logic.parser.requirement;
 
+import static igrad.model.requirement.RequirementCode.STRIP_DIGITS_REGEX;
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
@@ -15,6 +16,8 @@ import igrad.model.requirement.Title;
  * Represents a generic requirement command parser.
  */
 public abstract class RequirementCommandParser implements Parser<RequirementCommand> {
+
+    //@@author waynewee
 
     /**
      * Parses a {@code String title} into a {@code RequirementCode} (without the identifying number).
@@ -49,6 +52,8 @@ public abstract class RequirementCommandParser implements Parser<RequirementComm
 
         return new RequirementCode(code.toString());
     }
+
+    //@@author yjskrs
 
     /**
      * Parses a {@code String title} into a {@code Title}.
@@ -88,6 +93,6 @@ public abstract class RequirementCommandParser implements Parser<RequirementComm
      * Removes all digits from the string {@code str}.
      */
     private static String stripDigits(String str) {
-        return str.replaceAll("[0123456789]", "");
+        return str.replaceAll(STRIP_DIGITS_REGEX, "");
     }
 }

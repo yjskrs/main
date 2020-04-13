@@ -15,6 +15,8 @@ import igrad.model.requirement.Requirement;
 import igrad.model.requirement.RequirementCode;
 import igrad.model.requirement.Title;
 
+//@@author yjskrs
+
 /**
  * Jackson-friendly version of {@link Requirement}.
  */
@@ -96,9 +98,9 @@ class JsonAdaptedRequirement {
         final List<Module> modelModules = new ArrayList<>();
 
         modelModules.addAll(moduleList.stream() // for all modules
-                                .filter(module -> moduleCodes.stream() // find module existing in moduleCodes
-                                    .anyMatch(moduleCode -> module.hasModuleCodeOf(new ModuleCode(moduleCode))))
-                                .collect(Collectors.toList()));
+            .filter(module -> moduleCodes.stream() // find module existing in moduleCodes
+                .anyMatch(moduleCode -> module.hasModuleCodeOf(new ModuleCode(moduleCode))))
+            .collect(Collectors.toList()));
 
         return new Requirement(modelRequirementCode, modelName, modelCredits, modelModules);
     }

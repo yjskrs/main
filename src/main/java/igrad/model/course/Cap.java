@@ -3,60 +3,83 @@ package igrad.model.course;
 import static igrad.commons.util.AppUtil.checkArgument;
 import static java.util.Objects.requireNonNull;
 
+//@@author nathanaelseen
+
 /**
  * Represents a Course Info's cap in the course book.
  * Guarantees: immutable; is valid as declared in {@link #isValidCap(String)}
  */
 public class Cap {
-    public static final String MESSAGE_CONSTRAINTS = "Names should not start with a space or slash and should not "
-        + "be blank.";
+    public static final String MESSAGE_CONSTRAINTS = "The C.A.P. provided for the course is invalid!\n"
+        + "It should not start with a space or slash and should not "
+        + "be blank.\nIt should be a non-negative number and should be within value of 5.0.";
 
-    // The first character of the course name must not be a whitespace, " ", slash; /, or blank.
-    public static final String VALIDATION_REGEX = "[0-9](\\.[0-9]+)?";
+    public static final String VALIDATION_REGEX = "^[0-5](\\.[0-9]+){0,1}$";
 
-    public final String value;
-
-    public Cap() {
-        value = null;
-    }
+    // set max cap limit to 5
+    private static final double MAX_CAP_LIMIT = 5.0;
+    public static final Cap MAX_CAP = new Cap(MAX_CAP_LIMIT);
+    // set min cap limit to 0
+    private static final double MIN_CAP_LIMIT = 0.0;
+    public static final Cap CAP_ZERO = new Cap(MIN_CAP_LIMIT);
+    public static final Cap MIN_CAP = new Cap(MIN_CAP_LIMIT);
+    public final double value;
 
     /**
-     * Constructs a {@code Name}.
+     * Constructs a {@code Cap}.
      *
-     * @param name A valid name.
+     * @param cap A valid cap (double).
      */
-    public Cap(String name) {
-        requireNonNull(name);
-        checkArgument(isValidCap(name), MESSAGE_CONSTRAINTS);
-        value = name;
+    public Cap(String cap) {
+        requireNonNull(cap);
+        checkArgument(isValidCap(cap), MESSAGE_CONSTRAINTS);
+        value = Double.parseDouble(cap);
     }
 
     /**
-     * Returns true if a given string is a valid name.
+     * Constructs a {@code Cap}.
+     *
+     * @param cap A valid cap (double).
+     */
+    public Cap(double cap) {
+        checkArgument(isValidCap(cap), MESSAGE_CONSTRAINTS);
+        value = cap;
+    }
+
+    /**
+     * Returns true if a given double is a valid cap.
+     */
+    public static boolean isValidCap(double test) {
+        return (test >= MIN_CAP_LIMIT) && (test <= MAX_CAP_LIMIT);
+    }
+
+    /**
+     * Returns true if a given String is a valid cap.
      */
     public static boolean isValidCap(String test) {
-        return test.matches(VALIDATION_REGEX);
-    }
+        requireNonNull(test);
 
-    public double getValue() {
-        return Double.parseDouble(value);
+        return test.matches(VALIDATION_REGEX)
+            && (Double.parseDouble(test) >= MIN_CAP_LIMIT && Double.parseDouble(test) <= MAX_CAP_LIMIT);
     }
 
     @Override
     public String toString() {
-        return value;
+        String twoDpTrunc = String.format("%.2f", value);
+
+        return twoDpTrunc;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
             || (other instanceof Cap // instanceof handles nulls
-            && value.equals(((Cap) other).value)); // state check
+            && value == (((Cap) other).value)); // state check
     }
 
     @Override
     public int hashCode() {
-        return value.hashCode();
+        return ((Double) value).hashCode();
     }
 
 }

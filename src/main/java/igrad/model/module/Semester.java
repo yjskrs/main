@@ -1,5 +1,7 @@
 package igrad.model.module;
 
+//@@author waynewee
+
 import static igrad.commons.util.AppUtil.checkArgument;
 import static java.util.Objects.requireNonNull;
 
@@ -10,9 +12,11 @@ import static java.util.Objects.requireNonNull;
 public class Semester {
 
 
-    public static final String MESSAGE_CONSTRAINTS =
-        "Semester should be in the format Y_S_ e.g. Y1S2";
-    public static final String VALIDATION_REGEX = "(?i)Y[1-4]S[1-2]";
+    public static final String MESSAGE_CONSTRAINTS = "The Semester provided for the module is invalid!\n"
+        + "Semester should be in the format Y_S_\ne.g. Y1S2";
+
+    public static final String VALIDATION_REGEX = "(?i)Y[1-9]S[1-2]";
+
     public final String value;
 
     /**
@@ -32,6 +36,12 @@ public class Semester {
      */
     public static boolean isValidSemester(String test) {
         return test.matches(VALIDATION_REGEX);
+    }
+
+    public int getValue() {
+        String intValue = value.replaceAll("[^0-9]", "");
+
+        return Integer.parseInt(intValue);
     }
 
     @Override

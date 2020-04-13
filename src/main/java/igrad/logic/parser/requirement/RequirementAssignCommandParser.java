@@ -1,6 +1,6 @@
 package igrad.logic.parser.requirement;
 
-import static igrad.logic.commands.requirement.RequirementAssignCommand.MESSAGE_HELP;
+import static igrad.logic.commands.requirement.RequirementAssignCommand.MESSAGE_REQUIREMENT_ASSIGN_HELP;
 import static igrad.logic.commands.requirement.RequirementAssignCommand.MESSAGE_REQUIREMENT_NO_MODULES;
 import static igrad.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
 import static igrad.logic.parser.ParserUtil.parseModuleCodes;
@@ -19,8 +19,11 @@ import igrad.logic.parser.exceptions.ParseException;
 import igrad.model.module.ModuleCode;
 import igrad.model.requirement.RequirementCode;
 
+//@@author nathanaelseen
+
 /**
- * Parses module assign (to requirement) input argument and creates a new AssignCommand object.
+ * Parses {@code Module}s to assign (to {@code Requirement}) input argument and creates a new
+ * {@code RequirementAssignCommand} object.
  */
 public class RequirementAssignCommandParser implements Parser<RequirementAssignCommand> {
 
@@ -35,15 +38,25 @@ public class RequirementAssignCommandParser implements Parser<RequirementAssignC
          */
         if (argMultimap.isEmpty(true)) {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
-                MESSAGE_HELP));
+                MESSAGE_REQUIREMENT_ASSIGN_HELP));
         }
 
+        RequirementCode requirementCode = parseRequirementCodeSpecifier(argMultimap);
+        List<ModuleCode> moduleCodes = parseModulesToAssign(argMultimap.getAllValues(PREFIX_MODULE_CODE));
+
+        return new RequirementAssignCommand(requirementCode, moduleCodes);
+    }
+
+    /**
+     * Parses specifier from {@code argMultimap} into {@code RequirementCode}.
+     *
+     * @throws ParseException If user input does not conform to the expected format.
+     */
+    public RequirementCode parseRequirementCodeSpecifier(ArgumentMultimap argMultimap) throws ParseException {
         Specifier specifier = ParserUtil.parseSpecifier(argMultimap.getPreamble(),
             ParserUtil.REQUIREMENT_CODE_SPECIFIER_RULE, RequirementCode.MESSAGE_CONSTRAINTS);
 
-        List<ModuleCode> moduleCodes = parseModulesToAssign(argMultimap.getAllValues(PREFIX_MODULE_CODE));
-
-        return new RequirementAssignCommand(new RequirementCode(specifier.getValue()), moduleCodes);
+        return new RequirementCode(specifier.getValue());
     }
 
     /**
@@ -55,9 +68,8 @@ public class RequirementAssignCommandParser implements Parser<RequirementAssignC
     private List<ModuleCode> parseModulesToAssign(Collection<String> moduleCodes) throws ParseException {
         assert moduleCodes != null;
 
-        if (moduleCodes.isEmpty()) {
-            throw new ParseException(MESSAGE_REQUIREMENT_NO_MODULES);
-        } else if (moduleCodes.size() == 1 && moduleCodes.contains("")) {
+        // If no module codes are specified, throw exception
+        if (moduleCodes.isEmpty() || (moduleCodes.size() == 1 && moduleCodes.contains(""))) {
             throw new ParseException(MESSAGE_REQUIREMENT_NO_MODULES);
         }
 

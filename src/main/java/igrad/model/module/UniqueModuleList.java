@@ -5,6 +5,8 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import igrad.model.module.exceptions.DuplicateModuleException;
 import igrad.model.module.exceptions.ModuleNotFoundException;
@@ -29,7 +31,8 @@ public class UniqueModuleList implements Iterable<Module> {
         FXCollections.unmodifiableObservableList(internalList);
 
     /**
-     * Returns true if the list contains an equivalent module as the given argument.
+     * Returns true if the list contains an equivalent {@code Module} as the given argument;
+     * {@code toCheck}.
      */
     public boolean contains(Module toCheck) {
         requireNonNull(toCheck);
@@ -37,13 +40,34 @@ public class UniqueModuleList implements Iterable<Module> {
     }
 
     /**
-     * Returns true if the list contains an equivalent module as the given argument.
+     * Returns true if the list contains all equivalent {@code Module}s in the list of
+     * {@code Module}s as the given argument; {@code modulesToCheck}
      */
     public boolean contains(List<Module> modulesToCheck) {
         requireNonNull(modulesToCheck);
 
-        return modulesToCheck.stream()
-            .anyMatch(this::contains);
+        return modulesToCheck.stream().allMatch(this::contains);
+    }
+
+    /**
+     * Returns a module if the list contains an equivalent {@code Module};
+     * which has module code; {@code moduleCode}, and returns an {@code Optional.empty} if otherwise.
+     */
+    public Optional<Module> getByModuleCode(ModuleCode moduleCode) {
+        return internalList.stream()
+            .filter(module -> module.getModuleCode().equals(moduleCode))
+            .findFirst();
+    }
+
+    /**
+     * Returns a list of modules; {@code List<Module>} of all modules in the internal list
+     * whose module code matches the module codes in; {@code moduleCodes}.
+     */
+    public List<Module> getByModuleCodes(List<ModuleCode> moduleCodes) {
+        return internalList.stream()
+            .filter(modules -> moduleCodes.stream()
+                .anyMatch(moduleCode -> moduleCode.equals(modules.getModuleCode())))
+            .collect(Collectors.toList());
     }
 
     /**
@@ -97,6 +121,16 @@ public class UniqueModuleList implements Iterable<Module> {
         if (!internalList.remove(toRemove)) {
             throw new ModuleNotFoundException();
         }
+    }
+
+    /**
+     * Removes all modules from the current list.
+     * The module must already exist in the list.
+     */
+    public void remove(List<Module> modulesToRemove) {
+        requireNonNull(modulesToRemove);
+
+        modulesToRemove.forEach(this::remove);
     }
 
     public void setModules(UniqueModuleList replacement) {

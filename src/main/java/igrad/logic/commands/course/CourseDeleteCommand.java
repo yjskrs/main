@@ -1,9 +1,10 @@
 package igrad.logic.commands.course;
 
+//@@author teriaiw
+
 import static java.util.Objects.requireNonNull;
 
 import igrad.logic.commands.CommandResult;
-import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.Model;
 import igrad.model.ReadOnlyCourseBook;
 import igrad.model.course.CourseInfo;
@@ -15,17 +16,20 @@ public class CourseDeleteCommand extends CourseCommand {
 
     public static final String COURSE_DELETE_COMMAND_WORD = COURSE_COMMAND_WORD + SPACE + "delete";
 
-    public static final String MESSAGE_COURSE_DELETE_SUCCESS = "Deleted Course: %1$s\nAll data cleared!";
+    public static final String MESSAGE_COURSE_DELETE_SUCCESS = "Course: %1$s has been deleted successfully!\n"
+            + "All data cleared! If you made a mistake, use: undo";
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model) {
         requireNonNull(model);
 
         ReadOnlyCourseBook courseBookToDelete = model.getCourseBook();
 
-        CourseInfo oldCourseInfo = model.getCourseInfo();
+        // We have to make a copy of the previous course info as they would be deleted by garbage collector
+        CourseInfo oldCourseInfo = new CourseInfo(model.getCourseInfo());
 
         model.resetCourseBook(courseBookToDelete);
+
         return new CommandResult(String.format(MESSAGE_COURSE_DELETE_SUCCESS, oldCourseInfo));
     }
 

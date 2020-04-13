@@ -3,23 +3,21 @@ package igrad.model.course;
 import static igrad.commons.util.AppUtil.checkArgument;
 import static java.util.Objects.requireNonNull;
 
+//@@author nathanaelseen
+
 /**
  * Represents a Course Info's name in the course book.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
 public class Name {
-    public static final String MESSAGE_CONSTRAINTS = "Names should not start with a space or slash and should not "
-        + "be blank.";
+    public static final String MESSAGE_CONSTRAINTS = "Name provided for the course is invalid!\n"
+        + "It should not start with a space or slash and should not be blank.";
 
     // The first character of the course name must not be a whitespace (" ").
     // The name must not be blank.
     public static final String VALIDATION_REGEX = "^[^\\s].*";
 
     public final String value;
-
-    public Name() {
-        value = null;
-    }
 
     /**
      * Constructs a {@code Name}.

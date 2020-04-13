@@ -4,7 +4,8 @@ import static igrad.logic.commands.requirement.RequirementEditCommand.MESSAGE_RE
 import static igrad.logic.commands.requirement.RequirementEditCommand.MESSAGE_REQUIREMENT_NOT_EDITED;
 import static igrad.logic.parser.CliSyntax.PREFIX_CREDITS;
 import static igrad.logic.parser.CliSyntax.PREFIX_TITLE;
-import static java.util.Objects.requireNonNull;
+
+import java.util.Optional;
 
 import igrad.commons.core.Messages;
 import igrad.logic.commands.requirement.RequirementEditCommand;
@@ -18,6 +19,8 @@ import igrad.model.requirement.Credits;
 import igrad.model.requirement.RequirementCode;
 import igrad.model.requirement.Title;
 
+//@@author yjskrs
+
 /**
  * Parses requirement edit command input arguments and creates a new RequirementEditCommand object.
  */
@@ -27,11 +30,10 @@ public class RequirementEditCommandParser extends RequirementCommandParser {
      * Parses the given string of arguments {@code args} in the context of the
      * RequirementEditCommand and returns a RequirementEditCommand object for execution.
      *
-     * @throws ParseException If the user input does not conform the expected format.
+     * @throws ParseException If the user input does not conform to the expected format.
      */
     @Override
     public RequirementEditCommand parse(String args) throws ParseException {
-        requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_CREDITS);
 
         // Show help message for the command if no arguments are provided, i.e. 'requirement edit'
@@ -40,32 +42,54 @@ public class RequirementEditCommandParser extends RequirementCommandParser {
                 MESSAGE_REQUIREMENT_EDIT_HELP));
         }
 
+        RequirementCode requirementCode = parseRequirementCodeSpecifier(argMultimap);
+        EditRequirementDescriptor editRequirementDescriptor = parseEditedRequirement(argMultimap);
+
+        return new RequirementEditCommand(requirementCode, editRequirementDescriptor);
+    }
+
+    /**
+     * Parses specifier from {@code argMultimap} into {@code RequirementCode}.
+     *
+     * @throws ParseException If user input does not conform to the expected format.
+     */
+    public RequirementCode parseRequirementCodeSpecifier(ArgumentMultimap argMultimap) throws ParseException {
         Specifier specifier = ParserUtil.parseSpecifier(argMultimap.getPreamble(),
             ParserUtil.REQUIREMENT_CODE_SPECIFIER_RULE, RequirementCode.MESSAGE_CONSTRAINTS);
 
+        return new RequirementCode(specifier.getValue());
+    }
+
+    /**
+     * Parses title and/or credits from {@code argMultimap} into {@code EditRequirementDescriptor}.
+     *
+     * @throws ParseException If user input does not conform to the expected format.
+     */
+    public EditRequirementDescriptor parseEditedRequirement(ArgumentMultimap argMultimap) throws ParseException {
+        EditRequirementDescriptor editRequirementDescriptor = new EditRequirementDescriptor();
+
+        Optional<String> titleString = argMultimap.getValue(PREFIX_TITLE);
+        Optional<String> creditsString = argMultimap.getValue(PREFIX_CREDITS);
+
         // If neither the requirement title nor credits are specified, throw exception
-        if (argMultimap.getValue(PREFIX_TITLE).isEmpty() && argMultimap.getValue(PREFIX_CREDITS).isEmpty()) {
+        if ((titleString.isEmpty() || titleString.get().isEmpty())
+            && (creditsString.isEmpty() || creditsString.get().isEmpty())) {
             throw new ParseException(MESSAGE_REQUIREMENT_NOT_EDITED);
         }
 
-        EditRequirementDescriptor editRequirementDescriptor = new EditRequirementDescriptor();
-
-        if (argMultimap.getValue(PREFIX_TITLE).isPresent()) {
-            Title title = parseTitle(argMultimap.getValue(PREFIX_TITLE).get());
+        // Check if the title is a valid title, if any
+        if (titleString.isPresent()) {
+            Title title = parseTitle(titleString.get());
             editRequirementDescriptor.setTitle(title);
         }
 
-        if (argMultimap.getValue(PREFIX_CREDITS).isPresent()) {
-            Credits credits = parseCredits(argMultimap.getValue(PREFIX_CREDITS).get());
+        // Check if the credits is a valid credits, if any
+        if (creditsString.isPresent()) {
+            Credits credits = parseCredits(creditsString.get());
             editRequirementDescriptor.setCredits(credits);
         }
 
-        if (!editRequirementDescriptor.isAnyFieldEdited()) {
-            throw new ParseException(MESSAGE_REQUIREMENT_NOT_EDITED);
-        }
-
-        return new RequirementEditCommand(new RequirementCode(specifier.getValue()),
-            editRequirementDescriptor);
+        return editRequirementDescriptor;
     }
 
 }

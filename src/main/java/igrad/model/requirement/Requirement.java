@@ -9,6 +9,8 @@ import igrad.model.module.Module;
 import igrad.model.module.UniqueModuleList;
 import javafx.collections.ObservableList;
 
+//@@author yjskrs
+
 /**
  * The Requirement class contains the data required at the requirement level.
  * A Requirement has a RequirementCode attribute, a Title attribute, a Credits attribute
@@ -52,8 +54,8 @@ public class Requirement implements ReadOnlyRequirement {
 
         this.requirementCode = requirementCode;
         this.title = title;
-        this.credits = new Credits(credits.getCreditsRequired(), computeCreditsFulfilled(modules));
-        setModules(modules);
+        this.credits = computeCredits(credits, modules);
+        resetModules(modules);
     }
 
     /**
@@ -67,25 +69,16 @@ public class Requirement implements ReadOnlyRequirement {
         this.requirementCode = toBeCopied.getRequirementCode();
         this.title = toBeCopied.getTitle();
         this.credits = toBeCopied.getCredits();
-        resetModules(toBeCopied);
+        resetModules(toBeCopied.getModuleList());
     }
 
     // requirement-level operations
 
     /**
-     * Resets the existing modules of this {@code Requirement} with {@code newData}.
-     */
-    public void resetModules(ReadOnlyRequirement newData) {
-        requireNonNull(newData);
-
-        setModules(newData.getModuleList());
-    }
-
-    /**
      * Replaces the contents of the module list with {@code modules}.
      * The list must not contain duplicate modules.
      */
-    public void setModules(List<Module> modules) {
+    public void resetModules(List<Module> modules) {
         this.modules.setModules(modules);
     }
 
@@ -95,39 +88,39 @@ public class Requirement implements ReadOnlyRequirement {
      * Returns true if a module with the same identity as {@code module} exists in the list.
      */
     public boolean hasModule(Module module) {
-        requireNonNull(module);
-
         return modules.contains(module);
     }
 
-    /**
-     * Returns true if any modules in {@code modules} with the same identity as {@code module} exists in the list.
-     */
-    public boolean hasModule(List<Module> modules) {
-        requireNonNull(modules);
+    //@@author nathanaelseen
 
-        return this.modules.contains(modules);
+    /**
+     * Returns true if all modules in {@code modules} with the same identity as {@code module} exists in the list.
+     */
+    public boolean hasModules(List<Module> moduleList) {
+        return modules.contains(moduleList);
     }
+
+    //@@author yjskrs
 
     /**
      * Adds a {@code module} to the list.
      * The module must not already exist in the list.
      */
     public void addModule(Module module) {
-        requireNonNull(module);
-
         this.modules.add(module);
     }
 
+    //@@author nathanaelseen
+
     /**
-     * Adds a {@code module} to the list.
-     * The module must not already exist in the list.
+     * Adds a list of {@code Module}s; {@code modules} to the list.
+     * The modules must not already exist in the list.
      */
     public void addModules(List<Module> modules) {
-        requireNonNull(modules);
-
         this.modules.add(modules);
     }
+
+    //@@author yjskrs
 
     /**
      * Replaces the given module {@code target} in the list with {@code editedModule}.
@@ -136,9 +129,7 @@ public class Requirement implements ReadOnlyRequirement {
      * in the list.
      */
     public void setModule(Module target, Module editedModule) {
-        requireNonNull(editedModule);
-
-        modules.setModule(target, editedModule);
+        this.modules.setModule(target, editedModule);
     }
 
     /**
@@ -146,7 +137,15 @@ public class Requirement implements ReadOnlyRequirement {
      * The {@code module} must exist in the list.
      */
     public void removeModule(Module module) {
-        modules.remove(module);
+        this.modules.remove(module);
+    }
+
+    /**
+     * Removes a list of {@code Module}s; {@code modules} from the list.
+     * The modules must already exist in the list.
+     */
+    public void removeModules(List<Module> modules) {
+        this.modules.remove(modules);
     }
 
     // util methods
@@ -172,6 +171,11 @@ public class Requirement implements ReadOnlyRequirement {
     }
 
     @Override
+    public int getCreditsAssigned() {
+        return credits.getCreditsAssigned();
+    }
+
+    @Override
     public int getCreditsFulfilled() {
         return credits.getCreditsFulfilled();
     }
@@ -188,7 +192,7 @@ public class Requirement implements ReadOnlyRequirement {
         }
 
         return this == otherRequirement
-                   || this.requirementCode.equals(otherRequirement.requirementCode);
+            || this.requirementCode.equals(otherRequirement.requirementCode);
     }
 
     @Override
@@ -199,21 +203,24 @@ public class Requirement implements ReadOnlyRequirement {
     /**
      * Computes the number of credits fulfilled by the list of modules. Returns an integer.
      */
-    public int computeCreditsFulfilled(List<Module> moduleList) {
+    private Credits computeCredits(Credits credits, List<Module> moduleList) {
+        requireAllNonNull(credits, moduleList);
+
+        int creditsAssigned = 0;
         int creditsFulfilled = 0;
 
         for (Module module : moduleList) {
+            creditsAssigned += module.getCredits().toInteger();
             if (module.isDone()) {
                 creditsFulfilled += module.getCredits().toInteger();
             }
         }
 
-        return creditsFulfilled;
+        return new Credits(credits.getCreditsRequired(), creditsAssigned, creditsFulfilled);
     }
 
     @Override
     public String toString() {
-
         RequirementCode code = getRequirementCode();
         Title title = getTitle();
         Credits credits = getCredits();

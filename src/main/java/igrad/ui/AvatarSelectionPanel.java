@@ -70,7 +70,6 @@ public class AvatarSelectionPanel extends UiPart<Region> {
             Label avatarName = new Label(avatarImg.getAvatarName());
             ImageView avatarDisplay = new ImageView();
 
-            // TODO: (Wayne/Daryl) try to find a way to set these preferences in the FXML files instead of here
             avatarDisplay.setFitHeight(60);
             avatarDisplay.setFitWidth(60);
             avatarDisplay.setImage(avatarImg);

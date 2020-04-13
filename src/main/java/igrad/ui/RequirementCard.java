@@ -6,7 +6,10 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+
+// @@author dargohzy
 
 /**
  * Shows requirements, where each {@code requirement} is a list of {@code Module}
@@ -30,6 +33,9 @@ public class RequirementCard extends UiPart<Region> {
     @FXML
     private FlowPane moduleCodes;
 
+    @FXML
+    private HBox requirementCardPane;
+
     public RequirementCard(Requirement requirement, int displayedIndex) {
         super(FXML);
 
@@ -39,9 +45,18 @@ public class RequirementCard extends UiPart<Region> {
         requirementCode.setText(requirement.getRequirementCode().toString());
         requirementTitle.setText(requirement.getTitle().toString());
 
-        String creditsCountText = String.valueOf(requirement.getCreditsFulfilled())
-            + " out of " + String.valueOf(requirement.getCreditsRequired())
-            + " MCs fulfilled";
+        int creditsFulfilled = requirement.getCreditsFulfilled();
+        int creditsRequired = requirement.getCreditsRequired();
+        int creditsAssigned = requirement.getCreditsAssigned();
+
+        String creditsCountText = creditsFulfilled
+            + " out of " + creditsRequired
+            + " MCs fulfilled ("
+            + creditsAssigned + " assigned)";
+
+        if (requirement.isFulfilled()) {
+            requirementCardPane.getStyleClass().add("done");
+        }
 
         creditsCount.setText(creditsCountText);
 
@@ -50,7 +65,7 @@ public class RequirementCard extends UiPart<Region> {
         for (Module module : moduleList) {
 
             Label moduleCode = new Label(module.getModuleCode().toString());
-            moduleCode.getStyleClass().add("requirement-card-module-code");
+            moduleCode.getStyleClass().add("module-tag");
 
             moduleCodes.getChildren().add(moduleCode);
         }

@@ -7,11 +7,10 @@ import java.util.Optional;
 
 import igrad.model.course.CourseInfo;
 import igrad.model.module.Module;
+import igrad.model.module.ModuleCode;
 import igrad.model.module.UniqueModuleList;
-import igrad.model.requirement.Credits;
 import igrad.model.requirement.Requirement;
 import igrad.model.requirement.RequirementCode;
-import igrad.model.requirement.Title;
 import igrad.model.requirement.UniqueRequirementList;
 import javafx.collections.ObservableList;
 
@@ -20,22 +19,9 @@ import javafx.collections.ObservableList;
  */
 public class CourseBook implements ReadOnlyCourseBook {
 
-    private final UniqueRequirementList requirements;
-    private final UniqueModuleList modules;
-    private CourseInfo courseInfo;
-
-    /*
-     * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
-     * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
-     *
-     * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
-     *   among constructors.
-     */
-    {
-        modules = new UniqueModuleList();
-        requirements = new UniqueRequirementList();
-        courseInfo = new CourseInfo(Optional.empty(), Optional.empty());
-    }
+    private final UniqueModuleList modules = new UniqueModuleList();
+    private final UniqueRequirementList requirements = new UniqueRequirementList();
+    private CourseInfo courseInfo = new CourseInfo();
 
     public CourseBook() {
     }
@@ -111,6 +97,28 @@ public class CourseBook implements ReadOnlyCourseBook {
     }
 
     /**
+     * Returns a module which has module code; {@code moduleCode}
+     * {@code Optional.empty} otherwise.
+     */
+    public Optional<Module> getModule(ModuleCode moduleCode) {
+        requireNonNull(moduleCode);
+        return modules.getByModuleCode(moduleCode);
+    }
+
+    /**
+     * Returns all modules which has module code; {@code moduleCode}
+     * {@code Optional.empty} otherwise.
+     */
+    /**
+     * Returns all modules (in a module list), whose module code matches the module codes
+     * in; {@code moduleCodes}.
+     */
+    public List<Module> getModules(List<ModuleCode> moduleCodes) {
+        requireNonNull(moduleCodes);
+        return modules.getByModuleCodes(moduleCodes);
+    }
+
+    /**
      * Adds a module to the course book.
      * The module must not already exist in the course book.
      */
@@ -145,7 +153,27 @@ public class CourseBook implements ReadOnlyCourseBook {
      */
     public boolean hasRequirement(Requirement requirement) {
         requireNonNull(requirement);
+
         return requirements.contains(requirement);
+    }
+
+    /**
+     * Returns a requirement which has requirement code; {@code requirementCode}, and
+     * {@code Optional.empty} otherwise.
+     */
+    public Optional<Requirement> getRequirement(RequirementCode requirementCode) {
+        requireNonNull(requirementCode);
+
+        return requirements.getByRequirementCode(requirementCode);
+    }
+
+    /**
+     * Returns all requirements (in a requirement list), which has the module; {@code module}.
+     */
+    public List<Requirement> getRequirementsWithModule(Module module) {
+        requireNonNull(module);
+
+        return requirements.getByModule(module);
     }
 
     /**
@@ -153,6 +181,8 @@ public class CourseBook implements ReadOnlyCourseBook {
      * The requirement must not already exist in the course book.
      */
     public void addRequirement(Requirement requirement) {
+        requireNonNull(requirement);
+
         requirements.add(requirement);
     }
 
@@ -173,45 +203,16 @@ public class CourseBook implements ReadOnlyCourseBook {
      * {@code requirement} must exist in the course book.
      */
     public void removeRequirement(Requirement requirement) {
+        requireNonNull(requirement);
+
         requirements.remove(requirement);
-    }
-
-    /**
-     * Removes a {@code Module} from all {@code Requirement} which contains it
-     */
-    public void removeModuleFromRequirement(Module module) {
-
-        for (Requirement requirement : requirements) {
-            ObservableList<Module> moduleList = requirement.getModuleList();
-            Credits credits = requirement.getCredits();
-
-            if (moduleList.contains(module)) {
-                requirement.removeModule(module);
-
-                int creditsRequired = requirement.getCreditsRequired();
-                int creditsFulfilled = credits.getCreditsFulfilled() - module.getCredits().toInteger();
-                Credits updatedCredits = new Credits(creditsRequired, creditsFulfilled);
-
-                // TODO: Improve design of this part, can move logic to CourseBook itself maybe hmm
-
-                // Copy all other requirement fields over
-                Title title = requirement.getTitle();
-                List<Module> modules = requirement.getModuleList();
-                RequirementCode requirementCode = requirement.getRequirementCode();
-
-                Requirement updatedRequirement = new Requirement(requirementCode, title, updatedCredits, modules);
-                setRequirement(requirement, updatedRequirement);
-            }
-        }
-
     }
 
     // util methods
 
     @Override
     public String toString() {
-        return modules.asUnmodifiableObservableList().size() + " persons";
-        // TODO: refine later
+        return modules.asUnmodifiableObservableList().size() + " modules";
     }
 
     @Override
