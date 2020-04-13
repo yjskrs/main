@@ -1,0 +1,18 @@
+@startuml
+start
+:User executes 'requirement assign' command;
+
+if (Modules to assign are all existent in the coursebook) then ([no])
+: Throw an exception preventing any of them to be assigned;
+else
+: Filter out Modules which are already assigned to that requirement;
+: Assigned Modules under that Requirement;
+endif
+
+:Calls to methods responsible for updating CourseInfo (e.g, computeCap(...));
+
+:Result message is displayed (error/success);
+
+stop
+@enduml
+

@@ -81,7 +81,7 @@ and feedback to them for further fixing.
 This was because two of my teamates refactored the codebase at the same time, causing
 a very huge merge https://github.com/AY1920S2-CS2103T-F09-3/main/pull/93[conflict] which I had to resolve.
 
-*** Besides that, other merge conflicts I helped resolved while merging are;
+*** Besides that, the other merge conflicts I helped resolved while merging are;
 https://github.com/AY1920S2-CS2103T-F09-3/main/pull/320[#320],
 https://github.com/AY1920S2-CS2103T-F09-3/main/pull/307[#307], and
 https://github.com/AY1920S2-CS2103T-F09-3/main/pull/295[#295].
@@ -91,10 +91,11 @@ UG/DG docs.
 
 ** Remind my teamates on upcoming deadlines; submission of UG, DG, milestone deadline tasks, etc
 
-** Managed the issue tracker for the first-half of this project, creating and assigning issues
-to track the progress of my teamates
+** Managed the issue tracker for the first-half of this project, creating and assigning issues so
+we could keep track of each other's progress.
 
-** Designed the initial application UI prototype for the first draft UG submission.
+** Designed the initial application UI prototype for the first draft UG submission, which
+formed the basis for subsequent UI prototypes.
 
 * *Review/Mentoring Contributions*:
 ** Assisted https://github.com/teriaiw[Teri], in her initial difficulties understanding and
@@ -103,8 +104,8 @@ she liked my way of mentoring and found it to be really helpful. I also provided
 a listening ear for voicing any difficulties or concerns she had when implementing her code
 portions.
 
-** Provided PR code reviews to my team members on how potential things they could improve
-and work on, as I merged their PRs
+** Provided PR code reviews to my team members on how potential things I felt could be be improved, as I
+merged their PRs
 (https://github.com/AY1920S2-CS2103T-F09-3/main/pull/313[#313],
 https://github.com/AY1920S2-CS2103T-F09-3/main/pull/295[#295],
 https://github.com/AY1920S2-CS2103T-F09-3/main/pull/281[#281],
@@ -131,3 +132,10 @@ include::../UserGuide.adoc[tag=nat-ug]
 |===
 |_Sections contributed to DG_
 |===
+
+include::../DeveloperGuide.adoc[tag=course-feature-dg]
+include::../DeveloperGuide.adoc[tag=course-compute-credits-cap-dg]
+'''
+include::../DeveloperGuide.adoc[tag=module-done-dg]
+'''
+include::../DeveloperGuide.adoc[tag=requirement-assign-dg]

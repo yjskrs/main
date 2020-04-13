@@ -1,0 +1,34 @@
+@startuml
+!include style.puml
+autoactivate on
+
+box MODEL MODEL_COLOR_T1
+participant "<<class>>\n:CourseInfo" as CourseInfo MODEL_COLOR
+participant ":Requirement" as Requirement MODEL_COLOR
+participant ":Module" as Module MODEL_COLOR
+participant ":Grade" as Grade MODEL_COLOR
+end box
+
+[-> CourseInfo : computeCap(moduleList, reqList)
+activate CourseInfo
+
+loop for each module in moduleList
+    loop for each req in reqList
+        CourseInfo -> Requirement: hasModule(module)
+        return returns true if module belongs to req
+    end
+
+    opt if module belongs to any req in reqList
+        CourseInfo -> Module: getGrade()
+        return grade of module
+        opt if grade is not SU grade
+            CourseInfo->Grade: getGradeCredits()
+            return grade credits
+        end
+    end
+end
+
+[<-- CourseInfo : return newly updated and computed cap
+deactivate CourseInfo
+@enduml
+

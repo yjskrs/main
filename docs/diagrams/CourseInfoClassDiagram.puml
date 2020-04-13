@@ -1,15 +1,24 @@
 @startuml
+hide circle
 class CourseInfo {
-    +getName()
-    +getCap()
-    +equals()
-    +hashCode()
-    +toString()
+    +getName(): Name
+    +getCap(): Cap
+    +getCredits(): Credits
+    +getSemesters(): Semesters
+    +{static} computeCredits(requirements: Requirement[]): Credits
+    +{static} computeCap(modules: Module[], requirements: Requirement[]): Cap
+    +{static} computeSemesters(semesters: Semesters, modules: Module[]): Semesters
+    +equals(): boolean
+    +hashCode(): int
+    +toString(): String
 }
 class Name {}
 
-CourseInfo *-- "1" Name
-CourseInfo *-- "1" CAP
-CourseInfo *-- "1" SemsLeft
+CourseInfo o--> "1" Name
+CourseInfo o--> "1" Cap
+CourseInfo o--> "1" Credits
+CourseInfo o--> "1" Semesters
+CourseInfo ..> "*" Requirement
+CourseInfo ..> "*" Module
 
 @enduml
