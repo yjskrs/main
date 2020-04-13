@@ -23,25 +23,23 @@ By: `Team-iGrad`      Since: `Feb 2020`
 
 == Introduction
 
-Sick of having tracking your university progress the manual way?
-Start getting rid of your Excel sheets and scribbled down notes and download _iGrad_ right now!
+Welcome! Thanks for choosing to use iGrad. This official iGrad User Guide will help guide you as you explore the ways you can
+track your graduation!
 
-What is _iGrad_?
+== Quick Start
 
-_iGrad_ is the app to track your university progress, for students who are frustrated with the
-limited features the university provides, by students who are frustrated by the limited
-features the university provides.
+*Follow the steps below to get started with iGrad:*
 
-_iGrad_ offers users the ability to create custom courses and graduation requirements,
-ensuring the *maximum* degree of flexibility when planning and keeping track of your progress
+1. Ensure that you have Java 11 installed on your computer. Java 11 is bundled together with the Java Development Kit and can be found link:https://www.oracle.com/java/technologies/javase-jdk11-downloads.html[here]
 
-_iGrad_ also retrieves data directly from https://nusmods.com[NUS Mods], ensuring that module
-information is always up to date.
+2. Download our latest link:https://github.com/AY1920S2-CS2103T-F09-3/main/releases[release]!
 
-_iGrad_ calculates your CAP at every step, ensuring you never have to use a CAP calculator again
+3. Copy or move the downloaded file into an *empty* folder.
++
+IMPORTANT: Ensure that the folder is empty! Doing otherwise might result in unexpected errors.
 
-Finally, the _iGrad_ team is always open to feedback and suggestions from the public which
-will always be followed up on.
+4. Simply double-click on the file to begin! We hope we make tracking your graduation a breeze!
+
 
 == How to use this guide
 
@@ -183,7 +181,7 @@ utilise the main components of the application, and covers the following:
 * Assigning a `Module` to a `Requirement`
 * Adding additional details to a `Module`
 * Marking as `Module` as done and assigning a `Grade` to it
-* Tracking your academic progress: `MCs` and `C.A.P`
+* Tracking your academic progress: `MCs` and `CAP`
 * Exporting your data
 
 Here is a 10-step guide on how to use `iGrad`.
@@ -288,9 +286,9 @@ image::../images/user-guide/walkthrough8.png[]
 
 Section by: https://github.com/teriaiw[Teri]
 
-- C.A.P. refers to Cumulative Average Points and is out of 5 (max).
-- C.A.P. is automatically tracked and updated.
-- C.A.P. is updated whenever a module within a requirement is marked done with a grade.
+- CAP refers to Cumulative Average Points and is out of 5 (max).
+- CAP is automatically tracked and updated.
+- CAP is updated whenever a module within a requirement is marked done with a grade.
 +
 image::../images/user-guide/walkthrough9.png[]
 
@@ -1359,11 +1357,3 @@ categories:
 |NUSMods |A timetabling application built for NUS students, by NUS students. Much like this iGrad!
 
 |===
-
-*Handy Links*
-
-http://www.nus.edu.sg/registrar/academic-information-policies/undergraduate-students/degree-requirements[NUS - Degree Requirements]
-
-http://www.nus.edu.sg/registrar/academic-information-policies/undergraduate-students/modular-system[NUS - Modular System, Grading and Regulations]
-
-http://www.nus.edu.sg/registrar/calendar[NUS - Academic Calendar]

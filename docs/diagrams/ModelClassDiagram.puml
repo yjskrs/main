@@ -64,6 +64,7 @@ Module o--> "1" Grade
 
 CourseInfo o--> "1" n2
 CourseInfo o--> "1" Cap
+CourseInfo o--> "1" Credits
 CourseInfo o--> "1" Semesters
 
 

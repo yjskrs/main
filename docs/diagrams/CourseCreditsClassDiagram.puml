@@ -1,0 +1,16 @@
+@startuml
+hide circle
+class Credits {
+    -creditsRequired: int
+    -creditsFulfilled: int
+    +Credits(creditsRequired: int, creditsFulfilled: int)
+    +isValidCreditsRequired(): boolean
+    +isValidCreditsFulfilled(): boolean
+    +getValidCreditsRequired(): boolean
+    +getValidCreditsFulfilled(): boolean
+    +toString(): String
+    +equals(): boolean
+    +hashcode(): int
+}
+@enduml
+
