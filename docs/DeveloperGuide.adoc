@@ -239,8 +239,11 @@ image::developer-guide/DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `ModuleDeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
+
 [[Design-Model]]
 === Model component
+
+anchor:figure-a-anchor[]
 
 .Structure of the Model Component
 image::developer-guide/ModelClassDiagram.png[]
@@ -286,20 +289,44 @@ This section describes some noteworthy details on how certain features are imple
 
 === Course Feature
 
-A `CourseBook` contains only one course information.
+As per the Model diagram xref:figure-a-anchor[above], a `CourseBook` contains and and only one course information.
 
 ==== Implementation
+Section by: https://github.com/nathanaelseen[Nathanael Seen]
 
 .Structure of CourseInfo Class
 image::developer-guide/CourseInfoClassDiagram.png[]
-A course consists of four information: Name, Cap, Credits and Semesters. One course should only have one name,
-one Cap, one Credits and one Semesters.
+This course information represents important details related to a course such as,
+the name of the course, the current cap of the student (or user), the total credits
+(MCs) fulfilled/required, and semesters left before he/she could graduate.
+
+As per the the diagram above (_Figure 12_), these information is encapsulated and represented by the
+`CourseInfo` class which should only have one `Name`, one `Cap`, one `Credits` and
+one `Semesters`.
 
 The course related commands that can be called are:
 
-* `course edit` - edits name of existing course in the course book
+* `course set` - sets the name and semesters of existing course in the course book
+* `course edit` - edits name and/or semesters of existing course in the course book
+(more details in <<Course Edit>>
 * `course delete` - deletes existing course and all information in the course book
-* `course achieve` - calculates CAP needed to maintain each semester to achieve overall CAP targer
+* `course achieve` - calculates CAP needed to maintain each semester to achieve overall CAP target
+
+==== Credits
+Section by: https://github.com/nathanaelseen[Nathanael Seen]
+
+.Course Semesters Class Diagram
+image::developer-guide/CourseSemestersClassDiagram.png[]
+
+`Semesters` stores the total semesters and remaining semesters that a user has in the course.
+
+* `Semesters` is first initialized when user does command `course set`. `totalSemesters` will be equal to
+`remainingSemesters` as user has not entered any other data to indicate completion of semesters.
+* `Semesters` is updated through method `computeSemesters` in `CourseInfo`.
+* `totalSemesters` is changed by user through the command `course edit`.
+* `remainingSemesters` is computed by method `computeRemainingSemesters`. This method uses the `moduleList`
+to check for `module` that has `Semester` and `Grade`. The `module` which fulfils the mentioned and has the latest
+`Semester` will be taken as the latest completed semester.
 
 ==== Semesters
 Section by: https://github.com/teriaiw[Teri]

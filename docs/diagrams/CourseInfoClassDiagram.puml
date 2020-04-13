@@ -2,14 +2,20 @@
 class CourseInfo {
     +getName()
     +getCap()
+    +getCredits()
+    +getSemesters()
+    +{static} computeCredits(List<Requirement>)
+    +{static} computeCap(List<ModuleList>, List<Requirement>)
+    +{static} computeSemesters(Semesters, List<Module>)
     +equals()
     +hashCode()
     +toString()
 }
 class Name {}
 
-CourseInfo *-- "1" Name
-CourseInfo *-- "1" CAP
-CourseInfo *-- "1" SemsLeft
+CourseInfo o--> "1" Name
+CourseInfo o--> "1" Cap
+CourseInfo o--> "1" Credits
+CourseInfo o--> "1" Semesters
 
 @enduml
