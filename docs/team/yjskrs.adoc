@@ -4,8 +4,6 @@
 :stylesDir: ../stylesheets
 
 == PROJECT: iGrad
-
----
 image::../images/Ui.png[]
 
 == Overview
@@ -14,14 +12,23 @@ iGrad is a desktop module management and graduation tracking application. The us
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*: Added the *architecture for requirements*, integrating the requirement feature with the course feature and the module feature*.
+** _What it does_: Provides the requirement structure where modules can be assigned to, to keep track of the progress of a requirement.
+** _Justification_: This feature is crucial in providing the ability for users to keep track of their graduation status through smaller categories known as requirements, instead of directly under a course.
+** _Highlights_: This enhancement greatly increases the usability of the application because it makes course completion easier to track. It was also difficult to integrate this together with the course feature and the module feature since the code for this feature had to be written from scratch.
+** _Credits_: The original AB3 code which I referenced from the AddressBook structure as well as the Person structure to create this feature.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Major enhancement*: Added the *ability to add, edit and delete requirements*.
+** _What it does_: Allows the user to add, edit and delete requirements.
+** _Justification_: This feature improves the product significantly because it provides the flexibility for users to add their own requirement categories, edit them, and delete them if no longer needed.
+** _Highlights_:
+** _Credits_: The original AB3 code which I referenced to create the commands.
 
+* *Minor enhancement*: Added the *ability to keep track of requirements being fulfilled*.
+** _What it does_: Allows the user to add, edit and delete requirements.
+** _Justification_: This feature improves the product significantly because it provides the flexibility for users to add their own requirement categories, edit them, and delete them if no longer needed.
+** _Highlights_:
+** _Credits_: The original AB3 code which I referenced to create the commands.
 
 * *Code contributed*: [https://github.com/AY1920S2-CS2103T-F09-3/main/commits?author=yjskrs[All commits]] [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#=undefined&search=yjskrs[Project Code Dashboard]] _{give links to collated code files}_
 * *Other contributions*:
@@ -45,29 +52,23 @@ iGrad is a desktop module management and graduation tracking application. The us
 _{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
-
-
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Given below are the sections I contributed to the User Guide. They showcase my ability to communicate with end-users
+of the product in question.
 |===
 
-include::../UserGuide.adoc[tag=delete]
+//include::../UserGuide.adoc[tag=walkthrough]
 
-include::../UserGuide.adoc[tag=dataencryption]
+<<<
 
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Given below are the sections I contributed to the Developer Guide. They showcase my ability to communicate technical
+information into documentation as well as my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+//include::../DeveloperGuide.adoc[tag=semesters]
+//include::../DeveloperGuide.adoc[tag=courseedit]
+//include::../DeveloperGuide.adoc[tag=courseachieve]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
-
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
