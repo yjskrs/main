@@ -12,11 +12,17 @@ import static java.util.Objects.requireNonNull;
 public class Semesters {
 
     public static final String MESSAGE_CONSTRAINTS = "Total Semesters of a course provided is invalid!\n"
-        + "It should be a number more than 0.";
+        + "It should be a number more than 0 and less than 100.";
 
     public static final String MESSAGE_INVALID_SEMS = "Remaining semester count invalid";
 
     public static final String VALIDATION_REGEX = "^[0-9]\\d*$";
+
+    // set max limit to 100
+    public static final int MAX_SEMS = 100;
+
+    // set min limit to 0
+    public static final int MIN_SEMS = 0;
 
     public final int totalSemesters;
 
@@ -56,22 +62,36 @@ public class Semesters {
      */
     public static boolean isValidSemesters(String test) {
         requireNonNull(test);
+        try {
+            return test.matches(VALIDATION_REGEX)
+                    && Integer.parseInt(test) > MIN_SEMS
+                    && Integer.parseInt(test) < MAX_SEMS;
 
-        return test.matches(VALIDATION_REGEX) && Integer.parseInt(test) > 0;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
     /**
      * Returns true if given integer {@code test} is a valid total Semesters count (i.e. more than or equals 0).
      */
     public static boolean isValidTotalSemesters(int test) {
-        return test > 0;
+        try {
+            return test > MIN_SEMS && test < MAX_SEMS;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
     /**
      * Returns true if given integer {@code test} is a valid remaining Semesters count (i.e. more than or equals 0).
      */
     public static boolean isValidRemainingSemesters(int test) {
-        return test >= 0;
+        try {
+            return test >= MIN_SEMS && test < MAX_SEMS;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
     public int getTotalSemesters() {
