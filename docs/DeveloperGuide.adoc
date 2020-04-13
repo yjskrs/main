@@ -330,7 +330,7 @@ Thereafter, the next two sub-sections would attempt to explain the mechanics of 
 methods `computeCredits(...)` and `computeCap(...)`, which is used
 throughout the application.
 
-Finally, the last few sections would be dedicated to elaborating how the various
+Finally, the last two sections would be dedicated to elaborating how the various
 course commands; `course edit` and `course achieve` works.
 
 ===== Credits
@@ -373,9 +373,9 @@ individual `Requirements` in the `UniqueRequirementList`
 * In the `CourseInfo` class, `Credits` is first initialized (to some non-empty value) only when the
 following conditions have been met:
 
-** The user has already set a course, through the xref:anchor-tag-e[`course set`] command.
+** The user has already set a course, through the `course set` command.
 
-** There is at least one `Requirement` in the `UniqueRequirementList`, by which `creditsRequired`
+** There is at least one `Requirement` in the `UniqueRequirementList`,` by which `creditsRequired`
 and `creditsFulfilled` could be re/computed.
 
 //end::course-feature-dg[]
@@ -402,7 +402,6 @@ to check for `module` that has `Semester` and `Grade`. The `module` which fulfil
 `Semester` will be taken as the latest completed semester.
 
 //end::semesters[]
-'''
 
 //tag::course-compute-credits-cap-dg[]
 
@@ -471,8 +470,6 @@ In summary, the following steps are performed as `computeCap(...)` is invoked:
 . If the `Grade` is non-SU, the `Module` is factored into Cap computation.
 
 //end::course-compute-credits-cap-dg[]
-
-anchor:anchor-tag-e[]
 
 //tag::courseedit[]
 ==== Course Edit
