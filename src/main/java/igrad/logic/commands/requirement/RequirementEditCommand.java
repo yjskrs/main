@@ -139,6 +139,8 @@ public class RequirementEditCommand extends RequirementCommand {
          * Makes a copy of a EditRequirementDescriptor.
          */
         public EditRequirementDescriptor(EditRequirementDescriptor toCopy) {
+            requireNonNull(toCopy);
+
             setTitle(toCopy.title);
             setCredits(toCopy.credits);
         }

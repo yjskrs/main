@@ -1,6 +1,5 @@
 package igrad.model;
 
-import static igrad.model.Model.PREDICATE_SHOW_ALL_MODULES;
 import static igrad.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -23,10 +22,9 @@ public class ModelManagerTest {
 
     @Test
     public void constructor() {
-        /*assertEquals(new UserPrefs(), modelManager.getUserPrefs());
+        assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
         assertEquals(new CourseBook(), new CourseBook(modelManager.getCourseBook()));
-         */
     }
 
     @Test
@@ -123,13 +121,5 @@ public class ModelManagerTest {
         String[] keywords = TypicalModules.CS1101S.getTitle().value.split("\\s+");
         modelManager.updateFilteredModuleList(new TitleContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(courseBook, userPrefs)));
-
-        // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
-
-        // different userPrefs -> returns false
-        UserPrefs differentUserPrefs = new UserPrefs();
-        differentUserPrefs.setCourseBookFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(courseBook, differentUserPrefs)));
     }
 }

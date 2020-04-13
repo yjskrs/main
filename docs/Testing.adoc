@@ -1,7 +1,7 @@
 = AddressBook Level 3 - Testing
 :site-section: DeveloperGuide
 :toc:
-:toc-name:
+:toc-title:
 :toc-placement: preamble
 :sectnums:
 :imagesDir: images

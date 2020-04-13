@@ -354,7 +354,7 @@ public class CommandTestUtil {
         }
 
         @Override
-        public void removeRequirement(Requirement requirement) {
+        public void deleteRequirement(Requirement requirement) {
             throw new AssertionError("This method should not be called.");
         }
 
