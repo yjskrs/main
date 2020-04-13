@@ -1,0 +1,26 @@
+@startuml
+!include style.puml
+autoactivate on
+
+box MODEL MODEL_COLOR_T1
+participant "<<class>>\n:CourseInfo" as CourseInfo MODEL_COLOR
+participant ":Requirement" as Requirement MODEL_COLOR
+end box
+
+[-> CourseInfo : computeCredits(reqList)
+activate CourseInfo
+
+loop for each req in reqList
+CourseInfo -> Requirement: getCreditsFulfilled()
+return credits fulfilled
+end
+
+loop for each req in reqList
+CourseInfo -> Requirement: getCreditsRequired()
+return credits required
+end
+
+[<-- CourseInfo : return total updated credits required and fulfilled
+deactivate CourseInfo
+@enduml
+
