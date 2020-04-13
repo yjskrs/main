@@ -76,7 +76,7 @@ public class ModuleDoneCommandTest {
             .build();
         ModuleDoneCommand cmd = new ModuleDoneCommand(moduleCode, descriptor);
 
-        assertExecuteFailure(cmd, model, MESSAGE_MODULE_NON_EXISTENT);
+        assertExecuteFailure(cmd, model, String.format(MESSAGE_MODULE_NON_EXISTENT, moduleCode.value));
     }
 
     @Test
@@ -91,7 +91,7 @@ public class ModuleDoneCommandTest {
             .build();
         ModuleDoneCommand cmd = new ModuleDoneCommand(moduleCode, descriptor);
 
-        assertExecuteFailure(cmd, model, MESSAGE_MODULE_NON_EXISTENT);
+        assertExecuteFailure(cmd, model, String.format(MESSAGE_MODULE_NON_EXISTENT, moduleCode.value));
     }
 
     @Test

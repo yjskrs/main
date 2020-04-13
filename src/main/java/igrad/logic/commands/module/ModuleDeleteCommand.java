@@ -53,7 +53,7 @@ public class ModuleDeleteCommand extends ModuleCommand {
         }
 
         if (moduleToDeleteOpt.isEmpty()) {
-            throw new CommandException(MESSAGE_MODULE_NON_EXISTENT);
+            throw new CommandException(String.format(MESSAGE_MODULE_NON_EXISTENT, moduleCode));
         }
 
         Module moduleToDelete = moduleToDeleteOpt.get();
