@@ -1,7 +1,7 @@
 = iGrad
 
 https://travis-ci.org/AY1920S2-CS2103T-F09-3/main[image:https://travis-ci.org/AY1920S2-CS2103T-F09-3/main.svg?branch=master[Build Status]]
-https://coveralls.io/github/AY1920S2-CS2103T-F09-3/main?branch=master[image:https://coveralls.io/repos/github/AY1920S2-CS2103T-F09-3/main/badge.svg?branch=master[Coverage Status]]
+https://coveralls.io/github/AY1920S2-CS2103T-F09-3/main?branch=master[image:https://coveralls.io/repos/github/AY1920S2-CS2103T-F09-3/main/badge.svg?branch=master&service=GitHub[Coverage Status]]
 image:https://api.codacy.com/project/badge/Grade/f15c80077ca543afad741bee37e6f4db[link="https://app.codacy.com/gh/AY1920S2-CS2103T-F09-3/main?utm_source=github.com&utm_medium=referral&utm_content=AY1920S2-CS2103T-F09-3/main&utm_campaign=Badge_Grade_Dashboard"]
 
 
@@ -36,10 +36,16 @@ Finally, the _iGrad_ team is always open to feedback and suggestions from the pu
 
 * <<UserGuide#, User Guide>>
 * <<DeveloperGuide#, Developer Guide>>
-* <<LearningOutcomes#, Learning Outcomes>>
 * <<AboutUs#, About Us>>
 * <<ContactUs#, Contact Us>>
 
 == Acknowledgements
 
-This project was built on top of Address Book 4 by the https://se-education.org/[SE-Education team]
+
+
+== Acknowledgements
+
+* This project was built on top of Address Book 3 by the https://se-education.org/[SE-Education team].
+* Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5].
+
+== Licence : link:LICENSE[MIT]

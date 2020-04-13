@@ -19,6 +19,7 @@ import igrad.commons.core.GuiSettings;
 import igrad.logic.commands.Command;
 import igrad.logic.commands.CommandResult;
 import igrad.logic.commands.CommandTestUtil;
+import igrad.logic.commands.CommandUtil;
 import igrad.logic.commands.exceptions.CommandException;
 import igrad.model.CourseBook;
 import igrad.model.Model;
@@ -118,6 +119,12 @@ public class RequirementCommandTestUtil extends CommandTestUtil {
             assertEquals(ce.getMessage(), expectedMessage);
             assertEquals(expectedModel.getRequirementList(), actualModel.getRequirementList());
         }
+    }
+
+    public static void setupCourseInfo(Model model) {
+        CourseInfo courseToEdit = model.getCourseInfo();
+        CourseInfo editedCourseInfo = CommandUtil.createEditedCourseInfo(courseToEdit, model);
+        model.setCourseInfo(editedCourseInfo);
     }
 
     /**
@@ -290,7 +297,7 @@ public class RequirementCommandTestUtil extends CommandTestUtil {
         }
 
         @Override
-        public void removeRequirement(Requirement requirement) {
+        public void deleteRequirement(Requirement requirement) {
             throw new AssertionError("This method should not be called.");
         }
 

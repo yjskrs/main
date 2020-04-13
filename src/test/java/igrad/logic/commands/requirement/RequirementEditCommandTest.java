@@ -36,7 +36,7 @@ public class RequirementEditCommandTest {
     }
 
     @Test
-    public void execute_editRequirement_success() {
+    public void execute_editRequirementInCourseBook_success() {
         Requirement modifiedTitle = new RequirementBuilder().withTitle(VALID_REQ_TITLE_GE).build();
         Requirement modifiedCredits = new RequirementBuilder().withCreditsOneParameter(VALID_REQ_CREDITS_GE).build();
         Requirement modifiedBoth = new RequirementBuilder().withTitle(VALID_REQ_TITLE_GE)

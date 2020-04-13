@@ -333,7 +333,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void removeRequirement(Requirement requirement) {
+    public void deleteRequirement(Requirement requirement) {
         requireNonNull(requirement);
 
         courseBook.removeRequirement(requirement);

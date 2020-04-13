@@ -248,9 +248,6 @@ public class RequirementTest {
 
     @Test
     public void equals() {
-        // null
-        assertFalse(GENERAL_ELECTIVES.equals(null));
-
         // same requirement
         assertTrue(GENERAL_ELECTIVES.equals(GENERAL_ELECTIVES));
 

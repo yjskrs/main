@@ -1,6 +1,7 @@
 package igrad.testutil;
 
 import static igrad.logic.commands.requirement.RequirementEditCommand.EditRequirementDescriptor;
+import static java.util.Objects.requireNonNull;
 
 import igrad.model.requirement.Credits;
 import igrad.model.requirement.Requirement;
@@ -20,6 +21,8 @@ public class EditRequirementDescriptorBuilder {
     }
 
     public EditRequirementDescriptorBuilder(EditRequirementDescriptor descriptor) {
+        requireNonNull(descriptor);
+
         this.descriptor = new EditRequirementDescriptor(descriptor);
     }
 
@@ -27,6 +30,8 @@ public class EditRequirementDescriptorBuilder {
      * Returns an {@code EditRequirementDescriptor} with fields containing {@code requirement}'s details
      */
     public EditRequirementDescriptorBuilder(Requirement requirement) {
+        requireNonNull(requirement);
+
         descriptor = new EditRequirementDescriptor();
         descriptor.setTitle(requirement.getTitle());
         descriptor.setCredits(requirement.getCredits());

@@ -1,7 +1,5 @@
 package igrad.model.module;
 
-//@@author teriaiw
-
 import static igrad.commons.util.CollectionUtil.requireAllNonNull;
 import static java.util.Objects.requireNonNull;
 

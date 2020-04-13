@@ -1,5 +1,7 @@
 package igrad.logic.commands.course;
 
+//@@author teriaiw
+
 import static igrad.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static igrad.logic.parser.CliSyntax.PREFIX_CAP;
 import static igrad.model.course.Cap.MESSAGE_CONSTRAINTS;
@@ -14,7 +16,6 @@ import igrad.model.course.Cap;
 import igrad.model.course.CourseInfo;
 import igrad.model.course.exceptions.CapOverflowException;
 
-//@@author teriaiw
 
 /**
  * Adds a course to the application (there can only be one such course).
